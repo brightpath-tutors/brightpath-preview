@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Write Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.001<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Write Expressions</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.001</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Jamie bought 3 bags of candy. Each bag contained <code>c</code> pieces of candy. Write an expression to represent the total number of candy pieces Jamie bought.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3c</div><div class="option"><span class="opt-letter">B.</span> c / 3</div><div class="option"><span class="opt-letter">C.</span> 3 + c</div><div class="option"><span class="opt-letter">D.</span> c - 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of bags = 3, Pieces of candy per bag = c</div>
+    <div class="step-exp">We know the number of bags and the variable representing the pieces of candy per bag.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since each bag has &#x27;c&#x27; pieces, and there are 3 bags, we need to multiply the number of bags by the pieces per bag.</div>
+    <div class="step-exp">To find the total, we multiply the quantity by the amount in each quantity.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 * c = 3c</div>
+    <div class="step-exp">The expression representing the total number of candy pieces is 3c.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3c (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completed a track in <code>t</code> minutes. Her next run took 7 minutes longer. Write an expression to represent the time it took for her next run.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> t / 7</div><div class="option"><span class="opt-letter">B.</span> t - 7</div><div class="option"><span class="opt-letter">C.</span> t + 7</div><div class="option"><span class="opt-letter">D.</span> 7t</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First run time = t minutes, Additional time for next run = 7 minutes</div>
+    <div class="step-exp">We know the variable for the first run&#x27;s time and the fixed additional time for the next run.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since the next run took 7 minutes &#x27;longer&#x27;, we need to add 7 to the first run&#x27;s time.</div>
+    <div class="step-exp">The word &#x27;longer&#x27; indicates an increase, which means addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">t + 7</div>
+    <div class="step-exp">The expression representing the time for her next run is t + 7.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> t + 7 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef used <code>p</code> ounces of pepper for a recipe. He divided the remaining pepper equally among 4 smaller dishes. Write an expression for the amount of pepper in each smaller dish.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4p</div><div class="option"><span class="opt-letter">B.</span> p + 4</div><div class="option"><span class="opt-letter">C.</span> p - 4</div><div class="option"><span class="opt-letter">D.</span> p / 4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total pepper = p ounces, Number of smaller dishes = 4</div>
+    <div class="step-exp">We know the total amount of pepper (as a variable) and the number of dishes to divide it into.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since the pepper was divided &#x27;equally&#x27; among 4 dishes, we need to use division.</div>
+    <div class="step-exp">The phrase &#x27;divided equally&#x27; indicates a division operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p / 4</div>
+    <div class="step-exp">The expression representing the amount of pepper in each smaller dish is p / 4.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> p / 4 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bus traveled at a speed of <code>s</code> miles per hour for 2 hours. Write an expression for the total distance traveled.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> s / 2</div><div class="option"><span class="opt-letter">B.</span> s - 2</div><div class="option"><span class="opt-letter">C.</span> s + 2</div><div class="option"><span class="opt-letter">D.</span> 2s</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Speed = s mph, Time = 2 hours</div>
+    <div class="step-exp">We are given the speed as a variable and the time as a fixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Distance = Speed × Time. So we need to multiply the speed by the time.</div>
+    <div class="step-exp">The formula for distance is speed multiplied by time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s * 2 = 2s</div>
+    <div class="step-exp">The expression for the total distance traveled is 2s.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2s (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student has <code>h</code> homework assignments to complete. He has already finished 10 of them. Write an expression for the number of homework assignments he still needs to complete.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> h - 10</div><div class="option"><span class="opt-letter">B.</span> 10 - h</div><div class="option"><span class="opt-letter">C.</span> 10h</div><div class="option"><span class="opt-letter">D.</span> h + 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total homework assignments = h, Finished assignments = 10</div>
+    <div class="step-exp">We are given the total number of assignments as a variable and the number already completed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the number remaining, we need to subtract the finished assignments from the total assignments.</div>
+    <div class="step-exp">To find the &#x27;still needs to complete&#x27; amount, we perform subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">h - 10</div>
+    <div class="step-exp">The expression for the number of homework assignments he still needs to complete is h - 10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> h - 10 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observed <code>f</code> bacteria in a petri dish. After an experiment, the number of bacteria doubled. Write an expression for the new number of bacteria.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> f / 2</div><div class="option"><span class="opt-letter">B.</span> 2f</div><div class="option"><span class="opt-letter">C.</span> f + 2</div><div class="option"><span class="opt-letter">D.</span> f - 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial number of bacteria = f, Change = doubled</div>
+    <div class="step-exp">We have the initial number of bacteria as a variable and know it doubled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To &#x27;double&#x27; a number means to multiply it by 2.</div>
+    <div class="step-exp">The term &#x27;doubled&#x27; implies multiplication by two.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">f * 2 = 2f</div>
+    <div class="step-exp">The expression for the new number of bacteria is 2f.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2f (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder bought <code>w</code> pounds of nails. He used 6 pounds of nails. Write an expression for the amount of nails remaining.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 - w</div><div class="option"><span class="opt-letter">B.</span> 6w</div><div class="option"><span class="opt-letter">C.</span> w + 6</div><div class="option"><span class="opt-letter">D.</span> w - 6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial amount of nails = w pounds, Amount used = 6 pounds</div>
+    <div class="step-exp">We have the initial amount as a variable and the amount used as a fixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the &#x27;remaining&#x27; amount, we subtract the amount used from the initial amount.</div>
+    <div class="step-exp">The word &#x27;remaining&#x27; signifies a subtraction operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">w - 6</div>
+    <div class="step-exp">The expression for the amount of nails remaining is w - 6.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> w - 6 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An art gallery sold <code>a</code> paintings last month. This month, they sold 5 fewer paintings than last month, but also 3 sculptures. Write an expression for the total number of items sold this month.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> a - 5 + 3</div><div class="option"><span class="opt-letter">B.</span> a + 5 + 3</div><div class="option"><span class="opt-letter">C.</span> a * 5 + 3</div><div class="option"><span class="opt-letter">D.</span> a - 5 - 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Paintings sold last month = a, Fewer paintings this month = 5, Sculptures sold this month = 3</div>
+    <div class="step-exp">We have a variable for last month&#x27;s sales, a decrease for this month&#x27;s paintings, and a new number of sculptures.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">a - 5</div>
+    <div class="step-exp">Since they sold 5 fewer paintings, we subtract 5 from last month&#x27;s sales.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(a - 5) + 3</div>
+    <div class="step-exp">To get the total items, we add the number of sculptures to the number of paintings sold this month.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> a - 5 + 3 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient takes <code>m</code> milliliters of medicine three times a day. Write an expression for the total amount of medicine taken in 5 days.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> m * 3 / 5</div><div class="option"><span class="opt-letter">B.</span> m + 3 + 5</div><div class="option"><span class="opt-letter">C.</span> 3m * 5</div><div class="option"><span class="opt-letter">D.</span> 3m + 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Medicine per dose = m ml, Doses per day = 3, Number of days = 5</div>
+    <div class="step-exp">We have the dose as a variable, fixed doses per day, and a fixed number of days.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3 * m = 3m</div>
+    <div class="step-exp">To find the amount per day, multiply the dose by the number of doses per day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3m * 5 = 15m</div>
+    <div class="step-exp">To find the total over 5 days, multiply the daily amount by 5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3m * 5 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A factory produces <code>p</code> widgets per hour. For <code>h</code> hours, the factory operated at half its usual production rate. Write an expression for the total number of widgets produced during that time.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p - 2 * h</div><div class="option"><span class="opt-letter">B.</span> p <em> 2 </em> h</div><div class="option"><span class="opt-letter">C.</span> p / 2 + h</div><div class="option"><span class="opt-letter">D.</span> (p / 2) * h</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Usual production rate = p widgets/hour, Hours operated = h, Production rate change = half usual</div>
+    <div class="step-exp">We have variables for usual production rate and hours, and a modifier for the rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">p / 2</div>
+    <div class="step-exp">Half its usual rate means dividing the usual rate by 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(p / 2) * h</div>
+    <div class="step-exp">Total production is the new rate multiplied by the number of hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (p / 2) * h (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A farmer harvested <code>b</code> bushels of corn. He sold three-fourths of it at the market. Write an expression for the number of bushels he sold.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> b / (3/4)</div><div class="option"><span class="opt-letter">B.</span> b + 3/4</div><div class="option"><span class="opt-letter">C.</span> b - 3/4</div><div class="option"><span class="opt-letter">D.</span> (3/4)b</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total bushels = b, Fraction sold = 3/4</div>
+    <div class="step-exp">We have the total amount as a variable and the fraction of that amount that was sold.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find a fraction &#x27;of&#x27; a quantity, we multiply the fraction by the quantity.</div>
+    <div class="step-exp">The word &#x27;of&#x27; in this context implies multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(3/4) * b = (3/4)b</div>
+    <div class="step-exp">The expression for the number of bushels sold is (3/4)b.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (3/4)b (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clothing store received <code>s</code> shirts. They kept 12 shirts and distributed the rest equally among 3 different branches. Write an expression for the number of shirts each branch received.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (s + 12) / 3</div><div class="option"><span class="opt-letter">B.</span> (s - 12) / 3</div><div class="option"><span class="opt-letter">C.</span> s / 3 - 12</div><div class="option"><span class="opt-letter">D.</span> s - 12 * 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total shirts = s, Shirts kept = 12, Number of branches = 3</div>
+    <div class="step-exp">We have the total shirts as a variable, a fixed number kept, and a fixed number of branches.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s - 12</div>
+    <div class="step-exp">The &#x27;rest&#x27; means we subtract the shirts kept from the total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(s - 12) / 3</div>
+    <div class="step-exp">Distributing &#x27;equally&#x27; means dividing the remaining shirts by the number of branches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (s - 12) / 3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population was <code>p</code> ten years ago. It increased by 15% and then decreased by 1,000 people. Write an expression for the current population.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.15p - 1000</div><div class="option"><span class="opt-letter">B.</span> 1.15p - 1000</div><div class="option"><span class="opt-letter">C.</span> 1.15p + 1000</div><div class="option"><span class="opt-letter">D.</span> p + 0.15 - 1000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population = p, Increase = 15%, Decrease = 1000 people</div>
+    <div class="step-exp">We have the initial population as a variable, a percentage increase, and a fixed number decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">p + 0.15p = 1.15p</div>
+    <div class="step-exp">An increase of 15% means adding 15% of p to p, or multiplying p by 1.15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1.15p - 1000</div>
+    <div class="step-exp">After the increase, the population decreased by 1,000, so we subtract 1,000 from the new population.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.15p - 1000 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company sells <code>x</code> units of a product. Each unit costs $25 to produce, and they have a fixed overhead cost of $500. Write an expression for the total cost of producing <code>x</code> units.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25x + 500</div><div class="option"><span class="opt-letter">B.</span> x / 25 + 500</div><div class="option"><span class="opt-letter">C.</span> 25x - 500</div><div class="option"><span class="opt-letter">D.</span> 25 + x + 500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Units produced = x, Cost per unit = $25, Fixed overhead = $500</div>
+    <div class="step-exp">We have a variable for units, a fixed cost per unit, and a fixed overhead cost.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">25 * x = 25x</div>
+    <div class="step-exp">The cost of producing &#x27;x&#x27; units is 25 multiplied by x.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">25x + 500</div>
+    <div class="step-exp">The total cost is the variable cost plus the fixed overhead cost.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25x + 500 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker lays <code>t</code> tiles in 30 minutes. If he works for <code>h</code> hours, and takes a 15-minute break every hour, write an expression for the total number of tiles he lays. (Assume he works at the same rate when not on break).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> t * h - 15</div><div class="option"><span class="opt-letter">B.</span> t * h / 2</div><div class="option"><span class="opt-letter">C.</span> t <em> (h </em> 60 - 15h) / 30</div><div class="option"><span class="opt-letter">D.</span> (t/30) * (60h - 15h)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Tiles in 30 min = t, Work duration = h hours, Break per hour = 15 minutes. Convert hours to minutes: h * 60 minutes.</div>
+    <div class="step-exp">We need to ensure all time units are consistent for calculations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Rate = t tiles / 30 minutes = t/30 tiles per minute.</div>
+    <div class="step-exp">This gives us the base rate of work.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total break time = 15 minutes/hour * h hours = 15h minutes.</div>
+    <div class="step-exp">Multiply the per-hour break by the total hours worked.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total time in minutes = h <em> 60, Actual working time = (h </em> 60) - 15h minutes.</div>
+    <div class="step-exp">Subtract total break time from total time to get productive work time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total tiles = Rate <em> Actual working time = (t/30) </em> (60h - 15h) = (t/30) * 45h = (45t/30)h = (3/2)th.</div>
+    <div class="step-exp">Multiply the rate by the actual working time. Simplify the expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (2t/30) <em> (h </em> 60 - 15h) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new smartphone model was released with <code>s</code> units sold in the first week. In the second week, sales dropped by 20%, and then increased by 100 units in the third week. Write an expression for the total number of units sold after three weeks.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> s + 0.2s + 100</div><div class="option"><span class="opt-letter">B.</span> s + 0.8s + (0.8s + 100)</div><div class="option"><span class="opt-letter">C.</span> s + 0.8s + 100</div><div class="option"><span class="opt-letter">D.</span> s - 0.2s + 100</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sales Week 1 = s, Sales drop Week 2 = 20%, Sales increase Week 3 = 100 units</div>
+    <div class="step-exp">We have the initial sales as a variable, a percentage decrease, and a fixed unit increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s - 0.20s = 0.8s</div>
+    <div class="step-exp">A drop of 20% means 80% of the original sales remain (1 - 0.20 = 0.8).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.8s + 100</div>
+    <div class="step-exp">The sales increased by 100 units in the third week.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">s + (0.8s) + (0.8s + 100) = 2.6s + 100</div>
+    <div class="step-exp">Sum the sales from all three weeks. Note: The question asks for total units sold AFTER three weeks, which includes all three weeks&#x27; sales. The wording is tricky here as &#x27;in the third week&#x27; could be interpreted as the sales for that week only, or cumulative up to that point. Assuming &#x27;total number of units sold after three weeks&#x27; means the sum of sales for Week 1, Week 2, and Week 3, where Week 3 sales are 100 more than Week 2 sales. Re-reading: &#x27;increased by 100 units in the third week&#x27; means the sales <em>in</em> the third week were 100 units more than <em>something</em>. Let&#x27;s interpret it as &#x27;sales in week 3 were 100 units, on top of sales from week 2&#x27;. No, &#x27;increased by 100 units in the third week&#x27; means that the sales <em>for</em> the third week are (Week 2 sales + 100). The current solution calculates the total as Week 1 + Week 2 + (Week 2 + 100). This is a clearer interpretation. Let&#x27;s adjust the answer and steps for clarity.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> s + 0.8s + (0.8s + 100) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The number of active users on a platform started at <code>u</code> users. It tripled every year for <code>y</code> years. Write an expression for the number of users after <code>y</code> years.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> u + 3y</div><div class="option"><span class="opt-letter">B.</span> u <em> 3 </em> y</div><div class="option"><span class="opt-letter">C.</span> u + 3^y</div><div class="option"><span class="opt-letter">D.</span> u * 3^y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial users = u, Growth factor = 3 (tripled), Number of years = y</div>
+    <div class="step-exp">We have an initial value (variable), a constant multiplication factor, and a variable for the number of times it&#x27;s applied.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">When a quantity triples &#x27;every year for y years&#x27;, it means multiplying by 3, &#x27;y&#x27; times. This is represented by an exponent.</div>
+    <div class="step-exp">Repeated multiplication is expressed using exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">u * 3^y</div>
+    <div class="step-exp">The expression for the number of users after y years is u * 3^y.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> u * 3^y (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker uses <code>c</code> cups of sugar for a batch of cookies. He made 4 batches of cookies and then used an additional 1/2 cup of sugar to decorate them. Write an expression for the total sugar used.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4c - 0.5</div><div class="option"><span class="opt-letter">B.</span> c / 4 + 0.5</div><div class="option"><span class="opt-letter">C.</span> c + 4 + 0.5</div><div class="option"><span class="opt-letter">D.</span> 4c + 0.5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sugar per batch = c cups, Number of batches = 4, Additional sugar = 1/2 cup</div>
+    <div class="step-exp">We have a variable for sugar per batch, a fixed number of batches, and a fixed additional amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4 * c = 4c</div>
+    <div class="step-exp">Multiply the sugar per batch by the number of batches.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1/2 cup = 0.5 cups</div>
+    <div class="step-exp">This simplifies the final addition step if preferred, but not strictly necessary for the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4c + 0.5</div>
+    <div class="step-exp">Add the additional sugar to the sugar used for the batches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4c + 0.5 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An animal shelter initially had <code>d</code> dogs. They adopted out 5 dogs, and then received twice the original number of dogs. Write an expression for the current number of dogs in the shelter.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> d - 5 * 2d</div><div class="option"><span class="opt-letter">B.</span> d + 5 + 2d</div><div class="option"><span class="opt-letter">C.</span> 5 - d + 2d</div><div class="option"><span class="opt-letter">D.</span> d - 5 + 2d</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial dogs = d, Dogs adopted out = 5, Dogs received = twice original number</div>
+    <div class="step-exp">We have an initial variable, a fixed decrease, and an increase based on the original variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">d - 5</div>
+    <div class="step-exp">Adopting out means subtracting from the initial number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 * d = 2d</div>
+    <div class="step-exp">Twice the original number means multiplying the original number by 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(d - 5) + 2d</div>
+    <div class="step-exp">Add the newly received dogs to the number of dogs after adoption.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> d - 5 + 2d (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store started the day with <code>x</code> units of a product. By noon, they had sold 1/4 of their inventory. By closing, they sold another 15 units. Write an expression for the remaining inventory at the end of the day.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> x - 1/4 + 15</div><div class="option"><span class="opt-letter">B.</span> (1/4)x - 15</div><div class="option"><span class="opt-letter">C.</span> x + (1/4)x + 15</div><div class="option"><span class="opt-letter">D.</span> x - (1/4)x - 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial inventory = x, Sold by noon = 1/4 of inventory, Sold by closing = 15 units</div>
+    <div class="step-exp">We have an initial variable, a fractional decrease, and a fixed unit decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(1/4) * x = (1/4)x</div>
+    <div class="step-exp">To find a fraction &#x27;of&#x27; a quantity, we multiply the fraction by the quantity.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x - (1/4)x</div>
+    <div class="step-exp">Subtract the units sold by noon from the initial inventory.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x - (1/4)x - 15</div>
+    <div class="step-exp">Subtract the additional 15 units sold by closing from the inventory after noon sales.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> x - (1/4)x - 15 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

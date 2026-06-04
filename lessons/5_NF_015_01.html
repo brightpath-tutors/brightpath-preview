@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Scaling Comparison</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 5 | Number and Operations—Fractions<br>81 atoms | Skill 5.NF.015.01<br></div>
+</div>
+<h1 class="skill-title">Scaling Comparison</h1>
+<p class="skill-subtitle">Skill ID: 5.NF.015.01 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can compare the size of a product to a factor, without calculating, by determining if the fraction multiplier is greater than, less than, or equal to 1.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">Scaling Comparison is a mathematical concept where you determine if the result of a multiplication problem will be larger than, smaller than, or equal to one of the original numbers (the factor), simply by looking at the fraction you&#x27;re multiplying by. You don&#x27;t even need to solve the problem! Think of it like a mathematical &#x27;stretch or shrink&#x27; tool. If you multiply a number by a fraction greater than 1, like 3/2, you are essentially &#x27;stretching&#x27; that number, making it larger. For example, 10 multiplied by 3/2 results in 15, which is larger than 10. Conversely, if you multiply by a fraction less than 1, such as 1/2, you are &#x27;shrinking&#x27; the number, making it smaller. So, 10 multiplied by 1/2 equals 5, which is smaller than 10. And if you multiply by a fraction equivalent to 1, like 2/2, the number stays the same: 10 multiplied by 2/2 is 10. This powerful understanding allows <span class="ph">[Student Name]</span> to predict outcomes, strengthening <span class="ph">[their]</span> number sense. <span class="ph">[Student Name]</span>, this helps you understand the <em>effect</em> multiplication has, not just the answer.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content"><span class="ph">[Student Name]</span>, you’ve already done so much fantastic work with fractions, especially with 5.NF.1, 5.NF.2, 5.NF.3, and 5.NF.4! You know how to add, subtract, and multiply fractions, like figuring out that 1/2 multiplied by 1/4 is 1/8. You also know that a fraction like 3/4 can be thought of as 3 divided by 4. Scaling Comparison is the next natural step, and you already have all the skills you need! It simply asks you to use your existing knowledge to make a quick prediction. Instead of calculating the exact answer to 8 multiplied by 3/2, we just ask: Will the answer be bigger or smaller than 8? Because you understand that 3/2 is a fraction greater than 1 (it&#x27;s 1 and 1/2!), you can confidently say the answer will be <em>bigger</em>. <span class="ph">[they]</span> can do this! We’re taking your strong foundation and simply applying a new way of thinking about fraction multiplication&#x27;s impact.</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that understanding scaling comparison helps professional sports teams predict their performance? Imagine the Boston Celtics won 60 games last season. If an analyst predicts they will win 7/6 <em>of that number</em> of games next season, <span class="ph">[Student Name]</span>, will they win more or fewer than 60 games? You don&#x27;t need to do any multiplication to know! Since 7/6 is greater than 1 (it&#x27;s 1 and 1/6), they are predicting <em>more</em> wins! This instantly tells you the trend without crunching numbers. Or consider a recipe: if you want to make 1/2 of a cookie recipe, you know you&#x27;ll use <em>less</em> of each ingredient than the original recipe calls for, because 1/2 is less than 1. This quick comparison is a superpower in everyday life, from baking to budgeting your allowance, <span class="ph">[Student Name]</span>. It’s all about understanding the resizing effect of multiplication, which is incredibly useful for making quick, smart decisions.</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Scaling comparison is a calm and steady way to understand how multiplication changes numbers using fractions. First, the definition: Scaling comparison is the process of deciding if a number gets bigger, smaller, or stays the same after you multiply it by a fraction, just by looking at the fraction itself. Second, an example: Let&#x27;s take the number 20. If we multiply 20 by 4/5, since 4/5 is less than 1, we know the answer will be smaller than 20 (it&#x27;s actually 16). If we multiply 20 by 5/4, since 5/4 is greater than 1, we know the answer will be larger than 20 (it&#x27;s actually 25). And if we multiply 20 by 3/3, which equals 1, the answer will be exactly 20. Third, the application: This skill helps <span class="ph">[Student Name]</span> quickly estimate and check <span class="ph">[their]</span> work in fraction multiplication problems. It gives <span class="ph">[them]</span> a built-in reasonableness check before, during, or after calculating, ensuring <span class="ph">[they]</span> can catch mistakes and build confidence.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">You&#x27;ve built a strong foundation in fractions through standards like 5.NF.1, 5.NF.2, 5.NF.3, and 5.NF.4. You&#x27;ve mastered adding and subtracting fractions with unlike denominators, and you can fluently multiply fractions, whether it&#x27;s 1/3 of 1/2 resulting in 1/6, or 5 multiplied by 2/3. You also deeply understand that a fraction like 7/8 represents 7 divided by 8. This fantastic understanding of fraction operations is exactly what we need for our new skill.
+
+Scaling Comparison takes your knowledge of fraction multiplication and adds a new layer of insight. Instead of simply finding the product, we&#x27;re now focusing on the <em>relationship</em> between the product and the original factor. It&#x27;s like you&#x27;ve learned to bake a cake (fraction multiplication), and now you&#x27;re learning to predict if the cake will be bigger or smaller than your usual recipe just by looking at a change in ingredients (the multiplier fraction).
+
+So, the new skill for <span class="ph">[Student Name]</span> is this: If you multiply a number by a fraction greater than 1 (like 7/4), the product will be larger than the original number. If you multiply by a fraction less than 1 (like 3/4), the product will be smaller. And if you multiply by a fraction equivalent to 1 (like 4/4), the product will stay exactly the same as the original number. This quick comparison helps <span class="ph">[them]</span> reason about math.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">A recipe for apple pie calls for 3/4 cup of sugar. <span class="ph">[Student Name]</span> wants to make a batch that is 2/3 of the original recipe size. How much sugar will <span class="ph">[they]</span> need? Then, <span class="ph">[they]</span> decides to make a batch that is 1 and 1/2 times the original recipe size. How much sugar will <span class="ph">[they]</span> need for that?
+
+<strong>Step 1: Calculate for 2/3 of the original recipe.</strong>
+<span class="hint-tag">&#128161; Hint: To find a fraction of a number, we multiply the number by the fraction. Remember how to multiply fractions: multiply the numerators, then multiply the denominators.</span>
+The original recipe uses 3/4 cup of sugar. <span class="ph">[Student Name]</span> wants 2/3 of that amount. So, we multiply 3/4 by 2/3.
+3/4 × 2/3 = (3 × 2) / (4 × 3) = 6/12
+Check: 6/12 simplifies to 1/2. Since we multiplied by a fraction less than 1 (2/3), our answer (1/2 cup) should be less than the original amount (3/4 cup), which it is (0.5 is less than 0.75).
+
+<strong>Step 2: Calculate for 1 and 1/2 times the original recipe.</strong>
+<span class="hint-tag">&#128161; Hint: First, convert the mixed number to an improper fraction. Then, multiply it by the original amount, just like in Step 1.</span>
+Now, <span class="ph">[Student Name]</span> wants 1 and 1/2 times the original recipe. First, convert 1 and 1/2 to an improper fraction: 1 and 1/2 = 3/2.
+Now multiply 3/4 cup by 3/2:
+3/4 × 3/2 = (3 × 3) / (4 × 2) = 9/8
+Check: 9/8 can be written as 1 and 1/8. Since we multiplied by a fraction greater than 1 (3/2), our answer (1 and 1/8 cups) should be greater than the original amount (3/4 cup), which it is (1.125 is greater than 0.75).
+This demonstrates how multiplying by a fraction less than 1 makes the quantity smaller, while multiplying by a fraction greater than 1 makes the quantity larger.</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">A marathon running track is 26 miles long. For a children&#x27;s fun run, the track is scaled down to be 1/4 of the marathon distance. How long is the children&#x27;s fun run track? Later, for a special charity ultra-marathon, the track is scaled up to be 1 and 1/2 times the original marathon distance. How long is the ultra-marathon track?
+
+1.  <strong>Calculate the fun run track length.</strong> To find the length of the children&#x27;s fun run track, we need to calculate 1/4 of the original marathon distance. This means we multiply the original distance by the scaling factor.
+    Original distance = 26 miles.
+    Scaling factor = 1/4.
+    Calculation: 26 × 1/4 = 26/1 × 1/4 = (26 × 1) / (1 × 4) = 26/4 miles.
+    Simplifying 26/4 gives us 6 and 2/4 miles, which is 6 and 1/2 miles.
+    Check: Since we multiplied by a fraction less than 1 (1/4), our answer (6 and 1/2 miles) is correctly smaller than the original 26 miles.
+
+2.  <strong>Calculate the ultra-marathon track length.</strong> Next, <span class="ph">[Student Name]</span> needs to find the length of the ultra-marathon track, which is 1 and 1/2 times the original marathon distance. First, convert the mixed number to an improper fraction.
+    Scaling factor = 1 and 1/2 = 3/2.
+    Original distance = 26 miles.
+    Calculation: 26 × 3/2 = 26/1 × 3/2 = (26 × 3) / (1 × 2) = 78/2 miles.
+    Simplifying 78/2 gives us 39 miles.
+    Check: Since we multiplied by a fraction greater than 1 (3/2), our answer (39 miles) is correctly larger than the original 26 miles.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">Coach Williams has 18 soccer balls for practice. <span class="ph">[Student Name]</span> wants to order enough new soccer balls so that the total number of balls is 1 and 2/3 times the current amount. However, 1/6 of the new total amount ends up being defective upon arrival. How many <em>non-defective</em> soccer balls does Coach Williams have now?
+
+1.  <strong>Calculate the desired total amount of soccer balls.</strong>
+    Coach Williams starts with 18 soccer balls. The goal is to have 1 and 2/3 times that amount.
+    First, convert the mixed number 1 and 2/3 to an improper fraction: (1 × 3 + 2)/3 = 5/3.
+    Now, multiply the original number of balls by this scaling factor: 18 × 5/3 = 18/1 × 5/3 = (18 × 5) / (1 × 3) = 90/3 = 30 soccer balls.
+    <em>Common Error:</em> Forgetting to convert the mixed number to an improper fraction before multiplying, or trying to multiply the whole number and fraction separately, which can lead to incorrect results. Always convert mixed numbers first!
+
+2.  <strong>Calculate the number of defective balls.</strong>
+    1/6 of the <em>new total amount</em> (30 balls) ends up being defective.
+    Multiply the new total by the fraction representing defective balls: 30 × 1/6 = 30/1 × 1/6 = (30 × 1) / (1 × 6) = 30/6 = 5 defective balls.
+    <em>Common Error:</em> Calculating 1/6 of the original 18 balls instead of the <em>new total</em> of 30 balls. Always read carefully to see which quantity the fraction is scaling or taking a part of.
+
+3.  <strong>Calculate the final number of non-defective soccer balls.</strong>
+    Subtract the number of defective balls from the new total number of balls to find the non-defective amount.
+    30 (new total) - 5 (defective) = 25 non-defective soccer balls.
+    Check: The number of non-defective balls (25) is greater than the original (18), which makes sense because we initially scaled up, even with some defects.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>, imagine you have a yummy chocolate chip cookie. If your friend shares half of their cookie with you, your cookie pile gets bigger! That&#x27;s like making something grow. But if you have a big stack of five pancakes and you only eat a little bit, like one pancake, your stack gets smaller. When we talk about &quot;scaling,&quot; we&#x27;re just saying how something changes: does it get bigger, smaller, or stay the same, like when you trade your whole cookie for another whole cookie? It&#x27;s like building with LEGOs: sometimes you build a tiny car, sometimes you build a giant castle!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Imagine <span class="ph">[Student Name]</span> is planning a class party, and you know how to make super popular &quot;dirt cup&quot; desserts with pudding and crushed Oreos. Your recipe makes 12 dirt cups. If you decide to make a &quot;half-sized&quot; party, you&#x27;d only need 1/2 of the recipe. This means you multiply 12 cups by 1/2, so you&#x27;d make 6 cups. The math (multiplying by 1/2) scales down your total amount, just like reducing the party size. Now, what if you&#x27;re making treats for the whole school&#x27;s field day? You&#x27;d need 2 and 1/2 times the original recipe. You&#x27;d multiply 12 cups by 2 and 1/2 (or 5/2 as an improper fraction) to get 30 cups. Here, the math (multiplying by 2 and 1/2) scales up your total, making a much larger quantity for a bigger event. Scaling comparison is just figuring out how multiplication changes your starting amount, making it smaller, larger, or keeping it the same, depending on what you multiply by.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, imagine a straight line drawn on the floor, let&#x27;s say it&#x27;s 8 feet long, like a hopscotch court. This is your original length. If you imagine &quot;scaling&quot; that line, you&#x27;re changing its length by multiplying it. If you multiply that 8-foot line by a fraction less than 1, like 1/2, the line visually shrinks. It becomes 4 feet long. You can see it&#x27;s shorter than the original, taking up less space. If you multiply the 8-foot line by exactly 1, it stays exactly 8 feet long. It looks exactly the same; it hasn&#x27;t stretched or shrunk. But if you multiply the 8-foot line by a fraction greater than 1, like 1 and 1/2, the line visually stretches out. It becomes 12 feet long. You can picture it taking up much more space than your original 8-foot line. Scaling comparison is just seeing that visual change in size or length when you multiply.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! So, &quot;scaling comparison&quot; might sound like a super fancy math term, but it&#x27;s actually pretty simple. It&#x27;s just about what happens to a number when you multiply it by a fraction. Think about it like this: if you have 10 pieces of candy, and you multiply it by 1/2, you end up with 5 pieces, right? The number got smaller. That&#x27;s because you multiplied by a fraction less than 1. But if you had 10 pieces and multiplied by 2 (which is like 2/1, a fraction greater than 1), you&#x27;d have 20 pieces! It got bigger. If you multiply by exactly 1 (like 3/3 or 4/4), the number stays the same. So, scaling comparison is just noticing if your answer got smaller, bigger, or stayed the same compared to your starting number, all based on the fraction you multiplied by. It&#x27;s useful for things like adjusting recipes or figuring out distances for track practice!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine you&#x27;re a professional baker in a busy American city, like Chicago or New York. Your specialty bakery often receives custom orders for different-sized cakes or batches of cookies. One day, a customer calls for a mini version of your famous triple-chocolate fudge cake for a small birthday gathering, requiring only half the usual recipe. The original recipe calls for 3 1/2 cups of sugar. To scale it down, you wouldn&#x27;t just guess; you&#x27;d use math! You&#x27;d calculate: 3 1/2 cups of sugar <em> 1/2 = 7/2 cups </em> 1/2 = 7/4 cups, or 1 3/4 cups of sugar. Understanding scaling comparison means <span class="ph">[Student Name]</span> can ensure every recipe tastes perfect, whether it&#x27;s scaled up for a large event or down for a small one, preventing costly mistakes in ingredients like flour or expensive chocolate. This skill is crucial for managing inventory and maintaining quality in the culinary arts.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Think about planning a fun weekend trip with your family to a US National Park, like Yellowstone or Yosemite. Your family car&#x27;s gas tank holds 15 gallons, and on a full tank, you can usually travel 300 miles. However, for a short day trip to a local state park, you only need to drive about 1/4 of that distance. To figure out how much gas you&#x27;ll roughly use, you&#x27;d apply scaling comparison. First, find the gas used for the usual trip: 300 miles / (300 miles / 15 gallons) = 15 gallons. Then, calculate for the shorter trip: 15 gallons * 1/4 = 15/4 gallons, or 3 3/4 gallons. This helps <span class="ph">[Student Name]</span> understand that multiplying a quantity by a fraction less than 1 results in a smaller amount, which is super useful for budgeting or knowing if you have enough gas without filling up the whole tank for a quick outing.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Understanding scaling comparison in fractions is a foundational skill that will serve <span class="ph">[Student Name]</span> well beyond elementary school. When you get to high school, this knowledge is essential for standardized tests like the SAT and ACT. These tests often include problems requiring you to scale quantities, interpret proportions, or compare values after fractional changes, which can impact your college admissions. In college, scaling concepts are vital across many majors. For example, a future engineer might scale down a bridge model, a scientist could dilute a chemical solution by a fractional amount, or a business student might analyze market share increases or decreases. Ultimately, mastering these skills can translate into higher earning potential. Careers in finance, engineering, medicine, and research all heavily rely on precise calculations involving scaling, where even small fractional errors can have significant financial or practical consequences. It&#x27;s not just about fractions; it&#x27;s about critical thinking for real-world success.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">A recipe for chocolate chip cookies calls for 2 1/4 cups of flour. If <span class="ph">[Student Name]</span> wants to make only 1/2 of the recipe, how many cups of flour will <span class="ph">[they]</span> need?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">A football field is 100 yards long. If a new practice field is built that is 1 1/4 times the length of a standard football field, what will the length of the new practice field be in yards?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Which statement about the product of 15 and a fraction is TRUE? A) 15 <em> (3/4) is greater than 15. B) 15 </em> (6/5) is less than 15. C) 15 <em> (1) is equal to 15. D) 15 </em> (1/3) is greater than 15.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">A school bus route is 28 miles long. If construction causes the route to be 3/4 of its original length for a day, how many miles will the bus travel that day?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">Consider the product 20 * F. If F is a fraction greater than 1, will the product be greater than, less than, or equal to 20? Choose the correct option.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">Olivia earned $30 from doing chores last week. This week, <span class="ph">[they]</span> earned 4/3 times that amount. How much money did Olivia earn this week?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">A class has 24 students. If 1/3 of the students are girls, how many girls are in the class?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">Which of the following expressions results in a product that is LESS than 18? A) 18 <em> (5/4) B) 18 </em> (7/6) C) 18 <em> (10/10) D) 18 </em> (2/3)</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Without multiplying, choose the statement that correctly compares the product of 1/2 × 12 with 12.
+A) 1/2 × 12 is greater than 12.
+B) 1/2 × 12 is less than 12.
+C) 1/2 × 12 is equal to 12.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content"><span class="ph">[Student Name]</span> has 8 inches of ribbon. <span class="ph">[they]</span> wants to cut a piece of ribbon that is longer than 8 inches. Which expression shows a way <span class="ph">[they]</span> could calculate the length of the new ribbon?
+A) 3/4 × 8
+B) 8/8 × 8
+C) 5/4 × 8
+D) 1/2 × 8</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">A baker&#x27;s recipe calls for 3 cups of sugar. If <span class="ph">[Student Name]</span> wants to make a batch that uses an amount of sugar equal to the original recipe, which fraction could <span class="ph">[they]</span> multiply 3 cups by?
+A) 4/3
+B) 1/2
+C) 5/5
+D) 7/6</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Without calculating the exact products, compare 3/2 × 20 and 1/2 × 20.
+A) 3/2 × 20 is less than 1/2 × 20
+B) 3/2 × 20 is equal to 1/2 × 20
+C) 3/2 × 20 is greater than 1/2 × 20
+D) Not enough information to compare.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content"><span class="ph">[Student Name]</span> is planning a school fundraiser. The goal is to raise $400. If the actual amount raised is 3/4 of the goal, will the amount raised be more than $400, less than $400, or exactly $400?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">A soccer field is 100 yards long. <span class="ph">[Student Name]</span> sprints 4/5 of the field length and then jogs 6/5 of the field length.
+Part A: Is the sprint distance greater than, less than, or equal to 100 yards?
+Part B: Is the jog distance greater than, less than, or equal to 100 yards?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Point A is located at 15 on a number line.
+Part A: If Point B is located at 2/3 × 15, would Point B be to the left of 15, to the right of 15, or at 15?
+Part B: If Point C is located at 4/3 × 15, would Point C be to the left of 15, to the right of 15, or at 15?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A container holds 24 ounces of juice. <span class="ph">[Student Name]</span> needs to pour some juice into a smaller cup, so the amount in the cup is less than 24 ounces. Which of the following fractions could <span class="ph">[they]</span> multiply 24 by to represent the amount in the smaller cup? Select ALL that apply.
+A) 5/4
+B) 1/3
+C) 6/6
+D) 7/8
+E) 2/1</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Order the following expressions from the product with the smallest value to the product with the largest value:
+Expression 1: 3/4 × 30
+Expression 2: 7/7 × 30
+Expression 3: 5/3 × 30</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content"><span class="ph">[Student Name]</span> is making a fruit punch that calls for 4 cups of pineapple juice.
+<span class="ph">[they]</span> wants to make a smaller batch for a picnic, so <span class="ph">[they]</span> uses 3/4 of the pineapple juice.
+<span class="ph">[they]</span> also wants to make a larger batch for a family reunion, using 9/8 times the original amount of pineapple juice.
+Without calculating the exact amounts, determine which batch will use more than 4 cups of pineapple juice, and which will use less than 4 cups.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">TRAP: Assuming multiplication always increases a number
+MISTAKE: <span class="ph">[Student Name]</span> might incorrectly assume that multiplying a number by a fraction will always result in a product larger than the original number, similar to multiplying by whole numbers greater than one.
+WHY TEMPTING: When <span class="ph">[they]</span> first learned multiplication, it usually meant combining equal groups, leading to a larger number.
+SOLUTION: Remind <span class="ph">[Student Name]</span> that when multiplying by a fraction less than 1, the product will be smaller than the original number. When multiplying by a fraction equal to 1, the product stays the same.
+EXAMPLE: $10 \times 1/2$. Wrong answer prediction: The product must be greater than 10. Right answer: $10 \times 1/2 = 5$, which is less than 10.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">TRAP: Misidentifying fractions greater than or less than 1
+MISTAKE: <span class="ph">[Student Name]</span> might incorrectly determine if a fraction is greater than, less than, or equal to 1 by focusing only on the numerator or denominator, rather than their relationship.
+WHY TEMPTING: It can be confusing to compare fractions to 1, especially improper fractions or when the numbers seem &#x27;small&#x27;.
+SOLUTION: <span class="ph">[Student Name]</span> should compare the numerator to the denominator. If the numerator is smaller, the fraction is less than 1. If it&#x27;s larger, the fraction is greater than 1. If they are equal, the fraction is equal to 1.
+EXAMPLE: $8 \times 5/4$. Wrong prediction: The product will be less than 8 because 5 and 4 are small numbers. Right prediction: The product will be greater than 8 because $5/4$ is greater than 1. ($8 \times 5/4 = 10$)</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">TRAP: Confusing the operation &#x27;of&#x27; with division
+MISTAKE: When a word problem asks for a fraction &#x27;of&#x27; a number, <span class="ph">[Student Name]</span> might mistakenly divide the whole number by the fraction instead of multiplying.
+WHY TEMPTING: The word &#x27;of&#x27; can sometimes be associated with breaking things into parts, which might lead to thinking of division.
+SOLUTION: Emphasize that in math contexts involving fractions, &#x27;of&#x27; almost always indicates multiplication. Finding a fraction &#x27;of&#x27; a number means scaling that number by the fraction.
+EXAMPLE: What is $1/3$ of 12? Wrong: $12 \div 1/3 = 36$. Right: $12 \times 1/3 = 4$.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">TRAP: Overlooking the specific value of the fraction when scaling
+MISTAKE: <span class="ph">[Student Name]</span> might generally know that multiplying by a fraction less than 1 makes a number smaller but not accurately predict <em>how much</em> smaller or larger without careful calculation or comparison to 1.
+WHY TEMPTING: Generalizing without precise thought can seem efficient, especially under time pressure.
+SOLUTION: Encourage <span class="ph">[Student Name]</span> to always explicitly compare the fraction to 1, then predict the product&#x27;s relationship to the original number. This forms a clear mental check.
+EXAMPLE: $6 \times 2/3$. Wrong prediction: It&#x27;ll be a lot smaller than 6, maybe 2. Right prediction: $2/3$ is less than 1, so the product will be less than 6. $6 \times 2/3 = 4$.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">TRAP: Assuming the product must always be a fraction
+MISTAKE: <span class="ph">[Student Name]</span> might think that if they multiply by a fraction, the answer must also be a fraction or a number smaller than 1, even if the result is a whole number or a mixed number greater than 1.
+WHY TEMPTING: Fractions are often introduced as parts of a whole, leading to the idea that they always represent something &#x27;less than one&#x27;.
+SOLUTION: Remind <span class="ph">[Student Name]</span> that multiplying a whole number by an improper fraction can result in a whole number or a mixed number that is larger than the original whole number. Fractions are just numbers.
+EXAMPLE: $10 \times 3/5$. Wrong prediction: The answer will be less than 1 because we&#x27;re multiplying by a fraction. Right answer: $10 \times 3/5 = 6$, which is a whole number.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div><span class="ph">[Student Name]</span>, your class is baking cookies for the school bake sale. The recipe calls for 4 cups of flour, but you only want to make 3/4 of the recipe. Will the amount of flour you use be greater than, less than, or equal to 4 cups?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>Mr. Harrison&#x27;s 5th-grade class is making posters. Each poster needs 2 feet of ribbon. If <span class="ph">[Student Name]</span> decides to use 5/2 times that amount for a special banner, will the ribbon <span class="ph">[they]</span> uses be more than, less than, or exactly 2 feet?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div><span class="ph">[Student Name]</span>, consider the expression 6 × 1/3. Without calculating the answer, tell me if the product will be greater than 6, less than 6, or equal to 6.</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div><span class="ph">[Student Name]</span>, look at these three expressions: 
+A: 10 × 4/5 
+B: 10 × 7/7 
+C: 10 × 6/5 
+Without calculating, order the products from least to greatest.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div>A soccer field is 100 yards long. The school is building a smaller practice field that is 4/5 the length of the main field. Will the practice field be shorter or longer than 100 yards? Explain your reasoning, <span class="ph">[Student Name]</span>.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div><span class="ph">[Student Name]</span> is training for a marathon. Last week, <span class="ph">[they]</span> ran 8 miles. This week, <span class="ph">[they]</span> plans to run 1 1/2 times that distance. Will <span class="ph">[they]</span> run more than 8 miles or less than 8 miles this week?</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div><span class="ph">[Student Name]</span>, which statement is NOT true? 
+A) 7 × 1/2 will be less than 7. 
+B) 7 × 5/5 will be equal to 7. 
+C) 7 × 3/2 will be less than 7. 
+D) 7 × 1 1/4 will be greater than 7.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>A school bus route is 12 miles long. 
+Route A: A new, longer route is 7/4 times the length of the original route. 
+Route B: Another new route is 1 1/5 times the length of the original route. 
+Without calculating the exact lengths, which route (A or B) will be longer than the other, and how do you know, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>A builder needs 50 feet of lumber for a project. <span class="ph">[Student Name]</span>, the lumberyard only sells in specific lengths. 
+Option 1: The builder buys 3/4 of 50 feet. 
+Option 2: The builder buys 1 1/10 of 50 feet. 
+If the builder needs <em>more</em> than 50 feet, but <em>less</em> than 60 feet, which option should the builder choose based on the multiplier alone? Why?</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div><span class="ph">[Student Name]</span>, you are given a number, 24. If you multiply 24 by a fraction and the product is 18, what must be true about the fraction you multiplied by? Is it greater than 1, less than 1, or equal to 1? Explain your thinking.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hi <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into <strong>Scaling Comparison</strong>, a super important concept in 5th grade math. In simple terms, <span class="ph">[Student Name]</span> is learning how multiplying a number by a fraction changes its size—whether it gets bigger, smaller, or stays the same. The key idea is that multiplying by a fraction less than 1 makes the original number smaller, and multiplying by a fraction greater than 1 makes it larger. Tonight, try this: Grab a recipe for cookies or a favorite snack. Ask <span class="ph">[Student Name]</span> if you wanted to make half the recipe (multiply by 1/2) or double the recipe (multiply by 2), how much flour you would need. This helps <span class="ph">[Student Name]</span> see fractions in action! At dinner, ask <span class="ph">[Student Name]</span>, &#x27;If you have 10 feet of ribbon and you use 3/4 of it for a project, will you have more or less than 10 feet of ribbon left?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &#x27;Hey <span class="ph">[Student Name]</span>! Welcome to our math session today. We&#x27;re going to explore something called Scaling Comparison. It&#x27;s all about how numbers change when we multiply them by fractions. It&#x27;s super useful, like when you&#x27;re baking and need to change a recipe. Let&#x27;s make some sense of it together!&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &#x27;It looks like you&#x27;re thinking about how the fraction affects the number. Let&#x27;s imagine you have 12 cookies, and you want to find 1/4 of them. Would you end up with more or fewer than 12 cookies? When we multiply by a fraction like 1/4, we&#x27;re finding a <em>part</em> of the original amount. Think about dividing your 12 cookies into 4 equal groups. How many cookies would be in one of those groups? That&#x27;s what 1/4 of 12 means.&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &#x27;That&#x27;s a great start! Now that you&#x27;ve calculated the new amount, let&#x27;s compare it to what you started with. Is the result you got bigger, smaller, or the same as the original number? For example, if you found 1/2 of 10 is 5, is 5 bigger, smaller, or the same as 10? The trick is to look at the fraction you&#x27;re multiplying by. Is that fraction less than 1, equal to 1, or greater than 1? That tells us how the number will scale.&#x27;
+
+SESSION CLOSING: &#x27;Fantastic job today, <span class="ph">[Student Name]</span>! You&#x27;re really getting the hang of how multiplication with fractions scales numbers. You figured out that multiplying by a fraction less than 1 makes numbers smaller, and a fraction greater than 1 makes them larger. You should be really proud of your hard work! Keep practicing, and this will become second nature!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content"><span class="ph">[Student Name]</span>&#x27;s most common mistake with Scaling Comparison will be thinking that multiplication always makes a number larger. <span class="ph">[Student Name]</span> might calculate 10 <em> 1/2 and say the answer is bigger than 10, or incorrectly give 20 as the product, not understanding that multiplying by a fraction less than 1 results in a smaller number. You&#x27;ll recognize this if <span class="ph">[Student Name]</span> consistently produces larger numbers when multiplying by fractions like 1/4, 2/3, or 0.5. To intervene, say: &#x27;<span class="ph">[Student Name]</span>, when we multiply by a fraction like 1/2, it means we&#x27;re taking </em>part* of the original number. Think about it like this: if you have a whole pizza and eat 1/2 of it, do you have more or less than a whole pizza left?&#x27; What NOT to say: &#x27;That&#x27;s wrong, multiplication always makes numbers smaller with fractions!&#x27; This isn&#x27;t entirely true, and can be confusing.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;less_than_one_makes_larger&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> thinks that multiplying a whole number by a fraction less than 1 (like 1/2 or 3/4) makes the whole number bigger, or stays the same, instead of smaller.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s a very common step to trip on, and <span class="ph">[Student Name]</span> is working through an important concept. This is a chance to deepen <span class="ph">[Student Name]</span>&#x27;s understanding of fractions.&quot;, &quot;home_action&quot;: &quot;At the grocery store, point out a &#x27;Buy one, get 1/2 off the second&#x27; deal. Ask <span class="ph">[Student Name]</span> if the price of the second item is more or less than the original price. Talk about how &#x27;1/2 off&#x27; means multiplying the price by 1/2.&quot;}, {&quot;tag&quot;: &quot;greater_than_one_makes_smaller&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> believes that multiplying a whole number by a fraction greater than 1 (like 3/2 or 5/3) makes the whole number smaller, or confuses it with division.&quot;, &quot;reassurance&quot;: &quot;Understanding how fractions scale numbers takes time and practice, and <span class="ph">[Student Name]</span> is doing great by thinking through these new ideas.&quot;, &quot;home_action&quot;: &quot;When making a drink mix or juice, ask <span class="ph">[Student Name]</span> to make a &#x27;double batch&#x27; which means multiplying by 2 (or 2/1). Then, challenge <span class="ph">[Student Name]</span> to make a &#x27;one-and-a-half batch&#x27; which means multiplying by 3/2. Compare the amount of liquid for each.&quot;}, {&quot;tag&quot;: &quot;fraction_equal_to_one_changes&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> thinks that multiplying by a fraction equal to 1 (like 4/4 or 2/2) changes the original number.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s natural for <span class="ph">[Student Name]</span> to apply a general rule, but recognizing special cases is a sign of deeper mathematical thinking.&quot;, &quot;home_action&quot;: &quot;Give <span class="ph">[Student Name]</span> 5 quarters. Ask <span class="ph">[Student Name]</span> how many quarters <span class="ph">[they]</span> would have if <span class="ph">[they]</span> multiplied that by 1 whole. Discuss how 1 whole can also be written as 4/4 or 2/2, and demonstrate that multiplying 5 by 4/4 still equals 5.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! Let&#x27;s get you up to speed on Scaling Comparison, so you can confidently help <span class="ph">[Student Name]</span>. This concept helps us understand what happens to a number when we multiply it by a fraction. It&#x27;s really useful for things like adjusting recipes or figuring out discounts.
+
+Here’s how it works:
+1.  <strong>Start with a number:</strong> Let&#x27;s say you have $100 in your budget.
+2.  <strong>Multiply by a fraction less than 1:</strong> Imagine you spend 1/2 of your budget. If you multiply $100 by 1/2, you get $50. Notice that $50 is <em>smaller</em> than your original $100. This is the key: when you multiply by a fraction between 0 and 1, your original number gets smaller.
+3.  <strong>Multiply by a fraction equal to 1:</strong> If you spend all of your budget, you&#x27;ve spent 1 whole, or 1/1. So, $100 multiplied by 1 (or 1/1, 2/2, 3/3, etc.) is still $100. The number stays the same.
+4.  <strong>Multiply by a fraction greater than 1:</strong> Let&#x27;s say your budget doubles, meaning it&#x27;s 2 times the original. Two can also be written as a fraction like 2/1 or 4/2. If you multiply $100 by 2, you get $200. $200 is <em>larger</em> than your original $100. When you multiply by a fraction greater than 1, your original number gets larger.
+
+So, <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> can think of it like this: a fraction less than 1 is like taking a <em>part</em> of something (making it smaller), a fraction equal to 1 is taking the <em>whole</em> of something (keeping it the same), and a fraction greater than 1 is taking <em>more than</em> the whole (making it bigger). <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hola, <span class="ph">[Parent Name]</span>.
+
+Esta semana, <span class="ph">[Student Name]</span> explorará un concepto fascinante en matemáticas de quinto grado llamado &#x27;Comparación por Escala&#x27;. La idea principal es que al multiplicar un número por una fracción, <span class="ph">[Student Name]</span> aprenderá a predecir si el resultado será más grande, más pequeño o igual al número original, basándose en si esa fracción es mayor, menor o igual a 1.
+
+Para una actividad práctica divertida esta noche, ¿por qué no cocinan juntos? Elijan una receta sencilla, como una para hacer &#x27;brownies&#x27;. Pídale a <span class="ph">[Student Name]</span> que imagine si van a preparar la mitad (multiplicar por 1/2) o el doble (multiplicar por 2) de la receta. Pregúntele: &#x27;Si la receta pide 1 taza de azúcar, ¿cuánta necesitaríamos para la mitad? ¿Y para el doble?&#x27;
+
+En la cena, puedes preguntarle a <span class="ph">[Student Name]</span>: &#x27;Si tienes 200 pesos y solo puedes gastar &#x27;tres cuartos&#x27; de esa cantidad en un libro, ¿tendrías más o menos de 200 pesos para el libro? ¿Y si pudieras gastar &#x27;el doble&#x27; de esa cantidad en dos libros?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;¡Hola, <span class="ph">[Student Name]</span>! ¡Qué bueno verte! Hoy vamos a explorar un concepto súper interesante llamado &#x27;Comparación por Escala&#x27;. Veremos cómo la multiplicación con fracciones puede hacer que las cosas sean más grandes, más pequeñas o incluso que se queden igual. <span class="ph">[Student Name]</span>, estoy seguro de que lo harás genial y que <span class="ph">[they]</span> se divertirá mucho con esto.&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;No te preocupes, <span class="ph">[Student Name]</span>, es normal que a veces nos detengamos. Mira bien la fracción que estamos usando para multiplicar. ¿Esa fracción es más grande que un entero (como 2/1 o 5/2), más pequeña que un entero (como 1/2 o 3/4), o es exactamente un entero (como 4/4 o 1)? Piensa en una pizza: ¿es más de una pizza, menos de una o una pizza entera? <span class="ph">[Student Name]</span>, ¿qué crees?&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;¡Vamos, <span class="ph">[Student Name]</span>! Ya casi lo tienes. Una vez que sabemos si la fracción es mayor, menor o igual a 1, podemos predecir el resultado. Si multiplicamos nuestro número original por una fracción que es <em>más pequeña</em> que 1, ¿crees que el resultado final será más grande o más pequeño que el número con el que empezamos? Por ejemplo, si tienes 10 dulces y te comes la &#x27;mitad&#x27; (1/2), ¿te quedan más o menos de 10 dulces, <span class="ph">[Student Name]</span>?&quot;
+
+SESSION CLOSING: &quot;¡Excelente trabajo hoy, <span class="ph">[Student Name]</span>! Has hecho un gran esfuerzo entendiendo cómo las fracciones pueden &#x27;escalar&#x27; los números. Recuerda que no todas las multiplicaciones hacen los números más grandes. ¡Sigue practicando y <span class="ph">[Student Name]</span>, serás un experto en un abrir y cerrar de ojos! ¡Estoy orgulloso de tu progreso!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Hola, <span class="ph">[Parent Name]</span>.
+
+El error más común que <span class="ph">[Student Name]</span> podría cometer con la Comparación por Escala es asumir que la multiplicación siempre resulta en un número más grande, como sucede con los números enteros.
+
+Para reconocerlo, verás que <span class="ph">[Student Name]</span> podría realizar la multiplicación correctamente, pero luego se confundirá al ver que el resultado es más pequeño que el número original (cuando se multiplica por una fracción menor que 1), o que se queda igual (cuando se multiplica por una fracción equivalente a 1).
+
+Las palabras exactas para decir a <span class="ph">[Student Name]</span> son: &#x27;Recuerda, <span class="ph">[Student Name]</span>, la multiplicación no siempre hace que los números sean más grandes. El &#x27;tamaño&#x27; de la fracción por la que multiplicas nos dice si el resultado va a crecer, encogerse o quedarse igual. Piensa en cuánto estás tomando del número original. Si es una &#x27;parte&#x27; (una fracción pequeña como 1/2), el número se hará más pequeño. Si es &#x27;varias veces&#x27; (una fracción grande como 3/2), el número se hará más grande.&#x27;
+
+Lo que NO debes decir a <span class="ph">[Student Name]</span> es: &#x27;Estás mal, la multiplicación siempre aumenta las cosas&#x27;, o &#x27;Esto es fácil, deberías entenderlo&#x27;.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;multiplication_always_increases&quot;, &quot;parent_description&quot;: &quot;A veces, <span class="ph">[Student Name]</span> puede pensar que al multiplicar un n\u00famero por cualquier fracci\u00f3n, el resultado siempre ser\u00e1 mayor que el n\u00famero original, como sucede con los n\u00fameros enteros.&quot;, &quot;reassurance&quot;: &quot;Es una confusi\u00f3n muy com\u00fan porque la mayor\u00eda de las multiplicaciones que <span class="ph">[Student Name]</span> ha visto hasta ahora han aumentado los n\u00fameros. Es una nueva faceta de la multiplicaci\u00f3n que <span class="ph">[Student Name]</span> est\u00e1 aprendiendo.&quot;, &quot;home_action&quot;: &quot;Conviertan una receta para la cena. Si tienen una receta para 4 personas y la quieren para 2, \u00bfqu\u00e9 fracci\u00f3n usar\u00edan (1/2)? Mu\u00e9strenle c\u00f3mo las cantidades de los ingredientes se hacen m\u00e1s peque\u00f1as, por ejemplo, la mitad de 2 tazas de harina es 1 taza.&quot;}, {&quot;tag&quot;: &quot;multiplying_by_one_equivalent&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> podr\u00eda no comprender por qu\u00e9 multiplicar un n\u00famero por una fracci\u00f3n como 3/3 o 5/5 no cambia su valor. Le parece que &#x27;algo deber\u00eda pasar&#x27;.&quot;, &quot;reassurance&quot;: &quot;Entender que una fracci\u00f3n donde el numerador y el denominador son iguales es equivalente a 1 es crucial. <span class="ph">[Student Name]</span> est\u00e1 construyendo una base s\u00f3lida para su comprensi\u00f3n de las fracciones y n\u00fameros.&quot;, &quot;home_action&quot;: &quot;Hablen de dinero. Si tienes 100 pesos y los multiplicas por 1, \u00bfcu\u00e1nto tienes? Luego expl\u00edcale que 4/4 de algo es &#x27;todo eso&#x27;, que es lo mismo que multiplicarlo por 1, por lo tanto, la cantidad no cambia.&quot;}, {&quot;tag&quot;: &quot;prediction_difficulty&quot;, &quot;parent_description&quot;: &quot;A <span class="ph">[Student Name]</span> le cuesta predecir si el resultado de una multiplicaci\u00f3n con fracciones ser\u00e1 mayor o menor que el n\u00famero inicial antes de hacer los c\u00e1lculos, dependiendo de la fracci\u00f3n.&quot;, &quot;reassurance&quot;: &quot;Esta habilidad de predicci\u00f3n es una se\u00f1al de que <span class="ph">[Student Name]</span> est\u00e1 desarrollando un profundo sentido num\u00e9rico. La pr\u00e1ctica con visualizaciones y ejemplos concretos le ayudar\u00e1 mucho.&quot;, &quot;home_action&quot;: &quot;Hagan comparaciones con vasos de agua. Llenar un vaso a la mitad (1/2 de la cantidad original) o llenar un vaso y luego &#x27;duplicar&#x27; esa cantidad (2 vasos). Preg\u00fantele a <span class="ph">[Student Name]</span> si el agua es m\u00e1s o menos de lo que hab\u00eda originalmente en el primer vaso.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hola, <span class="ph">[Parent Name]</span>. Imagínese que estamos en el mercado, preparando una comida familiar o gestionando un pequeño presupuesto. &#x27;Comparación por Escala&#x27; es justamente eso: entender cómo una cantidad cambia cuando la &#x27;escalamos&#x27; hacia arriba o hacia abajo usando fracciones.
+
+No se preocupe por el lenguaje matemático. Cuando <span class="ph">[Parent Name]</span> usa fracciones en la vida real para ajustar cantidades, ya está aplicando este concepto sin darse cuenta.
+
+Aquí están los pasos sencillos para entenderlo:
+1.  <strong>Piense en las fracciones como &#x27;partes de algo&#x27; o &#x27;varias veces algo&#x27;.</strong> Por ejemplo, 1/2 significa &#x27;la mitad&#x27;, mientras que 3/2 significa &#x27;una vez y media&#x27;.
+2.  <strong>Determine el &#x27;tamaño&#x27; de la fracción.</strong> ¿Es menor que 1 entero (como 1/2 o 3/4)? ¿Es igual a 1 entero (como 2/2 o 4/4)? ¿O es mayor que 1 entero (como 3/2 o 5/3)?
+3.  <strong>La regla clave:</strong>
+    <em>   <strong>Si multiplica por una fracción MENOR que 1:</strong> El número original se hará <strong>más pequeño</strong>. Ejemplo: <span class="ph">[Parent Name]</span> tiene 500 pesos y solo puede gastar &#x27;la mitad&#x27; (1/2) en frutas. 500 x 1/2 = 250 pesos. Tenía 500, ahora tiene 250 (es más pequeño).
+    </em>   <strong>Si multiplica por una fracción IGUAL a 1:</strong> El número original se quedará <strong>igual</strong>. Ejemplo: Tiene 100 pesos y los multiplica por 4/4 (que es lo mismo que 1). 100 x 4/4 = 100 pesos. Sigue teniendo 100.
+    *   <strong>Si multiplica por una fracción MAYOR que 1:</strong> El número original se hará <strong>más grande</strong>. Ejemplo: Un pastel requiere 1 taza de leche, pero <span class="ph">[Parent Name]</span> quiere hacer &#x27;el doble&#x27; (2/1 o 2) de la receta. 1 x 2 = 2 tazas. Tenía 1, ahora tiene 2 (es más grande).
+
+Es como ajustar una receta para más o menos personas, calcular descuentos en el mercado, o entender las proporciones en un proyecto de trabajo. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> verá que con estos ejemplos cotidianos, este concepto es muy intuitivo y podrá ayudar a <span class="ph">[Student Name]</span> con confianza.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">{&quot;text&quot;: &quot;Bonjour <span class="ph">[Parent Name]</span> ! Cette semaine, votre enfant, <span class="ph">[Student Name]</span>, va explorer la \&quot;Comparaison d&#x27;\u00e9chelle\&quot; avec les fractions. Le concept cl\u00e9 est simple : comprendre que multiplier un nombre par une fraction peut le rendre plus grand, plus petit, ou le laisser tel quel, selon la fraction utilis\u00e9e. C&#x27;est une comp\u00e9tence essentielle pour la vie quotidienne, comme la cuisine ou la planification financi\u00e8re. Pour une activit\u00e9 pratique ce soir, pr\u00e9parez des cookies ensemble. Si la recette demande 2/3 de tasse de sucre, demandez \u00e0 <span class="ph">[Student Name]</span> de calculer la quantit\u00e9 si vous ne faites que la moiti\u00e9 de la recette. Cela illustrera concr\u00e8tement que multiplier par une fraction inf\u00e9rieure \u00e0 1 r\u00e9duit la quantit\u00e9. \u00c0 table, demandez : \u00ab Si un joueur des Lakers marque 8 lancers francs et que 3/4 de ses tirs \u00e9taient r\u00e9ussis, combien de lancers francs a-t-<span class="ph">[they]</span> marqu\u00e9s ? \u00bb. Cela aidera <span class="ph">[Student Name]</span> \u00e0 appliquer la notion dans un contexte amusant.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;text&quot;: {&quot;SESSION_OPENING&quot;: &quot;Bonjour <span class="ph">[Student Name]</span> ! Aujourd&#x27;hui, nous allons nous lancer dans une aventure math\u00e9matique passionnante : la comparaison d&#x27;\u00e9chelle avec les fractions ! C&#x27;est super parce que \u00e7a nous aide \u00e0 comprendre comment les fractions peuvent changer la taille des nombres. Par exemple, si nous avons 12 billes et que nous en prenons les 1/3, combien en reste-t-il ? Pr\u00eat \u00e0 explorer comment cela fonctionne avec de vrais nombres et des situations concr\u00e8tes ?&quot;, &quot;IF_STUCK_ON_STEP_1&quot;: &quot;Pas de probl\u00e8me, <span class="ph">[Student Name]</span>, prenons un instant. Quand nous multiplions un nombre par une fraction comme 1/2 ou 2/3, est-ce que tu penses que le r\u00e9sultat devrait \u00eatre plus grand ou plus petit que le nombre de d\u00e9part ? Pense \u00e0 une pizza : si tu en manges les 1/4, tu as mang\u00e9 une partie plus petite, n&#x27;est-ce pas ? Et si tu avais une recette \u00e0 doubler, tu multipli\u00e9rais par quoi, 2/1 ? R\u00e9fl\u00e9chis \u00e0 ce que la fraction &#x27;fait&#x27; au nombre.&quot;, &quot;IF_STUCK_ON_STEP_2&quot;: &quot;C&#x27;est une \u00e9tape o\u00f9 beaucoup d&#x27;\u00e9l\u00e8ves r\u00e9fl\u00e9chissent, <span class="ph">[Student Name]</span>. Revoyons le calcul pour 15 multipli\u00e9 par 2/5. N&#x27;oublie pas que multiplier par une fraction, c&#x27;est comme diviser le nombre entier par le d\u00e9nominateur, puis multiplier ce r\u00e9sultat par le num\u00e9rateur. Donc, 15 divis\u00e9 par 5, puis ce r\u00e9sultat multipli\u00e9 par 2. Essaie de le faire pas \u00e0 pas. Qu&#x27;est-ce que tu obtiens ? Nous sommes presque arriv\u00e9s au bout de cette r\u00e9solution !&quot;, &quot;SESSION_CLOSING&quot;: &quot;Fantastique travail aujourd&#x27;hui, <span class="ph">[Student Name]</span> ! Tu as fait preuve d&#x27;une excellente compr\u00e9hension de la comparaison d&#x27;\u00e9chelle. Tu as ma\u00eetris\u00e9 comment les fractions peuvent augmenter, diminuer ou maintenir la taille d&#x27;un nombre. Tu es vraiment devenu(e) un(e) expert(e) en la mati\u00e8re. Je suis tellement fier(\u00e8re) de la fa\u00e7on dont <span class="ph">[they]</span> a pens\u00e9 et r\u00e9solu ces probl\u00e8mes !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">{&quot;text&quot;: &quot;La confusion la plus courante que <span class="ph">[Student Name]</span> pourrait rencontrer avec la comparaison d&#x27;\u00e9chelle est d&#x27;oublier l&#x27;effet de la fraction sur le nombre entier. Par exemple, <span class="ph">[Student Name]</span> pourrait multiplier 10 par 1/2 et obtenir 20 au lieu de 5, ou 8 par 3/2 et obtenir 4 au lieu de 12. Vous reconna\u00eetrez cette erreur si la r\u00e9ponse de <span class="ph">[Student Name]</span> est plus grande que le nombre de d\u00e9part alors que la fraction est inf\u00e9rieure \u00e0 1, ou inversement. Dites sp\u00e9cifiquement : \u00ab <span class="ph">[Student Name]</span>, regarde la fraction : est-elle plus grande ou plus petite que 1 ? Qu&#x27;est-ce que cela devrait faire au nombre de d\u00e9part ? \u00bb. Ne dites PAS : \u00ab C&#x27;est faux, tu as fait le contraire de ce qu&#x27;il fallait ! \u00bb car cela peut d\u00e9courager.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;ignores_fraction_effect&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> multiplie des nombres par des fractions sans anticiper si le r\u00e9sultat devrait \u00eatre plus grand ou plus petit. Par exemple, <span class="ph">[Student Name]</span> peut multiplier 12 par 1/4 et s&#x27;attendre \u00e0 une r\u00e9ponse sup\u00e9rieure \u00e0 12.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une \u00e9tape fondamentale dans la compr\u00e9hension des fractions et de leur impact. Beaucoup d&#x27;\u00e9l\u00e8ves se familiarisent avec cette id\u00e9e par la pratique. <span class="ph">[Student Name]</span> progresse bien !&quot;, &quot;home_action&quot;: &quot;Utilisez des sc\u00e9narios concrets comme la taille d&#x27;un terrain de football miniature. Si la taille r\u00e9elle est de 100 m\u00e8tres et que <span class="ph">[Student Name]</span> construit une version miniature \u00e0 1/2 de la taille, quelle sera la longueur de la version miniature ? Est-ce plus ou moins que 100 ?&quot;}, {&quot;tag&quot;: &quot;fraction_multiplication_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> peut avoir du mal avec le m\u00e9canisme de la multiplication des fractions, comme multiplier uniquement les num\u00e9rateurs ou les d\u00e9nominateurs, ou additionner au lieu de multiplier.&quot;, &quot;reassurance&quot;: &quot;Les r\u00e8gles de calcul des fractions peuvent \u00eatre un peu complexes au d\u00e9but. Avec de la pratique cibl\u00e9e, <span class="ph">[Student Name]</span> va rapidement gagner en aisance et en pr\u00e9cision.&quot;, &quot;home_action&quot;: &quot;Faites une \&quot;chasse aux tr\u00e9sors\&quot; avec des fractions. Donnez \u00e0 <span class="ph">[Student Name]</span> un nombre (par exemple 20) et demandez-<span class="ph">[them]</span> de trouver 3/5 de ce nombre. Puis 7/4 de ce nombre. Demandez \u00e0 <span class="ph">[them]</span> de bien montrer les \u00e9tapes de la multiplication.&quot;}, {&quot;tag&quot;: &quot;whole_number_as_fraction&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> oublie parfois de convertir un nombre entier en fraction (par exemple, \u00e9crire 6 comme 6/1) avant de multiplier, ce qui rend le calcul confus ou incorrect.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une petite astuce technique que beaucoup d&#x27;\u00e9l\u00e8ves apprennent \u00e0 ma\u00eetriser. Une fois cette habitude prise, les calculs de <span class="ph">[Student Name]</span> seront beaucoup plus fluides et pr\u00e9cis.&quot;, &quot;home_action&quot;: &quot;\u00c9crivez plusieurs nombres entiers (comme 4, 9, 15) sur des post-it et demandez \u00e0 <span class="ph">[Student Name]</span> de les transformer en fractions (4/1, 9/1, 15/1). Puis pratiquez la multiplication avec une fraction simple comme 1/3 ou 5/2 pour renforcer cette \u00e9tape.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">{&quot;text&quot;: &quot;Bonjour <span class="ph">[Parent Name]</span> ! D\u00e9couvrons ensemble la \&quot;Comparaison d&#x27;\u00e9chelle\&quot;, pour que <span class="ph">[they]</span> puisse aider <span class="ph">[Student Name]</span> avec confiance. C&#x27;est simplement comprendre comment la multiplication par une fraction change la taille d&#x27;un nombre.
+
+1.  <strong>Le concept de base :</strong> Quand on multiplie un nombre par une fraction, le r\u00e9sultat peut \u00eatre plus grand, plus petit ou identique au nombre de d\u00e9part. Tout d\u00e9pend de la fraction.
+
+2.  <strong>Quand le nombre diminue (fraction inf\u00e9rieure \u00e0 1) :</strong> Imaginez que vous avez un salaire de 1000 USD par semaine. Si, pour une raison, vous travaillez \u00e0 1/2 temps, votre nouveau salaire sera de 1000 USD <em> 1/2 = 500 USD. Votre revenu a diminu\u00e9 parce que 1/2 est plus petit que 1.
+
+3.  <strong>Quand le nombre augmente (fraction sup\u00e9rieure \u00e0 1) :</strong> Supposons que vous avez une t\u00e2che de travail qui prend normalement 4 heures. Si vous avez une version \&quot;augment\u00e9e\&quot; de cette t\u00e2che qui prend 3/2 (ou 1,5 fois) le temps normal, cela prendra 4 heures </em> 3/2 = 6 heures. Le temps a augment\u00e9 car 3/2 est plus grand que 1.
+
+4.  <strong>Quand le nombre reste identique (fraction \u00e9gale \u00e0 1) :</strong> Si votre enfant, <span class="ph">[Student Name]</span>, re\u00e7oit une allocation de 10 USD et que <span class="ph">[they]</span> utilise 1/1 de cette somme pour acheter une bande dessin\u00e9e, <span class="ph">[they]</span> d\u00e9pense 10 USD * 1/1 = 10 USD. La somme est rest\u00e9e la m\u00eame.
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> voit maintenant que c&#x27;est une comp\u00e9tence tr\u00e8s pratique pour g\u00e9rer des budgets ou des horaires ! Avec ces bases, vous serez en mesure d&#x27;aider <span class="ph">[Student Name]</span> et m\u00eame d&#x27;appliquer cela \u00e0 vos propres calculs quotidiens avec confiance.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Semèn sa a, <span class="ph">[Student Name]</span> ap aprann yon konsèp enpòtan nan matematik yo rele &#x27;Scaling Comparison&#x27; pou klas 5yèm ane. Sa vle di <span class="ph">[Student Name]</span> ap dekouvri kijan miltipliye yon nimewo pa yon fraksyon ka fè nimewo orijinal la vin pi gwo, pi piti, oswa rete menm jan an. Se yon ladrès ki itil anpil nan lavi reyèl. Pa egzanp, si ou gen 10 pen epi ou miltipliye yo pa 1/2, w ap gen 5 pen; si ou miltipliye pa 2, w ap gen 20 pen. Swivan, men yon aktivite amizan pou fè ak <span class="ph">[Student Name]</span> aswè a: Nan kwizin nan, lè w ap prepare manje, chwazi yon resèt ki mande, di, 4 tas dlo. Mande <span class="ph">[Student Name]</span> kisa k ap pase si nou fè sèlman mwatye (1/2) resèt la? Konbyen dlo nou ap bezwen lè sa a? Yon kesyon pou tab la: &#x27;Si nou gen 12 zoranj, epi ou vle bay yon zanmi 1/3 nan yo, konbyen zoranj zanmi an ap jwenn?&#x27; Sa ap ede <span class="ph">[Student Name]</span> konprann kijan fraksyon yo fonksyone nan lavi chak jou. Nou sèten <span class="ph">[Student Name]</span> pral renmen l!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;SESSION_OPENING&quot;: &quot;Bonjou <span class="ph">[Student Name]</span>! Mwen kontan anpil w\u00e8 ou jodi a. Jodi a, nou pral plonje nan yon bagay ki rele &#x27;Scaling Comparison&#x27; ak fraksyon. Sa vle di nou pral aprann kijan fraksyon yo ka f\u00e8 nimewo yo vin pi gwo oswa pi piti l\u00e8 nou miltipliye yo. <span class="ph">[Student Name]</span>, \u00e8ske ou pare pou nou k\u00f2manse eksplore sa ansanm?&quot;, &quot;IF_STUCK_ON_STEP_1&quot;: &quot;Pa enkyete w, <span class="ph">[Student Name]</span>, sa rive tout moun. Ann gade sa ank\u00f2. L\u00e8 nou miltipliye yon nimewo pa yon fraksyon, nou ap mande &#x27;\u00c8ske fraksyon sa a genyen yon val\u00e8 ki pi piti pase yon antye, ki egal a yon antye, oswa ki pi gwo pase yon antye?&#x27; Panse a 1/2. \u00c8ske 1/2 pi gwo oswa pi piti pase 1? Si li pi piti, l\u00e8 sa a repons lan ap pi piti pase nimewo orijinal la, <span class="ph">[Student Name]</span>.&quot;, &quot;IF_STUCK_ON_STEP_2&quot;: &quot;Sa byen, <span class="ph">[Student Name]</span>, ann pran yon ti poz epi panse. L\u00e8 w ap miltipliye, pa egzanp, 8 pa 3/4, nou ap esansy\u00e8lman ap ch\u00e8che 3/4 nan 8. Sa vle di nou divize 8 an 4 pati egal epi nou pran 3 nan pati sa yo. Konsidere 8 mango, <span class="ph">[Student Name]</span>, si w ap pran 3/4 ladan yo, konbyen mango w ap genyen? Ann f\u00e8 sa ansanm, <span class="ph">[Student Name]</span>.&quot;, &quot;SESSION_CLOSING&quot;: &quot;Ou te travay anpil jodi a, <span class="ph">[Student Name]</span>! Mwen fy\u00e8 de tout ef\u00f2 ou te f\u00e8. Ou te montre yon gwo konpreyansyon sou kijan fraksyon ka f\u00e8 nimewo yo vin pi gwo oswa pi piti. Sonje byen, pratik f\u00e8 m\u00e8t, <span class="ph">[Student Name]</span>. Kontinye panse a Scaling Comparison pandan sem\u00e8n nan, ou te f\u00e8 yon travay f\u00f2midab!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Pi gwo erè <span class="ph">[Student Name]</span> ap gen chans fè ak Scaling Comparison se kwè ke miltipliye pa <em>nenpòt</em> fraksyon ap toujou fè nimewo a vin pi piti. Li ka bliye ke fraksyon ki pi gwo pase 1 (tankou 3/2 oswa 5/4) ap fè nimewo a vin pi gwo. Pou rekonèt sa, <span class="ph">[Parent Name]</span> ka remake <span class="ph">[Student Name]</span> toujou ap bay yon repons ki pi piti menm lè fraksyon an se yon fraksyon enpwope. Pou egzanp, si li di 10 miltipliye pa 3/2 egal a 5. Men sa pou w di <span class="ph">[Student Name]</span>: &#x27;<span class="ph">[Student Name]</span>, ann gade fraksyon sa a: 3/2. Èske 3/2 pi gwo, pi piti, oswa menm jan ak 1? Si li pi gwo pase 1, sa vle di lè nou miltipliye pa li, nimewo orijinal la ap vin pi gwo, pa vre? Ann eseye avèk 4 pen: si ou fè yo 3/2 fwa pi gwo, èske ou panse ou ap genyen plis oswa mwens pase 4?&#x27; Sa pou w PA di: &#x27;Sa a fasil, <span class="ph">[Student Name]</span>, ou ta dwe konnen sa deja.&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;fraction_always_shrinks&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> souvan panse ke l\u00e8 li miltipliye yon nimewo pa yon fraksyon, rezilta a ap toujou pi piti pase nimewo orijinal la. Pou egzanp, li ka kw\u00e8 8 <em> (3/2) ap ba li yon repons ki pi piti pase 8.&quot;, &quot;reassurance&quot;: &quot;Se yon er\u00e8 komen, <span class="ph">[Student Name]</span> ap aprann nuans yo. Av\u00e8k pratik, <span class="ph">[Student Name]</span> pral konprann diferans lan.&quot;, &quot;home_action&quot;: &quot;Nan kwizin nan, mande <span class="ph">[Student Name]</span> pou l pran 4 patat. L\u00e8 sa a, mande l kisa k ap rive si nou bezwen 1 ak yon mwatye (3/2) kantite patat sa a. Sa vle di nou bezwen plis pase 4. Montre l 4 patat plis mwatye nan 4 (ki se 2), pou yon total de 6.&quot;, &quot;_worksheet&quot;: &quot;error_analysis&quot;}, {&quot;tag&quot;: &quot;comparing_to_one&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> gen difikilte pou l konpare fraksyon ak 1. Li pa s\u00e8ten si 5/4 pi gwo, pi piti, oswa egal a 1, ki f\u00e8 l pa ka prevwa si miltiplikasyon an ap f\u00e8 nimewo a vin pi gwo oswa pi piti.&quot;, &quot;reassurance&quot;: &quot;Konpare fraksyon ak 1 se yon ladr\u00e8s enp\u00f2tan ki pran tan pou l metrize. <span class="ph">[Student Name]</span> pral jwenn li ak pratik kontiny\u00e8l.&quot;, &quot;home_action&quot;: &quot;Ekri plizy\u00e8 fraksyon (tankou 2/3, 7/5, 4/4) sou ti papye. Mande <span class="ph">[Student Name]</span> pou l gwoupe yo an &#x27;pi piti pase 1&#x27;, &#x27;egal a 1&#x27;, ak &#x27;pi gwo pase 1&#x27; pou chak fraksyon. S\u00e8vi ak yon liy nimewo pou vizyalize si neses\u00e8.&quot;, &quot;_worksheet&quot;: &quot;number_line_practice&quot;}, {&quot;tag&quot;: &quot;multiplication_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka konfonn operasyon miltiplikasyon fraksyon ak adisyon oswa soustraksyon. Li ka eseye jwenn yon denominat\u00e8 komen olye pou l miltipliye nimerat\u00e8 pa nimerat\u00e8 ak denominat\u00e8 pa denominat\u00e8.&quot;, &quot;reassurance&quot;: &quot;Egz\u00e8sis konsistan av\u00e8k r\u00e8g miltiplikasyon yo ap ede <span class="ph">[Student Name]</span> vin pi asire. Sa se yon etap komen nan aprantisaj fraksyon.&quot;, &quot;home_action&quot;: &quot;Av\u00e8k egzanp tankou (2/3) </em> (6/5), mande <span class="ph">[Student Name]</span> pou l montre kijan li miltipliye yo. F\u00e8 l ekri etap yo pou l w\u00e8 ke nou senpleman miltipliye nimerat\u00e8 yo ansanm ak denominat\u00e8 yo ansanm: (2<em>6)/(3</em>5) = 12/15.&quot;, &quot;_worksheet&quot;: &quot;practice_problems&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Jodi a, nou pral aprann yon konsèp enpòtan nan matematik yo rele &#x27;Scaling Comparison.&#x27; Sa a se yon fason pou konprann kijan yon nimewo chanje lè nou miltipliye l pa yon fraksyon. Pa enkyete w, nou pral eksplike l tou senpleman, ak egzanp reyèl ke <span class="ph">[they]</span> ka rankontre chak jou.
+
+1.  <strong>Ki sa yon Fraksyon Ye?</strong> Yon fraksyon se jis yon pati nan yon antye. Pa egzanp, 1/2 se mwatye, 3/4 se twa ka. Nan boutik la, 1/4 kg diri se yon ti pati nan yon kg antye.
+
+2.  <strong>Twa Sityasyon ak Miltiplikasyon:</strong> Lè ou miltipliye yon nimewo pa yon fraksyon, gen twa bagay ki ka rive:
+    a.  <strong>Fè l pi Piti:</strong> Si ou miltipliye pa yon fraksyon ki pi piti pase 1 (tankou 1/2 oswa 2/3), nimewo a ap vin pi piti. Pa egzanp, si ou gen 200 gourdes, <span class="ph">[Parent Name]</span>, epi ou depanse 1/2 nan yo, ou gen 100 gourdes kounye a (200 <em> 1/2 = 100). 
+    b.  <strong>Rete Menm Jan:</strong> Si ou miltipliye pa yon fraksyon ki egal a 1 (tankou 2/2 oswa 4/4), nimewo a ap rete menm jan. Si ou gen 200 gourdes epi ou miltipliye yo pa 1 (ki se menm jan ak 2/2), ou toujou gen 200 gourdes (200 </em> 1 = 200).
+    c.  <strong>Fè l pi Gwo:</strong> Si ou miltipliye pa yon fraksyon ki pi gwo pase 1 (tankou 3/2 oswa 5/4), nimewo a ap vin pi gwo. Ann di ou genyen 4 pen. Si ou vle double resèt ou, sa vle di ou bezwen 2 fwa kantite pen sa a, oswa 8 pen (4 <em> 2 = 8). Si resèt la mande 1.5 fwa (oswa 3/2 fwa) kantite pen an, w ap bezwen 6 pen (4 </em> 3/2 = 6).
+
+Konprann règ senp sa yo ap ede <span class="ph">[Parent Name]</span> prevwa rezilta yo, kit se nan kwizin nan, nan bidjè a, oswa nan planifikasyon pwojè. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estará aprendendo sobre &#x27;Comparação de Escala&#x27; (Scaling Comparison) em matemática da 5ª série. O conceito chave é simples: <span class="ph">[Student Name]</span> aprenderá que multiplicar um número por uma fração pode torná-lo maior, menor ou mantê-lo igual, dependendo da própria fração. Para uma atividade divertida esta noite, tente cozinhar juntos! Se uma receita pede 4 xícaras de farinha e vocês querem fazer a metade (multiplicar por 1/2), quanto de farinha será necessário? E se vocês quiserem fazer 1,5 vezes a receita (multiplicar por 3/2)? Na mesa de jantar, pergunte a <span class="ph">[Student Name]</span>: &#x27;Se você tem 12 figurinhas de um time da NFL e seu amigo tem 2/3 da sua quantidade, ele tem mais ou menos figurinhas do que você, e quantas <span class="ph">[they]</span> tem?&#x27; Isso ajuda <span class="ph">[them]</span> a ver a matemática na vida real.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &#x27;Olá, <span class="ph">[Student Name]</span>! Hoje vamos explorar algo super legal em matemática: &#x27;Comparação de Escala&#x27;! É sobre como os números mudam quando multiplicamos por frações. Será que eles ficam maiores, menores ou iguais? Você vai ver que é mais fácil do que parece!&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &#x27;Não se preocupe, <span class="ph">[Student Name]</span>, vamos devagar. &#x27;Comparação de Escala&#x27; é basicamente sobre entender o que acontece com um número quando o multiplicamos por uma fração. Pense assim: se você tem 10 maçãs e eu peço para você me dar 1/2 delas, você ficaria com mais ou menos maçãs? É sobre visualizar essa mudança. Tente desenhar! Sempre que for multiplicar por uma fração, imagine que você está pegando apenas &#x27;uma parte&#x27; de algo.&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &#x27;Ótima pergunta, <span class="ph">[Student Name]</span>! O segredo está em olhar para a fração que estamos multiplicando. Ela é maior que 1, menor que 1, ou igual a 1? Se for menor que 1, como 1/2 ou 3/4, o resultado será menor que o número original. Pense em ter 8 reais e gastar 1/2 – você fica com menos. Se for maior que 1, como 5/4 ou 1 1/2, o resultado será maior. E se for igual a 1, tipo 2/2, o número não muda. Qual é o valor da sua fração em relação a 1, <span class="ph">[Student Name]</span>?&#x27;
+
+SESSION CLOSING: &#x27;Você foi incrível hoje, <span class="ph">[Student Name]</span>! Ver como os números mudam com a &#x27;Comparação de Escala&#x27; é uma habilidade poderosa. Continue praticando e logo você estará escalando qualquer número como um profissional! Estou muito orgulhoso de você!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! O erro mais comum que <span class="ph">[Student Name]</span> pode cometer ao aprender Comparação de Escala é acreditar que a multiplicação sempre torna um número maior. Isso é verdade para números inteiros maiores que 1, mas não para frações! Você reconhecerá isso se <span class="ph">[Student Name]</span> prever um resultado maior ao multiplicar por uma fração como 1/2 ou 3/4. Para intervir, diga especificamente: &#x27;<span class="ph">[Student Name]</span>, lembre-se que quando multiplicamos por uma fração que é menor que 1 (como 1/2 ou 3/4), estamos pegando apenas uma PARTE do número, então ele vai DIMINUIR. É como cortar uma pizza!&#x27; O que NÃO dizer: &#x27;Isso está errado, a multiplicação de frações é diferente!&#x27; Evite invalidar <span class="ph">[their]</span> compreensão parcial; em vez disso, guie <span class="ph">[them]</span> para a exceção.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;multiplication_always_enlarges&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode acreditar que multiplicar um n\u00famero sempre o tornar\u00e1 maior, mesmo ao usar fra\u00e7\u00f5es menores que 1. Por exemplo, <span class="ph">[they]</span> pode pensar que 10 * (1/2) deve ser maior que 10.&quot;, &quot;reassurance&quot;: &quot;\u00c9 um mal-entendido muito comum, <span class="ph">[Parent Name]</span>. <span class="ph">[Student Name]</span> est\u00e1 come\u00e7ando a ver as nuances da multiplica\u00e7\u00e3o e logo entender\u00e1 as exce\u00e7\u00f5es.&quot;, &quot;home_action&quot;: &quot;Usem copos medidores na cozinha. Me\u00e7am 2 x\u00edcaras de \u00e1gua e ent\u00e3o despejem &#x27;1/2 dessa quantidade&#x27; em outro copo. Pergunte a <span class="ph">[Student Name]</span> se a quantidade de \u00e1gua diminuiu ou aumentou.&quot;}, {&quot;tag&quot;: &quot;ignores_fraction_size_vs_one&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode n\u00e3o prestar aten\u00e7\u00e3o se a fra\u00e7\u00e3o pela qual <span class="ph">[they]</span> est\u00e1 multiplicando \u00e9 maior, menor ou igual a 1, o que leva a previs\u00f5es incorretas sobre se o resultado ser\u00e1 maior ou menor que o n\u00famero original.&quot;, &quot;reassurance&quot;: &quot;Observar o numerador e o denominador \u00e9 um novo h\u00e1bito. Com pr\u00e1tica, <span class="ph">[Student Name]</span> vai desenvolver essa intui\u00e7\u00e3o rapidamente.&quot;, &quot;home_action&quot;: &quot;Pegue 20 reais. Pe\u00e7a a <span class="ph">[Student Name]</span> para prever se voc\u00ea ter\u00e1 mais, menos ou a mesma quantidade se multiplicar por 1/2, por 1 (2/2) ou por 3/2. Fa\u00e7a isso com objetos reais ou dinheiro.&quot;}, {&quot;tag&quot;: &quot;difficulty_with_improper_fractions&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode ter dificuldade em entender como fra\u00e7\u00f5es impr\u00f3prias (como 5/4) ou n\u00fameros mistos (como 1 1/4) afetam o tamanho de um n\u00famero quando usados para escalar. <span class="ph">[they]</span> pode esquecer que 5/4 \u00e9 maior que 1.&quot;, &quot;reassurance&quot;: &quot;Trabalhar com fra\u00e7\u00f5es impr\u00f3prias e n\u00fameros mistos para escalar \u00e9 um passo mais avan\u00e7ado, e <span class="ph">[Student Name]</span> est\u00e1 mostrando um bom esfor\u00e7o para domin\u00e1-los.&quot;, &quot;home_action&quot;: &quot;Ao planejar o tempo para um dever de casa, se geralmente leva 30 minutos e hoje voc\u00ea precisa de &#x27;1 1/2 vezes&#x27; esse tempo, pergunte a <span class="ph">[Student Name]</span> quanto tempo total ser\u00e1. Discutam por que &#x27;1 1/2&#x27; significa mais tempo.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos entender a &#x27;Comparação de Escala&#x27; de forma simples, como se você nunca tivesse ouvido falar. Imagine que é uma ferramenta para entender como as quantidades mudam. <span class="ph">[they]</span> vai dominar isso e poderá ajudar <span class="ph">[Student Name]</span> com confiança!
+
+1.  <strong>O que é &#x27;Comparação de Escala&#x27;?</strong> É sobre entender se um número fica maior, menor ou igual quando você o multiplica por uma fração. Não é apenas fazer a conta, mas saber o que esperar do resultado.
+
+2.  <strong>O Fator Chave: A Fração.</strong> O truque é olhar para a fração pela qual você está multiplicando, e compará-la com o número 1.
+
+3.  <strong>Cenário 1: Fração MENOR que 1.</strong> Se você multiplica um número por uma fração como 1/2 ou 3/4, o resultado será MENOR que o número original.
+    <em>   </em>Exemplo adulto:<em> Você tem 3000 reais. Se você gastar &#x27;1/4&#x27; desse valor, gastou 750 reais, que é menos que 3000. Você pegou &#x27;uma parte&#x27;.
+
+4.  <strong>Cenário 2: Fração IGUAL a 1.</strong> Se você multiplica um número por uma fração como 2/2 ou 1, o resultado será IGUAL ao número original.
+    </em>   <em>Exemplo adulto:</em> Se um projeto tem 10 tarefas e você concluiu &#x27;1/1&#x27; das tarefas, ainda são 10 tarefas. O número não muda.
+
+5.  <strong>Cenário 3: Fração MAIOR que 1.</strong> Se você multiplica um número por uma fração como 3/2 (1 e 1/2) ou 5/4, o resultado será MAIOR que o número original.
+    <em>   </em>Exemplo adulto:* Você planeja um jantar para 4 pessoas. Se precisa de &#x27;1 1/2 vezes&#x27; a quantidade, fará para 6 pessoas (4 x 1.5), mais que as 4 originais.
+
+Com esses passos, <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> pode prever o resultado de qualquer multiplicação por fração! É uma habilidade muito útil.</div></div></div></div>
+</body>
+</html>

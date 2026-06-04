@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Positive and Negative Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.029<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Positive and Negative Numbers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.029</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Maria had $25 in her bank account. She deposited $10 and then withdrew $18. What is her current account balance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $23</div><div class="option"><span class="opt-letter">B.</span> $27</div><div class="option"><span class="opt-letter">C.</span> $17</div><div class="option"><span class="opt-letter">D.</span> $53</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial balance: $25. Deposited: +$10. Withdrew: -$18.</div>
+    <div class="step-exp">Starting amount is positive. Depositing money adds to the balance (positive change). Withdrawing money removes from the balance (negative change).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$25 + $10 = $35</div>
+    <div class="step-exp">Add the deposited amount to the initial balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$35 - $18 = $17</div>
+    <div class="step-exp">Subtract the withdrawn amount from the balance after the deposit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $17 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A football team gained 7 yards on one play and then lost 12 yards on the next play. What is the team&#x27;s total change in yardage?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -19 yards</div><div class="option"><span class="opt-letter">B.</span> 5 yards</div><div class="option"><span class="opt-letter">C.</span> -5 yards</div><div class="option"><span class="opt-letter">D.</span> 19 yards</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Gained 7 yards: +7. Lost 12 yards: -12.</div>
+    <div class="step-exp">Gaining yards is a positive change, and losing yards is a negative change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">7 + (-12) = 7 - 12 = -5</div>
+    <div class="step-exp">Combine the positive and negative changes. When adding a positive and a negative number, subtract their absolute values and keep the sign of the number with the larger absolute value.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -5 yards (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a freezer was -8°C. If the temperature increased by 5°C, what is the new temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -3°C</div><div class="option"><span class="opt-letter">B.</span> -13°C</div><div class="option"><span class="opt-letter">C.</span> 3°C</div><div class="option"><span class="opt-letter">D.</span> 13°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial temperature: -8°C. Increased by: +5°C.</div>
+    <div class="step-exp">A temperature below zero is represented by a negative number. An increase in temperature is a positive change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-8 + 5 = -3</div>
+    <div class="step-exp">Combine the initial negative temperature with the positive change. Subtract the absolute values (8 - 5 = 3) and keep the sign of the number with the larger absolute value, which is negative in this case.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -3°C (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A submarine is at a depth of 150 feet below sea level. It then ascends 75 feet. What is its new depth relative to sea level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 225 feet</div><div class="option"><span class="opt-letter">B.</span> -225 feet</div><div class="option"><span class="opt-letter">C.</span> -75 feet</div><div class="option"><span class="opt-letter">D.</span> 75 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">150 feet below sea level: -150 feet.</div>
+    <div class="step-exp">Depths below sea level are represented by negative numbers, with sea level being 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ascends 75 feet: +75 feet.</div>
+    <div class="step-exp">Ascending means moving upwards, which is a positive change in depth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-150 + 75 = -75</div>
+    <div class="step-exp">Add the initial depth and the change in depth. Subtract the smaller absolute value (75) from the larger absolute value (150) and keep the sign of the number with the larger absolute value (-150).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -75 feet (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">On a math test, correct answers are worth 8 points and incorrect answers are worth -3 points. Sarah answered 15 questions correctly and 5 questions incorrectly. What is her total score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 90 points</div><div class="option"><span class="opt-letter">B.</span> 135 points</div><div class="option"><span class="opt-letter">C.</span> 105 points</div><div class="option"><span class="opt-letter">D.</span> 135 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">15 correct answers * 8 points/answer = 120 points.</div>
+    <div class="step-exp">Multiply the number of correct answers by the points for each correct answer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5 incorrect answers * -3 points/answer = -15 points.</div>
+    <div class="step-exp">Multiply the number of incorrect answers by the points for each incorrect answer (which is a negative value).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">120 + (-15) = 120 - 15 = 105.</div>
+    <div class="step-exp">Add the points from correct answers and the points from incorrect answers to find the total score. Adding a negative is equivalent to subtracting.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 105 points (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction site has an initial elevation of 20 feet above sea level. Workers dig down 35 feet for a foundation, and then build up 10 feet for the first floor. What is the final elevation of the first floor relative to sea level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 65 feet</div><div class="option"><span class="opt-letter">B.</span> -5 feet</div><div class="option"><span class="opt-letter">C.</span> -45 feet</div><div class="option"><span class="opt-letter">D.</span> 5 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial elevation: +20 feet. Dig down: -35 feet. Build up: +10 feet.</div>
+    <div class="step-exp">Above sea level is positive. Digging down is a negative change. Building up is a positive change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">20 + (-35) = 20 - 35 = -15 feet.</div>
+    <div class="step-exp">Combine the initial elevation with the first change (digging down).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-15 + 10 = -5 feet.</div>
+    <div class="step-exp">Combine the result from the previous step with the second change (building up).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -5 feet (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An ancient civilization began in 450 BCE and ended in 210 CE. How many years did this civilization exist? (Note: There is no year 0 between 1 BCE and 1 CE).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 650 years</div><div class="option"><span class="opt-letter">B.</span> 659 years</div><div class="option"><span class="opt-letter">C.</span> 240 years</div><div class="option"><span class="opt-letter">D.</span> 660 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">450 BCE can be thought of as -450. 210 CE is +210.</div>
+    <div class="step-exp">In timelines, BCE years are often treated as negative and CE years as positive, with the transition point around year 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The span from -450 to +210 is 210 - (-450) = 210 + 450 = 660 years.</div>
+    <div class="step-exp">To find the duration between a negative and a positive point, subtract the earlier year from the later year. Subtracting a negative is equivalent to adding a positive.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since there is no year 0, subtract 1 from the total span: 660 - 1 = 659 years.</div>
+    <div class="step-exp">When calculating years across BCE/CE, the mathematical subtraction counts year 0, which does not exist in historical calendars. Therefore, one year must be subtracted from the sum of the absolute values of the BCE and CE years.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 659 years (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Over three months, a patient&#x27;s weight changed as follows: lost 5 kg, gained 3 kg, and then lost another 7 kg. If their initial weight was 72 kg, what is their final weight?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 81 kg</div><div class="option"><span class="opt-letter">B.</span> 63 kg</div><div class="option"><span class="opt-letter">C.</span> 57 kg</div><div class="option"><span class="opt-letter">D.</span> 87 kg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Lost 5 kg: -5. Gained 3 kg: +3. Lost another 7 kg: -7.</div>
+    <div class="step-exp">Weight loss is a negative change, and weight gain is a positive change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-5 + 3 + (-7) = -2 + (-7) = -9 kg.</div>
+    <div class="step-exp">Sum the individual changes. First, combine -5 and 3 to get -2. Then, combine -2 and -7 to get -9.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Initial weight + total change = 72 + (-9) = 72 - 9 = 63 kg.</div>
+    <div class="step-exp">Add the total weight change to the patient&#x27;s initial weight. Adding a negative is the same as subtracting.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 63 kg (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town was 12,500 at the beginning of the year. Over the year, it increased by 350, then decreased by 180, and finally increased by 95. What was the town&#x27;s population at the end of the year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12,475</div><div class="option"><span class="opt-letter">B.</span> 12,385</div><div class="option"><span class="opt-letter">C.</span> 12,945</div><div class="option"><span class="opt-letter">D.</span> 12,765</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Increased by 350: +350. Decreased by 180: -180. Increased by 95: +95.</div>
+    <div class="step-exp">Population increases are positive changes, and decreases are negative changes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">350 + (-180) + 95 = 170 + 95 = 265.</div>
+    <div class="step-exp">Sum the individual changes. First, combine 350 and -180 to get 170. Then, combine 170 and 95 to get 265.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Initial population + total change = 12,500 + 265 = 12,765.</div>
+    <div class="step-exp">Add the total population change to the initial population.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12,765 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A mobile phone plan starts with 20 GB of data. In the first week, the user downloaded 12 GB. In the second week, they used 7 GB. Then, they received a bonus of 5 GB for a promotion. What is the user&#x27;s current data balance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 GB</div><div class="option"><span class="opt-letter">B.</span> 44 GB</div><div class="option"><span class="opt-letter">C.</span> 10 GB</div><div class="option"><span class="opt-letter">D.</span> -4 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial data: +20 GB. Downloaded: -12 GB. Used: -7 GB. Bonus: +5 GB.</div>
+    <div class="step-exp">Starting data is positive. Downloading and using data are negative changes. Receiving a bonus is a positive change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(-12) + (-7) + 5 = -19 + 5 = -14 GB.</div>
+    <div class="step-exp">Sum the individual changes. First, combine -12 and -7 to get -19. Then, combine -19 and 5 to get -14.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Initial data + total change = 20 + (-14) = 20 - 14 = 6 GB.</div>
+    <div class="step-exp">Add the total data change to the initial data. Adding a negative is the same as subtracting.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 GB (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

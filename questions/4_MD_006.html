@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Measurement Word Problems: Mixed</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 4 | MD | Skill 4.MD.006<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Measurement Word Problems: Mixed</h1>
+<p class="skill-subtitle">Skill ID: 4.MD.006</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">For a school play, 3 students each brought 0.5 liters of juice. How much juice did they bring in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.8 liters</div><div class="option"><span class="opt-letter">B.</span> 1.5 liters</div><div class="option"><span class="opt-letter">C.</span> 3.5 liters</div><div class="option"><span class="opt-letter">D.</span> 0.15 liters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Amount per student = 0.5 liters</div>
+    <div class="step-exp">Identify the amount of juice each student brought.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of students = 3</div>
+    <div class="step-exp">Identify the number of students who brought juice.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total juice = 0.5 liters * 3 = 1.5 liters</div>
+    <div class="step-exp">Multiply the amount per student by the number of students to find the total juice.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5 liters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef used 1/4 of a kilogram of salt for a recipe. If the recipe called for 3 times that amount, how much salt did the chef actually need?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 kilogram</div><div class="option"><span class="opt-letter">B.</span> 1/12 kilogram</div><div class="option"><span class="opt-letter">C.</span> 3/4 kilogram</div><div class="option"><span class="opt-letter">D.</span> 4/3 kilogram</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Amount of salt used = 1/4 kilogram</div>
+    <div class="step-exp">Identify the initial amount of salt used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 3</div>
+    <div class="step-exp">Identify how many times more salt was needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total salt needed = 1/4 kilogram * 3 = 3/4 kilogram</div>
+    <div class="step-exp">Multiply the initial amount by the multiplier to find the total salt needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3/4 kilogram (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker had 7.25 meters of electrical wire. He used 3.5 meters for a lighting fixture. How much wire does he have left?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4.25 meters</div><div class="option"><span class="opt-letter">B.</span> 3.75 meters</div><div class="option"><span class="opt-letter">C.</span> 10.75 meters</div><div class="option"><span class="opt-letter">D.</span> 4.35 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total wire = 7.25 meters</div>
+    <div class="step-exp">Identify the initial total length of the wire.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Wire used = 3.5 meters</div>
+    <div class="step-exp">Identify the amount of wire used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Wire left = 7.25 meters - 3.5 meters = 3.75 meters</div>
+    <div class="step-exp">Subtract the used wire from the total wire to find the remaining length.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3.75 meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah earned $24.75 by walking dogs. She spent 1/3 of her earnings on a new leash. How much money did she spend on the leash?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $74.25</div><div class="option"><span class="opt-letter">B.</span> $8.25</div><div class="option"><span class="opt-letter">C.</span> $16.50</div><div class="option"><span class="opt-letter">D.</span> $24.75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total earnings = $24.75</div>
+    <div class="step-exp">Identify the total amount of money Sarah earned.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction spent = 1/3</div>
+    <div class="step-exp">Identify the fraction of her earnings spent on the leash.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Money spent = $24.75 * 1/3</div>
+    <div class="step-exp">Multiply her total earnings by the fraction spent to find the amount spent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Money spent = $24.75 / 3 = $8.25</div>
+    <div class="step-exp">Divide the total earnings by 3 to find 1/3 of the amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $8.25 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist had 5.4 grams of a chemical compound. She divided it equally among 4 test tubes. How many grams of the compound are in each test tube?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 21.6 grams</div><div class="option"><span class="opt-letter">B.</span> 5.8 grams</div><div class="option"><span class="opt-letter">C.</span> 13.5 grams</div><div class="option"><span class="opt-letter">D.</span> 1.35 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total compound = 5.4 grams</div>
+    <div class="step-exp">Identify the total mass of the chemical compound.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of test tubes = 4</div>
+    <div class="step-exp">Identify the number of test tubes the compound is divided among.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compound per test tube = 5.4 grams / 4</div>
+    <div class="step-exp">Divide the total compound by the number of test tubes to find the amount in each.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Compound per test tube = 1.35 grams</div>
+    <div class="step-exp">Perform the division to get the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.35 grams (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completed a race in 1 and 1/2 hours. Another runner finished 0.75 hours faster. What was the second runner&#x27;s finish time?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.25 hours</div><div class="option"><span class="opt-letter">B.</span> 1.45 hours</div><div class="option"><span class="opt-letter">C.</span> 0.75 hours</div><div class="option"><span class="opt-letter">D.</span> 0.85 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First runner&#x27;s time = 1 and 1/2 hours = 1.5 hours</div>
+    <div class="step-exp">Convert the first runner&#x27;s time from a mixed number to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time faster = 0.75 hours</div>
+    <div class="step-exp">Identify how much faster the second runner finished.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Second runner&#x27;s time = 1.5 hours - 0.75 hours</div>
+    <div class="step-exp">Subtract the &#x27;time faster&#x27; from the first runner&#x27;s time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Second runner&#x27;s time = 0.75 hours</div>
+    <div class="step-exp">Perform the subtraction to find the second runner&#x27;s finish time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.75 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A remote-controlled car travels 4.8 kilometers in 1/4 of an hour. If it continues at the same speed, how far will it travel in 1 hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4.8 kilometers</div><div class="option"><span class="opt-letter">B.</span> 9.6 kilometers</div><div class="option"><span class="opt-letter">C.</span> 19.2 kilometers</div><div class="option"><span class="opt-letter">D.</span> 1.2 kilometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance = 4.8 kilometers</div>
+    <div class="step-exp">Identify the distance traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time = 1/4 hour = 0.25 hours</div>
+    <div class="step-exp">Identify the time taken and convert the fraction to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distance in 1 hour = Distance / Time_fraction</div>
+    <div class="step-exp">To find the distance in 1 hour, divide the distance by the fraction of an hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Distance in 1 hour = 4.8 kilometers / (1/4) = 4.8 * 4</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Distance in 1 hour = 19.2 kilometers</div>
+    <div class="step-exp">Perform the multiplication to get the total distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 19.2 kilometers (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population consumes 0.75 million liters of water each day. If a new water treatment plant can supply 1/5 of that amount, how many liters of water can the new plant supply daily?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 150,000 liters</div><div class="option"><span class="opt-letter">B.</span> 75,000 liters</div><div class="option"><span class="opt-letter">C.</span> 15,000 liters</div><div class="option"><span class="opt-letter">D.</span> 3,750,000 liters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total daily consumption = 0.75 million liters = 750,000 liters</div>
+    <div class="step-exp">Convert the total daily consumption from millions to standard numerical form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction supplied by new plant = 1/5</div>
+    <div class="step-exp">Identify the fraction of water the new plant can supply.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Supply of new plant = 750,000 liters * 1/5</div>
+    <div class="step-exp">Multiply the total consumption by the fraction supplied to find the new plant&#x27;s capacity.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Supply of new plant = 750,000 / 5 = 150,000 liters</div>
+    <div class="step-exp">Perform the division to find the amount of water supplied by the new plant.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 150,000 liters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A technician charges $65.50 per hour for repairs. If a repair took 2.5 hours, how much would the technician charge for labor?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $163.75</div><div class="option"><span class="opt-letter">B.</span> $16.375</div><div class="option"><span class="opt-letter">C.</span> $131.00</div><div class="option"><span class="opt-letter">D.</span> $68.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Hourly rate = $65.50</div>
+    <div class="step-exp">Identify the technician&#x27;s hourly rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Hours worked = 2.5 hours</div>
+    <div class="step-exp">Identify the total hours spent on the repair.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total charge = $65.50 * 2.5</div>
+    <div class="step-exp">Multiply the hourly rate by the hours worked to find the total labor charge.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total charge = $163.75</div>
+    <div class="step-exp">Perform the multiplication to get the final amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $163.75 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 4 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An online store processed 36 orders in 1/4 of a day. If it processes orders at a constant rate, how many orders will it process in 3/4 of a day?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 72 orders</div><div class="option"><span class="opt-letter">B.</span> 48 orders</div><div class="option"><span class="opt-letter">C.</span> 9 orders</div><div class="option"><span class="opt-letter">D.</span> 108 orders</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Orders in 1/4 day = 36 orders</div>
+    <div class="step-exp">Identify the number of orders processed in the given fraction of a day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Orders per 1/4 day = 36</div>
+    <div class="step-exp">This tells us the rate for each 1/4 day segment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 3/4 day</div>
+    <div class="step-exp">Identify the total time for which we need to calculate orders.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Number of 1/4 day segments in 3/4 day = (3/4) / (1/4) = 3</div>
+    <div class="step-exp">Determine how many 1/4 day segments are in 3/4 of a day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total orders = Orders per 1/4 day * Number of segments</div>
+    <div class="step-exp">Multiply the orders per segment by the number of segments to find the total orders.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Total orders = 36 * 3 = 108 orders</div>
+    <div class="step-exp">Perform the multiplication to get the final count of orders.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 108 orders (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

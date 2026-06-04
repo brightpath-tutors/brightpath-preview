@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Equivalent Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.007<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Equivalent Expressions</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.007</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah buys 2 bags of candy and 3 boxes of crackers. Each bag of candy costs &#x27;c&#x27; dollars and each box of crackers costs &#x27;r&#x27; dollars. Later, she buys 1 more bag of candy. Which expression represents the total cost of her purchases?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2c + 4r</div><div class="option"><span class="opt-letter">B.</span> 6cr</div><div class="option"><span class="opt-letter">C.</span> 3c + 6r</div><div class="option"><span class="opt-letter">D.</span> 3c + 3r</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial expression: 2c + 3r + c</div>
+    <div class="step-exp">Sarah buys 2 bags of candy (2c), 3 boxes of crackers (3r), and then 1 more bag of candy (c).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(2c + c) + 3r</div>
+    <div class="step-exp">Group the like terms, which are the terms involving &#x27;c&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3c + 3r</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;c&#x27; terms (2 + 1 = 3). The &#x27;3r&#x27; term remains as there are no other &#x27;r&#x27; terms to combine with.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3c + 3r (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A coach tracks the total points scored by two players, Alex and Ben, in a game. Alex scores &#x27;p&#x27; points and Ben scores &#x27;q&#x27; points. In the next game, Alex scores &#x27;p&#x27; points again, and Ben scores &#x27;q&#x27; points, plus 5 more points from free throws. Which expression represents the total points scored by both players over both games?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p + q + 5</div><div class="option"><span class="opt-letter">B.</span> 2p + 2q + 5</div><div class="option"><span class="opt-letter">C.</span> 4pq + 5</div><div class="option"><span class="opt-letter">D.</span> 2p + 7q</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial expression: (p + q) + (p + q + 5)</div>
+    <div class="step-exp">The points from the first game are (p + q). The points from the second game are (p + q + 5).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">p + q + p + q + 5</div>
+    <div class="step-exp">Remove the parentheses as addition is associative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(p + p) + (q + q) + 5</div>
+    <div class="step-exp">Group the like terms together: &#x27;p&#x27; terms, &#x27;q&#x27; terms, and the constant.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2p + 2q + 5</div>
+    <div class="step-exp">Combine the like terms (p + p = 2p and q + q = 2q). The constant 5 remains.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2p + 2q + 5 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preparing 3 identical batches of mini quiches. Each batch requires &#x27;e&#x27; eggs and 4 ounces of cheese. Which expression represents the total amount of eggs and cheese needed for all 3 batches?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> e + 12</div><div class="option"><span class="opt-letter">B.</span> 3e + 7</div><div class="option"><span class="opt-letter">C.</span> 3e + 4</div><div class="option"><span class="opt-letter">D.</span> 3e + 12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial expression: 3(e + 4)</div>
+    <div class="step-exp">Each batch needs &#x27;e&#x27; eggs and 4 ounces of cheese, represented as (e + 4). Since there are 3 identical batches, multiply the sum by 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3 <em> e + 3 </em> 4</div>
+    <div class="step-exp">Apply the distributive property by multiplying 3 by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3e + 12</div>
+    <div class="step-exp">Perform the multiplications.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3e + 12 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student has 4 textbooks, each weighing &#x27;w&#x27; pounds. He also has 3 notebooks, each weighing 1 pound. After a week, his teacher assigns 2 more textbooks, each weighing &#x27;w&#x27; pounds. Which expression represents the total weight of his textbooks and notebooks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9w</div><div class="option"><span class="opt-letter">B.</span> 6w + 6</div><div class="option"><span class="opt-letter">C.</span> 6w + 3</div><div class="option"><span class="opt-letter">D.</span> 10w</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial expression: 4w + 3(1) + 2w</div>
+    <div class="step-exp">He has 4 textbooks (4w), 3 notebooks (3*1), and then 2 more textbooks (2w).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4w + 3 + 2w</div>
+    <div class="step-exp">Simplify the constant term: 3 * 1 = 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(4w + 2w) + 3</div>
+    <div class="step-exp">Group the like terms (terms with &#x27;w&#x27;) together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">6w + 3</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;w&#x27; terms (4 + 2 = 6). The constant 3 remains.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6w + 3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist is mixing two compounds. He has &#x27;x&#x27; grams of Compound A and 4 grams of Compound B. He prepares 5 identical mixtures. Then he adds an additional &#x27;x&#x27; grams of Compound A to one of the mixtures. Which expression represents the total mass of chemicals in all mixtures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6x + 4</div><div class="option"><span class="opt-letter">B.</span> 5x + 20</div><div class="option"><span class="opt-letter">C.</span> 6x + 20</div><div class="option"><span class="opt-letter">D.</span> 5x + 24</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial expression: 5(x + 4) + x</div>
+    <div class="step-exp">Each mixture has (x + 4) grams. He prepares 5 such mixtures, so 5(x + 4). He then adds an additional &#x27;x&#x27; grams.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5x + 5 * 4 + x</div>
+    <div class="step-exp">Apply the distributive property to 5(x + 4), multiplying 5 by &#x27;x&#x27; and by &#x27;4&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5x + 20 + x</div>
+    <div class="step-exp">Perform the multiplication: 5 * 4 = 20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(5x + x) + 20</div>
+    <div class="step-exp">Group the like terms (terms with &#x27;x&#x27;) together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">6x + 20</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;x&#x27; terms (5 + 1 = 6). The constant 20 remains.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6x + 20 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to order &#x27;b&#x27; bundles of wood planks and 7 bags of nails for a project. For another identical project, he needs &#x27;b&#x27; bundles of wood planks and 3 bags of nails. He is working on 2 such sets of projects simultaneously. Which expression represents the total number of wood bundles and bags of nails he needs?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4b + 10</div><div class="option"><span class="opt-letter">B.</span> 4b + 20</div><div class="option"><span class="opt-letter">C.</span> 4b + 14</div><div class="option"><span class="opt-letter">D.</span> 2b + 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Expression for one set of projects: (b + 7) + (b + 3)</div>
+    <div class="step-exp">One project requires (b + 7) and the other identical project requires (b + 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Simplify one set: b + 7 + b + 3 = 2b + 10</div>
+    <div class="step-exp">Combine like terms (b + b = 2b) and constants (7 + 3 = 10).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total expression: 2 * (2b + 10)</div>
+    <div class="step-exp">Since he is working on 2 such sets simultaneously, multiply the simplified expression for one set by 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2 <em> 2b + 2 </em> 10</div>
+    <div class="step-exp">Apply the distributive property, multiplying 2 by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">4b + 20</div>
+    <div class="step-exp">Perform the multiplications.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4b + 20 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project takes &#x27;h&#x27; hours to complete each day. For the first 3 days, a team works &#x27;h&#x27; hours each day. For the next 2 days, they work &#x27;h&#x27; hours plus an additional 5 hours each day. Which expression represents the total hours spent on the project?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5h + 10</div><div class="option"><span class="opt-letter">B.</span> 10h</div><div class="option"><span class="opt-letter">C.</span> 5h + 5</div><div class="option"><span class="opt-letter">D.</span> 3h + 2h + 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial expression: 3h + 2(h + 5)</div>
+    <div class="step-exp">For the first 3 days, they work 3h. For the next 2 days, they work 2 times (h + 5) hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3h + 2 <em> h + 2 </em> 5</div>
+    <div class="step-exp">Apply the distributive property to 2(h + 5), multiplying 2 by &#x27;h&#x27; and by &#x27;5&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3h + 2h + 10</div>
+    <div class="step-exp">Perform the multiplications.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(3h + 2h) + 10</div>
+    <div class="step-exp">Group the like terms (terms with &#x27;h&#x27;) together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">5h + 10</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;h&#x27; terms (3 + 2 = 5). The constant 10 remains.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5h + 10 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car rental company charges &#x27;d&#x27; dollars per day plus a flat fee of 15 dollars. A customer rents a car for 3 days. Another customer rents a car for 5 days, but gets a 2-dollar discount per day. Which expression represents the total cost for both customers?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8d + 13</div><div class="option"><span class="opt-letter">B.</span> 8d + 55</div><div class="option"><span class="opt-letter">C.</span> 8d + 47</div><div class="option"><span class="opt-letter">D.</span> 8d + 35</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost for first customer: 3(d + 15)</div>
+    <div class="step-exp">First customer rents for 3 days. Each day costs &#x27;d&#x27; dollars plus a $15 flat fee, so (d + 15).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cost for second customer: 5(d - 2)</div>
+    <div class="step-exp">Second customer rents for 5 days. Each day costs &#x27;d&#x27; dollars minus a $2 discount, so (d - 2).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total expression: 3(d + 15) + 5(d - 2)</div>
+    <div class="step-exp">Add the costs for both customers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(3 <em> d + 3 </em> 15) + (5 <em> d - 5 </em> 2)</div>
+    <div class="step-exp">Apply the distributive property to both terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">3d + 45 + 5d - 10</div>
+    <div class="step-exp">Perform the multiplications.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">(3d + 5d) + (45 - 10)</div>
+    <div class="step-exp">Group the like terms (terms with &#x27;d&#x27;) and constants together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">8d + 35</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;d&#x27; terms (3 + 5 = 8) and combine the constants (45 - 10 = 35).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8d + 35 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population is represented by &#x27;p&#x27;. Due to a new housing development, the population is expected to increase by 100 people. This increase is then doubled due to new businesses. At the same time, another nearby town, which also started with &#x27;p&#x27; people, experiences a decrease of 20 people, and this decrease is tripled due to migration. Which expression represents the total combined population of both towns after these changes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5p + 80</div><div class="option"><span class="opt-letter">B.</span> 5p + 260</div><div class="option"><span class="opt-letter">C.</span> 5p + 180</div><div class="option"><span class="opt-letter">D.</span> 5p + 140</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Population of first town: 2(p + 100)</div>
+    <div class="step-exp">Initial population &#x27;p&#x27; increases by 100, then this new total is doubled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Population of second town: 3(p - 20)</div>
+    <div class="step-exp">Initial population &#x27;p&#x27; decreases by 20, then this new total is tripled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total combined population: 2(p + 100) + 3(p - 20)</div>
+    <div class="step-exp">Add the expressions for both towns.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(2 <em> p + 2 </em> 100) + (3 <em> p - 3 </em> 20)</div>
+    <div class="step-exp">Apply the distributive property to both terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">2p + 200 + 3p - 60</div>
+    <div class="step-exp">Perform the multiplications.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">(2p + 3p) + (200 - 60)</div>
+    <div class="step-exp">Group the like terms (terms with &#x27;p&#x27;) and constants together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">5p + 140</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;p&#x27; terms (2 + 3 = 5) and combine the constants (200 - 60 = 140).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5p + 140 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company sells two types of apps. Let &#x27;p&#x27; be the price of a premium app and &#x27;s&#x27; be the price of a standard app. For Bundle A, they sell 3 premium apps and 2 standard apps, with a $2 discount on each premium app. For Bundle B, they sell 5 premium apps and 4 standard apps, with a $1 discount on each standard app. Which expression represents the total revenue from both bundles?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8p + 6s + 10</div><div class="option"><span class="opt-letter">B.</span> 8p + 6s - 3</div><div class="option"><span class="opt-letter">C.</span> 8p + 6s - 10</div><div class="option"><span class="opt-letter">D.</span> 8p + 6s - 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Revenue from Bundle A: 3(p - 2) + 2s</div>
+    <div class="step-exp">3 premium apps at (p - 2) each, plus 2 standard apps at &#x27;s&#x27; each.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Revenue from Bundle B: 5p + 4(s - 1)</div>
+    <div class="step-exp">5 premium apps at &#x27;p&#x27; each, plus 4 standard apps at (s - 1) each.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total revenue: (3(p - 2) + 2s) + (5p + 4(s - 1))</div>
+    <div class="step-exp">Add the revenue expressions for both bundles.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3p - 3 <em> 2 + 2s + 5p + 4 </em> s - 4 * 1</div>
+    <div class="step-exp">Apply the distributive property to 3(p - 2) and 4(s - 1).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">3p - 6 + 2s + 5p + 4s - 4</div>
+    <div class="step-exp">Perform the multiplications.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">(3p + 5p) + (2s + 4s) + (-6 - 4)</div>
+    <div class="step-exp">Group the like terms (terms with &#x27;p&#x27;, terms with &#x27;s&#x27;, and constants) together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">8p + 6s - 10</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;p&#x27; terms (3 + 5 = 8), &#x27;s&#x27; terms (2 + 4 = 6), and constants (-6 - 4 = -10).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8p + 6s - 10 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

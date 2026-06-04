@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Systems of Linear Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.029<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Systems of Linear Equations</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.029</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Clara bought 2 toy cars and 3 toy planes for a total of $26. Each toy car costs $4. How much does each toy plane cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $4</div><div class="option"><span class="opt-letter">B.</span> $5</div><div class="option"><span class="opt-letter">C.</span> $7</div><div class="option"><span class="opt-letter">D.</span> $6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;c&#x27; be the cost of one toy car and &#x27;p&#x27; be the cost of one toy plane.
+Equation 1 (total cost): 2c + 3p = 26
+Equation 2 (cost of a car): c = 4</div>
+    <div class="step-exp">We use two variables to represent the unknown costs and form two equations based on the given information.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Substitute c = 4 into Equation 1:
+2(4) + 3p = 26</div>
+    <div class="step-exp">Since we know the cost of a toy car, we can replace &#x27;c&#x27; with &#x27;4&#x27; in the total cost equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8 + 3p = 26
+3p = 26 - 8
+3p = 18
+p = 18 / 3
+p = 6</div>
+    <div class="step-exp">First, multiply 2 by 4. Then, subtract 8 from both sides to isolate the term with &#x27;p&#x27;. Finally, divide by 3 to find the value of &#x27;p&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $6 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, Liam scored 21 points. He made a total of 10 baskets, consisting of 2-point shots and 3-point shots. How many 2-point shots did Liam make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9 shots</div><div class="option"><span class="opt-letter">B.</span> 10 shots</div><div class="option"><span class="opt-letter">C.</span> 7 shots</div><div class="option"><span class="opt-letter">D.</span> 1 shot</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the number of 2-point shots and &#x27;y&#x27; be the number of 3-point shots.
+Equation 1 (total points): 2x + 3y = 21
+Equation 2 (total baskets): x + y = 10</div>
+    <div class="step-exp">We create two equations based on the points scored and the total number of baskets.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">From Equation 2, isolate &#x27;y&#x27;:
+y = 10 - x</div>
+    <div class="step-exp">This prepares the expression for substitution into the other equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute y = 10 - x into Equation 1:
+2x + 3(10 - x) = 21
+2x + 30 - 3x = 21
+-x + 30 = 21
+-x = 21 - 30
+-x = -9
+x = 9</div>
+    <div class="step-exp">Distribute the 3, combine like terms, and then solve the resulting one-variable equation for &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Liam made 9 two-point shots.</div>
+    <div class="step-exp">The question asked for the number of 2-point shots, which is &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9 shots (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for a total of 12 teaspoons of spices, which is a mix of salt and pepper. The amount of salt needed is twice the amount of pepper. How many teaspoons of salt are needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 teaspoons</div><div class="option"><span class="opt-letter">B.</span> 6 teaspoons</div><div class="option"><span class="opt-letter">C.</span> 8 teaspoons</div><div class="option"><span class="opt-letter">D.</span> 10 teaspoons</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;s&#x27; be the amount of salt and &#x27;p&#x27; be the amount of pepper (both in teaspoons).
+Equation 1 (total spices): s + p = 12
+Equation 2 (salt relative to pepper): s = 2p</div>
+    <div class="step-exp">We translate the problem&#x27;s conditions into two algebraic equations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Substitute s = 2p into Equation 1:
+2p + p = 12</div>
+    <div class="step-exp">Since &#x27;s&#x27; is already defined in terms of &#x27;p&#x27;, we can replace &#x27;s&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3p = 12
+p = 12 / 3
+p = 4</div>
+    <div class="step-exp">Combine the &#x27;p&#x27; terms, then divide by the coefficient to find the amount of pepper.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute p = 4 into Equation 2:
+s = 2 * 4
+s = 8</div>
+    <div class="step-exp">Now that we know &#x27;p&#x27;, we can easily find &#x27;s&#x27; using the second equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 teaspoons (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car and a motorcycle traveled a total distance of 330 miles. The car traveled 50 miles per hour for &#x27;h&#x27; hours, and the motorcycle traveled 60 miles per hour for the same &#x27;h&#x27; hours. How many hours did they travel?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.5 hours</div><div class="option"><span class="opt-letter">B.</span> 2 hours</div><div class="option"><span class="opt-letter">C.</span> 3 hours</div><div class="option"><span class="opt-letter">D.</span> 2.5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;h&#x27; be the number of hours they traveled.
+Let &#x27;d_c&#x27; be the distance the car traveled and &#x27;d_m&#x27; be the distance the motorcycle traveled.
+Equation 1 (distance for car): d_c = 50h
+Equation 2 (distance for motorcycle): d_m = 60h
+Equation 3 (total distance): d_c + d_m = 330</div>
+    <div class="step-exp">We use &#x27;h&#x27; for time and separate variables for each vehicle&#x27;s distance, then form equations based on rate x time = distance and total distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Substitute d_c = 50h and d_m = 60h into Equation 3:
+50h + 60h = 330</div>
+    <div class="step-exp">This step combines the information into a single equation with only one variable, &#x27;h&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">110h = 330
+h = 330 / 110
+h = 3</div>
+    <div class="step-exp">Combine like terms (the &#x27;h&#x27; terms), then divide by the coefficient to find the number of hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school held a fundraiser selling tickets. Adult tickets cost $10 each and student tickets cost $6 each. They sold a total of 50 tickets and collected $420. How many adult tickets were sold?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 adult tickets</div><div class="option"><span class="opt-letter">B.</span> 15 adult tickets</div><div class="option"><span class="opt-letter">C.</span> 30 adult tickets</div><div class="option"><span class="opt-letter">D.</span> 35 adult tickets</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;a&#x27; be the number of adult tickets and &#x27;s&#x27; be the number of student tickets.
+Equation 1 (total tickets): a + s = 50
+Equation 2 (total money collected): 10a + 6s = 420</div>
+    <div class="step-exp">We use &#x27;a&#x27; and &#x27;s&#x27; for the number of each type of ticket and set up equations based on the total quantity and total value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">From Equation 1, isolate &#x27;s&#x27;:
+s = 50 - a</div>
+    <div class="step-exp">This makes it easy to substitute into the second equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute s = 50 - a into Equation 2:
+10a + 6(50 - a) = 420
+10a + 300 - 6a = 420
+4a + 300 = 420
+4a = 420 - 300
+4a = 120
+a = 120 / 4
+a = 30</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then solve the resulting one-variable equation for &#x27;a&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">30 adult tickets were sold.</div>
+    <div class="step-exp">The question specifically asked for the number of adult tickets, which is &#x27;a&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 adult tickets (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist is mixing two solutions. Solution A is 10% acid and Solution B is 30% acid. She wants to create 500 ml of a solution that is 18% acid. How many milliliters of Solution A should she use?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 350 ml</div><div class="option"><span class="opt-letter">B.</span> 300 ml</div><div class="option"><span class="opt-letter">C.</span> 250 ml</div><div class="option"><span class="opt-letter">D.</span> 200 ml</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;a&#x27; be the volume (in ml) of Solution A and &#x27;b&#x27; be the volume (in ml) of Solution B.
+Equation 1 (total volume): a + b = 500
+Equation 2 (total amount of acid): 0.10a + 0.30b = 0.18 * 500
+Simplify Equation 2: 0.10a + 0.30b = 90</div>
+    <div class="step-exp">We set up equations for the total volume of the mixture and the total amount of acid contributed by each solution.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">From Equation 1, isolate &#x27;b&#x27;:
+b = 500 - a</div>
+    <div class="step-exp">This allows for substitution into the second equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute b = 500 - a into 0.10a + 0.30b = 90:
+0.10a + 0.30(500 - a) = 90
+0.10a + 150 - 0.30a = 90
+-0.20a + 150 = 90
+-0.20a = 90 - 150
+-0.20a = -60
+a = -60 / -0.20
+a = 300</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and solve the resulting one-variable equation for &#x27;a&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The chemist should use 300 ml of Solution A.</div>
+    <div class="step-exp">The question asked for the amount of Solution A, which is &#x27;a&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 300 ml (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew is laying bricks. Worker A lays 20 bricks per hour, and Worker B lays 25 bricks per hour. Together, they laid a total of 180 bricks in &#x27;h&#x27; hours. How many hours did they work?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 hours</div><div class="option"><span class="opt-letter">B.</span> 5 hours</div><div class="option"><span class="opt-letter">C.</span> 4 hours</div><div class="option"><span class="opt-letter">D.</span> 3.5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;h&#x27; be the number of hours they worked.
+Let &#x27;b_A&#x27; be the bricks laid by Worker A and &#x27;b_B&#x27; be the bricks laid by Worker B.
+Equation 1 (bricks by A): b_A = 20h
+Equation 2 (bricks by B): b_B = 25h
+Equation 3 (total bricks): b_A + b_B = 180</div>
+    <div class="step-exp">We use &#x27;h&#x27; for time and separate variables for bricks laid by each worker, forming equations based on rate x time = total work and total bricks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Substitute b_A = 20h and b_B = 25h into Equation 3:
+20h + 25h = 180</div>
+    <div class="step-exp">This step combines the information into a single equation with only one variable, &#x27;h&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">45h = 180
+h = 180 / 45
+h = 4</div>
+    <div class="step-exp">Combine like terms (the &#x27;h&#x27; terms), then divide by the coefficient to find the number of hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two machines are used to print flyers. Machine 1 can print 100 flyers per minute, and Machine 2 can print 150 flyers per minute. Machine 1 ran for &#x27;x&#x27; minutes and Machine 2 ran for &#x27;y&#x27; minutes. Together they printed 1600 flyers. If Machine 2 ran for 2 minutes longer than Machine 1, how many minutes did Machine 1 run?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.2 minutes</div><div class="option"><span class="opt-letter">B.</span> 4.8 minutes</div><div class="option"><span class="opt-letter">C.</span> 5 minutes</div><div class="option"><span class="opt-letter">D.</span> 5.5 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the time (in minutes) Machine 1 ran.
+Let &#x27;y&#x27; be the time (in minutes) Machine 2 ran.
+Equation 1 (total flyers): 100x + 150y = 1600
+Equation 2 (time relationship): y = x + 2</div>
+    <div class="step-exp">We use &#x27;x&#x27; and &#x27;y&#x27; for the running times of each machine and set up equations based on their printing rates and total output, and the given time difference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Substitute y = x + 2 into Equation 1:
+100x + 150(x + 2) = 1600</div>
+    <div class="step-exp">This reduces the system to a single equation with one variable &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">100x + 150x + 300 = 1600
+250x + 300 = 1600
+250x = 1600 - 300
+250x = 1300
+x = 1300 / 250
+x = 130 / 25
+x = 5.2</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, isolate the &#x27;x&#x27; term, and divide to find &#x27;x&#x27;. Simplify the fraction 130/25 by dividing both by 5, then convert to decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Machine 1 ran for 5.2 minutes.</div>
+    <div class="step-exp">The question asked for the time Machine 1 ran, which is &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5.2 minutes (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a wildlife sanctuary, the population of deer is currently 100 and increases by 10 deer per year. The population of wolves is currently 10 and increases by 3 wolves per year. In how many years will the deer population be exactly 4 times the wolf population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 years</div><div class="option"><span class="opt-letter">B.</span> 30 years</div><div class="option"><span class="opt-letter">C.</span> 20 years</div><div class="option"><span class="opt-letter">D.</span> 35 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;t&#x27; be the number of years from now.
+Let &#x27;d&#x27; be the deer population after &#x27;t&#x27; years.
+Let &#x27;w&#x27; be the wolf population after &#x27;t&#x27; years.
+Equation 1 (deer population): d = 100 + 10t
+Equation 2 (wolf population): w = 10 + 3t
+Equation 3 (relationship condition): d = 4w</div>
+    <div class="step-exp">We create expressions for the populations over time and a third equation representing the condition when the deer population is four times the wolf population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Substitute Equation 1 and Equation 2 into Equation 3:
+100 + 10t = 4(10 + 3t)</div>
+    <div class="step-exp">This forms a single equation with one variable, &#x27;t&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">100 + 10t = 40 + 12t
+100 - 40 = 12t - 10t
+60 = 2t
+t = 60 / 2
+t = 30</div>
+    <div class="step-exp">Apply the distributive property, gather &#x27;t&#x27; terms on one side and constants on the other, then solve for &#x27;t&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">In 30 years, the deer population will be 4 times the wolf population.</div>
+    <div class="step-exp">The question asked for the number of years, which is &#x27;t&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 years (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A mobile phone company offers two data plans. Plan A costs $35 per month plus $0.60 per GB of data used. Plan B costs $50 per month plus $0.30 per GB of data used. For how many gigabytes of data would the two plans cost the same?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 50 GB</div><div class="option"><span class="opt-letter">B.</span> 25 GB</div><div class="option"><span class="opt-letter">C.</span> 60 GB</div><div class="option"><span class="opt-letter">D.</span> 30 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;c&#x27; be the total cost per month.
+Let &#x27;g&#x27; be the number of gigabytes of data used.
+Equation 1 (Plan A cost): c = 35 + 0.60g
+Equation 2 (Plan B cost): c = 50 + 0.30g</div>
+    <div class="step-exp">We set up two equations representing the cost of each data plan based on a fixed monthly fee and a per-gigabyte charge.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since we want to find when the costs are the same, set Equation 1 equal to Equation 2:
+35 + 0.60g = 50 + 0.30g</div>
+    <div class="step-exp">This creates a single equation with one variable &#x27;g&#x27;, which can be solved.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.60g - 0.30g = 50 - 35
+0.30g = 15
+g = 15 / 0.30
+g = 150 / 3
+g = 50</div>
+    <div class="step-exp">Gather &#x27;g&#x27; terms on one side and constants on the other. Perform subtraction, then divide to find the value of &#x27;g&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The two plans would cost the same for 50 gigabytes of data.</div>
+    <div class="step-exp">The question asked for the number of gigabytes, which is &#x27;g&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 50 GB (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

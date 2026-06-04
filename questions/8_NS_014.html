@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Rational Numbers on Number Line</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | NS | Skill 8.NS.014<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Rational Numbers on Number Line</h1>
+<p class="skill-subtitle">Skill ID: 8.NS.014</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shopper has a gift card with a balance of $20.50. They purchase an item that costs $15.75. On a number line where 0 represents no balance, which point would represent their new balance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 36.25</div><div class="option"><span class="opt-letter">B.</span> 5.25</div><div class="option"><span class="opt-letter">C.</span> -4.75</div><div class="option"><span class="opt-letter">D.</span> 4.75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial balance = $20.50
+Cost of item = $15.75</div>
+    <div class="step-exp">The problem states the starting gift card balance and the amount spent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$20.50 - $15.75 = $4.75</div>
+    <div class="step-exp">Spending money reduces the balance, so subtraction is the correct operation. Align the decimal points and subtract: $20.50 - $15.75 = $4.75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The new balance is $4.75.</div>
+    <div class="step-exp">On a number line where 0 is the starting point, a positive balance of $4.75 would be located at the point 4.75 to the right of 0.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4.75 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A diver starts at sea level (0 meters). They dive to a depth of -4.8 meters. Then they ascend 2.3 meters. On a vertical number line where positive values are above sea level and negative values are below, which point represents the diver&#x27;s final position?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -2.5</div><div class="option"><span class="opt-letter">B.</span> 7.1</div><div class="option"><span class="opt-letter">C.</span> 2.5</div><div class="option"><span class="opt-letter">D.</span> -7.1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial dive depth = -4.8 meters
+Ascent = +2.3 meters</div>
+    <div class="step-exp">Diving below sea level is represented by a negative number, and ascending is represented by a positive number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-4.8 + 2.3 = -2.5 meters</div>
+    <div class="step-exp">To add numbers with different signs, subtract their absolute values (4.8 - 2.3 = 2.5) and keep the sign of the number with the larger absolute value (4.8 is negative, so the result is negative). Thus, -4.8 + 2.3 = -2.5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The final position is -2.5 meters.</div>
+    <div class="step-exp">On a vertical number line, -2.5 would be located 2.5 units below 0.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -2.5 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires 5/6 cup of milk. You currently have 1/3 cup of milk. How much more milk do you need? On a number line from 0 to 1, what fraction, in simplest form, represents the additional amount of milk needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4/3</div><div class="option"><span class="opt-letter">B.</span> 1/2</div><div class="option"><span class="opt-letter">C.</span> 6/9</div><div class="option"><span class="opt-letter">D.</span> 4/6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Required amount = 5/6 cup
+Available amount = 1/3 cup</div>
+    <div class="step-exp">The problem gives the two quantities that need to be compared.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Difference = 5/6 - 1/3</div>
+    <div class="step-exp">To find how much more is needed, subtract the available amount from the required amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The least common multiple of 6 and 3 is 6. Convert 1/3 to an equivalent fraction with a denominator of 6: 1/3 = (1 <em> 2) / (3 </em> 2) = 2/6.</div>
+    <div class="step-exp">Fractions can only be added or subtracted if they have the same denominator. The smallest common denominator for 6 and 3 is 6.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">5/6 - 2/6 = (5 - 2) / 6 = 3/6
+Simplify: 3/6 = 1/2</div>
+    <div class="step-exp">Subtract the numerators while keeping the common denominator. Then, simplify the resulting fraction by dividing both the numerator and the denominator by their greatest common divisor, which is 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The additional amount needed is 1/2 cup.</div>
+    <div class="step-exp">On a number line from 0 to 1, 1/2 is exactly halfway between 0 and 1.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/2 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a constant speed. In the first hour, it covers 72.8 miles. In the next 45 minutes, it covers an additional 54.35 miles. What is the total distance covered? On a number line starting from 0, which point represents the total distance covered?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 127.15</div><div class="option"><span class="opt-letter">B.</span> 126.15</div><div class="option"><span class="opt-letter">C.</span> 127.11</div><div class="option"><span class="opt-letter">D.</span> 12.715</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance 1 = 72.8 miles
+Distance 2 = 54.35 miles</div>
+    <div class="step-exp">The problem provides two distances covered by the car.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">72.8 + 54.35 = 127.15</div>
+    <div class="step-exp">To find the total distance, add the individual distances. Align the decimal points: 72.80 + 54.35 = 127.15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The total distance is 127.15 miles.</div>
+    <div class="step-exp">On a number line starting from 0, the point 127.15 is located 127.15 units to the right of 0.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 127.15 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a school&#x27;s academic challenge, teams start with 0 points. They gain 21.5 points for a correct answer and lose 12.3 points for an incorrect answer. A team answers one question correctly and then one incorrectly. On a number line, which point represents the team&#x27;s total score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 33.8</div><div class="option"><span class="opt-letter">B.</span> 8.2</div><div class="option"><span class="opt-letter">C.</span> 9.2</div><div class="option"><span class="opt-letter">D.</span> -9.2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points gained = +21.5
+Points lost = -12.3</div>
+    <div class="step-exp">Gaining points is positive, losing points is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total score = 21.5 + (-12.3) = 21.5 - 12.3 = 9.2</div>
+    <div class="step-exp">Adding a negative number is equivalent to subtraction. Perform the subtraction: $21.5 - 12.3 = 9.2$.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The total score is 9.2.</div>
+    <div class="step-exp">On a number line, a positive score of 9.2 would be located at the point 9.2 to the right of 0.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9.2 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a chemical reaction chamber is -8.7 degrees Celsius. Due to a malfunction, it then drops by an additional 3.5 degrees Celsius. On a number line, which point represents the new temperature in the chamber?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12.2</div><div class="option"><span class="opt-letter">B.</span> -12.2</div><div class="option"><span class="opt-letter">C.</span> -5.2</div><div class="option"><span class="opt-letter">D.</span> 5.2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial temperature = -8.7 °C
+Drop in temperature = -3.5 °C</div>
+    <div class="step-exp">A temperature drop is represented by a negative value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-8.7 + (-3.5) = -8.7 - 3.5 = -12.2</div>
+    <div class="step-exp">When adding two negative numbers, add their absolute values and keep the negative sign. So, 8.7 + 3.5 = 12.2, and the result is -12.2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The new temperature is -12.2 °C.</div>
+    <div class="step-exp">On a number line, -12.2 is located 12.2 units to the left of 0.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12.2 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew has a metal beam that is 10 3/4 feet long. They need to cut off a section that is 4 1/2 feet long. How much of the beam is left? On a number line, which mixed number, in simplest form, represents the length of the remaining beam?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 5/4</div><div class="option"><span class="opt-letter">B.</span> 6 1/4</div><div class="option"><span class="opt-letter">C.</span> 15 1/4</div><div class="option"><span class="opt-letter">D.</span> 6 1/2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial length = 10 3/4 feet
+Length to cut off = 4 1/2 feet</div>
+    <div class="step-exp">The problem provides the starting length and the amount that needs to be removed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">10 3/4 - 4 1/2</div>
+    <div class="step-exp">To find the remaining length, subtract the portion removed from the original length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The least common multiple of 4 and 2 is 4. Convert 1/2 to an equivalent fraction with a denominator of 4: 1/2 = 2/4.
+So, the problem becomes: 10 3/4 - 4 2/4.</div>
+    <div class="step-exp">Before subtracting mixed numbers, ensure their fractional parts have a common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Whole numbers: 10 - 4 = 6
+Fractions: 3/4 - 2/4 = 1/4
+Combine: 6 1/4 feet</div>
+    <div class="step-exp">Subtract the whole numbers and the numerators of the fractions separately, keeping the common denominator. The fraction 1/4 is already in simplest form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The remaining length is 6 1/4 feet.</div>
+    <div class="step-exp">On a number line, 6 1/4 would be located between 6 and 7, specifically one-quarter of the way from 6 to 7.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 1/4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital timer reads 3.75 minutes. If it then counts down for 5.5 minutes, what will the timer display? (Represent time on a number line where positive values are minutes elapsed and negative values are minutes before a reference point). Which point represents the final reading?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -1.75</div><div class="option"><span class="opt-letter">B.</span> 1.75</div><div class="option"><span class="opt-letter">C.</span> -2.25</div><div class="option"><span class="opt-letter">D.</span> 9.25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial reading = 3.75 minutes
+Countdown duration = 5.5 minutes (represented as -5.5 for elapsed time from the reading)</div>
+    <div class="step-exp">Counting down means time is being subtracted from the current reading. If the countdown goes past zero, the result will be a negative value, representing time before the initial reference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Final reading = 3.75 - 5.5</div>
+    <div class="step-exp">This is equivalent to adding a positive and a negative number. Since 5.5 has a larger absolute value than 3.75, the result will be negative. Subtract the smaller absolute value from the larger: $5.5 - 3.75 = 1.75$. Keep the sign of the larger absolute value (5.5 is effectively negative), so the result is -1.75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The final reading is -1.75 minutes.</div>
+    <div class="step-exp">On a number line, -1.75 is located 1.75 units to the left of 0, indicating time before the zero mark.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -1.75 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town was initially 3,800 people. Due to economic changes, the population decreased by 125.5 people. What is the current population? On a number line, which point represents the current population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3774.5</div><div class="option"><span class="opt-letter">B.</span> 3675.5</div><div class="option"><span class="opt-letter">C.</span> 3925.5</div><div class="option"><span class="opt-letter">D.</span> 3674.5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population = 3800 people
+Decrease = 125.5 people</div>
+    <div class="step-exp">The problem gives the starting population and the number of people by which it reduced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3800 - 125.5 = 3674.5</div>
+    <div class="step-exp">A decrease means subtraction. To subtract a decimal from a whole number, write the whole number with a decimal point and a zero in the tenths place (3800.0), then align decimal points and subtract: $3800.0 - 125.5 = 3674.5$.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The current population is 3674.5 people.</div>
+    <div class="step-exp">On a number line, 3674.5 is a positive value located between 3674 and 3675.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3674.5 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A software update is downloading. 2/5 of the update has been downloaded, and then another 1/3 of the update downloads. What fraction of the software update still needs to be downloaded? On a number line from 0 to 1, what fraction, in simplest form, represents the remaining portion?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4/15</div><div class="option"><span class="opt-letter">B.</span> 11/15</div><div class="option"><span class="opt-letter">C.</span> 3/8</div><div class="option"><span class="opt-letter">D.</span> 1/2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial download = 2/5
+Additional download = 1/3</div>
+    <div class="step-exp">These are the two parts of the update that have been downloaded.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total downloaded = 2/5 + 1/3</div>
+    <div class="step-exp">To add fractions with different denominators, find a common denominator. The least common multiple of 5 and 3 is 15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2/5 = (2 <em> 3) / (5 </em> 3) = 6/15
+1/3 = (1 <em> 5) / (3 </em> 5) = 5/15
+Total downloaded = 6/15 + 5/15 = 11/15</div>
+    <div class="step-exp">Multiply the numerator and denominator by the factor that makes the denominator 15. Then add the numerators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Remaining = 1 - 11/15
+1 = 15/15
+Remaining = 15/15 - 11/15 = 4/15</div>
+    <div class="step-exp">The entire update is represented by 1. Subtract the downloaded portion from 1. Ensure 1 is written as a fraction with the same denominator as the total downloaded portion.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The remaining portion is 4/15.</div>
+    <div class="step-exp">On a number line from 0 to 1, 4/15 is located between 0 and 1, specifically 4 units past 0 if the line is divided into 15 equal parts.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4/15 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

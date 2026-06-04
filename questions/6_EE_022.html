@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Simplify Radicals</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.022<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Simplify Radicals</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.022</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cashier needs to calculate the length of the side of a square display stand with an area of 75 square inches. What is the side length in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3√25 inches</div><div class="option"><span class="opt-letter">B.</span> 5√15 inches</div><div class="option"><span class="opt-letter">C.</span> 5√3 inches</div><div class="option"><span class="opt-letter">D.</span> 25√3 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area = 75 square inches. For a square, side length (s) = √Area. So we need to simplify √75.</div>
+    <div class="step-exp">The side length of a square is the square root of its area. Therefore, we need to simplify the radical expression √75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 75: 1, 3, 5, 15, 25, 75. The perfect square factors are 1 and 25. The largest is 25.</div>
+    <div class="step-exp">To simplify a radical, we look for the largest perfect square that divides the number under the square root sign (the radicand).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√75 = √(25 × 3)</div>
+    <div class="step-exp">We express 75 as a product of its largest perfect square factor (25) and another factor (3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(25 × 3) = √25 × √3 = 5√3</div>
+    <div class="step-exp">According to the property √(ab) = √a × √b, we can separate the square root. We then calculate √25, which is 5, leaving √3 under the radical as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5√3 inches (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A soccer coach wants to find the distance a ball traveled if it went a path that can be represented by the square root of 48 feet. Simplify this distance in simplest radical form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 16√3 feet</div><div class="option"><span class="opt-letter">B.</span> 4√3 feet</div><div class="option"><span class="opt-letter">C.</span> 2√12 feet</div><div class="option"><span class="opt-letter">D.</span> 6√8 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √48.</div>
+    <div class="step-exp">The problem asks to simplify the radical expression representing the distance the ball traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 48: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48. The perfect square factors are 1, 4, and 16. The largest is 16.</div>
+    <div class="step-exp">To simplify a radical, identify the largest perfect square that divides the radicand (48).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√48 = √(16 × 3)</div>
+    <div class="step-exp">Express 48 as a product of its largest perfect square factor (16) and another factor (3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(16 × 3) = √16 × √3 = 4√3</div>
+    <div class="step-exp">Use the property √(ab) = √a × √b. Calculate √16, which is 4, and leave √3 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4√3 feet (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is cutting a square piece of dough for a pastry. If the area of the dough is 98 square centimeters, what is the length of one side of the dough in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2√49 centimeters</div><div class="option"><span class="opt-letter">B.</span> 49√2 centimeters</div><div class="option"><span class="opt-letter">C.</span> 7√2 centimeters</div><div class="option"><span class="opt-letter">D.</span> 14√7 centimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Side length (s) = √Area. So we need to simplify √98.</div>
+    <div class="step-exp">The side length of a square is the square root of its area. We need to simplify √98.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 98: 1, 2, 7, 14, 49, 98. The perfect square factors are 1 and 49. The largest is 49.</div>
+    <div class="step-exp">To simplify the radical, find the largest perfect square that divides 98.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√98 = √(49 × 2)</div>
+    <div class="step-exp">Express 98 as a product of its largest perfect square factor (49) and another factor (2).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(49 × 2) = √49 × √2 = 7√2</div>
+    <div class="step-exp">Apply the property √(ab) = √a × √b. Calculate √49, which is 7, and leave √2 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7√2 centimeters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels a distance represented by the square root of 125 miles. Express this distance in simplest radical form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10√5 miles</div><div class="option"><span class="opt-letter">B.</span> 5√5 miles</div><div class="option"><span class="opt-letter">C.</span> 25√5 miles</div><div class="option"><span class="opt-letter">D.</span> 5√25 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √125.</div>
+    <div class="step-exp">The problem asks for the distance in simplest radical form, so we simplify √125.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 125: 1, 5, 25, 125. The perfect square factors are 1 and 25. The largest is 25.</div>
+    <div class="step-exp">Determine the largest perfect square that evenly divides 125.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√125 = √(25 × 5)</div>
+    <div class="step-exp">Decompose 125 into a product of 25 and 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(25 × 5) = √25 × √5 = 5√5</div>
+    <div class="step-exp">Separate the square roots and calculate √25, which is 5. Since 5 has no perfect square factors other than 1, √5 remains as is.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5√5 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student is designing a square poster board for a science project. If the area of the poster board is 180 square inches, what is the length of one side in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18√10 inches</div><div class="option"><span class="opt-letter">B.</span> 36√5 inches</div><div class="option"><span class="opt-letter">C.</span> 3√20 inches</div><div class="option"><span class="opt-letter">D.</span> 6√5 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Side length (s) = √Area. So we need to simplify √180.</div>
+    <div class="step-exp">The side length of a square is the square root of its area. We need to simplify √180.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 180: 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180. The perfect square factors are 1, 4, 9, 36. The largest is 36.</div>
+    <div class="step-exp">Look for the largest perfect square that divides 180.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√180 = √(36 × 5)</div>
+    <div class="step-exp">Express 180 as a product of 36 and 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(36 × 5) = √36 × √5 = 6√5</div>
+    <div class="step-exp">Separate the square roots. Calculate √36, which is 6, and leave √5 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6√5 inches (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is measuring the wavelength of a light wave, which is found to be the square root of 200 nanometers. Simplify this value in simplest radical form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20√10 nanometers</div><div class="option"><span class="opt-letter">B.</span> 100√2 nanometers</div><div class="option"><span class="opt-letter">C.</span> 2√100 nanometers</div><div class="option"><span class="opt-letter">D.</span> 10√2 nanometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √200.</div>
+    <div class="step-exp">The problem asks to simplify the radical expression representing the wavelength.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 200: 1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 200. The perfect square factors are 1, 4, 25, 100. The largest is 100.</div>
+    <div class="step-exp">To simplify the radical, find the largest perfect square that divides 200.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√200 = √(100 × 2)</div>
+    <div class="step-exp">Express 200 as a product of 100 and 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(100 × 2) = √100 × √2 = 10√2</div>
+    <div class="step-exp">Separate the square roots. Calculate √100, which is 10, and leave √2 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10√2 nanometers (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a metal rod to a length of the square root of 243 inches. What is the length in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 81√3 inches</div><div class="option"><span class="opt-letter">B.</span> 27√9 inches</div><div class="option"><span class="opt-letter">C.</span> 3√27 inches</div><div class="option"><span class="opt-letter">D.</span> 9√3 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √243.</div>
+    <div class="step-exp">The problem asks for the length of the rod in simplest radical form, so we simplify √243.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 243: 1, 3, 9, 27, 81, 243. The perfect square factors are 1, 9, and 81. The largest is 81.</div>
+    <div class="step-exp">Identify the largest perfect square that divides 243.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√243 = √(81 × 3)</div>
+    <div class="step-exp">Express 243 as a product of 81 and 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(81 × 3) = √81 × √3 = 9√3</div>
+    <div class="step-exp">Separate the square roots. Calculate √81, which is 9, and leave √3 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9√3 inches (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The duration of a specific chemical reaction is measured as the square root of 392 seconds. Express this duration in simplest radical form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14√2 seconds</div><div class="option"><span class="opt-letter">B.</span> 196√2 seconds</div><div class="option"><span class="opt-letter">C.</span> 14√28 seconds</div><div class="option"><span class="opt-letter">D.</span> 7√8 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √392.</div>
+    <div class="step-exp">The problem asks for the duration in simplest radical form, so we simplify √392.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 392: 1, 2, 4, 7, 8, 14, 28, 49, 56, 98, 196, 392. The perfect square factors are 1, 4, 49, 196. The largest is 196.</div>
+    <div class="step-exp">To simplify the radical, find the largest perfect square that divides 392.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√392 = √(196 × 2)</div>
+    <div class="step-exp">Express 392 as a product of 196 and 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(196 × 2) = √196 × √2 = 14√2</div>
+    <div class="step-exp">Separate the square roots. Calculate √196, which is 14, and leave √2 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 14√2 seconds (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A wildlife biologist estimates the territory size of a certain bird species to be the square root of 588 square meters. Simplify this radical expression in simplest radical form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 196√3 square meters</div><div class="option"><span class="opt-letter">B.</span> 14√3 square meters</div><div class="option"><span class="opt-letter">C.</span> 7√12 square meters</div><div class="option"><span class="opt-letter">D.</span> 2√147 square meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √588.</div>
+    <div class="step-exp">The problem asks to simplify the radical expression for the territory size.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 588: 1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 49, 84, 98, 147, 196, 294, 588. The perfect square factors are 1, 4, 49, 196. The largest is 196.</div>
+    <div class="step-exp">To simplify the radical, find the largest perfect square that divides 588.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√588 = √(196 × 3)</div>
+    <div class="step-exp">Express 588 as a product of 196 and 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(196 × 3) = √196 × √3 = 14√3</div>
+    <div class="step-exp">Separate the square roots. Calculate √196, which is 14, and leave √3 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 14√3 square meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer chip has a diagonal measurement represented by the square root of 720 millimeters. Simplify this measurement in simplest radical form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 144√5 millimeters</div><div class="option"><span class="opt-letter">B.</span> 12√5 millimeters</div><div class="option"><span class="opt-letter">C.</span> 36√20 millimeters</div><div class="option"><span class="opt-letter">D.</span> 6√20 millimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We need to simplify √720.</div>
+    <div class="step-exp">The problem asks for the diagonal measurement in simplest radical form, so we simplify √720.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factors of 720: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 30, 36, 40, 45, 48, 60, 72, 80, 90, 120, 144, 180, 240, 360, 720. The perfect square factors are 1, 4, 9, 16, 36, 144. The largest is 144.</div>
+    <div class="step-exp">To simplify the radical, find the largest perfect square that divides 720.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√720 = √(144 × 5)</div>
+    <div class="step-exp">Express 720 as a product of 144 and 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√(144 × 5) = √144 × √5 = 12√5</div>
+    <div class="step-exp">Separate the square roots. Calculate √144, which is 12, and leave √5 as it cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12√5 millimeters (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

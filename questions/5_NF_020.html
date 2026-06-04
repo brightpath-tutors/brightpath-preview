@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Computing Unit Fraction ÷ Whole</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 5 | NF | Skill 5.NF.020<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Computing Unit Fraction ÷ Whole</h1>
+<p class="skill-subtitle">Skill ID: 5.NF.020</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah has 1/2 of a dollar. She wants to share it equally among 4 friends. How much of a dollar will each friend receive, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8</div><div class="option"><span class="opt-letter">B.</span> 9/2</div><div class="option"><span class="opt-letter">C.</span> 2</div><div class="option"><span class="opt-letter">D.</span> 1/8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Unit fraction = 1/2 dollar, Whole number = 4 friends.</div>
+    <div class="step-exp">The problem asks to divide a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4 = 4/1.</div>
+    <div class="step-exp">To divide a fraction by a whole number, convert the whole number into a fraction by placing it over 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/2) ÷ (4/1) = (1/2) * (1/4)</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 4/1 is 1/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (2 </em> 4) = 1/8</div>
+    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/8 is in simplest form.</div>
+    <div class="step-exp">The greatest common divisor of 1 and 8 is 1, so the fraction cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/8 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A team of 5 runners needs to share a 1/3-mile track equally for practice. How many miles will each runner get to use, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5/3</div><div class="option"><span class="opt-letter">B.</span> 16/3</div><div class="option"><span class="opt-letter">C.</span> 15</div><div class="option"><span class="opt-letter">D.</span> 1/15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Unit fraction = 1/3 mile, Whole number = 5 runners.</div>
+    <div class="step-exp">The problem asks to divide a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5 = 5/1.</div>
+    <div class="step-exp">To perform division with fractions, convert the whole number into a fraction by placing it over 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/3) ÷ (5/1) = (1/3) * (1/5)</div>
+    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal. The reciprocal of 5/1 is 1/5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (3 </em> 5) = 1/15</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/15 is in simplest form.</div>
+    <div class="step-exp">The greatest common divisor of 1 and 15 is 1, so the fraction is already simplified.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/15 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 1/4 cup of sugar, but you only want to make 2 small batches. If you divide the sugar equally, how much sugar will be in each small batch, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1/8</div><div class="option"><span class="opt-letter">B.</span> 8</div><div class="option"><span class="opt-letter">C.</span> 1/2</div><div class="option"><span class="opt-letter">D.</span> 9/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Unit fraction = 1/4 cup, Whole number = 2 batches.</div>
+    <div class="step-exp">The problem asks to divide a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2 = 2/1.</div>
+    <div class="step-exp">Represent the whole number as a fraction to facilitate division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/4) ÷ (2/1) = (1/4) * (1/2)</div>
+    <div class="step-exp">Change the division operation to multiplication by the reciprocal of the divisor. The reciprocal of 2/1 is 1/2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (4 </em> 2) = 1/8</div>
+    <div class="step-exp">Perform the multiplication of the two fractions by multiplying the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/8 is in simplest form.</div>
+    <div class="step-exp">The fraction 1/8 cannot be reduced further as 1 and 8 share no common factors other than 1.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/8 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car has 1/5 of a tank of fuel. If this fuel needs to last for 3 equal trips, how much of the tank will be used for each trip, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1/15</div><div class="option"><span class="opt-letter">B.</span> 15</div><div class="option"><span class="opt-letter">C.</span> 3/5</div><div class="option"><span class="opt-letter">D.</span> 16/5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fuel = 1/5 tank, Number of trips = 3.</div>
+    <div class="step-exp">The problem asks to divide a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3 = 3/1.</div>
+    <div class="step-exp">Represent the whole number as a fraction to perform division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/5) ÷ (3/1) = (1/5) * (1/3)</div>
+    <div class="step-exp">Change the division problem to a multiplication problem using the reciprocal of the divisor. The reciprocal of 3/1 is 1/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (5 </em> 3) = 1/15</div>
+    <div class="step-exp">Calculate the product of the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/15 is in simplest form.</div>
+    <div class="step-exp">Determine if the resulting fraction can be simplified. Since the numerator is 1, the fraction is always in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/15 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher has 1/6 of a box of pencils left. She wants to distribute them equally among 7 students. What fraction of the original box will each student receive, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 43/6</div><div class="option"><span class="opt-letter">B.</span> 1/42</div><div class="option"><span class="opt-letter">C.</span> 7/6</div><div class="option"><span class="opt-letter">D.</span> 42</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Pencils = 1/6 of a box, Students = 7.</div>
+    <div class="step-exp">The task is to divide a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">7 = 7/1.</div>
+    <div class="step-exp">Write the whole number as an improper fraction to perform division with fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/6) ÷ (7/1) = (1/6) * (1/7)</div>
+    <div class="step-exp">Convert the division into multiplication by the reciprocal of the divisor. The reciprocal of 7/1 is 1/7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (6 </em> 7) = 1/42</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/42 is in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction is in its simplest form. With 1 as the numerator, the fraction is always simplified.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/42 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist has 1/7 of a liter of a chemical solution. She needs to divide this solution equally into 8 test tubes for an experiment. How much solution will be in each test tube, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 56</div><div class="option"><span class="opt-letter">B.</span> 57/7</div><div class="option"><span class="opt-letter">C.</span> 8/7</div><div class="option"><span class="opt-letter">D.</span> 1/56</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Solution = 1/7 liter, Divisions = 8 test tubes.</div>
+    <div class="step-exp">The problem involves dividing a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 = 8/1.</div>
+    <div class="step-exp">Express the whole number as a fraction to convert it to an equivalent form for division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/7) ÷ (8/1) = (1/7) * (1/8)</div>
+    <div class="step-exp">Change the division into multiplication by the reciprocal of the divisor. The reciprocal of 8/1 is 1/8.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (7 </em> 8) = 1/56</div>
+    <div class="step-exp">Multiply the numerators and the denominators of the fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/56 is in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction is in simplest form. A fraction with a numerator of 1 is always in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/56 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder has a piece of wood that is 1/8 of a meter long. He needs to cut it into 9 equal smaller pieces. What will be the length of each smaller piece, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 73/8</div><div class="option"><span class="opt-letter">B.</span> 1/72</div><div class="option"><span class="opt-letter">C.</span> 9/8</div><div class="option"><span class="opt-letter">D.</span> 72</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Wood length = 1/8 meter, Number of pieces = 9.</div>
+    <div class="step-exp">Determine the initial length of the wood and the number of pieces. The problem requires dividing a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">9 = 9/1.</div>
+    <div class="step-exp">Write the whole number as an equivalent fraction to perform the division operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/8) ÷ (9/1) = (1/8) * (1/9)</div>
+    <div class="step-exp">Change the division expression to multiplication by the reciprocal of the divisor. The reciprocal of 9/1 is 1/9.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (8 </em> 9) = 1/72</div>
+    <div class="step-exp">Multiply the numerators and then the denominators to find the product of the fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/72 is in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction is in its simplest form. Since the numerator is 1, the fraction is in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/72 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A worker has 1/9 of an hour remaining to complete 10 identical tasks. If he dedicates an equal amount of time to each task, how much of an hour will he spend on each task, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1/90</div><div class="option"><span class="opt-letter">B.</span> 91/9</div><div class="option"><span class="opt-letter">C.</span> 10/9</div><div class="option"><span class="opt-letter">D.</span> 90</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Time remaining = 1/9 hour, Number of tasks = 10.</div>
+    <div class="step-exp">Identify the total time and the number of tasks. The problem involves dividing a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">10 = 10/1.</div>
+    <div class="step-exp">Convert the whole number into a fraction to facilitate the division operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/9) ÷ (10/1) = (1/9) * (1/10)</div>
+    <div class="step-exp">Rewrite the division as multiplication by the reciprocal of the divisor. The reciprocal of 10/1 is 1/10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (9 </em> 10) = 1/90</div>
+    <div class="step-exp">Perform the multiplication of the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/90 is in simplest form.</div>
+    <div class="step-exp">Check if the final fraction is in simplest form. The numerator is 1, so the fraction is already simplified.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/90 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new policy affects 1/10 of the city&#x27;s population. If this group is further divided equally among 11 local districts, what fraction of the city&#x27;s population will be in each district&#x27;s share, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 110</div><div class="option"><span class="opt-letter">B.</span> 11/10</div><div class="option"><span class="opt-letter">C.</span> 111/10</div><div class="option"><span class="opt-letter">D.</span> 1/110</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Population affected = 1/10, Number of districts = 11.</div>
+    <div class="step-exp">Identify the fraction of the population affected and the number of districts. The problem requires dividing a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">11 = 11/1.</div>
+    <div class="step-exp">Write the whole number as an improper fraction to facilitate division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/10) ÷ (11/1) = (1/10) * (1/11)</div>
+    <div class="step-exp">Change the division operation to multiplication by the reciprocal of the divisor. The reciprocal of 11/1 is 1/11.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (10 </em> 11) = 1/110</div>
+    <div class="step-exp">Multiply the numerators and the denominators to perform fraction multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/110 is in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction is in simplest form. With a numerator of 1, the fraction is already simplified.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/110 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shared cloud storage plan has 1/12 of a gigabyte (GB) of unused space. If this space is to be divided equally among 13 networked devices, how much of a gigabyte will each device receive, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 156</div><div class="option"><span class="opt-letter">B.</span> 157/12</div><div class="option"><span class="opt-letter">C.</span> 13/12</div><div class="option"><span class="opt-letter">D.</span> 1/156</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Unused space = 1/12 GB, Number of devices = 13.</div>
+    <div class="step-exp">Identify the total unused space and the number of devices. The problem requires dividing a unit fraction by a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">13 = 13/1.</div>
+    <div class="step-exp">Express the whole number as a fraction to perform the division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(1/12) ÷ (13/1) = (1/12) * (1/13)</div>
+    <div class="step-exp">Rewrite the division as multiplication by the reciprocal of the divisor. The reciprocal of 13/1 is 1/13.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1 <em> 1) / (12 </em> 13) = 1/156</div>
+    <div class="step-exp">Perform the multiplication of the numerators and the denominators to find the product.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/156 is in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction is in simplest form. A fraction with a numerator of 1 is always in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/156 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

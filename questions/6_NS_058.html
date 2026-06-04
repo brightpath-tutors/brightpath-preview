@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Order Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.058<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Order Integers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.058</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shopper tracks their bank account balance over a week. The daily balances are: -$16, $35, -$4. Order these balances from least to greatest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -$4, -$16, $35</div><div class="option"><span class="opt-letter">B.</span> $35, -$16, -$4</div><div class="option"><span class="opt-letter">C.</span> $35, -$4, -$16</div><div class="option"><span class="opt-letter">D.</span> -$16, -$4, $35</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Balances: -16, 35, -4</div>
+    <div class="step-exp">The given daily balances are -16 dollars, 35 dollars, and -4 dollars. We need to order these numerical values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers are less than positive numbers. For two negative numbers, the one with the larger absolute value is smaller.</div>
+    <div class="step-exp">To order numbers from least to greatest, we first consider the negative numbers, then zero (if present), and finally positive numbers. Among negative numbers, the number further from zero (larger absolute value) is actually smaller in value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -16, -4
+Absolute values: |-16| = 16, |-4| = 4
+Since 16 &gt; 4, then -16 &lt; -4.</div>
+    <div class="step-exp">Comparing -16 and -4, since -16 is further from zero on the number line than -4, -16 is the smaller value. So, -16 comes before -4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Positive number: 35
+-16 &lt; -4 &lt; 35</div>
+    <div class="step-exp">The positive number 35 is greater than both negative numbers. Therefore, it will be the largest value in the ordered list.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Ordered list: -16, -4, 35</div>
+    <div class="step-exp">The final order from least to greatest is -16, -4, 35.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -$16, -$4, $35 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A diver&#x27;s scores from five different judges are -3, 0, 4, -1, 2. Order these scores from least to greatest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4, 2, 0, -1, -3</div><div class="option"><span class="opt-letter">B.</span> -3, -1, 0, 2, 4</div><div class="option"><span class="opt-letter">C.</span> -1, -3, 0, 2, 4</div><div class="option"><span class="opt-letter">D.</span> 0, -1, -3, 2, 4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scores: -3, 0, 4, -1, 2</div>
+    <div class="step-exp">We need to order these five scores from least to greatest.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -3, -1
+Zero: 0
+Positive numbers: 4, 2</div>
+    <div class="step-exp">This strategy helps in systematically organizing the numbers. All negative numbers are smaller than zero, and zero is smaller than all positive numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -3 and -1: -3 is further from zero than -1, so -3 &lt; -1.
+Ordered negatives: -3, -1</div>
+    <div class="step-exp">On the number line, -3 is to the left of -1, making it the smaller value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 4 and 2: 2 &lt; 4.
+Ordered positives: 2, 4</div>
+    <div class="step-exp">2 is smaller than 4, so it comes first in the positive sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Final order: -3, -1, 0, 2, 4</div>
+    <div class="step-exp">Putting all the ordered segments together gives the complete list from least to greatest.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -3, -1, 0, 2, 4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef records the freezer temperatures in Celsius at different times: -14°C, -6°C, -11°C. Order these temperatures from warmest to coldest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -14°C, -11°C, -6°C</div><div class="option"><span class="opt-letter">B.</span> -6°C, -14°C, -11°C</div><div class="option"><span class="opt-letter">C.</span> -6°C, -11°C, -14°C</div><div class="option"><span class="opt-letter">D.</span> -11°C, -6°C, -14°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">&#x27;Warmest to coldest&#x27; means ordering from the greatest integer value to the least integer value.</div>
+    <div class="step-exp">Higher temperatures (even if negative) are warmer. So, we are looking for the largest number first, then the next largest, and so on.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Temperatures: -14, -6, -11</div>
+    <div class="step-exp">All given temperatures are negative integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -14, -6, -11:
+-6 is closest to zero, so -6 is the greatest.
+-11 is next closest to zero.
+-14 is furthest from zero, so -14 is the least.</div>
+    <div class="step-exp">For negative numbers, the number with the smaller absolute value is greater (warmer). So, -6 is greater than -11, and -11 is greater than -14.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Ordered list: -6, -11, -14</div>
+    <div class="step-exp">The final order from warmest (greatest value) to coldest (least value) is -6°C, -11°C, -14°C.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -6°C, -11°C, -14°C (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An airplane&#x27;s altitude changes are recorded during a flight (in hundreds of feet relative to cruising altitude): -5, 7, 1, -9, 3. Order these changes from lowest to highest altitude.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -9, -5, 1, 3, 7</div><div class="option"><span class="opt-letter">B.</span> -5, -9, 1, 3, 7</div><div class="option"><span class="opt-letter">C.</span> 7, 3, 1, -5, -9</div><div class="option"><span class="opt-letter">D.</span> 1, 3, 7, -5, -9</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Altitude changes: -5, 7, 1, -9, 3</div>
+    <div class="step-exp">We need to arrange these values, representing changes in altitude, from the lowest (smallest value) to the highest (greatest value).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Least to greatest: smallest integer value to largest integer value.</div>
+    <div class="step-exp">This translates the real-world context into the mathematical task of ordering integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -5, -9
+Zero: (None)
+Positive numbers: 7, 1, 3</div>
+    <div class="step-exp">This helps in organizing the numbers before comparing them fully.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -5 and -9: -9 is further from zero than -5, so -9 &lt; -5.
+Ordered negatives: -9, -5</div>
+    <div class="step-exp">The more negative a number is, the smaller its value. So, -9 is smaller than -5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 7, 1, 3: 1 &lt; 3 &lt; 7.
+Ordered positives: 1, 3, 7</div>
+    <div class="step-exp">This is a straightforward ordering of positive integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final order: -9, -5, 1, 3, 7</div>
+    <div class="step-exp">Putting the ordered negative and positive numbers together gives the complete list from least to greatest.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -9, -5, 1, 3, 7 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Five students took a math quiz. Their scores, relative to the class average, were: -8, 15, -2, 6, -10. List the students&#x27; scores from highest to lowest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6, 15, -2, -8, -10</div><div class="option"><span class="opt-letter">B.</span> 15, 6, -8, -2, -10</div><div class="option"><span class="opt-letter">C.</span> 15, 6, -2, -8, -10</div><div class="option"><span class="opt-letter">D.</span> -10, -8, -2, 6, 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scores: -8, 15, -2, 6, -10</div>
+    <div class="step-exp">We need to order these scores from the highest value to the lowest value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Greatest to least: largest integer value to smallest integer value.</div>
+    <div class="step-exp">This sets the direction for our ordering process.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Positive numbers: 15, 6
+Zero: (None)
+Negative numbers: -8, -2, -10</div>
+    <div class="step-exp">Organizing numbers this way helps in tackling each group separately.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 15 and 6: 15 &gt; 6.
+Ordered positives: 15, 6</div>
+    <div class="step-exp">15 is larger than 6.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -8, -2, -10: -2 is closest to zero (greatest), then -8, then -10 (least).
+Ordered negatives: -2, -8, -10</div>
+    <div class="step-exp">For negative numbers, the number with the smaller absolute value is greater. So, -2 &gt; -8 &gt; -10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final order: 15, 6, -2, -8, -10</div>
+    <div class="step-exp">Putting the ordered positive and negative numbers together gives the complete list from greatest to least.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15, 6, -2, -8, -10 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Different chemical reactions have specific ideal temperatures. Consider the following ideal temperatures (in degrees Celsius): -27, 11, -19, -32, 5. Order these temperatures from coldest to warmest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -32°C, -27°C, -19°C, 5°C, 11°C</div><div class="option"><span class="opt-letter">B.</span> 11°C, 5°C, -19°C, -27°C, -32°C</div><div class="option"><span class="opt-letter">C.</span> -19°C, -27°C, -32°C, 5°C, 11°C</div><div class="option"><span class="opt-letter">D.</span> 5°C, 11°C, -19°C, -27°C, -32°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Temperatures: -27, 11, -19, -32, 5</div>
+    <div class="step-exp">We need to arrange these values from coldest (least value) to warmest (greatest value).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Least to greatest: smallest integer value to largest integer value.</div>
+    <div class="step-exp">This establishes the ordering criteria.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -27, -19, -32
+Zero: (None)
+Positive numbers: 11, 5</div>
+    <div class="step-exp">Grouping helps manage the different types of numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -27, -19, -32: -32 &lt; -27 &lt; -19.
+Ordered negatives: -32, -27, -19</div>
+    <div class="step-exp">The further a negative number is from zero, the smaller its value. So, -32 is the coldest, then -27, then -19.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 11 and 5: 5 &lt; 11.
+Ordered positives: 5, 11</div>
+    <div class="step-exp">5 is smaller than 11.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final order: -32, -27, -19, 5, 11</div>
+    <div class="step-exp">Putting all the ordered segments together gives the complete list from least to greatest.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -32°C, -27°C, -19°C, 5°C, 11°C (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction project requires digging several trenches. The depths below ground level (in meters) are: -17, -12, -20, -13, -18. Order these depths from the shallowest to the deepest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -18 m, -13 m, -12 m, -17 m, -20 m</div><div class="option"><span class="opt-letter">B.</span> -12 m, -17 m, -13 m, -18 m, -20 m</div><div class="option"><span class="opt-letter">C.</span> -20 m, -18 m, -17 m, -13 m, -12 m</div><div class="option"><span class="opt-letter">D.</span> -12 m, -13 m, -17 m, -18 m, -20 m</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Depths: -17, -12, -20, -13, -18</div>
+    <div class="step-exp">All depths are below ground, so they are represented by negative integers. We need to order them from shallowest (closest to 0, greatest value) to deepest (furthest from 0, least value).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Greatest to least: largest integer value to smallest integer value.</div>
+    <div class="step-exp">For negative numbers, the larger the number (closer to zero), the shallower the depth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -17, -12, -20, -13, -18:
+-12 is the greatest (shallowest).
+-13 is next.
+-17 is next.
+-18 is next.
+-20 is the least (deepest).</div>
+    <div class="step-exp">Arranging these numbers from greatest to least is equivalent to finding the negative number closest to zero, then the next closest, and so on.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Ordered list: -12, -13, -17, -18, -20</div>
+    <div class="step-exp">The final order from shallowest to deepest is -12 m, -13 m, -17 m, -18 m, -20 m.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 m, -13 m, -17 m, -18 m, -20 m (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Four historical events occurred in the following years (using B.C.E. values as negative integers): 600 B.C.E., 120 C.E., 250 B.C.E., 80 C.E.. Represent these years as integers and order them from earliest to latest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 600 B.C.E., 250 B.C.E., 80 C.E., 120 C.E.</div><div class="option"><span class="opt-letter">B.</span> 600 B.C.E., 120 C.E., 250 B.C.E., 80 C.E.</div><div class="option"><span class="opt-letter">C.</span> 80 C.E., 250 B.C.E., 600 B.C.E., 120 C.E.</div><div class="option"><span class="opt-letter">D.</span> 120 C.E., 80 C.E., 250 B.C.E., 600 B.C.E.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">600 B.C.E. = -600
+120 C.E. = 120
+250 B.C.E. = -250
+80 C.E. = 80
+Integers to order: -600, 120, -250, 80</div>
+    <div class="step-exp">B.C.E. years count down to 0, so they are represented as negative integers. C.E. years count up from 0, so they are positive. &#x27;0&#x27; is the year between 1 B.C.E. and 1 C.E.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Least to greatest: smallest integer value to largest integer value.</div>
+    <div class="step-exp">This translates the chronological order into mathematical ordering.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -600, -250
+Zero: (None)
+Positive numbers: 120, 80</div>
+    <div class="step-exp">This helps in systematically organizing the numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -600 and -250: -600 &lt; -250.
+Ordered negatives: -600, -250</div>
+    <div class="step-exp">600 B.C.E. occurred before 250 B.C.E. on a timeline, corresponding to smaller negative values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 120 and 80: 80 &lt; 120.
+Ordered positives: 80, 120</div>
+    <div class="step-exp">80 C.E. is earlier than 120 C.E.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final integer order: -600, -250, 80, 120
+Corresponding years: 600 B.C.E., 250 B.C.E., 80 C.E., 120 C.E.</div>
+    <div class="step-exp">The combined list represents the events from earliest to latest.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 600 B.C.E., 250 B.C.E., 80 C.E., 120 C.E. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A study tracked the population change in several small towns over a decade. The changes (in thousands) were: -1.7, 0.9, -2.3, 0.1, 1.3, -0.6. Order these population changes from the greatest increase to the greatest decrease.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -2.3, -1.7, -0.6, 0.1, 0.9, 1.3</div><div class="option"><span class="opt-letter">B.</span> 0.1, 0.9, 1.3, -0.6, -1.7, -2.3</div><div class="option"><span class="opt-letter">C.</span> 1.3, 0.9, 0.1, -0.6, -1.7, -2.3</div><div class="option"><span class="opt-letter">D.</span> 1.3, 0.9, 0.1, -1.7, -0.6, -2.3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Population changes: -1.7, 0.9, -2.3, 0.1, 1.3, -0.6</div>
+    <div class="step-exp">These numbers represent population increases (positive) or decreases (negative).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Greatest to least: largest decimal value to smallest decimal value.</div>
+    <div class="step-exp">A greater increase corresponds to a larger positive number, while a greater decrease corresponds to a smaller (more negative) number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Positive numbers: 0.9, 0.1, 1.3
+Zero: (None)
+Negative numbers: -1.7, -2.3, -0.6</div>
+    <div class="step-exp">This breakdown simplifies the comparison process.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 0.9, 0.1, 1.3: 1.3 &gt; 0.9 &gt; 0.1.
+Ordered positives: 1.3, 0.9, 0.1</div>
+    <div class="step-exp">Standard decimal comparison for positive numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -1.7, -2.3, -0.6:
+-0.6 is closest to zero (greatest).
+-1.7 is next.
+-2.3 is furthest from zero (least).
+Ordered negatives: -0.6, -1.7, -2.3</div>
+    <div class="step-exp">For negative decimals, the number with the smaller absolute value is greater (less of a decrease).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final order: 1.3, 0.9, 0.1, -0.6, -1.7, -2.3</div>
+    <div class="step-exp">Putting all the ordered segments together gives the complete list from greatest increase to greatest decrease.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.3, 0.9, 0.1, -0.6, -1.7, -2.3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A medical researcher is analyzing body temperature fluctuations (in degrees Celsius, relative to normal body temperature). The recorded fluctuations for a patient are: 0.7, -1.4, 0.2, -0.9, 1.0, -0.5. Order these fluctuations from the lowest temperature to the highest temperature.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -0.5°C, -0.9°C, -1.4°C, 0.2°C, 0.7°C, 1.0°C</div><div class="option"><span class="opt-letter">B.</span> 0.2°C, -0.5°C, -0.9°C, -1.4°C, 0.7°C, 1.0°C</div><div class="option"><span class="opt-letter">C.</span> -1.4°C, -0.9°C, -0.5°C, 0.2°C, 0.7°C, 1.0°C</div><div class="option"><span class="opt-letter">D.</span> 1.0°C, 0.7°C, 0.2°C, -0.5°C, -0.9°C, -1.4°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fluctuations: 0.7, -1.4, 0.2, -0.9, 1.0, -0.5</div>
+    <div class="step-exp">These numbers represent how much the temperature deviated from normal, with negative indicating lower temperatures.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Least to greatest: smallest decimal value to largest decimal value.</div>
+    <div class="step-exp">This translates the temperature ordering into numerical ordering.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -1.4, -0.9, -0.5
+Zero: (None)
+Positive numbers: 0.7, 0.2, 1.0</div>
+    <div class="step-exp">Grouping helps to organize the mixed numbers for easier comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -1.4, -0.9, -0.5:
+-1.4 is furthest from zero (least).
+-0.9 is next.
+-0.5 is closest to zero (greatest).
+Ordered negatives: -1.4, -0.9, -0.5</div>
+    <div class="step-exp">The larger the absolute value of a negative number, the smaller its actual value. So, -1.4 is the lowest temperature.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 0.7, 0.2, 1.0: 0.2 &lt; 0.7 &lt; 1.0.
+Ordered positives: 0.2, 0.7, 1.0</div>
+    <div class="step-exp">Standard decimal comparison for positive numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final order: -1.4, -0.9, -0.5, 0.2, 0.7, 1.0</div>
+    <div class="step-exp">The complete ordered list represents the fluctuations from the lowest to the highest temperature.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -1.4°C, -0.9°C, -0.5°C, 0.2°C, 0.7°C, 1.0°C (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

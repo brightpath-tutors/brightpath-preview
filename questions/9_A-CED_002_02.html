@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Creating Quadratic Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 9 | A-CED | Skill 9.A-CED.002.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Creating Quadratic Equations</h1>
+<p class="skill-subtitle">Skill ID: 9.A-CED.002.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The height of a ball thrown upwards is given by the expression \(h(t) = 20t - 5t^2\), where \(t\) is the time in seconds after the ball is thrown. What is the algebraic expression for the height of the ball if it is thrown from a platform 3 meters high?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(h(t) = 20t - 5t^2 - 3\)</div><div class="option"><span class="opt-letter">B.</span> \(h(t) = 23t - 5t^2\)</div><div class="option"><span class="opt-letter">C.</span> \(h(t) = -5t^2 + 20t + 3\)</div><div class="option"><span class="opt-letter">D.</span> \(h(t) = 20t + 5t^2 + 3\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original height expression: \(h(t) = 20t - 5t^2\)</div>
+    <div class="step-exp">Identify the given algebraic expression for the height of the ball.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Additional height from platform = 3 meters</div>
+    <div class="step-exp">Identify the additional height provided by the platform.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\(h(t) = (20t - 5t^2) + 3\)</div>
+    <div class="step-exp">Add the initial height from the platform to the original expression, as it represents a constant vertical shift.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(h(t) = -5t^2 + 20t + 3\)</div>
+    <div class="step-exp">Rewrite the expression in standard quadratic form (\(at^2 + bt + c\)). The height is a quadratic relationship with respect to time, and the constant term &#x27;c&#x27; represents the initial height or starting point.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(h(t) = -5t^2 + 20t + 3\) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company&#x27;s daily profit \(P\) (in hundreds of dollars) is modeled by the equation \(P = -x^2 + 10x\), where \(x\) is the number of items sold (in hundreds). If the company introduces a new product that increases daily overhead by $7 hundred, how does the profit equation change?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(P = -x^2 + 10x + 7\)</div><div class="option"><span class="opt-letter">B.</span> \(P = -x^2 + 17x\)</div><div class="option"><span class="opt-letter">C.</span> \(P = -x^2 + 10x - 7\)</div><div class="option"><span class="opt-letter">D.</span> \(P = -x^2 + 3x\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original profit equation: \(P = -x^2 + 10x\)</div>
+    <div class="step-exp">Identify the given algebraic expression for the company&#x27;s daily profit.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Increase in daily overhead = $7 hundred</div>
+    <div class="step-exp">Identify the change in overhead cost.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\(P = (-x^2 + 10x) - 7\)</div>
+    <div class="step-exp">Since overhead is a cost, an increase in overhead reduces profit. Therefore, subtract the increase in overhead from the original profit equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(P = -x^2 + 10x - 7\)</div>
+    <div class="step-exp">State the final profit equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(P = -x^2 + 10x - 7\) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The path of a toy rocket is modeled by \(h(t) = -2t^2 + 15t\), where \(h(t)\) is the height in meters and \(t\) is the time in seconds. If the rocket&#x27;s launch velocity increases, adding $4t$ to its height function, what is the new expression for the rocket&#x27;s height?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(h(t) = -2t^2 + 15t - 4\)</div><div class="option"><span class="opt-letter">B.</span> \(h(t) = -2t^2 + 60t\)</div><div class="option"><span class="opt-letter">C.</span> \(h(t) = -2t^2 + 19t\)</div><div class="option"><span class="opt-letter">D.</span> \(h(t) = -2t^2 + 4t - 15\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original height expression: \(h(t) = -2t^2 + 15t\)</div>
+    <div class="step-exp">Identify the initial height function of the toy rocket.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Additional height component due to increased velocity: $4t$</div>
+    <div class="step-exp">Identify the term that needs to be added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\(h(t) = (-2t^2 + 15t) + 4t\)</div>
+    <div class="step-exp">Add the additional height component to the original expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(h(t) = -2t^2 + (15t + 4t)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(h(t) = -2t^2 + 19t\)</div>
+    <div class="step-exp">Combine the &#x27;t&#x27; terms to get the new height function. This represents a quadratic relationship where the coefficient of the &#x27;t&#x27; term (linear term) has changed due to increased velocity.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(h(t) = -2t^2 + 19t\) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker sells cookies, and their daily revenue \(R\) (in dollars) is modeled by the function \(R(p) = -10p^2 + 150p\), where \(p\) is the price per cookie in dollars. If the cost of ingredients increases, reducing the revenue by $2 for every dollar increase in price, and a new fixed cost of $25 is introduced, what is the new revenue function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(R(p) = -10p^2 + 152p + 25\)</div><div class="option"><span class="opt-letter">B.</span> \(R(p) = -12p^2 + 150p - 25\)</div><div class="option"><span class="opt-letter">C.</span> \(R(p) = -10p^2 + 148p - 25\)</div><div class="option"><span class="opt-letter">D.</span> \(R(p) = -10p^2 + 148p + 25\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original revenue function: \(R(p) = -10p^2 + 150p\)</div>
+    <div class="step-exp">Identify the initial revenue function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Reduction in revenue due to ingredient cost increase: $2p$</div>
+    <div class="step-exp">An increase in ingredient cost reduces revenue by $2 for every dollar increase in price, so this is represented by $-2p$.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">New fixed cost: $25</div>
+    <div class="step-exp">A fixed cost reduces the overall revenue, so this is represented by $-25$.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(R(p) = (-10p^2 + 150p) - 2p - 25\)</div>
+    <div class="step-exp">Combine the original revenue function with the reductions in revenue.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(R(p) = -10p^2 + (150p - 2p) - 25\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(R(p) = -10p^2 + 148p - 25\)</div>
+    <div class="step-exp">Combine the &#x27;p&#x27; terms to obtain the new revenue function. The revenue is still a quadratic function of price, but with modified coefficients reflecting cost changes.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(R(p) = -10p^2 + 148p - 25\) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new cooking technique changes the temperature profile in an oven. The original temperature \(T\) (in degrees Celsius) at time \(t\) (in minutes) is given by \(T(t) = -0.5t^2 + 15t + 100\). The new technique uniformly increases the temperature by $10$ degrees and also introduces a cooling effect proportional to the square of the time, represented by $-0.1t^2$. What is the new temperature function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(T(t) = -0.4t^2 + 15t + 110\)</div><div class="option"><span class="opt-letter">B.</span> \(T(t) = -0.6t^2 + 15t + 90\)</div><div class="option"><span class="opt-letter">C.</span> \(T(t) = -0.6t^2 + 15t + 110\)</div><div class="option"><span class="opt-letter">D.</span> \(T(t) = -0.5t^2 + 14.9t + 110\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original temperature function: \(T(t) = -0.5t^2 + 15t + 100\)</div>
+    <div class="step-exp">Identify the initial temperature function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Uniform temperature increase: $10$ degrees</div>
+    <div class="step-exp">This is a constant term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Cooling effect proportional to square of time: $-0.1t^2$</div>
+    <div class="step-exp">This is a quadratic term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(T(t) = (-0.5t^2 + 15t + 100) + 10 - 0.1t^2\)</div>
+    <div class="step-exp">Combine all components to form the new temperature function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(T(t) = (-0.5t^2 - 0.1t^2) + 15t + (100 + 10)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(T(t) = -0.6t^2 + 15t + 110\)</div>
+    <div class="step-exp">Combine the \(t^2\) terms and the constant terms to get the final temperature function. This maintains the quadratic nature of the relationship, with changes to the quadratic and constant coefficients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(T(t) = -0.6t^2 + 15t + 110\) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The number of students participating in an after-school club, \(N\), is predicted by the expression \(N(x) = -2x^2 + 25x + 50\), where \(x\) is the number of weeks since the start of the semester. If a new school policy encourages participation, adding $5x$ students but also causing a fixed group of $8$ students to leave, how does the expression for \(N(x)\) change?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(N(x) = -2x^2 + 20x + 58\)</div><div class="option"><span class="opt-letter">B.</span> \(N(x) = -2x^2 + 30x + 42\)</div><div class="option"><span class="opt-letter">C.</span> \(N(x) = -2x^2 + 30x + 58\)</div><div class="option"><span class="opt-letter">D.</span> \(N(x) = -2x^2 + 20x + 42\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original expression: \(N(x) = -2x^2 + 25x + 50\)</div>
+    <div class="step-exp">Identify the initial expression for student participation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Increase in participation due to new policy: $5x$</div>
+    <div class="step-exp">This term represents an addition to the number of students.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fixed group of students leaving: $8$</div>
+    <div class="step-exp">This is a constant term that needs to be subtracted from the total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(N(x) = (-2x^2 + 25x + 50) + 5x - 8\)</div>
+    <div class="step-exp">Combine all components to form the new expression for student participation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(N(x) = -2x^2 + (25x + 5x) + (50 - 8)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(N(x) = -2x^2 + 30x + 42\)</div>
+    <div class="step-exp">Combine the &#x27;x&#x27; terms and the constant terms to get the final expression. The relationship remains quadratic, with adjusted linear and constant coefficients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(N(x) = -2x^2 + 30x + 42\) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A science experiment tracks the growth of a bacterial colony, \(G(d)\), where \(G(d) = 0.8d^2 - 3d + 100\) represents the number of bacteria (in thousands) after \(d\) days. If a new nutrient solution is introduced, boosting the initial colony size by $15$ thousand and accelerating growth by an additional $0.2d^2$ thousand bacteria per day, what is the modified growth function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(G(d) = 0.6d^2 - 3d + 115\)</div><div class="option"><span class="opt-letter">B.</span> \(G(d) = 1.0d^2 - 3d + 115\)</div><div class="option"><span class="opt-letter">C.</span> \(G(d) = 1.0d^2 - 3d + 85\)</div><div class="option"><span class="opt-letter">D.</span> \(G(d) = 0.8d^2 - 2.8d + 115\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original growth function: \(G(d) = 0.8d^2 - 3d + 100\)</div>
+    <div class="step-exp">Identify the initial function for bacterial growth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Boost in initial colony size: $15$ thousand</div>
+    <div class="step-exp">This is a constant term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Accelerated growth: $0.2d^2$ thousand bacteria per day</div>
+    <div class="step-exp">This is a quadratic term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(G(d) = (0.8d^2 - 3d + 100) + 15 + 0.2d^2\)</div>
+    <div class="step-exp">Combine all components to form the new growth function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(G(d) = (0.8d^2 + 0.2d^2) - 3d + (100 + 15)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(G(d) = 1.0d^2 - 3d + 115\)</div>
+    <div class="step-exp">Combine the \(d^2\) terms and the constant terms to get the final growth function. The quadratic relationship is maintained, with adjusted coefficients representing the changes.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(G(d) = 1.0d^2 - 3d + 115\) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The trajectory of a water balloon launched from a cannon is modeled by \(y = -0.05x^2 + 2.5x + 1.2\), where \(y\) is the height in meters and \(x\) is the horizontal distance in meters. If the cannon is moved to a higher platform, increasing the initial height by $0.8$ meters, and the launch angle is adjusted, causing the horizontal range to be extended by an additional $0.02x^2$ units of height, what is the new trajectory equation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(y = -0.07x^2 + 2.5x + 2.0\)</div><div class="option"><span class="opt-letter">B.</span> \(y = -0.03x^2 + 2.5x + 1.0\)</div><div class="option"><span class="opt-letter">C.</span> \(y = -0.03x^2 + 2.5x + 2.0\)</div><div class="option"><span class="opt-letter">D.</span> \(y = -0.05x^2 + 2.5x + 2.0 + 0.02x^2\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original trajectory equation: \(y = -0.05x^2 + 2.5x + 1.2\)</div>
+    <div class="step-exp">Identify the initial equation for the water balloon&#x27;s trajectory.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Increase in initial height from platform: $0.8$ meters</div>
+    <div class="step-exp">This is a constant term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Additional height due to adjusted launch angle: $0.02x^2$</div>
+    <div class="step-exp">This is a quadratic term added to the function, indicating a change in the parabolic shape.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(y = (-0.05x^2 + 2.5x + 1.2) + 0.8 + 0.02x^2\)</div>
+    <div class="step-exp">Combine all components to form the new trajectory equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(y = (-0.05x^2 + 0.02x^2) + 2.5x + (1.2 + 0.8)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(y = -0.03x^2 + 2.5x + 2.0\)</div>
+    <div class="step-exp">Combine the \(x^2\) terms and the constant terms to obtain the final trajectory equation. The quadratic nature of the trajectory is maintained, with altered coefficients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(y = -0.03x^2 + 2.5x + 2.0\) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The structural integrity \(S\) of a newly constructed bridge, measured in arbitrary units, is initially modeled by \(S(t) = -0.12t^2 + 5.5t + 100\), where \(t\) is the time in months since construction. Due to unexpected environmental factors, the integrity is reduced by $0.03t^2$ and an initial flaw causes a further reduction of $7.5$ units. What is the new expression for the bridge&#x27;s structural integrity?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(S(t) = -0.09t^2 + 5.5t + 107.5\)</div><div class="option"><span class="opt-letter">B.</span> \(S(t) = -0.15t^2 + 5.5t + 92.5\)</div><div class="option"><span class="opt-letter">C.</span> \(S(t) = -0.12t^2 + 5.5t + 92.5 - 0.03t^2\)</div><div class="option"><span class="opt-letter">D.</span> \(S(t) = -0.15t^2 + 4.97t + 92.5\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original structural integrity function: \(S(t) = -0.12t^2 + 5.5t + 100\)</div>
+    <div class="step-exp">Identify the initial function for the bridge&#x27;s structural integrity.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Reduction due to environmental factors: $-0.03t^2$</div>
+    <div class="step-exp">This is a quadratic term representing a decrease in integrity over time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Reduction due to initial flaw: $-7.5$ units</div>
+    <div class="step-exp">This is a constant term representing an immediate decrease in integrity.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(S(t) = (-0.12t^2 + 5.5t + 100) - 0.03t^2 - 7.5\)</div>
+    <div class="step-exp">Combine all components to form the new structural integrity expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(S(t) = (-0.12t^2 - 0.03t^2) + 5.5t + (100 - 7.5)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(S(t) = -0.15t^2 + 5.5t + 92.5\)</div>
+    <div class="step-exp">Combine the \(t^2\) terms and the constant terms to get the final expression. The structural integrity is still modeled by a quadratic function, but with modified coefficients reflecting the reductions.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(S(t) = -0.15t^2 + 5.5t + 92.5\) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The projected population \(P\) of a small town in thousands is given by \(P(y) = 0.01y^2 - 0.5y + 120\), where \(y\) is the number of years from now. If a new industry opens, increasing the population by a constant $15$ thousand people and also attracting new residents at a rate of $0.005y^2$ thousand people per year, what is the new population function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(P(y) = 0.015y^2 - 0.5y + 135\)</div><div class="option"><span class="opt-letter">B.</span> \(P(y) = 0.015y^2 - 0.5y + 105\)</div><div class="option"><span class="opt-letter">C.</span> \(P(y) = 0.01y^2 - 0.5y + 135 + 0.005y^2\)</div><div class="option"><span class="opt-letter">D.</span> \(P(y) = 0.005y^2 - 0.5y + 135\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original population function: \(P(y) = 0.01y^2 - 0.5y + 120\)</div>
+    <div class="step-exp">Identify the initial population function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Constant population increase: $15$ thousand people</div>
+    <div class="step-exp">This is a constant term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Additional population growth rate: $0.005y^2$ thousand people per year</div>
+    <div class="step-exp">This is a quadratic term added to the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(P(y) = (0.01y^2 - 0.5y + 120) + 15 + 0.005y^2\)</div>
+    <div class="step-exp">Combine all components to form the new population function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\(P(y) = (0.01y^2 + 0.005y^2) - 0.5y + (120 + 15)\)</div>
+    <div class="step-exp">Group like terms for simplification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\(P(y) = 0.015y^2 - 0.5y + 135\)</div>
+    <div class="step-exp">Combine the \(y^2\) terms and the constant terms to get the final population function. The quadratic relationship for population growth is updated with new coefficients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> \(P(y) = 0.015y^2 - 0.5y + 135\) (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

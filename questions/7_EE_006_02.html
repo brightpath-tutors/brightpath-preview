@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Multi-Step Rational Problems</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.006.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Multi-Step Rational Problems</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.006.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah went shopping and bought a shirt for $15.75, a pair of socks for $4.25, and a book for $12.50. She started with $50.00. She then found a $5.00 bill in her pocket. How much money does Sarah have left?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $32.50</div><div class="option"><span class="opt-letter">B.</span> $12.50</div><div class="option"><span class="opt-letter">C.</span> $22.50</div><div class="option"><span class="opt-letter">D.</span> $42.50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total cost of items = $15.75 + $4.25 + $12.50</div>
+    <div class="step-exp">First, sum the cost of all items Sarah bought to find her total spending.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total cost of items = $20.00 + $12.50 = $32.50</div>
+    <div class="step-exp">Perform the addition. $15.75 + $4.25 equals $20.00, and adding $12.50 to that gives $32.50.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Money remaining after purchases = $50.00 - $32.50</div>
+    <div class="step-exp">Next, subtract the total spending from the initial amount of money Sarah had.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Money remaining after purchases = $17.50</div>
+    <div class="step-exp">Subtracting $32.50 from $50.00 leaves $17.50.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Final amount of money = $17.50 + $5.00</div>
+    <div class="step-exp">Finally, add the $5.00 bill Sarah found in her pocket to the remaining money.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final amount of money = $22.50</div>
+    <div class="step-exp">Adding $5.00 to $17.50 gives a final amount of $22.50.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $22.50 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A golfer played 3 holes. On the first hole, she scored 2 strokes below par (-2). On the second hole, she scored 1 stroke above par (+1). On the third hole, she scored 3 strokes below par (-3). If par for 3 holes is 12, what is her total score for the 3 holes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18</div><div class="option"><span class="opt-letter">B.</span> 16</div><div class="option"><span class="opt-letter">C.</span> 8</div><div class="option"><span class="opt-letter">D.</span> 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total strokes relative to par = (-2) + (+1) + (-3)</div>
+    <div class="step-exp">First, sum the scores relative to par for each hole to find the overall score relative to par.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total strokes relative to par = -1 + (-3) = -4</div>
+    <div class="step-exp">Adding -2 and +1 gives -1. Adding -3 to -1 results in -4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total score for 3 holes = Par score + Total strokes relative to par</div>
+    <div class="step-exp">Next, add this total relative score to the given par score for the 3 holes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total score for 3 holes = 12 + (-4)</div>
+    <div class="step-exp">Substitute the calculated relative score and the given par score into the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total score for 3 holes = 8</div>
+    <div class="step-exp">Adding 12 and -4 is equivalent to 12 - 4, which equals 8.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 1/2 cup of sugar, 3/4 cup of flour, and 1/8 teaspoon of salt. If you want to make 3 batches of the recipe, and you already have 1/4 cup of sugar, how much more sugar do you need?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2/4 cups</div><div class="option"><span class="opt-letter">B.</span> 3/4 cups</div><div class="option"><span class="opt-letter">C.</span> 5/4 cups</div><div class="option"><span class="opt-letter">D.</span> 1 cup</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sugar needed per batch = 1/2 cup</div>
+    <div class="step-exp">Identify the amount of sugar needed for one batch from the recipe.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total sugar needed for 3 batches = 3 * (1/2) cups</div>
+    <div class="step-exp">Multiply the sugar needed per batch by the number of batches to find the total sugar required.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total sugar needed for 3 batches = 3/2 cups</div>
+    <div class="step-exp">Perform the multiplication: 3 times 1/2 equals 3/2 cups.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">More sugar needed = 3/2 cups - 1/4 cup</div>
+    <div class="step-exp">Subtract the amount of sugar already available from the total sugar needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">More sugar needed = 6/4 cups - 1/4 cup</div>
+    <div class="step-exp">To subtract fractions, find a common denominator. 3/2 is equivalent to 6/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">More sugar needed = 5/4 cups</div>
+    <div class="step-exp">Subtract the numerators: 6 - 1 = 5. The denominator remains the same, so the result is 5/4 cups.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5/4 cups (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a speed of 60.5 miles per hour for 1.5 hours. It then reduces its speed to 45.25 miles per hour for the next 0.75 hours. What is the total distance traveled, rounded to the nearest tenth of a mile?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 124.6 miles</div><div class="option"><span class="opt-letter">B.</span> 124.7 miles</div><div class="option"><span class="opt-letter">C.</span> 123.9 miles</div><div class="option"><span class="opt-letter">D.</span> 124.0 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance_1 = 60.5 miles/hour * 1.5 hours</div>
+    <div class="step-exp">Calculate the distance traveled during the first part of the journey by multiplying speed by time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Distance_1 = 90.75 miles</div>
+    <div class="step-exp">Perform the multiplication for the first segment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distance_2 = 45.25 miles/hour * 0.75 hours</div>
+    <div class="step-exp">Calculate the distance traveled during the second part of the journey.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Distance_2 = 33.9375 miles</div>
+    <div class="step-exp">Perform the multiplication for the second segment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 90.75 miles + 33.9375 miles</div>
+    <div class="step-exp">Add the distances from both segments to find the total distance traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 124.6875 miles</div>
+    <div class="step-exp">Perform the addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Rounded total distance = 124.7 miles</div>
+    <div class="step-exp">Round the total distance to the nearest tenth of a mile. The hundredths digit (8) is 5 or greater, so round up the tenths digit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 124.7 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a math class, homework counts for 1/5 of the final grade, quizzes count for 1/4, and tests count for the remaining portion. If a student has an average of 85.5 for homework, 78.0 for quizzes, and 92.2 for tests, what is their final grade?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 85.2</div><div class="option"><span class="opt-letter">B.</span> 87.31</div><div class="option"><span class="opt-letter">C.</span> 86.85</div><div class="option"><span class="opt-letter">D.</span> 89.1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Test weight = 1 - 1/5 - 1/4</div>
+    <div class="step-exp">First, calculate the weight of the tests by subtracting the weights of homework and quizzes from the total grade (1, or 100%).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Test weight = 20/20 - 4/20 - 5/20 = 11/20</div>
+    <div class="step-exp">Find a common denominator (20) for the fractions and perform the subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Homework weight (decimal) = 1/5 = 0.2
+Quiz weight (decimal) = 1/4 = 0.25
+Test weight (decimal) = 11/20 = 0.55</div>
+    <div class="step-exp">Convert all fractional weights to decimals for easier multiplication with the average scores.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Weighted Homework = 85.5 <em> 0.2 = 17.1
+Weighted Quizzes = 78.0 </em> 0.25 = 19.5
+Weighted Tests = 92.2 * 0.55 = 50.71</div>
+    <div class="step-exp">Multiply each average score by its corresponding decimal weight.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Final Grade = 17.1 + 19.5 + 50.71</div>
+    <div class="step-exp">Add the weighted scores for homework, quizzes, and tests to find the final grade.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final Grade = 87.31</div>
+    <div class="step-exp">Perform the addition to get the final grade.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 87.31 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">At the start of an experiment, the temperature of a chemical solution was -4.8 °C. Over the next 2 hours, the temperature decreased by 1.2 °C each hour. Then, for the next 3 hours, it increased by 0.7 °C each hour. What was the final temperature of the solution?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -4.1 °C</div><div class="option"><span class="opt-letter">B.</span> -5.1 °C</div><div class="option"><span class="opt-letter">C.</span> -6.2 °C</div><div class="option"><span class="opt-letter">D.</span> -3.8 °C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total temperature change during decrease period = 2 hours * (-1.2 °C/hour)</div>
+    <div class="step-exp">Calculate the total temperature change during the first 2 hours by multiplying the number of hours by the rate of decrease. Note that decrease is represented by a negative value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total temperature change during decrease period = -2.4 °C</div>
+    <div class="step-exp">Perform the multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total temperature change during increase period = 3 hours * 0.7 °C/hour</div>
+    <div class="step-exp">Calculate the total temperature change during the next 3 hours by multiplying the number of hours by the rate of increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total temperature change during increase period = 2.1 °C</div>
+    <div class="step-exp">Perform the multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Final temperature = Initial temperature + Total decrease + Total increase</div>
+    <div class="step-exp">Add the initial temperature and all the temperature changes to find the final temperature.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final temperature = -4.8 °C + (-2.4 °C) + 2.1 °C</div>
+    <div class="step-exp">Substitute the values into the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Final temperature = -7.2 °C + 2.1 °C = -5.1 °C</div>
+    <div class="step-exp">First, add -4.8 and -2.4 to get -7.2. Then, add 2.1 to -7.2 to get -5.1 °C.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -5.1 °C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A rectangular garden has a length of 12 1/4 feet and a width of 8 1/2 feet. A fence is to be built around its perimeter. If the fence posts are to be placed every 1 1/3 feet, how many fence posts are needed? (Assume a post is needed at the start and end of each segment, so round up if there&#x27;s a fractional part of a segment.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 31 posts</div><div class="option"><span class="opt-letter">B.</span> 32 posts</div><div class="option"><span class="opt-letter">C.</span> 28 posts</div><div class="option"><span class="opt-letter">D.</span> 40 posts</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Length = 12 1/4 feet = 49/4 feet
+Width = 8 1/2 feet = 17/2 feet
+Post spacing = 1 1/3 feet = 4/3 feet</div>
+    <div class="step-exp">Convert all mixed numbers to improper fractions for easier calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Perimeter = 2 * (Length + Width)</div>
+    <div class="step-exp">Use the formula for the perimeter of a rectangle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Perimeter = 2 <em> (49/4 + 17/2) = 2 </em> (49/4 + 34/4)</div>
+    <div class="step-exp">Substitute the improper fractions and find a common denominator for the sum inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Perimeter = 2 * (83/4) = 83/2 feet</div>
+    <div class="step-exp">Perform the addition and then the multiplication to find the total perimeter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Number of segments = Perimeter / Post spacing</div>
+    <div class="step-exp">Divide the total perimeter by the spacing between posts to find the number of segments.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Number of segments = (83/2) / (4/3) = (83/2) * (3/4)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Number of segments = 249/8 = 31.125 segments</div>
+    <div class="step-exp">Perform the multiplication. The result is 31.125 segments.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">Number of posts = ceil(31.125) = 32 posts</div>
+    <div class="step-exp">Since a post is needed at the start and end of each segment (and around a perimeter), round up to the nearest whole number to ensure full coverage. 31.125 segments implies 32 posts.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 32 posts (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A flight from London (GMT+0) departs at 10:30 AM and lands in New York (GMT-5) 7.5 hours later. Due to unexpected turbulence, the flight was delayed by 1/4 of its original flight duration. What is the arrival time in New York local time?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7:52:30 PM</div><div class="option"><span class="opt-letter">B.</span> 2:52:30 PM</div><div class="option"><span class="opt-letter">C.</span> 1:07:30 PM</div><div class="option"><span class="opt-letter">D.</span> 8:07:30 PM</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original flight duration = 7.5 hours</div>
+    <div class="step-exp">Identify the original flight duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Delay duration = 1/4 <em> 7.5 hours = 0.25 </em> 7.5 hours</div>
+    <div class="step-exp">Calculate the duration of the delay, which is 1/4 of the original flight duration. Convert 1/4 to its decimal equivalent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Delay duration = 1.875 hours</div>
+    <div class="step-exp">Perform the multiplication to find the delay duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">New total flight duration = 7.5 hours + 1.875 hours = 9.375 hours</div>
+    <div class="step-exp">Add the delay duration to the original flight duration to get the new total flight time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Departure time in London (decimal hours) = 10:30 AM = 10.5 hours past midnight</div>
+    <div class="step-exp">Convert the departure time to a decimal hour format for easier addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Arrival time in London local time (decimal hours) = 10.5 hours + 9.375 hours = 19.875 hours past midnight</div>
+    <div class="step-exp">Add the new total flight duration to the London departure time to find the arrival time in London&#x27;s local time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Arrival time in New York local time (decimal hours) = 19.875 hours - 5 hours</div>
+    <div class="step-exp">Adjust for the time zone difference. New York (GMT-5) is 5 hours behind London (GMT+0), so subtract 5 hours from the London arrival time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">Arrival time in New York local time = 14.875 hours = 2:52:30 PM</div>
+    <div class="step-exp">Convert 14.875 hours back to HH:MM:SS format (14 hours = 2 PM; 0.875 <em> 60 minutes = 52.5 minutes; 0.5 </em> 60 seconds = 30 seconds). So, 2:52:30 PM.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:52:30 PM (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small town had a population of 15,000 residents. In the first year, the population decreased by 2.5%. In the second year, it increased by 3.8%. In the third year, it decreased by 1.1% of the population at the end of the second year. What was the population at the end of the third year, rounded to the nearest whole number?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15013</div><div class="option"><span class="opt-letter">B.</span> 15234</div><div class="option"><span class="opt-letter">C.</span> 15014</div><div class="option"><span class="opt-letter">D.</span> 15010</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Population after Year 1 = 15000 * (1 - 0.025)</div>
+    <div class="step-exp">To calculate the population after a 2.5% decrease, multiply the initial population by (1 - 0.025).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Population after Year 1 = 15000 * 0.975 = 14625</div>
+    <div class="step-exp">Perform the multiplication to find the population at the end of the first year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Population after Year 2 = 14625 * (1 + 0.038)</div>
+    <div class="step-exp">To calculate the population after a 3.8% increase, multiply the population at the end of year 1 by (1 + 0.038).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Population after Year 2 = 14625 * 1.038 = 15180.75</div>
+    <div class="step-exp">Perform the multiplication to find the population at the end of the second year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Population after Year 3 = 15180.75 * (1 - 0.011)</div>
+    <div class="step-exp">To calculate the population after a 1.1% decrease, multiply the population at the end of year 2 by (1 - 0.011).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Population after Year 3 = 15180.75 * 0.989 = 15013.74175</div>
+    <div class="step-exp">Perform the multiplication to find the population at the end of the third year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Rounded population = 15014</div>
+    <div class="step-exp">Round the final population to the nearest whole number. Since the first decimal digit (7) is 5 or greater, round up the whole number part.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15014 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A laptop has a 500 GB hard drive. 1/8 of the drive is used by the operating system, and 0.15 of the remaining space is used for applications. If 1 GB = 1024 MB, and a user downloads a movie that is 8,192 MB, how much free space (in GB) is left on the hard drive?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 368.125 GB</div><div class="option"><span class="opt-letter">B.</span> 363.875 GB</div><div class="option"><span class="opt-letter">C.</span> 371.375 GB</div><div class="option"><span class="opt-letter">D.</span> 375.0 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Space used by OS = 500 GB * (1/8)</div>
+    <div class="step-exp">Calculate the amount of space used by the operating system by multiplying the total hard drive size by the fraction used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Space used by OS = 62.5 GB</div>
+    <div class="step-exp">Perform the multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Remaining space after OS = 500 GB - 62.5 GB</div>
+    <div class="step-exp">Subtract the OS space from the total hard drive size to find the remaining space.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Remaining space after OS = 437.5 GB</div>
+    <div class="step-exp">Perform the subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Space used by applications = 437.5 GB * 0.15</div>
+    <div class="step-exp">Calculate the space used by applications by multiplying the remaining space by 0.15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Space used by applications = 65.625 GB</div>
+    <div class="step-exp">Perform the multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Movie size in GB = 8192 MB / 1024 MB/GB = 8 GB</div>
+    <div class="step-exp">Convert the movie size from MB to GB using the given conversion factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">Total used space = 62.5 GB + 65.625 GB + 8 GB = 136.125 GB
+Free space = 500 GB - 136.125 GB = 363.875 GB</div>
+    <div class="step-exp">Sum all the used spaces (OS, applications, and movie) and then subtract this total from the initial hard drive size to find the free space.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 363.875 GB (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

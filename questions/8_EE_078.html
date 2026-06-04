@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Graph Inequalities</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.078<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Graph Inequalities</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.078</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shopper has a budget of $50 for groceries. They have already spent $15. Write and graph an inequality that represents the remaining amount, <code>x</code>, they can spend.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with a closed circle at 35 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">B.</span> A number line with an open circle at 35 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">C.</span> A number line with a closed circle at 65 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 35 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">15 + x &lt;= 50</div>
+    <div class="step-exp">The total amount spent (already spent $15 plus the remaining amount x) must be less than or equal to the budget of $50.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x &lt;= 50 - 15
+x &lt;= 35</div>
+    <div class="step-exp">Subtract 15 from both sides of the inequality to isolate x.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Closed circle at 35, arrow pointing left.</div>
+    <div class="step-exp">Since x is less than or equal to 35, the graph includes 35 (closed circle) and all values smaller than 35 (arrow pointing left).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with a closed circle at 35 and an arrow pointing to the left. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball player needs to score at least 20 points in a game to break a personal record. They have already scored 8 points. Write and graph an inequality that represents the additional points, <code>p</code>, they need to score.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with an open circle at 12 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">B.</span> A number line with a closed circle at 28 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">C.</span> A number line with a closed circle at 12 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 12 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">8 + p &gt;= 20</div>
+    <div class="step-exp">The current score (8 points) plus the additional points (p) must be greater than or equal to the record (20 points).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">p &gt;= 20 - 8
+p &gt;= 12</div>
+    <div class="step-exp">Subtract 8 from both sides of the inequality to isolate p.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Closed circle at 12, arrow pointing right.</div>
+    <div class="step-exp">Since p is greater than or equal to 12, the graph includes 12 (closed circle) and all values larger than 12 (arrow pointing right).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with a closed circle at 12 and an arrow pointing to the right. (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires the oven temperature to be no more than 375 degrees Fahrenheit. The current temperature is 300 degrees. Write and graph an inequality that represents the additional degrees, <code>d</code>, the temperature can increase.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with a closed circle at 75 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">B.</span> A number line with a closed circle at 75 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">C.</span> A number line with an open circle at 75 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 675 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">300 + d &lt;= 375</div>
+    <div class="step-exp">The current temperature plus the additional degrees must be less than or equal to the maximum allowed temperature.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">d &lt;= 375 - 300
+d &lt;= 75</div>
+    <div class="step-exp">Subtract 300 from both sides of the inequality to isolate d.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Closed circle at 75, arrow pointing left.</div>
+    <div class="step-exp">Since d is less than or equal to 75, the graph includes 75 (closed circle) and all values smaller than 75 (arrow pointing left).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with a closed circle at 75 and an arrow pointing to the left. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car is traveling on a highway where the speed limit is 65 mph. The car&#x27;s speed must be at least 40 mph. Let <code>s</code> represent the car&#x27;s speed. Write and graph a compound inequality for the allowed speed.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with closed circles at 40 and 65, and arrows pointing outwards from both.</div><div class="option"><span class="opt-letter">B.</span> A number line with a closed circle at 65 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">C.</span> A number line with closed circles at 40 and 65, and a line segment connecting them.</div><div class="option"><span class="opt-letter">D.</span> A number line with open circles at 40 and 65, and a line segment connecting them.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">s &gt;= 40</div>
+    <div class="step-exp">The speed (s) must be greater than or equal to 40.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s &lt;= 65</div>
+    <div class="step-exp">The speed (s) must be less than or equal to 65.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">40 &lt;= s &lt;= 65</div>
+    <div class="step-exp">Since the speed must satisfy both conditions, we combine them with &#x27;and&#x27; into a single compound inequality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Closed circles at 40 and 65, line segment connecting them.</div>
+    <div class="step-exp">The graph includes 40 and 65 (closed circles) and all values between them (connecting line segment).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with closed circles at 40 and 65, and a line segment connecting them. (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">To pass a course, a student needs an average score of at least 70% on 3 tests. Their scores on the first two tests are 65% and 72%. Write and graph an inequality that represents the score, <code>t</code>, they need on the third test to pass the course.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with a closed circle at 73 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">B.</span> A number line with an open circle at 73 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">C.</span> A number line with a closed circle at 73 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 210 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">(65 + 72 + t) / 3 &gt;= 70</div>
+    <div class="step-exp">The sum of the three test scores divided by 3 must be greater than or equal to 70.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(137 + t) / 3 &gt;= 70
+137 + t &gt;= 210 (Multiply both sides by 3)
+t &gt;= 210 - 137
+t &gt;= 73 (Subtract 137 from both sides)</div>
+    <div class="step-exp">First, sum the known scores. Then, multiply both sides by 3 to clear the denominator. Finally, subtract 137 to isolate t.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Closed circle at 73, arrow pointing right.</div>
+    <div class="step-exp">Since t is greater than or equal to 73, the graph includes 73 (closed circle) and all values larger than 73 (arrow pointing right).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with a closed circle at 73 and an arrow pointing to the right. (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemical reaction requires the pH level to be between 6.5 and 7.5, inclusive. Write and graph an inequality representing the acceptable pH range, <code>p</code>.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with closed circles at 6.5 and 7.5, and a line segment connecting them.</div><div class="option"><span class="opt-letter">B.</span> A number line with open circles at 6.5 and 7.5, and a line segment connecting them.</div><div class="option"><span class="opt-letter">C.</span> A number line with closed circles at 6.5 and 7.5, and arrows pointing outwards from both.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 7.5 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">p &gt;= 6.5 (pH must be greater than or equal to 6.5)
+p &lt;= 7.5 (pH must be less than or equal to 7.5)</div>
+    <div class="step-exp">The phrase &#x27;between 6.5 and 7.5, inclusive&#x27; means the pH level can be 6.5, 7.5, or any value in between.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6.5 &lt;= p &lt;= 7.5</div>
+    <div class="step-exp">Combine the two simple inequalities into a single compound inequality using &#x27;and&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Closed circles at 6.5 and 7.5, line segment connecting them.</div>
+    <div class="step-exp">The graph includes 6.5 and 7.5 (closed circles) and all values between them (connecting line segment).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with closed circles at 6.5 and 7.5, and a line segment connecting them. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder needs to cut pieces of wood that are at least 10 inches long but no more than 18 inches long. Let <code>L</code> be the length of a piece of wood. Write and graph the inequality that represents the acceptable lengths.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with open circles at 10 and 18, and a line segment connecting them.</div><div class="option"><span class="opt-letter">B.</span> A number line with closed circles at 10 and 18, and arrows pointing outwards from both.</div><div class="option"><span class="opt-letter">C.</span> A number line with closed circles at 10 and 18, and a line segment connecting them.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 10 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">L &gt;= 10</div>
+    <div class="step-exp">The length (L) must be greater than or equal to 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">L &lt;= 18</div>
+    <div class="step-exp">The length (L) must be less than or equal to 18.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 &lt;= L &lt;= 18</div>
+    <div class="step-exp">Since both conditions must be true for acceptable lengths, we combine them into a single compound inequality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Closed circles at 10 and 18, line segment connecting them.</div>
+    <div class="step-exp">The graph includes 10 and 18 (closed circles) and all values between them (connecting line segment).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with closed circles at 10 and 18, and a line segment connecting them. (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project has a deadline in 3 weeks. A team has already worked 25 hours. If the project requires at least 100 hours of work in total, and they plan to work for the remaining 2 weeks, write and graph an inequality for the minimum average hours per week, <code>h</code>, they need to work for the remaining time.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with a closed circle at 37.5 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">B.</span> A number line with a closed circle at 37.5 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">C.</span> A number line with a closed circle at 100 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">D.</span> A number line with an open circle at 37.5 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3 weeks total - 1 week already passed = 2 weeks remaining.</div>
+    <div class="step-exp">Since work has already been done, we calculate the remaining time for future work.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">25 + 2h &gt;= 100</div>
+    <div class="step-exp">The hours already worked (25) plus the hours worked in the remaining 2 weeks (2h) must be at least 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2h &gt;= 100 - 25
+2h &gt;= 75
+h &gt;= 75 / 2
+h &gt;= 37.5</div>
+    <div class="step-exp">First, subtract 25 from both sides. Then, divide by 2 to isolate h.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Closed circle at 37.5, arrow pointing right.</div>
+    <div class="step-exp">Since h is greater than or equal to 37.5, the graph includes 37.5 (closed circle) and all values larger than 37.5 (arrow pointing right).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with a closed circle at 37.5 and an arrow pointing to the right. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population is currently 12,000. It is growing at a rate of 200 people per year. The town wants to maintain its population below 15,000. Write and graph an inequality that represents the number of years, <code>y</code>, for which the population will remain below 15,000.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with an open circle at 15 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">B.</span> A number line with an open circle at 15 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">C.</span> A number line with an open circle at 1.5 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">D.</span> A number line with a closed circle at 15 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">12000 + 200y &lt; 15000</div>
+    <div class="step-exp">The current population (12,000) plus the growth over &#x27;y&#x27; years (200y) must be strictly less than 15,000.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">200y &lt; 15000 - 12000
+200y &lt; 3000
+y &lt; 3000 / 200
+y &lt; 15</div>
+    <div class="step-exp">First, subtract 12000 from both sides. Then, divide by 200 to isolate y.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Open circle at 15, arrow pointing left.</div>
+    <div class="step-exp">Since y is strictly less than 15, the graph includes an open circle at 15 and an arrow pointing to the left.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with an open circle at 15 and an arrow pointing to the left. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A smartphone&#x27;s battery drains at a rate of 5% per hour when in use. It started with 100% charge. If the user wants the battery charge, <code>c</code>, to remain above 20% for <code>h</code> hours of use, write and graph an inequality for the maximum number of hours the phone can be used.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A number line with an open circle at 16 and an arrow pointing to the right.</div><div class="option"><span class="opt-letter">B.</span> A number line with a closed circle at 16 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">C.</span> A number line with an open circle at 16 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">D.</span> A number line with an open circle at 24 and an arrow pointing to the left.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">100 - 5h &gt; 20</div>
+    <div class="step-exp">The initial charge (100%) minus the drained charge (5% per hour for &#x27;h&#x27; hours) must be greater than 20%.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-5h &gt; 20 - 100
+-5h &gt; -80
+h &lt; -80 / -5 (Divide by -5 and reverse inequality sign)
+h &lt; 16</div>
+    <div class="step-exp">First, subtract 100 from both sides. Then, divide by -5, remembering to reverse the inequality sign because you are dividing by a negative number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Open circle at 16, arrow pointing left.</div>
+    <div class="step-exp">Since h is strictly less than 16, the graph includes an open circle at 16 and an arrow pointing to the left.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A number line with an open circle at 16 and an arrow pointing to the left. (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

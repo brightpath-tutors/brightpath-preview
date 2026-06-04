@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Adding Rational Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | The Number System<br>76 atoms | Skill 7.NS.007.02<br></div>
+</div>
+<h1 class="skill-title">Adding Rational Numbers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.007.02 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can accurately add rational numbers, including positive and negative fractions and decimals, by applying properties of operations.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">When adding rational numbers, the fundamental principles of combining positive and negative values you&#x27;ve learned for integers remain crucial. A rational number is any number that can be written as a fraction P/Q, where P and Q are integers and Q is not zero. This broad category includes integers like 5 or -3, fractions like 1/2 or -3/4, and decimals like 0.75 or -2.5. The mechanism for addition depends on the format, but the core idea is combining quantities. For instance, to add -2.5 + 3/4, <span class="ph">[Student Name]</span> would first convert 3/4 into its decimal equivalent, 0.75. Now we have -2.5 + 0.75. Since the numbers have different signs, we find the difference between their absolute values: | -2.5 | = 2.5 and | 0.75 | = 0.75. Subtracting, 2.5 - 0.75 = 1.75. Because the number with the larger absolute value, -2.5, is negative, our sum is -1.75. This process is like balancing a financial ledger, <span class="ph">[Student Name]</span>. Each transaction, whether a deposit or a withdrawal, is a rational number, and adding them tells you your total balance. Just as combining different financial activities leads to a single net result, adding rational numbers brings various values together for one definitive sum.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">Hey <span class="ph">[Student Name]</span>! You&#x27;ve already got a fantastic foundation for adding rational numbers. Remember in 6th grade when you learned about positive and negative numbers (6.NS.005) and how they describe opposite values, like owing money (-$5) versus having money (+$10)? And in 7th grade, you&#x27;ve been a pro at solving real-world problems with all four operations on rational numbers (7.NS.003), tackling everything from splitting a pizza among friends to calculating temperature changes. Adding rational numbers is really just building on those powerful skills. Think of it this way: if you can add -5 and +10 to get 5, you can absolutely add -2.5 and +3/4. It&#x27;s the same core idea of combining values, just with numbers that might look a little different as fractions or decimals. We just need to make sure they&#x27;re in a compatible format, like decimals or fractions with a common denominator, before combining them. You already have the mental math muscles; this lesson just shows you how to flex them with new kinds of numbers. <span class="ph">[they]</span> will be adding these in no time!</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that adding rational numbers is literally rocket science? Imagine the International Space Station (ISS), a marvel of engineering visible from Earth. Its exact position in orbit—down to mere feet—is constantly calculated by scientists at NASA. This involves adding and subtracting highly precise rational numbers, like 0.0001 miles to account for tiny adjustments or orbital drift, to its current coordinates every second! Without being able to accurately add these fractions and decimals, we couldn&#x27;t track the ISS, guide spacecraft to dock with it, or even know when it might pass over your hometown, <span class="ph">[Student Name]</span>. This isn&#x27;t just about simple whole numbers; it&#x27;s about combining precise fractional changes to keep a multi-billion dollar laboratory floating safely in space. So, the next time <span class="ph">[Student Name]</span> sees a fraction or a decimal in an addition problem, remember that <span class="ph">[they]</span> is practicing the same kind of math that helps keep astronauts safe above us, ensuring that valuable missions succeed. It’s a small step for you, but a giant leap for space exploration!</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Adding rational numbers is a calm and predictable process once you understand the steps. First, let&#x27;s clearly define what a rational number is: it&#x27;s any number that can be expressed as a simple fraction, P/Q, where P and Q are whole numbers (integers) and Q is not zero. This includes all integers (like 5 or -2), all fractions (like 1/3 or -2/5), and all terminating or repeating decimals (like 0.75 or 0.333...). To add them, the main goal is to get them into the same format, usually all fractions with a common denominator, or all decimals. For example, let&#x27;s solve -1/2 + 0.75. <span class="ph">[Student Name]</span> can convert -1/2 to its decimal form, -0.5. Now, we add -0.5 + 0.75. Since the signs are different, we subtract the smaller absolute value from the larger: 0.75 - 0.5 = 0.25. Because 0.75 has a larger absolute value and is positive, the answer is +0.25. This skill is crucial in real-life situations, like when <span class="ph">[Student Name]</span> is tracking changes in <span class="ph">[their]</span> savings account. If <span class="ph">[they]</span> gets a $10.50 deposit but then has a $3.25 fee, knowing how to add rational numbers tells <span class="ph">[them]</span> <span class="ph">[their]</span> current balance.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Before we dive deeper into adding rational numbers, let&#x27;s revisit some important ideas you already know. In 6th grade, <span class="ph">[Student Name]</span> became familiar with negative numbers (6.NS.005), understanding that quantities like -10 degrees Fahrenheit represent an opposite value to +10 degrees. You mastered how to place positive and negative integers on a number line, seeing how they relate to zero. Then, in 7th grade, you expanded this to solving real-world and mathematical problems involving all four operations with rational numbers (7.NS.003). This meant you could already add, subtract, multiply, and divide fractions and decimals in various contexts, like calculating batting averages in baseball or figuring out ingredient amounts for a recipe.
+Now, we&#x27;re simply bringing these two powerful ideas together! You&#x27;ve already handled negative values and you&#x27;ve already handled fractions and decimals. Adding rational numbers combines these skills, asking you to consider both the sign of the numbers and their fractional or decimal forms simultaneously. It&#x27;s about applying the rules for combining positive and negative values, which you learned with integers, to these broader categories of numbers.
+The new skill of adding rational numbers means taking any two or more numbers that can be written as fractions—like 1/4, -0.75, or even 2 (which is 2/1)—and finding their total sum. This often involves converting them to a common format, such as decimals or fractions with a common denominator, and then carefully applying the rules for adding numbers with like or unlike signs. For example, adding -1/2 + (-0.25) would involve converting to decimals: -0.5 + (-0.25) = -0.75.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hello, <span class="ph">[Student Name]</span>! Let&#x27;s tackle adding rational numbers with a real-world example. Imagine your favorite online game where you earn or lose points. Let&#x27;s calculate your score change: you gained 2/3 of a point, and then you lost 1/2 of a point due to a glitch. What&#x27;s your total change in score? Here’s how to solve 2/3 + (-1/2):
+
+1. <span class="hint-tag">&#128161; Hint: We can&#x27;t add or subtract fractions unless their bottom numbers (denominators) are the same.</span> Find a common denominator for 3 and 2. The smallest number that both 3 and 2 divide into evenly is 6. To change 2/3, we multiply both the top and bottom by 2 (2<em>2/3</em>2 = 4/6). To change -1/2, we multiply both the top and bottom by 3 ((-1)<em>3 / (2)</em>3 = -3/6). Our problem is now 4/6 + (-3/6).
+
+2. <span class="hint-tag">&#128161; Hint: Now that the denominators match, we can combine the top numbers. Remember the rules for adding integers: if the signs are different, subtract the smaller absolute value from the larger absolute value and keep the sign of the number with the larger absolute value.</span> We add the numerators: 4 + (-3). This is like having 4 positive steps and 3 negative steps. You end up with 1 positive step. So, 4 + (-3) = 1. The denominator stays the same. This gives us 1/6.
+
+3. <span class="hint-tag">&#128161; Hint: Always check if your fraction can be made simpler. Can both the top and bottom numbers be divided by the same number (other than 1) to make them smaller?</span> The fraction 1/6 cannot be simplified further because 1 and 6 do not share any common factors other than 1. So, your total change in score is 1/6 of a point.
+
+To check this: Think about a number line. If you start at 0, move 2/3 (which is 4/6) to the right. Then, from there, move 1/2 (which is 3/6) to the left. You&#x27;ll land at 1/6. This confirms our answer!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let’s work through adding rational numbers with decimals, <span class="ph">[Student Name]</span>. Imagine a thermometer during a cold winter day in Chicago. The temperature starts at -3.75 degrees Fahrenheit. Then, later in the day, it warms up by 1.2 degrees Fahrenheit. What is the new temperature?
+
+Here&#x27;s how to solve -3.75 + 1.2:
+
+1. First, we need to understand the signs. We are adding a negative number (-3.75) and a positive number (1.2). When adding numbers with different signs, the sum&#x27;s sign will be the same as the number with the larger absolute value. The absolute value of -3.75 is 3.75, and the absolute value of 1.2 is 1.2. Since 3.75 is larger than 1.2, our final answer will be negative.
+
+2. Next, subtract the smaller absolute value from the larger absolute value. This means we&#x27;ll calculate 3.75 - 1.2. It can be helpful to line up the decimal points: 3.75 - 1.20 = 2.55. (Adding the 0 to 1.2 makes subtraction easier, as 1.20 is equivalent to 1.2).
+
+3. Finally, apply the sign we determined in Step 1. Since the absolute value of -3.75 was larger, our answer is negative. So, -3.75 + 1.2 = -2.55. The new temperature is -2.55 degrees Fahrenheit.
+
+To check your work, you can think of it like this: If you owed someone $3.75 and then paid them back $1.20, you would still owe them money, specifically $2.55. The negative sign represents the amount you still owe, confirming our calculation.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">Let&#x27;s tackle a trickier problem, <span class="ph">[Student Name]</span>, combining different types of rational numbers. Suppose you&#x27;re tracking changes in your savings account. You start with a deposit of $2 and 1/4 (2 1/4) dollars. Then, you spend $1.50 (-1.5) on a soda, and finally, you find $3/8 (3/8) of a dollar in your jeans pocket. What&#x27;s your total change in savings?
+
+Here’s how to solve 2 1/4 + (-1.5) + 3/8:
+
+1. [Common Error: Not converting all numbers to the same format or making conversion mistakes.] To add these, it&#x27;s usually easiest to convert everything to fractions or everything to decimals. Let&#x27;s convert them all to fractions with a common denominator. 2 1/4 is 9/4. -1.5 is -15/10, which simplifies to -3/2. 3/8 is already a fraction. Now find a common denominator for 4, 2, and 8, which is 8. So, 9/4 becomes 18/8. -3/2 becomes -12/8. Our problem is now 18/8 + (-12/8) + 3/8.
+
+2. [Common Error: Forgetting sign rules when adding multiple numbers, especially with subtraction masquerading as adding a negative.] Now, add them from left to right. 18/8 + (-12/8) = (18 - 12)/8 = 6/8. Then, add the last fraction: 6/8 + 3/8 = (6 + 3)/8 = 9/8.
+
+3. [Common Error: Not simplifying the final answer or leaving an improper fraction when a mixed number is more appropriate for context.] The fraction 9/8 is an improper fraction (the numerator is larger than the denominator). As a mixed number, 9/8 is 1 and 1/8. So, your total change in savings is $1 and 1/8. In decimal form, this is $1.125.
+
+To check: You could estimate. 2 and a quarter is about 2.25. Losing $1.50 leaves about $0.75. Finding $0.375 ($3/8) makes it about $1.125. The exact answer is $1.125, which matches our check.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content"><span class="ph">[Student Name]</span>, imagine you have 5 stickers. Then, you trade 2 of your stickers for a cool bouncy ball. You started with some, and then you gave some away. How many stickers do you have left? You just count what&#x27;s there. Or, if you get 1 extra piece of candy, then you eat half a piece. You just see how much is still in your hand. We&#x27;re just putting things together, even if some of them make your pile smaller!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Adding rational numbers is a lot like tracking gains and losses on a football field, <span class="ph">[Student Name]</span>. Imagine the yard line is your number line. Moving forward means adding a positive number, and moving backward means adding a negative number. If your team gains 3 and a half yards (positive 3.5 yards) on one play, then loses 1 and a quarter yards (negative 1.25 yards) on the next play, you&#x27;re adding 3.5 + (-1.25).
+
+The 3.5 yards represents moving right on the number line. The -1.25 yards represents moving left. You start at your current position, move forward 3.5 &#x27;units,&#x27; then turn around and move back 1.25 &#x27;units.&#x27; The final spot on the field is your answer. You&#x27;d end up 2.25 yards from where you started before the two plays. It&#x27;s like finding your final position after a series of forward and backward movements.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, picture a number line stretching infinitely in both directions. When you add a positive rational number, you move to the right on this line. If you add a negative rational number, you move to the left. For example, if you start at 0 and want to add 1/2, you physically jump half a step to the right, landing exactly between 0 and 1. If you then add -3/4, you turn around from your 1/2 position and jump three-quarters of a step to the left.
+
+The key is to visualize the direction and distance of each &#x27;jump.&#x27; Fractions and decimals simply mean your jumps aren&#x27;t always full whole steps; they can be partial steps. Your final landing spot is the sum. So, 1/2 + (-3/4) would mean landing at -1/4, a quarter-step to the left of zero.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Adding rational numbers isn&#x27;t super scary once you get the hang of it. Think of it like this: rational numbers are just any numbers that can be written as a fraction—like decimals, fractions, or even whole numbers. If you have, say, a score of -2.5 points in a video game (you&#x27;re in the hole!), and then you earn 1/2 a point, you&#x27;re basically combining those changes. The tough part is sometimes you have to make them look the same, like turning 1/2 into 0.5. So then it&#x27;s -2.5 + 0.5, which is -2. It&#x27;s like if you owe your friend $2.50 and pay back 50 cents, you still owe them $2. Just keep track of your positives and negatives, and you&#x27;ll nail it!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine you&#x27;re a financial analyst for a major US company like Nike. You constantly track profits and expenses, which often involve adding rational numbers. For instance, if Nike&#x27;s revenue from sneakers increased by $1.75 billion in the first quarter, but then <span class="ph">[they]</span> had an unexpected expense of $0.3 billion for a new marketing campaign, you&#x27;d calculate the net change. The equation would be $1.75 + (-0.3) = $1.45 billion. This means the company&#x27;s net financial position improved by $1.45 billion. Financial analysts use these calculations daily to advise on investments and future business strategies. Mastering adding rational numbers is key for <span class="ph">[Student Name]</span> to understand the financial health of businesses and even manage <span class="ph">[their]</span> own investments someday.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Think about planning a road trip across the US, like from New York City to Los Angeles. You start with a full tank of gas, which is 18.5 gallons. After driving for a few hours, you use 6.25 gallons of gas. So, your current tank level is 18.5 + (-6.25) = 12.25 gallons. Later, you stop at a gas station and add 10.75 gallons. Now, your tank level becomes 12.25 + 10.75 = 23 gallons. Oops, that&#x27;s more than 18.5! Ah, if your tank <em>capacity</em> is 18.5 gallons, you can only add enough to reach 18.5. This kind of calculation helps <span class="ph">[Student Name]</span> keep track of resources, from gas in a car to money in a bank account, making sure you don&#x27;t run out or overfill. It&#x27;s a practical skill for everyday financial decisions, like balancing a budget for a school field trip or tracking scores in a fantasy football league.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering the addition of rational numbers is a foundational skill that will significantly impact <span class="ph">[Student Name]</span>&#x27;s future academic and professional success. These concepts are directly tested on standardized exams like the SAT and ACT, where understanding fractions, decimals, and negative numbers is crucial for algebra and problem-solving sections. Achieving high scores on these tests can open doors to top colleges and universities across the US, offering more scholarship opportunities and a wider range of academic programs. Furthermore, the ability to work confidently with rational numbers is essential for advanced mathematics, science, engineering, and finance degrees. These fields often lead to high-earning careers, where precise calculations with rational numbers are a daily requirement, from designing bridges to managing complex investment portfolios. Building a strong base now will directly contribute to <span class="ph">[their]</span> future earnings potential and career choices.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Add the following fractions: 3/8 + 1/8</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">Calculate: -4.5 + 2.3</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Add these two negative fractions: -2/5 + (-1/5)</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">Find the sum: 1/3 + 1/6</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">Calculate the total change in temperature: A temperature starts at -3.2°F, then increases by 7.8°F, and then drops by 1.5°F. What is the final temperature?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">A quarterback throws a football 12 1/4 yards downfield. The receiver then runs with the ball for an additional 7 1/2 yards. What is the total yardage gained on the play?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">Add: 5/6 + (-1/3)</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">What is the result of adding 1.75 to -5.2?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Calculate the sum: -15 + (-23).</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">What is 7.25 + (-3.5)?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Find the sum: 3/4 + 1/6.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Add: -2 1/3 + 4/5.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content"><span class="ph">[Student Name]</span> started the week with $45.50 in <span class="ph">[their]</span> lunch account. <span class="ph">[they]</span> bought lunch for $3.75 on Monday and another for $4.25 on Tuesday. What is the balance in <span class="ph">[their]</span> account after these two purchases?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">Calculate the sum: -6 + 3/8 + 1.25.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">The temperature in Fairbanks, Alaska, was -12.3°F at 6 AM. By noon, it had risen by 8.7°F, and by 6 PM, it dropped by 5.1°F. What was the temperature at 6 PM?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">Find the sum of -3 1/2 and -2 3/4.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Add 2/5 + (-0.75). Express your answer as a fraction in simplest form.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A construction crew is excavating a foundation. They started at an elevation of 2.5 feet above sea level. They dug down 8 1/2 feet, then pumped out some water, which caused the ground level to settle and drop another 1.75 feet. What is the final elevation of the foundation relative to sea level?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring Negative Signs During Addition&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might add the absolute values of two negative numbers and then incorrectly make the sum positive. This happens when <span class="ph">[they]</span> focuses solely on the operation &#x27;add&#x27; without considering the signs&#x27; directional meaning.&quot;, &quot;WHY_TEMPTING&quot;: &quot;It simplifies the problem to basic addition, which feels more familiar than working with negative numbers.&quot;, &quot;SOLUTION&quot;: &quot;Remember that adding a negative number means moving further left on the number line. If both numbers are negative, you add their absolute values and keep the sum negative.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: -7 + (-2)
+Wrong Answer: 9
+Right Answer: -9</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Forgetting Common Denominators for Fractions&quot;, &quot;MISTAKE&quot;: &quot;When adding fractions with different denominators, <span class="ph">[Student Name]</span> might incorrectly add the numerators together and the denominators together, creating a new incorrect fraction.&quot;, &quot;WHY_TEMPTING&quot;: &quot;It&#x27;s a misguided attempt to apply the same addition rule to both parts of the fraction, similar to how whole numbers are added.&quot;, &quot;SOLUTION&quot;: &quot;Always find the least common denominator (LCD) first. Convert both fractions to equivalent fractions with the LCD, then add only the numerators and keep the common denominator.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: 1/4 + 1/3
+Wrong Answer: 2/7
+Right Answer: 3/12 + 4/12 = 7/12</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Decimal Point Misalignment&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might align decimal numbers by their rightmost digits instead of their decimal points, leading to incorrect place value sums.&quot;, &quot;WHY_TEMPTING&quot;: &quot;It mimics the way whole numbers are aligned for addition, which is a common habit.&quot;, &quot;SOLUTION&quot;: &quot;Always align the decimal points vertically before adding. Add zeros as placeholders to ensure each number has the same number of decimal places.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: 5.2 + 0.15
+Wrong Answer: 0.67 (if 5.2 was aligned as .52 above .15, or as 0.52+0.15)
+Right Answer: 5.20 + 0.15 = 5.35</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Subtracting When Signs Are Different But &#x27;Add&#x27; Is Indicated&quot;, &quot;MISTAKE&quot;: &quot;When faced with an addition problem involving numbers with different signs, <span class="ph">[Student Name]</span> might always subtract the smaller absolute value from the larger but struggle to correctly assign the sign of the answer, sometimes just taking the sign of the first number.&quot;, &quot;WHY_TEMPTING&quot;: &quot;The rule for different signs involves subtraction, making it easy to forget to apply the sign of the number with the larger absolute value.&quot;, &quot;SOLUTION&quot;: &quot;When adding numbers with different signs, subtract the smaller absolute value from the larger. The sum will take the sign of the number that has the larger absolute value.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: -10 + 3
+Wrong Answer: 7 (incorrectly making it positive)
+Right Answer: -7</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Improper Fraction Neglect in Mixed Numbers&quot;, &quot;MISTAKE&quot;: &quot;When adding mixed numbers, <span class="ph">[Student Name]</span> might correctly add the whole parts and fraction parts, but forget to convert an improper fraction result (like 7/5) back into a mixed number and add its whole part to the sum.&quot;, &quot;WHY_TEMPTING&quot;: &quot;It&#x27;s easy to consider the problem &#x27;finished&#x27; once the whole and fractional parts are summed separately, overlooking the need for further simplification or regrouping.&quot;, &quot;SOLUTION&quot;: &quot;After adding the whole numbers and the fractions, check if the resulting fraction is improper. If it is, convert it to a mixed number and add its whole part to the existing whole number sum.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: 2 1/3 + 3 2/3
+Wrong Answer: 5 3/3 (or 5 1, but without fully combining to 6)
+Right Answer: 5 3/3 = 5 + 1 = 6</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>Hello <span class="ph">[Student Name]</span>, what is the sum of 5.75 and 3.20?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div><span class="ph">[Student Name]</span>, can you find the sum of -8 and 15?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div><span class="ph">[Student Name]</span>, please calculate: 3/7 + 2/7.</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div>At the start of the week, <span class="ph">[Student Name]</span> had $45.50 in <span class="ph">[their]</span> lunch account. By Wednesday, <span class="ph">[they]</span> had spent $12.75. What is the current balance in <span class="ph">[their]</span> account?</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div><span class="ph">[Student Name]</span>, solve the following: 1/3 + 1/4.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>Calculate the sum of 2 1/2 and 3/4, <span class="ph">[Student Name]</span>.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>During a cold snap in Fairbanks, Alaska, the temperature started at -12.3°F. It then increased by 4.8°F over the next hour. What was the new temperature, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div><span class="ph">[Student Name]</span>, what is the sum of -3.5, 7/2, and -1?</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>A competitive eater, <span class="ph">[Student Name]</span>, lost 1 1/4 pounds last week and then gained 2/3 of a pound this week. What is the total change in <span class="ph">[their]</span> weight over these two weeks?</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div><span class="ph">[Student Name]</span>, calculate the sum of -4 1/5 and -2 3/10.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into Adding Rational Numbers in 7th grade math. This key concept teaches <span class="ph">[Student Name]</span> how to combine any type of number — positive or negative, whole numbers, fractions, or decimals — to find a total value. It’s a fundamental skill that builds on earlier work with integers and prepares <span class="ph">[them]</span> for algebra. To practice tonight, you could help <span class="ph">[Student Name]</span> budget a small allowance or chore money for the week. If <span class="ph">[they]</span> has $10.00, spends $3.50 on a snack, and then earns $2.00, <span class="ph">[they]</span> can practice adding and subtracting rational numbers. At dinner, ask <span class="ph">[Student Name]</span>: &#x27;If the temperature started at -5°F this morning and rose by 12.5°F by noon, what was the temperature at noon?&#x27; This helps <span class="ph">[they]</span> connect math to real life!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Hi <span class="ph">[Student Name]</span>! Ready to explore adding rational numbers today? This is a really useful skill for things like managing money or understanding temperature changes. We&#x27;re going to make sure you&#x27;re super confident with it! Let&#x27;s get started!&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;It looks like you’re trying to add -3/4 and 1/2. Remember, when we add fractions, we first need a common denominator. Can we rewrite 1/2 as a fraction with a denominator of 4? What would that be? You got it, 2/4. So now we&#x27;re looking at -3/4 + 2/4. Think about a number line, starting at -3/4 and moving 2/4 units to the right.&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;You’ve correctly rewritten the problem as -3/4 + 2/4. Now, think about adding numbers with different signs. It&#x27;s like a tug-of-war. We find the difference between the absolute values and keep the sign of the number with the larger absolute value. What&#x27;s the difference between 3/4 and 2/4? And which number&#x27;s &#x27;team&#x27; is bigger? That’s right, the negative team, so the answer will be negative! What does that make the final sum?&quot; SESSION CLOSING: &quot;Fantastic job, <span class="ph">[Student Name]</span>! You really pushed through those tricky parts with different signs and common denominators. You&#x27;re building a strong foundation for more complex math. Keep up the great work!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">The single most common mistake <span class="ph">[Student Name]</span> will make with adding rational numbers is misapplying sign rules, especially when adding a positive and a negative number. For example, <span class="ph">[Student Name]</span> might add -4.5 + 2.0 and get -6.5 instead of -2.5, treating it like a standard addition problem and just attaching the negative sign, or neglecting the &#x27;tug-of-war&#x27; concept. You&#x27;ll recognize this if <span class="ph">[Student Name]</span> consistently gets the magnitude correct but the sign is wrong, or if <span class="ph">[they]</span> adds absolute values when <span class="ph">[they]</span> should be finding a difference. To intervene, say, &#x27;<span class="ph">[Student Name]</span>, when we add numbers with different signs, like when we&#x27;re gaining and losing points in a game, we usually find the difference between them, not the sum. Then, the team with the bigger score &#x27;wins&#x27; the sign for the total. Let&#x27;s try -7 + 3. Is that like taking 7 steps back and 3 steps forward?&#x27; What NOT to say: &#x27;You always get the signs wrong!&#x27; or &#x27;This is just simple addition, why is it so hard?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;sign_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> struggles when adding a positive and a negative rational number, often adding their absolute values instead of finding the difference. For example, <span class="ph">[they]</span> might incorrectly calculate 5 + (-8) as -13 instead of -3.&quot;, &quot;reassurance&quot;: &quot;This is a very common hurdle when learning to add rational numbers, and it shows <span class="ph">[Student Name]</span> is thinking about the negative, which is a great start!&quot;, &quot;home_action&quot;: &quot;Play a simple &#x27;scorekeeping&#x27; game with <span class="ph">[Student Name]</span> using points gained (positive) and points lost (negative). Keep a running tally like: &#x27;You gained 5 points, then lost 8. What&#x27;s your total score?&#x27;&quot;}, {&quot;tag&quot;: &quot;no_common_denominator_fractions&quot;, &quot;parent_description&quot;: &quot;When adding fractions, <span class="ph">[Student Name]</span> sometimes forgets to find a common denominator before combining the numerators. For instance, <span class="ph">[they]</span> might add 1/3 + 1/2 and get 2/5 instead of 5/6.&quot;, &quot;reassurance&quot;: &quot;Finding common denominators is a step that requires careful attention, and <span class="ph">[Student Name]</span> will master it with more practice.&quot;, &quot;home_action&quot;: &quot;Use fraction bar exercises or drawing pizzas. &#x27;If we have 1/3 of a pizza and add 1/2 of another pizza, can we easily combine them if they&#x27;re cut differently? We need same-sized slices!&#x27;&quot;}, {&quot;tag&quot;: &quot;misaligned_decimals&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> occasionally misaligns decimal points when adding decimals of different lengths, leading to incorrect place values. For example, adding 2.5 + 0.15 and getting 0.40 instead of 2.65.&quot;, &quot;reassurance&quot;: &quot;Understanding decimal place value is a foundational skill, and it just takes some careful practice for <span class="ph">[Student Name]</span> to get comfortable with alignment.&quot;, &quot;home_action&quot;: &quot;Practice adding money amounts from a grocery receipt, like &#x27;your total was $12.35 and you added an item for $1.99. What&#x27;s the new total?&#x27; emphasizing lining up the decimal points.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, let&#x27;s break down &#x27;Adding Rational Numbers&#x27; so <span class="ph">[they]</span> can confidently help <span class="ph">[Student Name]</span>. Simply put, a rational number is any number that can be written as a fraction, including whole numbers (like 5, which is 5/1), decimals (like 0.75, which is 3/4), and negative numbers. This is for all numbers on the number line! <span class="ph">[they]</span> will master this. &lt;br&gt;&lt;br&gt;1.  <strong>Numbers with the Same Sign:</strong> This is the easiest. If you&#x27;re gaining $5 and then gaining $3 at work, you add them: $5 + $3 = $8. If you&#x27;re in debt $5 (-$5) and then go further in debt by $3 (-$3), you combine the debts: -$5 + (-$3) = -$8. The sign stays the same. &lt;br&gt;&lt;br&gt;2.  <strong>Numbers with Different Signs:</strong> This is like balancing your budget. If you have $10 in your account and pay a $15 bill, you find the <em>difference</em> between the two amounts ($15 - $10 = $5), and the sign is determined by the number with the larger value (you spent more than you had, so you&#x27;re $5 in debt: $10 + (-$15) = -$5). Think of it as a tug-of-war: the stronger &#x27;team&#x27; (larger absolute value) wins the sign. &lt;br&gt;&lt;br&gt;3.  <strong>Fractions:</strong> If you&#x27;re baking and need to add 1/4 cup of sugar and 1/2 cup of flour, you first need a &#x27;common denominator&#x27; (a common bottom number). 1/2 is the same as 2/4. So, 1/4 + 2/4 = 3/4. &lt;br&gt;&lt;br&gt;4.  <strong>Decimals:</strong> If you&#x27;re tracking your miles, and you run 2.5 miles, then walk 1.75 miles, just line up the decimal points and add like normal: 2.50 + 1.75 = 4.25. &lt;br&gt;&lt;br&gt;<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> can see these concepts are used daily. With these steps, <span class="ph">[they]</span> will be able to teach <span class="ph">[Student Name]</span> confidently!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>, Cette semaine, <span class="ph">[Student Name]</span> se plonge dans l&#x27;addition de nombres rationnels en 7e année. C&#x27;est une compétence clé qui aide à comprendre comment combiner toutes sortes de nombres, qu&#x27;ils soient positifs ou négatifs, entiers, décimaux ou fractions. En termes simples, <span class="ph">[Student Name]</span> apprend à calculer des totaux avec des nombres qui représentent des gains, des pertes, ou des parties d&#x27;un tout. Pour une activité pratique ce soir, prenez des pièces de monnaie (ou de faux dollars) et simulez des transactions : « <span class="ph">[Student Name]</span> reçoit 5.50 USD puis dépense 2.25 USD. Quel est le montant restant ? » (5.50 + (-2.25) = 3.25 USD). Variez avec des dettes et des crédits. À table, demandez : « Si la température à Chicago était de -4°F ce matin et qu&#x27;elle a augmenté de 10.5°F à midi, quelle est la nouvelle température ? » Cela aide <span class="ph">[Student Name]</span> à relier les nombres rationnels à la vie quotidienne.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjour <span class="ph">[Student Name]</span>! Aujourd&#x27;hui, nous allons aborder un concept vraiment important : l&#x27;addition de nombres rationnels. C&#x27;est super utile, un peu comme gérer un compte bancaire ou suivre les scores dans un match de baseball où l&#x27;on gagne et perd des points. Nous allons combiner des nombres positifs et négatifs, des fractions et des décimales. Es-tu prêt à explorer ça avec moi ?&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;D&#x27;accord, <span class="ph">[Student Name]</span>, prenons un moment pour regarder l&#x27;expression. Quels types de nombres as-tu ici ? Sont-ils tous des nombres entiers, des décimales, ou des fractions ? Sont-ils positifs ou négatifs ? Par exemple, si nous avons -2.50 + 7.00, quel est le signe de chaque nombre ? C&#x27;est la première chose à identifier pour savoir comment les aborder.&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Je vois, <span class="ph">[Student Name]</span>. Une fois que tu as identifié les signes, pense à ceci : si tu as des nombres avec des signes différents, comme un gain et une perte, est-ce que tu vas les additionner ou les soustraire pour trouver le &#x27;net&#x27; ? Par exemple, si tu dois 3 USD et que tu gagnes 5 USD, ton solde sera positif ou négatif, et de combien ? Trouvons le montant absolu de la différence, puis décidons du signe final. Quel &#x27;côté&#x27; est le plus grand ?&quot; SESSION CLOSING: &quot;Fantastique, <span class="ph">[Student Name]</span>! Tu as fait un excellent travail en comprenant comment additionner des nombres rationnels aujourd&#x27;hui. C&#x27;est une compétence fondamentale qui t&#x27;aidera dans de nombreuses situations, que ce soit à l&#x27;école ou dans la vie de tous les jours. Je suis vraiment impressionné par ta logique et ta persévérance. Continue comme ça !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus grande erreur que <span class="ph">[Student Name]</span> rencontrera souvent avec l&#x27;addition de nombres rationnels est la confusion des signes, surtout lorsqu&#x27;il s&#x27;agit d&#x27;ajouter un nombre négatif. Par exemple, <span class="ph">[Student Name]</span> pourrait traiter -5 + 3 comme -8, ou 5 + (-3) comme -8, au lieu de comprendre que l&#x27;on soustrait la plus petite valeur absolue de la plus grande et que l&#x27;on garde le signe du nombre avec la plus grande valeur absolue (donc -2 et 2, respectivement). Vous le reconnaîtrez si <span class="ph">[Student Name]</span> obtient la bonne magnitude mais le mauvais signe, ou s&#x27;il additionne toujours au lieu de soustraire mentalement. Dites-lui : « <span class="ph">[Student Name]</span>, je vois que tu as trouvé la bonne distance sur la droite numérique, mais vérifions la direction. Si tu as un solde négatif important et que tu ajoutes un petit montant positif, ton solde restera-t-il négatif ou deviendra-t-il positif ? Pense à &#x27;qui gagne&#x27; : les gains ou les pertes ? » Ne dites JAMAIS : « Tu n&#x27;y arrives toujours pas avec les signes ! C&#x27;est si simple ! »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;sign_confusion&quot;, &quot;parent_description&quot;: &quot;Lorsque <span class="ph">[Student Name]</span> additionne des nombres rationnels, <span class="ph">[they]</span> pourrait avoir du mal \u00e0 d\u00e9terminer le signe final, surtout avec des nombres de signes diff\u00e9rents. Par exemple, pour -7 + 4, <span class="ph">[they]</span> pourrait dire -11 ou +3 au lieu de -3. Ou pour -2 + (-3), dire 1 au lieu de -5.&quot;, &quot;reassurance&quot;: &quot;Les erreurs de signes sont extr\u00eamement courantes. C&#x27;est une \u00e9tape d\u00e9licate qui demande de la pratique, et <span class="ph">[Student Name]</span> est sur la bonne voie pour la ma\u00eetriser.&quot;, &quot;home_action&quot;: &quot;Utiliser un sc\u00e9nario de score sportif : \u00ab Si ton \u00e9quipe de football am\u00e9ricain a perdu 7 points (-7) puis en a gagn\u00e9 4 (+4), quel est le score net ? \u00bb (-7 + 4 = -3 points).&quot;}, {&quot;tag&quot;: &quot;fraction_common_denominator&quot;, &quot;parent_description&quot;: &quot;Quand <span class="ph">[Student Name]</span> doit ajouter des fractions comme 1/4 + 1/3, <span class="ph">[they]</span> pourrait simplement additionner les num\u00e9rateurs et les d\u00e9nominateurs, obtenant 2/7 au lieu de trouver un d\u00e9nominateur commun, qui est 12 (3/12 + 4/12 = 7/12).&quot;, &quot;reassurance&quot;: &quot;Trouver le plus petit d\u00e9nominateur commun est une \u00e9tape qui demande un peu d&#x27;entra\u00eenement et c&#x27;est tout \u00e0 fait normal de se tromper au d\u00e9but. C&#x27;est une comp\u00e9tence qui viendra avec la pratique.&quot;, &quot;home_action&quot;: &quot;Couper une feuille de papier en parts \u00e9gales. \u00ab Si <span class="ph">[Student Name]</span> a mang\u00e9 1/4 d&#x27;un g\u00e2teau et que votre voisin a mang\u00e9 1/3 du m\u00eame g\u00e2teau, quelle fraction du g\u00e2teau a \u00e9t\u00e9 mang\u00e9e au total ? Dessinez-le pour trouver une base commune (12e). \u00bb (1/4 + 1/3 = 3/12 + 4/12 = 7/12).&quot;}, {&quot;tag&quot;: &quot;decimal_misalignment&quot;, &quot;parent_description&quot;: &quot;Lors de l&#x27;addition de nombres d\u00e9cimaux comme 12.3 + 0.45, <span class="ph">[Student Name]</span> pourrait ne pas aligner les points d\u00e9cimaux correctement, ce qui m\u00e8ne \u00e0 une erreur de valeur de position. Par exemple, <span class="ph">[they]</span> pourrait additionner les chiffres comme si c&#x27;\u00e9tait 12.30 + 0.045 ou 12.3 + 4.5, obtenant un r\u00e9sultat erron\u00e9 au lieu de 12.75 (12.30 + 0.45).&quot;, &quot;reassurance&quot;: &quot;L&#x27;alignement des d\u00e9cimales est une petite \u00e9tape visuelle mais essentielle. Avec une attention particuli\u00e8re \u00e0 cette \u00e9tape, <span class="ph">[Student Name]</span> verra une grande am\u00e9lioration.&quot;, &quot;home_action&quot;: &quot;Faire les additions de factures. \u00ab Si votre boisson co\u00fbte 2.75 USD et votre sandwich 5.50 USD, combien payez-vous au total ? \u00bb (2.75 + 5.50 = 8.25 USD). Insister pour aligner les points d\u00e9cimaux.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span> ! Comprendre l&#x27;addition de nombres rationnels est plus simple que vous ne le pensez. <span class="ph">[they]</span> pouvez maîtriser ce concept, et ainsi aider <span class="ph">[Student Name]</span> avec confiance. Voici comment :&lt;ol&gt;&lt;li&gt;<strong>Qu&#x27;est-ce qu&#x27;un nombre rationnel ?</strong> Ce sont tous les nombres que l&#x27;on peut écrire sous forme de fraction (même les nombres entiers, par exemple 5 peut s&#x27;écrire 5/1). Cela inclut les nombres positifs et négatifs, les fractions et les décimales. Imaginez le solde de votre compte bancaire : il peut être positif (argent que vous avez), négatif (découvert), ou même avoir des cents (décimales).&lt;/li&gt;&lt;li&gt;<strong>Additionner des nombres de même signe :</strong> C&#x27;est comme accumuler. Si vous gagnez 10 USD puis gagnez encore 5 USD, vous avez 10 + 5 = 15 USD. Si vous perdez 10 USD (vous êtes à -10 USD) puis perdez encore 5 USD, vous êtes à -10 + (-5) = -15 USD. Vous additionnez les montants et gardez le signe.&lt;/li&gt;&lt;li&gt;<strong>Additionner des nombres de signes différents :</strong> C&#x27;est comme compenser. Si vous gagnez 10 USD et perdez 5 USD, votre gain net est de 10 + (-5) = 5 USD. Vous soustrayez la plus petite valeur de la plus grande, et le résultat prend le signe du nombre avec la plus grande valeur (le &#x27;gagnant&#x27;). Par exemple, si la température est de -3°F et qu&#x27;elle augmente de 7°F, la nouvelle température est -3 + 7 = 4°F (7 - 3 = 4, et le 7 était positif).&lt;/li&gt;&lt;li&gt;<strong>Additionner des fractions :</strong> Il faut avoir un &#x27;dénominateur commun&#x27; – la même taille de &#x27;morceaux&#x27;. Si vous mangez 1/2 d&#x27;une pizza et que votre ami mange 1/4, vous ne pouvez pas juste dire &#x27;2/6&#x27;. Vous convertissez 1/2 en 2/4. Ensuite, 2/4 + 1/4 = 3/4.&lt;/li&gt;&lt;li&gt;<strong>Additionner des décimales :</strong> C&#x27;est comme aligner les centimes et les dollars. Vous alignez les points décimaux. Par exemple, pour 2.35 USD + 1.20 USD (ou 1.2 USD), vous alignez les points :&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;2.35&lt;br&gt;+&amp;nbsp;1.20&lt;br&gt;-----&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;3.55&lt;/li&gt;&lt;/ol&gt;<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> voyez ? C&#x27;est une question de logique et de visualisation. Avec ces étapes, <span class="ph">[they]</span> serez en mesure de comprendre et même d&#x27;expliquer l&#x27;addition de nombres rationnels.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Semèn sa a, <span class="ph">[Student Name]</span> ap aprann yon gwo leson nan matematik klas 7yèm ane: &#x27;Adiksyon Nonm Rasyonèl&#x27;. Sa vle di <span class="ph">[Student Name]</span> ap aprann kijan pou l ajoute tout kalite nonm – nonm pozitif, nonm negatif, fraksyon, ak desimal. Nan yon mo senp, se ajoute nonm ki ka reprezante yon pati oswa yon dèt. Pa egzanp, si <span class="ph">[Student Name]</span> gen 50 goud, men li dwe yon zanmi 25 goud, ki kantite lajan li genyen tout bon vre? Sa se yon nonm rasyonèl. Aswè a, pou ede <span class="ph">[Student Name]</span> konprann, ou ka jwe yon ti jwèt ak pyès monnen goud. Itilize pyès monnen yo kòm nonm pozitif epi ti bout papye ki make &#x27;dèt&#x27; kòm nonm negatif. Mandezè pou ajoute yo. Pou kesyon nan tab manje a: &#x27;Si tanperati a te 2 degre Sèlsiyis nan Pòtoprens, epi apre sa li desann 5 degre, ki nouvo tanperati a?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjou, <span class="ph">[Student Name]</span>! Mwen kontan wè ou jodi a. Jodi a nou pral aprann yon bagay ki vrèman itil nan matematik: kijan pou ajoute nonm rasyonèl. Nonm rasyonèl se jis yon lòt non pou nonm tankou fraksyon, desimal, ak nonm negatif. Èske ou pare pou nou plonje nan sa ak yon egzanp ki pral ede <span class="ph">[Student Name]</span> wè li pi klè?&quot; 
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;<span class="ph">[Student Name]</span>, ann pran yon ti poz epi panse sou siy yo. Lè nou ajoute de nonm ki gen menm siy—tankou -3 + (-5)—nou jis ajoute valè yo epi nou kenbe menm siy la. Panse ak sa sou yon liy nonm. Si ou kòmanse nan -3 epi ou desann 5 inite ankò, ki kote ou tonbe? Ann eseye ansanm, <span class="ph">[Student Name]</span>.&quot; 
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;<span class="ph">[Student Name]</span>, mwen wè ou panse ou ta dwe ajoute valè yo menm lè siy yo diferan. Lè siy yo diferan—tankou -7 + 3—nou pa ajoute. Nou soustrè valè absoli yo, epi nou pran siy nonm ki gen pi gwo valè absoli a. Panse ak lajan: si ou dwe 7 goud (-7) epi ou gen 3 goud (+3) pou peye, konbyen ou toujou dwe? <span class="ph">[Student Name]</span>, kijan ou ta kalkile sa?&quot; 
+SESSION CLOSING: &quot;Ou fè yon bèl travay jodi a, <span class="ph">[Student Name]</span>! Adiksyon nonm rasyonèl ka parèt konplike an premye, men ou montre ou gen kapasite pou konprann li. Kontinye pratike ak egzanp sa yo. Mwen konnen <span class="ph">[Student Name]</span> ka metrize sa nèt. W ap fè pwogrè!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Pi gwo erè <span class="ph">[Student Name]</span> ap fè souvan lè l ap ajoute nonm rasyonèl se lè li melanje siy yo, sitou lè li gen pou l ajoute yon nonm pozitif ak yon nonm negatif. Pa egzanp, <span class="ph">[Student Name]</span> ka kalkile -5 + 3 kòm -8 olye de -2. Ou ka rekonèt sa si ou wè <span class="ph">[Student Name]</span> toujou ap ajoute valè absoli nonm yo, menm lè yo gen siy diferan. Pou ede <span class="ph">[Student Name]</span>, di: &quot;<span class="ph">[Student Name]</span>, ann panse ak yon senaryo ak lajan ankò. Si ou dwe yon boutik 50 goud (-50), epi ou jwenn 30 goud (+30) ke ou ka itilize pou peye, ki kantite lajan ou toujou dwe boutik la? Eske dèt ou ogmante oubyen diminye?&quot; Sa ou PA dwe di: &quot;Sa se yon erè fasil, ou pa wè li?</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;incorrect_sign_addition&quot;, &quot;parent_description&quot;: &quot;L\u00e8 <span class="ph">[Student Name]</span> ap ajoute yon nonm pozitif ak yon nonm negatif, <span class="ph">[they]</span> ka ajoute val\u00e8 absoli yo olye pou l soustr\u00e8 yo. Pa egzanp, <span class="ph">[Student Name]</span> ka panse -4 + 2 = -6, olye de -2.&quot;, &quot;reassurance&quot;: &quot;Se yon er\u00e8 komen, epi <span class="ph">[Student Name]</span> ap aprann diferans ant siy yo av\u00e8k pratik. <span class="ph">[they]</span> sou bon chemen an.&quot;, &quot;home_action&quot;: &quot;Itilize yon liy nonm lakay ou, trase l sou yon papye, epi montre <span class="ph">[Student Name]</span> kijan pou l deplase a dwat pou nonm pozitif ak a goch pou nonm negatif. Eseye -4 + 2 sou liy nonm nan.&quot;}, {&quot;tag&quot;: &quot;fraction_common_denominator_error&quot;, &quot;parent_description&quot;: &quot;L\u00e8 <span class="ph">[Student Name]</span> ap ajoute fraksyon, <span class="ph">[they]</span> ka bliye jwenn yon denominat\u00e8 komen. Pa egzanp, <span class="ph">[Student Name]</span> ka eseye ajoute 1/2 + 1/3 k\u00f2m 2/5, olye de 3/6 + 2/6 = 5/6.&quot;, &quot;reassurance&quot;: &quot;Jwenn denominat\u00e8 komen mande yon ti pratik, men <span class="ph">[Student Name]</span> gen kapasite pou l metrize li. Se jis yon etap anplis pou panse.&quot;, &quot;home_action&quot;: &quot;Nan kwizin nan, s\u00e8vi ak tas mezi (tankou 1/2 tas ak 1/4 tas) pou montre kijan pou &#x27;ajoute&#x27; kantite diferan. Ou ka mande &#x27;konbyen 1/2 tas dlo ak 1/4 tas dlo ansanm?&#x27;&quot;}, {&quot;tag&quot;: &quot;decimal_misalignment&quot;, &quot;parent_description&quot;: &quot;L\u00e8 <span class="ph">[Student Name]</span> ap ajoute desimal, <span class="ph">[they]</span> ka pa aliyen pwen desimal yo k\u00f2r\u00e8kteman. Pa egzanp, <span class="ph">[Student Name]</span> ka ajoute 3.45 + 1.2 k\u00f2m si se te 3.45 + 12.00.&quot;, &quot;reassurance&quot;: &quot;Sa se yon ti detay <span class="ph">[Student Name]</span> ap vin pi konsyan de li. Yon fwa <span class="ph">[they]</span> pran abitid aliyen pwen desimal la, li pral vin dezy\u00e8m lanati.&quot;, &quot;home_action&quot;: &quot;S\u00e8vi ak papye kare pou ede <span class="ph">[Student Name]</span> aliyen chif yo k\u00f2r\u00e8kteman. Chak chif ak pwen desimal gen pw\u00f2p ti kare pa yo. Eseye ajoute 12.35 goud ak 4.7 goud sou papye a.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, pa enkyete w si ou pa konnen Adiksyon Nonm Rasyonèl. <span class="ph">[they]</span> ap konprann sa nèt! Imajine nonm rasyonèl kòm tout kalite nonm ou rankontre nan lavi chak jou: fraksyon (tankou mwatye yon patat), desimal (tankou 15.50 goud), ak nonm negatif (tankou yon dèt ou genyen). Men kijan <span class="ph">[they]</span> ka ajoute yo: 
+1.  <strong>Menm Siy:</strong> Si ou ajoute de nonm pozitif (tankou 50 goud + 25 goud = 75 goud) oswa de nonm negatif (tankou ou dwe yon boutik 50 goud epi ou prete 25 goud ankò, total dèt ou se -75 goud), ou jis ajoute valè yo epi ou kenbe menm siy la. 
+2.  <strong>Siy Diferan:</strong> Sa a se yon ti jan pi konplike. Imajine ou dwe 50 goud (-50) nan magazen an, men ou gen 30 goud (+30) pou peye. Ou pa ajoute 50 ak 30. Olye de sa, ou soustrè pi piti valè a nan pi gwo valè a (50 - 30 = 20), epi ou kenbe siy nonm ki te pi gwo a. Nan ka sa a, 50 te pi gwo epi li te negatif, kidonk ou toujou dwe 20 goud (-20). 
+3.  <strong>Frakson:</strong> Lè <span class="ph">[they]</span> ap ajoute fraksyon (tankou 1/2 yon tas diri ak 1/4 tas diri), <span class="ph">[they]</span> dwe asire w ke anba fraksyon yo (denominatè yo) menm. Pou 1/2 + 1/4, <span class="ph">[they]</span> ka di 1/2 se 2/4. Konsa, 2/4 + 1/4 = 3/4. 
+4.  <strong>Desimal:</strong> Sa a se tankou ajoute pri nan mache a. Si yon bagay koute 125.75 goud ak yon lòt koute 30.50 goud, <span class="ph">[they]</span> jis aliyen pwen desimal yo anvan <span class="ph">[they]</span> ajoute: 125.75 + 30.50 = 156.25 goud. 
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> wè li fasil konsa? Avèk egzanp sa yo, <span class="ph">[they]</span> ap metrize konsèp sa a epi <span class="ph">[they]</span> ap kapab ede <span class="ph">[Student Name]</span> ak konfyans.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> mergulhará na &#x27;Soma de Números Racionais&#x27; em Matemática, uma habilidade essencial para o 7º ano. Simplificando, <span class="ph">[Student Name]</span> aprenderá a somar qualquer tipo de número – sejam inteiros, frações ou decimais, positivos ou negativos – como se estivesse gerenciando um pequeno orçamento doméstico ou medindo ingredientes para uma receita. Para uma atividade divertida em família, peguem um termômetro (ou usem um simulador online) e pratiquem mudanças de temperatura. Comecem em 8°C, adicionem uma queda de 12°C (-12°C), depois adicionem um aumento de 5°C (+5°C). Isso ajuda <span class="ph">[Student Name]</span> a visualizar a adição de números positivos e negativos. Na janta, perguntem: &#x27;<span class="ph">[Student Name]</span>, se você tem 60 reais, gasta 25,50 reais no lanche da escola e depois sua tia te dá 15 reais, com quanto dinheiro você fica?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Olá, <span class="ph">[Student Name]</span>! Que bom te ver! Hoje vamos começar uma jornada incrível no mundo da Matemática: a Soma de Números Racionais. Parece um nome grande, mas é sobre como juntar diferentes tipos de números, seja dinheiro, frações de uma receita ou até mesmo temperaturas. Estou aqui para te guiar em cada passo, <span class="ph">[Student Name]</span>, e vamos descobrir como isso é útil na sua vida! Não se preocupe se algo parecer difícil no início, vamos aprender juntos, <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">O erro mais comum que <span class="ph">[Student Name]</span> pode cometer ao somar números racionais é confundir a regra dos sinais, especialmente com números negativos. Por exemplo, <span class="ph">[they]</span> pode calcular -6 + 4 como se fosse -10, ou -2 - 3 como -1, ignorando a direção correta na linha numérica. Você vai reconhecer esse erro se <span class="ph">[Student Name]</span> errar consistentemente o sinal final ou o valor absoluto ao somar números com sinais diferentes. Para ajudar, diga: &#x27;<span class="ph">[Student Name]</span>, vamos imaginar que você está na posição -6 em uma linha numérica. Se você adiciona +4, para onde você se move? Para a direita. Então, -6 + 4 te leva a -2.&#x27; O que NÃO dizer: &#x27;Isso é básico, <span class="ph">[Student Name]</span>, você já deveria saber!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;negative_number_sign_confusion&quot;, &quot;parent_description&quot;: &quot;Uma dificuldade comum \u00e9 <span class="ph">[Student Name]</span> confundir a regra dos sinais ao somar n\u00fameros negativos. Por exemplo, <span class="ph">[they]</span> pode pensar que -8 + 5 \u00e9 igual a -13, quando na verdade deveria ser -3. <span class="ph">[they]</span> est\u00e1 adicionando a magnitude dos n\u00fameros, ignorando a dire\u00e7\u00e3o dos sinais.&quot;, &quot;reassurance&quot;: &quot;\u00c9 uma confus\u00e3o muito comum para muitos alunos. A boa not\u00edcia \u00e9 que com um pouco de pr\u00e1tica e visualiza\u00e7\u00e3o, <span class="ph">[Student Name]</span> vai entender perfeitamente.&quot;, &quot;home_action&quot;: &quot;Usem uma &#x27;linha de d\u00edvidas e cr\u00e9ditos&#x27; em casa. Digam: &#x27;Se voc\u00ea deve 8 reais e algu\u00e9m te d\u00e1 5 reais, qual \u00e9 o seu saldo final, <span class="ph">[Student Name]</span>?&#x27; Isso ajuda a contextualizar a ideia de adicionar negativos.&quot;}, {&quot;tag&quot;: &quot;mixed_fraction_decimal_addition&quot;, &quot;parent_description&quot;: &quot;\u00c0s vezes, <span class="ph">[Student Name]</span> tem dificuldade quando precisa somar uma fra\u00e7\u00e3o com um decimal, como 1/4 + 0.5. <span class="ph">[they]</span> pode n\u00e3o saber como converter um para o outro antes de somar, ou errar na convers\u00e3o de 0.5 para 1/2, por exemplo.&quot;, &quot;reassurance&quot;: &quot;Essa habilidade de converter n\u00fameros \u00e9 um desafio para muitos, mas <span class="ph">[Student Name]</span> est\u00e1 no caminho certo para domin\u00e1-la com um pouco de orienta\u00e7\u00e3o.&quot;, &quot;home_action&quot;: &quot;Pe\u00e7am a <span class="ph">[Student Name]</span> para ajud\u00e1-<span class="ph">[them]</span> com uma receita que pe\u00e7a ingredientes em fra\u00e7\u00f5es e decimais. Por exemplo, &#x27;Se precisamos de 0.25 kg de farinha e depois adicionamos 1/2 kg, quanto temos no total?&#x27;&quot;}, {&quot;tag&quot;: &quot;common_denominator_decimal_alignment_errors&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode errar ao somar fra\u00e7\u00f5es com denominadores diferentes, esquecendo-se de encontrar um denominador comum antes de somar. Ou, ao somar decimais, <span class="ph">[they]</span> pode n\u00e3o alinhar corretamente as v\u00edrgulas, levando a um resultado incorreto. Por exemplo, somar 2.3 + 1.57 como 2.3 + 1.570 em vez de 2.30 + 1.57.&quot;, &quot;reassurance&quot;: &quot;\u00c9 um detalhe importante, mas com exerc\u00edcios focados, <span class="ph">[Student Name]</span> pegar\u00e1 o jeito de alinhar e harmonizar os n\u00fameros para a soma correta.&quot;, &quot;home_action&quot;: &quot;Brinquem de &#x27;mercado da fam\u00edlia&#x27;. D\u00eaem a <span class="ph">[Student Name]</span> listas de compras com pesos em fra\u00e7\u00f5es (ex: 1/2 kg de ma\u00e7\u00e3s, 3/4 kg de laranjas) e pe\u00e7am para somar o peso total. Para decimais, pe\u00e7am para <span class="ph">[they]</span> somar pre\u00e7os de diferentes itens alinhando os centavos.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos descomplicar a Soma de Números Racionais para que <span class="ph">[they]</span> possa ajudar <span class="ph">[Student Name]</span> com total confiança. Pense em números racionais como qualquer número que pode ser escrito como uma fração, incluindo números inteiros (como 5 ou -2), decimais (como 0.75 ou -1.5) e, claro, frações (como 1/2 ou -3/4). É basicamente a maioria dos números que usamos no dia a dia. Para somá-los, seguimos alguns passos simples:
+
+1.  <strong>Entenda os Sinais (Dinheiro e Dívidas):</strong> Números positivos são o que <span class="ph">[they]</span> tem, negativos são o que <span class="ph">[they]</span> deve. Se <span class="ph">[they]</span> tem R$ 100,00 e gasta R$ 30,00, a operação é 100 + (-30) = 70. Se <span class="ph">[they]</span> deve R$ 50,00 e recebe R$ 20,00, a operação é -50 + 20 = -30. O sinal final depende do &#x27;valor&#x27; maior.
+
+2.  <strong>Harmonize os Tipos (Receita de Família):</strong> Se <span class="ph">[they]</span> precisa somar uma fração e um decimal (ex: 1/2 xícara + 0.75 xícaras), <span class="ph">[they]</span> precisa converter tudo para o mesmo formato. 1/2 é 0.5. Então, 0.5 + 0.75 = 1.25 xícaras.
+
+3.  <strong>Alinhe para Somar (Compras no Mercado):</strong> Ao somar decimais, como R$ 12,35 + R$ 8,10, sempre alinhe as vírgulas: 12,35 + 8,10 = 20,45. Para frações, garanta que os denominadores (número de baixo) sejam os mesmos. Por exemplo, 1/3 + 1/6: o denominador comum é 6. Então, (2/6) + (1/6) = 3/6.
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> vai dominar este conceito e ser capaz de ensinar <span class="ph">[Student Name]</span> com confiança.</div></div></div></div>
+</body>
+</html>

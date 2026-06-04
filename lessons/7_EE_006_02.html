@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Multi-Step Rational Problems</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | Expressions and Equations<br>81 atoms | Skill 7.EE.006.02<br></div>
+</div>
+<h1 class="skill-title">Multi-Step Rational Problems</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.006.02 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can solve multi-step linear equations involving rational coefficients and constants by combining like terms and isolating the variable.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">Multi-Step Rational Problems are algebraic equations that require two or more operations to solve and involve at least one rational number (a fraction or a decimal) as a coefficient or constant. Imagine you&#x27;re trying to find a treasure buried under several layers of earth, <span class="ph">[Student Name]</span>. Each layer is an operation you need to undo. You can&#x27;t skip layers; you must systematically remove them to reach your goal. For example, consider the equation (3/4)x - 1/8 = 5/16. To solve this for &#x27;x&#x27;, you first need to add 1/8 to both sides, which simplifies the equation, then multiply by the reciprocal of 3/4 to isolate &#x27;x&#x27;. This systematic approach is crucial. Just like simplifying complex fractions before combining them, each step simplifies the problem until &#x27;x&#x27; stands alone. <span class="ph">[Student Name]</span>, mastering this process allows you to tackle more complex real-world scenarios.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">You&#x27;ve already built a fantastic foundation for solving equations, <span class="ph">[Student Name]</span>! Remember how you tackled equations like x + 1/2 = 3/4 or (2/5)x = 8 using your knowledge from 7.EE.006.01? Those were single-step rational problems where you either added/subtracted a rational number or multiplied/divided by one. Multi-step rational problems are just an extension of these skills. Think of it like a scavenger hunt: you know how to find one clue, and now you&#x27;re just putting those skills together to find a series of clues. We&#x27;re simply adding a few more &#x27;clues&#x27; or steps to the equation, like (1/3)x + 2 = 7/2. <span class="ph">[Student Name]</span>, you already have the tools to solve each part; you just need to put them in the right order. This makes these problems totally achievable, building on what you&#x27;ve already mastered.</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that multi-step rational problems are essential for understanding sports statistics? Imagine you&#x27;re the general manager for a Major League Baseball team, <span class="ph">[Student Name]</span>, trying to calculate a player&#x27;s on-base percentage (OBP). OBP is (Hits + Walks + Hit by Pitch) / (At-Bats + Walks + Hit by Pitch + Sacrifice Flies). If you&#x27;re trying to figure out how many walks a player needs to reach a target OBP, given their other stats, you&#x27;d set up a multi-step rational equation! For example, if a player has 100 hits, 5 HBP, 3 SF, and 300 at-bats, and you want an OBP of 0.350, you&#x27;d solve (100 + W + 5) / (300 + W + 5 + 3) = 0.350 for &#x27;W&#x27;. This isn&#x27;t just theory; it&#x27;s how teams analyze performance and make crucial decisions, <span class="ph">[Student Name]</span>. It’s a powerful skill that connects directly to the real world of professional sports!</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Multi-Step Rational Problems are simply equations that require several operations to isolate the variable, where some numbers are fractions or decimals. Our goal is to systematically undo operations until the variable stands alone. First, you&#x27;ll work to get all variable terms on one side and constant terms on the other. Then, you&#x27;ll perform inverse operations to solve for the variable. For example, let&#x27;s solve (1/2)y + 0.75 = 2. First, subtract 0.75 from both sides: (1/2)y = 2 - 0.75, so (1/2)y = 1.25. Next, multiply both sides by 2 to isolate &#x27;y&#x27;: y = 1.25 * 2, so y = 2.5. <span class="ph">[Student Name]</span>, this predictable sequence of steps helps you solve even complex problems reliably. You&#x27;ll apply this in situations like calculating the amount of ingredients needed for a recipe if you&#x27;re adjusting the serving size, ensuring all measurements are correct for <span class="ph">[their]</span> recipe.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Before we dive deeper, let&#x27;s quickly review how you excelled at solving one-step equations with rational numbers, <span class="ph">[Student Name]</span>. You effortlessly handled problems like x + 3/4 = 1/2 by subtracting 3/4 from both sides, or (2/3)x = 6 by multiplying by the reciprocal, 3/2. You already know how to work with fractions and decimals in basic equations, skillfully applying inverse operations to isolate the variable. This foundational skill, rooted in 7.EE.006.01, is your launchpad for today&#x27;s lesson. Now, imagine a problem that combines both of those skills: What if you had (2/3)x + 3/4 = 1/2? This is where multi-step rational problems come in. It’s like putting two separate single-step puzzles together into one slightly bigger puzzle. The &#x27;new skill&#x27; is simply understanding that you must perform these familiar inverse operations in a specific order, often starting by isolating the term with the variable. <span class="ph">[Student Name]</span>, you’ll typically add or subtract constants first, then multiply or divide by coefficients, always maintaining balance in the equation.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hello <span class="ph">[Student Name]</span>! Let&#x27;s tackle a real-world multi-step rational problem together. Imagine you&#x27;re helping your school&#x27;s sports booster club. They are selling raffle tickets for a new basketball hoop. They started with a box of 450 tickets. On Monday, they sold 1/3 of the tickets. On Tuesday, they sold 0.4 of the <em>remaining</em> tickets. Your job is to figure out how many tickets are left to sell for the big game on Friday.
+
+Here’s how we can break it down:
+
+1.  <strong><span class="hint-tag">&#128161; Hint: First, think about how many tickets were sold on Monday. We need to find a fraction of the total.</span></strong>
+    <em>   <strong>Step 1: Calculate tickets sold on Monday.</strong>
+        Multiply the total tickets by the fraction sold on Monday: 450 tickets </em> (1/3) = 150 tickets. So, 150 tickets were sold.
+
+2.  *<em><span class="hint-tag">&#128161; Hint: Now, figure out how many tickets are left </em>after<em> Monday&#x27;s sales. This remaining amount is what Tuesday&#x27;s sales are based on.</span></em><em>
+    </em>   <strong>Step 2: Calculate tickets remaining after Monday.</strong>
+        Subtract Monday&#x27;s sales from the total: 450 tickets - 150 tickets = 300 tickets remaining.
+
+3.  *<em><span class="hint-tag">&#128161; Hint: Next, calculate how many tickets were sold on Tuesday. This is a decimal portion of the </em>remaining<em> tickets.</span></em><em>
+    </em>   <strong>Step 3: Calculate tickets sold on Tuesday.</strong>
+        Multiply the remaining tickets by the decimal portion sold: 300 tickets <em> 0.4 = 120 tickets. So, 120 tickets were sold on Tuesday.
+
+4.  <strong><span class="hint-tag">&#128161; Hint: Finally, find the total tickets left after both days of sales.</span></strong>
+    </em>   <strong>Step 4: Calculate tickets left to sell.</strong>
+        Subtract Tuesday&#x27;s sales from the remaining tickets after Monday: 300 tickets - 120 tickets = 180 tickets.
+
+There are 180 tickets left to sell. To check our work, we can add all the sold tickets (150 + 120) and the remaining tickets (180): 150 + 120 + 180 = 450. This matches our starting total, so the answer is correct!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let&#x27;s work through a problem, <span class="ph">[Student Name]</span>, involving a school bake sale. Mrs. Chen is making cookies for the fundraiser. She plans to bake 120 cookies. She uses 2/5 of the dough for chocolate chip cookies. Then, she uses 0.25 of the <em>remaining</em> dough for oatmeal raisin cookies. The rest of the dough is used for sugar cookies. How much dough, in terms of the total original amount, did she use for sugar cookies?
+
+Here are the steps to solve this problem:
+
+1.  <strong>Calculate dough used for chocolate chip cookies.</strong>
+    First, find out what fraction of the total dough was used for chocolate chip cookies. This is already given as 2/5. We can express this as a decimal: 2 / 5 = 0.40. So, 0.40 of the dough is for chocolate chip.
+
+2.  <strong>Calculate the remaining dough after chocolate chip cookies.</strong>
+    If 0.40 of the dough was used, then 1 - 0.40 = 0.60 of the dough remains. This is the base for the next step.
+
+3.  <strong>Calculate dough used for oatmeal raisin cookies.</strong>
+    Mrs. Chen used 0.25 of the <em>remaining</em> dough for oatmeal raisin. So, multiply the remaining dough fraction by 0.25: 0.60 <em> 0.25 = 0.15. This means 0.15 of the </em>original total<em> dough was used for oatmeal raisin.
+
+4.  <strong>Calculate dough used for sugar cookies.</strong>
+    To find the portion for sugar cookies, subtract the chocolate chip and oatmeal raisin portions from the total dough (which is 1, or 100%).
+    1 - 0.40 - 0.15 = 0.45.
+
+So, Mrs. Chen used 0.45 of the total original dough for sugar cookies. If we were to find the actual number of cookies, it would be 0.45 </em> 120 = 54 cookies. To check: 0.40 (chocolate chip) + 0.15 (oatmeal raisin) + 0.45 (sugar) = 1.00 (total dough). Our fractions add up to the whole, so the answer is correct.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body"><span class="ph">[Student Name]</span>, let&#x27;s try a trickier problem involving a school budget. The Parent Teacher Association (PTA) has a budget of $2,400 for school improvements. They decide to allocate 1/5 of the budget to new library books. Then, they decide to spend 0.3 of the <em>original</em> budget on classroom supplies. After these two expenses, they want to split the <em>remaining</em> money equally among 4 different playground projects. How much money does each playground project receive?
+
+1.  <strong>Calculate money for library books.</strong>
+    <em>   1/5 of $2,400 = (1/5) </em> $2,400 = $480. This is straightforward. 
+    <em>   <strong>Common Error:</strong> Students might forget to subtract this amount before calculating the next percentage if it also refers to &#x27;remaining&#x27;. Always read carefully whether a fraction/decimal refers to the &#x27;original total&#x27; or the &#x27;remaining amount&#x27;.
+
+2.  <strong>Calculate money for classroom supplies.</strong>
+    </em>   0.3 of the <em>original</em> budget = 0.3 <em> $2,400 = $720. Notice this is based on the </em>original<em> amount, not what was left after books.
+    </em>   <strong>Common Error:</strong> Many students incorrectly calculate 0.3 of the <em>remaining</em> budget (after library books), which would be 0.3 <em> ($2,400 - $480). Always double-check if the phrase is &#x27;of the original&#x27; or &#x27;of the remaining&#x27;. This is a critical distinction in multi-step problems.
+
+3.  <strong>Calculate the total remaining money.</strong>
+    </em>   Subtract both expenses from the original budget: $2,400 - $480 - $720 = $1,200. This is the money left for the playground.
+    <em>   <strong>Common Error:</strong> Sometimes students might accidentally add expenses instead of subtracting, or they might only subtract one expense. Ensure all expenses are accounted for and subtracted from the correct starting total.
+
+4.  <strong>Calculate money for each playground project.</strong>
+    </em>   Divide the remaining money by the number of projects: $1,200 / 4 = $300.
+    <em>   <strong>Common Error:</strong> Forgetting the final step of distribution after finding the total remaining, or miscounting the number of projects. Each playground project receives $300.
+
+Check: $480 (books) + $720 (supplies) + 4 </em> $300 (playground) = $480 + $720 + $1,200 = $2,400. This matches the original budget.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Imagine you have a big bag of 10 yummy mini-donuts, <span class="ph">[Student Name]</span>. You give your best friend 2 of them. That&#x27;s your first step. Now, you count how many you have left. Next, you decide to eat half of what&#x27;s still in your bag. That&#x27;s your second step! After you eat them, you count again to see how many are left. It&#x27;s like doing a few sharing or eating steps, one after the other, to find out what&#x27;s left in the end.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Thinking about multi-step rational problems is like planning a road trip across the US, <span class="ph">[Student Name]</span>! Let&#x27;s say your family is driving 1,000 miles from New York to Chicago. Your first &#x27;step&#x27; might be driving 1/4 of the total distance on day one. You calculate that: 1/4 of 1,000 miles is 250 miles. So, 750 miles remain. Your second &#x27;step&#x27; is to stop for gas when your tank is 0.2 full, and you need to calculate how many miles you&#x27;ve driven <em>since the last fill-up</em> to estimate when that happens, rather than 0.2 of the <em>entire trip</em>. Each calculation affects what&#x27;s left for the next part of the journey. You&#x27;re combining fractions and decimals to figure out distances, how much gas you need, and how long until you reach your destination, all in a specific order. The &#x27;rational numbers&#x27; are like the portions of your trip or tank, and &#x27;multi-step&#x27; means you have several calculations to do to get to your final destination.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content">Imagine you have a giant chocolate bar, <span class="ph">[Student Name]</span>, cut into 100 small squares. When you solve a multi-step rational problem, you&#x27;re visually breaking down and combining these parts. First, picture removing a specific fraction, like 1/4 of the bar – you literally see 25 squares disappear. Then, you look at what’s <em>left</em>, say 75 squares. Now, picture taking a decimal portion, like 0.2 of <em>those remaining</em> 75 squares. You count out 15 more squares to remove. You&#x27;re constantly resizing your &#x27;whole&#x27; as you go, cutting and re-cutting, adding and subtracting pieces. The steps are like layers being removed or added to the original whole, always changing what&#x27;s left to work with. You’re building or dismantling something, piece by piece, until you see the final amount that remains or the total you&#x27;ve created.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>, so, &#x27;multi-step rational problems&#x27; sound super intense, right? But it&#x27;s basically like doing a couple of regular fraction or decimal problems back-to-back, where the answer from the first part feeds into the next. Think about planning a party. You have a budget of $200. First, you spend 1/4 of it on decorations. That&#x27;s step one: $200 <em> (1/4) = $50. Now you have $150 left. Then, you decide to spend 0.6 of the </em>remaining<em> money on pizza. That&#x27;s step two: $150 </em> 0.6 = $90. See how we used the $150, not the original $200? It&#x27;s all about keeping track of what&#x27;s left or what you&#x27;ve got after each calculation. Just take it one step at a time, and you&#x27;ll get it!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine a <strong>Restaurant Manager</strong> for a popular chain like Chipotle or Panera Bread. Part of <span class="ph">[their]</span> job is to manage inventory, track sales, and calculate profits after various costs and discounts. This often involves multi-step rational problems. For instance, determining the profit on a specific menu item after factoring in ingredient costs, labor, and a promotional discount. Let&#x27;s say a manager needs to figure out the actual profit from selling 150 burrito bowls in a day. Each bowl sells for $9.50. The raw ingredients cost $3.25 per bowl, and labor allocated per bowl is $1.50. On Tuesdays, they offer a 10% discount for students. If 40 of those 150 bowls were sold to students, the manager would calculate it like this: <code>Total Sales = (110 <em> $9.50) + (40 </em> ($9.50 - (0.10 <em> $9.50)))</code>. Then, <code>Total Costs = 150 </em> ($3.25 + $1.50)</code>. Finally, <code>Net Profit = Total Sales - Total Costs</code>. These calculations are essential for setting prices and understanding business performance. Being proficient in multi-step rational problems directly impacts <span class="ph">[their]</span> ability to make sound financial decisions in this career.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Planning a fun trip to an amusement park like Six Flags Great Adventure with friends requires some savvy math, <span class="ph">[Student Name]</span>! Let&#x27;s say you and three friends (four people total) want to go. Online tickets cost $59.99 per person. You find a special coupon that offers $15 off the <em>total</em> ticket purchase if you buy 4 or more tickets. Additionally, there&#x27;s a 7.5% sales tax on the final discounted price. How much will each person pay? First, calculate the total cost before the discount: <code>4 <em> $59.99 = $239.96</code>. Then apply the coupon: <code>$239.96 - $15.00 = $224.96</code>. Next, calculate the sales tax: <code>$224.96 </em> 0.075 = $16.872</code>. Add the tax to the discounted price: <code>$224.96 + $16.872 = $241.832</code>. Finally, divide by the number of people to find each person&#x27;s share: <code>$241.832 / 4 = $60.458</code>. So, each person would pay approximately $60.46. This multi-step problem, involving multiplication, subtraction, multiplication with a decimal, addition, and division, helps you budget accurately for real-life fun!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering multi-step rational problems is a cornerstone for academic success and future earnings, <span class="ph">[Student Name]</span>. These types of problems are prevalent on standardized tests like the SAT and ACT, often appearing in the &#x27;problem solving and data analysis&#x27; sections. Excelling in these areas can lead to higher test scores, which in turn can open doors to competitive colleges and universities across the US. For example, a question might ask you to calculate a percentage increase over time, then determine the fraction of a budget allocated to a specific category, requiring you to combine various operations with rational numbers. In college, fields like engineering, finance, computer science, and even healthcare heavily rely on the ability to solve complex equations involving fractions, decimals, and percentages. A solid foundation now means you&#x27;ll be better prepared for college-level coursework, potentially reducing the need for remedial classes. Ultimately, strong quantitative skills, including proficiency with multi-step rational problems, are highly valued in the job market and correlate with higher earning potential throughout <span class="ph">[their]</span> career, regardless of the path <span class="ph">[they]</span> chooses. These are critical building blocks for advanced mathematical thinking.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Solve for x: <code>0.75(x + 6) - 1.5 = 4.5</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">A high school band is selling spirit wear. T-shirts cost $18.50 each and hoodies cost $32.00 each. The band receives a 20% discount if they order more than 50 items. They ordered 70 T-shirts and 30 hoodies. After the discount, they must add a $15 flat shipping fee. What is the total cost of their order?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Solve for y: <code>(1/4)y + 3 = (3/8)y - 2</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">A rectangular playground has a length that is 2.5 times its width. If the perimeter of the playground is 105 feet, what is the width of the playground?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">Solve for z: <code>5.6 + 0.5(z - 12) = 8.1</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">A recipe calls for <code>1 3/4</code> cups of flour. If <span class="ph">[Student Name]</span> wants to make <code>2/3</code> of the recipe, and already has <code>1/2</code> cup of flour, how much more flour is needed?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">The temperature in Fairbanks, Alaska, was -8.5°F at 6 AM. By noon, the temperature had risen by 12.2°F. Then, a cold front caused the temperature to drop by <code>5 1/4</code>°F by 4 PM. What was the temperature at 4 PM?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">A concert ticket price was increased by 15% for the summer tour. After the increase, a limited-time promotion offered a $10 discount on the new price. If the discounted price of a ticket is now $87.35, what was the original price of the ticket?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Sarah bought a new basketball for $24.75. She also purchased two new water bottles, each costing $3.50. How much money did Sarah spend in total?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">A recipe calls for 1/2 cup of sugar. <span class="ph">[Student Name]</span> wants to make 3 batches of the recipe. If <span class="ph">[they]</span> already has 3/4 cup of sugar, how much more sugar does <span class="ph">[they]</span> need?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">A football team gains 6.5 yards on the first play and loses 2.25 yards on the second play. On the third play, they gain three times the amount they lost on the second play. What is the team&#x27;s total yardage after three plays?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Evaluate the expression: 4.5 - (3/4 + 1.25) * 2</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Mr. Henderson bought 5 bags of pretzels for a school picnic, each weighing 1 1/2 pounds. He used 3 1/4 pounds for the picnic. How many pounds of pretzels does he have left?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">A movie ticket costs $12.50. A popcorn and soda combo costs 2/5 of the ticket price. If <span class="ph">[Student Name]</span> buys a ticket and two popcorn and soda combos, how much does <span class="ph">[they]</span> spend in total?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Solve for x: (2/3)x - 4.5 = 1/6 * 9</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A plumber charges a $75 service fee plus $40.50 per hour. If the total bill was $237.00, how many hours did the plumber work?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Jessica has a budget of $50 for school supplies. She bought a backpack for $22.75. She then bought 4 notebooks that cost $3.50 each and 2 packs of pens for $2.25 each. How much money does Jessica have left?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A baker uses 3 1/2 cups of sugar for a large cake. For cupcakes, <span class="ph">[they]</span> uses 1/3 the amount of sugar used for the cake, per batch. If <span class="ph">[Student Name]</span> makes 2 large cakes and 3 batches of cupcakes, and 1 cup of sugar costs $0.75, what is the total cost of the sugar?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring Order of Operations with Fractions&quot;, &quot;MISTAKE&quot;: &quot;Students perform operations from left to right without respecting the order of operations (PEMDAS), especially when multiplication/division of fractions is present with addition/subtraction.&quot;, &quot;WHY TEMPTING&quot;: &quot;It&#x27;s easy to follow the natural reading order and overlook the hierarchy of operations.&quot;, &quot;SOLUTION&quot;: &quot;Always strictly apply PEMDAS/BODMAS. Perform multiplication and division from left to right before addition and subtraction from left to right.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>1/3 + 5/6 <em> 2/5</code>. Wrong answer: <code>(1/3 + 5/6) </em> 2/5 = (2/6 + 5/6) <em> 2/5 = 7/6 </em> 2/5 = 14/30 = 7/15</code>. Right answer: <code>1/3 + (5/6 * 2/5) = 1/3 + 10/30 = 1/3 + 1/3 = 2/3</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Incorrect Distribution of Negative Signs with Decimals&quot;, &quot;MISTAKE&quot;: &quot;When a negative sign or a negative decimal coefficient is distributed into a parenthetical expression, students often only apply the negative to the first term inside.&quot;, &quot;WHY TEMPTING&quot;: &quot;Focusing on the immediate next term makes it easy to forget that the negative sign applies to <em>all</em> terms within the parentheses.&quot;, &quot;SOLUTION&quot;: &quot;Remember that a negative sign outside parentheses, or a negative coefficient being distributed, must multiply every single term inside the parentheses, changing their signs accordingly.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>4.5 - (0.2x - 1.3) = 2</code>. Wrong answer: <code>4.5 - 0.2x - 1.3 = 2</code>. Right answer: <code>4.5 - 0.2x + 1.3 = 2</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Misapplying Inverse Operations for Fractional Coefficients&quot;, &quot;MISTAKE&quot;: &quot;When a variable is multiplied by a fraction, students might subtract the fraction from both sides instead of multiplying by its reciprocal.&quot;, &quot;WHY TEMPTING&quot;: &quot;They might confuse a fractional coefficient with a constant fraction being added or subtracted from the variable term.&quot;, &quot;SOLUTION&quot;: &quot;To undo multiplication by a fraction, the correct inverse operation is to multiply both sides of the equation by the reciprocal of that fraction.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>(3/4)x = 9</code>. Wrong answer: <code>x = 9 - 3/4 = 36/4 - 3/4 = 33/4</code>. Right answer: <code>(4/3)<em>(3/4)x = 9</em>(4/3) =&gt; x = 36/3 = 12</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Combining Unlike Terms Prematurely&quot;, &quot;MISTAKE&quot;: &quot;In multi-step problems, students sometimes combine a constant rational number with a rational term containing a variable before isolating the variable term.&quot;, &quot;WHY TEMPTING&quot;: &quot;All numbers might appear to be similar (e.g., all decimals or all fractions), leading to a mistaken attempt to combine them regardless of variable attachment.&quot;, &quot;SOLUTION&quot;: &quot;Carefully identify and combine only like terms. Constant terms can be combined with other constant terms, and variable terms with other variable terms.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>0.6y + 2.5 = 7.3</code>. Wrong answer: <code>3.1y = 7.3</code> (by adding 0.6y and 2.5). Right answer: <code>0.6y = 7.3 - 2.5 =&gt; 0.6y = 4.8</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Forgetting the &#x27;Balance&#x27; of the Equation&quot;, &quot;MISTAKE&quot;: &quot;Students perform an operation on one side of the equation (like adding or subtracting a rational number) but forget to apply the <em>exact same</em> operation to the other side.&quot;, &quot;WHY TEMPTING&quot;: &quot;Focusing intensely on the side with the variable can lead to momentarily forgetting that the equation is a balance that must be maintained.&quot;, &quot;SOLUTION&quot;: &quot;Always remember the golden rule of equations: Whatever operation you perform on one side of the equals sign, you must perform on the other side to keep the equation balanced.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>2/3x - 1/6 = 5/6</code>. Wrong answer: <code>2/3x = 5/6 - 1/6 = 4/6 = 2/3</code>. Right answer: <code>2/3x = 5/6 + 1/6 =&gt; 2/3x = 6/6 =&gt; 2/3x = 1</code>.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>On Monday, <span class="ph">[Student Name]</span> bought a new pencil for $0.75 and an eraser for $0.40. On Tuesday, <span class="ph">[they]</span> bought a notebook for $2.25. If <span class="ph">[Student Name]</span> started with $5.00, how much money does <span class="ph">[they]</span> have left?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div><span class="ph">[Student Name]</span> is baking cookies and the recipe calls for 2 and 1/2 cups of flour. If <span class="ph">[they]</span> only wants to make 3/4 of the recipe, and then adds an extra 1/4 cup of flour because the dough seems too sticky, how much flour does <span class="ph">[they]</span> use in total?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div>A group of students at Lincoln Middle School is raising money for a field trip. They need to raise $350.00. So far, they have raised $125.50 from a car wash and $89.75 from a bake sale. If a local business donates 1/5 of the remaining amount needed, how much more money do the students still need to raise after the donation?</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div><span class="ph">[Student Name]</span> received a $50 gift card to a clothing store. <span class="ph">[they]</span> bought a t-shirt for $18.50. <span class="ph">[they]</span> also bought a pair of socks that cost 1/4 of the price of the t-shirt. How much money is left on <span class="ph">[Student Name]</span>&#x27;s gift card?</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div>A recipe for lemonade calls for 3/4 cup of sugar for every 2 cups of water. <span class="ph">[Student Name]</span> wants to make 8 cups of lemonade. If <span class="ph">[they]</span> already has 1 1/2 cups of sugar, how much more sugar does <span class="ph">[they]</span> need?</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>During a track and field practice, <span class="ph">[Student Name]</span> ran 2 and 1/4 miles. <span class="ph">[they]</span> then walked 1/3 of the distance <span class="ph">[they]</span> ran. Finally, <span class="ph">[they]</span> sprinted for 1/2 a mile. What was the total distance <span class="ph">[Student Name]</span> covered during practice?</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>A store is having a sale where all items are 20% off. <span class="ph">[Student Name]</span> wants to buy a video game that originally costs $59.99. If <span class="ph">[they]</span> also has a coupon for an additional $5.00 off any purchase over $50 after the initial discount, how much will <span class="ph">[Student Name]</span> pay for the game?</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div><span class="ph">[Student Name]</span> is building a model airplane. The wingspan of the actual airplane is 12 and 1/2 feet. The model is scaled down by a factor of 1/20. If <span class="ph">[they]</span> needs to cut 1/8 of an inch off each wing of the model after assembly to make it fit perfectly, what will be the final wingspan of the model airplane in inches?</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>A local farm has 240 acres of land. 1/3 of the land is used for corn, and 2/5 of the <em>remaining</em> land is used for soybeans. The rest of the land is divided equally among three different types of vegetables. How many acres are used for each type of vegetable?</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div><span class="ph">[Student Name]</span> is tracking <span class="ph">[their]</span> basketball shots during practice. <span class="ph">[they]</span> made 3/5 of <span class="ph">[their]</span> first 20 shots. For the next 15 shots, <span class="ph">[they]</span> made 2/3 of them. What fraction of the total shots did <span class="ph">[Student Name]</span> make?</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into Multi-Step Rational Problems in 7th-grade math. This means <span class="ph">[they]</span> will be solving equations that involve fractions and decimals, requiring more than one step to find the answer. It’s all about understanding the order of operations and how to manipulate these types of numbers to solve real-world scenarios. For example, <span class="ph">[Student Name]</span> might work on calculating a discount on an item and then figure out the sales tax. Tonight, you could bake cookies together. Have <span class="ph">[Student Name]</span> measure out ingredients like &quot;1 and 3/4 cups of flour&quot; or &quot;0.5 cups of sugar,&quot; and then ask <span class="ph">[them]</span> to double the recipe or cut it in half, making <span class="ph">[their]</span> convert measurements. At dinner, ask <span class="ph">[Student Name]</span>, &quot;If a baseball team won 0.6 of their 150 games this season, how many games did they win, and how many did they lose?&quot; This will help <span class="ph">[them]</span> connect fractions/decimals to practical outcomes.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Hello <span class="ph">[Student Name]</span>! Welcome to our session on Multi-Step Rational Problems. These are super fun puzzles where we use fractions and decimals to solve real-world challenges. I know you&#x27;re going to do great! Let&#x27;s get started!
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;It looks like you&#x27;re trying to figure out where to begin. Remember, with multi-step problems, we often need to simplify parts of the equation first. Let&#x27;s look at this problem: 3/4 * (8 + 4) - 2.5. What&#x27;s the very first operation you see inside the parentheses that we need to address before anything else? Think about the order of operations, PEMDAS.&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;You&#x27;ve handled the first part perfectly, <span class="ph">[Student Name]</span>! Now you have a simpler expression, like &#x27;9 - 2.5&#x27;. What&#x27;s the next step we need to take to solve this? Are we adding, subtracting, multiplying, or dividing? How would you perform that operation with a whole number and a decimal? Remember, we need to line up the decimal points if we&#x27;re adding or subtracting.&quot;
+
+SESSION CLOSING: &quot;Fantastic work today, <span class="ph">[Student Name]</span>! You really tackled those multi-step rational problems like a pro. I noticed how you carefully broke down each problem and paid attention to your fraction and decimal operations. Keep practicing, and you&#x27;ll be solving even more complex problems in no time! I&#x27;m really proud of your effort and progress.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, the most common mistake <span class="ph">[Student Name]</span> might make with multi-step rational problems is misapplying the order of operations (PEMDAS/BODMAS), especially when fractions or decimals are involved. For example, <span class="ph">[Student Name]</span> might incorrectly add or subtract before multiplying or dividing, or mishandle operations inside parentheses. You&#x27;ll recognize this if <span class="ph">[they]</span> gets wildly different answers than expected, even if individual calculations seem correct. If you see this, say to <span class="ph">[Student Name]</span>, &quot;Let&#x27;s pause and remember our order of operations – PEMDAS. Which operation comes first in this step? What&#x27;s inside the parentheses, and what about multiplication or division before addition or subtraction?&quot; What NOT to say: &quot;You keep getting the order wrong!&quot; This can be discouraging. Instead, focus on the process, not just the error.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;order_of_operations_misstep&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might incorrectly apply the order of operations, perhaps adding fractions before multiplying them, leading to an incorrect result for the entire problem. For example, in 1/2 * (4 + 6/3), <span class="ph">[they]</span> might do 4 + 6 first, instead of 6/3.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s a common hurdle, <span class="ph">[Parent Name]</span>, as correctly sequencing steps is crucial for these problems. <span class="ph">[Student Name]</span> is learning to prioritize operations, which takes practice.&quot;, &quot;home_action&quot;: &quot;Tonight, have <span class="ph">[Student Name]</span> help you follow a recipe with multiple steps, like baking a cake. Talk through each step in order: &#x27;First, we&#x27;re mixing the dry ingredients, then the wet ones, then combining them.&#x27;&quot;}, {&quot;tag&quot;: &quot;decimal_fraction_conversion_error&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> could struggle with converting between decimals and fractions mid-problem, or performing operations when they are mixed. For instance, if <span class="ph">[they]</span> has to calculate 0.75 + 1/3, <span class="ph">[they]</span> might incorrectly add them as if they were whole numbers or struggle to find a common form.&quot;, &quot;reassurance&quot;: &quot;This concept builds on prior knowledge, so <span class="ph">[Student Name]</span> just needs more exposure and practice. It&#x27;s a skill that will solidify with time.&quot;, &quot;home_action&quot;: &quot;Play a game where you give <span class="ph">[Student Name]</span> a fraction (e.g., 2/5) and <span class="ph">[they]</span> has to state the decimal equivalent, or vice versa. Use common fractions like halves, quarters, tenths, and thirds.&quot;}, {&quot;tag&quot;: &quot;calculation_with_negative_rational_numbers&quot;, &quot;parent_description&quot;: &quot;When the problem involves negative fractions or decimals, <span class="ph">[Student Name]</span> might make mistakes with the signs, for example, incorrectly calculating 1/4 - (-0.5) as 1/4 - 0.5 instead of 1/4 + 0.5, or confusing negative multiplication rules.&quot;, &quot;reassurance&quot;: &quot;Working with negative numbers and rational numbers together is a new layer of complexity. <span class="ph">[Student Name]</span> is developing a strong foundation for advanced math.&quot;, &quot;home_action&quot;: &quot;Use a simple budget scenario. &#x27;You start with $10. You spend $4.50 on a snack, and then you earn $2.25. How much do you have left?&#x27; Discuss how spending is negative and earning is positive.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! Let&#x27;s get you comfortable with Multi-Step Rational Problems. Think of them like a mini-project with several steps, where some of your measurements or costs aren&#x27;t whole numbers, but fractions or decimals. <span class="ph">[they]</span> already does this in real life! For example:
+
+1.  <strong>Grocery Shopping Scenario:</strong> Imagine <span class="ph">[they]</span> is buying groceries. A recipe calls for 1.5 pounds of ground beef at $4.00 per pound. Plus, <span class="ph">[they]</span> also needs 3/4 of a dozen eggs, and a dozen costs $3.00. How much is the total? This is a multi-step rational problem.
+    <em>   <strong>Step 1 (Calculate beef cost):</strong> 1.5 pounds </em> $4.00/pound = $6.00. (Here, 1.5 is a rational number, and it&#x27;s one step.)
+    <em>   <strong>Step 2 (Calculate egg cost):</strong> First, figure out how much 1/4 dozen costs: $3.00 / 4 = $0.75. Then, 3/4 dozen is 3 </em> $0.75 = $2.25. (Here, 3/4 is a rational number, and this step itself has two sub-parts).
+    <em>   <strong>Step 3 (Total cost):</strong> Add the beef cost and the egg cost: $6.00 + $2.25 = $8.25. (This combines the results of the previous steps.)
+
+2.  <strong>Budgeting for a Trip:</strong> <span class="ph">[they]</span> is planning a weekend trip. The hotel costs $120.00 per night for 2 nights. Gas will cost about $40.00, but <span class="ph">[they]</span> only pays 1/2 of it, splitting with a friend. Food will be $75.00. What&#x27;s <span class="ph">[their]</span> total personal expense?
+    </em>   <strong>Step 1 (Hotel):</strong> $120.00 <em> 2 = $240.00.
+    </em>   <strong>Step 2 (Gas):</strong> $40.00 <em> (1/2) = $20.00.
+    </em>   <strong>Step 3 (Total):</strong> $240.00 + $20.00 + $75.00 = $335.00.
+
+The key is breaking down the problem into smaller, manageable parts, often converting fractions to decimals or vice versa, and following the order of operations. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está aprendiendo sobre los Problemas Racionales de Varios Pasos en matemáticas de 7º grado. Esto significa que <span class="ph">[they]</span> aprenderá a resolver problemas que combinan diferentes tipos de números, como fracciones, decimales y porcentajes, y requieren más de una operación matemática para encontrar la solución. Por ejemplo, si tienes 100 pesos y gastas la mitad en el cine y luego el 25% del resto en palomitas, ¿cuánto te queda? Para una actividad práctica esta noche, pueden planear un presupuesto simple para una salida familiar, como ir a un partido de béisbol. Calculen cuánto gastarían si 1/3 del presupuesto es para boletos, 0.25 para comida y el resto para transporte. En la cena, pueden preguntarle a <span class="ph">[Student Name]</span>: “Si te dan 50 pesos y gastas 1/5 en una revista y 12.50 pesos en un dulce, ¿qué pasos seguirías para saber cuánto dinero te queda?” Esto ayudará a <span class="ph">[Student Name]</span> a conectar los conceptos con situaciones cotidianas.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;¡Hola, <span class="ph">[Student Name]</span>! ¡Qué bueno verte hoy! Hoy vamos a trabajar con algo que usamos todo el tiempo en la vida real: los Problemas Racionales de Varios Pasos. ¿Sabes qué son los números racionales? ¡Exacto! Son las fracciones, los decimales y los porcentajes. Y &#x27;varios pasos&#x27; significa que vamos a hacer más de una operación, como sumar, restar, multiplicar o dividir, para encontrar la respuesta. ¡Vamos a ver qué tan experto eres!&quot; 
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Está bien, <span class="ph">[Student Name]</span>, no te preocupes. Cuando ves un problema como &#x27;Un atleta corre 12 kilómetros. Si ya corrió 1/3 de la distancia y luego 3.5 kilómetros más, ¿cuánto le falta?&#x27;, el primer paso es entender la información. ¿Qué números tenemos? ¿En qué formas están? ¿Podemos convertir 1/3 a un decimal para que sea más fácil de manejar con el 3.5? Primero, ¿cuánto es 1/3 de 12 kilómetros? Calcula eso y luego vemos los siguientes pasos.&quot; 
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Lo tienes casi, <span class="ph">[Student Name]</span>! Ya calculaste que 1/3 de 12 km son 4 km. Entonces, corrió 4 km y luego 3.5 km más. ¿Cuál sería la operación para saber cuánto corrió en total? Y una vez que tengas ese total, ¿cómo averiguarías cuánto le falta para llegar a los 12 km? Recuerda que el problema tiene múltiples partes que debemos resolver en orden. ¡Puedes hacerlo!&quot; 
+SESSION CLOSING: &quot;¡Magnífico trabajo hoy, <span class="ph">[Student Name]</span>! Viste cómo juntamos fracciones y decimales y usamos diferentes operaciones para resolver esos problemas. ¡Eso demuestra una gran habilidad para pensar lógicamente! Sigue practicando y verás que estos problemas se vuelven cada vez más fáciles. ¡Estoy muy orgulloso/a de tu esfuerzo!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La dificultad más común que <span class="ph">[Student Name]</span> enfrentará con los Problemas Racionales de Varios Pasos es no convertir todas las cantidades a la misma forma numérica (por ejemplo, tener fracciones y decimales en el mismo cálculo sin convertirlos) o aplicar incorrectamente el orden de las operaciones. <span class="ph">[Parent Name]</span> lo reconocerá si <span class="ph">[Student Name]</span> obtiene respuestas ilógicas, o se frustra al intentar combinar números de diferentes formatos. Para intervenir, diga: &quot;<span class="ph">[Student Name]</span>, veo que aquí tenemos una mezcla de fracciones y decimales. ¿Cuál crees que sería la mejor forma de expresarlos todos para que podamos sumarlos o restarlos fácilmente? ¿Podemos convertir 1/2 a 0.5, por ejemplo?&quot; NO diga: &quot;Esto es un lío, ¿no recuerdas cómo convertir fracciones?&quot; Concéntrese en la estrategia, no en el error.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;conversion_error&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> podr\u00eda tener dificultades para convertir correctamente fracciones a decimales, o viceversa, lo que resulta en c\u00e1lculos incorrectos. Por ejemplo, intentar restar 0.25 a 1/3 sin convertir uno de ellos primero a la misma forma.&quot;, &quot;reassurance&quot;: &quot;Es muy com\u00fan confundirse con las conversiones al principio, pero con pr\u00e1ctica, <span class="ph">[Student Name]</span> ser\u00e1 muy h\u00e1bil en esto.&quot;, &quot;home_action&quot;: &quot;Jueguen un juego de &#x27;equivalencias&#x27;: Escriban fracciones, decimales y porcentajes en tarjetas y que <span class="ph">[Student Name]</span> los empareje correctamente (ej. 1/4 con 0.25 y 25%).&quot;}, {&quot;tag&quot;: &quot;order_of_operations_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> podr\u00eda olvidar o aplicar incorrectamente el orden de las operaciones (par\u00e9ntesis, exponentes, multiplicaci\u00f3n/divisi\u00f3n, suma/resta), lo que cambia el resultado final del problema, por ejemplo, sumando antes de multiplicar en un problema como 100 - (1/4 de 100) + 5.&quot;, &quot;reassurance&quot;: &quot;El orden de las operaciones es una regla importante que lleva tiempo dominar, y <span class="ph">[Student Name]</span> est\u00e1 en camino de entenderlo perfectamente.&quot;, &quot;home_action&quot;: &quot;Usen una receta de cocina que tenga pasos claros. Si la receta pide &#x27;2 tazas de leche y luego 1/2 de esa cantidad de agua&#x27;, discutan qu\u00e9 calcular\u00edan primero.&quot;}, {&quot;tag&quot;: &quot;misinterpreting_problem&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> podr\u00eda leer el problema pero no entender qu\u00e9 se le pide exactamente en cada paso, o qu\u00e9 parte de la informaci\u00f3n es relevante. Por ejemplo, no distinguir entre &#x27;cu\u00e1nto gast\u00f3&#x27; y &#x27;cu\u00e1nto le queda&#x27;.&quot;, &quot;reassurance&quot;: &quot;Entender un problema es el primer gran paso, y <span class="ph">[Student Name]</span> tiene la capacidad de desglosar problemas complejos.&quot;, &quot;home_action&quot;: &quot;Lean juntos un peque\u00f1o p\u00e1rrafo (de un peri\u00f3dico o un libro) y p\u00eddanle a <span class="ph">[Student Name]</span> que identifique la &#x27;idea principal&#x27; y los &#x27;detalles importantes&#x27;, aplicando esa misma l\u00f3gica a los problemas de matem\u00e1ticas.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Vamos a desglosar los Problemas Racionales de Varios Pasos. No se preocupe, <span class="ph">[they]</span> dominará este concepto y podrá ayudar a <span class="ph">[Student Name]</span> con confianza.
+
+1.  <strong>¿Qué son los &#x27;números racionales&#x27;?</strong> Piensa en ellos como números que puedes escribir como fracciones. Esto incluye fracciones (como 1/2), decimales (como 0.5) y porcentajes (como 50%, que es lo mismo que 0.5 o 1/2). Son solo diferentes formas de escribir la misma cantidad.
+
+2.  <strong>¿Qué son los &#x27;problemas de varios pasos&#x27;?</strong> Son problemas que requieren más de una operación matemática (sumar, restar, multiplicar, dividir) para llegar a la respuesta final. No es solo 2+3, sino algo como (2+3) <em> 4.
+
+3.  <strong>Ejemplo de la vida real:</strong> Imagina que tienes 200 pesos para la compra. Primero, decides gastar 1/4 de ese dinero en frutas. Luego, 0.30 del dinero restante lo gastas en carne. Finalmente, con lo que te queda, quieres comprar vegetales que cuestan 60 pesos. ¿Te alcanza el dinero?
+    </em>   <strong>Paso 1: Calcular el gasto en frutas.</strong> 1/4 de 200 pesos = 50 pesos. Te quedan 200 - 50 = 150 pesos.
+    <em>   <strong>Paso 2: Calcular el gasto en carne.</strong> 0.30 del dinero </em>restante<em> (150 pesos) = 45 pesos. Te quedan 150 - 45 = 105 pesos.
+    </em>   <strong>Paso 3: Ver si te alcanza para los vegetales.</strong> Tienes 105 pesos y los vegetales cuestan 60 pesos. Sí, te alcanza y te sobran 45 pesos. 
+
+¡Ves! Convertimos fracciones y decimales, hicimos restas y multiplicaciones, todo en varios pasos. Así es como <span class="ph">[they]</span> puede abordar estos problemas y guiar a <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Cher <span class="ph">[Parent Name]</span>, Cette semaine, <span class="ph">[Student Name]</span> explore les &quot;Problèmes rationnels à plusieurs étapes&quot; en 7e année, un concept crucial en mathématiques. Il s&#x27;agit de résoudre des problèmes qui impliquent des fractions, des décimales et des nombres entiers, nécessitant plusieurs opérations (addition, soustraction, multiplication, division) pour arriver à la réponse finale. Le concept clé est de savoir comment décomposer un grand problème en petites étapes gérables, en appliquant les opérations dans le bon ordre. Pour une activité pratique ce soir, vous pourriez planifier un mini-budget pour un événement comme un match de basket scolaire. Par exemple : &quot;Nous avons 50 $. Si 1/5 va pour les tickets, 15,25 $ pour des souvenirs, et 1/2 de ce qui reste pour des snacks, combien nous reste-t-il ?&quot; Demandez à <span class="ph">[Student Name]</span> de calculer chaque étape. À table, posez-lui : &quot;Si tu as une bouteille de soda de 2,5 litres et que tu en verses 1/3 dans un verre, puis que tu bois 0,5 litre, combien en reste-t-il ?&quot; C&#x27;est une excellente façon de voir comment <span class="ph">[Student Name]</span> aborde ces problèmes.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Bonjour <span class="ph">[Student Name]</span> ! Aujourd&#x27;hui, nous allons nous attaquer à des &quot;Problèmes rationnels à plusieurs étapes&quot;. C&#x27;est comme être un détective qui doit résoudre une énigme complexe en plusieurs parties, en utilisant des fractions et des décimales. Pas de panique, nous allons travailler ensemble pour décomposer ces problèmes complexes en étapes faciles. Tu es prêt ?
+<strong>Si <span class="ph">[Student Name]</span> est bloqué à l&#x27;étape 1:</strong> &quot;D&#x27;accord, <span class="ph">[Student Name]</span>, prenons une grande inspiration. Quel est le tout premier morceau d&#x27;information que tu vois dans ce problème ? Y a-t-il des fractions et des décimales ? Pourrais-tu convertir le tout en une seule forme, par exemple, tout en décimales, pour faciliter le début du calcul ? Quel est le premier calcul que le problème te demande d&#x27;effectuer pour commencer ?&quot;
+<strong>Si <span class="ph">[Student Name]</span> est bloqué à l&#x27;étape 2:</strong> &quot;Excellent travail pour la première partie ! Tu as fait un grand pas. Maintenant, relis attentivement la question. Après cette première opération, qu&#x27;est-ce que le problème te demande de faire ensuite avec le résultat que tu viens d&#x27;obtenir ? Y a-t-il une autre multiplication, division, addition ou soustraction à effectuer ? N&#x27;oublie pas de vérifier ton ordre d&#x27;opérations pour ne rien manquer !&quot;
+<strong>Clôture de session:</strong> &quot;Fantastique, <span class="ph">[Student Name]</span> ! Tu as fait preuve d&#x27;une grande persévérance aujourd&#x27;hui. Ces problèmes à plusieurs étapes peuvent sembler intimidants au début, mais tu as montré que tu peux les aborder pas à pas, comme un véritable expert. Continue de pratiquer cette méthode, et tu résoudras n&#x27;importe quel défi mathématique. Je suis vraiment fier de <span class="ph">[them]</span> !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Cher <span class="ph">[Parent Name]</span>,
+La faute la plus fréquente que <span class="ph">[Student Name]</span> rencontrera avec les problèmes rationnels à plusieurs étapes est l&#x27;oubli ou la mauvaise application de l&#x27;ordre des opérations (PEMDAS : Parenthèses, Exposants, Multiplication/Division, Addition/Soustraction). <span class="ph">[they]</span> pourrait additionner ou soustraire avant de multiplier ou de diviser, ce qui change complètement le résultat.
+Pour le reconnaître, si la réponse finale de <span class="ph">[Student Name]</span> est très éloignée de ce qu&#x27;elle devrait être, même si les calculs individuels semblent corrects, c&#x27;est souvent un signe d&#x27;un problème avec l&#x27;ordre des opérations.
+Ce qu&#x27;il faut dire à <span class="ph">[Student Name]</span> : &quot;Relis le problème, <span class="ph">[Student Name]</span>. Y a-t-il des parenthèses ou des groupements ? Des multiplications ou divisions que nous devrions faire avant les additions ou soustractions ? Rappelle-toi PEMDAS ! C&#x27;est comme une feuille de route pour résoudre le problème dans le bon ordre.&quot;
+Ce qu&#x27;il NE faut PAS dire : &quot;C&#x27;est facile, pourquoi tu n&#x27;y arrives pas ?&quot; ou &quot;Tu as juste fait une erreur stupide.&quot; Ces phrases peuvent décourager <span class="ph">[Student Name]</span> et nuire à sa confiance.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;order_of_operations_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> effectue les op\u00e9rations de gauche \u00e0 droite sans respecter la priorit\u00e9 (par exemple, <span class="ph">[they]</span> ajoute avant de multiplier ou de diviser), ce qui conduit \u00e0 des r\u00e9sultats erron\u00e9s. Par exemple, dans &#x27;50 - 1/4 <em> 40&#x27;, <span class="ph">[they]</span> pourrait calculer (50 - 1/4) d&#x27;abord au lieu de (1/4 </em> 40).&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s courante chez les \u00e9l\u00e8ves de 7e ann\u00e9e, et la ma\u00eetrise de l&#x27;ordre des op\u00e9rations (PEMDAS) vient avec la pratique et l&#x27;attention aux d\u00e9tails. C&#x27;est une comp\u00e9tence fondamentale qui se d\u00e9veloppe avec le temps !&quot;, &quot;home_action&quot;: &quot;Ensemble, r\u00e9visez une recette de cuisine complexe o\u00f9 l&#x27;ordre des \u00e9tapes est crucial pour le r\u00e9sultat final (ex: faire un g\u00e2teau o\u00f9 il faut m\u00e9langer certains ingr\u00e9dients avant d&#x27;en ajouter d&#x27;autres). Discutez des cons\u00e9quences si les \u00e9tapes ne sont pas respect\u00e9es.&quot;}, {&quot;tag&quot;: &quot;fraction_decimal_conversion_errors&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> a du mal \u00e0 convertir correctement les fractions en d\u00e9cimales (ou vice versa) ou \u00e0 choisir la meilleure forme pour r\u00e9soudre un probl\u00e8me, ce qui entra\u00eene des calculs incorrects. Par exemple, <span class="ph">[they]</span> pourrait confondre 1/4 avec 0.25 mais l&#x27;utiliser incorrectement dans une op\u00e9ration suivante ou ne pas savoir si travailler avec 1/4 ou 0.25 est plus simple.&quot;, &quot;reassurance&quot;: &quot;Identifier la forme la plus efficace (fraction ou d\u00e9cimale) et effectuer les conversions avec pr\u00e9cision est une comp\u00e9tence cl\u00e9 qui demande de la patience et de la pratique cibl\u00e9e. C&#x27;est une \u00e9tape importante dans la compr\u00e9hension des nombres rationnels.&quot;, &quot;home_action&quot;: &quot;Utilisez des \u00e9tiquettes de prix r\u00e9elles dans un supermarch\u00e9 am\u00e9ricain qui combinent des pourcentages ou des fractions (ex: &#x27;1/2 prix&#x27;, &#x27;25% de r\u00e9duction&#x27;) et des d\u00e9cimales pour calculer le co\u00fbt total d&#x27;un article apr\u00e8s plusieurs r\u00e9ductions.&quot;}, {&quot;tag&quot;: &quot;incorrect_operation_choice&quot;, &quot;parent_description&quot;: &quot;Apr\u00e8s avoir d\u00e9compos\u00e9 un probl\u00e8me, <span class="ph">[Student Name]</span> applique une op\u00e9ration erron\u00e9e (par exemple, <span class="ph">[they]</span> additionne au lieu de multiplier) \u00e0 une \u00e9tape donn\u00e9e, car <span class="ph">[they]</span> n&#x27;a pas enti\u00e8rement compris ce que la question demande \u00e0 ce moment pr\u00e9cis. C&#x27;est souvent d\u00fb \u00e0 une lecture rapide ou une mauvaise interpr\u00e9tation des mots-cl\u00e9s.&quot;, &quot;reassurance&quot;: &quot;Apprendre \u00e0 &#x27;lire entre les lignes&#x27; d&#x27;un probl\u00e8me math\u00e9matique et \u00e0 identifier les mots-cl\u00e9s qui indiquent l&#x27;op\u00e9ration correcte est une comp\u00e9tence avanc\u00e9e qui se d\u00e9veloppe avec l&#x27;exp\u00e9rience et la r\u00e9flexion attentive. C&#x27;est un signe de pens\u00e9e critique !&quot;, &quot;home_action&quot;: &quot;Prenez un probl\u00e8me math\u00e9matique et demandez \u00e0 <span class="ph">[Student Name]</span> de souligner ou d&#x27;encercler les mots-cl\u00e9s \u00e0 chaque phrase qui indiquent quelle op\u00e9ration utiliser (ex: &#x27;de&#x27;, &#x27;restant&#x27;, &#x27;chaque&#x27;, &#x27;partag\u00e9 \u00e9galement&#x27;).&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Cher <span class="ph">[Parent Name]</span>,
+Les problèmes rationnels à plusieurs étapes peuvent sembler complexes au premier abord, mais <span class="ph">[they]</span> allez voir que c&#x27;est très logique et applicable à la vie quotidienne. Pensez à eux comme à une recette de cuisine qui a plusieurs étapes et utilise des quantités variées (fractions, décimales).
+Voici comment <span class="ph">[they]</span> pouvez les comprendre :
+1.  <strong>Comprendre la mission :</strong> Qu&#x27;est-ce que le problème vous demande de trouver ? Par exemple, &quot;Combien d&#x27;argent me reste-t-il après mes courses ?&quot;
+2.  <strong>Rassembler les ingrédients (nombres) :</strong> Identifiez toutes les informations numériques. Cela peut être 60 USD, une fraction comme &quot;1/3 du budget&quot;, ou un décimal comme &quot;18.75 USD&quot;. Si c&#x27;est plus facile, convertissez tout en fractions ou tout en décimales pour avoir une forme cohérente.
+3.  <strong>Suivre la recette (opérations) :</strong> C&#x27;est la partie la plus importante. Vous devez effectuer les calculs dans le bon ordre. Pensez à l&#x27;acronyme PEMDAS (Parenthèses, Exposants, Multiplication/Division de gauche à droite, Addition/Soustraction de gauche à droite). Chaque phrase du problème est souvent une étape.
+    <em>   <strong>Exemple :</strong> Vous avez 60 USD pour un repas de famille. Vous dépensez 1/3 de cet argent en légumes. Ensuite, vous dépensez 18.75 USD pour de la viande. Combien vous reste-t-il ?
+        </em>   <strong>Étape 1 (Multiplication) :</strong> Calculez 1/3 de 60 USD. C&#x27;est (1/3) <em> 60 = 20 USD.
+        </em>   <strong>Étape 2 (Soustraction) :</strong> Calculez l&#x27;argent restant après les légumes : 60 USD - 20 USD = 40 USD.
+        *   <strong>Étape 3 (Soustraction) :</strong> Dépensez 18.75 USD pour la viande : 40 USD - 18.75 USD = 21.25 USD.
+4.  <strong>Vérifier le plat :</strong> Relisez le problème et vérifiez que votre réponse est logique.
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> verrez, en décomposant les problèmes, <span class="ph">[they]</span> serez capable de les résoudre et de guider <span class="ph">[Student Name]</span> avec confiance !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Chè <span class="ph">[Parent Name]</span>, semèn sa a, <span class="ph">[Student Name]</span> ap aprann rezoud Pwoblèm Rasyonèl Plizyè Etap. Sa vle di <span class="ph">[they]</span> ap aprann kijan pou fè plizyè operasyon matematik (tankou adisyon, soustraksyon, miltiplikasyon, ak divizyon) youn dèyè lòt, sou nimewo ki gen fraksyon oswa desimal, pou jwenn yon repons final. Se tankou prepare yon bon plat manje kote ou gen plizyè etap epi ou dwe mezire engredyan yo avèk presizyon.
+
+Pou yon aktivite pratik aswè a, <span class="ph">[they]</span> ka envite <span class="ph">[Student Name]</span> ede <span class="ph">[them]</span> planifye yon ti bidjè pou fè acha nan mache lokal la. Pa egzanp, &quot;Si nou bezwen achte 1.5 kg mayi a 70 gourdes pa kg, ak 0.75 kg pwa a 120 gourdes pa kg, konbyen nou dwe depanse an total?&quot;
+
+Yon kesyon pou mete sou tab la aswè a: &quot;Imaginons <span class="ph">[Student Name]</span>, si ou gen 250 gourdes, epi ou achte yon liv pou 85.50 gourdes ak 3 kreyon ki koute 12.25 gourdes chak, konbyen lajan ou rete?&quot; Sa ap ede <span class="ph">[Student Name]</span> pratike rezoud pwoblèm sa yo nan tèt <span class="ph">[their]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjou, <span class="ph">[Student Name]</span>! Mwen kontan wè ou jodi a. Jodi a nou pral plonje nan yon bagay ki vrèman enteresan: rezoud pwoblèm matematik ki gen plizyè etap, sitou lè nou gen fraksyon ak desimal. Sa ap ede ou konprann kijan pou rezoud sitiyasyon reyèl ki gen anpil detay.&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Pa enkyete w, <span class="ph">[Student Name]</span>, sa rive tout moun. Ann gade pwoblèm nan ansanm. Sonje, yon pwoblèm ki gen plizyè etap bezwen divize an pi piti pati. Ki premye bagay ou panse nou dwe kalkile nan pwoblèm sa a? Pa egzanp, si pwoblèm nan di nou achte 3 chemiz pou 150.75 gourdes chak, epi nou bay 500 gourdes, ki sa ki ta dwe premye kalkil ou fè anvan ou panse ak rès lajan an?&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Ou fè yon gwo travay nan premye etap la, <span class="ph">[Student Name]</span>! Ou deja jwenn valè pati sa a. Kounye a, ann reflechi sou sa ki vin apre. Ki jan nou itilize enfòmasyon sa a pou kontinye rezoud pwoblèm nan? Èske nou dwe ajoute yon lòt bagay? Soustrè? Miltipliye oswa divize? Sonje pwoblèm nou an te di, &#x27;Si yon boutik vann 1.5 lit lwil pou 120 gourdes, epi ou achte 2 boutèy, konbyen ou dwe peye an total?&#x27; Ou deja jwenn pri 1 boutèy la, kounye a ki jan ou kalkile pri 2 boutèy?&quot;
+
+SESSION CLOSING: &quot;Waw, <span class="ph">[Student Name]</span>, mwen vrèman enpresyone ak fason ou ap panse ak rezoud pwoblèm konplèks sa yo. Ou te montre anpil detèminasyon jodi a. Kenbe bon travay la! Pratik fè pèfeksyon, epi mwen sèten <span class="ph">[they]</span> ap vin yon mèt nan pwoblèm rasyonèl plizyè etap byento. Mwen fyè de ou, <span class="ph">[Student Name]</span>!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Chè <span class="ph">[Parent Name]</span>, youn nan erè ki pi komen <span class="ph">[Student Name]</span> ka fè ak Pwoblèm Rasyonèl Plizyè Etap se bliye lòd operasyon yo (PEMDAS/BODMAS). Sa vle di <span class="ph">[they]</span> ka fè adisyon oswa soustraksyon anvan miltiplikasyon oswa divizyon lè pa ta dwe. Pa egzanp, si pwoblèm nan se &quot;50 - 3 <em> 6.50 + 2 / 0.5&quot;, <span class="ph">[Student Name]</span> ta ka fè &quot;50 - 3&quot; anvan &quot;3 </em> 6.50&quot;.
+
+Pou rekonèt li, gade si repons <span class="ph">[Student Name]</span> la pa kòrèk lè gen plizyè kalite operasyon nan yon sèl ekspresyon. Pou korije sa, di <span class="ph">[Student Name]</span> avèk kalm: &quot;<span class="ph">[Student Name]</span>, ann gade etap sa a ankò. Èske ou sonje règ lòd operasyon yo? Ki operasyon ki dwe fèt an premye nan ka sa a anvan nou fè lòt yo?&quot;
+
+SA OU PA DWE DI: &quot;Ou toujou fè menm erè a!&quot; oswa &quot;Sa a fasil, poukisa ou pa konprann?&quot; Sa ka demotive <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;order_of_operations_errors&quot;, &quot;parent_description&quot;: &quot;L\u00e8 <span class="ph">[Student Name]</span> ap rezoud yon pwobl\u00e8m ki gen plizy\u00e8 operasyon (tankou miltiplikasyon, divizyon, adisyon, soustraksyon) ak nimewo rasyon\u00e8l, <span class="ph">[they]</span> gen tandans bliye l\u00f2d k\u00f2r\u00e8k operasyon yo. Pa egzanp, <span class="ph">[they]</span> ka f\u00e8 soustraksyon anvan miltiplikasyon, sa ki mennen nan yon repons ki pa bon.&quot;, &quot;reassurance&quot;: &quot;Se yon er\u00e8 komen, epi ak pratik, <span class="ph">[Student Name]</span> ap byen metrize l\u00f2d operasyon yo. Se yon pati enp\u00f2tan nan aprantisaj.&quot;, &quot;home_action&quot;: &quot;Koupe yon f\u00e8y papye an plizy\u00e8 kare. Sou chak kare, ekri yon chif (egzanp: 2, 0.5, 7, 1/4) ak yon siy operasyon (egzanp: +, -, x, /). Mandate <span class="ph">[Student Name]</span> pou ranje yo epi rezoud yo nan l\u00f2d k\u00f2r\u00e8k la.&quot;}, {&quot;tag&quot;: &quot;fraction_decimal_arithmetic_mistakes&quot;, &quot;parent_description&quot;: &quot;Nan yon pwobl\u00e8m plizy\u00e8 etap, <span class="ph">[Student Name]</span> ka f\u00e8 er\u00e8 nan kalkil debaz ak fraksyon oswa desimal. Pa egzanp, <span class="ph">[they]</span> ka bliye kijan pou ajoute fraksyon ak denominat\u00e8 diferan, oswa kote pou mete pwen desimal la l\u00e8 <span class="ph">[they]</span> ap miltipliye desimal.&quot;, &quot;reassurance&quot;: &quot;Li n\u00f2mal pou f\u00e8 ti er\u00e8 sa yo l\u00e8 gen anpil bagay pou kalkile. <span class="ph">[Student Name]</span> ap amelyore presizyon <span class="ph">[their]</span> ak chak pratik.&quot;, &quot;home_action&quot;: &quot;Pran res\u00e8t yon plat krey\u00f2l (egzanp, diri ak pwa). Mande <span class="ph">[Student Name]</span> pou adapte res\u00e8t la pou 1.5 fwa kantite n\u00f2mal la, pou <span class="ph">[they]</span> ka pratike miltipliye fraksyon ak desimal.&quot;}, {&quot;tag&quot;: &quot;difficulty_breaking_down_problem&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> gen difikilte pou divize yon gwo pwobl\u00e8m rasyon\u00e8l an plizy\u00e8 ti etap ki pi fasil pou jere. <span class="ph">[they]</span> ka eseye rezoud tout bagay an menm tan, sa ki f\u00e8 pwobl\u00e8m nan par\u00e8t tw\u00f2 konpl\u00e8ks.&quot;, &quot;reassurance&quot;: &quot;Kapasite pou divize yon pwobl\u00e8m se yon ladr\u00e8s enp\u00f2tan ke <span class="ph">[Student Name]</span> ap bati. Chak ti pwogr\u00e8 konte, epi <span class="ph">[they]</span> ap vin pi f\u00f2 nan sa.&quot;, &quot;home_action&quot;: &quot;L\u00e8 <span class="ph">[they]</span> ap f\u00e8 acha nan mak\u00e8t, mande <span class="ph">[Student Name]</span> pou <span class="ph">[they]</span> ede <span class="ph">[them]</span> kalkile konbyen lajan pou depanse an total pou plizy\u00e8 atik (tankou 2.5 kg patat, 1 lit lwil, ak 0.75 kg vyann), san bliye pri chak atik.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Chè <span class="ph">[Parent Name]</span>, pa enkyete w, nou pral rann matematik sa a senp! &quot;Pwoblèm Rasyonèl Plizyè Etap&quot; se jis yon bèl non pou di w ap rezoud yon pwoblèm ki mande plizyè kalkil youn dèyè lòt, epi ki gen ladann nimewo ki pa antye—tankou fraksyon (egzanp, mwatye) oswa desimal (egzanp, 2.5).
+
+Imaginons <span class="ph">[Parent Name]</span> ap planifye pou w fè yon gwo chodyè soup joumou pou fanmi an Pòtoprens.
+1.  <strong>Premye etap:</strong> Ou bezwen achte 3.5 kg joumou. Si chak kilogram koute 80 gourdes, konbyen lajan w ap depanse pou joumou an? (3.5 kg x 80 gourdes/kg = 280 gourdes).
+2.  <strong>Dezyèm etap:</strong> Ou vle mete 0.75 kg vyann bef ladan l. Si vyann lan koute 200 gourdes pa kilogram, konbyen w ap depanse pou vyann lan? (0.75 kg x 200 gourdes/kg = 150 gourdes).
+3.  <strong>Twazyèm etap:</strong> Ou gen 500 gourdes nan pòch ou. Konbyen lajan w ap rete apre w fin achte joumou an ak vyann lan? (500 gourdes - 280 gourdes - 150 gourdes). Sa ba ou 70 gourdes ki rete.
+
+Ou wè <span class="ph">[Parent Name]</span>, sa pa konplike menm! Ou jis fè plizyè ti kalkil (miltiplikasyon, soustraksyon) youn apre lòt ak nimewo ki gen desimal (3.5, 0.75). Sa se yon &quot;Pwoblèm Rasyonèl Plizyè Etap&quot; nan aksyon! <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> pral metrize konsèp sa a epi <span class="ph">[they]</span> ap kapab anseye <span class="ph">[Student Name]</span> avèk konfyans.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">{&quot;text&quot;: &quot;Ol\u00e1 <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estar\u00e1 mergulhando em um t\u00f3pico importante de matem\u00e1tica: Problemas Racionais de M\u00faltiplas Etapas para a 7\u00aa s\u00e9rie. Essencialmente, <span class="ph">[Student Name]</span> aprender\u00e1 a resolver problemas que envolvem fra\u00e7\u00f5es ou decimais e que precisam de mais de uma opera\u00e7\u00e3o para encontrar a resposta final. \u00c9 como seguir uma receita complexa, onde cada passo leva ao pr\u00f3ximo ingrediente, at\u00e9 o resultado final.
+
+Para uma atividade divertida esta noite, que tal fazerem juntos uma receita de bolo? Por exemplo, se a receita pede 1/2 x\u00edcara de a\u00e7\u00facar e voc\u00eas querem fazer 1,5 vezes a receita, calculem juntos a nova quantidade. Isso ajuda a visualizar como as fra\u00e7\u00f5es e m\u00faltiplos passos funcionam no mundo real.
+
+Na hora do jantar, voc\u00ea pode perguntar: &#x27;<span class="ph">[Student Name]</span>, se tiv\u00e9ssemos 3/4 de uma pizza e eu comesse 1/3 do que restou, que fra\u00e7\u00e3o da pizza original eu comeria? E quanto sobraria para voc\u00ea?&#x27; \u00c9 uma \u00f3tima maneira de estimular o racioc\u00ednio.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;text&quot;: &quot;Ol\u00e1, <span class="ph">[Student Name]</span>! Que bom ver voc\u00ea. Hoje vamos desvendar os mist\u00e9rios dos Problemas Racionais de M\u00faltiplas Etapas. Tenho certeza que <span class="ph">[they]</span> vai achar isso muito interessante e \u00fatil para o dia a dia. Vamos come\u00e7ar a fortalecer essas habilidades matem\u00e1ticas que <span class="ph">[they]</span> j\u00e1 tem!
+
+<strong>SE <span class="ph">[Student Name]</span> TRAVAR NO PASSO 1:</strong>
+&#x27;Certo, <span class="ph">[Student Name]</span>. Vejo que est\u00e1 um pouco <span class="ph">[their]</span> preso aqui. Lembre-se, o primeiro passo em equa\u00e7\u00f5es como 3/4x + 1/2 = 5/8 \u00e9 isolar o termo com a vari\u00e1vel &#x27;x&#x27;. O que precisamos fazer para mover esse &#x27;mais 1/2&#x27; para o outro lado da equa\u00e7\u00e3o? Pense em qual opera\u00e7\u00e3o anula a adi\u00e7\u00e3o. Tente subtrair 1/2 de ambos os lados, <span class="ph">[Student Name]</span>.&#x27;
+
+<strong>SE <span class="ph">[Student Name]</span> TRAVAR NO PASSO 2:</strong>
+&#x27;Excelente, <span class="ph">[Student Name]</span>, voc\u00ea j\u00e1 tem 3/4x = 1/8. Agora, para isolar completamente o &#x27;x&#x27;, precisamos nos livrar daquele &#x27;3/4&#x27; que est\u00e1 multiplicando. Lembra como desfazemos uma multiplica\u00e7\u00e3o com fra\u00e7\u00f5es? Isso mesmo! Multiplicamos pelo inverso da fra\u00e7\u00e3o, que \u00e9 4/3. Fa\u00e7a isso em ambos os lados, <span class="ph">[Student Name]</span>, e <span class="ph">[they]</span> ter\u00e1 a resposta final!&#x27;
+
+<strong>FECHAMENTO DA SESS\u00c3O:</strong>
+&#x27;Uau, <span class="ph">[Student Name]</span>! Voc\u00ea arrasou hoje! Vi <span class="ph">[them]</span> enfrentando esses problemas com confian\u00e7a e <span class="ph">[they]</span> resolveu alguns desafios realmente bons. O importante \u00e9 lembrar a sequ\u00eancia de opera\u00e7\u00f5es e como trabalhar com fra\u00e7\u00f5es. Continue praticando e voc\u00ea ver\u00e1 como esses problemas se tornar\u00e3o cada vez mais f\u00e1ceis. Estou muito orgulhoso(a) de voc\u00ea, <span class="ph">[Student Name]</span>!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">{&quot;text&quot;: &quot;Ol\u00e1, <span class="ph">[Parent Name]</span>! Ao resolver Problemas Racionais de M\u00faltiplas Etapas, um erro muito comum que <span class="ph">[Student Name]</span> pode cometer \u00e9 esquecer de aplicar a mesma opera\u00e7\u00e3o em <em>ambos os lados</em> da equa\u00e7\u00e3o, especialmente quando envolve fra\u00e7\u00f5es ou decimais. Por exemplo, se <span class="ph">[Student Name]</span> subtrair 1/4 de um lado, mas esquecer de subtrair do outro lado da igualdade.
+
+Para reconhecer isso, observe se o resultado final de <span class="ph">[their]</span> n\u00e3o parece equilibrado ou se <span class="ph">[they]</span> obt\u00e9m um n\u00famero inteiro quando o problema claramente envolve fra\u00e7\u00f5es.
+
+Se isso acontecer, diga a <span class="ph">[Student Name]</span>: &#x27;<span class="ph">[Student Name]</span>, vamos revisar este passo. Voc\u00ea subtraiu 1/4 daqui, o que \u00e9 \u00f3timo! Mas para manter a equa\u00e7\u00e3o equilibrada, o que precisamos fazer <em>do outro lado</em> da igualdade?&#x27;
+
+<strong>O que N\u00c3O dizer a <span class="ph">[Student Name]</span>:</strong> &#x27;Voc\u00ea cometeu um erro bobo&#x27; ou &#x27;Isso \u00e9 f\u00e1cil, por que voc\u00ea n\u00e3o conseguiu?&#x27; Mantenha o tom encorajador e focado no processo de aprendizado.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;common_denominator_neglect&quot;, &quot;parent_description&quot;: &quot;\u00c0s vezes, <span class="ph">[Student Name]</span> pode tentar somar ou subtrair fra\u00e7\u00f5es sem encontrar um denominador comum primeiro, como em 1/2 + 1/4, onde <span class="ph">[they]</span> pode simplesmente somar os numeradores e denominadores (1+1)/(2+4), o que est\u00e1 incorreto.&quot;, &quot;reassurance&quot;: &quot;Isso \u00e9 muito comum, <span class="ph">[Student Name]</span>! Muitas pessoas se esquecem disso no in\u00edcio, e \u00e9 uma habilidade que melhora com a pr\u00e1tica.&quot;, &quot;home_action&quot;: &quot;Esta noite, use copos medidores de diferentes tamanhos (1/2 x\u00edcara, 1/4 x\u00edcara) para &#x27;somar&#x27; l\u00edquidos. Por exemplo, pe\u00e7a a <span class="ph">[Student Name]</span> para despejar 1/2 x\u00edcara de \u00e1gua e depois 1/4 de x\u00edcara em um copo maior e perguntar &#x27;Quanto temos no total?&#x27; Discuta a necessidade de &#x27;unidades&#x27; iguais antes de somar.&quot;}, {&quot;tag&quot;: &quot;incorrect_reciprocal_application&quot;, &quot;parent_description&quot;: &quot;Quando <span class="ph">[Student Name]</span> precisa se livrar de uma fra\u00e7\u00e3o que est\u00e1 multiplicando uma vari\u00e1vel (como 2/3x), <span class="ph">[they]</span> pode esquecer de usar o inverso multiplicativo (3/2) ou aplic\u00e1-lo incorretamente, multiplicando apenas pelo numerador ou denominador.&quot;, &quot;reassurance&quot;: &quot;O conceito de inverso \u00e9 um pouco abstrato no come\u00e7o, <span class="ph">[Student Name]</span>, mas com alguns exemplos, voc\u00ea vai dominar isso facilmente!&quot;, &quot;home_action&quot;: &quot;Pe\u00e7a a <span class="ph">[Student Name]</span> para pensar em &#x27;desfazer&#x27; a\u00e7\u00f5es. Se voc\u00ea &#x27;dobra&#x27; algo (multiplica por 2), o que &#x27;desfaz&#x27; isso? (Dividir por 2, ou multiplicar por 1/2). Explique que o inverso de uma fra\u00e7\u00e3o \u00e9 o que &#x27;desfaz&#x27; a multiplica\u00e7\u00e3o dela, como 2/3 multiplicado por 3/2 resulta em 1.&quot;}, {&quot;tag&quot;: &quot;order_of_operations_errors&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode, por vezes, misturar a ordem das opera\u00e7\u00f5es, como tentar combinar o termo da vari\u00e1vel com um n\u00famero constante antes de isolar o termo da vari\u00e1vel. Por exemplo, em 2x + 1/2 = 3/2, <span class="ph">[they]</span> pode tentar dividir por 2 antes de subtrair 1/2 dos dois lados da equa\u00e7\u00e3o.&quot;, &quot;reassurance&quot;: &quot;A ordem \u00e9 crucial aqui, <span class="ph">[Student Name]</span>, e \u00e9 f\u00e1cil esquecer. Pense em &#x27;desfazer&#x27; a equa\u00e7\u00e3o de tr\u00e1s para frente, como desempacotar um presente!&quot;, &quot;home_action&quot;: &quot;Pegue um problema como 3x + 1/4 = 7/4. Pe\u00e7a a <span class="ph">[Student Name]</span> para primeiro identificar o que est\u00e1 &#x27;mais longe&#x27; do &#x27;x&#x27; (o +1/4) e qual opera\u00e7\u00e3o o &#x27;desfaz&#x27;. Depois, o que est\u00e1 &#x27;mais perto&#x27; (o 3 multiplicando) e como &#x27;desfaz\u00ea-lo&#x27;. Reforce a ideia de &#x27;primeiro adicione/subtraia, depois multiplique/divida&#x27; ao resolver equa\u00e7\u00f5es.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">{&quot;text&quot;: &quot;Ol\u00e1, <span class="ph">[Parent Name]</span>! Vamos descomplicar os Problemas Racionais de M\u00faltiplas Etapas. Pense em &#x27;racional&#x27; como qualquer n\u00famero que pode ser escrito como uma fra\u00e7\u00e3o (decimais inclu\u00eddos), e &#x27;m\u00faltiplas etapas&#x27; significa que para resolver o problema, <span class="ph">[they]</span> precisar\u00e1 de mais de uma conta. \u00c9 como planejar um projeto com v\u00e1rios passos, cada um dependendo do anterior.
+
+<strong>Exemplo Pr\u00e1tico (Or\u00e7amento Familiar):</strong>
+<span class="ph">[Parent Name]</span>, imagine que <span class="ph">[they]</span> quer comprar uma nova TV que custa R$ 2.400,00. <span class="ph">[they]</span> j\u00e1 tem R$ 600,00 guardados e decide que vai economizar 1/3 do seu sal\u00e1rio mensal de R$ 1.800,00 para este objetivo. Quantos meses <span class="ph">[they]</span> levar\u00e1 para comprar a TV?
+
+<em>   <strong>Passo 1: Calcule quanto falta para a TV.</strong>
+    R$ 2.400,00 (pre\u00e7o da TV) - R$ 600,00 (j\u00e1 guardado) = R$ 1.800,00 (ainda faltam).
+</em>   *<em>Passo 2: Calcule quanto <span class="ph">[they]</span> economiza </em>por m\u00eas<em>.</em><em>
+    <span class="ph">[they]</span> economiza 1/3 do seu sal\u00e1rio mensal de R$ 1.800,00. Para isso, calcule (1/3) </em> R$ 1.800,00 = R$ 600,00 por m\u00eas.
+*   <strong>Passo 3: Determine o n\u00famero de meses necess\u00e1rios.</strong>
+    Para saber quantos meses, divida o valor que falta pelo que \u00e9 economizado por m\u00eas: R$ 1.800,00 (faltando) / R$ 600,00 (por m\u00eas) = 3 meses.
+
+Este \u00e9 um exemplo claro de como n\u00fameros racionais e m\u00faltiplas etapas se encaixam na vida adulta. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> ver\u00e1 que, com pr\u00e1tica, esses conceitos se tornam uma ferramenta poderosa para o dia a dia e <span class="ph">[they]</span> poder\u00e1 ajudar <span class="ph">[Student Name]</span> com confian\u00e7a!</div></div></div></div>
+</body>
+</html>

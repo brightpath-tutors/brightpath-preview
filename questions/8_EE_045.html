@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Two-Step Inequalities</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.045<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Two-Step Inequalities</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.045</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah wants to buy a new video game that costs $45. She has $12 saved and earns $5 per hour babysitting. How many hours, h, must Sarah work to have at least enough money to buy the game?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> h &gt;= 57</div><div class="option"><span class="opt-letter">B.</span> h &lt;= 57</div><div class="option"><span class="opt-letter">C.</span> h &gt;= 6.6</div><div class="option"><span class="opt-letter">D.</span> h &lt;= 6.6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5h + 12 &gt;= 45</div>
+    <div class="step-exp">Sarah&#x27;s earnings (5h) plus her savings ($12) must be greater than or equal to the cost of the game ($45).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5h + 12 - 12 &gt;= 45 - 12
+5h &gt;= 33</div>
+    <div class="step-exp">This isolates the term representing her earnings.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5h / 5 &gt;= 33 / 5
+h &gt;= 6.6</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. Sarah must work at least 6.6 hours. In a real-world context where only whole hours can be paid, she would need to work at least 7 hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> h &gt;= 6.6 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team needs to score at least 80 points to win their current game. They currently have 35 points and score 3 points for each successful shot. How many successful shots, s, do they need to make to win?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> s &gt;= 45</div><div class="option"><span class="opt-letter">B.</span> s &lt;= 15</div><div class="option"><span class="opt-letter">C.</span> s &gt;= 115</div><div class="option"><span class="opt-letter">D.</span> s &gt;= 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3s + 35 &gt;= 80</div>
+    <div class="step-exp">The points from successful shots (3s) plus their current points (35) must be greater than or equal to 80 points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3s + 35 - 35 &gt;= 80 - 35
+3s &gt;= 45</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3s / 3 &gt;= 45 / 3
+s &gt;= 15</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. The team needs to make at least 15 successful shots.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> s &gt;= 15 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires at most 180 grams of sugar. You have already added 75 grams and will add more in portions of 15 grams. How many portions, p, can you add?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p &lt;= 7</div><div class="option"><span class="opt-letter">B.</span> p &lt;= 17</div><div class="option"><span class="opt-letter">C.</span> p &gt;= 7</div><div class="option"><span class="opt-letter">D.</span> p &lt;= 255</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">15p + 75 &lt;= 180</div>
+    <div class="step-exp">The amount of sugar from additional portions (15p) plus the already added amount (75) must be less than or equal to 180 grams.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">15p + 75 - 75 &lt;= 180 - 75
+15p &lt;= 105</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15p / 15 &lt;= 105 / 15
+p &lt;= 7</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. You can add at most 7 portions.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> p &lt;= 7 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car rental company charges $30 per day plus $0.25 per mile. If a traveler wants to spend no more than $100 on a one-day rental, how many miles, m, can they drive?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> m &lt;= 70.25</div><div class="option"><span class="opt-letter">B.</span> m &lt;= 280</div><div class="option"><span class="opt-letter">C.</span> m &lt;= 17.5</div><div class="option"><span class="opt-letter">D.</span> m &gt;= 280</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">0.25m + 30 &lt;= 100</div>
+    <div class="step-exp">The cost per mile (0.25m) plus the daily charge ($30) must be less than or equal to the maximum budget ($100).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.25m + 30 - 30 &lt;= 100 - 30
+0.25m &lt;= 70</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.25m / 0.25 &lt;= 70 / 0.25
+m &lt;= 280</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. The traveler can drive at most 280 miles.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> m &lt;= 280 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">To pass a course, a student must have an average score of at least 75 on four tests. The scores on the first three tests are 68, 82, and 70. What is the minimum score, x, the student must get on the fourth test?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> x &lt;= 80</div><div class="option"><span class="opt-letter">B.</span> x &gt;= 25</div><div class="option"><span class="opt-letter">C.</span> x &gt;= 80</div><div class="option"><span class="opt-letter">D.</span> x &gt;= 375</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">68 + 82 + 70 = 220</div>
+    <div class="step-exp">This is the current total score before the fourth test.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(220 + x) / 4 &gt;= 75</div>
+    <div class="step-exp">The sum of all four test scores divided by 4 must be greater than or equal to 75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(220 + x) / 4 <em> 4 &gt;= 75 </em> 4
+220 + x &gt;= 300</div>
+    <div class="step-exp">This removes the division and simplifies the inequality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">220 + x - 220 &gt;= 300 - 220
+x &gt;= 80</div>
+    <div class="step-exp">Subtracting a positive number does not change the direction of the inequality. The student needs at least an 80 on the fourth test.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> x &gt;= 80 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist needs to maintain a chemical solution&#x27;s temperature below 15°C. The current temperature is 28°C and it decreases by 3°C every hour, h, due to a cooling agent. How many hours must the cooling agent run?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> h &gt; 4.33</div><div class="option"><span class="opt-letter">B.</span> h &lt; 4.33</div><div class="option"><span class="opt-letter">C.</span> h &lt; -4.33</div><div class="option"><span class="opt-letter">D.</span> h &gt; -4.33</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">28 - 3h &lt; 15</div>
+    <div class="step-exp">The current temperature (28) minus the temperature decrease (3h) must be less than 15°C.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">28 - 3h - 28 &lt; 15 - 28
+-3h &lt; -13</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-3h / -3 &gt; -13 / -3
+h &gt; 4.333...</div>
+    <div class="step-exp">When dividing or multiplying an inequality by a negative number, the direction of the inequality sign must be reversed. The cooling agent must run for more than 4.33 hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> h &gt; 4.33 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut pieces of wood that are 2.5 feet long from a plank that is 20 feet long. He also needs to remove a 1.5-foot damaged section from the plank. How many 2.5-foot pieces, p, can he get from the plank after removing the damaged section?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p &gt;= 7.4</div><div class="option"><span class="opt-letter">B.</span> p &lt;= 7.4</div><div class="option"><span class="opt-letter">C.</span> p &lt;= 8.6</div><div class="option"><span class="opt-letter">D.</span> p &lt;= 46.25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2.5p + 1.5 &lt;= 20</div>
+    <div class="step-exp">The total length of the pieces (2.5p) plus the damaged section (1.5) must be less than or equal to the total plank length (20).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2.5p + 1.5 - 1.5 &lt;= 20 - 1.5
+2.5p &lt;= 18.5</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2.5p / 2.5 &lt;= 18.5 / 2.5
+p &lt;= 7.4</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. The worker can get at most 7.4 pieces. Practically, this means he can get 7 full pieces.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> p &lt;= 7.4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project manager needs to complete a task in less than 48 hours. She has already spent 10 hours on it and estimates that she can complete the remaining work at a rate of 4.75 hours per day. How many additional days, d, can she take to finish the task?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> d &lt; 8</div><div class="option"><span class="opt-letter">B.</span> d &lt; 12.21</div><div class="option"><span class="opt-letter">C.</span> d &gt; 8</div><div class="option"><span class="opt-letter">D.</span> d &lt; 180.5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">4.75d + 10 &lt; 48</div>
+    <div class="step-exp">The time spent on the remaining work (4.75d) plus the hours already spent (10) must be less than 48 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4.75d + 10 - 10 &lt; 48 - 10
+4.75d &lt; 38</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4.75d / 4.75 &lt; 38 / 4.75
+d &lt; 8</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. She can take less than 8 additional days.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> d &lt; 8 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town is currently 7,500 people. It is decreasing by 60 people per year. A local researcher predicts that the town&#x27;s population will fall below 6,000 in &#x27;y&#x27; years. What is the minimum number of years for this to happen?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y &lt; 25</div><div class="option"><span class="opt-letter">B.</span> y &lt; -25</div><div class="option"><span class="opt-letter">C.</span> y &gt; -25</div><div class="option"><span class="opt-letter">D.</span> y &gt; 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">7500 - 60y &lt; 6000</div>
+    <div class="step-exp">The current population (7500) minus the decrease over &#x27;y&#x27; years (60y) must be less than 6000.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">7500 - 60y - 7500 &lt; 6000 - 7500
+-60y &lt; -1500</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-60y / -60 &gt; -1500 / -60
+y &gt; 25</div>
+    <div class="step-exp">When dividing or multiplying an inequality by a negative number, the direction of the inequality sign must be reversed. The population will fall below 6000 after more than 25 years (i.e., starting from the 26th year).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y &gt; 25 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A nutritionist recommends consuming at most 2,000 calories per day. If a person has already consumed 750 calories and each serving of their favorite snack contains 125 calories, how many servings, s, of the snack can they eat?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> s &gt;= 10</div><div class="option"><span class="opt-letter">B.</span> s &lt;= 2750</div><div class="option"><span class="opt-letter">C.</span> s &lt;= 15.625</div><div class="option"><span class="opt-letter">D.</span> s &lt;= 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">125s + 750 &lt;= 2000</div>
+    <div class="step-exp">The calories from the snack (125s) plus the already consumed calories (750) must be less than or equal to 2000.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">125s + 750 - 750 &lt;= 2000 - 750
+125s &lt;= 1250</div>
+    <div class="step-exp">This isolates the term with the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">125s / 125 &lt;= 1250 / 125
+s &lt;= 10</div>
+    <div class="step-exp">Dividing by a positive number does not change the direction of the inequality. The person can eat at most 10 servings of the snack.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> s &lt;= 10 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: One-Step Addition Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | Expressions and Equations<br>76 atoms | Skill 6.EE.015.03<br></div>
+</div>
+<h1 class="skill-title">One-Step Addition Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.015.03 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can identify and solve one-step addition equations by isolating the variable using inverse operations.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">One-Step Addition Equations are fundamental algebraic statements where a single unknown value, represented by a variable (like &#x27;x&#x27;), is added to a known number, equaling another known number. The &#x27;one-step&#x27; refers to the single inverse operation needed to find the variable&#x27;s value. For example, in the equation x + 7 = 15, &#x27;x&#x27; is the unknown, &#x27;7&#x27; is added to it, and the sum is &#x27;15&#x27;. To solve this, we use the inverse operation of addition, which is subtraction. Just like balancing a scale, if you take 7 from one side, you must take 7 from the other side to keep it balanced. So, x + 7 - 7 = 15 - 7, which simplifies to x = 8. This method ensures the equation remains true. <span class="ph">[Student Name]</span>, mastering this balancing act is key to understanding more complex algebra later on. Imagine &#x27;x&#x27; as a mystery box of baseball cards; if you know you added 7 more cards to get a total of 15, you can figure out how many were originally in the box. This skill is like being a detective, <span class="ph">[they]</span> finds the missing piece of the puzzle.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">Remember in 6.EE.015.02, when you learned about variables and how to substitute values into expressions? You might have seen something like: &#x27;If x = 5, what is x + 3?&#x27; and you correctly found 8. Today, <span class="ph">[Student Name]</span>, we&#x27;re building directly on that by turning the expression into an equation and asking you to find the &#x27;x&#x27; yourself! Instead of being given &#x27;x&#x27;, you&#x27;re going to discover it. Think of it this way: you already know how to check if a value for &#x27;x&#x27; works in an equation. For example, if I gave you &#x27;x + 4 = 10&#x27; and asked &#x27;Is x = 6 a solution?&#x27;, you&#x27;d substitute 6 for x (6 + 4 = 10) and confidently say &#x27;Yes!&#x27;. Now, <span class="ph">[they]</span> will learn how to arrive at that &#x27;6&#x27; without being told. It&#x27;s a natural next step, not a giant leap. You have all the foundational skills, <span class="ph">[Student Name]</span>, and we&#x27;ll just refine them to help you solve these problems with confidence.</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that One-Step Addition Equations are used by savvy shoppers to calculate discounts, even before they reach the register? Imagine <span class="ph">[Student Name]</span> is at a baseball card show, and there&#x27;s a rare Mickey Mantle card <span class="ph">[they]</span> wants. The sign says &#x27;Original Price + $15 off = Your Price.&#x27; If your price is $185, you can use an equation like x - 15 = 185 to find the original price! (Though this is a subtraction example, the inverse operation concept is the same for addition equations like finding the original quantity before an addition.) Or, consider a high school coach figuring out player statistics: &#x27;Sarah scored &#x27;x&#x27; points in the first half, and then scored 12 more in the second half, totaling 28 points for the game.&#x27; The equation is x + 12 = 28. This isn&#x27;t just school math; it&#x27;s real-life problem-solving that people use every day, often without even realizing it. From calculating personal finances to understanding sports scores, <span class="ph">[Student Name]</span>, these equations are the silent workhorses of everyday math.</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">A One-Step Addition Equation is an algebraic equation where a variable is combined with a number using addition, and the result is equal to another number. The goal is to find the value of the unknown variable. To solve these equations, we use the property of inverse operations. Subtraction is the inverse of addition. Therefore, to isolate the variable, you must subtract the number added to the variable from both sides of the equation. For instance, consider the equation: x + 9 = 20. Here, &#x27;x&#x27; is our unknown. We see that 9 is added to &#x27;x&#x27;. To find &#x27;x&#x27; by itself, we perform the inverse operation: subtract 9 from both sides of the equation. So, we write: x + 9 - 9 = 20 - 9. This simplifies to x = 11. To apply this, imagine <span class="ph">[Student Name]</span> is saving up for a new video game that costs $60. <span class="ph">[they]</span> already has $42, and wants to know how much more money <span class="ph">[they]</span> needs. This can be represented as: $42 + x = $60. To solve for x, <span class="ph">[they]</span> would subtract $42 from both sides: x = $60 - $42, meaning x = $18. <span class="ph">[Student Name]</span>, this structured approach makes solving predictable.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Before tackling One-Step Addition Equations, <span class="ph">[Student Name]</span>, you already mastered evaluating expressions with variables (6.EE.015.02). This means you understood that a letter like &#x27;n&#x27; could stand for an unknown number. For example, if you were given the expression &#x27;n + 5&#x27; and told that &#x27;n = 10&#x27;, you knew to substitute 10 for &#x27;n&#x27; to get &#x27;10 + 5&#x27;, resulting in 15. You were finding the value of an expression when the variable was known. That skill is absolutely crucial for today&#x27;s lesson. Now, we&#x27;re taking that understanding a step further. Instead of knowing what &#x27;n&#x27; is and finding the total, we will know the total and need to find &#x27;n&#x27;. For instance, if you saw &#x27;n + 5 = 15&#x27;, you&#x27;re no longer just evaluating; you&#x27;re solving to find what &#x27;n&#x27; must be. You&#x27;re using your knowledge that &#x27;n + 5&#x27; equals 15 to deduce that &#x27;n&#x27; must be 10. This is the bridge, <span class="ph">[Student Name]</span>, from simple evaluation to truly solving for an unknown. The new skill is using inverse operations – subtracting 5 from both sides of &#x27;n + 5 = 15&#x27; – to directly find that n = 10, instead of just guessing and checking. This systematic approach is what makes you an equation solver!</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hello <span class="ph">[Student Name]</span>! Let&#x27;s tackle an equation where we need to find a missing number. Imagine you had some money, and then you earned more, and now you know the total. We need to figure out how much you started with! Let&#x27;s solve: <code>n + 18.50 = 42.75</code>. Here, &#x27;n&#x27; represents the amount of money you started with. 
+
+1. <span class="hint-tag">&#128161; Hint: We want to get &#x27;n&#x27; by itself on one side of the equation. To undo adding 18.50, we need to do the opposite operation.</span> Subtract 18.50 from both sides of the equation. This keeps the equation balanced, just like a seesaw. If you take 18.50 off one side, you must take 18.50 off the other. 
+   <code>n + 18.50 - 18.50 = 42.75 - 18.50</code>
+
+2. <span class="hint-tag">&#128161; Hint: Now, perform the subtraction on both sides.</span> On the left side, +18.50 and -18.50 cancel each other out, leaving just &#x27;n&#x27;. On the right side, subtract the numbers carefully. 
+   <code>n = 24.25</code>
+
+3. <span class="hint-tag">&#128161; Hint: Always check your answer to make sure it&#x27;s correct!</span> Substitute your value for &#x27;n&#x27; back into the original equation. If both sides are equal, you&#x27;ve solved it correctly. 
+   Original equation: <code>n + 18.50 = 42.75</code>
+   Substitute <code>n = 24.25</code>: <code>24.25 + 18.50 = 42.75</code>
+   <code>42.75 = 42.75</code>
+
+Since 42.75 equals 42.75, your answer is correct! You started with $24.25. Great job, <span class="ph">[Student Name]</span>!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let&#x27;s solve a one-step addition equation, <span class="ph">[Student Name]</span>! Imagine a basketball team scored 78 points in the first three quarters, and then added some points in the fourth quarter to reach a total of 102 points. We want to find out how many points they scored in the fourth quarter. We can write this as an equation: <code>78 + p = 102</code>, where &#x27;p&#x27; represents the points scored in the fourth quarter.
+
+1.  Identify the unknown: In the equation <code>78 + p = 102</code>, the variable &#x27;p&#x27; is what we need to find. It&#x27;s currently being added to 78.
+
+2.  Isolate the variable: To get &#x27;p&#x27; by itself on one side of the equation, we need to undo the addition of 78. The inverse operation of addition is subtraction. So, we subtract 78 from both sides of the equation to maintain balance.
+    <code>78 + p - 78 = 102 - 78</code>
+
+3.  Simplify both sides: Perform the subtraction. On the left side, <code>78 - 78</code> is 0, leaving just &#x27;p&#x27;. On the right side, <code>102 - 78</code> equals 24.
+    <code>p = 24</code>
+
+4.  Check your solution: Always plug your answer back into the original equation to ensure accuracy. If <code>p = 24</code>, then <code>78 + 24 = 102</code>. Since <code>78 + 24</code> does indeed equal <code>102</code>, our solution is correct. The basketball team scored 24 points in the fourth quarter.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body"><span class="ph">[Student Name]</span>, sometimes one-step addition equations involve fractions or decimals, or they&#x27;re part of a word problem that requires careful setup. Let&#x27;s solve this problem: A recipe calls for 2/3 cup of sugar. If you already have 1/6 cup of sugar in your pantry, how much more sugar do you need? We can write this as <code>1/6 + s = 2/3</code>, where &#x27;s&#x27; is the additional sugar needed.
+
+1.  <strong>Understand the Goal and Find a Common Denominator:</strong> Our goal is to find &#x27;s&#x27;. Before we can easily subtract fractions, they need a common denominator. The denominators are 6 and 3. The least common multiple is 6. So, we&#x27;ll convert 2/3 to an equivalent fraction with a denominator of 6: <code>2/3 <em> 2/2 = 4/6</code>. Our equation becomes: <code>1/6 + s = 4/6</code>. 
+    </em>Common Error:<em> Forgetting to find a common denominator or incorrectly converting fractions. Avoid this by always checking if denominators match before adding or subtracting.
+
+2.  <strong>Isolate the Variable:</strong> To get &#x27;s&#x27; by itself, we need to subtract <code>1/6</code> from both sides of the equation. This is the inverse operation of adding <code>1/6</code>.
+    <code>1/6 + s - 1/6 = 4/6 - 1/6</code>
+
+3.  <strong>Perform the Subtraction:</strong> On the left side, <code>1/6 - 1/6</code> cancels out, leaving &#x27;s&#x27;. On the right side, subtract the numerators while keeping the common denominator.
+    <code>s = (4 - 1)/6</code>
+    <code>s = 3/6</code>
+    </em>Common Error:* Incorrectly subtracting numerators or denominators. Remember, you only subtract the numerators; the denominator stays the same.
+
+4.  <strong>Simplify and Check:</strong> Simplify <code>3/6</code> to <code>1/2</code>. So, <code>s = 1/2</code>. Let&#x27;s check: <code>1/6 + 1/2 = 2/3</code>. Convert 1/2 to 3/6: <code>1/6 + 3/6 = 4/6</code>. And <code>4/6</code> simplifies to <code>2/3</code>. It checks out! You need 1/2 cup more sugar.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Imagine you have some shiny quarter coins in your piggy bank, but you don&#x27;t know exactly how many. Then, your grandma gives you 5 more quarters. Now, you count all your quarters, and you have 12 altogether! We want to find out how many quarters you had at the very start. To do this, we just need to take away the 5 quarters your grandma gave you from the total 12. What&#x27;s left is how many you had before. So, 12 quarters take away 5 quarters means you started with 7 quarters! It&#x27;s like finding a missing toy car in your collection.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content"><span class="ph">[Student Name]</span>, thinking about one-step addition equations is like planning a road trip across the US. Let&#x27;s say you&#x27;re driving from your home in New York to Los Angeles. You know the total distance of your trip is 2,790 miles. You&#x27;ve already driven 1,500 miles, and you want to know how many more miles you still need to drive. 
+
+In this analogy, the miles you&#x27;ve already driven (1,500) is one of the numbers you know. The total distance of the trip (2,790) is the sum, the final number. The &#x27;more miles you need to drive&#x27; is our unknown, let&#x27;s call it &#x27;m&#x27;. So, your journey so far (1,500 miles) plus the miles you still need to drive (m) equals the total trip distance (2,790 miles): <code>1500 + m = 2790</code>. To find &#x27;m&#x27;, you&#x27;d take the total trip distance and subtract the miles you&#x27;ve already covered, just like solving an equation by doing the opposite operation.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content">Picture a number line, <span class="ph">[Student Name]</span>. Imagine you&#x27;re standing at a certain point on the line, but you don&#x27;t know exactly where. Let&#x27;s call that unknown spot &#x27;x&#x27;. Now, you take a step 15 units to the right (which means you&#x27;re adding 15). After that step, you land exactly on the number 40. So, we&#x27;re saying: your starting point &#x27;x&#x27;, plus a move of 15 units, gets you to 40. (<code>x + 15 = 40</code>).
+
+To figure out where you started, you just need to reverse your steps. If you ended up at 40 after moving 15 units to the right, then to find your original spot, you must move 15 units to the <em>left</em> from 40. Moving left on a number line is subtraction. So, you go from 40, back 15 units, and that&#x27;s your starting position. It&#x27;s like rewinding a video to see the beginning.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>, so solving a one-step addition equation is actually pretty simple once you get the hang of it. Think of it like this: if you have a certain amount of cash, let&#x27;s say &#x27;c&#x27; dollars, and then your friend pays you back the $7.50 they owed you, and now you have $22.00 total. The equation is <code>c + 7.50 = 22.00</code>.
+
+Your goal is to figure out what &#x27;c&#x27; was <em>before</em> your friend paid you. The trick is to do the opposite of whatever is happening to &#x27;c&#x27;. Since 7.50 is being <em>added</em> to &#x27;c&#x27;, you need to <em>subtract</em> 7.50. But here&#x27;s the kicker: whatever you do to one side of the equation, you gotta do to the other side to keep it fair, like a balanced scale. So, you subtract 7.50 from the $22.00. That gives you <code>c = 22.00 - 7.50</code>, which is <code>c = 14.50</code>. See, you just undo the addition!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine you&#x27;re an event planner, orchestrating a huge concert at a stadium in Los Angeles. You need to make sure enough seats are available for all the fans! Let&#x27;s say the stadium has a capacity of 65,000 seats. So far, 42,500 tickets have been sold for a popular band. To find out how many more tickets can still be sold, you&#x27;re essentially solving a one-step addition equation. You need to know what number, when added to the tickets already sold, will reach the stadium&#x27;s total capacity. This looks like: <code>42,500 + x = 65,000</code>. Event planners use these equations daily to manage ticket sales, allocate resources like food vendors, and plan staffing. Without knowing how to solve for &#x27;x,&#x27; <span class="ph">[Student Name]</span> might accidentally oversell tickets or leave thousands of seats empty, which could lead to unhappy fans or lost revenue. Mastering these basic equations is crucial for making big events successful!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Every day, we use one-step addition equations without even realizing it. Think about saving up for something special, like a new video game that costs $60. Let&#x27;s say you&#x27;ve already saved $35 from doing chores around the house and from your birthday money. You want to know how much more money you need to save. This is a perfect example of a one-step addition equation! The equation would be: <code>35 + x = 60</code>. You have a current amount ($35), you need a total amount ($60), and &#x27;x&#x27; represents the missing amount you still need to save. To find &#x27;x,&#x27; you&#x27;d subtract your current savings from the total cost: <code>60 - 35 = 25</code>. So, you still need $25. <span class="ph">[Student Name]</span>, understanding how to set up and solve these equations helps you manage your money, plan for purchases, and reach your financial goals in everyday life, whether it&#x27;s for a game, new sneakers, or even college savings later on.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering one-step addition equations now sets you on a clear path to future academic and career success, <span class="ph">[Student Name]</span>. When you get to high school, you&#x27;ll encounter standardized tests like the SAT and ACT, which colleges use to evaluate applicants. These tests frequently feature algebraic problems, including those built upon the foundational skill of solving one-step equations. A strong performance in math sections can boost your scores, making you a more competitive applicant for colleges and universities across the U.S. Furthermore, a solid understanding of algebra is a prerequisite for many college majors, from engineering and computer science to business and economics. These fields often lead to higher-paying careers. For example, a financial analyst might use <code>current savings + additional investment = financial goal</code> to plan for a client&#x27;s retirement. Learning to solve <code>x + 1,200 = 5,000</code> today can pave the way for solving complex financial models tomorrow, potentially increasing your future earning potential by thousands of dollars each year. This isn&#x27;t just about passing a grade; it&#x27;s about building a foundation for a prosperous future.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Solve for the unknown value: <code>x + 15 = 40</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">A farmer in Iowa planted 7 acres of corn, and then planted &#x27;y&#x27; more acres of soybeans. If the total area planted was 25 acres, how many acres of soybeans did the farmer plant? Write and solve the equation.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Solve for &#x27;a&#x27;: <code>a + 4.5 = 10.0</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">Sarah wants to buy a new basketball jersey that costs $20.00. She currently has $15.75 saved. How much more money, &#x27;b&#x27;, does she need? <code>15.75 + b = 20.00</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">A middle school library in Arizona has &#x27;c&#x27; fiction books. They received a donation of 32 non-fiction books, bringing their total book count to 50 books. How many fiction books did they have initially? Write and solve the equation.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">Solve for &#x27;d&#x27;: <code>21 + d = 40</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">A high school band needs to raise $150 for new uniforms. They have already raised &#x27;e&#x27; dollars. A recent bake sale brought in an additional $105. If they now have exactly enough money, what was &#x27;e&#x27;? <code>e + 105 = 150</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">Solve for &#x27;f&#x27;: <code>6.2 + f = 9.8</code></div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Solve for the unknown value in the equation: x + 15 = 40</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">What value of &#x27;k&#x27; makes the equation true: 23 + k = 50</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Maria saved $37 for a new baseball glove. <span class="ph">[they]</span> needs a total of $65 for the glove. How much more money, &#x27;m&#x27;, does <span class="ph">[they]</span> need? Write and solve the equation.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Find the value of &#x27;y&#x27; in the equation: 112 + y = 200</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Solve for &#x27;p&#x27;: p + 7.5 = 15.2</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">A recipe calls for 4.25 cups of flour. If <span class="ph">[Student Name]</span> already added 2.75 cups, how many more cups, &#x27;c&#x27;, does <span class="ph">[they]</span> need? Write and solve the equation.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Determine the value of &#x27;z&#x27;: z + 3/8 = 7/8</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content"><span class="ph">[Student Name]</span> is training for a 5K race. <span class="ph">[they]</span> ran 1 1/2 miles this morning. If a 5K race is about 3 1/10 miles, how many more miles, &#x27;m&#x27;, does <span class="ph">[they]</span> need to run to complete the distance? Write and solve the equation.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">The equation 78 = 25 + g represents the number of points &#x27;g&#x27; the school basketball team scored in the second half if they scored 25 points in the first half and 78 total points. Solve for &#x27;g&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A new video game costs $59.99. <span class="ph">[Student Name]</span> has saved $25.50, and <span class="ph">[their]</span> grandparents gave <span class="ph">[them]</span> $15 for <span class="ph">[their]</span> birthday. How much more money, &#x27;x&#x27;, does <span class="ph">[they]</span> still need to buy the game? Write and solve the equation.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Subtracting from the Variable Side&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might try to subtract the constant (the number being added to the variable) directly from the variable&#x27;s side without also subtracting it from the other side, or mistakenly subtract the variable from the constant. Forgetting to apply the inverse operation consistently.&quot;, &quot;WHY TEMPTING&quot;: &quot;The goal is to &#x27;get rid&#x27; of the number next to the variable, and some students might just remove it mentally without balancing the equation.&quot;, &quot;SOLUTION&quot;: &quot;Remember that an equation is like a balanced scale. Whatever you do to one side, you must do the exact same thing to the other side to keep it balanced. To isolate the variable, subtract the constant from <em>both</em> sides of the equals sign.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: m + 9 = 23. Wrong Answer: m = 9 - 23 or m = 23 (just removing the 9). Right Answer: m = 23 - 9, so m = 14.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Adding Instead of Subtracting&quot;, &quot;MISTAKE&quot;: &quot;When solving an addition equation like &#x27;x + 10 = 30&#x27;, <span class="ph">[Student Name]</span> might mistakenly add the constant (10) to the number on the other side of the equation (30), thinking <span class="ph">[they]</span> needs to combine all numbers.&quot;, &quot;WHY TEMPTING&quot;: &quot;The &#x27;plus&#x27; sign in the equation can make students think they should continue adding, instead of performing the inverse operation to isolate the variable.&quot;, &quot;SOLUTION&quot;: &quot;To undo addition, you must use its inverse operation, which is subtraction. Think about what number, when added to the constant, gives you the total. You need to &#x27;take away&#x27; the constant from the total.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: y + 15 = 40. Wrong Answer: y = 40 + 15, so y = 55. Right Answer: y = 40 - 15, so y = 25.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring the Balance of the Equals Sign&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might perform an operation (like subtracting a number) on one side of the equation to isolate the variable, but completely forget to perform the <em>exact same operation</em> on the other side of the equals sign.&quot;, &quot;WHY TEMPTING&quot;: &quot;Focusing too much on getting the variable by itself can lead to overlooking the fundamental rule of maintaining balance in an equation.&quot;, &quot;SOLUTION&quot;: &quot;Always visualize the equals sign as a balance point. Imagine a seesaw! If you take 5 pounds off one side, you must take 5 pounds off the other side to keep it level. Write out the operation on both sides to avoid this mistake.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: k + 12 = 30. Wrong: k = 30 - 12 (mentally removing 12 from left, only writing it on right as an answer). Right: k + 12 - 12 = 30 - 12, so k = 18.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Variable on the Right Side Confusion&quot;, &quot;MISTAKE&quot;: &quot;When the variable is on the right side of the equation (e.g., 28 = 5 + p), <span class="ph">[Student Name]</span> might get confused about which number to subtract or try to move the variable, making the problem more complex than it is.&quot;, &quot;WHY TEMPTING&quot;: &quot;Students often get used to seeing the variable on the left side, so a different arrangement can feel unfamiliar and lead to overthinking or incorrect steps.&quot;, &quot;SOLUTION&quot;: &quot;The position of the variable does not change the rule: isolate it by performing the inverse operation on both sides. Treat &#x27;28 = 5 + p&#x27; exactly the same as &#x27;p + 5 = 28&#x27;. You still subtract the constant from both sides.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: 28 = 5 + p. Wrong Answer: 28 + 5 = p or p = 28 - 5 (but then reversing the subtraction). Right Answer: 28 - 5 = 5 + p - 5, so 23 = p.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Mental Math Error at the Final Step&quot;, &quot;MISTAKE&quot;: &quot;Even after correctly setting up the equation for subtraction (e.g., x = 32 - 14), <span class="ph">[Student Name]</span> might make a simple arithmetic mistake during the final calculation, leading to an incorrect answer.&quot;, &quot;WHY TEMPTING&quot;: &quot;Overconfidence in mental math, rushing to finish, or a lack of focus on basic subtraction facts can cause these errors, especially with larger numbers.&quot;, &quot;SOLUTION&quot;: &quot;Always double-check your subtraction, especially when you&#x27;re under pressure or the numbers are tricky. It&#x27;s perfectly fine to quickly write out the subtraction problem on scratch paper or use a number line to verify your answer.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: n + 14 = 32. Correct setup: n = 32 - 14. Wrong Answer: n = 19. Right Answer: n = 18.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div><span class="ph">[Student Name]</span>, solve for the unknown in this equation: x + 7 = 15. What is the value of x?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>Maria had some baseball cards. Her friend gave her 5 more, and now she has 12 baseball cards in total. How many baseball cards did Maria start with, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div><span class="ph">[Student Name]</span>, consider the equation: 23 + y = 35. What is the value of y?</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div>Solve for p in the equation: p + 3.5 = 8.2. What is the value of p, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div><span class="ph">[Student Name]</span> is saving money for a new video game that costs $49.99. <span class="ph">[they]</span> already has $27.50 saved. How much more money does <span class="ph">[they]</span> need to save?</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>Solve for x in the equation: x + 1/4 = 3/4. What is the value of x, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>A local high school basketball team scored 58 points in the first half of a game. If their total score for the entire game was 91 points, how many points did they score in the second half, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div><span class="ph">[Student Name]</span> completed 1/4 of <span class="ph">[their]</span> math homework on Monday. On Tuesday, <span class="ph">[they]</span> completed some more, and now <span class="ph">[they]</span> has completed a total of 7/8 of the homework. What fraction of the homework did <span class="ph">[they]</span> complete on Tuesday?</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>Solve for w in the equation: 2.75 + w = 15.3. What is the value of w, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div><span class="ph">[Student Name]</span> had a balance of -$12 in <span class="ph">[their]</span> bank account after an unexpected bill. <span class="ph">[they]</span> deposited some money, and now <span class="ph">[their]</span> balance is $25. How much money did <span class="ph">[they]</span> deposit?</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hello there, <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into One-Step Addition Equations in Grade 6 math. This is a fundamental concept where <span class="ph">[they]</span> will learn how to find a missing number in an addition problem by using subtraction. It’s like being a detective to solve number mysteries! To help <span class="ph">[Student Name]</span> tonight, you could play a &#x27;Mystery Number&#x27; game. Gather some coins, say 15 pennies. Put some in your hand (the mystery number) and put 7 on the table. Say, &#x27;I have some pennies in my hand, and 7 on the table, making 15 pennies total. How many are in my hand?&#x27; <span class="ph">[Student Name]</span> needs to &#x27;undo&#x27; the addition. At dinner, you could ask, &#x27;If I bought some apples for $4 and then spent $9 on grapes, and the total fruit bill was $13, how much did the apples cost?&#x27; This helps <span class="ph">[Student Name]</span> see equations in everyday life.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Hi <span class="ph">[Student Name]</span>! Today we&#x27;re going to become math detectives and solve some &#x27;One-Step Addition Equations.&#x27; It&#x27;s all about finding a secret number in an addition problem. Are you ready to crack the code, <span class="ph">[they]</span>? We&#x27;ll look at equations like &#x27;what number plus 7 equals 15?&#x27;&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Okay, <span class="ph">[Student Name]</span>, let&#x27;s break down what this equation, like <code>x + 9 = 20</code>, is really asking. Imagine you have a certain amount of trading cards, our &#x27;x.&#x27; Then you get 9 more cards, and now you have 20. The question is, how many did you start with? We&#x27;re trying to figure out what &#x27;x&#x27; represents. What&#x27;s the total we&#x27;re aiming for?&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;I see <span class="ph">[Student Name]</span>! You&#x27;re thinking of adding 9 to 20, but remember, to find our &#x27;x&#x27; and get it all by itself, we need to &#x27;undo&#x27; the addition. What&#x27;s the opposite of adding 9? If we take 9 away from one side of our balance, what do we have to do to the other side to keep it equal? Let&#x27;s try subtracting 9 from both sides of the equation <code>x + 9 = 20</code> to see what happens.&quot; SESSION CLOSING: &quot;Fantastic work today, <span class="ph">[Student Name]</span>! You&#x27;ve made great progress understanding how to find those mystery numbers using &#x27;undoing&#x27; with subtraction. You&#x27;re building a super important math skill. Keep practicing, and I know <span class="ph">[they]</span> will master these One-Step Addition Equations!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">The single most common mistake <span class="ph">[Student Name]</span> will make with One-Step Addition Equations is performing the inverse operation incorrectly, specifically adding the constant to both sides instead of subtracting. For an equation like <code>x + 5 = 12</code>, <span class="ph">[Student Name]</span> might incorrectly solve for <code>x</code> by adding 5 to 12, resulting in <code>x = 17</code>. You can recognize this if the answer <span class="ph">[Student Name]</span> gets, when substituted back into the original equation, makes the equation false (e.g., <code>17 + 5</code> does not equal <code>12</code>). Exact words to say to <span class="ph">[Student Name]</span>: &quot;I see you got 17 for <code>x</code>. Let&#x27;s plug 17 back into our original problem: <code>17 + 5</code>. Does <code>17 + 5</code> actually equal 12? What if we think about &#x27;undoing&#x27; the plus 5 to get <code>x</code> by itself? What&#x27;s the opposite of adding 5?&quot; What NOT to say to <span class="ph">[Student Name]</span>: &quot;That&#x27;s completely wrong. You should have subtracted.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;adding_instead_of_subtracting&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> often tries to add the constant to the other side of the equation instead of subtracting it. For example, when solving <code>y + 6 = 15</code>, <span class="ph">[they]</span> might incorrectly calculate <code>15 + 6 = 21</code> instead of <code>15 - 6 = 9</code>.&quot;, &quot;reassurance&quot;: &quot;This is a very common mix-up when learning to &#x27;undo&#x27; equations, and <span class="ph">[Student Name]</span> is already thinking about combining numbers!&quot;, &quot;home_action&quot;: &quot;Use a simple budget example: &#x27;<span class="ph">[Student Name]</span>, if I had some money, and then you gave me $5, and now I have $18, how much did I start with?&#x27; Write it as <code>? + 5 = 18</code> and model subtracting 5 to find the original amount. &#x27;Now I have $18, but you gave me $5, so if I take away that $5, I&#x27;m left with $13, which is what I started with!&#x27;&quot;}, {&quot;tag&quot;: &quot;only_one_side&quot;, &quot;parent_description&quot;: &quot;When <span class="ph">[Student Name]</span> tries to isolate the variable, <span class="ph">[they]</span> might subtract the constant from one side of the equation but forget to do the same to the other side. For <code>z + 8 = 20</code>, <span class="ph">[they]</span> might correctly do <code>z + 8 - 8</code>, but then leave the right side as <code>20</code>, resulting in <code>z = 20</code>.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span> understands the goal of isolating the variable; <span class="ph">[they]</span> just needs a reminder about keeping the equation balanced.&quot;, &quot;home_action&quot;: &quot;Draw a simple balance scale on paper. Place &#x27;x + 8&#x27; on one side and &#x27;20&#x27; on the other. Demonstrate removing &#x27;8&#x27; from the &#x27;x + 8&#x27; side by drawing a cross-out, and then immediately crossing out &#x27;8&#x27; from the &#x27;20&#x27; side to show the importance of balance.&quot;}, {&quot;tag&quot;: &quot;misinterpreting_variable&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> sometimes struggles to see the variable as a &#x27;missing piece&#x27; in the addition problem, instead seeing it as an unknown to be guessed or simply a letter without numerical value. For example, in <code>10 + a = 23</code>, <span class="ph">[they]</span> might not intuitively understand that &#x27;a&#x27; is the quantity needed to get from 10 to 23.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span> is already thinking about the variable, which is a great start! We just need to guide <span class="ph">[them]</span> to systematically find its value.&quot;, &quot;home_action&quot;: &quot;Play a game where you state the first number and the total, and <span class="ph">[Student Name]</span> has to find the missing part. &#x27;I bought a baseball cap for $10, and my total bill was $25. How much else did I buy?&#x27; (<code>10 + x = 25</code>). This reinforces &#x27;x&#x27; as the &#x27;how much else&#x27;.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, let&#x27;s conquer One-Step Addition Equations! Think of an equation as a perfectly balanced scale. What’s on one side must exactly equal what’s on the other. For example, <code>x + 7 = 15</code> means &#x27;some unknown amount (x) plus 7 is the same as 15.&#x27; To find that &#x27;x&#x27;, <span class="ph">[they]</span> needs to get &#x27;x&#x27; all by itself on one side of the scale. Here&#x27;s how:
+
+1.  <strong>Understand the Goal:</strong> Your mission is to isolate &#x27;x&#x27; (or whatever letter is used) on one side of the equals sign.
+
+2.  <strong>Identify the Operation:</strong> In <code>x + 7 = 15</code>, &#x27;x&#x27; is having &#x27;7&#x27; added to it.
+
+3.  <strong>Use the Inverse Operation:</strong> To &#x27;undo&#x27; addition, we use subtraction. So, to get rid of the &#x27;+ 7&#x27;, <span class="ph">[they]</span> must subtract 7.
+
+4.  <strong>Keep the Balance:</strong> The crucial rule for equations: whatever <span class="ph">[they]</span> does to one side of the equals sign, <span class="ph">[they]</span> <em>must</em> do to the other side. So, if <span class="ph">[they]</span> subtracts 7 from <code>x + 7</code>, <span class="ph">[they]</span> also has to subtract 7 from 15.
+
+Let&#x27;s apply this: <code>x + 7 = 15</code>. Subtract 7 from both sides: <code>x + 7 - 7 = 15 - 7</code>. This simplifies to <code>x = 8</code>. So, the unknown amount is 8!
+
+Think about work: &#x27;I completed 3 tasks today, and I have some more to do. If my total for the week is 8 tasks, how many more do I have?&#x27; <code>3 + x = 8</code>. Subtract 3 from both sides: <code>x = 5</code>. You have 5 more tasks. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estará explorando un concepto fundamental en matemáticas de sexto grado: las Ecuaciones de Suma de un Solo Paso. En pocas palabras, <span class="ph">[Student Name]</span> aprenderá a encontrar un número desconocido en una suma, como por ejemplo, si ya tenemos 5 juguetes y queremos tener 12 en total, ¿cuántos juguetes más necesitamos? Es como resolver un pequeño rompecabezas. Esta noche, podrían usar monedas de verdad o frijoles para practicar. Dile a <span class="ph">[Student Name]</span>: &#x27;Tengo 8 pesos en mi bolsillo. Si necesito 15 pesos para comprar una figurita de colección en la tienda, ¿cuántos pesos más debo encontrar?&#x27; Y durante la cena, podrías preguntarle a <span class="ph">[Student Name]</span>: &#x27;Sabes, cuando mi equipo de fútbol metió 3 goles en la primera mitad y terminó el partido con 7 goles, estábamos resolviendo una ecuación de suma de un solo paso sin darnos cuenta. ¿Cuántos goles metimos en la segunda mitad?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">¡Hola, <span class="ph">[Student Name]</span>! Estoy muy emocionado de trabajar contigo hoy en las Ecuaciones de Suma de un Solo Paso. Es como ser un detective que busca un número secreto. ¡Vamos a descubrirlo juntos! 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1:</strong> &#x27;Recuerda, <span class="ph">[Student Name]</span>, una ecuación es como una balanza perfectamente equilibrada. Si tenemos &#x27;x + 9 = 20&#x27;, queremos que ambos lados tengan el mismo &#x27;peso&#x27; o valor. La &#x27;x&#x27; es nuestro número misterioso. ¿Qué número puedes sumarle a 9 para que el total sea 20? Intenta pensar en ello como que ya tienes 9 galletas y quieres tener 20 en total. ¿Cuántas galletas más necesitas, <span class="ph">[Student Name]</span>?&#x27; 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2:</strong> &#x27;¡Buen intento, <span class="ph">[Student Name]</span>! Estamos cerca. Para dejar a &#x27;x&#x27; completamente sola y descubrir su valor, necesitamos deshacer lo que se le está haciendo. Si estamos sumando 9 a la &#x27;x&#x27;, ¿cuál es la operación opuesta que nos permitiría eliminar ese 9? Exacto, la resta. Y recuerda, lo que haces a un lado de la balanza, lo debes hacer al otro lado para que siga equilibrada. Entonces, si restas 9 de un lado, ¿qué tienes que hacer del otro lado, <span class="ph">[Student Name]</span>?&#x27; 
+
+<strong>SESSION CLOSING:</strong> &#x27;¡Fabuloso trabajo hoy, <span class="ph">[Student Name]</span>! Has demostrado una gran habilidad para pensar como un detective matemático. Resolver ecuaciones de suma de un solo paso es una habilidad muy importante y con cada problema que resuelves, te vuelves más fuerte en matemáticas. ¡Sigue practicando esa mente brillante!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La confusión más común que <span class="ph">[Student Name]</span> podría cometer en las Ecuaciones de Suma de un Solo Paso es sumar el número en lugar de restarlo para aislar la variable. Por ejemplo, si la ecuación es &#x27;x + 6 = 15&#x27;, <span class="ph">[they]</span> podría intentar calcular 15 + 6 en lugar de 15 - 6. Puedes reconocer esto porque la respuesta de <span class="ph">[Student Name]</span> será significativamente más grande que el total dado en la ecuación. Para ayudar a <span class="ph">[Student Name]</span>, puedes decir: &#x27;Mira, <span class="ph">[Student Name]</span>, si en &#x27;x + 6 = 15&#x27; tu respuesta fuera 21, ¿cuando le sumas 6 a 21, obtienes 15? No, el número sería mucho más grande. Piensa, ¿qué operación necesitamos para &#x27;deshacer&#x27; la suma de 6 y dejar la &#x27;x&#x27; sola?&#x27; Lo que NO debes decir es: &#x27;No, eso está completamente mal. Tienes que restar&#x27;. Esto puede desmotivar a <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;inverse_operation_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> suma en lugar de restar para aislar la variable. Por ejemplo, en &#x27;x + 7 = 18&#x27;, <span class="ph">[they]</span> calcula 18 + 7 en lugar de 18 - 7.&quot;, &quot;reassurance&quot;: &quot;Es un error muy com\u00fan al principio, <span class="ph">[Student Name]</span> est\u00e1 aprendiendo a equilibrar la ecuaci\u00f3n y a usar la operaci\u00f3n inversa.&quot;, &quot;home_action&quot;: &quot;Usen objetos peque\u00f1os como l\u00e1pices o cubos para modelar &#x27;7 + \u00bfcu\u00e1ntos? = 18&#x27; y f\u00edsicamente quiten los 7 para ver lo que queda.&quot;}, {&quot;tag&quot;: &quot;variable_meaning_misunderstanding&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> no comprende que &#x27;x&#x27; o el s\u00edmbolo de inc\u00f3gnita representa un n\u00famero desconocido que se debe encontrar, vi\u00e9ndolo solo como una letra o un s\u00edmbolo sin significado num\u00e9rico.&quot;, &quot;reassurance&quot;: &quot;Es normal sentirse un poco confundido con el significado de la &#x27;x&#x27; al principio; <span class="ph">[Student Name]</span> pronto la ver\u00e1 como la pieza faltante de un rompecabezas.&quot;, &quot;home_action&quot;: &quot;Jueguen a &#x27;adivina mi n\u00famero&#x27;. Por ejemplo: &#x27;Tengo un n\u00famero en mente, le sum\u00e9 10 y el resultado fue 25. \u00bfQu\u00e9 n\u00famero tengo?&#x27;&quot;}, {&quot;tag&quot;: &quot;subtraction_error_during_inverse&quot;, &quot;parent_description&quot;: &quot;Cuando <span class="ph">[Student Name]</span> realiza la resta para resolver la ecuaci\u00f3n, <span class="ph">[they]</span> comete errores b\u00e1sicos de sustracci\u00f3n (ej. 18 - 7 = 9 en lugar de 11).&quot;, &quot;reassurance&quot;: &quot;A veces, incluso los peque\u00f1os errores de c\u00e1lculo pueden cambiar el resultado, y <span class="ph">[Student Name]</span> est\u00e1 mejorando su precisi\u00f3n con cada intento. \u00a1Es parte del proceso!&quot;, &quot;home_action&quot;: &quot;Practiquen juntos restas b\u00e1sicas con n\u00fameros de dos d\u00edgitos y un d\u00edgito, usando papel y l\u00e1piz, o la tabla del 100, sin presi\u00f3n de tiempo, para reforzar las habilidades.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Hoy desglosaremos las Ecuaciones de Suma de un Solo Paso, un concepto clave para su hijo/a. Piense en una ecuación como una balanza: lo que hay a un lado debe ser igual a lo que hay al otro. Nuestro objetivo es encontrar un número &#x27;escondido&#x27;.
+
+1.  <strong>Entender el &#x27;pedazo que falta&#x27;:</strong> Imagine que quiere comprar unas zapatillas de deporte que cuestan 150 pesos. Ya ahorró 80 pesos. ¿Cuánto dinero le falta? Aquí, la ecuación sería: 80 + x = 150. La &#x27;x&#x27; es la cantidad que le falta.
+2.  <strong>Identificar la operación:</strong> En este caso, estamos sumando (80 + x).
+3.  <strong>Usar la operación inversa:</strong> Para &#x27;deshacer&#x27; una suma y encontrar la &#x27;x&#x27;, siempre usamos la resta. Es el truco para equilibrar la balanza.
+4.  <strong>Aplicar a ambos lados:</strong> Si resta 80 de un lado de la ecuación (para dejar la &#x27;x&#x27; sola), debe restar 80 del otro lado para mantener la igualdad. Así, en 80 + x = 150, restaría 80 a ambos lados: 80 + x - 80 = 150 - 80.
+5.  <strong>Resolver y verificar:</strong> Esto le daría x = 70. Para verificar, simplemente sustituya &#x27;x&#x27; en la ecuación original: 80 + 70 = 150. ¡Correcto!
+
+Otro ejemplo: En el trabajo, tiene 12 archivos listos y necesita un total de 30 para el final del día. ¿Cuántos archivos le faltan? 12 + x = 30. Restando 12 de ambos lados, x = 18. ¡<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> verá que con estos pasos sencillos, dominará este concepto y podrá apoyar a <span class="ph">[Student Name]</span> con total confianza!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">{&quot;content&quot;: &quot;Sip\u00e8viz\u00e8, sem\u00e8n sa a BrightPath Education ap ede <span class="ph">[Student Name]</span> eksplore &#x27;Ekwasyon Adisyon Yon S\u00e8l Etap&#x27; \u2013 yon kons\u00e8p enp\u00f2tan nan matematik pou klas 6e. Sa vle di <span class="ph">[Student Name]</span> ap aprann kijan pou <span class="ph">[they]</span> jwenn nimewo ki manke nan yon pwobl\u00e8m adisyon ki senp. Pa egzanp, si ou konnen ou te gen k\u00e8k goud, epi ou ajoute 5 goud ank\u00f2, kounye a ou gen 12 goud, ki jan ou f\u00e8 jwenn konbyen goud ou te genyen an premye? Nou pral s\u00e8vi ak yon l\u00e8t tankou &#x27;x&#x27; pou reprezante nimewo ki manke a.
+
+Yon aktivite pratik pou f\u00e8 ak <span class="ph">[Student Name]</span> asw\u00e8 a: Pran k\u00e8k py\u00e8s monnen goud. Mete yon ti ponyen nan men <span class="ph">[their]</span> san <span class="ph">[Student Name]</span> pa konnen kantite a. L\u00e8 sa a, ba <span class="ph">[them]</span> 3 l\u00f2t goud. Di <span class="ph">[them]</span> konbyen total la ye (pa egzanp, 10 goud). Mande <span class="ph">[them]</span> pou <span class="ph">[they]</span> ch\u00e8che konbyen py\u00e8s <span class="ph">[they]</span> te genyen anvan an.
+
+Yon kesyon pou sou tab manje a: \&quot;Si yon ekip foutb\u00f2l P\u00f2toprens te genyen k\u00e8k match, epi yo te genyen 4 l\u00f2t match sem\u00e8n sa a, kounye a yo gen yon total de 11 match genyen, konbyen match yo te genyen anvan sem\u00e8n sa a?\</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;content&quot;: &quot;SESYON OUV\u00c8TI: \&quot;Bonjou <span class="ph">[Student Name]</span>! Jodi a nou pral eksplore yon bagay enteresan ki rele Ekwasyon Adisyon Yon S\u00e8l Etap. Pa enkyete w, se jis yon fason pou nou jwenn yon nimewo ki manke nan yon pwobl\u00e8m adisyon. Mwen konnen ou ka f\u00e8 sa, ann k\u00f2manse!\&quot;
+
+SI <span class="ph">[Student Name]</span> BLOKE SOU ETAP 1: \&quot;Ann pran tan nou <span class="ph">[Student Name]</span>. Sonje, yon ekwasyon se tankou yon balans ki dwe toujou rete dwat. Tou sa ki sou yon b\u00f2 siy egal la dwe menm val\u00e8 ak sa ki sou l\u00f2t b\u00f2 a. L\u00e8t la, tankou &#x27;x&#x27; nan <code>x + 3 = 8</code>, reprezante nimewo nou pa konnen an. Kisa &#x27;x&#x27; la vle di nan pwobl\u00e8m sa a, <span class="ph">[Student Name]</span>?\&quot;
+
+SI <span class="ph">[Student Name]</span> BLOKE SOU ETAP 2: \&quot;Oke <span class="ph">[Student Name]</span>, ou byen konprann <code>x + 3 = 8</code>. Kounye a, pou nou jwenn &#x27;x&#x27; la poukont li, kisa nou dwe f\u00e8 pou nou retire 3 a sou b\u00f2 &#x27;x&#x27; la? Nou dwe f\u00e8 operasyon opoze a, ki se soustraksyon. Men, sonje r\u00e8g balans lan: si nou soustr\u00e8 3 sou yon b\u00f2, kisa nou dwe f\u00e8 sou l\u00f2t b\u00f2 a tou pou li rete egal? Sa vle di, kisa nou f\u00e8 ak nimewo 8 la?\&quot;
+
+SESYON F\u00c8MEN: \&quot;Felisitasyon <span class="ph">[Student Name]</span>! Ou te f\u00e8 yon travay f\u00f2midab jodi a ap aprann rezoud ekwasyon adisyon. Mwen fy\u00e8 de jan ou te travay ak jan ou te reflechi. Ou ap vin pi f\u00f2 nan sa. Kenbe bon travay la, <span class="ph">[Student Name]</span>!\</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">{&quot;content&quot;: &quot;Ch\u00e8 paran, youn nan er\u00e8 ki pi komen <span class="ph">[Student Name]</span> ap f\u00e8 l\u00e8 <span class="ph">[they]</span> ap rezoud Ekwasyon Adisyon Yon S\u00e8l Etap se bliye f\u00e8 menm operasyon an sou tou de b\u00f2 ekwasyon an. Pou egzanp, si ekwasyon an se <code>x + 6 = 14</code>, <span class="ph">[Student Name]</span> ka soustr\u00e8 6 sou b\u00f2 g\u00f2ch la pou jwenn <code>x</code>, men bliye soustr\u00e8 6 nan 14 la sou b\u00f2 dwat la.
+
+Kijan pou rekon\u00e8t li: Repons <span class="ph">[Student Name]</span> ap bay la ap par\u00e8t pa k\u00f2r\u00e8k si ou ta ranplase l nan ekwasyon orijinal la (pa egzanp, <span class="ph">[they]</span> ka di <code>x = 14</code> nan egzanp sa a, men <code>14 + 6</code> pa egal 14).
+
+Mo egzak pou di <span class="ph">[Student Name]</span>: \&quot;Mwen w\u00e8 w ap f\u00e8 gwo pwogr\u00e8, <span class="ph">[Student Name]</span>. Sonje, yon ekwasyon se tankou yon balans. Si ou retire yon bagay sou yon b\u00f2, ou dwe retire menm bagay la sou l\u00f2t b\u00f2 a pou li rete balanse. Kisa nou dwe f\u00e8 av\u00e8k nimewo 14 la tou, pou balans lan pa kraze?\&quot;
+
+Sa pou PA di <span class="ph">[Student Name]</span>: \&quot;Ou jis f\u00e8 yon s\u00e8l b\u00f2, sa pa ka bon.\</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;forgetting_inverse_operation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka eseye f\u00e8 adisyon nan yon ekwasyon adisyon olye pou <span class="ph">[they]</span> soustr\u00e8. Pa egzanp, nan <code>x + 4 = 9</code>, <span class="ph">[they]</span> ka ajoute 4 nan 9 pou jwenn 13, olye pou <span class="ph">[they]</span> soustr\u00e8 4.&quot;, &quot;reassurance&quot;: &quot;Li n\u00f2mal pou f\u00e8 er\u00e8 sa a an premye; li mande pratik pou sonje opoze adisyon se soustraksyon.&quot;, &quot;home_action&quot;: &quot;S\u00e8vi ak mango: \&quot;Si ou te gen k\u00e8k mango, epi ou te achte 4 l\u00f2t nan mache P\u00f2toprens, kounye a ou gen 9 mango. Konbyen mango ou te genyen an premye?\&quot; Kite <span class="ph">[Student Name]</span> manipile obj\u00e8 yo.&quot;}, {&quot;tag&quot;: &quot;only_operating_on_one_side&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> bliye aplike operasyon an sou tou de b\u00f2 siy egal la, sa ki f\u00e8 ekwasyon an p\u00e8di balans <span class="ph">[their]</span>. Pa egzanp, nan <code>7 + x = 15</code>, <span class="ph">[they]</span> ka soustr\u00e8 7 sou b\u00f2 g\u00f2ch la men bliye soustr\u00e8 7 sou b\u00f2 dwat la.&quot;, &quot;reassurance&quot;: &quot;Kenbe balans lan se yon pati esansy\u00e8l nan rezoud ekwasyon, e <span class="ph">[Student Name]</span> ap vin pi f\u00f2 nan sa av\u00e8k tan ak plis pratik.&quot;, &quot;home_action&quot;: &quot;S\u00e8vi ak yon balans rey\u00e8l (tankou yon koudeta oswa yon hanger ak de sak) pou montre kijan ekwasyon an dwe rete egal. Mete py\u00e8s monnen goud nan chak b\u00f2 pou reprezante nimewo yo.&quot;}, {&quot;tag&quot;: &quot;confusing_variable_position&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka gen difikilte l\u00e8 varyab la pa nan k\u00f2mansman an, pa egzanp nan <code>5 + x = 12</code> olye de <code>x + 5 = 12</code>, panse ke l\u00f2d la chanje fason pou rezoud li.&quot;, &quot;reassurance&quot;: &quot;L\u00f2d nimewo nan adisyon pa chanje rezilta a, e sa ap vin pi kl\u00e8 pou <span class="ph">[Student Name]</span> av\u00e8k plis ekzanp ak konfyans.&quot;, &quot;home_action&quot;: &quot;Bay <span class="ph">[Student Name]</span> plizy\u00e8 ekzanp kote varyab la nan diferan pozisyon, tankou <code>x + 6 = 10</code> epi <code>6 + y = 10</code>, epi mande <span class="ph">[them]</span> si rezilta a chanje.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">{&quot;content&quot;: &quot;Pou ou menm, <span class="ph">[Parent Name]</span>, ann aprann kijan pou rezoud Ekwasyon Adisyon Yon S\u00e8l Etap av\u00e8k yon fason ki senp. Pa enkyete w, nou pral pran l depi nan k\u00f2mansman an menm.
+
+1.  <strong>Kisa Yon Ekwasyon Ye?</strong> Imajine yon ekwasyon tankou yon balans ki dwe toujou rete dwat. Sa ki sou b\u00f2 g\u00f2ch siy egal la (<code>=</code>) dwe toujou gen menm val\u00e8 ak sa ki sou b\u00f2 dwat la. Pa egzanp, <code>5 + 2 = 7</code>. Se yon balans.
+
+2.  <strong>Kisa Yon &#x27;Varyab&#x27; Ye?</strong> Pafwa, nan yon pwobl\u00e8m, gen yon nimewo nou pa konnen. Nou itilize yon l\u00e8t, tankou &#x27;x&#x27; (men sa ka &#x27;y&#x27; oswa nenp\u00f2t l\u00f2t l\u00e8t), pou reprezante nimewo enkoni sa a. Nou rele l &#x27;varyab&#x27;. Sa a se nimewo nou vle dekouvri a.
+
+3.  <strong>Ekwasyon Adisyon Yon S\u00e8l Etap:</strong> Sa a se yon ekwasyon kote nou gen yon varyab, nou ajoute yon nimewo ladan l, epi li bay yon rezilta. Se s\u00e8lman yon s\u00e8l etap ki neses\u00e8 pou rezoud li. Pa egzanp: <code>x + 3 = 10</code>. Isit la, <code>x</code> se nimewo nou pa konnen an, nou ajoute 3 ladan l, epi total la se 10.
+
+4.  <strong>Kijan Pou Rezoud Yo (R\u00e8g Balans la):</strong> Objektif la se jwenn val\u00e8 <code>x</code> la. Pou f\u00e8 sa, nou bezwen kite <code>x</code> la poukont <span class="ph">[them]</span> sou yon b\u00f2 siy egal la.
+    <em>   Si ou gen <code>x + 3 = 10</code>, pou retire <code>+ 3</code> a ak <code>x</code> la, nou dwe f\u00e8 operasyon opoze a, ki se soustraksyon. Nou soustr\u00e8 3.
+    </em>   MEN, sonje r\u00e8g balans lan! Si ou soustr\u00e8 3 sou yon b\u00f2, ou DWE soustr\u00e8 3 sou l\u00f2t b\u00f2 a tou pou balans lan rete dwat.
+    <em>   Sa vin: <code>x + 3 - 3 = 10 - 3</code>.
+    </em>   Sa senplifye a: <code>x = 7</code>.
+
+5.  <strong>Verifikasyon:</strong> Pou asire w repons ou k\u00f2r\u00e8k, ranplase <code>x</code> la ak val\u00e8 ou jwenn nan ekwasyon orijinal la: <code>7 + 3 = 10</code>. Wi, sa k\u00f2r\u00e8k! W\u00e8, <span class="ph">[Parent Name]</span>, fasil pa vre?
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> ap metrize kons\u00e8p sa a epi <span class="ph">[they]</span> ap kapab anseye <span class="ph">[Student Name]</span> av\u00e8k konfyans. Bon chans!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está explorando um conceito muito importante em matemática: Equações de Adição de Uma Etapa. Em termos simples, <span class="ph">[Student Name]</span> aprenderá a descobrir um número desconhecido quando sabemos o resultado de uma soma. É como resolver um pequeno mistério matemático!
+Para ajudar <span class="ph">[Student Name]</span> a praticar esta noite, vocês podem usar objetos da casa. Por exemplo, pegue uma caixa vazia e algumas canetas. Diga: &#x27;Eu coloquei 3 canetas na caixa, e agora tem um total de 8 canetas. Quantas canetas eu adicionei? (3 + x = 8)&#x27;. <span class="ph">[Student Name]</span> pode mover as canetas para encontrar a resposta.
+Na hora do jantar, pergunte: &#x27;Se você tinha um número de figurinhas de futebol, e seu amigo te deu mais 7 figurinhas, e agora você tem 20 figurinhas no total, quantas figurinhas você tinha no início? (x + 7 = 20)&#x27; Isso o(a) ajudará a relacionar a matemática com o dia a dia. <span class="ph">[Student Name]</span> vai adorar!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Olá, <span class="ph">[Student Name]</span>! Que bom ter você aqui. Hoje vamos mergulhar no mundo das Equações de Adição de Uma Etapa. É como um quebra-cabeça onde temos que descobrir um número que está &#x27;escondido&#x27; em uma soma. Tenho certeza de que você vai se divertir e aprender muito com isso!&quot;
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Oi, <span class="ph">[Student Name]</span>. Vejo que você está pensando em &#x27;x + 5 = 12&#x27;. O que essa equação significa? Significa que temos um número que não sabemos (o &#x27;x&#x27;), somamos 5 a ele, e o resultado final é 12. Pense nisso como ter algumas balas, ganhar mais 5, e agora ter um total de 12 balas. Como você faria para descobrir quantas balas você tinha no começo?&quot;
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Entendi, <span class="ph">[Student Name]</span>. Você sabe que &#x27;x + 5 = 12&#x27;, mas está com dúvida sobre o que fazer com o &#x27;5&#x27;. Lembre-se, nosso objetivo é deixar o &#x27;x&#x27; sozinho de um lado da equação. Qual é a operação inversa da adição? Isso mesmo, a subtração! Se você tem &#x27;+ 5&#x27; de um lado, para &#x27;desfazer&#x27; isso, você precisa subtrair 5. Mas, para manter a balança em equilíbrio, o que você fizer de um lado, precisa fazer do outro. Então, se subtrairmos 5 de um lado, também subtraímos 5 do outro lado do sinal de igual. Tente fazer isso com os números que temos agora.&quot;
+SESSION CLOSING: &quot;Excelente trabalho hoje, <span class="ph">[Student Name]</span>! Você lidou muito bem com as Equações de Adição de Uma Etapa. É incrível ver como você está se tornando um(a) verdadeiro(a) detetive dos números. Lembre-se, a prática leva à perfeição, e você está no caminho certo para dominar isso! Estou orgulhoso(a) do seu esforço.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Student Name]</span>. Percebi que você resolveu &#x27;x + 7 = 15&#x27; e encontrou &#x27;x = 22&#x27;. O erro mais comum que <span class="ph">[Student Name]</span> pode cometer é aplicar a operação inversa incorretamente, como somar em vez de subtrair ou não aplicar a ambos os lados. Para reconhecer, o resultado não fará sentido quando substituído na equação original. Vamos testar essa resposta: se o &#x27;x&#x27; for 22, então 22 + 7 é igual a 29. Mas nossa equação diz que o resultado deve ser 15. Você vê que a sua resposta de 22 não funciona? Para resolver &#x27;x + 7 = 15&#x27;, para deixar o &#x27;x&#x27; sozinho, precisamos fazer a operação oposta da adição. Qual seria a operação oposta de somar 7? O que NÃO dizer: &#x27;Você somou em vez de subtrair, está errado.&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;ignoring_balance&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> faz a opera\u00e7\u00e3o inversa (subtra\u00e7\u00e3o) apenas de um lado da equa\u00e7\u00e3o. Por exemplo, em \&quot;x + 8 = 15\&quot;, <span class="ph">[Student Name]</span> subtrai 8 do lado esquerdo, deixando \&quot;x\&quot;, mas esquece de subtrair 8 do lado direito, resultando em \&quot;x = 15\&quot;.&quot;, &quot;reassurance&quot;: &quot;\u00c9 um erro comum no come\u00e7o, <span class="ph">[Student Name]</span>. Lembre-se que uma equa\u00e7\u00e3o \u00e9 como uma balan\u00e7a que precisa ficar sempre equilibrada!&quot;, &quot;home_action&quot;: &quot;Pe\u00e7am para <span class="ph">[Student Name]</span> usar um cabide e dois sacos de moedas (ou clipes de papel) para representar a balan\u00e7a. Coloquem pesos iguais de cada lado e depois removam de um lado, mostrando que para equilibrar, precisa remover do outro.&quot;}, {&quot;tag&quot;: &quot;incorrect_inverse_operation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> aplica a opera\u00e7\u00e3o inversa errada. Em vez de subtrair para desfazer uma adi\u00e7\u00e3o, <span class="ph">[Student Name]</span> pode somar o mesmo n\u00famero novamente. Por exemplo, em \&quot;x + 6 = 10\&quot;, <span class="ph">[Student Name]</span> adiciona 6 aos dois lados, obtendo \&quot;x = 16\&quot;.&quot;, &quot;reassurance&quot;: &quot;N\u00e3o se preocupe, <span class="ph">[Student Name]</span>. A matem\u00e1tica tem algumas \&quot;regras de ouro\&quot;, e uma delas \u00e9 sempre pensar na opera\u00e7\u00e3o oposta para \&quot;desfazer\&quot; algo.&quot;, &quot;home_action&quot;: &quot;Usem um jogo de cartas. Esconda um n\u00famero e diga: \&quot;Eu tenho este n\u00famero, adicionei 5 e o resultado foi 12. Para descobrir o n\u00famero original, o que eu devo fazer com o 12 e o 5?\&quot; Reforce a ideia de \&quot;voltar atr\u00e1s\&quot;.&quot;}, {&quot;tag&quot;: &quot;confusing_variable_position&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> fica confuso quando a vari\u00e1vel n\u00e3o est\u00e1 no in\u00edcio da equa\u00e7\u00e3o, como em \&quot;12 = x + 4\&quot;. <span class="ph">[Student Name]</span> pode ter dificuldade em reconhecer que a propriedade comutativa da adi\u00e7\u00e3o permite reescrever como \&quot;x + 4 = 12\&quot;.&quot;, &quot;reassurance&quot;: &quot;Voc\u00ea est\u00e1 progredindo muito, <span class="ph">[Student Name]</span>! \u00c0s vezes, as equa\u00e7\u00f5es tentam nos enganar um pouquinho, mas a l\u00f3gica da adi\u00e7\u00e3o \u00e9 sempre a mesma, n\u00e3o importa a ordem.&quot;, &quot;home_action&quot;: &quot;Escreva alguns problemas de adi\u00e7\u00e3o com a vari\u00e1vel em diferentes posi\u00e7\u00f5es (ex: 5 + x = 10 e x + 5 = 10). Pergunte a <span class="ph">[Student Name]</span> se o \&quot;x\&quot; significa a mesma coisa em ambos os casos. Usem blocos de montar para visualizar.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Queremos que <span class="ph">[they]</span> se sinta totalmente à vontade para ajudar <span class="ph">[Student Name]</span> com matemática. Vamos entender as Equações de Adição de Uma Etapa de um jeito simples, como um mistério do dia a dia.
+
+1.  <strong>O que é uma Equação de Adição?</strong>
+    Imagine que você está organizando um churrasco. Comprou algumas linguiças (que não lembra a quantidade exata) e seu vizinho trouxe mais 5. Agora você tem um total de 12 linguiças. Quantas você tinha no começo? Essa é a essência de uma equação de adição: encontrar um valor desconhecido (&#x27;x&#x27;) em uma soma (x + 5 = 12).
+
+2.  <strong>A Regra da &quot;Balança&quot;</strong>
+    Pense em uma equação como uma balança de dois pratos. Para ela se manter equilibrada, tudo que você faz em um lado, precisa fazer no outro. No nosso exemplo, &#x27;x + 5 = 12&#x27;, queremos descobrir o &#x27;x&#x27;. Para &#x27;desfazer&#x27; o &#x27;+ 5&#x27; que está com o &#x27;x&#x27;, usamos a operação inversa da adição, que é a subtração.
+
+3.  <strong>Resolvendo o Mistério</strong>
+    Para isolar o &#x27;x&#x27;, subtraímos 5 do lado esquerdo da equação (x + 5 - 5). Para manter a balança equilibrada, subtraímos 5 também do lado direito (12 - 5). Assim, temos: x = 7. Você tinha 7 linguiças!
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> acabou de dominar a ideia central! Essa lógica vale para muitas situações adultas, como calcular o quanto faltava no orçamento (x + R$50 = R$300) ou o número de clientes que chegaram depois do almoço. Com essa base, <span class="ph">[they]</span> estará muito mais confiante para ajudar <span class="ph">[Student Name]</span>!</div></div></div></div>
+</body>
+</html>

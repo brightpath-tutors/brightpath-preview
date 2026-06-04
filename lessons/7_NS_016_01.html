@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Terminating vs Repeating</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | The Number System<br>76 atoms | Skill 7.NS.016.01<br></div>
+</div>
+<h1 class="skill-title">Terminating vs Repeating</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.016.01 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can identify and differentiate between terminating and repeating decimal expansions of rational numbers.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">Terminating decimals are those whose decimal expansion ends, meaning the division results in a remainder of zero. For example, the fraction 3/8, when converted to a decimal by dividing 3 by 8, yields exactly 0.375. The digits &#x27;3&#x27;, &#x27;7&#x27;, and &#x27;5&#x27; appear, and then the decimal terminates. In contrast, repeating decimals are those whose decimal expansion continues infinitely, but with a specific sequence of digits repeating endlessly. Consider the fraction 2/11. Dividing 2 by 11 gives 0.181818..., where the block of digits &#x27;18&#x27; repeats indefinitely. This is often written as 0.18 with a bar over the &#x27;18&#x27;. The mechanism for this behavior lies in the prime factorization of the fraction&#x27;s denominator in its simplest form. If the prime factors of the simplified denominator are only 2s and/or 5s, like 3/8 (denominator 8 = 2x2x2), the decimal will terminate. If other prime factors are present, such as 2/11 (denominator 11), the decimal will repeat because the division algorithm&#x27;s remainders will eventually cycle. Thinking of it like a mathematical &#x27;elevator&#x27; that either reaches the ground floor (terminates) or gets stuck infinitely looping between floors (repeats) can help, <span class="ph">[Student Name]</span>. This fundamental distinction helps <span class="ph">[Student Name]</span> classify how rational numbers behave as decimals.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">Remember how in 7.NS.015 you learned that rational numbers, which are numbers that can be written as a simple fraction (like 1/2 or 3/4), have decimal expansions? That standard gave you a big hint: it said these decimals <em>always</em> either stop (terminate) or repeat a pattern. It&#x27;s like you&#x27;ve already seen both types of numbers in the wild, <span class="ph">[Student Name]</span>, without perhaps having given them their official names. Now, we&#x27;re simply putting names to what you already intuitively understand and giving you the tools to easily identify them. For instance, you&#x27;ve always known 1/4 is 0.25, and that decimal stops. That’s a terminating decimal! And you&#x27;ve likely encountered 1/3 as 0.333..., a decimal that goes on forever with the &#x27;3&#x27; repeating. That&#x27;s a repeating decimal! So, <span class="ph">[Student Name]</span>, this isn&#x27;t brand-new territory; it&#x27;s just a deeper look into the characteristics of numbers you&#x27;re already very comfortable working with. You&#x27;ve got this because you&#x27;ve been working with these concepts for a while.</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Have you ever tried to split a restaurant bill perfectly evenly with friends, especially when there are three or seven of you? Let&#x27;s say a $20 bill, including tip, needs to be split among three friends. Mathematically, each person owes $20 divided by 3, which is $6.666... This is a repeating decimal! In US currency, we can&#x27;t pay fractions of a cent, so someone usually has to pay an extra penny or two, leading to an approximate payment of $6.67 for two people and $6.66 for one, or something similar. This small difference shows up everywhere. Or imagine a baseball player&#x27;s batting average: if they get 1 hit in 3 at-bats, their average is 1/3, which is 0.333... a repeating decimal. Sports statistics often round these numbers, but <span class="ph">[Student Name]</span>, the underlying mathematical reality is a repeating decimal. It’s a surprising fact that even in everyday situations, like calculating shares of a budget or sports stats, we constantly encounter these never-ending patterns. Knowing about terminating and repeating decimals helps <span class="ph">[Student Name]</span> understand why sometimes numbers just don&#x27;t &#x27;come out even&#x27; in the real world.</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Let&#x27;s calmly break down terminating and repeating decimals. First, a <strong>terminating decimal</strong> is a decimal that ends after a finite number of digits. Imagine a sprint race where the finish line is clearly marked; once you cross it, the race is over. For example, when you convert the fraction 1/4 into a decimal, you get 0.25. The decimal expansion stops after two digits. There are no more digits to consider. Second, a <strong>repeating decimal</strong> is a decimal that continues infinitely, but with a pattern of one or more digits that repeats without end. Think of a song on repeat: it never truly ends, it just plays the same segment over and over. A common example is the fraction 5/6. Dividing 5 by 6 yields 0.8333... Here, the digit &#x27;3&#x27; repeats indefinitely. We can write this as 0.83 with a bar over the &#x27;3&#x27;. Understanding these types is crucial when <span class="ph">[Student Name]</span> needs to convert fractions to decimals or interpret data. It helps <span class="ph">[Student Name]</span> know if a number can be expressed perfectly or if it will always have an ongoing pattern, such as when dealing with money or measurements.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">In your previous learning, specifically 7.NS.015, you explored rational numbers, which are numbers that can be written as a simple fraction, like 1/2 or 3/5. You also learned that every rational number has a decimal expansion. For instance, 1/2 converts to 0.5, and 3/5 converts to 0.6. This foundational knowledge established that fractions and decimals are two different ways to represent the same value, giving <span class="ph">[Student Name]</span> a flexible understanding of numbers. The critical connection that 7.NS.015 introduced, <span class="ph">[Student Name]</span>, is that when you perform the division to change a fraction into a decimal, the result will <em>always</em> either terminate (stop) or repeat a sequence of digits. It&#x27;s a fundamental property of rational numbers! They don&#x27;t have messy, unpredictable decimal expansions like irrational numbers do. So, you&#x27;ve already touched upon the idea that these two outcomes are the only possibilities for rational numbers. Now, we&#x27;re ready to explicitly identify and distinguish between these two types. Your new skill will be to precisely recognize a terminating decimal versus a repeating decimal, explain <em>why</em> it behaves that way based on its fraction form, and confidently categorize any rational number you encounter.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hey <span class="ph">[Student Name]</span>! Let&#x27;s tackle converting fractions to decimals. We’re going to figure out if 3/8 gives us a decimal that stops or one that keeps going. This is super useful for understanding numbers in your everyday life, like when you&#x27;re splitting a pizza or calculating grades!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let&#x27;s explore another fraction, <span class="ph">[Student Name]</span>, to see if it’s a terminating or repeating decimal. We’ll work through 2/11 step by step, which might remind you of calculating batting averages in baseball or figuring out shares of a scholarship.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">Alright <span class="ph">[Student Name]</span>, let&#x27;s tackle a trickier one that often trips students up: converting 5/12 to a decimal. This fraction will combine aspects of both types of decimals we&#x27;ve discussed, much like a complex play in a basketball game where you need to watch every detail!</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Imagine you have a yummy pack of Starbursts. When you eat them all, the pack is empty, right? It&#x27;s all done! That&#x27;s like a &#x27;stopping&#x27; number. It just ends, like the final score of a soccer game.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content"><span class="ph">[Student Name]</span>, think about music on your phone. You can play a song, and it plays from the beginning to the end, then it just stops. That&#x27;s like a <strong>terminating decimal</strong>. The song has a clear start and a clear finish, and once it&#x27;s done, it&#x27;s done. For example, 3/4 equals 0.75. The digits &#x27;7&#x27; and &#x27;5&#x27; appear, and then it stops. The division stops, just like the song ends.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, try to picture a path you’re walking. For a <strong>terminating decimal</strong>, imagine you start at a point, take a few steps forward, and then you reach a big, clear STOP sign at the end of the path. The path has a definite length, and you know exactly where it finishes. You can see the end clearly, like 0.25, where the numbers stop after the 5.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! So, &#x27;terminating&#x27; and &#x27;repeating&#x27; decimals sound fancy, but it&#x27;s pretty simple when you break it down. When you turn a fraction into a decimal by dividing the top number by the bottom number, there are two main things that can happen.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Understanding terminating and repeating decimals is crucial for a financial analyst. Imagine a scenario where an analyst at a major investment firm on Wall Street needs to calculate the profit margin for a stock. If a stock was bought for $75 and sold for $82, the profit is $7. The profit margin is calculated as (Selling Price - Buying Price) / Buying Price. So, the equation is (82 - 75) / 75 = 7 / 75. When <span class="ph">[Student Name]</span> performs this division, <span class="ph">[they]</span> would find 7 / 75 = 0.09333... This is a repeating decimal, where the &#x27;3&#x27; repeats infinitely. Knowing this allows the analyst to accurately report the margin as 9.33%, understanding that the decimal goes on forever, and how to round it appropriately for reporting. Precision in these calculations can mean millions of dollars for investors.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Splitting bills with friends after eating out is a common situation where terminating and repeating decimals come up. Let&#x27;s say <span class="ph">[Student Name]</span> and two friends go to a diner in Chicago after a Cubs game. Their total bill for food, drinks, tax, and tip comes out to $50.00. Since there are three people, they need to split the bill equally. The calculation would be $50.00 / 3. When you perform this division, you get $16.666... This is a repeating decimal. In real life, they&#x27;d likely round it to $16.67 for two people and $16.66 for the third person, or one person pays a penny more. If the bill was $45.00 / 3, each person would pay $15.00, which is a terminating decimal. Recognizing the difference helps <span class="ph">[they]</span> handle money accurately.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering concepts like terminating and repeating decimals is a stepping stone to future academic and career success. On standardized tests like the SAT or ACT, questions often involve converting fractions to decimals or identifying properties of rational numbers. A strong grasp helps <span class="ph">[Student Name]</span> tackle these problems efficiently, potentially boosting <span class="ph">[their]</span> score. In college, especially in STEM fields like engineering, computer science, or even finance, precise numerical representation is vital. Understanding when a decimal is exact (terminating) versus an approximation (repeating) will be critical for complex calculations. These foundational math skills correlate with higher earning potential, as they prepare <span class="ph">[them]</span> for jobs requiring analytical thinking and numerical accuracy, making you a more competitive candidate in the job market.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Convert the fraction 7/8 into a decimal. Is it a terminating or repeating decimal?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">Convert the fraction 2/3 into a decimal. Is it a terminating or repeating decimal?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Without performing the division, determine if the fraction 3/20 will result in a terminating or repeating decimal. Explain why.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">Without performing the division, determine if the fraction 5/14 will result in a terminating or repeating decimal. Explain why.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">During a football game in Texas, 2 1/4 gallons of water were consumed by the team. Convert this mixed number into a decimal. Is it terminating or repeating?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">A recipe calls for 4 1/6 cups of flour. Convert this mixed number into a decimal. Is it terminating or repeating?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">A group of 6 friends in New York City decides to share a pizza that has 17 slices. How many slices does each friend get as a decimal? Is this a terminating or repeating decimal?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">Maria claims that 1/9 is a terminating decimal because it looks like 0.1. Is Maria correct? Explain why or why not.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Which of the following decimals is a terminating decimal?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">When the fraction 3/4 is converted to a decimal, is it a terminating or a repeating decimal?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Convert the fraction 7/20 into a decimal. Is the resulting decimal terminating or repeating?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Which of these fractions will result in a repeating decimal when converted? A) 1/5 B) 3/8 C) 2/3 D) 7/10</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">If <span class="ph">[Student Name]</span> divides 1 by 6, what type of decimal will <span class="ph">[they]</span> get? Terminating or Repeating?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">Coach Rodriguez assigns 5 out of 11 players to a specific drill. If <span class="ph">[Student Name]</span> writes the fraction of players assigned to the drill as a decimal, what type of decimal will it be?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Identify which of the following fractions would result in a terminating decimal: A) 1/3 B) 4/6 C) 7/14 D) 5/12</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A baker uses 5 and 1/8 cups of flour for a cake. When this mixed number is expressed as a decimal, will it be terminating or repeating?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Which of these numbers can be written as a fraction where the denominator (in its simplest form) has only 2s and/or 5s as prime factors? A) 0.833... B) 0.625 C) 0.111... D) 0.444...</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A ratio of students to teachers in a class is 22 to 3. If this ratio is expressed as a decimal, to what number of decimal places would <span class="ph">[Student Name]</span> need to round for it to appear to terminate, and what type of decimal is it truly?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Focusing Only on the Numerator&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might mistakenly think a fraction like 1/3 is terminating because the numerator &#x27;1&#x27; is a simple, ending number. <span class="ph">[they]</span> ignores the denominator&#x27;s role in determining the decimal type.&quot;, &quot;WHY TEMPTING&quot;: &quot;It&#x27;s often easier to look at the top number rather than perform division or analyze the denominator.&quot;, &quot;SOLUTION&quot;: &quot;The nature of the decimal (terminating or repeating) is primarily determined by the prime factors of the denominator after the fraction is simplified. Always consider the full fraction.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 1/3 is terminating because 1 ends. Right: 1/3 = 0.333... (repeating).</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Not Simplifying Fractions First&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might try to divide 6/12 or analyze its denominator (12 = 2^2 <em> 3) and incorrectly conclude it&#x27;s a repeating decimal due to the prime factor 3.&quot;, &quot;WHY TEMPTING&quot;: &quot;It seems like an extra, unnecessary step, and the goal is just to identify the decimal type.&quot;, &quot;SOLUTION&quot;: &quot;Always simplify the fraction to its lowest terms before examining the denominator&#x27;s prime factors or performing division to accurately determine if it terminates or repeats.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 6/12 has a denominator of 12 (2^2 </em> 3), so it&#x27;s repeating. Right: 6/12 simplifies to 1/2. Denominator 2 means it&#x27;s terminating (0.5).</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Incorrect Prime Factorization of Denominator&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might see a denominator like 15 and incorrectly think its only relevant prime factor is 5 (missing 3), leading <span class="ph">[them]</span> to believe the fraction is terminating.&quot;, &quot;WHY TEMPTING&quot;: &quot;Prime factorization requires careful breakdown, and it&#x27;s easy to miss a prime factor or stop too early.&quot;, &quot;SOLUTION&quot;: &quot;Carefully find <em>all</em> prime factors of the denominator. If any prime factor other than 2 or 5 exists, the decimal is repeating; otherwise, it&#x27;s terminating.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 7/15 has 5 as a prime factor, so it&#x27;s terminating. Right: 7/15 has prime factors 3 and 5, so 7/15 = 0.4666... (repeating).</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Premature Conclusion in Long Division&quot;, &quot;MISTAKE&quot;: &quot;When performing long division, if the remainder doesn&#x27;t immediately become zero after a few steps, <span class="ph">[Student Name]</span> might prematurely conclude it&#x27;s repeating, even if it eventually terminates.&quot;, &quot;WHY TEMPTING&quot;: &quot;Long division can be tedious, and sometimes patterns appear early that are not the true repeating block or a zero remainder.&quot;, &quot;SOLUTION&quot;: &quot;Continue dividing until the remainder is definitively zero (indicating a terminating decimal) or a remainder repeats, clearly establishing the repeating block.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 3/8 = 0.37... (thinking it might repeat after a few digits). Right: 3 \u00f7 8 = 0.375 (terminates with remainder 0).</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Confusing Long Terminating with Repeating&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might encounter a terminating decimal with many digits, such as 0.0625, and assume it must be repeating because it looks &#x27;long&#x27; or complex.&quot;, &quot;WHY TEMPTING&quot;: &quot;Long strings of digits after the decimal point can visually trick students into thinking there&#x27;s an ongoing, infinite pattern.&quot;, &quot;SOLUTION&quot;: &quot;A terminating decimal has a finite number of digits after the decimal point; it eventually ends. A repeating decimal has a block of digits that explicitly repeats infinitely.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 1/16 = 0.0625 is repeating because it&#x27;s long. Right: 1/16 = 0.0625 (terminating because it has a finite number of digits).</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div><span class="ph">[Student Name]</span>, consider the fraction 3/4. If you convert it to a decimal, will it be a terminating or a repeating decimal?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>How would you classify the decimal form of the fraction 2/3, <span class="ph">[Student Name]</span>? Is it terminating or repeating?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div><span class="ph">[Student Name]</span>, convert the fraction 7/20 to a decimal. Then, tell us if the resulting decimal is terminating or repeating.</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div>Without performing the long division, <span class="ph">[Student Name]</span>, determine if the fraction 5/8 will result in a terminating or a repeating decimal. Explain your reasoning.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div><span class="ph">[Student Name]</span>, consider the fraction 4/15. Without doing the division, will its decimal form be terminating or repeating? Why?</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>A basketball team won 5 out of 6 games this season. <span class="ph">[Student Name]</span>, express the fraction 5/6 as a decimal. Use a bar to indicate any repeating digits.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div><span class="ph">[Student Name]</span>, your school&#x27;s cafeteria serves pizza divided into 12 equal slices. If a student eats 7 of those slices, would the decimal representation of the portion eaten be terminating or repeating? Explain why.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div><span class="ph">[Student Name]</span>, determine if the fraction 18/48 represents a terminating or repeating decimal. Be sure to simplify the fraction first, then explain your reasoning.</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div><span class="ph">[Student Name]</span>, convert the fraction 2/11 to a decimal. Write out at least the first six decimal places, and indicate the repeating part with a bar notation.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div>Four students are discussing fractions:
+<em>   Alex says 1/9 is a terminating decimal.
+</em>   Bella says 7/25 is a repeating decimal.
+<em>   Chris says 5/12 is a repeating decimal.
+</em>   David says 9/30 is a repeating decimal.
+<span class="ph">[Student Name]</span>, which student made a correct statement? Explain why the statement is correct.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hi <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is learning about Terminating vs. Repeating Decimals in 7th-grade math. The key concept is understanding that when you divide a fraction to get a decimal, sometimes it stops perfectly (terminating) and sometimes it goes on forever in a repeating pattern. To make this tangible tonight, grab a calculator and a few grocery receipts. Have <span class="ph">[Student Name]</span> calculate the price per item for a few multi-item purchases (e.g., if you bought 3 apples for $2.49, what&#x27;s one apple?). See if the decimals stop or repeat. At dinner, ask <span class="ph">[Student Name]</span>, &#x27;If you divide 1 by 3, what happens? What about 1 by 4? How are they different?&#x27; This helps <span class="ph">[Student Name]</span> connect fractions to these decimal types.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;SESSION OPENING&quot;: &quot;Hello <span class="ph">[Student Name]</span>! Welcome. Today we&#x27;re going to explore something really cool about numbers: how some fractions turn into decimals that stop, and others keep going forever in a pattern. It&#x27;s like a secret life of numbers! We call them &#x27;Terminating&#x27; and &#x27;Repeating&#x27; decimals. Ready to dive in, <span class="ph">[Student Name]</span>?&quot;, &quot;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1&quot;: &quot;No problem, <span class="ph">[Student Name]</span>. Remember, a fraction like 3/4 is just a division problem: 3 divided by 4. Grab your calculator and try that. What do you get? Now, how many decimal places does that number have? If it ends cleanly like 0.75, it&#x27;s terminating. If you try 1/3 and get 0.3333..., what do you notice about the last digit shown? Is there a pattern?&quot;, &quot;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2&quot;: &quot;Great job converting, <span class="ph">[Student Name]</span>! Now, let&#x27;s look at your decimal. Does it have a clear end, like the price of a candy bar ($1.25)? Or does it look like the digits would go on forever if your calculator screen was bigger, like 0.1666...? If it stops, it&#x27;s terminating. If it has a digit or a block of digits that keep showing up over and over, that&#x27;s repeating. Think about 2/3, which is 0.666... \u2013 the 6 repeats.&quot;, &quot;SESSION CLOSING&quot;: &quot;Fantastic work today, <span class="ph">[Student Name]</span>! You&#x27;ve really grasped the difference between decimals that terminate and those that repeat. You&#x27;re building a strong foundation in number sense. Keep an eye out for these types of decimals in your everyday life!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Parent intervention guide in English. <span class="ph">[Parent Name]</span>, the single most common mistake <span class="ph">[Student Name]</span> will make is misidentifying a repeating decimal as terminating if <span class="ph">[they]</span> stops the division too early or doesn&#x27;t recognize the pattern. For instance, if <span class="ph">[Student Name]</span> divides 1 by 6 and only sees &#x27;0.166&#x27; on a calculator, <span class="ph">[they]</span> might think it terminates. How to recognize it: Watch if <span class="ph">[they]</span> states a decimal terminates when the last digit on the calculator screen isn&#x27;t zero, or if <span class="ph">[they]</span> mentions the calculator &#x27;ran out of room.&#x27; Exact words to say: &#x27;<span class="ph">[Student Name]</span>, what happens if you add another 6 to the end of that 0.166? Does the pattern continue? Sometimes calculators round or cut off numbers, but the pattern is still there.&#x27; What NOT to say: &#x27;You&#x27;re wrong, that&#x27;s a repeating decimal.&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;premature_termination&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might incorrectly assume a decimal terminates because <span class="ph">[they]</span> stopped dividing a fraction prematurely or the calculator rounded the last digit. For example, 1/7 might show as 0.14285714, and <span class="ph">[they]</span> might think it&#x27;s terminating.&quot;, &quot;reassurance&quot;: &quot;This is a very common oversight when first learning about these decimals. It just means <span class="ph">[Student Name]</span> needs a little more practice identifying the true end or the repeating cycle.&quot;, &quot;home_action&quot;: &quot;Tonight, have <span class="ph">[Student Name]</span> use a calculator to convert 1/7, 2/7, and 3/7 to decimals. Challenge <span class="ph">[them]</span> to find the entire repeating block for each, writing them out as long as the calculator allows.&quot;}, {&quot;tag&quot;: &quot;confusing_long_terminating_with_repeating&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might confuse a very long terminating decimal, like 1/128 (0.0078125), with a repeating one because it has many digits. <span class="ph">[they]</span> might look for a pattern that isn&#x27;t there.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s understandable to get a bit overwhelmed by decimals with many digits. <span class="ph">[Student Name]</span> is demonstrating attention to detail by looking for patterns, which is a great skill!&quot;, &quot;home_action&quot;: &quot;Help <span class="ph">[Student Name]</span> find examples of common fractions with long, but terminating, decimals. Use fractions with powers of 2 (like 1/16, 1/32) or powers of 5 (like 1/25, 1/125) in their denominators when fully simplified. Discuss how they always terminate.&quot;}, {&quot;tag&quot;: &quot;not_simplifying_fraction_first&quot;, &quot;parent_description&quot;: &quot;Sometimes <span class="ph">[Student Name]</span> might miss that a fraction like 2/6 is actually 1/3. If <span class="ph">[they]</span> tries to divide 2 by 6, <span class="ph">[they]</span> will get a repeating decimal, but the connection to simpler fractions is key.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span> is on the right track by dividing the given fraction! This just shows a need to reinforce simplifying fractions as a first step, which is a foundational skill.&quot;, &quot;home_action&quot;: &quot;When you&#x27;re making dinner, ask <span class="ph">[Student Name]</span> to help measure ingredients. If a recipe calls for &#x27;4/8 cup of flour&#x27;, ask <span class="ph">[them]</span> what&#x27;s the simplest way to say that. Practice simplifying fractions like 4/10 or 6/9 before converting them to decimals.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! Let&#x27;s clear up terminating vs. repeating decimals. This is a foundational concept that helps <span class="ph">[they]</span> understand fractions better. Think of it like this:
+1.  <strong>Fractions as Division:</strong> Every fraction is just a division problem. If you see 1/4, it means 1 divided by 4.
+2.  <strong>Terminating Decimals:</strong> Imagine you&#x27;re buying a drink for $1.50. This is a decimal that <strong>terminates</strong> or &quot;stops&quot; perfectly. There are no more cents after the two digits. If you divide 3 by 4 (3/4), you get 0.75. It stops. Another example: if you divide 1 by 2 (1/2), you get 0.5. It&#x27;s a clean stop. These are common in budgeting or grocery pricing, where amounts are precise.
+3.  <strong>Repeating Decimals:</strong> Now, imagine you&#x27;re trying to split a $10 pizza bill evenly among 3 friends. If you divide 10 by 3, you get $3.33333... forever! You can&#x27;t put that on a receipt. This decimal <strong>repeats</strong> a pattern (in this case, the &#x27;3&#x27; repeats). If you divide 1 by 3 (1/3), you get 0.333... If you divide 2 by 3 (2/3), you get 0.666... The number or a block of numbers keeps reappearing indefinitely. These decimals arise when the division never results in a remainder of zero.
+4.  <strong>The Key Difference:</strong> Terminating decimals have a finite number of digits after the decimal point. Repeating decimals have an infinite number of digits, but they follow a specific, repeating pattern.
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Esta semana, <span class="ph">[Student Name]</span> está aprendiendo sobre los decimales finitos y periódicos en matemáticas de 7º grado. Es un concepto fundamental que le ayudará a comprender cómo los números pueden ser precisos o infinitos. En pocas palabras, algunos decimales terminan con un número exacto, como cuando pagas $15.50 pesos en el mercado. Otros, como al dividir una pizza en 3 partes iguales (0.333...), siguen un patrón que se repite infinitamente. Para una actividad práctica esta noche, busquen una calculadora y prueben algunas fracciones sencillas. Por ejemplo, dividan 1 entre 2 (0.5), 3 entre 4 (0.75) y 1 entre 8 (0.125). Estos son decimales finitos. Luego, dividan 1 entre 3 (0.333...), 2 entre 3 (0.666...) y 1 entre 6 (0.1666...). Verán que los números se repiten. Pídanle a <span class="ph">[Student Name]</span> que identifique cuáles terminan y cuáles se repiten. Durante la cena, pueden preguntarle a <span class="ph">[Student Name]</span>: &quot;Cuando ves un precio en la tienda, como $24.75 pesos, ¿crees que ese número decimal es finito o periódico? ¿Y qué pasa si un chef nos dice que usemos &#x27;un tercio&#x27; de un ingrediente en una receta?&quot; Esto abrirá una conversación sobre cómo estos conceptos se aplican en la vida real.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">¡Hola, <span class="ph">[Student Name]</span>! Es genial verte hoy. ¡Vamos a explorar un tema muy interesante y útil en matemáticas: los decimales finitos y periódicos! Aprenderemos a ver cómo algunos números decimales terminan limpiamente y otros siguen un patrón que nunca acaba. ¡Verás que esto te ayudará a entender mejor los números en tu vida diaria! -- IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;No te preocupes, <span class="ph">[Student Name]</span>. Cuando tienes una fracción como 3/4 y quieres convertirla en un decimal, siempre recordamos que la línea de la fracción significa &#x27;dividir&#x27;. Así que, para 3/4, ¿qué número crees que debería ir dentro de la &#x27;casita&#x27; de la división y cuál afuera? Exacto, dividimos el número de arriba (3) por el número de abajo (4). Inténtalo y dime qué obtienes.&quot; -- IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Mira con atención, <span class="ph">[Student Name]</span>, ya tienes 1/3 convertido a 0.3333... ¿Qué notas en los números después del punto decimal? ¿Hay alguna cifra o grupo de cifras que se repita una y otra vez? Intenta extender la división un poco más si no estás seguro. Si ves que un &#x27;3&#x27; sigue apareciendo, entonces tenemos un patrón repetitivo. Si, por el contrario, los números simplemente llegan a un final, como 0.75, entonces es un decimal finito.&quot; -- SESSION CLOSING: &quot;¡Excelente trabajo hoy, <span class="ph">[Student Name]</span>! Has hecho un gran esfuerzo para entender la diferencia entre los decimales finitos y periódicos. Es un concepto importante y lo estás dominando. Sigue practicando y te sentirás aún más cómodo con esto. ¡Nos vemos la próxima vez!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">El error más común que <span class="ph">[Student Name]</span> podría cometer con los decimales finitos y periódicos es detener la división demasiado pronto o no reconocer un patrón de repetición largo. Por ejemplo, al dividir 1/7, el resultado es 0.142857142857..., y si <span class="ph">[Student Name]</span> se detiene en 0.142, podría pensar que es un decimal &quot;random&quot; o que simplemente termina. Para reconocerlo, observe el proceso de división larga que <span class="ph">[Student Name]</span> está realizando. Si el resto nunca llega a cero, pero comienza a repetirse (apareciendo el mismo resto que ya tuvo antes), entonces el decimal es periódico. Exactas palabras para decir a <span class="ph">[Student Name]</span>: &quot;Cuando hagas la división, <span class="ph">[Student Name]</span>, asegúrate de seguir dividiendo unas cuantas veces más si el resto no es cero. Mira si el mismo resto vuelve a aparecer. Si lo hace, ¡ya encontraste el patrón que se repite!&quot; Lo que NO debe decir a <span class="ph">[Student Name]</span>: &quot;Estás haciendo la división mal&quot; o &quot;Este problema es demasiado complicado&quot;. La frustración solo dificulta el aprendizaje.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;terminating_is_long&quot;, &quot;parent_description&quot;: &quot;A veces, <span class="ph">[Student Name]</span> cree que si un decimal tiene muchas cifras despu\u00e9s del punto, debe ser peri\u00f3dico, incluso si en realidad termina. Por ejemplo, 1/16 se convierte en 0.0625, que parece largo, pero es finito.&quot;, &quot;reassurance&quot;: &quot;Es una confusi\u00f3n com\u00fan que <span class="ph">[Student Name]</span> est\u00e1 aprendiendo a superar con la pr\u00e1ctica. Su atenci\u00f3n al detalle es un buen punto de partida.&quot;, &quot;home_action&quot;: &quot;Con una calculadora, prueben fracciones como 1/8 (0.125) y 1/16 (0.0625). Luego comp\u00e1renlas con 1/3 (0.333...) para que <span class="ph">[Student Name]</span> vea la diferencia entre un decimal largo que termina y uno que se repite.&quot;, &quot;_worksheet&quot;: &quot;error_analysis&quot;}, {&quot;tag&quot;: &quot;missing_repeat_pattern&quot;, &quot;parent_description&quot;: &quot;Cuando <span class="ph">[Student Name]</span> convierte una fracci\u00f3n a decimal, podr\u00eda no identificar el patr\u00f3n completo de repetici\u00f3n, o detenerse antes de que se haga obvio. Por ejemplo, en 1/7 = 0.142857142857..., si solo ve una parte, puede pensar que es un decimal aleatorio.&quot;, &quot;reassurance&quot;: &quot;Reconocer patrones requiere un ojo atento y <span class="ph">[Student Name]</span> est\u00e1 desarrollando esa habilidad. \u00a1Con m\u00e1s pr\u00e1ctica, lo lograr\u00e1!&quot;, &quot;home_action&quot;: &quot;Hagan la divisi\u00f3n larga juntos para fracciones como 1/7 o 1/11 (0.090909...) en un papel, prestando atenci\u00f3n a cu\u00e1ndo los restos de la divisi\u00f3n empiezan a repetirse. Esto le ayudar\u00e1 a <span class="ph">[Student Name]</span> a &#x27;ver&#x27; el patr\u00f3n.&quot;, &quot;_worksheet&quot;: &quot;error_analysis&quot;}, {&quot;tag&quot;: &quot;division_is_random&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> puede llegar a pensar que los resultados decimales de algunas fracciones son completamente aleatorios y no siguen ninguna regla. Esto es una se\u00f1al de que no est\u00e1 viendo la estructura subyacente.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span> est\u00e1 en el camino correcto para entender que el mundo de los decimales de fracciones es muy ordenado. \u00a1Todos tienen un comportamiento predecible!&quot;, &quot;home_action&quot;: &quot;Recu\u00e9rdenle a <span class="ph">[Student Name]</span> que cada fracci\u00f3n se convierte en un decimal que o bien termina o bien se repite en un patr\u00f3n. \u00a1Nunca es aleatorio! Esto le dar\u00e1 confianza en que hay reglas claras.&quot;, &quot;_worksheet&quot;: &quot;error_analysis&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hola, <span class="ph">[Parent Name]</span>. ¡Vamos a entender juntos qué son los decimales finitos y periódicos! No se preocupe, <span class="ph">[they]</span> verá que es un concepto muy lógico y útil, incluso para usted. Imagine que está en el supermercado. 1. Decimales Finitos (los que &#x27;terminan&#x27;): Piense en el precio de una bolsa de manzanas: $25.50 pesos. Este número tiene un final claro; termina en el .50. No sigue y sigue. Otro ejemplo: si <span class="ph">[they]</span> usa 1/4 (un cuarto) de taza de azúcar para una receta, eso es 0.25 tazas. Es un número exacto y finito, no hay más dígitos después del 5. La división (1 dividido por 4) termina sin que quede nada. 2. Decimales Periódicos (los que &#x27;se repiten&#x27;): Ahora, imagine que <span class="ph">[they]</span> quiere dividir una pizza grande en 3 partes exactamente iguales para la familia. Cada persona obtendría 1/3 de la pizza. Si trata de escribir eso como un decimal, obtendrá 0.33333... y el 3 se repite infinitamente. Nunca termina. O si en el trabajo le dicen que calcule &quot;un sexto&quot; de un presupuesto de $1000 pesos, obtendría $166.666... pesos. El 6 se repite. La división (1 dividido por 3, o 1 dividido por 6) nunca termina con un resto de cero, sino que el mismo resto comienza a aparecer una y otra vez, haciendo que los dígitos se repitan. En resumen, <span class="ph">[Parent Name]</span>, los decimales finitos son como una cuenta que se cierra con un monto exacto. Los decimales periódicos son como una melodía que tiene una sección que se repite una y otra vez sin parar. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> dominará este concepto y será capaz de enseñar a <span class="ph">[Student Name]</span> con confianza.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>, Cette semaine, <span class="ph">[Student Name]</span> se plonge dans un concept fondamental des nombres : les décimales finies et les décimales périodiques. En termes simples, <span class="ph">[they]</span> va apprendre pourquoi certaines fractions, lorsqu&#x27;on les convertit en nombres décimaux, s&#x27;arrêtent après un certain nombre de chiffres (comme 1/4 qui devient 0,25), tandis que d&#x27;autres continuent indéfiniment avec un motif répétitif (comme 1/3 qui devient 0,333...). C&#x27;est une compétence clé pour comprendre les nombres rationnels. 
+
+Ce soir, vous pourriez faire une activité pratique : prenez une calculatrice et essayez de diviser 1 dollar (ou 1 bonbon géant !) entre différentes personnes. Partagez 1 dollar entre 4 personnes (1 ÷ 4 = 0,25). Cela s&#x27;arrête. Puis, partagez 1 dollar entre 3 personnes (1 ÷ 3 = 0,333...). Discutez de ce qui se passe. 
+
+À table, vous pourriez demander à <span class="ph">[Student Name]</span> : « Aujourd&#x27;hui, as-tu appris pourquoi certains partages (comme 1 dollar entre 4 personnes) donnent des résultats décimaux qui s&#x27;arrêtent, alors que d&#x27;autres (comme 1 dollar entre 3 personnes) continuent à l&#x27;infini ? » C&#x27;est une excellente façon de lancer la conversation sur ce que <span class="ph">[they]</span> apprend en mathématiques.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: Bonjour <span class="ph">[Student Name]</span> ! Nous allons nous amuser aujourd&#x27;hui à explorer le monde fascinant des décimales. Savais-tu que quand tu transformes une fraction en nombre décimal, parfois elle s&#x27;arrête, et parfois les chiffres continuent de se répéter pour toujours ? C&#x27;est ce que nous allons découvrir ensemble : les décimales finies et les décimales périodiques !
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: D&#x27;accord <span class="ph">[Student Name]</span>, ne t&#x27;inquiète pas. Rappelle-toi, une fraction est juste une division. Pour convertir 3/4 en décimal, comment commencerais-tu la division ? Nous divisons le numérateur (le haut) par le dénominateur (le bas). Peux-tu me montrer comment tu écrirais 3 divisé par 4 pour commencer ? Utilisons 3.00 divisé par 4 pour nous aider à obtenir des chiffres après la virgule.
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: Très bien <span class="ph">[Student Name]</span>, tu as fait la division. Maintenant, regarde attentivement le résultat décimal, par exemple 1 divisé par 3 qui donne 0,333... ou 3 divisé par 8 qui donne 0,375. Est-ce que les chiffres après la virgule s&#x27;arrêtent, ou vois-tu un motif clair qui se répète sans fin ? Pense à 0,25 – ça s&#x27;arrête, n&#x27;est-ce pas ? Mais pour 0,333..., on voit que le 3 se répète. Essaye de prolonger la division de 1 par 3 encore un peu pour voir si le 3 continue à apparaître.
+
+SESSION CLOSING: Excellent travail, <span class="ph">[Student Name]</span> ! Tu as fait de grands progrès aujourd&#x27;hui en distinguant les décimales finies des décimales périodiques. Tu as compris qu&#x27;une simple division peut te dire si un nombre s&#x27;arrête ou continue avec un motif. Je suis vraiment fier/fière de tes efforts. Continue comme ça !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus grande erreur que <span class="ph">[Student Name]</span> pourrait commettre est de s&#x27;arrêter trop tôt pendant la division pour déterminer si une décimale est finie ou périodique. Par exemple, <span class="ph">[they]</span> pourrait convertir 1/6 en 0,16 et conclure que c&#x27;est une décimale finie, alors qu&#x27;en réalité, c&#x27;est 0,1666... (périodique). Pour reconnaître cette erreur, vérifiez si <span class="ph">[they]</span> a effectué la division jusqu&#x27;à obtenir un reste de zéro ou jusqu&#x27;à ce qu&#x27;un motif de chiffres se répète clairement. 
+
+Voici ce qu&#x27;il faut dire à <span class="ph">[Student Name]</span> : « Quand tu divises pour trouver le décimal, assure-toi de continuer la division assez longtemps. Parfois, un motif de répétition n&#x27;apparaît qu&#x27;après plusieurs chiffres. Si le reste ne devient pas zéro, continue à ajouter des zéros après la virgule dans le dividende. » 
+
+Ce qu&#x27;il NE FAUT PAS dire : « C&#x27;est évident que ça continue ! Tu n&#x27;as pas fait la division correctement. »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;stopping_too_early&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pourrait s&#x27;arr\u00eater trop t\u00f4t en divisant, pensant qu&#x27;un d\u00e9cimal est fini alors qu&#x27;il est p\u00e9riodique. Par exemple, <span class="ph">[they]</span> pourrait calculer 1/6 comme 0,16 au lieu de 0,1666... et ne pas voir le motif r\u00e9p\u00e9titif.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s courante au d\u00e9but. Il faut juste prendre le temps d&#x27;aller un peu plus loin dans la division pour bien observer les motifs.&quot;, &quot;home_action&quot;: &quot;Avec <span class="ph">[Student Name]</span>, utilisez une calculatrice pour diviser 1 par 6, puis 1 par 7. Demandez-lui d&#x27;observer la diff\u00e9rence et de continuer \u00e0 appuyer sur le bouton de division pour voir si les chiffres continuent ou se r\u00e9p\u00e8tent.&quot;}, {&quot;tag&quot;: &quot;confusing_long_decimals&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pourrait confondre une d\u00e9cimale longue mais finie avec une d\u00e9cimale p\u00e9riodique, ou vice-versa. Par exemple, <span class="ph">[they]</span> pourrait consid\u00e9rer 7/16 (0,4375) comme p\u00e9riodique parce qu&#x27;elle est longue, ou 1/11 (0,0909...) comme juste &#x27;longue&#x27; sans identifier le motif 09.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est un d\u00e9fi d&#x27;identifier ces motifs ! Avec de la pratique, <span class="ph">[they]</span> d\u00e9veloppera un \u0153il attentif pour rep\u00e9rer quand un nombre s&#x27;arr\u00eate vraiment ou quand il commence \u00e0 se r\u00e9p\u00e9ter.&quot;, &quot;home_action&quot;: &quot;Utilisez de l&#x27;argent factice (play money). Demandez \u00e0 <span class="ph">[Student Name]</span> de &#x27;partager&#x27; 7 dollars entre 16 amis (0,4375 $ chacun) et 1 dollar entre 11 amis (environ 0,0909 $ chacun). Discutez de la faisabilit\u00e9 de ces partages &#x27;exacts&#x27; en dollars et cents.&quot;}, {&quot;tag&quot;: &quot;misidentifying_repeating_block&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pourrait mal identifier le bloc qui se r\u00e9p\u00e8te. Pour 1/6 = 0,1666..., <span class="ph">[they]</span> pourrait penser que &#x27;16&#x27; se r\u00e9p\u00e8te au lieu de juste &#x27;6&#x27;. Ou pour 1/11 = 0,0909..., <span class="ph">[they]</span> pourrait ne pas voir que &#x27;09&#x27; est le bloc r\u00e9p\u00e9titif.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est un d\u00e9tail important qui vient avec l&#x27;exp\u00e9rience. <span class="ph">[they]</span> apprendra \u00e0 isoler le bon bloc r\u00e9p\u00e9titif avec plus de pratique et d&#x27;attention.&quot;, &quot;home_action&quot;: &quot;\u00c9crivez plusieurs d\u00e9cimales p\u00e9riodiques (ex: 0,121212..., 0,54333..., 0,707070...) sur des fiches. Demandez \u00e0 <span class="ph">[Student Name]</span> d&#x27;encercler le plus petit bloc de chiffres qui se r\u00e9p\u00e8te.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span> ! Découvrons ensemble les décimales finies et périodiques. Pas besoin de connaissances préalables, <span class="ph">[they]</span> va maîtriser ce concept !
+
+1.  <strong>L&#x27;idée de base :</strong> Imaginez que vous divisez quelque chose, comme une pizza ou de l&#x27;argent. Quand vous faites la division, le résultat peut soit &#x27;s&#x27;arrêter&#x27; précisément, soit &#x27;continuer&#x27; indéfiniment avec des chiffres qui se répètent.
+
+2.  <strong>Les décimales finies (qui s&#x27;arrêtent) :</strong> Pensez à l&#x27;argent. Si vous avez 1 dollar et que vous le partagez équitablement entre 4 enfants, chacun reçoit 0,25 dollar. Le nombre 0,25 est une décimale &#x27;finie&#x27; parce qu&#x27;il s&#x27;arrête. Il n&#x27;y a plus de chiffres après le 5. Autre exemple : 1/2 dollar, c&#x27;est 0,50 dollar. C&#x27;est précis, ça s&#x27;arrête.
+
+3.  <strong>Les décimales périodiques (qui se répètent) :</strong> Maintenant, imaginez que vous avez toujours 1 dollar, mais que vous le partagez entre 3 enfants. Chaque enfant reçoit 0,333... dollar. Le chiffre 3 se répète à l&#x27;infini. Vous ne pouvez pas donner une somme exacte en dollars et cents. C&#x27;est une décimale &#x27;périodique&#x27; car un ou plusieurs chiffres se répètent sans fin. Un autre exemple : si vous devez partager 2 tasses de farine entre 3 recettes, chaque recette reçoit 0,666... tasse. Le 6 se répète.
+
+4.  <strong>Comment savoir :</strong> Pour savoir si une fraction donne une décimale finie ou périodique, il faut faire la division du numérateur par le dénominateur. Si la division se termine (le reste devient zéro), c&#x27;est fini. Si un reste non nul commence à se répéter, cela signifie que les chiffres dans la décimale vont aussi se répéter. 
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> peut absolument comprendre cela et aider <span class="ph">[Student Name]</span> avec confiance ! C&#x27;est juste une question de division et d&#x27;observation.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está explorando um conceito muito interessante na matemática do 7º ano: &#x27;Decimais Finitos e Dízimas Periódicas&#x27;. Essencialmente, <span class="ph">[Student Name]</span> aprenderá a identificar se uma fração, quando convertida em decimal, termina (como $0.5$) ou continua infinitamente com um padrão repetitivo (como $0.333...$). A chave para entender isso é que alguns números decimais têm um fim, enquanto outros se repetem para sempre. Para uma atividade prática divertida esta noite, pegue algumas notas de reais e divida-as em frações. Por exemplo, mostre a <span class="ph">[Student Name]</span> como $1/2$ de um real é R$0,50$ (finito), mas tentar dividir R$1,00$ por $3$ pessoas igualmente resultaria em R$0,333...$ (repetitivo) para cada um, se pudéssemos ter frações infinitas de centavos. À mesa de jantar, você pode perguntar a <span class="ph">[Student Name]</span>: &#x27;Se você tem 2 chocolates e quer dividir igualmente entre 4 amigos, qual decimal representa a parte de cada um? E se fossem 2 chocolates para 3 amigos?&#x27; Isso os fará pensar sobre divisões que terminam e divisões que se repetem.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &#x27;Olá, <span class="ph">[Student Name]</span>! Que bom ver você. Hoje vamos mergulhar em um tópico super legal que vai te ajudar a entender melhor os números: os decimais finitos e as dízimas periódicas. Vamos descobrir como algumas frações resultam em números decimais que &#x27;terminam&#x27; e outros que &#x27;repetem&#x27; sem parar. <span class="ph">[Student Name]</span>, tenho certeza que <span class="ph">[they]</span> vai achar isso fascinante!&#x27;
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &#x27;Tudo bem, <span class="ph">[Student Name]</span>, não se preocupe. Vamos dar um passo para trás. Lembre-se que uma fração como $3/4$ é o mesmo que dizer &#x27;três dividido por quatro&#x27;. Imagine que você tem 3 fatias de pizza e quer dividir entre 4 amigos. Como você faria essa divisão? Tente usar a divisão longa aqui. Primeiro, 3 não pode ser dividido por 4, então colocamos um zero e uma vírgula no quociente e adicionamos um zero ao 3, tornando-o 30. Agora, 30 dividido por 4. Quantas vezes o 4 cabe no 30? <span class="ph">[Student Name]</span>, <span class="ph">[they]</span> consegue!&#x27;
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &#x27;Você está quase lá, <span class="ph">[Student Name]</span>! Depois de fazer a divisão longa e obter um decimal, olhe para os dígitos após a vírgula. Se os dígitos pararem, como em $0.75$ para $3/4$, é um decimal &#x27;finito&#x27; ou &#x27;terminante&#x27;. Mas se os dígitos continuarem para sempre em um padrão, como $0.333...$ para $1/3$, é uma &#x27;dízima periódica&#x27;. Onde os números param ou se repetem? Veja o seu exemplo $5/11$. Seus cálculos estão te mostrando um padrão? <span class="ph">[Student Name]</span>, você consegue identificar o padrão repetitivo aí!&#x27;
+SESSION CLOSING: &#x27;Incrível, <span class="ph">[Student Name]</span>! Você arrasou em entender os decimais finitos e as dízimas periódicas hoje. <span class="ph">[they]</span> fez um trabalho excelente ao converter frações e identificar esses padrões. Continue praticando e você será um expert nisso! Estou muito orgulhoso de <span class="ph">[them]</span>!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>. O erro mais comum que <span class="ph">[Student Name]</span> pode cometer ao aprender sobre decimais finitos e dízimas periódicas é não estender a divisão longa o suficiente para identificar um padrão repetitivo ou para ver se a divisão termina. Às vezes, <span class="ph">[Student Name]</span> pode parar a divisão depois de dois ou três dígitos e concluir incorretamente que um decimal é finito, quando na verdade ele é repetitivo, ou vice-versa. Para reconhecer isso, observe se <span class="ph">[Student Name]</span> está terminando a divisão longa prematuramente, sem atingir um resto de zero ou um resto que já apareceu antes. Se você vir <span class="ph">[Student Name]</span> parando a divisão antes da hora, diga: &#x27;<span class="ph">[Student Name]</span>, vamos continuar a divisão por mais alguns passos. Lembre-se, para saber se é um decimal que termina ou que se repete, precisamos ver se o resto da divisão vira zero, ou se ele começa a se repetir. O que acontece se continuarmos dividindo?&#x27; O que NÃO dizer: &#x27;Você está fazendo errado, <span class="ph">[Student Name]</span>. Não é assim que se faz.&#x27; Isso pode desmotivar <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;premature_stopping&quot;, &quot;parent_description&quot;: &quot;Frequentemente, <span class="ph">[Student Name]</span> pode parar a divis\u00e3o de uma fra\u00e7\u00e3o por seu denominador muito cedo, antes de identificar um padr\u00e3o ou um resto de zero. Por exemplo, ao dividir $1/6$, <span class="ph">[Student Name]</span> pode obter $0.16$ e parar, pensando que \u00e9 finito, quando o correto \u00e9 $0.1666...$ (d\u00edzima peri\u00f3dica).&quot;, &quot;reassurance&quot;: &quot;\u00c9 completamente normal que <span class="ph">[Student Name]</span> cometa esse tipo de erro, pois requer paci\u00eancia e aten\u00e7\u00e3o aos detalhes na divis\u00e3o longa. \u00c9 um passo importante no aprendizado!&quot;, &quot;home_action&quot;: &quot;Pe\u00e7a a <span class="ph">[Student Name]</span> para resolver $1/7$ em decimal usando divis\u00e3o longa. Incentive-o a continuar dividindo at\u00e9 que veja um padr\u00e3o claro se repetir ou que o resto seja zero. Discutam o comprimento do padr\u00e3o.&quot;}, {&quot;tag&quot;: &quot;misidentifying_pattern&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode identificar incorretamente um padr\u00e3o repetitivo. Por exemplo, ao dividir $1/11$, o resultado \u00e9 $0.090909...$. <span class="ph">[Student Name]</span> pode ver apenas &#x27;09&#x27; e achar que \u00e9 um padr\u00e3o, mas n\u00e3o perceber que precisa do &#x27;09&#x27; completo. Ou pode ver $0.123123123...$ e pensar que o padr\u00e3o \u00e9 $123$, mas n\u00e3o ver o bloco completo.&quot;, &quot;reassurance&quot;: &quot;Reconhecer padr\u00f5es pode ser um desafio visual. <span class="ph">[Student Name]</span> est\u00e1 desenvolvendo habilidades de observa\u00e7\u00e3o cruciais. Com mais pr\u00e1tica, <span class="ph">[they]</span> ficar\u00e1 mais afiado nisso.&quot;, &quot;home_action&quot;: &quot;Mostrem juntos um extrato banc\u00e1rio ou um recibo de supermercado com valores decimais. Pergunte a <span class="ph">[Student Name]</span> se ele consegue imaginar um cen\u00e1rio onde esses n\u00fameros se repetiriam indefinidamente (e por que n\u00e3o \u00e9 comum na vida real). Pe\u00e7a para converter $2/3$ e $4/9$ para decimais e identificar o padr\u00e3o repetitivo.&quot;}, {&quot;tag&quot;: &quot;confusion_prime_factors&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode n\u00e3o conectar a simplicidade da fra\u00e7\u00e3o (fatores primos no denominador) com o tipo de decimal. Fra\u00e7\u00f5es irredut\u00edveis cujos denominadores t\u00eam apenas fatores primos de 2 e/ou 5 resultam em decimais finitos (ex: $1/8 = 0.125$, $1/20 = 0.05$). Se houver outros fatores primos (ex: 3, 7, 11), a fra\u00e7\u00e3o resultar\u00e1 em uma d\u00edzima peri\u00f3dica (ex: $1/3 = 0.333...$, $1/7 = 0.142857...$).&quot;, &quot;reassurance&quot;: &quot;Essa conex\u00e3o \u00e9 um passo avan\u00e7ado, mas muito poderoso. <span class="ph">[Student Name]</span> est\u00e1 construindo uma compreens\u00e3o profunda. \u00c9 uma parte mais te\u00f3rica, mas que vai clarear muito o entendimento de <span class="ph">[their]</span>.&quot;, &quot;home_action&quot;: &quot;Converta as fra\u00e7\u00f5es $1/4$, $1/5$, $1/10$, $1/3$, $1/6$, $1/9$ para decimais. Para cada uma, pe\u00e7a a <span class="ph">[Student Name]</span> para decompor o denominador em seus fatores primos. Pergunte: &#x27;O que voc\u00ea notou sobre os fatores primos dos denominadores que resultam em decimais finitos versus d\u00edzimas peri\u00f3dicas?&#x27;&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos descomplicar o mundo dos decimais finitos e dízimas periódicas para que <span class="ph">[they]</span> possa ajudar <span class="ph">[Student Name]</span> com confiança. Imagine que você está no mercado.
+1. <strong>Decimais Finitos (Os que &#x27;Terminam&#x27;)</strong>: Pense em quanto você gasta em uma compra. Se você compra um item por R$ 2,50, o preço tem um fim, certo? Não continua R$ 2,505050... Isso é um decimal finito. Outro exemplo: se você divide um bolo em 4 pedaços iguais, cada pedaço é $1/4$ do bolo, ou $0.25$. O $0.25$ é um número que termina. É como uma conta que fecha perfeitamente. Eles vêm de frações cujos denominadores (a parte de baixo da fração, depois de simplificar a fração ao máximo) são formados apenas pelos fatores primos 2 e/ou 5. Por exemplo, $3/8$ é $0.375$. O $8$ é $2 \times 2 \times 2$.
+2. <strong>Dízimas Periódicas (Os que &#x27;Repetem&#x27;)</strong>: Agora, imagine que você quer dividir 10 reais igualmente entre 3 colegas de trabalho. Se <span class="ph">[they]</span> tentar fazer a divisão, cada um receberia R$ 3,33333... indefinidamente. Não há um fim para esse &#x27;3&#x27;. Esse é um decimal repetitivo. Ou, se você corta uma receita de 1 xícara de farinha em 3 porções, cada porção teria $0.333...$ de xícara. O número não termina, mas tem um padrão claro que se repete. Eles vêm de frações cujos denominadores, após simplificar a fração, têm outros fatores primos além de 2 e/ou 5 (por exemplo, 3, 7, 11, etc.). Por exemplo, $1/3$ é $0.333...$. O $3$ é um fator primo diferente de 2 ou 5.
+3. <strong>Como Identificar</strong>: Para saber se um decimal é finito ou repetitivo, basta dividir o numerador (o número de cima da fração) pelo denominador (o número de baixo). Se a divisão terminar com um resto zero, é finito. Se o resto nunca for zero e um padrão de dígitos começar a se repetir no quociente, é uma dízima periódica.
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> vai dominar este conceito e ser capaz de ensinar <span class="ph">[Student Name]</span> com confiança.</div></div></div></div>
+</body>
+</html>

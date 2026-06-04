@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Irrational Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.047<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Irrational Numbers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.047</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new collector&#x27;s coin has a perfectly circular shape with a radius of 2 cm. What is the exact area of the coin?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 cm²</div><div class="option"><span class="opt-letter">B.</span> 2π cm²</div><div class="option"><span class="opt-letter">C.</span> 4π cm²</div><div class="option"><span class="opt-letter">D.</span> 12.56 cm²</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A = πr²</div>
+    <div class="step-exp">The area of a circle is calculated by multiplying pi (π) by the square of its radius (r).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = π(2 cm)²</div>
+    <div class="step-exp">The radius of the coin is 2 cm. Substitute this value for &#x27;r&#x27; in the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">A = π(4 cm²) = 4π cm²</div>
+    <div class="step-exp">Squaring 2 cm gives 4 cm². The exact area is 4π cm². Since π is an irrational number, 4π is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4π cm² (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square baseball field has sides of 90 feet. What is the exact length of the diagonal from home plate to second base?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 127.28 feet</div><div class="option"><span class="opt-letter">B.</span> 90√2 feet</div><div class="option"><span class="opt-letter">C.</span> 90 feet</div><div class="option"><span class="opt-letter">D.</span> 180 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The diagonal forms the hypotenuse of a right-angled triangle, with the sides of the square as the legs (a = 90, b = 90).</div>
+    <div class="step-exp">In a square, the diagonal cuts it into two right-angled isosceles triangles.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">a² + b² = c² =&gt; 90² + 90² = c²</div>
+    <div class="step-exp">The Pythagorean theorem states that in a right-angled triangle, the square of the hypotenuse (c) is equal to the sum of the squares of the other two sides (a and b).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8100 + 8100 = c² =&gt; 16200 = c²</div>
+    <div class="step-exp">Square 90 (90*90 = 8100) and add the results.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">c = √16200 = √(8100 * 2) = 90√2 feet</div>
+    <div class="step-exp">Take the square root of 16200. To simplify, find the largest perfect square factor of 16200, which is 8100. Since √8100 = 90, the simplified form is 90√2 feet. Since √2 is an irrational number, 90√2 is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 90√2 feet (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A round cake pan has a diameter of 10 inches. What is the exact circumference of the pan?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5π inches</div><div class="option"><span class="opt-letter">B.</span> 20π inches</div><div class="option"><span class="opt-letter">C.</span> 10π inches</div><div class="option"><span class="opt-letter">D.</span> 31.41 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">C = πd</div>
+    <div class="step-exp">The circumference (C) of a circle is calculated by multiplying pi (π) by its diameter (d).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">C = π(10 inches)</div>
+    <div class="step-exp">The diameter of the cake pan is 10 inches. Substitute this value for &#x27;d&#x27; in the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">C = 10π inches</div>
+    <div class="step-exp">The exact circumference is 10π inches. Since π is an irrational number, 10π is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10π inches (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A drone flies a path that can be modeled as the hypotenuse of a right triangle. If it flies 3 miles north and 4 miles east, what is the exact length of its path?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7 miles</div><div class="option"><span class="opt-letter">B.</span> √25 miles</div><div class="option"><span class="opt-letter">C.</span> √7 miles</div><div class="option"><span class="opt-letter">D.</span> 5 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The drone&#x27;s path is the hypotenuse of a right triangle, with legs a = 3 miles and b = 4 miles.</div>
+    <div class="step-exp">The north and east movements form the perpendicular sides of a right triangle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">a² + b² = c² =&gt; 3² + 4² = c²</div>
+    <div class="step-exp">The Pythagorean theorem relates the lengths of the sides of a right-angled triangle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">9 + 16 = c² =&gt; 25 = c²</div>
+    <div class="step-exp">3² = 9 and 4² = 16. Summing them gives 25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">c = √25 = 5 miles</div>
+    <div class="step-exp">The square root of 25 is 5. Since 5 is a whole number, the length of the path is a rational number, not an irrational one.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 miles (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A rectangular whiteboard in a classroom measures 8 feet by 12 feet. What is the exact length of the diagonal across the whiteboard?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> √208 feet</div><div class="option"><span class="opt-letter">B.</span> 20 feet</div><div class="option"><span class="opt-letter">C.</span> 4√13 feet</div><div class="option"><span class="opt-letter">D.</span> 14.42 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The diagonal forms the hypotenuse of a right-angled triangle, with the whiteboard sides as the legs (a = 8, b = 12).</div>
+    <div class="step-exp">The length and width of the rectangle form the perpendicular sides of a right triangle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">a² + b² = c² =&gt; 8² + 12² = c²</div>
+    <div class="step-exp">The Pythagorean theorem relates the lengths of the sides of a right-angled triangle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">64 + 144 = c² =&gt; 208 = c²</div>
+    <div class="step-exp">8² = 64 and 12² = 144. Summing them gives 208.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">c = √208 = √(16 * 13) = 4√13 feet</div>
+    <div class="step-exp">Take the square root of 208. To simplify, find the largest perfect square factor of 208, which is 16. Since √16 = 4, the simplified form is 4√13 feet. Since √13 is an irrational number, 4√13 is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4√13 feet (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is studying a perfectly spherical cell with a radius of 3 micrometers. What is the exact volume of the cell?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9π cubic micrometers</div><div class="option"><span class="opt-letter">B.</span> 36π cubic micrometers</div><div class="option"><span class="opt-letter">C.</span> 113.1 cubic micrometers</div><div class="option"><span class="opt-letter">D.</span> 108π cubic micrometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">V = (4/3)πr³</div>
+    <div class="step-exp">The volume (V) of a sphere is calculated using pi (π) and its radius (r).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">V = (4/3)π(3)³</div>
+    <div class="step-exp">The radius of the cell is 3 micrometers. Substitute this value for &#x27;r&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3³ = 3 <em> 3 </em> 3 = 27</div>
+    <div class="step-exp">Cube the radius (3 to the power of 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">V = (4/3)π(27) = 4π <em> (27/3) = 4π </em> 9 = 36π cubic micrometers</div>
+    <div class="step-exp">Multiply (4/3) by 27, then by π. The exact volume is 36π cubic micrometers. Since π is an irrational number, 36π is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 36π cubic micrometers (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a diagonal brace for a square window frame. If the window has a side length of 5 feet, what is the exact length of the brace?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 feet</div><div class="option"><span class="opt-letter">B.</span> √50 feet</div><div class="option"><span class="opt-letter">C.</span> 5√2 feet</div><div class="option"><span class="opt-letter">D.</span> 7.07 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The diagonal brace forms the hypotenuse of a right-angled triangle, with the window sides as the legs (a = 5, b = 5).</div>
+    <div class="step-exp">In a square, the diagonal cuts it into two right-angled isosceles triangles.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">a² + b² = c² =&gt; 5² + 5² = c²</div>
+    <div class="step-exp">The Pythagorean theorem relates the lengths of the sides of a right-angled triangle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">25 + 25 = c² =&gt; 50 = c²</div>
+    <div class="step-exp">5² = 25. Summing them gives 50.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">c = √50 = √(25 * 2) = 5√2 feet</div>
+    <div class="step-exp">Take the square root of 50. To simplify, find the largest perfect square factor of 50, which is 25. Since √25 = 5, the simplified form is 5√2 feet. Since √2 is an irrational number, 5√2 is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5√2 feet (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The period (T) of a pendulum, which is the time it takes to complete one swing, is given by the formula T = 2π√(L/g). If a pendulum has a length (L) of 0.5 meters and g is exactly 9.8 m/s², what is the exact value of √(L/g)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> √(5/98) seconds</div><div class="option"><span class="opt-letter">B.</span> √(1/196) seconds</div><div class="option"><span class="opt-letter">C.</span> 5/98 seconds</div><div class="option"><span class="opt-letter">D.</span> 0.226 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">√(0.5 / 9.8)</div>
+    <div class="step-exp">Replace L with 0.5 and g with 9.8 in the expression under the square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.5 = 1/2, 9.8 = 98/10</div>
+    <div class="step-exp">To avoid introducing approximations, express the decimal numbers as fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">√( (1/2) / (98/10) ) = √( (1/2) * (10/98) ) = √( 10 / 196 )</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. Then multiply the fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√( 10 / 196 ) = √( (2 <em> 5) / (2 </em> 98) ) = √(5/98) seconds</div>
+    <div class="step-exp">Divide both the numerator and the denominator by their greatest common factor, which is 2. The exact value is √(5/98). Since 5/98 is not a perfect square, √(5/98) is an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> √(5/98) seconds (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A certain rare species&#x27; population (P) growth over time (t) can be modeled by P = 100 * (1 + r)^t. If the population doubles every √5 years, what is the exact annual growth rate (r)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2^(√5) - 1</div><div class="option"><span class="opt-letter">B.</span> 2^(1/√5) - 1</div><div class="option"><span class="opt-letter">C.</span> (2-1)/√5</div><div class="option"><span class="opt-letter">D.</span> 0.447</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">If the population doubles, P becomes 2P. The time (t) is √5 years. So, 2P = P * (1 + r)^√5.</div>
+    <div class="step-exp">Substitute the condition for doubling and the given time into the population growth model.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by P: 2 = (1 + r)^√5</div>
+    <div class="step-exp">Isolate the exponential term to solve for the growth rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2^(1/√5) = ( (1 + r)^√5 )^(1/√5) =&gt; 2^(1/√5) = 1 + r</div>
+    <div class="step-exp">To undo an exponent of √5, raise both sides to the power of 1/√5. Recall that (x^a)^b = x^(a*b).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">r = 2^(1/√5) - 1</div>
+    <div class="step-exp">Subtract 1 from both sides to find the exact annual growth rate. Since √5 is an irrational number, 1/√5 is irrational. Raising a rational base (2) to an irrational exponent (1/√5) generally results in an irrational number. Subtracting a rational number (1) from an irrational number results in an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2^(1/√5) - 1 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new encryption algorithm processes data at a rate of 100 megabytes per √3 seconds. What is the exact number of megabytes processed per second?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 57.74 megabytes/second</div><div class="option"><span class="opt-letter">B.</span> 100√3 megabytes/second</div><div class="option"><span class="opt-letter">C.</span> 100√3 / 3 megabytes/second</div><div class="option"><span class="opt-letter">D.</span> 100/3 megabytes/second</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rate = (Amount of Data) / (Time) = 100 megabytes / √3 seconds</div>
+    <div class="step-exp">The rate is defined as the quantity processed per unit of time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(100 / √3) * (√3 / √3) = 100√3 / 3 megabytes/second</div>
+    <div class="step-exp">To rationalize the denominator, multiply both the numerator and the denominator by √3. This eliminates the square root from the denominator. Since √3 is an irrational number, 100√3/3 is also an irrational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 100√3 / 3 megabytes/second (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

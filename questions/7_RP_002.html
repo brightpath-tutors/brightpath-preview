@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Ratio Language</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | RP | Skill 7.RP.002<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Ratio Language</h1>
+<p class="skill-subtitle">Skill ID: 7.RP.002</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store sells a small bag of coffee for $8 and a large bag for $24. What is the ratio of the cost of the small bag to the cost of the large bag, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8:24</div><div class="option"><span class="opt-letter">B.</span> 1:4</div><div class="option"><span class="opt-letter">C.</span> 1:3</div><div class="option"><span class="opt-letter">D.</span> 3:1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost of small bag = $8
+Cost of large bag = $24</div>
+    <div class="step-exp">The problem asks for the ratio of the small bag&#x27;s cost to the large bag&#x27;s cost.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Small bag cost : Large bag cost = 8 : 24</div>
+    <div class="step-exp">The order &#x27;small bag to large bag&#x27; means the small bag&#x27;s cost comes first in the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 8.
+8 ÷ 8 = 1
+24 ÷ 8 = 3
+So, the simplified ratio is 1:3.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, a player made 5 free throws and missed 10 free throws. What is the ratio of free throws made to free throws missed, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5:10</div><div class="option"><span class="opt-letter">B.</span> 1:5</div><div class="option"><span class="opt-letter">C.</span> 2:1</div><div class="option"><span class="opt-letter">D.</span> 1:2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Free throws made = 5
+Free throws missed = 10</div>
+    <div class="step-exp">The problem asks for the ratio of free throws made to free throws missed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Made : Missed = 5 : 10</div>
+    <div class="step-exp">The order &#x27;free throws made to free throws missed&#x27; means the number of made free throws comes first in the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 5.
+5 ÷ 5 = 1
+10 ÷ 5 = 2
+So, the simplified ratio is 1:2.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:2 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 2 cups of sugar and 6 cups of flour. What is the ratio of sugar to flour, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:1</div><div class="option"><span class="opt-letter">B.</span> 1:3</div><div class="option"><span class="opt-letter">C.</span> 1:2</div><div class="option"><span class="opt-letter">D.</span> 2:6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sugar = 2 cups
+Flour = 6 cups</div>
+    <div class="step-exp">The problem asks for the ratio of sugar to flour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Sugar : Flour = 2 : 6</div>
+    <div class="step-exp">The order &#x27;sugar to flour&#x27; means the amount of sugar comes first in the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 2.
+2 ÷ 2 = 1
+6 ÷ 2 = 3
+So, the simplified ratio is 1:3.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a class of 30 students, 20 students passed a math test. What is the ratio of students who passed to students who failed, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:2</div><div class="option"><span class="opt-letter">B.</span> 2:1</div><div class="option"><span class="opt-letter">C.</span> 2:3</div><div class="option"><span class="opt-letter">D.</span> 1:2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total students = 30
+Students who passed = 20</div>
+    <div class="step-exp">We need to find the number of students who failed to form the required ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Students who failed = Total students - Students who passed
+Students who failed = 30 - 20 = 10</div>
+    <div class="step-exp">Subtract the number of students who passed from the total number of students to find those who failed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Students who passed : Students who failed = 20 : 10</div>
+    <div class="step-exp">The order &#x27;students who passed to students who failed&#x27; means the number of passed students comes first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 10.
+20 ÷ 10 = 2
+10 ÷ 10 = 1
+So, the simplified ratio is 2:1.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:1 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Car A traveled 150 miles and Car B traveled 250 miles. What is the ratio of the distance traveled by Car A to the distance traveled by Car B, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15:25</div><div class="option"><span class="opt-letter">B.</span> 5:3</div><div class="option"><span class="opt-letter">C.</span> 1:2</div><div class="option"><span class="opt-letter">D.</span> 3:5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance by Car A = 150 miles
+Distance by Car B = 250 miles</div>
+    <div class="step-exp">The problem asks for the ratio of Car A&#x27;s distance to Car B&#x27;s distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Car A distance : Car B distance = 150 : 250</div>
+    <div class="step-exp">The order &#x27;distance traveled by Car A to distance traveled by Car B&#x27; means Car A&#x27;s distance comes first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 50.
+150 ÷ 50 = 3
+250 ÷ 50 = 5
+So, the simplified ratio is 3:5.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:5 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist mixes 12 milliliters of solution X with 18 milliliters of solution Y. What is the ratio of solution X to solution Y, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:2</div><div class="option"><span class="opt-letter">B.</span> 2:3</div><div class="option"><span class="opt-letter">C.</span> 1:2</div><div class="option"><span class="opt-letter">D.</span> 12:18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Solution X = 12 ml
+Solution Y = 18 ml</div>
+    <div class="step-exp">The problem asks for the ratio of solution X to solution Y.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Solution X : Solution Y = 12 : 18</div>
+    <div class="step-exp">The order &#x27;solution X to solution Y&#x27; means the amount of solution X comes first in the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 6.
+12 ÷ 6 = 2
+18 ÷ 6 = 3
+So, the simplified ratio is 2:3.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker has a wooden plank that is 36 inches long and a metal beam that is 54 inches long. What is the ratio of the length of the wooden plank to the length of the metal beam, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 36:54</div><div class="option"><span class="opt-letter">B.</span> 3:2</div><div class="option"><span class="opt-letter">C.</span> 1:2</div><div class="option"><span class="opt-letter">D.</span> 2:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Wooden plank length = 36 inches
+Metal beam length = 54 inches</div>
+    <div class="step-exp">The problem asks for the ratio of the length of the wooden plank to the length of the metal beam.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Wooden plank length : Metal beam length = 36 : 54</div>
+    <div class="step-exp">The order &#x27;length of the wooden plank to the length of the metal beam&#x27; means the wooden plank&#x27;s length comes first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 18.
+36 ÷ 18 = 2
+54 ÷ 18 = 3
+So, the simplified ratio is 2:3.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:3 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist spent 180 minutes drawing a portrait and 270 minutes painting a landscape. What is the ratio of the time spent drawing to the time spent painting, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18:27</div><div class="option"><span class="opt-letter">B.</span> 2:3</div><div class="option"><span class="opt-letter">C.</span> 3:2</div><div class="option"><span class="opt-letter">D.</span> 1:2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Time drawing = 180 minutes
+Time painting = 270 minutes</div>
+    <div class="step-exp">The problem asks for the ratio of time spent drawing to time spent painting.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Time drawing : Time painting = 180 : 270</div>
+    <div class="step-exp">The order &#x27;time spent drawing to time spent painting&#x27; means the drawing time comes first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 90.
+180 ÷ 90 = 2
+270 ÷ 90 = 3
+So, the simplified ratio is 2:3.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">City A has a population of 120,000, and City B has a population of 180,000. What is the ratio of the population of City A to the population of City B, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:2</div><div class="option"><span class="opt-letter">B.</span> 2:3</div><div class="option"><span class="opt-letter">C.</span> 1:3</div><div class="option"><span class="opt-letter">D.</span> 12:18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Population of City A = 120,000
+Population of City B = 180,000</div>
+    <div class="step-exp">The problem asks for the ratio of City A&#x27;s population to City B&#x27;s population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = City A population : City B population = 120,000 : 180,000</div>
+    <div class="step-exp">The order &#x27;population of City A to the population of City B&#x27; means City A&#x27;s population comes first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 60,000.
+120,000 ÷ 60,000 = 2
+180,000 ÷ 60,000 = 3
+So, the simplified ratio is 2:3.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it. You can simplify by dividing by 10,000 first, then by 6.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A health club has 45 members who prefer weightlifting and 75 members who prefer cardio workouts. What is the ratio of members who prefer weightlifting to members who prefer cardio workouts, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:2</div><div class="option"><span class="opt-letter">B.</span> 3:5</div><div class="option"><span class="opt-letter">C.</span> 5:3</div><div class="option"><span class="opt-letter">D.</span> 45:75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Members preferring weightlifting = 45
+Members preferring cardio = 75</div>
+    <div class="step-exp">The problem asks for the ratio of members who prefer weightlifting to those who prefer cardio workouts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = Weightlifting : Cardio = 45 : 75</div>
+    <div class="step-exp">The order &#x27;members who prefer weightlifting to members who prefer cardio workouts&#x27; means weightlifting members come first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide both parts of the ratio by their greatest common divisor, which is 15.
+45 ÷ 15 = 3
+75 ÷ 15 = 5
+So, the simplified ratio is 3:5.</div>
+    <div class="step-exp">To simplify a ratio, find the greatest common divisor (GCD) of the two numbers and divide both numbers by it.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:5 (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

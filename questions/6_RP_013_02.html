@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Finding the Whole from Percent</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | RP | Skill 6.RP.013.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Finding the Whole from Percent</h1>
+<p class="skill-subtitle">Skill ID: 6.RP.013.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">After a discount, a video game costs $27, which is 75% of its original price. What was the original price of the video game?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $102.00</div><div class="option"><span class="opt-letter">B.</span> $45.00</div><div class="option"><span class="opt-letter">C.</span> $36.00</div><div class="option"><span class="opt-letter">D.</span> $20.25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = $27, Percent = 75%</div>
+    <div class="step-exp">Identify the known part (discounted price) and the percent this part represents of the whole (original price).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: Part = Percent / 100 <em> Whole =&gt; 27 = 75/100 </em> Whole</div>
+    <div class="step-exp">Set up a proportion or equation where &#x27;Whole&#x27; is the unknown original price. Convert the percentage to a decimal or fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 27 / (75/100) = 27 / 0.75 = 36</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Original price = $36.00</div>
+    <div class="step-exp">State the original price of the video game.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $36.00 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, a player scored 12 points, which was 40% of their team&#x27;s total score. What was the team&#x27;s total score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 points</div><div class="option"><span class="opt-letter">B.</span> 48 points</div><div class="option"><span class="opt-letter">C.</span> 40 points</div><div class="option"><span class="opt-letter">D.</span> 16 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 12 points, Percent = 40%</div>
+    <div class="step-exp">Identify the known part (player&#x27;s score) and the percent this part represents of the whole (team&#x27;s total score).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 12 = 40/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total score. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 12 / 0.40 = 30</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total score = 30 points</div>
+    <div class="step-exp">State the team&#x27;s total score.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 points (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef used 5 ounces of butter, which was 20% of the total butter in the recipe. How much butter was in the recipe in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 ounce</div><div class="option"><span class="opt-letter">B.</span> 10 ounces</div><div class="option"><span class="opt-letter">C.</span> 100 ounces</div><div class="option"><span class="opt-letter">D.</span> 25 ounces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 5 ounces, Percent = 20%</div>
+    <div class="step-exp">Identify the known part (butter used) and the percent this part represents of the whole (total butter in recipe).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 5 = 20/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total amount of butter. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 5 / 0.20 = 25</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total butter = 25 ounces</div>
+    <div class="step-exp">State the total amount of butter in the recipe.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 ounces (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 180 miles, which accounted for 60% of the total journey. What was the total distance of the journey?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 240 miles</div><div class="option"><span class="opt-letter">B.</span> 300 miles</div><div class="option"><span class="opt-letter">C.</span> 600 miles</div><div class="option"><span class="opt-letter">D.</span> 108 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 180 miles, Percent = 60%</div>
+    <div class="step-exp">Identify the known part (distance traveled) and the percent this part represents of the whole (total journey distance).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 180 = 60/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total distance. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 180 / 0.60 = 300</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 300 miles</div>
+    <div class="step-exp">State the total distance of the journey.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 300 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student completed 21 homework problems, which is 70% of the total assignment. How many problems were in the entire assignment?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 28 problems</div><div class="option"><span class="opt-letter">B.</span> 70 problems</div><div class="option"><span class="opt-letter">C.</span> 14.7 problems</div><div class="option"><span class="opt-letter">D.</span> 30 problems</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 21 problems, Percent = 70%</div>
+    <div class="step-exp">Identify the known part (problems completed) and the percent this part represents of the whole (total problems in assignment).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 21 = 70/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total number of problems. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 21 / 0.70 = 30</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total problems = 30 problems</div>
+    <div class="step-exp">State the total number of problems in the assignment.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 problems (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observed 36 migrating birds, which represented 80% of the total flock. What was the total number of birds in the flock?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 80 birds</div><div class="option"><span class="opt-letter">B.</span> 45 birds</div><div class="option"><span class="opt-letter">C.</span> 28.8 birds</div><div class="option"><span class="opt-letter">D.</span> 116 birds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 36 birds, Percent = 80%</div>
+    <div class="step-exp">Identify the known part (observed birds) and the percent this part represents of the whole (total flock size).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 36 = 80/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total number of birds. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 36 / 0.80 = 45</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total birds = 45 birds</div>
+    <div class="step-exp">State the total number of birds in the flock.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 45 birds (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew has completed 150 square feet of flooring, which is 25% of the total area. What is the total area of flooring to be installed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 175 square feet</div><div class="option"><span class="opt-letter">B.</span> 2500 square feet</div><div class="option"><span class="opt-letter">C.</span> 37.5 square feet</div><div class="option"><span class="opt-letter">D.</span> 600 square feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 150 sq ft, Percent = 25%</div>
+    <div class="step-exp">Identify the known part (flooring completed) and the percent this part represents of the whole (total area).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 150 = 25/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total area. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 150 / 0.25 = 600</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total area = 600 square feet</div>
+    <div class="step-exp">State the total area of flooring to be installed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 600 square feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company spent $4,200 on advertising in the first quarter, which was 12% of their total annual advertising budget. What is their total annual advertising budget?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $504</div><div class="option"><span class="opt-letter">B.</span> $4,212</div><div class="option"><span class="opt-letter">C.</span> $12,000</div><div class="option"><span class="opt-letter">D.</span> $35,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = $4,200, Percent = 12%</div>
+    <div class="step-exp">Identify the known part (first quarter spending) and the percent this part represents of the whole (total annual budget).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 4200 = 12/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total annual budget. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 4200 / 0.12 = 35000</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total annual advertising budget = $35,000</div>
+    <div class="step-exp">State the total annual advertising budget.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $35,000 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The latest software update downloaded 75 MB, which is 15% of the total update size. What is the total size of the software update?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 500 MB</div><div class="option"><span class="opt-letter">B.</span> 90 MB</div><div class="option"><span class="opt-letter">C.</span> 1500 MB</div><div class="option"><span class="opt-letter">D.</span> 11.25 MB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 75 MB, Percent = 15%</div>
+    <div class="step-exp">Identify the known part (downloaded size) and the percent this part represents of the whole (total update size).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 75 = 15/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total update size. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 75 / 0.15 = 500</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total software update size = 500 MB</div>
+    <div class="step-exp">State the total size of the software update.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 500 MB (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A report states that 1,250 people in a city have a rare blood type, which is 0.5% of the total population. What is the total population of the city?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 62,500 people</div><div class="option"><span class="opt-letter">B.</span> 250,000 people</div><div class="option"><span class="opt-letter">C.</span> 1,250.5 people</div><div class="option"><span class="opt-letter">D.</span> 6.25 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 1,250 people, Percent = 0.5%</div>
+    <div class="step-exp">Identify the known part (people with rare blood type) and the percent this part represents of the whole (total population).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Equation: 1250 = 0.5/100 * Whole</div>
+    <div class="step-exp">Set up an equation where &#x27;Whole&#x27; is the unknown total population. Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Whole = 1250 / 0.005 = 250000</div>
+    <div class="step-exp">Solve for the Whole by dividing the Part by the decimal equivalent of the Percent. Remember that 0.5% is 0.005 as a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total population = 250,000 people</div>
+    <div class="step-exp">State the total population of the city.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 250,000 people (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

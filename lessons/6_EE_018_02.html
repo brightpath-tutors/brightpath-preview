@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: One-Step Division Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | Expressions and Equations<br>70 atoms | Skill 6.EE.018.02<br></div>
+</div>
+<h1 class="skill-title">One-Step Division Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.018.02 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can solve one-step division equations by using inverse operations to find the unknown variable.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">A One-Step Division Equation is a mathematical statement showing that two expressions are equal, where an unknown variable is involved in a single division operation, and it requires only one inverse operation to solve. For example, consider the equation <code>x / 5 = 12</code>. Here, &#x27;x&#x27; is the unknown variable, and it&#x27;s being divided by 5. Our goal is to find the value of &#x27;x&#x27; that makes the equation true. To do this, we use the inverse operation of division, which is multiplication. Just like balancing a perfectly weighted seesaw, whatever operation you perform on one side of the equation, you must perform on the other side to maintain equality. If <span class="ph">[Student Name]</span> has <code>x / 5</code> on one side and <code>12</code> on the other, to &#x27;undo&#x27; the division by 5 and isolate &#x27;x&#x27;, you multiply both sides by 5. So, <code>(x / 5) <em> 5 = 12 </em> 5</code>. This simplifies to <code>x = 60</code>. <span class="ph">[Student Name]</span>, by consistently applying the inverse operation, <span class="ph">[they]</span> can always find the correct solution. This mechanism ensures the equation remains balanced, leading you directly to the value of the variable.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">Remember when you mastered solving one-step multiplication equations, like <code>3x = 21</code>? You knew that to find &#x27;x&#x27;, you had to perform the opposite, or inverse, operation: division. You&#x27;d divide both sides by 3, right? Well, <span class="ph">[Student Name]</span>, solving one-step division equations uses the exact same powerful idea! If you see an equation like <code>x / 6 = 8</code>, instead of seeing something entirely new, think of it as just the &#x27;reverse&#x27; challenge. Just as division &#x27;undoes&#x27; multiplication, multiplication &#x27;undoes&#x27; division! To get &#x27;x&#x27; by itself when it&#x27;s being divided by 6, what&#x27;s the inverse operation <span class="ph">[they]</span> should use? That&#x27;s right, multiplication! You simply multiply both sides of the equation by 6. So, <code>(x / 6) <em> 6 = 8 </em> 6</code>, which gives you <code>x = 48</code>. You&#x27;ve already built the foundation for this skill, <span class="ph">[Student Name]</span>! This isn&#x27;t a huge leap; it&#x27;s a confident step forward using a strategy you&#x27;ve already perfected.</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that mastering one-step division equations can literally help manage a major league sports team&#x27;s budget? Imagine an NFL team that has a fixed amount of money, say $24,000,000, to equally distribute among &#x27;x&#x27; number of coaches. If the target average salary per coach is $2,000,000, then you&#x27;re essentially solving an equation like <code>24,000,000 / x = 2,000,000</code> to find &#x27;x&#x27;! It might seem complex, but the core is a one-step division equation. Or consider a more common scenario, <span class="ph">[Student Name]</span>. Your school&#x27;s student council has $300 to buy pizzas for a school event. If each pizza costs $15, you use <code>300 / 15 = x</code> to find out &#x27;x&#x27;, the number of pizzas. But what if you knew how many pizzas you wanted, say &#x27;x&#x27;, and knew the total cost, but not the price per pizza? An equation like <code>300 / x = 15</code> emerges! You might not realize it, <span class="ph">[Student Name]</span>, but these seemingly simple equations are the backbone of smart financial planning, from distributing funds for a national park project to ensuring every student in a class of &#x27;x&#x27; shares 100 markers fairly. It&#x27;s a powerful tool!</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Let&#x27;s get a clear, calm understanding of one-step division equations. First, the definition: A one-step division equation is an algebraic statement where a variable is divided by a single numerical value, and the equation can be solved in just one step using the inverse operation of multiplication. For example, consider the equation <code>m / 8 = 11</code>. Here, &#x27;m&#x27; is the variable we need to find, and it is being divided by 8. To solve for &#x27;m&#x27;, we apply the inverse operation: multiplication. We multiply both sides of the equation by 8. So, <code>(m / 8) <em> 8 = 11 </em> 8</code>. This simplifies to <code>m = 88</code>. <span class="ph">[Student Name]</span>, the clear, systematic process ensures you always arrive at the correct answer. The application of this skill is straightforward: whenever you know a total amount that has been divided equally into parts, and you know either the number of parts or the size of each part, you can use a one-step division equation to find the missing information. For instance, if you know 9 friends shared &#x27;m&#x27; dollars equally and each got $15, you&#x27;d set up <code>m / 9 = 15</code>. <span class="ph">[Student Name]</span> can then calmly multiply both sides by 9 to find <code>m = 135</code>. This predictable structure makes solving these equations reliable every time.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Before we dive into division equations, let&#x27;s quickly review a skill you&#x27;ve already mastered: solving one-step multiplication equations. Remember an equation like <code>4n = 28</code>? To find the value of &#x27;n&#x27;, you understood that &#x27;4n&#x27; means 4 multiplied by &#x27;n&#x27;. To &#x27;undo&#x27; that multiplication, you performed the inverse operation: division. So, you divided both sides of the equation by 4, resulting in <code>n = 7</code>. This principle of using inverse operations to isolate the variable is a fundamental building block in algebra, and it&#x27;s something <span class="ph">[Student Name]</span> already confidently uses.
+Now, for the bridge to our new skill: just as multiplication and division are inverse operations, they mirror each other in equations. If you know how to &#x27;undo&#x27; multiplication with division, you&#x27;re perfectly equipped to &#x27;undo&#x27; division with multiplication! Think of it like putting on socks and then taking them off – one action reverses the other. This makes the leap to one-step division equations very straightforward for <span class="ph">[Student Name]</span>.
+Our new skill applies this inverse relationship. When you encounter an equation like <code>k / 10 = 5</code>, where &#x27;k&#x27; is being divided by 10, your goal is still to get &#x27;k&#x27; by itself. To &#x27;undo&#x27; the division by 10, you simply multiply both sides of the equation by 10. So, <code>(k / 10) <em> 10 = 5 </em> 10</code>, which simplifies to <code>k = 50</code>. You&#x27;re leveraging your existing understanding of inverse operations to tackle a slightly different but equally conquerable challenge!</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hey <span class="ph">[Student Name]</span>! Let&#x27;s tackle a common problem that uses a one-step division equation. Imagine Isabella worked hard walking dogs and earned a total amount of money, but we don&#x27;t know that total yet. She decided to save all <span class="ph">[their]</span> earnings for 8 weeks. If <span class="ph">[they]</span> put away $15 each week, what were <span class="ph">[their]</span> total earnings? We can write this as an equation: <code>x / 8 = 15</code>. 
+
+1.  <strong><span class="hint-tag">&#128161; Hint: What operation is happening to &#x27;x&#x27;? What&#x27;s the opposite?</span></strong> Look at the equation <code>x / 8 = 15</code>. The variable &#x27;x&#x27; (Isabella&#x27;s total earnings) is being divided by 8 (the number of weeks). To figure out what &#x27;x&#x27; is, we need to &#x27;undo&#x27; that division. The inverse (opposite) operation of division is multiplication. 
+
+2.  <strong><span class="hint-tag">&#128161; Hint: How do we keep the equation balanced?</span></strong> To &#x27;undo&#x27; dividing by 8, we multiply both sides of the equation by 8. Remember, whatever you do to one side of the equal sign, you <em>must</em> do to the other side to keep the equation balanced, like a perfectly balanced seesaw! So, we write: <code>(x / 8) <em> 8 = 15 </em> 8</code>. 
+
+3.  <strong><span class="hint-tag">&#128161; Hint: Time to calculate the answer!</span></strong> On the left side, multiplying by 8 &#x27;cancels out&#x27; the division by 8, leaving just &#x27;x&#x27;. On the right side, <code>15 * 8</code> equals 120. So, <code>x = 120</code>. 
+
+4.  <strong><span class="hint-tag">&#128161; Hint: Does your answer make sense?</span></strong> Now, let&#x27;s check our answer by plugging &#x27;x&#x27; back into the original equation: <code>120 / 8 = 15</code>. Is that true? Yes, 120 divided by 8 is indeed 15. So, Isabella&#x27;s total earnings were $120. Great job, <span class="ph">[Student Name]</span>!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let&#x27;s work through another one-step division equation. Imagine a school in Michigan held a spirit week event, and a total of 225 students participated in the &#x27;Dress Up Your Teacher&#x27; contest. If these students formed groups of 9 for the final presentation, how many groups (<code>n</code>) were there? The problem can be represented by the equation: <code>225 / n = 9</code>.
+
+1.  <strong>Understand the Equation</strong>: Here, the total number of students (225) is divided by the unknown number of groups (<code>n</code>), resulting in 9 students per group. Our goal is to find the value of <code>n</code>.
+
+2.  <strong>Isolate the Variable</strong>: Since <code>n</code> is in the denominator, the easiest way to start is to get <code>n</code> out of the denominator. We do this by multiplying both sides of the equation by <code>n</code>. This transforms <code>225 / n = 9</code> into <code>225 = 9n</code>. Now we have a multiplication equation.
+
+3.  <strong>Solve for <code>n</code></strong>: Now <code>n</code> is being multiplied by 9. To isolate <code>n</code> and find its value, we perform the inverse operation of multiplication, which is division. We divide both sides of the equation by 9. So, <code>225 / 9 = (9n) / 9</code>.
+
+4.  <strong>Calculate the Result</strong>: Performing the division, <code>225 / 9</code> equals 25. Therefore, <code>n = 25</code>. There were 25 groups.
+
+5.  <strong>Check Your Solution</strong>: To ensure our answer is correct, we substitute <code>n = 25</code> back into the original equation: <code>225 / 25 = 9</code>. This statement is true, as 225 divided by 25 is indeed 9. This means <span class="ph">[Student Name]</span> found the correct number of groups!</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">This next problem might seem a little tricky, <span class="ph">[Student Name]</span>, but we can break it down. Imagine a local farmer in Iowa harvested a total area of cornfield, but we don&#x27;t know the exact size yet. The farmer decided to divide this total area into small plots, each measuring 0.5 acres, for special experimental crops. If there were exactly 48 of these 0.5-acre plots, what was the total area of the cornfield? The equation for this is: <code>x / 0.5 = 48</code>.
+
+1.  <strong>Identify the Operation</strong>: Here, an unknown total area &#x27;x&#x27; is being divided by 0.5 (the size of each plot). The result is 48 (the number of plots). We need to find &#x27;x&#x27;.
+
+2.  <strong>Apply the Inverse Operation</strong>: The inverse of division is multiplication. To isolate &#x27;x&#x27;, we need to multiply both sides of the equation by 0.5.
+    <em>   <strong>Common Error Alert</strong>: A common mistake here is to </em>divide<em> 48 by 0.5, thinking you&#x27;re &#x27;undoing&#x27; a division. However, &#x27;x&#x27; is being divided </em>by<em> 0.5. To get &#x27;x&#x27; alone, you must multiply by 0.5. If you divided 48 by 0.5, you&#x27;d get 96, which would imply <code>x = 96</code>. If you put that back in: <code>96 / 0.5 = 192</code>, not 48. So dividing 48 by 0.5 is incorrect for this equation.
+
+3.  <strong>Calculate</strong>: So, we multiply: <code>x = 48 </em> 0.5</code>. Multiplying by 0.5 is the same as finding half of a number. So, <code>48 * 0.5 = 24</code>.
+
+4.  <strong>Check Your Answer</strong>: Let&#x27;s substitute <code>x = 24</code> back into the original equation: <code>24 / 0.5 = 48</code>. Is this true? Yes! If you divide 24 by one-half, you&#x27;re essentially asking how many halves are in 24, which is 48. The total area of the cornfield was 24 acres.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Imagine you have a mystery pile of shiny new Hot Wheels cars, but you don&#x27;t know how many exactly. You want to share them fairly with 3 other friends and yourself for a race day. So there are 4 of you sharing. When you&#x27;re all done sharing, each of you has 6 cars. How many Hot Wheels cars were in that mystery pile to begin with? You just need to figure out the total amount you started with, if everyone got 6 cars and there were 4 kids sharing!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Think about a huge box of Krispy Kreme donuts, <span class="ph">[Student Name]</span>, that was bought for the whole class, but no one saw how many were in the box initially. This unknown total number of donuts is like your variable &#x27;x&#x27;. The teacher, Ms. Jenkins, divided all the donuts evenly among the 24 students in your 6th-grade class. After everyone got their share, each student had 3 delicious donuts. So, the total number of donuts (<code>x</code>) was divided by the number of students (24), and each student received 3 donuts. This maps perfectly to the equation: <code>x / 24 = 3</code>. To find out how many donuts were in the box, you just need to reverse the action. If each of the 24 students got 3 donuts, you&#x27;d multiply the number of students by the donuts per student to get the original total! So, <code>3 * 24</code> would give you &#x27;x&#x27;.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, imagine a long, continuous ribbon, like the kind used to mark a finish line at a track meet. The total length of this ribbon is unknown, and we&#x27;ll call that &#x27;x&#x27;. Now, picture yourself cutting this entire ribbon into 4 perfectly equal smaller pieces. Once you&#x27;ve made these cuts, you measure each individual piece, and you find that every single piece is exactly 15 feet long. To understand the original length &#x27;x&#x27;, you&#x27;re essentially visualizing &#x27;x&#x27; being spatially divided into 4 identical segments, with each segment having a length of 15 feet. If you want to find the total original length, you can simply put those 4 pieces, each 15 feet long, back together in your mind to reconstruct the whole &#x27;x&#x27;.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! So, one-step division equations are actually pretty straightforward once you get the hang of them. Think of it like this: if you see an equation that says <code>x / 7 = 11</code>, that just means &#x27;some mystery number, when you split it into 7 equal groups, gives you 11 in each group&#x27;. To figure out the mystery number, which is &#x27;x&#x27;, you just gotta do the opposite of what&#x27;s happening to it. Since &#x27;x&#x27; is being divided by 7, you do the inverse operation: multiply both sides of the equation by 7. Boom! <code>x = 11 * 7</code>, so <code>x = 77</code>. It&#x27;s kind of like if you had 7 snack bags, and each bag had 11 goldfish crackers, you&#x27;d just multiply to find out the total crackers you started with. Just remember, whatever you do to one side of the equal sign, you gotta do to the other to keep everything balanced!</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Solve for <code>y</code>: <code>y / 7 = 6</code></div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">A baker divided a batch of cookies equally into 8 bags. Each bag contained 9 cookies. How many cookies, <code>c</code>, were in the entire batch?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Solve for <code>m</code>: <code>54 / m = 6</code></div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Liam wants to buy a new basketball for $36. <span class="ph">[they]</span> plans to save an equal amount of money, <code>d</code>, each week for 4 weeks. What is the amount <span class="ph">[they]</span> needs to save per week?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Solve for <code>x</code>: <code>x / 3 = 12.5</code></div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">The total cost of a pizza party was $84. If the cost was divided equally among 6 friends, how much did each friend, <code>f</code>, pay?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">A recipe requires 3/4 cup of flour for one batch of cookies. If <span class="ph">[Student Name]</span> made a large batch that used <code>f</code> total cups of flour, and this was enough for 5 batches, write and solve the equation for <code>f</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A school fundraiser collected $156. This money was divided equally among 12 different classrooms to purchase supplies. How much money, <code>m</code>, did each classroom receive?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">If <span class="ph">[Student Name]</span> divides <span class="ph">[their]</span> collection of 120 baseball cards equally among <code>x</code> friends, and each friend gets 15 cards, how many friends, <code>x</code>, did <span class="ph">[they]</span> share the cards with?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A large charity event collected $1,050 in donations. The organizers decided to divide this money equally among several local animal shelters. If each shelter received $175, how many animal shelters, <code>s</code>, received a donation?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Dividing Instead of Multiplying&quot;, &quot;MISTAKE&quot;: &quot;When solving an equation like x / 5 = 45, <span class="ph">[Student Name]</span> might incorrectly divide 45 by 5, getting 9. <span class="ph">[they]</span> forgets that division is the inverse of multiplication.&quot;, &quot;WHY_TEMPTING&quot;: &quot;The student sees the division symbol in the equation and thinks the inverse operation must involve dividing. It feels like the natural next step.&quot;, &quot;SOLUTION&quot;: &quot;To undo division, you must perform the inverse operation, which is multiplication. Multiply both sides of the equation by the number that is dividing the variable.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: x / 5 = 45 
+Wrong: x = 45 / 5 (x=9) 
+Right: x = 45 * 5 (x=225)</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Flipping the Division (Divisor Variable)&quot;, &quot;MISTAKE&quot;: &quot;When the variable is the divisor, like in 60 / x = 12, <span class="ph">[Student Name]</span> might incorrectly set up the final division as x = 12 / 60, resulting in a fraction or decimal. <span class="ph">[they]</span> overlooks isolating &#x27;x&#x27; correctly.&quot;, &quot;WHY_TEMPTING&quot;: &quot;Students often default to dividing the larger number by the smaller number or maintaining the order of numbers from the original equation without truly understanding the variable&#x27;s position.&quot;, &quot;SOLUTION&quot;: &quot;First, multiply both sides by the variable &#x27;x&#x27; to get it out of the denominator. Then, divide both sides by the remaining constant to solve for &#x27;x&#x27;.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: 60 / x = 12 
+Wrong: x = 12 / 60 (x=0.2) 
+Right: x = 60 / 12 (x=5)</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring the Equal Sign&#x27;s Balance&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might correctly identify the inverse operation but only apply it to the side with the variable, forgetting to apply it to the other side of the equation. This leads to an incorrect answer.&quot;, &quot;WHY_TEMPTING&quot;: &quot;Students are focused on getting the variable by itself, so they might overlook the &#x27;balance&#x27; aspect of an equation, where both sides must remain equal.&quot;, &quot;SOLUTION&quot;: &quot;Remember that an equation is like a balanced scale. Whatever operation you perform on one side to isolate the variable, you must perform the exact same operation on the other side to keep the equation balanced.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: y / 8 = 7 
+Wrong: y = 7 (after multiplying y/8 by 8, student forgets to multiply 7 by 8) 
+Right: (y / 8) <em> 8 = 7 </em> 8 (y=56)</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Mistaking Equation for Direct Calculation&quot;, &quot;MISTAKE&quot;: &quot;When presented with an equation like 72 / k = 9, <span class="ph">[Student Name]</span> might simply perform the operation given (72 divided by 9) as if it were a direct calculation, rather than solving for the unknown variable &#x27;k&#x27;.&quot;, &quot;WHY_TEMPTING&quot;: &quot;Many students are accustomed to seeing numbers and an operation symbol and immediately calculating the result, rather than understanding that &#x27;k&#x27; represents a missing value to be found.&quot;, &quot;SOLUTION&quot;: &quot;Recognize that an equation with a variable is a puzzle to solve. Your goal is to find the value of the variable by using inverse operations, not just to calculate the result of the given numbers.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: 72 / k = 9 
+Wrong: k = 72 / 9 (student calculates 8 without considering &#x27;k&#x27;s position as divisor) 
+Right: k = 72 / 9 (k=8) - The trap is <em>why</em> they got it, not that the number is wrong, but the thought process. If it was x/9=72, they&#x27;d get it wrong.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Misinterpreting Word Problem Structure&quot;, &quot;MISTAKE&quot;: &quot;In word problems, <span class="ph">[Student Name]</span> might incorrectly identify the dividend and the divisor, leading to an equation that doesn&#x27;t represent the scenario. For example, setting up &#x27;small quantity / unknown = large quantity&#x27; instead of &#x27;large quantity / unknown = small quantity&#x27;.&quot;, &quot;WHY_TEMPTING&quot;: &quot;Reading comprehension challenges or focusing on keywords without fully understanding the context can lead to putting numbers in the wrong place when forming the equation.&quot;, &quot;SOLUTION&quot;: &quot;Carefully read the word problem to identify what total amount is being divided (the dividend) and what each part or group represents (the quotient or divisor). Set up the equation to accurately reflect the real-world situation.&quot;, &quot;EXAMPLE&quot;: &quot;Word Problem: &#x27;A school group of 144 students needs to be divided equally into several buses, with 24 students on each bus. How many buses are needed?&#x27; 
+Wrong: x / 144 = 24 
+Right: 144 / x = 24 (x=6 buses)</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>Solve for the unknown value: <code>x / 7 = 5</code>. What is <code>x</code>, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>Maya shared <span class="ph">[their]</span> pack of crayons equally among <span class="ph">[them]</span> and 2 friends. If each person received 12 crayons, how many crayons were in the pack originally, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div><span class="ph">[Student Name]</span>, solve the equation: <code>24 / y = 4</code>. What is the value of <code>y</code>?</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div>A school bus transported students to a field trip. If the total number of students was divided equally among 8 groups, and each group had 15 students, what was the total number of students on the bus, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div><span class="ph">[Student Name]</span>, find the value of <code>z</code> in the equation: <code>z / 13 = 11</code>.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>During a basketball tournament, the Springfield Falcons scored a total number of points over 9 games. If their average score was 22 points per game, how many total points did they score, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div><span class="ph">[Student Name]</span>, solve for <code>k</code>: <code>108 / k = 12</code>.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>A group of students sold concert tickets to raise money for a charity. If they sold 16 tickets and the total amount of money raised, when divided by the number of tickets, resulted in an average price of $3.25 per ticket, what was the total amount of money they raised, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>Solve for <code>m</code>: <code>m / 24 = 17</code>. Show your work, <span class="ph">[Student Name]</span>.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div>A group of friends decided to split the cost of a new gaming console, which costs $400. If each friend paid $80, how many friends were in the group, <span class="ph">[Student Name]</span>?</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into One-Step Division Equations in 6th grade math. The key concept <span class="ph">[they]</span> will learn is how to find a missing number when it&#x27;s part of a simple division problem. For example, if we know 20 cookies were divided equally among friends, and each friend got 4 cookies, <span class="ph">[Student Name]</span> will learn how to figure out how many friends there were (20 / x = 4). Tonight, grab a small bag of M&amp;M&#x27;s or grapes. Count them out, say 24. Tell <span class="ph">[Student Name]</span> you want to divide them equally among some imaginary friends, and each friend gets 3. Ask <span class="ph">[them]</span> to figure out how many friends you can share with. This is exactly what <span class="ph">[they]</span> is learning! At dinner, you could ask, &quot;If we have 36 books and want to put an equal number on 4 shelves, how many books would go on each shelf?&quot; This helps connect division to everyday scenarios. <span class="ph">[Student Name]</span> will feel confident seeing these skills apply in real life.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Hey <span class="ph">[Student Name]</span>! I&#x27;m so excited to explore One-Step Division Equations with you today. We&#x27;re going to make figuring out unknown numbers in division problems super clear and fun. You&#x27;ve got this, <span class="ph">[Student Name]</span>!&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;It looks like you&#x27;re trying to figure out what operation to use. Remember, in division equations like x / 5 = 7, the &#x27;x&#x27; is being divided. To get &#x27;x&#x27; by itself, we need to do the <em>opposite</em> operation on both sides of the equation. What&#x27;s the opposite of dividing by 5, <span class="ph">[Student Name]</span>? Think about it, and then apply it to both sides!&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;You&#x27;ve correctly identified that you need to multiply both sides, <span class="ph">[Student Name]</span>, but let&#x27;s double-check the calculation. When you multiply 5 by 7, what do you get? Is 35 the number that, when divided by 5, gives you 7? Let&#x27;s verify by plugging your answer back into the original equation: 35 / 5 = 7. Does that work, <span class="ph">[Student Name]</span>? You&#x27;re so close!&quot; SESSION CLOSING: &quot;Fantastic work today, <span class="ph">[Student Name]</span>! You really showed great persistence with these One-Step Division Equations. I&#x27;m really proud of how you thought through each problem. Keep practicing, <span class="ph">[Student Name]</span>, and you&#x27;ll be a master in no time!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">The single most common mistake <span class="ph">[Student Name]</span> will make with One-Step Division Equations is failing to apply the inverse operation to <em>both</em> sides of the equation, or choosing the wrong inverse. For example, if <span class="ph">[Student Name]</span> has x / 4 = 12, <span class="ph">[they]</span> might try to divide 12 by 4 instead of multiplying by 4. You can recognize this if the answer <span class="ph">[Student Name]</span> gets doesn&#x27;t make the original equation true (e.g., if x=3, then 3 / 4 is not 12). Exact words to say: &quot;Remember, an equation is like a balanced scale. Whatever you do to one side, you <em>must</em> do to the other side to keep it balanced. To undo division, we use multiplication. So, if we have x divided by 4, what do we need to do to <em>both</em> sides?&quot; What NOT to say: &quot;Why can&#x27;t you get this right? This is easy!&quot; Always focus on the process and specific steps, not on <span class="ph">[Student Name]</span>&#x27;s ability.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;incorrect_inverse_operation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might incorrectly apply the inverse operation, such as dividing both sides when multiplication is needed to isolate the variable. For example, seeing x / 6 = 3 and trying to calculate 6 / 3 instead of 6 <em> 3.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s very common for <span class="ph">[Student Name]</span> to mix up inverse operations at first, but with practice, <span class="ph">[they]</span> will quickly learn to identify the correct step.&quot;, &quot;home_action&quot;: &quot;Use a balance scale (real or drawn) and some small objects. Show how to &#x27;undo&#x27; putting items in groups (division) by multiplying to get the total back.&quot;}, {&quot;tag&quot;: &quot;calculation_errors&quot;, &quot;parent_description&quot;: &quot;Sometimes, <span class="ph">[Student Name]</span> understands the method but makes a simple arithmetic mistake during the multiplication step, like in x / 8 = 7, <span class="ph">[they]</span> might incorrectly calculate 8 </em> 7 as 54 instead of 56.&quot;, &quot;reassurance&quot;: &quot;Calculation errors happen to everyone, even adults! It just means <span class="ph">[Student Name]</span> needs a bit more practice with multiplication facts, not that <span class="ph">[they]</span> doesn&#x27;t understand the equation concept.&quot;, &quot;home_action&quot;: &quot;Play a quick game of &#x27;Multiplication War&#x27; with a deck of cards or practice a few multiplication facts related to the numbers in their homework.&quot;}, {&quot;tag&quot;: &quot;confusing_variable_placement&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might get confused if the variable is not the dividend, like in 20 / x = 5. <span class="ph">[they]</span> might still try to multiply 20 and 5, instead of realizing that 20 divided by what equals 5, which means x must be 20 / 5.&quot;, &quot;reassurance&quot;: &quot;Understanding where the variable is positioned in a division problem is a subtle but important skill <span class="ph">[Student Name]</span> is developing, and it just takes a little more exposure to different problem types.&quot;, &quot;home_action&quot;: &quot;Discuss real-life scenarios like sharing: \&quot;If we have 24 cookies and want each person to get 3, how many people can share?\&quot; (24 / x = 3) and \&quot;If 24 cookies are shared among 8 people, how many does each get?\&quot; (24 / 8 = x).&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello, <span class="ph">[Parent Name]</span>! Let&#x27;s break down One-Step Division Equations so <span class="ph">[they]</span> can feel confident about them. Imagine you&#x27;re managing a small budget. 1. <strong>What is it?</strong> A One-Step Division Equation is just a way to find a missing number in a simple division problem. It has one operation (division) and one unknown value. For example, if you know your office ordered a total number of pizzas, they were divided among 5 teams, and each team got 3 pizzas, how many total pizzas were ordered? (Pizzas / 5 = 3). 2. <strong>The Goal:</strong> Always get the &quot;mystery number&quot; (like &#x27;x&#x27;) all by itself on one side of the equals sign. 3. <strong>The Trick: Inverse Operations.</strong> To &quot;undo&quot; division, we use its opposite: multiplication. An equation is like a balanced scale, so whatever you do to one side, you <em>must</em> do to the other. <em>Scenario A: Finding the total.</em> If you&#x27;re told x / 5 = 3 (x pizzas divided by 5 teams equals 3 pizzas per team), to find &#x27;x&#x27;, you need to undo the division by 5. So, multiply <em>both sides</em> by 5: (x / 5) <em> 5 = 3 </em> 5. This simplifies to x = 15. You ordered 15 pizzas. <em>Scenario B: Finding the number of groups.</em> What if you know you have 20 donuts, and you divided them equally among &#x27;x&#x27; employees, and each employee got 4 donuts? The equation is 20 / x = 4. Here, &#x27;x&#x27; is the divisor. To solve, you can swap &#x27;x&#x27; and 4: 20 / 4 = x. So, x = 5. You divided the donuts among 5 employees. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently. It&#x27;s all about balancing that equation!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estará aprendiendo sobre las Ecuaciones de División de Un Paso. Es una habilidad fundamental en matemáticas de 6º grado que <span class="ph">[they]</span> usará a menudo. En esencia, <span class="ph">[Student Name]</span> aprenderá a encontrar un número desconocido en un problema de división usando la operación inversa, que es la multiplicación. Por ejemplo, si tenemos 30 galletas para dividir en grupos iguales, y sabemos que cada grupo tiene 5 galletas, <span class="ph">[Student Name]</span> aprenderá a encontrar cuántos grupos se pueden hacer. Para una actividad práctica esta noche, cuenten juntos 24 frijoles. Luego, pídale a <span class="ph">[Student Name]</span> que encuentre cuántos grupos de 4 frijoles se pueden formar. Esto es como resolver &#x27;24 dividido por un número desconocido es igual a 4&#x27;. Para la cena, pregúntele a <span class="ph">[Student Name]</span>: &#x27;Si tenemos 20 pesos y queremos comprar golosinas que cuestan 4 pesos cada una, ¿cuántas golosinas podríamos comprar? ¿Cómo lo resolverías matemáticamente?&#x27;. ¡Esto ayudará a <span class="ph">[them]</span> a conectar las matemáticas con la vida real!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">¡Hola, <span class="ph">[Student Name]</span>! ¡Me alegra que estemos juntos hoy! Hoy vamos a explorar las ecuaciones de división de un paso. Parece algo complejo, pero verás que son muy divertidas y te ayudarán a resolver problemas de la vida real. Imagina que tienes una cantidad total y la divides en partes iguales, pero no sabes cuántas partes son o cuánto hay en cada parte. ¡Eso es lo que vamos a descubrir, <span class="ph">[Student Name]</span>! 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1:</strong>
+ Mmm, <span class="ph">[Student Name]</span>, veo que estás un poco atascado aquí. Cuéntame, ¿qué es lo que te está pidiendo el problema exactamente? Si tenemos, por ejemplo, 45 stickers que queremos dividir entre algunos amigos para que cada uno reciba 9 stickers, ¿qué es lo que no sabemos? ¿Sabemos el total de stickers? ¿Sabemos cuántos stickers recibe cada amigo? ¿Qué es lo que necesitamos averiguar? Piensa en el &#x27;número secreto&#x27; que falta en la ecuación, <span class="ph">[Student Name]</span>. 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2:</strong>
+ Ah, <span class="ph">[Student Name]</span>, casi lo tienes. Ya sabes que 28 dividido por tu número secreto nos da 4. Ahora, ¿qué operación matemática es la &#x27;opuesta&#x27; a la división? Si sabes que dividir es como repartir, ¿cómo podrías &#x27;juntar&#x27; esas partes para encontrar el total? Piensa en qué número multiplicado por 4 te daría 28. Si multiplicas el resultado por el divisor, ¡encontrarás tu número secreto, <span class="ph">[Student Name]</span>! 
+
+<strong>SESSION CLOSING:</strong>
+ ¡Excelente trabajo, <span class="ph">[Student Name]</span>! ¡Resolviste esas ecuaciones como un campeón! Me encanta cómo te esforzaste y usaste lo que sabes sobre la multiplicación para resolver la división. Estoy muy orgulloso de ti. Recuerda, la práctica hace al maestro, y cada vez que resuelvas un problema, <span class="ph">[they]</span> te haces más inteligente. ¡Sigue así, <span class="ph">[Student Name]</span>!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">El error más común que <span class="ph">[Student Name]</span> podría cometer con las ecuaciones de división de un paso es aplicar la operación inversa incorrectamente. Por ejemplo, si la ecuación es &#x27;un número desconocido dividido por 6 es igual a 8&#x27; (n / 6 = 8), <span class="ph">[Student Name]</span> podría intentar dividir 6 entre 8, o 8 entre 6, en lugar de multiplicar 8 por 6 para encontrar el número desconocido. Para reconocerlo, el resultado de <span class="ph">[Student Name]</span> será ilógico: quizás 0.75 en lugar de 48. Cuando esto suceda, pregúntale: &#x27;<span class="ph">[Student Name]</span>, para deshacer la división, ¿qué operación necesitamos usar? Si estamos buscando un total que fue dividido, ¿cómo lo reconstruiríamos? Recuerda, la multiplicación es la operación inversa de la división&#x27;. Qué NO decir: &#x27;Estás haciendo todo mal&#x27; o &#x27;Esa respuesta es incorrecta, inténtalo de nuevo sin dar pistas&#x27;. En cambio, guíe a <span class="ph">[Student Name]</span> a razonar la operación correcta.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;inverse_operation_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> confunde la operaci\u00f3n inversa y divide en lugar de multiplicar (o viceversa) para resolver la ecuaci\u00f3n. Por ejemplo, para n / 5 = 10, <span class="ph">[they]</span> podr\u00eda intentar 10 / 5.&quot;, &quot;reassurance&quot;: &quot;Es com\u00fan confundir las operaciones inversas al principio, y <span class="ph">[Student Name]</span> est\u00e1 aprendiendo a identificar la correcta con cada intento.&quot;, &quot;home_action&quot;: &quot;Cuenten juntos 12 dulces. Luego, pida a <span class="ph">[Student Name]</span> que los divida en grupos de 3 y que le diga cu\u00e1ntos grupos hay. Luego, p\u00eddale que imagine que no sab\u00eda el total inicial, pero que tiene 4 grupos de 3 dulces. \u00bfC\u00f3mo encontrar\u00eda el total? (4 x 3).&quot;}, {&quot;tag&quot;: &quot;misinterpreting_dividend_divisor&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> tiene dificultades para identificar cu\u00e1l es el dividendo (el n\u00famero total que se divide) y cu\u00e1l es el divisor (por cu\u00e1nto se divide) en un problema verbal, lo que lleva a establecer la ecuaci\u00f3n incorrectamente (ej. 5 / n = 20 en lugar de n / 5 = 20).&quot;, &quot;reassurance&quot;: &quot;\u00a1Excelente! <span class="ph">[Student Name]</span> est\u00e1 mostrando un gran esfuerzo al analizar el problema, y con pr\u00e1ctica, <span class="ph">[they]</span> identificar\u00e1 cada parte de la ecuaci\u00f3n sin problemas.&quot;, &quot;home_action&quot;: &quot;Presente a <span class="ph">[Student Name]</span> escenarios simples, como: &#x27;Tenemos 36 pesos para comprar empanadas que cuestan 9 pesos cada una. \u00bfCu\u00e1ntas empanadas podemos comprar?&#x27;. P\u00eddale a <span class="ph">[Student Name]</span> que identifique el total y el costo por unidad.&quot;}, {&quot;tag&quot;: &quot;mental_math_overreliance&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> intenta resolver las ecuaciones de divisi\u00f3n de un paso completamente de forma mental, sin escribir los pasos o comprender la estructura de la ecuaci\u00f3n, lo que lleva a errores en problemas m\u00e1s complejos.&quot;, &quot;reassurance&quot;: &quot;Es fant\u00e1stico que <span class="ph">[Student Name]</span> est\u00e9 desarrollando <span class="ph">[their]</span> habilidad para el c\u00e1lculo mental, y ahora estamos construyendo sobre eso para que <span class="ph">[they]</span> pueda resolver problemas m\u00e1s grandes de forma estructurada.&quot;, &quot;home_action&quot;: &quot;Cuando hagan una receta, p\u00eddale a <span class="ph">[Student Name]</span> que calcule cu\u00e1nto de un ingrediente necesitar\u00edan si duplicaran o triplicaran la receta, escribiendo los pasos para que vea la importancia de documentar el proceso.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! ¡No te preocupes si las matemáticas te parecen complicadas! Hoy te explicaré las Ecuaciones de División de Un Paso de una manera sencilla para que <span class="ph">[they]</span> puedas entenderlas perfectamente y ayudar a <span class="ph">[Student Name]</span>. Imagina que estás en el mercado. Sabes que gastaste 500 pesos en total en manzanas, y sabes que cada manzana costó 50 pesos. Quieres saber cuántas manzanas compraste. Esto es una ecuación de división de un paso. Tienes un total (500), tienes el valor de cada parte (50), y quieres encontrar el número de partes (las manzanas). 
+
+Así es como funciona: 
+
+1.  <strong>Identifica lo que tienes y lo que falta:</strong> En nuestro ejemplo, sabes que el total es 500 pesos (el &#x27;dividendo&#x27;). Sabes que cada manzana cuesta 50 pesos (el &#x27;divisor&#x27;). Lo que no sabes es cuántas manzanas compraste (el &#x27;cociente&#x27; o resultado de la división). Podríamos escribir esto como: 500 / (número de manzanas) = 50. 
+
+2.  <strong>Usa la operación &quot;contraria&quot;:</strong> Para deshacer una división y encontrar el número que falta, siempre usamos la multiplicación. Si tenemos 500 / &#x27;algo&#x27; = 50, significa que &#x27;algo&#x27; multiplicado por 50 debe dar 500. 
+
+3.  <strong>Resuelve:</strong> En este caso, para encontrar &#x27;algo&#x27;, dividimos el total (500) por el costo de cada manzana (50). Así, 500 / 50 = 10. ¡Compraste 10 manzanas! 
+
+Otro ejemplo: Si tienes un presupuesto de 300 pesos para la semana y decides gastar exactamente la misma cantidad cada uno de los 7 días. ¿Cuánto puedes gastar por día? ¡Aquí el número de días es el divisor y la cantidad por día es el desconocido! Verás, <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> puedes aplicar esto a tu vida diaria constantemente. ¡Con estos pasos, <span class="ph">[they]</span> te sentirás mucho más seguro ayudando a <span class="ph">[Student Name]</span> y para tus propios estudios!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span> ! Cette semaine, <span class="ph">[Student Name]</span> va explorer le monde passionnant des « Équations de division à une étape » en 6e année. C&#x27;est un concept fondamental pour <span class="ph">[their]</span> future compréhension de l&#x27;algèbre. En termes simples, <span class="ph">[Student Name]</span> apprendra à trouver un nombre manquant dans un problème de division où l&#x27;équation est présentée comme un équilibre. Par exemple, si nous savons que lorsque nous divisons une quantité inconnue par 5, le résultat est 10, <span class="ph">[Student Name]</span> apprendra à trouver cette quantité inconnue (qui est 50).&lt;br&gt;&lt;br&gt;Pour une activité pratique ce soir, divisez un sac de 24 bonbons ou biscuits en 3 groupes égaux. Demandez à <span class="ph">[Student Name]</span> : « Si nous avons 24 bonbons et que nous les avons divisés en un certain nombre de sacs (x), et qu&#x27;il y a 8 bonbons dans chaque sac, comment pourrions-nous trouver &#x27;x&#x27; ? »&lt;br&gt;&lt;br&gt;À table, vous pourriez demander : « Si notre famille a dépensé 300 dollars en épicerie le mois dernier et que cela représente une dépense égale sur 4 semaines, combien avons-nous dépensé par semaine ? » Cela mettra en évidence l&#x27;idée de trouver la quantité totale ou la partie manquante dans un scénario de division.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjour <span class="ph">[Student Name]</span>! Je suis ravi de te retrouver aujourd&#x27;hui. Nous allons nous amuser avec les équations de division à une étape. C&#x27;est comme résoudre des énigmes mathématiques super cool où la division est la clé pour trouver ce qui manque. Es-tu prêt à relever le défi ? Je sais que tu vas faire un excellent travail, <span class="ph">[Student Name]</span>!&quot;&lt;br&gt;&lt;br&gt;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Regarde bien l&#x27;équation, <span class="ph">[Student Name]</span>. Si tu as quelque chose comme &#x27;x divisé par 4 égale 12&#x27; (x / 4 = 12), cela veut dire &#x27;quel nombre, quand on le partage en 4, nous donne 12 ?&#x27; Pense à un grand groupe d&#x27;objets que tu partages en 4 petits groupes, et chaque petit groupe contient 12 objets. Combien y avait-il d&#x27;objets au total avant de les partager ? Est-ce que cela t&#x27;aide à visualiser ce que &#x27;x&#x27; représente ?&quot;&lt;br&gt;&lt;br&gt;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;C&#x27;est une excellente question, <span class="ph">[Student Name]</span>! Tu sais que la division et la multiplication sont des opérations inverses, n&#x27;est-ce pas ? Pour &#x27;défaire&#x27; la division par 4, nous devons faire l&#x27;opération inverse. Si on a &#x27;x / 4 = 12&#x27;, pour isoler &#x27;x&#x27; et le trouver tout seul, nous devons multiplier les deux côtés de l&#x27;équation par 4. Qu&#x27;est-ce que cela donne si tu multiplies 12 par 4, <span class="ph">[Student Name]</span> ? Souviens-toi, ce que tu fais d&#x27;un côté de l&#x27;équation, tu dois le faire de l&#x27;autre pour garder l&#x27;équilibre !&quot;&lt;br&gt;&lt;br&gt;SESSION CLOSING: &quot;Fantastique travail, <span class="ph">[Student Name]</span>! Tu as vraiment bien compris comment résoudre ces équations de division à une étape. <span class="ph">[they]</span> as montré une super logique et beaucoup de persévérance. Je suis très fier de la façon dont <span class="ph">[they]</span> as abordé ce défi aujourd&#x27;hui. Continue comme ça, <span class="ph">[Student Name]</span>, tu es un champion des maths !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus grande difficulté que <span class="ph">[Student Name]</span> pourrait rencontrer avec les équations de division à une étape est de confondre l&#x27;opération inverse. Par exemple, pour résoudre <code>x / 8 = 7</code>, <span class="ph">[Student Name]</span> pourrait diviser 7 par 8 au lieu de multiplier 7 par 8. <span class="ph">[they]</span> obtiendra alors un nombre plus petit, comme 0,875, ce qui ne correspond pas au concept de trouver une quantité totale qui a été divisée. Vous reconnaîtrez cette erreur si la réponse de <span class="ph">[Student Name]</span> est une fraction ou un nombre décimal très petit, ou si <span class="ph">[they]</span> propose une réponse pour &#x27;x&#x27; qui, une fois divisée par le nombre dans l&#x27;équation, ne donne pas le bon quotient. Pour aider <span class="ph">[Student Name]</span>, dites : « Quand tu as &#x27;x divisé par un nombre&#x27; (comme x / 8), pour trouver &#x27;x&#x27;, tu dois faire l&#x27;opération <em>inverse</em> de la division, qui est la multiplication. Essaie de multiplier 7 par 8. Pense : si j&#x27;ai 8 groupes de 7, combien j&#x27;en ai en tout ? » Ne dites <em>jamais</em> : « C&#x27;est encore faux, tu devrais le savoir ! » Cela pourrait décourager <span class="ph">[Student Name]</span> et <span class="ph">[them]</span> rendre réticent à essayer à nouveau.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;inverse_operation_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> peut essayer de diviser les nombres au lieu de multiplier pour annuler la division. Par exemple, pour r\u00e9soudre <code>x / 3 = 9</code>, <span class="ph">[they]</span> pourrait diviser 9 par 3 (obtenant 3) au lieu de multiplier 9 par 3 (obtenant 27).&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s courante que beaucoup d&#x27;\u00e9l\u00e8ves font ! <span class="ph">[Student Name]</span> est sur le point de comprendre l&#x27;astuce cl\u00e9 pour ces \u00e9quations.&quot;, &quot;home_action&quot;: &quot;Utilisez 27 jetons de poker ou des bonbons. Demandez \u00e0 <span class="ph">[Student Name]</span> de les diviser en 3 groupes \u00e9gaux. Ensuite, demandez-<span class="ph">[them]</span> : &#x27;Si j&#x27;ai 3 groupes de 9, combien j&#x27;en ai en tout ?&#x27; Montrez le lien avec <code>x / 3 = 9</code> et comment multiplier pour trouver le total.&quot;}, {&quot;tag&quot;: &quot;forgetting_balance&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> peut n&#x27;effectuer l&#x27;op\u00e9ration inverse que d&#x27;un c\u00f4t\u00e9 de l&#x27;\u00e9quation, rompant ainsi l&#x27;\u00e9quilibre. Par exemple, pour <code>y / 6 = 5</code>, <span class="ph">[they]</span> pourrait multiplier seulement le 5 par 6 (pour obtenir 30) mais oublier d&#x27;appliquer l&#x27;op\u00e9ration inverse \u00e0 &#x27;y / 6&#x27;, ou ne pas connecter le r\u00e9sultat \u00e0 &#x27;y&#x27;.&quot;, &quot;reassurance&quot;: &quot;Il est facile d&#x27;oublier que les \u00e9quations sont comme des balances qui doivent rester parfaitement \u00e9quilibr\u00e9es ! <span class="ph">[Student Name]</span> est capable de d\u00e9velopper cette discipline math\u00e9matique avec de la pratique.&quot;, &quot;home_action&quot;: &quot;Utilisez une balance de cuisine. Mettez 5 haricots dans une tasse sur le c\u00f4t\u00e9 gauche. Demandez \u00e0 <span class="ph">[Student Name]</span> : &#x27;Si je voulais que cette tasse ait maintenant 30 haricots (5 fois plus), que devrais-je faire de l&#x27;autre c\u00f4t\u00e9 de la balance pour qu&#x27;elle reste \u00e9quilibr\u00e9e ?&#x27; (Ajouter 25 haricots, ou multiplier la quantit\u00e9 par 6). Reliez cela \u00e0 la multiplication des deux c\u00f4t\u00e9s d&#x27;une \u00e9quation.&quot;}, {&quot;tag&quot;: &quot;misinterpreting_variable&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> peut ne pas comprendre que la variable (comme &#x27;x&#x27; ou &#x27;y&#x27;) repr\u00e9sente une quantit\u00e9 inconnue qui doit \u00eatre trouv\u00e9e, la traitant parfois comme une \u00e9tiquette ou un \u00e9l\u00e9ment d\u00e9coratif dans l&#x27;\u00e9quation.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une nouvelle fa\u00e7on de penser aux nombres et aux probl\u00e8mes, et <span class="ph">[Student Name]</span> est tout \u00e0 fait capable de d\u00e9velopper cette compr\u00e9hension conceptuelle !&quot;, &quot;home_action&quot;: &quot;Faites une chasse au tr\u00e9sor simple \u00e0 la maison. Cachez un petit jouet (par exemple, une figurine de baseball). Dites \u00e0 <span class="ph">[Student Name]</span> : &#x27;J&#x27;ai cach\u00e9 &#x27;x&#x27; figurines. Si je les ai divis\u00e9es en 2 cachettes diff\u00e9rentes, et qu&#x27;il y a 1 figurine dans chaque cachette, combien de figurines &#x27;x&#x27; avais-je au total ?&#x27; Expliquez que &#x27;x&#x27; est ce que l&#x27;on cherche.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, apprenons ensemble les Équations de division à une étape. Imaginez que ce concept est comme résoudre un petit mystère : vous savez ce qui s&#x27;est passé <em>après</em> une division, et vous devez trouver la quantité <em>initiale</em>. <span class="ph">[they]</span> verrez, c&#x27;est très logique et pratique !&lt;br&gt;&lt;br&gt;Prenons un exemple concret :&lt;br&gt;Vous avez préparé un grand lot de biscuits pour la vente de pâtisseries de l&#x27;école. Vous savez que vous avez rempli 15 sacs de biscuits, et que chaque sac contient 6 biscuits. Vous voulez savoir combien de biscuits vous aviez au total au départ. Comment l&#x27;écrire en maths ?&lt;br&gt;&lt;br&gt;1. <strong>Identifiez l&#x27;inconnu :</strong> La quantité totale de biscuits que vous aviez au départ. Appelons cette quantité &#x27;x&#x27;.&lt;br&gt;2. <strong>Écrivez l&#x27;équation :</strong> Vous avez divisé le total (&#x27;x&#x27;) en 15 sacs, et chaque sac en contient 6. Donc, <code>x divisé par 15 égale 6</code>. En écriture mathématique : <code>x / 15 = 6</code>.&lt;br&gt;3. <strong>Le but :</strong> Trouver la valeur de &#x27;x&#x27;. Pour cela, nous devons &#x27;défaire&#x27; la division.&lt;br&gt;4. <strong>L&#x27;opération inverse :</strong> L&#x27;inverse de la division est la multiplication. Pour annuler la division par 15, nous devons multiplier par 15.&lt;br&gt;5. <strong>Gardez l&#x27;équilibre :</strong> Dans une équation, ce que vous faites d&#x27;un côté, vous devez le faire de l&#x27;autre pour maintenir l&#x27;égalité. Donc, multipliez les deux côtés de l&#x27;équation par 15.&lt;br&gt;<code>(x / 15) <em> 15 = 6 </em> 15</code>&lt;br&gt;6. <strong>Calculez :</strong> <code>x = 90</code>.&lt;br&gt;&lt;br&gt;Vous aviez donc 90 biscuits au total au départ ! <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> venez de maîtriser le concept. Avec cette compréhension, <span class="ph">[they]</span> serez plus confiant(e) pour aider <span class="ph">[Student Name]</span> et même pour <span class="ph">[them]</span>-même si <span class="ph">[they]</span> devez réviser des concepts mathématiques pour un examen.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Semèn sa a, pitit ou a, <span class="ph">[Student Name]</span>, ap aprann sou &quot;Ekasyon Divizyon yon Sèl Etap&quot;. Nan matematik, sa vle di nou ap chèche yon kantite ki kache lè nou konnen total la ak konbyen gwoup nou genyen. Pa egzanp, si nou gen yon sèten kantite mango epi nou vle pataje yo egal-egal ant plizyè moun, nou bezwen konnen konbyen mango chak moun ap resevwa. 
+
+Yon aktivite ou ka fè ak <span class="ph">[Student Name]</span> aswè a se pran kèk pyès lajan (pa egzanp, 50 goud) epi mande <span class="ph">[Student Name]</span> kijan <span class="ph">[they]</span> ta divize yo egal-egal ant 5 zanmi. Lè sa a, mande <span class="ph">[them]</span> pou ekri yon ekasyon ki montre sa. 
+
+Yon kesyon ou ka poze <span class="ph">[Student Name]</span> pandan manje aswè a se: &quot;Si w ap ede nan kwizin nan epi ou gen 20 bonbon pou mete nan 4 ti bwat, konbyen bonbon ki pral nan chak bwat? Ki ekasyon divizyon ki ta reprezante sa?&quot; Sa ap ede <span class="ph">[Student Name]</span> fè koneksyon ant sa <span class="ph">[they]</span> aprann nan lekòl la ak lavi reyèl. Avèk èd ou, <span class="ph">[Student Name]</span> ap byen konprann konsèp sa a!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;SESSION_OPENING&quot;: &quot;Bonjou <span class="ph">[Student Name]</span>! Mwen kontan w\u00e8 ou jodi a. Jodi a nou pral plonje t\u00e8t nou nan ekasyon divizyon yon s\u00e8l etap \u2013 yon bagay ki vr\u00e8man enteresan! <span class="ph">[Student Name]</span>, \u00e8ske w pare pou nou dekouvri k\u00f2man nou ka jwenn sa ki kache nan ekasyon divizyon yo? Ann k\u00f2manse, <span class="ph">[Student Name]</span>!&quot;, &quot;IF_STUDENT_IS_STUCK_ON_STEP_1&quot;: &quot;<span class="ph">[Student Name]</span>, pa enkyete w. Premye etap la se toujou konprann sa ekasyon an ap di nou. Gade ekasyon an: X / 4 = 5. Kisa sa vle di pou ou, <span class="ph">[Student Name]</span>? Sa vle di si nou divize yon nonb nou pa konnen (X) pa 4, rezilta a se 5. Kounye a, kijan nou ka &#x27;anile&#x27; divizyon sa a pou jwenn X, <span class="ph">[Student Name]</span>? Ki operasyon ki f\u00e8 opoze divizyon?&quot;, &quot;IF_STUDENT_IS_STUCK_ON_STEP_2&quot;: &quot;Sa byen pase, <span class="ph">[Student Name]</span>! Wi, miltiplikasyon se opoze divizyon. Kounye a, men yon r\u00e8g enp\u00f2tan <span class="ph">[Student Name]</span>: Tou sa ou f\u00e8 sou yon b\u00f2 ekasyon an, ou dwe f\u00e8 l sou l\u00f2t b\u00f2 a tou pou kenbe balans lan. Si nou miltipliye b\u00f2 g\u00f2ch la pa 4 pou anile divizyon an, kisa nou dwe f\u00e8 sou b\u00f2 dwat la tou, <span class="ph">[Student Name]</span>?&quot;, &quot;SESSION_CLOSING&quot;: &quot;Ekselan travay jodi a, <span class="ph">[Student Name]</span>! Ou te f\u00e8 yon gwo ef\u00f2 e ou byen konprann kijan pou w rezoud ekasyon divizyon yon s\u00e8l etap. Mwen fy\u00e8 de ou, <span class="ph">[Student Name]</span>! Kontinye pratike, e byento ou pral yon eksp\u00e8 total nan sa. N ap w\u00e8 w l\u00f2t fwa!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Pi gwo erè <span class="ph">[Student Name]</span> ap fè ak ekasyon divizyon yon sèl etap se bliye aplike operasyon ranvèse a (miltiplikasyon) sou TOU DE bò ekasyon an. Pa egzanp, si ekasyon an se X / 3 = 7, <span class="ph">[Student Name]</span> ka miltipliye X / 3 pa 3 pou jwenn X, men bliye miltipliye 7 pa 3. 
+
+Ou ka rekonèt sa si ou wè <span class="ph">[Student Name]</span> jwenn yon repons ki sanble twò piti oswa si <span class="ph">[they]</span> jis di &#x27;X=7&#x27;.
+
+Men sa pou w di <span class="ph">[Student Name]</span>: &quot;Sonje byen, yon ekasyon se tankou yon balans. Pou kenbe balans lan, tou sa ou fè sou yon bò, ou dwe fè l sou lòt bò a tou. Ou te miltipliye pa 3 sou bò gòch la, kisa ou dwe fè sou bò dwat la tou?&quot;
+
+Sa ou PA dwe di: &quot;Ou bliye ankò!&quot; oswa &quot;Sa pa bon.&quot; Olye de sa, gide <span class="ph">[Student Name]</span> pou <span class="ph">[they]</span> dekouvri erè a pou kont <span class="ph">[their]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;inverse_operation_confusion&quot;, &quot;parent_description&quot;: &quot;Pafwa, <span class="ph">[Student Name]</span> ka pa konprann ke miltiplikasyon anile divizyon. Pou egzanp, <span class="ph">[they]</span> ka eseye soustraksyon oswa adisyon olye ke miltiplikasyon pou rezoud X/5 = 10.&quot;, &quot;reassurance&quot;: &quot;Li n\u00f2mal pou gen ti konfizyon ok\u00f2mansman. Anpil moun f\u00e8 er\u00e8 sa a l\u00e8 yo ap aprann yon nouvo kons\u00e8p. <span class="ph">[Student Name]</span> ap vin pi al\u00e8z av\u00e8k pratik.&quot;, &quot;home_action&quot;: &quot;Itilize obj\u00e8 chak jou, tankou bouton oswa pwa diri, pou montre kijan si nou divize yon pak\u00e8t an gwoup, l\u00e8 nou mete gwoup sa yo ansanm ank\u00f2 (miltipliye), nou jwenn pak\u00e8t orijinal la.&quot;}, {&quot;tag&quot;: &quot;one_side_only_error&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka rezoud ekasyon an sou yon b\u00f2 s\u00e8lman. Pou egzanp, si ekasyon an se Y / 4 = 8, <span class="ph">[they]</span> ka miltipliye Y / 4 pa 4 pou jwenn Y, men bliye miltipliye 8 pa 4, kidonk <span class="ph">[they]</span> jwenn Y = 8 olye de Y = 32.&quot;, &quot;reassurance&quot;: &quot;Sa a se yon er\u00e8 tr\u00e8 komen, <span class="ph">[Parent Name]</span>. Li montre <span class="ph">[Student Name]</span> konprann yon pati nan kons\u00e8p la. Ti rap\u00e8l ak pratik ap ede <span class="ph">[they]</span> sonje pou f\u00e8 l sou tou de b\u00f2.&quot;, &quot;home_action&quot;: &quot;Itilize imaj yon balanse fizik. Eksplike ke si nou ajoute pwa sou yon b\u00f2, nou dwe ajoute menm pwa sou l\u00f2t b\u00f2 a pou l rete balanse. Se menm bagay la ak ekasyon.&quot;}, {&quot;tag&quot;: &quot;variable_misinterpretation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka panse ke yon ekasyon tankou 12 / Z = 4 vle di Z dwe pi gwo pase 12, paske divizyon konn rann nonb yo pi piti. Kidonk, <span class="ph">[they]</span> ka eseye f\u00e8 12 * 4 olye de 12 / 4.&quot;, &quot;reassurance&quot;: &quot;Sa a montre <span class="ph">[Student Name]</span> ap eseye panse lojikman, men jis bezwen yon ti ajisteman nan konpreyansyon li sou kote enkoni an ye nan ekasyon divizyon an.&quot;, &quot;home_action&quot;: &quot;Bay <span class="ph">[Student Name]</span> ti pwobl\u00e8m pratik ak nimewo fasil, tankou \&quot;Mwen gen 10 bonbon, mwen te divize yo nan X gwoup epi chak gwoup gen 2 bonbon. Konbyen gwoup mwen te f\u00e8?\&quot; Sa ap ede <span class="ph">[they]</span> vizyalize l\u00e8 enkoni an se diviz\u00e8 a.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Jodi a nou pral gade &quot;Ekasyon Divizyon yon Sèl Etap&quot; pou ede ou konprann kòman pitit ou a ap aprann. Imajine w ap eseye dekouvri yon bagay ou pa konnen lè w ap travay ak divizyon. 
+
+Men kòman sa fonksyone, <span class="ph">[Parent Name]</span>:
+
+1.  <strong>Konprann pwoblèm nan</strong>: Imajine ou gen yon pakèt mango ke ou vle pataje egal-egal. Ou konnen konbyen mango ou te genyen, epi ou konnen konbyen mango chak moun te resevwa, men ou bliye konbyen moun ou te pataje avèk yo. Oswa, ou konnen konbyen moun ou te pataje avèk yo, men ou bliye kantite total mango ou te genyen.
+2.  <strong>Ekasyon an</strong>: Yon ekasyon divizyon yon sèl etap sanble sa a: <code>KantiteTotal / X = KantitePaGwoup</code> (kote X se sa ou pa konnen, tankou konbyen moun) OSWA <code>X / KonbyenGwoup = KantitePaGwoup</code> (kote X se kantite total).
+3.  <strong>Ranje pwoblèm nan</strong>: Pou jwenn X la, nou dwe fè operasyon opoze a. Si ekasyon an se divizyon, nou pral sèvi ak miltiplikasyon. Sonje byen, <span class="ph">[they]</span> dwe fè menm bagay la sou tou de bò ekasyon an pou kenbe li balanse.
+4.  <strong>Egzanp pratik</strong>: Si ou gen yon bidjè 3000 goud pou achte diri pou 5 jou. <code>X / 5 = 600</code>. Pou jwenn konbyen ou ka depanse pou chak jou, ou miltipliye 600 pa 5 pou jwenn X = 3000. Si ou gen 50 goud epi ou depanse 10 goud chak fwa ou achte yon bagay. <code>50 / X = 10</code>. Pou jwenn konbyen fwa ou achte, ou miltipliye X pa 10, epi divize 50 pa 10 pou jwenn X = 5. 
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> ap metrize konsèp sa a epi <span class="ph">[they]</span> ap kapab anseye <span class="ph">[Student Name]</span> avèk konfyans. Li se yon ladrès itil nan lavi chak jou!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está explorando um conceito muito útil em matemática: as Equações de Divisão de Uma Etapa. Em termos simples, <span class="ph">[Student Name]</span> está aprendendo a descobrir um número desconhecido que foi dividido, usando a multiplicação para &#x27;desfazer&#x27; a divisão. É como um quebra-cabeça matemático! Para ajudar <span class="ph">[them]</span> em casa, <span class="ph">[they]</span> pode fazer uma atividade prática hoje à noite: divida um pacote de 24 biscoitos (ou moedas de 1 real) em grupos iguais com <span class="ph">[Student Name]</span>. Peça para <span class="ph">[Student Name]</span> dividir os biscoitos em 4 pratos igualmente. Então, pergunte: &#x27;Se cada prato recebeu 6 biscoitos, e eu tinha um número desconhecido de biscoitos no total, como podemos descobrir o número inicial?&#x27; Isso simula a equação x / 4 = 6. Na hora do jantar, <span class="ph">[they]</span> pode perguntar a <span class="ph">[Student Name]</span>: &#x27;Se um time de futebol americano da NFL marcou 42 pontos e cada touchdown vale 7 pontos, mas não sabemos quantos touchdowns (t) eles fizeram, como você resolveria &#x27;42 / t = 7&#x27; para encontrar &#x27;t&#x27;?&#x27; Isso reforça a ideia de usar a operação inversa.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Olá, <span class="ph">[Student Name]</span>! Que bom ver você. Hoje vamos mergulhar nas equações de divisão de uma etapa. Elas são como um quebra-cabeça divertido, e você tem tudo para resolver cada um deles. Vamos descobrir como encontrar o número &#x27;escondido&#x27; nessas divisões de forma inteligente!&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1 (e.g., x / 4 = 12): &quot;Não se preocupe, <span class="ph">[Student Name]</span>, é muito comum ficar um pouco confuso no início. Lembre-se, nosso objetivo é deixar a letra sozinha de um lado da equação. Para &#x27;desfazer&#x27; uma divisão, qual é a operação inversa que usamos? Se estamos dividindo por 4, o que precisamos fazer em <em>ambos os lados</em> da equação para isolar o &#x27;x&#x27;? Pense nisso como balancear uma balança. O que você faz de um lado, precisa fazer do outro para manter o equilíbrio.&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2 (e.g., 40 / x = 8): &quot;Excelente tentativa, <span class="ph">[Student Name]</span>, mas essa é uma parte um pouco mais tricky! Quando o número que queremos descobrir está <em>dividindo</em> outro número, precisamos mover o &#x27;x&#x27; para fora do denominador. Primeiro, vamos multiplicar &#x27;x&#x27; por ambos os lados da equação. Assim teremos 40 = 8x. Agora, como você isolaria o &#x27;x&#x27; se a equação fosse 8x = 40? Qual operação &#x27;desfaz&#x27; a multiplicação?&quot; SESSION CLOSING: &quot;Você arrasou hoje, <span class="ph">[Student Name]</span>! Ver você usar a multiplicação para desvendar as divisões foi fantástico. Lembre-se, praticar é o segredo para se tornar um mestre em qualquer coisa. Estou muito orgulhoso do seu esforço e da sua dedicação. Continue assim e logo você será um expert em equações de divisão de uma etapa!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">O erro mais comum que <span class="ph">[Student Name]</span> pode cometer com Equações de Divisão de Uma Etapa é aplicar a operação inversa incorretamente. Por exemplo, em &#x27;x / 5 = 15&#x27;, <span class="ph">[Student Name]</span> pode tentar dividir 15 por 5 novamente, em vez de multiplicar 15 por 5. Ou, em &#x27;30 / x = 6&#x27;, <span class="ph">[they]</span> pode dividir 30 por 6 diretamente, sem entender que precisa primeiro multiplicar &#x27;x&#x27; em ambos os lados, transformando a equação em &#x27;30 = 6x&#x27;, e só então dividir. Para reconhecer isso, observe se <span class="ph">[Student Name]</span> repete a divisão ou luta para isolar a variável quando ela é o divisor. As palavras exatas para dizer a <span class="ph">[Student Name]</span> são: &quot;Eu vejo o que você está tentando fazer aqui, <span class="ph">[Student Name]</span>. Lembre-se, para &#x27;desfazer&#x27; uma divisão e encontrar o número que falta, sempre pensamos na operação oposta, que é a multiplicação. E se a letra está no denominador, o que precisamos fazer primeiro para movê-la para o numerador?&quot;. O que NÃO dizer a <span class="ph">[Student Name]</span>: &quot;Está errado. Você só precisa multiplicar.&quot; Isso não ajuda <span class="ph">[Student Name]</span> a entender o conceito.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;dividing_instead_of_multiplying&quot;, &quot;parent_description&quot;: &quot;Quando <span class="ph">[Student Name]</span> v\u00ea uma equa\u00e7\u00e3o como &#x27;x / 7 = 9&#x27;, <span class="ph">[they]</span> pode tentar dividir 9 por 7, em vez de multiplicar 9 por 7 para encontrar o valor de &#x27;x&#x27;. <span class="ph">[they]</span> esquece de usar a opera\u00e7\u00e3o inversa.&quot;, &quot;reassurance&quot;: &quot;\u00c9 um erro muito comum no in\u00edcio, <span class="ph">[Student Name]</span> est\u00e1 apenas aprendendo as &#x27;regras do jogo&#x27; para as equa\u00e7\u00f5es. Com um pouco de pr\u00e1tica, <span class="ph">[they]</span> vai pegar o jeito.&quot;, &quot;home_action&quot;: &quot;Em casa, <span class="ph">[Parent Name]</span> pode dar a <span class="ph">[Student Name]</span> um problema simples: &#x27;Eu tinha um n\u00famero desconhecido de reais e os dividi igualmente entre 5 amigos, e cada um recebeu 4 reais. Quantos reais eu tinha no total?&#x27; Pe\u00e7a para <span class="ph">[Student Name]</span> montar a equa\u00e7\u00e3o e resolver.&quot;}, {&quot;tag&quot;: &quot;variable_in_denominator&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode ter dificuldade quando a vari\u00e1vel est\u00e1 no denominador, como em &#x27;48 / y = 6&#x27;. <span class="ph">[they]</span> pode ficar confuso sobre como isolar &#x27;y&#x27; e pode dividir 48 por 6 diretamente, sem entender que primeiro precisa multiplicar por &#x27;y&#x27; em ambos os lados para mov\u00ea-lo para o numerador.&quot;, &quot;reassurance&quot;: &quot;Essa \u00e9 uma parte um pouco mais complexa das equa\u00e7\u00f5es de divis\u00e3o, e <span class="ph">[Student Name]</span> est\u00e1 progredindo muito bem ao tentar! \u00c9 um desafio que muitos estudantes enfrentam, e <span class="ph">[they]</span> vai superar isso.&quot;, &quot;home_action&quot;: &quot;Joguem um jogo simples: &#x27;Se eu dividi 20 balas entre alguns amigos (y) e cada um recebeu 4 balas, quantos amigos havia?&#x27; Pe\u00e7a para <span class="ph">[Student Name]</span> mostrar os passos para resolver &#x27;20 / y = 4&#x27;.&quot;}, {&quot;tag&quot;: &quot;forgetting_balance_equation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode aplicar a opera\u00e7\u00e3o inversa (multiplica\u00e7\u00e3o) apenas em um lado da equa\u00e7\u00e3o, esquecendo que para manter a igualdade, <span class="ph">[they]</span> precisa fazer a mesma opera\u00e7\u00e3o em <em>ambos</em> os lados. Por exemplo, em &#x27;x / 3 = 10&#x27;, <span class="ph">[they]</span> pode multiplicar 10 por 3, mas n\u00e3o mostrar a multiplica\u00e7\u00e3o por 3 no lado do &#x27;x&#x27;, o que \u00e9 crucial para o entendimento do balan\u00e7o da equa\u00e7\u00e3o.&quot;, &quot;reassurance&quot;: &quot;Isso mostra que <span class="ph">[Student Name]</span> est\u00e1 come\u00e7ando a entender a opera\u00e7\u00e3o, mas precisa de um pouco mais de foco na ideia de equil\u00edbrio. \u00c9 uma li\u00e7\u00e3o importante que <span class="ph">[they]</span> est\u00e1 absorvendo.&quot;, &quot;home_action&quot;: &quot;Use uma balan\u00e7a de cozinha ou fa\u00e7a uma balan\u00e7a improvisada com um cabide. Coloque objetos de peso igual em ambos os lados. Remova um objeto de um lado e pe\u00e7a para <span class="ph">[Student Name]</span> mostrar o que precisa fazer do outro lado para manter o equil\u00edbrio. Relacione isso com &#x27;o que fazemos de um lado da equa\u00e7\u00e3o, fazemos do outro&#x27;.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos desmistificar as &#x27;Equações de Divisão de Uma Etapa&#x27; para que <span class="ph">[they]</span> possa ajudar <span class="ph">[Student Name]</span> com confiança. Pense nelas como um enigma simples. Primeiro, o que é uma equação de divisão de uma etapa? É uma pergunta matemática onde um número está faltando e você usa a divisão para encontrá-lo, mas só precisa de um passo para resolver. Por exemplo, imagine que você tem uma receita de brigadeiro que rende 24 doces, e cada pessoa come 3 doces. Quantas pessoas (vamos chamar de &#x27;x&#x27;) podem comer? A equação é 24 / x = 3. Você está tentando encontrar &#x27;x&#x27;. 
+
+Agora, como resolvemos? A mágica da &#x27;operação inversa&#x27;. Para encontrar o número que falta, <span class="ph">[they]</span> vai usar o oposto da divisão, que é a multiplicação. 
+
+Cenário 1: O número faltando está sendo dividido. Exemplo: &#x27;Eu tinha um número de camisetas (chamamos de &#x27;t&#x27;), e as dividi igualmente entre meus 4 filhos. Cada um recebeu 5 camisetas. Quantas camisetas eu tinha?&#x27; Equação: <code>t / 4 = 5</code>. Para encontrar &#x27;t&#x27;, <span class="ph">[they]</span> faz o oposto: multiplique 5 por 4. <code>t = 5 <em> 4</code>, então <code>t = 20</code>. Resposta: <span class="ph">[they]</span> tinha 20 camisetas. 
+
+Cenário 2: O número faltando é o divisor. Exemplo: &#x27;Eu gastei 60 reais comprando vários pães de queijo na padaria, e cada pão de queijo custou 3 reais. Quantos pães de queijo (&#x27;p&#x27;) eu comprei?&#x27; Equação: <code>60 / p = 3</code>. Aqui, <span class="ph">[they]</span> precisa mover o &#x27;p&#x27; primeiro. Multiplique ambos os lados por &#x27;p&#x27;: <code>60 = 3 </em> p</code> (ou <code>60 = 3p</code>). Agora, <span class="ph">[they]</span> tem uma multiplicação simples. Para isolar &#x27;p&#x27;, <span class="ph">[they]</span> faz o oposto da multiplicação: divisão. <code>60 / 3 = p</code>, então <code>20 = p</code>. Resposta: <span class="ph">[they]</span> comprou 20 pães de queijo. 
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> viu? É tudo sobre &#x27;desfazer&#x27; a operação para encontrar o que está escondido. Com essas ferramentas, <span class="ph">[they]</span> estará super preparado para ajudar <span class="ph">[Student Name]</span> e até mesmo para qualquer prova que exija esses conceitos!</div></div></div></div>
+</body>
+</html>

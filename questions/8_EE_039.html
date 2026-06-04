@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Equivalent Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.039<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Equivalent Expressions</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.039</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store is having a sale where all items are 25% off. If a customer buys 3 identical shirts, each costing &#x27;s&#x27; dollars, which expression is equivalent to the total cost after the discount?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.25s</div><div class="option"><span class="opt-letter">B.</span> 3.25s</div><div class="option"><span class="opt-letter">C.</span> 2.75s</div><div class="option"><span class="opt-letter">D.</span> 0.75s</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = 3s - 0.25(3s)</div>
+    <div class="step-exp">The initial cost of 3 shirts is <code>3s</code>. The discount is 25% of <code>3s</code>, which is <code>0.25(3s)</code>. To find the final cost, subtract the discount from the initial cost.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.25 * 3s = 0.75s</div>
+    <div class="step-exp">Multiply the discount percentage (0.25) by the total cost of the shirts (3s) to find the total discount amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3s - 0.75s = 2.25s</div>
+    <div class="step-exp">Combine the like terms <code>3s</code> and <code>-0.75s</code> by subtracting their coefficients (3 - 0.75).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.25s (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, a player scores &#x27;x&#x27; points from free throws (1 point each), &#x27;y&#x27; points from field goals (2 points each), and &#x27;z&#x27; points from three-pointers (3 points each). Which expression is equivalent to the player&#x27;s total score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6(x + y + z)</div><div class="option"><span class="opt-letter">B.</span> x + 2y + 3z</div><div class="option"><span class="opt-letter">C.</span> 6xyz</div><div class="option"><span class="opt-letter">D.</span> x + y + z</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">1 * x = x</div>
+    <div class="step-exp">Each free throw is 1 point, so &#x27;x&#x27; free throws give <code>x</code> points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2 * y = 2y</div>
+    <div class="step-exp">Each field goal is 2 points, so &#x27;y&#x27; field goals give <code>2y</code> points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 * z = 3z</div>
+    <div class="step-exp">Each three-pointer is 3 points, so &#x27;z&#x27; three-pointers give <code>3z</code> points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x + 2y + 3z</div>
+    <div class="step-exp">Add the points from each type of shot to get the total score. These are unlike terms, so they cannot be combined further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> x + 2y + 3z (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for &#x27;r&#x27; cups of rice and 2.5 cups of water. If you want to make 4 batches of this recipe, which expression is equivalent to the total amount of rice and water needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4r + 2.5</div><div class="option"><span class="opt-letter">B.</span> 4r + 6.5</div><div class="option"><span class="opt-letter">C.</span> 4r + 10</div><div class="option"><span class="opt-letter">D.</span> r + 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total = 4(r + 2.5)</div>
+    <div class="step-exp">The amount for one batch is <code>r + 2.5</code>. For 4 batches, multiply this sum by 4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4 <em> r + 4 </em> 2.5</div>
+    <div class="step-exp">Multiply 4 by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4r + 10</div>
+    <div class="step-exp">Calculate <code>4 * 2.5</code>.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4r + 10 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cyclist travels at a constant speed of 18 miles per hour for &#x27;h&#x27; hours. Then, due to traffic, they reduce their speed by 3 miles per hour for an additional 2 hours. Which expression is equivalent to the total distance the cyclist traveled?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18h + 36</div><div class="option"><span class="opt-letter">B.</span> 18h + 15</div><div class="option"><span class="opt-letter">C.</span> 3h + 30</div><div class="option"><span class="opt-letter">D.</span> 18h + 30</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 18h + (18 - 3)(2)</div>
+    <div class="step-exp">Distance is speed multiplied by time. The first part is <code>18h</code>. The second part is <code>(original speed - speed reduction) * additional time</code>.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">18 - 3 = 15</div>
+    <div class="step-exp">Calculate the new speed after the reduction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 * 2 = 30</div>
+    <div class="step-exp">Calculate the distance traveled in the second part of the journey.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">18h + 30</div>
+    <div class="step-exp">Add the distance from the first part and the second part. These are unlike terms, so they cannot be combined further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 18h + 30 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher buys &#x27;s&#x27; boxes of pens for her students, and each box contains 15 pens. She also buys 8 individual pens. After giving out 5 pens per student to &#x27;x&#x27; students, how many pens are left? Which expression is equivalent to the number of pens remaining?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10s + 8x</div><div class="option"><span class="opt-letter">B.</span> 15s + 8 - 5x</div><div class="option"><span class="opt-letter">C.</span> 15s + 3x</div><div class="option"><span class="opt-letter">D.</span> 20sx + 8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">15s + 8</div>
+    <div class="step-exp">&#x27;s&#x27; boxes with 15 pens each gives <code>15s</code> pens. Adding 8 individual pens gives <code>15s + 8</code>.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5x</div>
+    <div class="step-exp">Each of &#x27;x&#x27; students receives 5 pens, so <code>5x</code> pens are given out.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15s + 8 - 5x</div>
+    <div class="step-exp">Subtract the pens given out from the total pens bought.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work"><code>15s</code>, <code>8</code>, and <code>-5x</code> are all unlike terms.</div>
+    <div class="step-exp">Since there are no like terms, the expression is already in its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15s + 8 - 5x (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist prepares a solution by mixing &#x27;c&#x27; milliliters of chemical A, &#x27;2c&#x27; milliliters of chemical B, and 12 milliliters of chemical C. In another experiment, she uses half of this solution. Which expression is equivalent to the amount of solution used in the second experiment?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3c + 6</div><div class="option"><span class="opt-letter">B.</span> 1.5c + 6</div><div class="option"><span class="opt-letter">C.</span> 2.5c + 6</div><div class="option"><span class="opt-letter">D.</span> 1.5c + 12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total solution = c + 2c + 12</div>
+    <div class="step-exp">Sum the amounts of each chemical to find the total volume of the solution.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">c + 2c = 3c</div>
+    <div class="step-exp">Combine the terms with &#x27;c&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.5(3c + 12)</div>
+    <div class="step-exp">Substitute the combined like terms back into the expression for half the solution.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.5 <em> 3c + 0.5 </em> 12</div>
+    <div class="step-exp">Multiply 0.5 by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1.5c + 6</div>
+    <div class="step-exp">Calculate <code>0.5 <em> 3c</code> and <code>0.5 </em> 12</code>.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5c + 6 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter has a wooden plank that is 20 feet long. He cuts off two pieces. One piece is &#x27;x&#x27; feet long, and the other is 3 feet longer than &#x27;x&#x27;. Which expression is equivalent to the length of the plank remaining after these two cuts?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 17 - x</div><div class="option"><span class="opt-letter">B.</span> 17 - 2x</div><div class="option"><span class="opt-letter">C.</span> 23 - 2x</div><div class="option"><span class="opt-letter">D.</span> 17 + 2x</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Remaining length = 20 - (x + (x + 3))</div>
+    <div class="step-exp">Start with the total length and subtract the sum of the lengths of the two cut pieces. The first piece is &#x27;x&#x27;, the second is <code>x + 3</code>.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + x = 2x</div>
+    <div class="step-exp">Combine the variable terms for the total length of the cut pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">20 - (2x + 3)</div>
+    <div class="step-exp">Substitute <code>2x</code> back into the expression for the total length of the cut pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">20 - 2x - 3</div>
+    <div class="step-exp">When a minus sign precedes parentheses, change the sign of each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">20 - 3 = 17</div>
+    <div class="step-exp">Combine the numerical values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">17 - 2x</div>
+    <div class="step-exp">The expression now consists of unlike terms and cannot be simplified further.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 17 - 2x (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An employee&#x27;s weekly pay is calculated based on a regular rate of &#x27;r&#x27; dollars per hour for the first 40 hours, and an overtime rate of 1.5 times the regular rate for any hours worked beyond 40. If the employee works &#x27;h&#x27; hours in a week (where h &gt; 40), which expression is equivalent to their total weekly pay?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.5rh - 40r</div><div class="option"><span class="opt-letter">B.</span> 40r + 1.5h - 40</div><div class="option"><span class="opt-letter">C.</span> 1.5rh - 20r</div><div class="option"><span class="opt-letter">D.</span> 1.5rh + 20r</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Pay = 40r + (h - 40)(1.5r)</div>
+    <div class="step-exp">The pay for regular hours is <code>40r</code>. The overtime hours are <code>h - 40</code>, and the overtime rate is <code>1.5r</code>.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(h - 40)(1.5r) = h <em> 1.5r - 40 </em> 1.5r</div>
+    <div class="step-exp">Multiply <code>1.5r</code> by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1.5rh - 60r</div>
+    <div class="step-exp">Calculate <code>40 * 1.5r</code>.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">40r + 1.5rh - 60r</div>
+    <div class="step-exp">Replace the distributed overtime term back into the total pay expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">40r - 60r = -20r</div>
+    <div class="step-exp">Combine the terms that have &#x27;r&#x27; as the variable part.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">1.5rh - 20r</div>
+    <div class="step-exp">Rearrange the terms for clarity, often with the <code>rh</code> term first.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5rh - 20r (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of Town A increases by 500 people each year from an initial population of &#x27;P&#x27;. The population of Town B decreases by 200 people each year from an initial population that is twice Town A&#x27;s initial population. Which expression is equivalent to the difference in population (Town A - Town B) after &#x27;y&#x27; years?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3P + 700y</div><div class="option"><span class="opt-letter">B.</span> -P + 300y</div><div class="option"><span class="opt-letter">C.</span> -P + 700y</div><div class="option"><span class="opt-letter">D.</span> 3P + 300y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P_A = P + 500y</div>
+    <div class="step-exp">Initial population &#x27;P&#x27; plus 500 people multiplied by &#x27;y&#x27; years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">P_B = 2P - 200y</div>
+    <div class="step-exp">Initial population <code>2P</code> minus 200 people multiplied by &#x27;y&#x27; years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Difference = (P + 500y) - (2P - 200y)</div>
+    <div class="step-exp">Subtract the expression for Town B&#x27;s population from Town A&#x27;s population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">P + 500y - 2P + 200y</div>
+    <div class="step-exp">Change the sign of each term inside the parentheses that are being subtracted.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">(P - 2P) + (500y + 200y)</div>
+    <div class="step-exp">Group terms with &#x27;P&#x27; and terms with &#x27;y&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">-P + 700y</div>
+    <div class="step-exp"><code>P - 2P = -P</code> and <code>500y + 200y = 700y</code>.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -P + 700y (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company offers two data plans. Plan A charges a flat fee of $35 plus $0.10 per gigabyte (g) used. Plan B charges a flat fee of $15 plus $0.25 per gigabyte (g) used. Which expression is equivalent to the difference in cost (Plan A - Plan B)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 + 0.35g</div><div class="option"><span class="opt-letter">B.</span> 50 - 0.15g</div><div class="option"><span class="opt-letter">C.</span> 20 - 0.15g</div><div class="option"><span class="opt-letter">D.</span> 50 + 0.35g</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost_A = 35 + 0.10g</div>
+    <div class="step-exp">Flat fee ($35) plus cost per gigabyte ($0.10g).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cost_B = 15 + 0.25g</div>
+    <div class="step-exp">Flat fee ($15) plus cost per gigabyte ($0.25g).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Difference = (35 + 0.10g) - (15 + 0.25g)</div>
+    <div class="step-exp">Subtract Plan B&#x27;s cost expression from Plan A&#x27;s cost expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">35 + 0.10g - 15 - 0.25g</div>
+    <div class="step-exp">Change the sign of each term inside the parentheses that are being subtracted.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">(35 - 15) + (0.10g - 0.25g)</div>
+    <div class="step-exp">Group constant terms and terms with &#x27;g&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">20 - 0.15g</div>
+    <div class="step-exp"><code>35 - 15 = 20</code> and <code>0.10g - 0.25g = -0.15g</code>.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 - 0.15g (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

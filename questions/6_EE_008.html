@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: One-Step Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.008<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">One-Step Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.008</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Maya bought a toy for $12.50. She now has $8.00 left. How much money (m) did Maya have before buying the toy?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $4.50</div><div class="option"><span class="opt-letter">B.</span> $19.50</div><div class="option"><span class="opt-letter">C.</span> $21.50</div><div class="option"><span class="opt-letter">D.</span> $20.50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;m&#x27; be the money Maya had before buying the toy. She spent $12.50, so &#x27;m&#x27; decreased by $12.50, leaving her with $8.00. The equation is: m - 12.50 = 8.00</div>
+    <div class="step-exp">The problem describes a situation where an initial amount of money is reduced by a purchase, leaving a remaining amount. This translates to a subtraction equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the subtraction of 12.50 from &#x27;m&#x27;, we need to add 12.50 to both sides of the equation: m - 12.50 + 12.50 = 8.00 + 12.50</div>
+    <div class="step-exp">To solve for &#x27;m&#x27;, we perform the inverse operation of subtraction, which is addition, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">m = 20.50</div>
+    <div class="step-exp">Adding 8.00 and 12.50 gives the total initial amount of money.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Maya had $20.50 before buying the toy.</div>
+    <div class="step-exp">The value of &#x27;m&#x27; represents the money Maya had initially.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $20.50 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A football team scored 28 points in total. If they scored 7 points in the first half, how many points (p) did they score in the second half?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14</div><div class="option"><span class="opt-letter">B.</span> 4</div><div class="option"><span class="opt-letter">C.</span> 21</div><div class="option"><span class="opt-letter">D.</span> 35</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; be the points scored in the second half. The points from the first half (7) plus the points from the second half (&#x27;p&#x27;) equal the total points (28). The equation is: 7 + p = 28</div>
+    <div class="step-exp">The problem describes adding two parts (first half points and second half points) to get a total. This translates to an addition equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the addition of 7 to &#x27;p&#x27;, we need to subtract 7 from both sides of the equation: 7 + p - 7 = 28 - 7</div>
+    <div class="step-exp">To solve for &#x27;p&#x27;, we perform the inverse operation of addition, which is subtraction, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 21</div>
+    <div class="step-exp">Subtracting 7 from 28 gives the points scored in the second half.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The team scored 21 points in the second half.</div>
+    <div class="step-exp">The value of &#x27;p&#x27; represents the points scored in the second half.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 21 points (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for a total of 30 ounces of milk. If each serving requires 5 ounces of milk, how many servings (s) can be made?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35</div><div class="option"><span class="opt-letter">B.</span> 6</div><div class="option"><span class="opt-letter">C.</span> 150</div><div class="option"><span class="opt-letter">D.</span> 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;s&#x27; be the number of servings. The number of ounces per serving (5) multiplied by the number of servings (&#x27;s&#x27;) equals the total ounces of milk (30). The equation is: 5s = 30</div>
+    <div class="step-exp">The problem involves finding how many groups of a certain size fit into a total, which can be represented by a multiplication equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the multiplication by 5, we need to divide both sides of the equation by 5: 5s / 5 = 30 / 5</div>
+    <div class="step-exp">To solve for &#x27;s&#x27;, we perform the inverse operation of multiplication, which is division, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = 6</div>
+    <div class="step-exp">Dividing 30 by 5 gives the number of servings.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">6 servings can be made.</div>
+    <div class="step-exp">The value of &#x27;s&#x27; represents the number of servings.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 servings (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 240 miles in 4 hours. What was its average speed (s) in miles per hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 236</div><div class="option"><span class="opt-letter">B.</span> 960</div><div class="option"><span class="opt-letter">C.</span> 60</div><div class="option"><span class="opt-letter">D.</span> 6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;s&#x27; be the average speed. The time traveled (4 hours) multiplied by the average speed (&#x27;s&#x27;) equals the total distance (240 miles). The equation is: 4s = 240</div>
+    <div class="step-exp">The formula for distance is speed multiplied by time. We are given distance and time, and need to find speed, so this leads to a multiplication equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the multiplication by 4, we need to divide both sides of the equation by 4: 4s / 4 = 240 / 4</div>
+    <div class="step-exp">To solve for &#x27;s&#x27;, we perform the inverse operation of multiplication, which is division, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = 60</div>
+    <div class="step-exp">Dividing 240 by 4 gives the average speed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The average speed was 60 miles per hour.</div>
+    <div class="step-exp">The value of &#x27;s&#x27; represents the average speed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 mph (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher has a box of 75 pencils. After giving some pencils (p) to students, she has 43 pencils left. How many pencils did she give to students?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 118</div><div class="option"><span class="opt-letter">B.</span> 43</div><div class="option"><span class="opt-letter">C.</span> 30</div><div class="option"><span class="opt-letter">D.</span> 32</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; be the number of pencils given to students. The initial number of pencils (75) minus the pencils given away (&#x27;p&#x27;) equals the remaining pencils (43). The equation is: 75 - p = 43</div>
+    <div class="step-exp">The problem describes an initial quantity from which a part is removed, leaving a remaining quantity. This translates to a subtraction equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;p&#x27;, we can add &#x27;p&#x27; to both sides of the equation to make it positive: 75 = 43 + p. Then, subtract 43 from both sides: 75 - 43 = p</div>
+    <div class="step-exp">Since &#x27;p&#x27; is being subtracted, adding it to both sides simplifies the equation. Then, subtract the constant from both sides to find &#x27;p&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 32</div>
+    <div class="step-exp">Subtracting 43 from 75 gives the number of pencils given away.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">She gave 32 pencils to students.</div>
+    <div class="step-exp">The value of &#x27;p&#x27; represents the number of pencils given to students.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 32 pencils (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist measured a chemical solution at 25.8 degrees Celsius. If the temperature increased to 31.2 degrees Celsius, by how many degrees (d) did the temperature increase?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.4</div><div class="option"><span class="opt-letter">B.</span> 6.4</div><div class="option"><span class="opt-letter">C.</span> 1.54</div><div class="option"><span class="opt-letter">D.</span> 57.0</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;d&#x27; be the temperature increase. The initial temperature (25.8) plus the increase (&#x27;d&#x27;) equals the final temperature (31.2). The equation is: 25.8 + d = 31.2</div>
+    <div class="step-exp">The problem describes an initial value that increases to a final value. This translates to an addition equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the addition of 25.8 to &#x27;d&#x27;, we need to subtract 25.8 from both sides of the equation: 25.8 + d - 25.8 = 31.2 - 25.8</div>
+    <div class="step-exp">To solve for &#x27;d&#x27;, we perform the inverse operation of addition, which is subtraction, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">d = 5.4</div>
+    <div class="step-exp">Subtracting 25.8 from 31.2 gives the temperature increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The temperature increased by 5.4 degrees Celsius.</div>
+    <div class="step-exp">The value of &#x27;d&#x27; represents the temperature increase.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5.4 degrees Celsius (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder needs to cut several pieces of wood, each 3.5 feet long. If he needs a total of 49 feet of wood, how many pieces (p) should he cut?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 45.5</div><div class="option"><span class="opt-letter">B.</span> 1.4</div><div class="option"><span class="opt-letter">C.</span> 14</div><div class="option"><span class="opt-letter">D.</span> 171.5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; be the number of pieces of wood. The length of each piece (3.5 feet) multiplied by the number of pieces (&#x27;p&#x27;) equals the total length of wood needed (49 feet). The equation is: 3.5p = 49</div>
+    <div class="step-exp">The total length is found by multiplying the length of one piece by the number of pieces. This leads to a multiplication equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the multiplication by 3.5, we need to divide both sides of the equation by 3.5: 3.5p / 3.5 = 49 / 3.5</div>
+    <div class="step-exp">To solve for &#x27;p&#x27;, we perform the inverse operation of multiplication, which is division, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 14</div>
+    <div class="step-exp">Dividing 49 by 3.5 gives the number of pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">He should cut 14 pieces of wood.</div>
+    <div class="step-exp">The value of &#x27;p&#x27; represents the number of pieces.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 14 pieces (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A movie marathon lasted a total of 15.75 hours. If each movie was 2.25 hours long, how many movies (m) were shown?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35.4375</div><div class="option"><span class="opt-letter">B.</span> 7</div><div class="option"><span class="opt-letter">C.</span> 0.14</div><div class="option"><span class="opt-letter">D.</span> 13.5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;m&#x27; be the number of movies. The length of each movie (2.25 hours) multiplied by the number of movies (&#x27;m&#x27;) equals the total marathon time (15.75 hours). The equation is: 2.25m = 15.75</div>
+    <div class="step-exp">The total duration is found by multiplying the duration of one movie by the number of movies. This leads to a multiplication equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the multiplication by 2.25, we need to divide both sides of the equation by 2.25: 2.25m / 2.25 = 15.75 / 2.25</div>
+    <div class="step-exp">To solve for &#x27;m&#x27;, we perform the inverse operation of multiplication, which is division, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">m = 7</div>
+    <div class="step-exp">Dividing 15.75 by 2.25 gives the number of movies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">7 movies were shown.</div>
+    <div class="step-exp">The value of &#x27;m&#x27; represents the number of movies shown.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 movies (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population was 18,540 residents. After a new housing development was built, the population increased by &#x27;p&#x27; new residents, bringing the total to 20,100. How many new residents moved to the town?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2,440</div><div class="option"><span class="opt-letter">B.</span> 1,460</div><div class="option"><span class="opt-letter">C.</span> 38,640</div><div class="option"><span class="opt-letter">D.</span> 1,560</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; be the number of new residents. The initial population (18,540) plus the new residents (&#x27;p&#x27;) equals the final population (20,100). The equation is: 18,540 + p = 20,100</div>
+    <div class="step-exp">The problem describes an initial population that increases by a certain number to reach a new total. This translates to an addition equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the addition of 18,540 to &#x27;p&#x27;, we need to subtract 18,540 from both sides of the equation: 18,540 + p - 18,540 = 20,100 - 18,540</div>
+    <div class="step-exp">To solve for &#x27;p&#x27;, we perform the inverse operation of addition, which is subtraction, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 1,560</div>
+    <div class="step-exp">Subtracting 18,540 from 20,100 gives the number of new residents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1,560 new residents moved to the town.</div>
+    <div class="step-exp">The value of &#x27;p&#x27; represents the number of new residents.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1,560 new residents (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company&#x27;s website had 5,300 fewer visitors this month than last month. If this month they had 12,850 visitors, how many visitors (v) did the website have last month?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18,150</div><div class="option"><span class="opt-letter">B.</span> 17,150</div><div class="option"><span class="opt-letter">C.</span> 7,550</div><div class="option"><span class="opt-letter">D.</span> 18,050</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;v&#x27; be the number of visitors last month. This month had 5,300 fewer visitors, meaning v - 5,300. This equals this month&#x27;s visitors, 12,850. The equation is: v - 5,300 = 12,850</div>
+    <div class="step-exp">The problem states that this month&#x27;s visitors are a certain number less than last month&#x27;s visitors. This leads to a subtraction equation where the variable is the initial amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the subtraction of 5,300 from &#x27;v&#x27;, we need to add 5,300 to both sides of the equation: v - 5,300 + 5,300 = 12,850 + 5,300</div>
+    <div class="step-exp">To solve for &#x27;v&#x27;, we perform the inverse operation of subtraction, which is addition, on both sides of the equation to maintain balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">v = 18,150</div>
+    <div class="step-exp">Adding 12,850 and 5,300 gives the total visitors from last month.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The website had 18,150 visitors last month.</div>
+    <div class="step-exp">The value of &#x27;v&#x27; represents the number of visitors last month.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 18,150 visitors (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

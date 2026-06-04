@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Real Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | NS | Skill 8.NS.024<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Real Numbers</h1>
+<p class="skill-subtitle">Skill ID: 8.NS.024</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cashier scans several items. Which of the following prices represents a rational number?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $ \pi $ (approximately $3.14159...)</div><div class="option"><span class="opt-letter">B.</span> $ \frac{5}{2} $ ($2.50)</div><div class="option"><span class="opt-letter">C.</span> $ \sqrt{3} $ (approximately $1.73)</div><div class="option"><span class="opt-letter">D.</span> $ 0.121121112... $</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is any number that can be expressed as a fraction \( \frac{p}{q} \), where \( p \) and \( q \) are integers and \( q 
+eq 0 \). This includes terminating and repeating decimals.</div>
+    <div class="step-exp">Understanding the definition of a rational number is crucial for classification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Option A: \( \sqrt{3} \) is approximately 1.73205... It is a non-terminating, non-repeating decimal. Therefore, \( \sqrt{3} \) is an irrational number.</div>
+    <div class="step-exp">Square roots of non-perfect squares are irrational.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Option B: \( \pi \) is approximately 3.14159265... It is a non-terminating, non-repeating decimal. Therefore, \( \pi \) is an irrational number.</div>
+    <div class="step-exp">Pi is a well-known irrational constant.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Option C: \( \frac{5}{2} \) is a fraction of two integers (5 and 2). It can be written as the terminating decimal 2.5. Therefore, \( \frac{5}{2} \) is a rational number.</div>
+    <div class="step-exp">Fractions of integers (with a non-zero denominator) are rational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Option D: \( 0.121121112... \) has a decimal representation that is non-terminating and non-repeating (the pattern of &#x27;1&#x27;s increasing after &#x27;2&#x27; means it doesn&#x27;t repeat). Therefore, it is an irrational number.</div>
+    <div class="step-exp">Non-repeating, non-terminating decimals are irrational.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Based on the evaluations, only \( \frac{5}{2} \) represents a rational number.</div>
+    <div class="step-exp">Comparing all options to the definition.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a track race, four runners record their times in minutes: Runner A: 3.25, Runner B: $ \sqrt{10} $ (approx. 3.16), Runner C: 3.26, Runner D: 3.14. Which runner finished first?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Runner D</div><div class="option"><span class="opt-letter">B.</span> Runner B</div><div class="option"><span class="opt-letter">C.</span> Runner C</div><div class="option"><span class="opt-letter">D.</span> Runner A</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find which runner finished first, we need to identify the smallest time among the given options.</div>
+    <div class="step-exp">The fastest time corresponds to the smallest numerical value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all given times to decimal form for easy comparison:
+- Runner A: 3.25 minutes
+- Runner B: $ \sqrt{10} \approx 3.16 $ minutes (using the provided approximation)
+- Runner C: 3.26 minutes
+- Runner D: 3.14 minutes</div>
+    <div class="step-exp">Converting all numbers to a consistent decimal format simplifies comparison, especially with irrational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare the decimal values:
+- 3.14
+- 3.16
+- 3.25
+- 3.26
+Starting with the whole number part, all are 3. Next, compare the tenths place. 3.14 and 3.16 have &#x27;1&#x27; in the tenths place, which is smaller than &#x27;2&#x27; in 3.25 and 3.26. Comparing 3.14 and 3.16, &#x27;4&#x27; in the hundredths place of 3.14 is smaller than &#x27;6&#x27; in 3.16.</div>
+    <div class="step-exp">Decimal comparison involves comparing digits from left to right, starting with the largest place value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The smallest time is 3.14 minutes, which belongs to Runner D.</div>
+    <div class="step-exp">The smallest time indicates the first-place finisher.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> D (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires $ \frac{3}{4} $ cup of milk. Is this quantity of milk a rational or irrational number?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Real</div><div class="option"><span class="opt-letter">B.</span> Integer</div><div class="option"><span class="opt-letter">C.</span> Rational</div><div class="option"><span class="opt-letter">D.</span> Irrational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is any number that can be expressed as a fraction \( \frac{p}{q} \), where \( p \) and \( q \) are integers and \( q 
+eq 0 \).</div>
+    <div class="step-exp">Recall the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given quantity is \( \frac{3}{4} \). Here, \( p = 3 \) and \( q = 4 \). Both 3 and 4 are integers, and 4 is not zero.</div>
+    <div class="step-exp">Check if the given number fits the &#x27;fraction of integers&#x27; form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Additionally, \( \frac{3}{4} \) can be expressed as the terminating decimal 0.75. Terminating decimals are always rational numbers.</div>
+    <div class="step-exp">Confirming with decimal representation, which is an alternative way to identify rational numbers (terminating or repeating decimals).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since \( \frac{3}{4} \) can be expressed as a fraction of two integers and as a terminating decimal, it is a rational number.</div>
+    <div class="step-exp">Conclude based on the definition.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a road trip, four cars maintain different average speeds in miles per hour: Car P: $ \sqrt{60} $, Car Q: $ 7.8 $, Car R: $ \frac{31}{4} $, Car S: $ 7.95 $. Order the cars from slowest to fastest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> P, R, Q, S</div><div class="option"><span class="opt-letter">B.</span> R, P, Q, S</div><div class="option"><span class="opt-letter">C.</span> P, Q, R, S</div><div class="option"><span class="opt-letter">D.</span> S, Q, R, P</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The goal is to order the speeds from slowest (smallest value) to fastest (largest value).</div>
+    <div class="step-exp">Understanding the objective of the question (ordering from least to greatest) is key.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all speeds to decimal form for easy comparison:
+- Car P: \( \sqrt{60} \). Since \( \sqrt{49}=7 \) and \( \sqrt{64}=8 \), \( \sqrt{60} \) is between 7 and 8. Calculating gives \( \sqrt{60} \approx 7.7459... \). We will use 7.746 for comparison.
+- Car Q: \( 7.8 \).
+- Car R: \( \frac{31}{4} \). Divide the numerator by the denominator: \( 31 \div 4 = 7.75 \).
+- Car S: \( 7.95 \).</div>
+    <div class="step-exp">To compare different types of real numbers (irrational, decimal, fraction), convert them all to a consistent decimal format. Approximate irrational numbers to a sufficient number of decimal places for accurate comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">List the speeds in decimal form:
+- Car P: \( \approx 7.746 \)
+- Car Q: \( 7.800 \)
+- Car R: \( 7.750 \)
+- Car S: \( 7.950 \)</div>
+    <div class="step-exp">Aligning the decimal points helps in comparing.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Order the speeds from smallest to largest:
+- Comparing the values: \( 7.746 \) (Car P), \( 7.750 \) (Car R), \( 7.800 \) (Car Q), \( 7.950 \) (Car S).
+- The order from slowest to fastest is P, R, Q, S.</div>
+    <div class="step-exp">Compare the numbers digit by digit from left to right to determine the correct order.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Five students&#x27; heights in meters are: Alice: 1.65, Bob: $ \frac{5}{3} $, Charlie: $ \sqrt{3} $, David: 1.62, Emily: 1.67. Which student is the tallest?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> David</div><div class="option"><span class="opt-letter">B.</span> Bob</div><div class="option"><span class="opt-letter">C.</span> Charlie</div><div class="option"><span class="opt-letter">D.</span> Alice</div><div class="option"><span class="opt-letter">E.</span> Emily</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The goal is to identify the tallest student by finding the largest height among the given values.</div>
+    <div class="step-exp">To determine the tallest student, we need to find the maximum height.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all heights to a comparable decimal form:
+- Alice: 1.65 meters
+- Bob: \( \frac{5}{3} \) meters. Divide 5 by 3: \( 5 \div 3 = 1.666... \) meters (a repeating decimal).
+- Charlie: \( \sqrt{3} \) meters. We know \( \sqrt{1}=1 \) and \( \sqrt{4}=2 \). Calculating \( \sqrt{3} \approx 1.73205... \) meters. We can use 1.732 for comparison.
+- David: 1.62 meters
+- Emily: 1.67 meters</div>
+    <div class="step-exp">Standardizing all measurements to decimal form makes direct comparison easier.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">List the heights in decimal form:
+- Alice: 1.650
+- Bob: 1.666
+- Charlie: 1.732
+- David: 1.620
+- Emily: 1.670</div>
+    <div class="step-exp">Organize the decimal values for a clear comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Compare the decimal values to find the largest height:
+- 1.620 (David)
+- 1.650 (Alice)
+- 1.666 (Bob)
+- 1.670 (Emily)
+- 1.732 (Charlie)
+The largest value is 1.732.</div>
+    <div class="step-exp">Compare the digits from left to right, starting with the largest place value, to find the maximum height.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Charlie&#x27;s height is \( \sqrt{3} \approx 1.732 \) meters, which is the greatest among all students.</div>
+    <div class="step-exp">Identify the student corresponding to the greatest height.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a chemistry experiment, the volume of a gas sample is measured as $ \sqrt{144} $ cubic centimeters. Is this volume a rational or irrational number?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Irrational</div><div class="option"><span class="opt-letter">B.</span> Real</div><div class="option"><span class="opt-letter">C.</span> Rational</div><div class="option"><span class="opt-letter">D.</span> Imaginary</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The volume of the gas sample is given as \( \sqrt{144} \).</div>
+    <div class="step-exp">Identify the number to be classified.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the square root of 144. We know that \( 12 \times 12 = 144 \).</div>
+    <div class="step-exp">Evaluate the square root to get an integer value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, \( \sqrt{144} = 12 \).</div>
+    <div class="step-exp">The result of the square root operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is any number that can be expressed as a fraction \( \frac{p}{q} \), where \( p \) and \( q \) are integers and \( q 
+eq 0 \). An irrational number cannot be expressed in this form, and its decimal representation is non-terminating and non-repeating.</div>
+    <div class="step-exp">Recall the definitions of rational and irrational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The number 12 is an integer. It can be expressed as the fraction \( \frac{12}{1} \).</div>
+    <div class="step-exp">Check if the integer 12 fits the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Since 12 can be written as a fraction of two integers, it is a rational number.</div>
+    <div class="step-exp">Conclude the classification of the volume.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder is cutting a piece of wood for a decorative trim. The length required is $ \frac{11}{2} $ feet. Another piece is $ \sqrt{30} $ feet long. Which piece is longer, and by approximately how much (in feet, to the nearest hundredth)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> The $ \sqrt{30} $ foot piece is longer by approximately 0.02 feet.</div><div class="option"><span class="opt-letter">B.</span> The $ \frac{11}{2} $ foot piece is longer by approximately 0.02 feet.</div><div class="option"><span class="opt-letter">C.</span> The $ \sqrt{30} $ foot piece is longer by approximately 0.03 feet.</div><div class="option"><span class="opt-letter">D.</span> The $ \frac{11}{2} $ foot piece is longer by approximately 0.03 feet.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The goal is to compare the lengths of the two pieces of wood and find their approximate difference.</div>
+    <div class="step-exp">Understand the two main parts of the question: comparison and calculating the difference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert both lengths to decimal form for easy comparison:
+- Length of the first piece: \( \frac{11}{2} = 11 \div 2 = 5.5 \) feet.
+- Length of the second piece: \( \sqrt{30} \). We know that \( \sqrt{25}=5 \) and \( \sqrt{36}=6 \), so \( \sqrt{30} \) is between 5 and 6. Calculating to a few decimal places: \( \sqrt{30} \approx 5.4772 \) feet. For calculation of difference, we&#x27;ll use 5.477.</div>
+    <div class="step-exp">Convert all numbers to decimals for direct comparison. Approximate irrational numbers to a suitable precision.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare the lengths:
+- First piece: \( 5.5 \) feet
+- Second piece: \( \approx 5.477 \) feet
+Since \( 5.5 &gt; 5.477 \), the \( \frac{11}{2} \) foot piece is longer.</div>
+    <div class="step-exp">Compare the decimal values to determine which length is greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the difference in lengths:
+- Difference = Longer length - Shorter length = \( 5.5 - 5.477 = 0.023 \) feet.</div>
+    <div class="step-exp">Subtract the smaller length from the larger length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Round the difference to the nearest hundredth:
+- \( 0.023 \) rounded to the nearest hundredth is \( 0.02 \) feet (since the digit in the thousandths place is 3, which is less than 5, we round down).</div>
+    <div class="step-exp">Apply rounding rules to the calculated difference as specified in the question.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Conclusion: The \( \frac{11}{2} \) foot piece is longer by approximately 0.02 feet.</div>
+    <div class="step-exp">State the final answer, including the longer piece and the approximate difference.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new algorithm processes data. Task A takes $ \sqrt{5} $ minutes per gigabyte. Task B takes $ 2.\overline{2} $ minutes per gigabyte. Task C takes $ \frac{9}{4} $ minutes per gigabyte. If a system processes 10 GB of data, what is the total difference in time, to the nearest tenth of a minute, between the fastest and slowest tasks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.3 minutes</div><div class="option"><span class="opt-letter">B.</span> 0.2 minutes</div><div class="option"><span class="opt-letter">C.</span> 0.5 minutes</div><div class="option"><span class="opt-letter">D.</span> 0.4 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The goal is to calculate the total time for 10 GB for each task, identify the fastest and slowest, find the difference, and round to the nearest tenth.</div>
+    <div class="step-exp">Outline the multi-step process required to solve the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all rates (minutes per gigabyte) to decimal form for easier comparison and calculation:
+- Task A: \( \sqrt{5} \) min/GB. We know \( \sqrt{4}=2 \) and \( \sqrt{9}=3 \). Calculating \( \sqrt{5} \approx 2.23606... \). We&#x27;ll use 2.236 for calculations.
+- Task B: \( 2.\overline{2} \) min/GB. This is a repeating decimal, \( 2.222... \). We&#x27;ll use 2.222 for calculations.
+- Task C: \( \frac{9}{4} \) min/GB. Divide 9 by 4: \( 9 \div 4 = 2.25 \) min/GB.</div>
+    <div class="step-exp">Convert all given numbers (irrational, repeating decimal, fraction) to a consistent decimal format to facilitate comparison and multiplication. Choose a sufficient number of decimal places for accuracy before final rounding.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">List the rates in decimal form:
+- Task A: \( \approx 2.236 \)
+- Task B: \( \approx 2.222 \)
+- Task C: \( 2.250 \)</div>
+    <div class="step-exp">Organize the converted rates for clear identification of fastest/slowest.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Identify the fastest (smallest rate) and slowest (largest rate) tasks:
+- Fastest rate: Task B (\( \approx 2.222 \) min/GB)
+- Slowest rate: Task C (\( 2.250 \) min/GB)</div>
+    <div class="step-exp">Compare the decimal rates to find the minimum and maximum values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the total time for 10 GB for both the fastest and slowest tasks:
+- Fastest time (Task B): \( 10 \text{ GB} \times 2.222 \text{ min/GB} = 22.22 \) minutes.
+- Slowest time (Task C): \( 10 \text{ GB} \times 2.25 \text{ min/GB} = 22.50 \) minutes.</div>
+    <div class="step-exp">Multiply the rate by the total data (10 GB) to find the total processing time for each relevant task.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the difference in time between the slowest and fastest tasks:
+- Difference = Slowest Time - Fastest Time = \( 22.50 - 22.22 = 0.28 \) minutes.</div>
+    <div class="step-exp">Subtract the smaller time from the larger time to find the difference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Round the difference to the nearest tenth of a minute:
+- \( 0.28 \) minutes rounded to the nearest tenth is \( 0.3 \) minutes (since the digit in the hundredths place is 8, which is 5 or greater, we round up the tenths digit).</div>
+    <div class="step-exp">Apply the specified rounding rule to the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> B (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A unique species of plant in a nature reserve has a population growth factor of $ \sqrt{3} $ each year. If the initial population is 150 plants, what is the exact numerical factor by which the population has multiplied after 2 years?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.5</div><div class="option"><span class="opt-letter">B.</span> $ 3\sqrt{3} $</div><div class="option"><span class="opt-letter">C.</span> 3</div><div class="option"><span class="opt-letter">D.</span> $ 2\sqrt{3} $</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The plant population multiplies by a growth factor of \( \sqrt{3} \) each year.</div>
+    <div class="step-exp">Understand the given annual growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the factor by which the population has multiplied after 2 years, we need to apply the annual growth factor twice. This means we multiply the annual growth factor by itself: \( (\sqrt{3}) \times (\sqrt{3}) \).</div>
+    <div class="step-exp">For growth over multiple years, the factors multiply. For 2 years, it&#x27;s the square of the annual factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the expression: \( (\sqrt{3})^2 = \sqrt{3 \times 3} = \sqrt{9} = 3 \).</div>
+    <div class="step-exp">The square of a square root simplifies to the number inside the square root symbol.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The exact numerical factor by which the population has multiplied after 2 years is 3.</div>
+    <div class="step-exp">State the final calculated factor. The initial population (150 plants) is extra information not needed to find the &#x27;factor&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Three different data storage devices have the following capacities: Drive A: $ 256 $ GB, Drive B: $ 100\sqrt{7} $ GB, Drive C: $ \frac{1025}{4} $ GB. Order these drives from smallest to largest capacity.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> C, A, B</div><div class="option"><span class="opt-letter">B.</span> A, C, B</div><div class="option"><span class="opt-letter">C.</span> B, C, A</div><div class="option"><span class="opt-letter">D.</span> A, B, C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The goal is to order the storage capacities from smallest to largest.</div>
+    <div class="step-exp">Understand the objective: arrange the given capacities in ascending order.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all capacities to decimal form for easy comparison:
+- Drive A: \( 256 \) GB (already in decimal/integer form).
+- Drive B: \( 100\sqrt{7} \) GB. We know \( \sqrt{4}=2 \) and \( \sqrt{9}=3 \), so \( \sqrt{7} \) is between 2 and 3. Calculating: \( \sqrt{7} \approx 2.64575 \). Then, \( 100\sqrt{7} \approx 100 \times 2.64575 = 264.575 \) GB.
+- Drive C: \( \frac{1025}{4} \) GB. Divide the numerator by the denominator: \( 1025 \div 4 = 256.25 \) GB.</div>
+    <div class="step-exp">Standardize all capacities to a common decimal format. Approximate irrational numbers to a sufficient number of decimal places for accurate comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">List the capacities in decimal form:
+- Drive A: \( 256.00 \) GB
+- Drive B: \( 264.575 \) GB
+- Drive C: \( 256.25 \) GB</div>
+    <div class="step-exp">Organize the converted capacities for clear comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Order the capacities from smallest to largest:
+- Comparing the values: \( 256.00 \) (Drive A), \( 256.25 \) (Drive C), \( 264.575 \) (Drive B).
+- The order from smallest to largest is A, C, B.</div>
+    <div class="step-exp">Compare the decimal values digit by digit from left to right to determine the correct ascending order.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

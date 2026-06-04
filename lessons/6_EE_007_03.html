@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Evaluating Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | Expressions and Equations<br>76 atoms | Skill 6.EE.007.03<br></div>
+</div>
+<h1 class="skill-title">Evaluating Expressions</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.007.03 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can substitute a given numerical value for a variable in an algebraic expression and simplify the expression to find its numerical value.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">Evaluating expressions is the process of finding the single numerical value of an algebraic expression once all its variables have been replaced with specific numbers. Think of it like a mathematical &#x27;fill-in-the-blanks&#x27; game. When you evaluate, you are systematically substituting numbers into the expression and then performing the operations according to the standard order (Parentheses, Exponents, Multiplication and Division from left to right, Addition and Subtraction from left to right). For example, if we have the expression <code>4x + 9</code> and we&#x27;re told that <code>x = 5</code>, <span class="ph">[Student Name]</span>, you would replace every <code>x</code> with <code>5</code>. This turns <code>4x + 9</code> into <code>4(5) + 9</code>. Following the order of operations, <code>4 * 5</code> is <code>20</code>, and then <code>20 + 9</code> equals <code>29</code>. So, the value of the expression <code>4x + 9</code> when <code>x = 5</code> is <code>29</code>. It&#x27;s like a scientific formula where you plug in your measurements to get a result. <span class="ph">[they]</span> will find this a powerful tool for solving real-world problems. <span class="ph">[Student Name]</span>, <span class="ph">[they]</span> will practice this a lot!</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">You&#x27;ve already built a super strong foundation for understanding expressions, <span class="ph">[Student Name]</span>! Remember how you learned in 6.EE.007.02 that a variable, like <code>n</code> or <code>p</code>, can represent an unknown number? You explored how <code>n</code> could stand for &#x27;any number&#x27; in a set, or a specific &#x27;mystery number&#x27; we&#x27;re trying to find. That understanding is exactly what we build on today with evaluating expressions. It’s not a giant leap; it’s more like taking the next natural step. Instead of just knowing <code>n</code> is a placeholder for a number, we&#x27;re now going to say, &#x27;Okay, for this problem, let&#x27;s make <code>n</code> equal to <code>10</code>.&#x27; Then, <span class="ph">[they]</span> will simply plug that <code>10</code> into the expression wherever <span class="ph">[they]</span> sees <code>n</code> and do the math. You already understand what variables are and how they operate as stand-ins. Now we just give those stand-ins their exact script for a performance! <span class="ph">[Student Name]</span>, you&#x27;ve got this, because you&#x27;ve already done the hardest part of understanding variables!</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that evaluating expressions is at the heart of how many of your favorite video games and sports statistics work? It&#x27;s true! For instance, imagine a basketball player&#x27;s &#x27;efficiency rating&#x27; in the NBA. It’s calculated using an algebraic expression where variables represent things like points scored, rebounds, assists, and turnovers. When a player finishes a game, their actual stats (the numbers!) are plugged into this expression, and BAM – out comes their efficiency rating! For example, if a simplified rating expression was <code>(Points + Assists) - Turnovers</code>, and a player had <code>20 Points</code>, <code>5 Assists</code>, and <code>3 Turnovers</code>, <span class="ph">[Student Name]</span>, <span class="ph">[they]</span> would evaluate it as <code>(20 + 5) - 3</code>, which equals <code>22</code>. This isn&#x27;t just a math class exercise; it’s how coaches make decisions, how sports commentators explain performance, and how fantasy sports leagues calculate scores for millions of fans across the US! So, next time you see a player’s rating, <span class="ph">[they]</span> will know you&#x27;re looking at the result of evaluating an expression!</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Let&#x27;s clearly define what it means to evaluate an expression and then walk through a straightforward example. <strong>Definition:</strong> Evaluating an expression means replacing the variables in an algebraic expression with specific numerical values and then performing the mathematical operations to find a single, final number. It&#x27;s about finding the exact worth of the expression under specific conditions. <strong>Example:</strong> Consider the expression <code>7k - 11</code>. If we are given that <code>k = 4</code>, <span class="ph">[Student Name]</span>, the first step is to substitute <code>4</code> in place of <code>k</code>. So, <code>7k - 11</code> becomes <code>7(4) - 11</code>. Next, we follow the order of operations: <code>7 * 4</code> is <code>28</code>. Then, we complete the subtraction: <code>28 - 11</code> which equals <code>17</code>. So, <code>17</code> is the evaluated value. <strong>Application:</strong> This process is used in everyday scenarios, like calculating the total cost of items. If a t-shirt costs <code>$15</code> and shipping is <code>$5</code> per order, the expression <code>15t + 5</code> could represent the total cost for <code>t</code> t-shirts. If <span class="ph">[they]</span> buys <code>3</code> t-shirts, <span class="ph">[they]</span> evaluates <code>15(3) + 5 = 45 + 5 = $50</code>.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Remember learning about variables in 6.EE.007.02? That standard taught you that a variable, often represented by a letter like <code>x</code>, <code>y</code>, or <code>a</code>, is simply a symbol that stands for a number. It could be an unknown number you&#x27;re trying to find, or it could represent any number in a specified group. For instance, in <code>x + 5</code>, <code>x</code> is a placeholder. You&#x27;ve already practiced recognizing variables and understanding their role as flexible number holders, whether we&#x27;re talking about the number of points a team might score or the number of dollars in a budget. 
+
+Now, <span class="ph">[Student Name]</span>, we&#x27;re taking that foundational understanding and giving those variables a very specific job for a moment. Instead of <code>x</code> being an unknown or &quot;any number,&quot; we&#x27;ll be given a problem where <code>x</code> <em>is</em> a particular number, like <code>x = 7</code>. This is the perfect bridge! You already know <code>x</code> holds a number, and now we&#x27;re just telling you <em>which</em> number it holds for this specific calculation. 
+
+This leads us to the new skill: evaluating expressions. When you evaluate an expression like <code>2x - 3</code> and you&#x27;re told that <code>x = 7</code>, your job is to swap out that <code>x</code> for the <code>7</code>. So, <code>2x - 3</code> becomes <code>2(7) - 3</code>. Then, using your order of operations, <span class="ph">[they]</span> calculates <code>14 - 3</code>, which gives <code>11</code>. This entire process, from substituting the number to simplifying, is evaluating expressions. You’ve got the background, so you&#x27;re ready for this!</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hello, <span class="ph">[Student Name]</span>! Let&#x27;s tackle evaluating expressions, step-by-step. Imagine you&#x27;re figuring out how many total points you&#x27;d earn in a school fundraiser where you get points for selling raffle tickets. The expression for your points is <code>5t + 10</code>, where &#x27;t&#x27; represents the number of tickets you sell. Let&#x27;s say you sold <code>t = 7</code> tickets. How many points did you get?
+
+1. <span class="hint-tag">&#128161; Hint: The first thing to do is replace the letter with the number it stands for.</span> Replace &#x27;t&#x27; with the number 7 in the expression: <code>5 <em> 7 + 10</code>.
+2. <span class="hint-tag">&#128161; Hint: Remember the order of operations! Multiplication comes before addition.</span> Now, perform the multiplication: <code>5 </em> 7</code> equals <code>35</code>. So, the expression becomes <code>35 + 10</code>.
+3. <span class="hint-tag">&#128161; Hint: Finally, complete the last operation to get your answer.</span> Perform the addition: <code>35 + 10</code> equals <code>45</code>.
+
+So, if you sold 7 tickets, you would earn 45 points. 
+
+Let&#x27;s check our work: If <code>t=7</code>, then <code>5t + 10</code> should be <code>45</code>. We substitute 7: <code>5(7) + 10</code>. This is <code>35 + 10</code>, which equals <code>45</code>. The answer matches, so we are correct! Great job, <span class="ph">[Student Name]</span>!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let&#x27;s figure out a simple calculation that comes up often in everyday life, <span class="ph">[Student Name]</span>! Imagine you&#x27;re at a concession stand at a high school basketball game. A combo meal costs $8, and you want to add some extra snacks that cost $2 each. The total cost can be represented by the expression <code>8 + 2s</code>, where &#x27;s&#x27; is the number of extra snacks you buy. If you decide to buy <code>s = 3</code> extra snacks, what will your total cost be?
+
+1.  <strong>Substitute the Value:</strong> First, we replace the variable &#x27;s&#x27; with the number of extra snacks, which is 3. Our expression now looks like this: <code>8 + 2 <em> 3</code>.
+2.  <strong>Perform Multiplication:</strong> Following the order of operations (PEMDAS/GEMS), multiplication comes before addition. We calculate <code>2 </em> 3</code>, which equals 6. So, the expression becomes <code>8 + 6</code>.
+3.  <strong>Perform Addition:</strong> Now, we complete the final operation by adding 8 and 6. This gives us <code>14</code>.
+
+So, your total cost for the combo meal and 3 extra snacks would be $14.00. 
+
+To check our answer: If <code>s=3</code>, the expression <code>8 + 2s</code> should evaluate to 14. We substitute 3 for &#x27;s&#x27;: <code>8 + 2(3)</code>. This simplifies to <code>8 + 6</code>, which is indeed <code>14</code>. The math holds up!</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">Alright, <span class="ph">[Student Name]</span>, let&#x27;s try a trickier one that might come up when calculating something like team scores in a complex game. Suppose a coach calculates a player&#x27;s practice score using the expression <code>4(15 - p) + 6^2</code>, where &#x27;p&#x27; is the number of penalty minutes a player gets. What is the score if a player has <code>p = 3</code> penalty minutes?
+
+1.  <strong>Substitute the Variable:</strong> Replace &#x27;p&#x27; with 3. The expression becomes <code>4(15 - 3) + 6^2</code>. <em>Common Error: Forgetting the parentheses or the exponent.</em> Always copy the expression exactly, just swapping the variable for its number.
+2.  <strong>Evaluate Inside Parentheses:</strong> We must solve what&#x27;s inside the parentheses first. <code>15 - 3</code> equals <code>12</code>. So, the expression is now <code>4(12) + 6^2</code>. <em>Common Error: Trying to multiply 4 by 15 before subtracting 3.</em> Remember, parentheses are top priority!
+3.  <strong>Evaluate Exponents:</strong> Next, calculate the exponent. <code>6^2</code> means <code>6 <em> 6</code>, which is <code>36</code>. The expression is now <code>4(12) + 36</code>. </em>Common Error: Calculating <code>6 <em> 2</code> instead of <code>6 </em> 6</code>.<em> An exponent tells you to multiply the base number by itself that many times.
+4.  <strong>Perform Multiplication:</strong> Now, do the multiplication: <code>4 </em> 12</code> equals <code>48</code>. The expression simplifies to <code>48 + 36</code>. <em>Common Error: Adding <code>12 + 36</code> before multiplying by 4.</em> Always perform multiplication before addition.
+5.  <strong>Perform Addition:</strong> Finally, add the remaining numbers: <code>48 + 36</code> equals <code>84</code>. 
+
+The player&#x27;s practice score is 84 points. This multi-step process shows why following the order of operations is crucial for accuracy!</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Imagine you have a special building kit. The instructions say, &quot;Take two of the mystery pieces, then add three red squares.&quot; I then tell you, &quot;The mystery piece means a blue circle.&quot; What do you do? You grab two blue circles and three red squares, then you look at all five pieces you have. Evaluating expressions is just like that: you swap the mystery name for the real thing, then put everything together to see what you get!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Evaluating expressions is a lot like following a recipe to bake cookies, <span class="ph">[Student Name]</span>. Imagine your grandma&#x27;s famous chocolate chip cookie recipe has a line that says: <code>(2 <em> butter_sticks) + (3 </em> eggs) + 1 cup flour</code>. In this recipe, <code>butter_sticks</code> and <code>eggs</code> are like your variables; their values can change. If your grandma tells you, &quot;Tonight, we&#x27;re using 1 stick of butter and 2 eggs,&quot; you take those numbers and plug them into the recipe. So, <code>(2 <em> 1) + (3 </em> 2) + 1 cup flour</code> becomes <code>2 + 6 + 1 cup flour</code>, meaning you&#x27;ll use a total of 9 &#x27;units&#x27; of ingredients (ignoring the flour&#x27;s unique measurement). You&#x27;re swapping the &#x27;ingredient name&#x27; for the &#x27;actual amount&#x27; and then doing the cooking steps to get the final result!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, picture this: you have a collection of boxes in your room, and some are &#x27;mystery boxes&#x27; because you don&#x27;t know what&#x27;s inside. An instruction tells you, &quot;Take three of the mystery boxes, and also grab five loose baseball cards.&quot; If I tell you that each &#x27;mystery box&#x27; actually contains six baseball cards, what do you do? You mentally open each of those three mystery boxes and see six cards in each. So now you visualize three groups of six cards, plus the five loose cards. You can imagine lining up all the cards to count them, seeing the three groups of six, and then adding the five extra cards at the end to get your total pile of cards.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>, evaluating expressions isn&#x27;t too tricky once you get the hang of it. Think of it like a shortcut code. Say you&#x27;re tracking your allowance. Your parents might have a rule, like &#x27;Every week, you get $5, plus $2 for each chore you do&#x27;. We could write that as <code>$5 + $2c</code>, where &#x27;c&#x27; is the number of chores. If you tell me you did 4 chores this week, I just &#x27;evaluate&#x27; the expression by putting the &#x27;4&#x27; where the &#x27;c&#x27; is: <code>$5 + $2 * 4</code>. Then you just do the math: <code>$5 + $8</code> equals <code>$13</code>. So, evaluating just means you&#x27;re taking that letter placeholder, swapping it out for a real number, and then solving the math problem. It’s super useful for quickly figuring out costs or scores!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine a career as a <strong>Sports Statistician</strong> for a major league baseball team like the New York Yankees! These professionals use math every single day to analyze player performance and help coaches make strategic decisions. For instance, they might evaluate an expression to calculate a player&#x27;s On-Base Percentage (OBP), which shows how often a player gets on base. The formula for OBP is: (Hits + Walks + Hit By Pitch) / (At-Bats + Walks + Hit By Pitch + Sacrifice Flies). If a player, let&#x27;s call <span class="ph">[Student Name]</span>, had a fantastic week with 8 Hits, 3 Walks, 1 Hit By Pitch, 25 At-Bats, and 1 Sacrifice Fly, the statistician would evaluate the expression: (8 + 3 + 1) / (25 + 3 + 1 + 1). This skill of substituting numbers into a formula and calculating the result is exactly what evaluating expressions is all about. It&#x27;s crucial for understanding player value and team strategy in the competitive world of US sports!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Evaluating expressions is something we do all the time without even realizing it, like when you&#x27;re shopping! Let&#x27;s say <span class="ph">[Student Name]</span> wants to buy three new graphic novels that cost $8.50 each from a local bookstore. The store is running a promotion where if you buy 3 books, you get $5 off your total purchase. To figure out the final cost, you would evaluate the expression: (Cost per novel × Number of novels) - Discount. Using the actual numbers, this becomes: (8.50 × 3) - 5. First, you calculate 8.50 × 3, which is 25.50. Then, you subtract the $5 discount: 25.50 - 5 = 20.50. So, the total cost would be $20.50. This real-life calculation shows how substituting specific values into an expression helps us solve everyday financial problems, like budgeting for your next favorite read!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering the skill of evaluating expressions in 6th grade sets a strong foundation for your academic and career future, <span class="ph">[Student Name]</span>. This fundamental concept is crucial for success on standardized tests like the SAT and ACT, which colleges across the US use for admissions. On these tests, you&#x27;ll often encounter complex formulas or functions where you need to substitute given values for variables and calculate the result. A high score on the SAT or ACT can unlock opportunities to attend top universities, potentially leading to a degree in fields like engineering, finance, or computer science. Graduates from these programs often command higher starting salaries and enjoy greater earning potential throughout <span class="ph">[their]</span> career. By practicing evaluating expressions now, you&#x27;re not just doing math; you&#x27;re investing in a brighter, more prosperous future for yourself!</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Evaluate the expression: 23 + y when y = 14.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">A local movie theater charges $9.50 per ticket. If &#x27;t&#x27; represents the number of tickets, the total cost can be found using the expression 9.50t. What is the total cost for 6 tickets?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Coach Miller divides <span class="ph">[their]</span> basketball team into &#x27;g&#x27; equal groups for drills. If there are 24 players on the team, the number of players in each group is 24 / g. How many players are in each group if g = 3?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">Evaluate the expression: w^2 when w = 7. (Remember, w^2 means w multiplied by itself).</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">A pizza costs $12, plus an extra $2 for each topping &#x27;t&#x27;. The total cost is 12 + 2t. What is the total cost of a pizza with 4 toppings?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">A video game store offers a discount on used games. The price of a used game is $18, and if you buy &#x27;x&#x27; games, you get $3 off each game. The total discount is 3x. The expression for the final price for &#x27;x&#x27; games is 18x - 3x. Evaluate this expression if a customer buys 5 games.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">Evaluate the expression: (18 + k) / 3 when k = 6.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">The expression for the area of a square with side length &#x27;s&#x27; is s^2. If a new park has a square playground with side length &#x27;s&#x27; and a rectangular picnic area next to it that is 20 square feet, the total area is s^2 + 20. What is the total area if the side length of the playground (s) is 9 feet?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Evaluate the expression 15 + x when x = 7.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">What is the value of 8y when y = 4?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Evaluate the expression 3a - 5 when a = 9.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Find the value of 40 / b + 3 when b = 5.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Evaluate x^2 + 10 when x = 6.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">Evaluate 2(k + 4) when k = 8.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Calculate the value of 5 + 3 * d - 1 when d = 7.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">What is the value of 1/2 * (m + 6) when m = 10?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Evaluate 2a + 3b - 10 when a = 8 and b = 5.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">Evaluate 4 * (z^2 - 7) / 2 when z = 4.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">TRAP: The &quot;Left-to-Right&quot; Lure
+MISTAKE: Students often evaluate operations strictly from left to right, ignoring the specific order of operations (PEMDAS). This leads to incorrect answers, especially when multiplication or division should happen before addition or subtraction.
+WHY TEMPTING: Reading from left to right is natural, and students might forget that mathematical operations have a different priority than reading order.
+SOLUTION: Always apply the correct order of operations (Parentheses, Exponents, Multiplication/Division, Addition/Subtraction) to ensure each step is performed in the right sequence.
+EXAMPLE: Evaluate 5 + 3 <em> 2. Wrong: (5 + 3) </em> 2 = 8 <em> 2 = 16. Right: 5 + (3 </em> 2) = 5 + 6 = 11.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">TRAP: The Missing Multiplication Mark
+MISTAKE: When a number is next to a variable (e.g., 4x) or a parenthesis (e.g., 3(5+1)), students sometimes forget there&#x27;s an invisible multiplication sign, treating it as addition or just a combination of digits.
+WHY TEMPTING: There&#x27;s no explicit symbol, so it&#x27;s easy to overlook the implied operation, especially when first learning about algebraic expressions.
+SOLUTION: Remember that a number next to a variable or a parenthesis always means multiplication. Always substitute the variable&#x27;s value and then multiply.
+EXAMPLE: Evaluate 4x + 7 when x = 3. Wrong: 43 + 7 = 50. Right: (4 * 3) + 7 = 12 + 7 = 19.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">TRAP: The Exponent Mix-Up
+MISTAKE: Students often confuse exponents with multiplication. For instance, they might calculate 4^2 as 4 <em> 2 instead of 4 </em> 4.
+WHY TEMPTING: The &quot;2&quot; in 4^2 might visually suggest multiplying by 2, and it&#x27;s a common initial misunderstanding of what an exponent truly represents.
+SOLUTION: An exponent tells you how many times to multiply the base number by itself. For 4^2, multiply 4 by itself two times: 4 <em> 4.
+EXAMPLE: Evaluate 5^2 - 10. Wrong: (5 </em> 2) - 10 = 10 - 10 = 0. Right: (5 * 5) - 10 = 25 - 10 = 15.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">TRAP: The &quot;One and Done&quot; Substitution
+MISTAKE: If a variable appears multiple times in an expression (e.g., x + 2x - 5), students might only substitute the value for the first occurrence of the variable, leaving other instances as variables.
+WHY TEMPTING: It&#x27;s quicker to only replace the variable once, and students might not fully grasp that x represents the <em>same</em> value throughout the entire expression.
+SOLUTION: When evaluating an expression, replace <em>every</em> instance of the variable with its given numerical value before performing any operations.
+EXAMPLE: Evaluate x + 3x - 8 when x = 2. Wrong: 2 + 3x - 8 (then get stuck or make up a value for 3x). Right: 2 + (3 * 2) - 8 = 2 + 6 - 8 = 8 - 8 = 0.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">TRAP: Parentheses Panic
+MISTAKE: Students sometimes forget that operations <em>inside</em> parentheses must be completed <em>first</em>, even if they are addition/subtraction and there&#x27;s multiplication/division outside.
+WHY TEMPTING: The &quot;PEMDAS&quot; order can be misremembered as a strict left-to-right hierarchy. They might apply multiplication outside before finishing addition inside.
+SOLUTION: Always complete all operations within parentheses first, treating the result as a single number before moving on to exponents, multiplication, division, addition, and subtraction outside the parentheses.
+EXAMPLE: Evaluate 2 <em> (5 + 3) - 1. Wrong: (2 </em> 5) + 3 - 1 = 10 + 3 - 1 = 13 - 1 = 12. Right: 2 * (8) - 1 = 16 - 1 = 15.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>If a football team scores 7 points for a touchdown, how many points would they have if they scored <code>t</code> touchdowns, and <code>t</code> is 3? Evaluate the expression <code>7 * t</code> when <code>t = 3</code>.</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>A standard pack of gum has 5 pieces. If <span class="ph">[Student Name]</span> buys <code>p</code> packs of gum and then eats 2 pieces, how many pieces are left? Evaluate <code>5 * p - 2</code> when <code>p = 4</code>.</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div>At the school carnival, ride tickets cost $3 each, and entry costs $5. If <span class="ph">[Student Name]</span> rides <code>r</code> rides, how much money did <span class="ph">[they]</span> spend? Evaluate <code>3 * r + 5</code> when <code>r = 6</code>.</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div>To calculate the perimeter of a rectangle, you can use the expression <code>2 <em> (length + width)</code>. If a rectangular swimming pool is 12 feet long and 8 feet wide, what is its perimeter? Evaluate <code>2 </em> (12 + 8)</code>.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div>The area of a square is found using the formula <code>s^2</code>, where <code>s</code> is the side length. If <span class="ph">[Student Name]</span> is designing a square art project with sides that are 7 inches long, what is the area of <span class="ph">[their]</span> project? Evaluate <code>7^2</code>.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div><span class="ph">[Student Name]</span> is planning a road trip. The cost of gas depends on the distance <code>d</code> traveled and the price per gallon <code>g</code>. The expression <code>d / 20 <em> g</code> estimates the cost if the car gets 20 miles per gallon. If <span class="ph">[they]</span> travels 200 miles and gas costs $3.50 per gallon, what is the estimated cost? Evaluate <code>200 / 20 </em> 3.50</code>.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>A store has a discount. If <span class="ph">[Student Name]</span> buys an item for <code>p</code> dollars, and there&#x27;s a 15% discount, the amount saved is <code>0.15 <em> p</code>. If <span class="ph">[they]</span> buys a video game for $40.00, how much does <span class="ph">[they]</span> save? Evaluate <code>0.15 </em> 40</code>.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>The temperature in degrees Celsius (C) can be found from degrees Fahrenheit (F) using the expression <code>(F - 32) <em> 5/9</code>. If the temperature in Dallas, Texas, is 77 degrees Fahrenheit, what is the temperature in Celsius? Evaluate <code>(77 - 32) </em> 5/9</code>.</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>A local charity walk charges a $10 registration fee plus $2.50 for every mile walked. If <span class="ph">[Student Name]</span> walks 8 miles for the charity, what is the total amount <span class="ph">[they]</span> paid? First, write an expression using <code>m</code> for miles, then evaluate it for <code>m = 8</code>.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div>The formula for the volume of a rectangular prism is <code>length <em> width </em> height</code>. However, for a cube, all sides (<code>s</code>) are equal, so the volume is <code>s^3</code>. If <span class="ph">[Student Name]</span> has a storage cube that measures 4 feet on each side, what is its volume? Evaluate <code>4^3</code>.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hola <span class="ph">[Parent Name]</span>, esta semana, <span class="ph">[Student Name]</span> está aprendiendo un concepto clave en matemáticas de 6º grado: la Evaluación de Expresiones. En términos sencillos, <span class="ph">[Student Name]</span> está aprendiendo a resolver problemas matemáticos que contienen letras, sustituyendo esas letras por números específicos y luego calculando el resultado. Es como si tuviera una receta con un ingrediente &#x27;X&#x27;, y luego le decimos que &#x27;X&#x27; son 2 tazas de harina; entonces <span class="ph">[they]</span> sabe exactamente qué cantidad usar. Para una actividad práctica esta noche, busquen una receta de cocina sencilla juntos. Díganle a <span class="ph">[Student Name]</span> que si quieren duplicar la receta, la &#x27;expresión&#x27; para cada ingrediente cambia (por ejemplo, si la expresión era &#x27;X tazas&#x27;, ahora es &#x27;2X tazas&#x27;). Luego, sustituyan &#x27;X&#x27; con la medida original y calculen las nuevas cantidades. En la cena, pueden preguntarle: &#x27;Si una entrada al parque de diversiones cuesta 15 dólares y tú, yo y <span class="ph">[Student Name]</span> vamos, ¿cómo escribirías una expresión para el costo total y luego la resolverías?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Hola <span class="ph">[Student Name]</span> y bienvenido/a. Estoy muy emocionado/a de que trabajemos juntos hoy en un tema súper interesante: ¡evaluar expresiones! Suena un poco elegante, pero verás que es como resolver un pequeño rompecabezas. ¿Estás listo/a para empezar? 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1:</strong> Hmm, parece que entendiste bien el problema, pero recuerda que el primer paso clave al evaluar expresiones es reemplazar la letra, que llamamos &#x27;variable&#x27;, con el número que se nos da. Es como si la letra fuera un asiento vacío esperando que se siente un número. ¿Puedes intentar sustituir el valor y luego ver qué operación nos queda? 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2:</strong> Hiciste un gran trabajo sustituyendo el número por la variable, <span class="ph">[Student Name]</span>. Ahora, el siguiente paso es realizar las operaciones matemáticas, ¡pero hay un orden importante! ¿Recuerdas alguna regla sobre qué operaciones hacemos primero, como las multiplicaciones antes de las sumas? Piensa en ello como una secuencia de pasos para cocinar, ¡hay un orden! Revisa si seguiste el orden correcto para tus operaciones. 
+
+<strong>SESSION CLOSING:</strong> ¡Excelente trabajo hoy, <span class="ph">[Student Name]</span>! Has demostrado una comprensión fantástica de cómo evaluar expresiones. No solo sustituiste los números correctamente, sino que también te esforzaste en el orden de las operaciones. ¡Estoy muy orgulloso/a de tu progreso! Sigue practicando y verás que te convertirás en un/a experto/a en esto.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">El error más común que <span class="ph">[Student Name]</span> probablemente cometerá al evaluar expresiones es no seguir el orden correcto de las operaciones. Esto significa que <span class="ph">[they]</span> podría sumar o restar antes de multiplicar o dividir, lo que lleva a una respuesta incorrecta. Puede reconocerlo si <span class="ph">[Student Name]</span> ha sustituido los números correctamente, pero el resultado final no es el esperado. Para ayudar, diga: &quot;<span class="ph">[Student Name]</span>, veo que sustituiste los números perfectamente. Ahora, pensemos en el orden de las operaciones. ¿Recuerdas la regla para saber qué hacer primero, como multiplicar antes de sumar?&quot; NO diga cosas como: &quot;Eso está mal&quot;, &quot;Deberías saber esto&quot;, o &quot;Es muy fácil, ¿por qué te equivocas?&quot;. Enfóquese en el proceso, no en el resultado erróneo.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;forgetting_substitution&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> olvida el paso inicial de reemplazar la variable (la letra) con el n\u00famero que se le ha asignado antes de intentar resolver la expresi\u00f3n. Por ejemplo, si ve &#x27;x + 5&#x27; y &#x27;x = 3&#x27;, podr\u00eda intentar sumar &#x27;x&#x27; y &#x27;5&#x27; sin sustituir el &#x27;3&#x27; primero.&quot;, &quot;reassurance&quot;: &quot;Es un error muy com\u00fan al principio; con un poco de pr\u00e1ctica, <span class="ph">[Student Name]</span> recordar\u00e1 que las variables son como marcadores de posici\u00f3n que necesitan ser &#x27;rellenados&#x27; antes de hacer cualquier c\u00e1lculo. \u00a1Es un paso que se vuelve autom\u00e1tico con el tiempo!&quot;, &quot;home_action&quot;: &quot;Jueguen a un juego sencillo donde usted da una &#x27;palabra secreta&#x27; (la variable) y un &#x27;significado secreto&#x27; (el n\u00famero). Luego, <span class="ph">[Student Name]</span> debe reemplazar la palabra secreta con su significado en una frase matem\u00e1tica simple para resolverla.&quot;}, {&quot;tag&quot;: &quot;order_of_operations&quot;, &quot;parent_description&quot;: &quot;Despu\u00e9s de sustituir correctamente los n\u00fameros, <span class="ph">[Student Name]</span> puede realizar las operaciones matem\u00e1ticas en el orden incorrecto, por ejemplo, sumando antes de multiplicar. Esto es un error en el orden de las operaciones (PEMDAS).&quot;, &quot;reassurance&quot;: &quot;\u00a1<span class="ph">[Student Name]</span> ya tiene la mitad del camino recorrido, que es la sustituci\u00f3n correcta! Este es el paso m\u00e1s com\u00fan donde muchos estudiantes necesitan un peque\u00f1o ajuste. <span class="ph">[they]</span> est\u00e1 en el camino correcto para dominarlo.&quot;, &quot;home_action&quot;: &quot;Cuando planeen una actividad familiar, como ir al cine y luego a cenar, discutan qu\u00e9 tienen que hacer primero. Comparen la necesidad de un &#x27;orden&#x27; en sus planes con el &#x27;orden&#x27; en las matem\u00e1ticas.&quot;}, {&quot;tag&quot;: &quot;implicit_multiplication&quot;, &quot;parent_description&quot;: &quot;Cuando <span class="ph">[Student Name]</span> ve una expresi\u00f3n como &#x27;3x&#x27; y se le dice que &#x27;x = 4&#x27;, podr\u00eda interpretar err\u00f3neamente &#x27;3x&#x27; como &#x27;3 + x&#x27; o &#x27;34&#x27; en lugar de la multiplicaci\u00f3n &#x27;3 * x&#x27;.&quot;, &quot;reassurance&quot;: &quot;Esta es una notaci\u00f3n matem\u00e1tica un poco nueva para <span class="ph">[Student Name]</span> y es f\u00e1cil confundirla. Es un detalle peque\u00f1o pero importante que, una vez que lo aprenda, abrir\u00e1 muchas puertas matem\u00e1ticas para <span class="ph">[them]</span>.&quot;, &quot;home_action&quot;: &quot;Usen objetos peque\u00f1os, como galletas o dulces. D\u00edgale a <span class="ph">[Student Name]</span> que tiene &#x27;3 grupos de x galletas&#x27;. Luego, p\u00eddale que sustituya &#x27;x&#x27; por un n\u00famero (por ejemplo, 5) y cuente cu\u00e1ntas galletas hay en total para visualizar la multiplicaci\u00f3n.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hola <span class="ph">[Parent Name]</span>, ¡vamos a entender la &#x27;Evaluación de Expresiones&#x27; desde cero! No se preocupe, <span class="ph">[they]</span> lo entenderá perfectamente. Piense en una expresión matemática como una instrucción o una fórmula para calcular algo. A veces, estas instrucciones tienen &#x27;espacios en blanco&#x27; que necesitamos rellenar.
+
+1.  <strong>¿Qué es una expresión?</strong> Imagínese que está preparando un presupuesto. Una expresión podría ser &#x27;costo_del_almuerzo + costo_de_la_cena&#x27;. Es una frase con números y operaciones, pero que aún no le da un resultado final.
+
+2.  <strong>¿Qué son las variables?</strong> Las variables son esas letras o palabras cortas que representan un número que puede cambiar o que aún no conocemos. En nuestro ejemplo, &#x27;costo_del_almuerzo&#x27; y &#x27;costo_de_la_cena&#x27; son variables. Piense en ellas como un signo de &#x27;aquí va un número&#x27;.
+
+3.  <strong>¿Qué significa &#x27;evaluar&#x27;?</strong> Evaluar una expresión significa encontrar su valor numérico. Es decir, reemplazamos esas variables con números específicos que nos dan y luego hacemos las operaciones matemáticas. Si le digo que &#x27;costo_del_almuerzo = $12&#x27; y &#x27;costo_de_la_cena = $18&#x27;, <span class="ph">[they]</span> puede sustituir esos valores en la expresión. ¡Ahora puede resolverla!
+
+4.  <strong>El orden importa:</strong> Cuando hay varias operaciones (suma, resta, multiplicación, división), <span class="ph">[they]</span> necesita seguir un orden específico para no equivocarse. Siempre paréntesis, luego exponentes, después multiplicación y división (de izquierda a derecha), y finalmente suma y resta (también de izquierda a derecha). Es como seguir los pasos de una receta para que el plato salga perfecto. ¡<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> dominará este concepto y podrá ayudar a <span class="ph">[Student Name]</span> con confianza!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>, cette semaine, <span class="ph">[Student Name]</span> va apprendre à « évaluer des expressions » en 6ème année. En termes simples, <span class="ph">[Student Name]</span> apprendra à remplacer les lettres (appelées variables) dans une formule mathématique par des nombres spécifiques, puis à calculer la réponse finale. C&#x27;est un peu comme suivre une recette : si la recette dit &#x27;2 tasses de farine (x) + 1 tasse de sucre (y)&#x27;, et que vous savez que &#x27;x&#x27; est &#x27;2 tasses&#x27; et &#x27;y&#x27; est &#x27;1 tasse&#x27;, vous pouvez calculer la quantité totale. Ce soir, vous pourriez faire une activité amusante : demandez à <span class="ph">[Student Name]</span> d&#x27;imaginer que le prix d&#x27;un hot-dog au match de baseball est de 3 $ (variable &#x27;h&#x27;) et celui d&#x27;une boisson est de 2 $ (variable &#x27;b&#x27;). Demandez-lui d&#x27;écrire une expression pour acheter &#x27;2 hot-dogs et 3 boissons&#x27;, puis de l&#x27;évaluer pour trouver le coût total. À table, demandez : « Si mon salaire horaire (h) est de 20 $ et que j&#x27;ai travaillé 8 heures, quelle expression &#x27;8h&#x27; représente-t-elle, et quelle est ma rémunération totale si on remplace &#x27;h&#x27; par 20 ? » <span class="ph">[Student Name]</span> trouvera cela très concret et amusant.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Salut <span class="ph">[Student Name]</span> ! Aujourd&#x27;hui, nous allons nous amuser à évaluer des expressions. C&#x27;est un peu comme résoudre un petit mystère mathématique où tu remplaces des lettres par des nombres pour trouver la solution ! Je suis sûr que <span class="ph">[they]</span> va adorer ça et devenir un pro des expressions, un peu comme un joueur de la NBA qui remplace un autre sur le terrain pour marquer des points !&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Pas de souci, <span class="ph">[Student Name]</span> ! Quand tu vois une expression comme &#x27;4x + 7&#x27; et qu&#x27;on te dit que &#x27;x = 3&#x27;, la première chose à faire est de remplacer la lettre &#x27;x&#x27; par le nombre &#x27;3&#x27;. Souviens-toi qu&#x27;entre un nombre et une lettre, il y a toujours une multiplication cachée. Donc, &#x27;4x&#x27; devient &#x27;4 fois 3&#x27;. C&#x27;est comme quand on dit &#x27;4 hamburgers&#x27; on sous-entend &#x27;4 fois 1 hamburger&#x27;. Essaye ça, <span class="ph">[Student Name]</span> !&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Très bien, <span class="ph">[Student Name]</span>, tu as bien remplacé les nombres ! Maintenant que ton expression est &#x27;4 fois 3 plus 7&#x27;, quel calcul doit venir en premier ? Pense à l&#x27;ordre des opérations, comme les règles d&#x27;un jeu de société où certaines actions doivent être faites avant d&#x27;autres. Les multiplications avant les additions. On calcule &#x27;4 fois 3&#x27; d&#x27;abord, puis on ajoute 7. Tu as presque la réponse finale, <span class="ph">[Student Name]</span> !&quot;
+
+SESSION CLOSING: &quot;Fantastique travail, <span class="ph">[Student Name]</span> ! Tu as fait preuve d&#x27;une excellente logique pour évaluer ces expressions. Chaque fois que tu remplaces une lettre par un nombre et que tu trouves la valeur, tu fais un pas de plus pour devenir un véritable expert en mathématiques. Je suis tellement fier de <span class="ph">[them]</span> et de ton incroyable progression !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus grande erreur que <span class="ph">[Student Name]</span> commettra probablement en évaluant des expressions est d&#x27;oublier l&#x27;ordre des opérations (PEMDAS ou priorité des opérations) après avoir remplacé les variables par des nombres. Par exemple, pour l&#x27;expression <code>3 + 2x</code> avec <code>x = 5</code>, <span class="ph">[Student Name]</span> pourrait calculer <code>(3 + 2) <em> 5 = 25</code> au lieu de <code>3 + (2 </em> 5) = 13</code>. Vous reconnaîtrez cette erreur si <span class="ph">[they]</span> substitue correctement mais obtient une réponse incorrecte. Dites exactement ceci à <span class="ph">[Student Name]</span> : « <span class="ph">[Student Name]</span>, après avoir remplacé les lettres par leurs nombres, assure-toi de bien suivre l&#x27;ordre des opérations : d&#x27;abord les multiplications et les divisions, ensuite les additions et les soustractions. C&#x27;est une étape cruciale pour obtenir la bonne réponse. » Ne dites PAS : « Tu as encore fait la même erreur ! » ou « C&#x27;est facile, tu devrais savoir ça. » Soyez encourageant et concentrez-vous sur la procédure.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;forgetting_multiplication_implicit&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> oublie souvent que lorsqu&#x27;un nombre est plac\u00e9 juste \u00e0 c\u00f4t\u00e9 d&#x27;une lettre (comme dans <code>5x</code>), cela signifie <code>5 fois x</code>. <span class="ph">[they]</span> peut simplement voir le <code>5</code> et le <code>x</code> comme deux entit\u00e9s distinctes au lieu d&#x27;une multiplication implicite. Par exemple, si <code>x=4</code>, <span class="ph">[they]</span> pourrait penser <code>54</code> au lieu de <code>5 <em> 4 = 20</code>.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s courante au d\u00e9but de l&#x27;alg\u00e8bre. Beaucoup d&#x27;\u00e9l\u00e8ves de 6\u00e8me ann\u00e9e se familiarisent tout juste avec cette nouvelle notation. <span class="ph">[Student Name]</span> est sur la bonne voie pour comprendre cette convention.&quot;, &quot;home_action&quot;: &quot;Ce soir, utilisez des objets concrets. Par exemple, \u00ab Si chaque sac de bonbons (x) contient 6 bonbons, et que nous avons 3 sacs (3x), combien de bonbons avons-nous ? (3 </em> 6) \u00bb. R\u00e9p\u00e9tez avec diff\u00e9rents nombres et objets pour illustrer la multiplication implicite.&quot;, &quot;_worksheet&quot;: &quot;practice_problems_worksheet&quot;}, {&quot;tag&quot;: &quot;incorrect_order_of_operations&quot;, &quot;parent_description&quot;: &quot;Apr\u00e8s avoir remplac\u00e9 les variables par des nombres, <span class="ph">[Student Name]</span> calcule de gauche \u00e0 droite sans respecter la priorit\u00e9 des op\u00e9rations (PEMDAS). Par exemple, pour <code>5 + 2 <em> 3</code> o\u00f9 <code>x = 3</code> (si l&#x27;expression \u00e9tait <code>5 + 2x</code>), <span class="ph">[they]</span> pourrait faire <code>(5+2) </em> 3 = 21</code> au lieu de <code>5 + (2<em>3) = 11</code>.&quot;, &quot;reassurance&quot;: &quot;La ma\u00eetrise de l&#x27;ordre des op\u00e9rations demande de la pratique, et c&#x27;est un point crucial en math\u00e9matiques. C&#x27;est normal que <span class="ph">[Student Name]</span> ait besoin de renforcement sur ce concept.&quot;, &quot;home_action&quot;: &quot;Cr\u00e9ez de petites cartes avec des symboles (<code>+</code>, <code>-</code>, <code></em></code>, <code>/</code>) et des parenth\u00e8ses. Demandez \u00e0 <span class="ph">[Student Name]</span> de les \u00ab ranger \u00bb dans le bon ordre de priorit\u00e9, comme une \u00e9quipe de sport o\u00f9 chaque joueur a un r\u00f4le sp\u00e9cifique, par exemple les quarterbacks (parenth\u00e8ses) avant les running backs (multiplications).&quot;, &quot;_worksheet&quot;: &quot;scaffolded_practice_worksheet&quot;}, {&quot;tag&quot;: &quot;confusing_variables_with_specific_values&quot;, &quot;parent_description&quot;: &quot;Parfois, <span class="ph">[Student Name]</span> peut avoir du mal \u00e0 comprendre que le &#x27;x&#x27; d&#x27;une expression est un simple &#x27;marque-place&#x27; qui peut prendre n&#x27;importe quelle valeur. <span class="ph">[they]</span> pourrait penser que &#x27;x&#x27; doit toujours \u00eatre un certain nombre ou que sa valeur est fixe, au lieu d&#x27;\u00eatre un nombre donn\u00e9 pour un probl\u00e8me sp\u00e9cifique.&quot;, &quot;reassurance&quot;: &quot;Comprendre le concept de variable est une \u00e9tape majeure en alg\u00e8bre. <span class="ph">[Student Name]</span> est en train de d\u00e9velopper une pens\u00e9e math\u00e9matique plus avanc\u00e9e, et ces confusions initiales sont des \u00e9tapes naturelles du processus.&quot;, &quot;home_action&quot;: &quot;Jouez \u00e0 un jeu simple. Dites : \u00ab Mon nombre secret (x) est 7. Calcule : &#x27;x plus 5&#x27;. \u00bb Puis changez le nombre secret : \u00ab Mon nombre secret (x) est 10. Calcule : &#x27;x plus 5&#x27;. \u00bb Cela montre que &#x27;x&#x27; est variable et que sa valeur change selon le contexte.&quot;, &quot;_worksheet&quot;: &quot;visual_models_worksheet&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>,
+Aujourd&#x27;hui, nous allons explorer « l&#x27;évaluation d&#x27;expressions », un concept fondamental en 6ème année. N&#x27;ayez crainte, <span class="ph">[they]</span> le maîtrisera en un rien de temps et sera prêt à aider <span class="ph">[Student Name]</span> !
+
+1.  <strong>Comprendre l&#x27;expression :</strong> Une expression, c&#x27;est comme une courte phrase mathématique sans signe égal. Par exemple, si vous calculez votre budget courses, vous pourriez dire « 2 kilos de pommes + 3 boîtes de céréales ». En maths, on peut utiliser des lettres pour les quantités. Disons que le prix d&#x27;un kilo de pommes est <code>p</code> et le prix d&#x27;une boîte de céréales est <code>c</code>. Votre expression serait <code>2p + 3c</code>.
+
+2.  <strong>L&#x27;évaluation, c&#x27;est quoi ?</strong> Évaluer une expression, c&#x27;est trouver sa valeur numérique quand on vous donne les valeurs des lettres (variables). C&#x27;est comme si on vous disait : « Le prix d&#x27;un kilo de pommes (<code>p</code>) est de 2,50 $ et le prix d&#x27;une boîte de céréales (<code>c</code>) est de 4,00 $. » Votre mission est de calculer le coût total.
+
+3.  <strong>Les étapes pour évaluer :</strong>
+    a.  <strong>Substituer :</strong> Remplacez chaque lettre par le nombre qu&#x27;on vous donne. Si <code>p = 2,50 $</code> et <code>c = 4,00 $</code>, l&#x27;expression <code>2p + 3c</code> devient <code>2 <em> 2,50 + 3 </em> 4,00</code>. (N&#x27;oubliez pas que <code>2p</code> signifie <code>2 fois p</code>).
+    b.  <strong>Calculer :</strong> Appliquez l&#x27;ordre des opérations (PEMDAS/Priorité) pour trouver le résultat.
+        - Multiplications d&#x27;abord : <code>2 <em> 2,50 = 5,00</code> et <code>3 </em> 4,00 = 12,00</code>.
+        - Ensuite, ajoutez les résultats : <code>5,00 + 12,00 = 17,00</code>.
+        Le coût total est de 17,00 $.
+
+Un autre exemple : pour calculer la commission d&#x27;un vendeur. Si sa commission de base est de 50 $ (<code>B</code>) plus 10 $ par vente (<code>V</code>). L&#x27;expression est <code>B + 10V</code>. Si <span class="ph">[they]</span> fait 7 ventes, l&#x27;expression devient <code>50 + 10 * 7 = 50 + 70 = 120 $</code>. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> voit que c&#x27;est une compétence pratique utilisée partout. Avec ces étapes claires, <span class="ph">[they]</span> peut désormais évaluer n&#x27;importe quelle expression et aider <span class="ph">[Student Name]</span> avec confiance !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Alo <span class="ph">[Parent Name]</span>,
+
+Semèn sa a, <span class="ph">[Student Name]</span> ap aprann yon konpetans matematik enpòtan ki rele &quot;Evalye Ekspresyon&quot;. Sa vle di senpleman pran yon lèt (ki rele yon varyab) nan yon pwoblèm matematik epi ranplase l ak yon nimewo, apre sa kalkile repons lan. Pou egzanp, si ou gen &quot;3 + x&quot; epi nou di ou &quot;x = 5&quot;, <span class="ph">[Student Name]</span> ap aprann ranplase &quot;x&quot; ak &quot;5&quot; pou l jwenn &quot;3 + 5&quot;, ki bay &quot;8&quot;.
+
+Yon aktivite pratik pou aswè a: Nan kwizin nan, mande <span class="ph">[Student Name]</span> ede w mezire engredyan pou yon resèt. Si resèt la di &quot;2 tas sik + y tas farin&quot;, epi ou deside &quot;y&quot; se 3, mande <span class="ph">[Student Name]</span> pou l montre w total tas engredyan ou pral itilize. Sa ap ede <span class="ph">[they]</span> wè kijan lèt ka reprezante kantite ki chanje.
+
+Pandan dine, ou ka mande <span class="ph">[Student Name]</span>: &quot;Ki sa &#x27;evalye yon ekspresyon&#x27; vle di pou ou? Èske ou ka ban m yon egzanp?&quot; Sa ankouraje <span class="ph">[them]</span> panse ak pawòl pa <span class="ph">[their]</span> sou sa <span class="ph">[they]</span> ap aprann. Kontinye sipòte <span class="ph">[Student Name]</span> nan vwayaj aprantisaj <span class="ph">[their]</span>!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjou <span class="ph">[Student Name]</span>! Jodi a nou pral plonje nan yon bagay vrèman entèresan nan matematik ki rele &#x27;Evalye Ekspresyon&#x27;. Sa vle di nou pral aprann kijan pou nou jwenn valè yon deklarasyon matematik lè nou ranplase lèt ak nimewo. Pare pou w vin yon detektif matematik?&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Hmm, ann pran yon ti poz epi gade sa ankò. Ou wè lèt sa a nan ekspresyon an, tankou &#x27;x&#x27; nan &#x27;5 + x&#x27;? Sa nou rele l &#x27;yon varyab&#x27;. Kounye a, gade ak anpil atansyon. Èske pwoblèm nan di nou ki nimewo lèt sa a reprezante? Pa egzanp, si ekspresyon an se &#x27;5 + y&#x27; epi nou di &#x27;y = 7&#x27;, ki nimewo nou ta dwe mete nan plas &#x27;y&#x27;?&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Ou te jwenn nimewo ki kòrèk la pou ranplase varyab la, <span class="ph">[Student Name]</span>! Kounye a, tout sa nou bezwen fè se mete nimewo sa a kote lèt la te ye a. Lè nou fin ranplase l, èske nou ka jis rezoud pwoblèm matematik la tankou nou toujou fè? Ki sa &#x27;12 - 4&#x27; bay, pou egzanp? Eseye mete nimewo a nan plas varyab la nan pwoblèm ou a epi kalkile rezilta a.&quot;
+
+SESSION CLOSING: &quot;Waw, <span class="ph">[Student Name]</span>, ou te fè yon travay sipèb jodi a ak &#x27;Evalye Ekspresyon&#x27;! Mwen tèlman fyè de fason ou te aprann ranplase varyab ak nimewo epi kalkile rezilta yo. Kontinye pratike, epi w ap vin yon mèt nan sa! Travay ou jodi a montre jan ou entelijan.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Erè ki pi komen <span class="ph">[Student Name]</span> ap fè lè l ap evalye ekspresyon se bliye swiv lòd operasyon yo (PEMDAS/BIDMAS) apre <span class="ph">[they]</span> fin ranplase varyab la. Pou egzanp, si ekspresyon an se &quot;3 + 2 <em> x&quot; epi x = 4, <span class="ph">[Student Name]</span> ka fè 3 + 2 = 5, epi answit 5 </em> 4 = 20, olye pou l fè 2 * 4 = 8, epi answit 3 + 8 = 11.
+
+Pou rekonèt li: Si repons <span class="ph">[Student Name]</span> la pa bon, mande <span class="ph">[them]</span> pou l montre w chak etap <span class="ph">[they]</span> te fè. Chèche si <span class="ph">[they]</span> te fè adisyon/soustraksyon anvan miltiplikasyon/divizyon.
+
+Pawòl pou di <span class="ph">[Student Name]</span>: &quot;Mwen wè ou te ranplase nimewo a kòrèkteman! Kounye a, ann reflechi sou lòd nou fè bagay yo nan matematik. Sonje règ &#x27;PEMDAS&#x27; la? Ki operasyon ki vini an premye nan pwoblèm sa a?&quot;
+
+PA sa ou PA dwe di: &quot;Ou pa ka menm fè yon kalkil senp tankou sa a?</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;order_of_operations_confusion&quot;, &quot;parent_description&quot;: &quot;L\u00e8 <span class="ph">[Student Name]</span> evalye yon ekspresyon, <span class="ph">[they]</span> ka ranplase varyab la k\u00f2r\u00e8kteman men apre sa <span class="ph">[they]</span> pa swiv bon l\u00f2d operasyon yo (PEMDAS). Pa egzanp, nan &#x27;5 + 2 <em> 3&#x27; <span class="ph">[they]</span> ka f\u00e8 &#x27;5 + 2&#x27; anvan &#x27;2 </em> 3&#x27;.&quot;, &quot;reassurance&quot;: &quot;Se yon er\u00e8 komen, epi ak yon ti pratik sou &#x27;l\u00f2d operasyon&#x27;, <span class="ph">[Student Name]</span> ap metrize sa san pwobl\u00e8m.&quot;, &quot;home_action&quot;: &quot;Koupe yon senp res\u00e8t gato ak <span class="ph">[Student Name]</span>. Mande <span class="ph">[them]</span> kisa <span class="ph">[they]</span> ta dwe f\u00e8 an premye, dezy\u00e8m, elatriye. Sa se yon bon fason pou w w\u00e8 enp\u00f2tans l\u00f2d nan yon l\u00f2t kont\u00e8ks.&quot;}, {&quot;tag&quot;: &quot;incorrect_substitution&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka konprann kons\u00e8p pou ranplase yon varyab, men pafwa <span class="ph">[they]</span> ka ranplase l ak yon nimewo ki pa k\u00f2r\u00e8k, oubyen ranplase li nan move kote nan ekspresyon an. Pa egzanp, si &#x27;x = 5&#x27; nan &#x27;2x + 7&#x27;, <span class="ph">[they]</span> ka trete &#x27;2x&#x27; la k\u00f2m &#x27;25 + 7&#x27; olye de &#x27;2 * 5 + 7&#x27;.&quot;, &quot;reassurance&quot;: &quot;Se s\u00e8lman yon ti glise. Av\u00e8k yon ti atansyon siplemant\u00e8, <span class="ph">[Student Name]</span> ap vin pi presi chak fwa.&quot;, &quot;home_action&quot;: &quot;Ekri k\u00e8k ekspresyon senp sou kat, epi ekri val\u00e8 pou varyab yo sou l\u00f2t kat. <span class="ph">[Student Name]</span> ka matche yo epi mete nimewo a nan plas varyab la anvan <span class="ph">[they]</span> kalkile.&quot;}, {&quot;tag&quot;: &quot;misinterpreting_multiplication&quot;, &quot;parent_description&quot;: &quot;L\u00e8 gen yon nimewo ak yon varyab k\u00f2t a k\u00f2t (tankou &#x27;3y&#x27;), <span class="ph">[Student Name]</span> ka bliye ke sa vle di &#x27;3 fwa y&#x27; epi <span class="ph">[they]</span> ka trete li k\u00f2m &#x27;30 + y&#x27; oswa jis yon nimewo &#x27;3y&#x27; pou kont li.&quot;, &quot;reassurance&quot;: &quot;Se yon nouvo fason pou w\u00e8 miltiplikasyon, epi <span class="ph">[Student Name]</span> ap aprann li. Se jis yon kesyon de abitid ak pratik.&quot;, &quot;home_action&quot;: &quot;Bay <span class="ph">[Student Name]</span> senaryo: &#x27;Si chak kreyon koute 5 goud, epi ou gen &#x27;p&#x27; kreyon, konbyen lajan yo koute?&#x27; Ede <span class="ph">[them]</span> w\u00e8 ke &#x27;5p&#x27; vle di &#x27;5 fwa p&#x27;.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Ann kraze &#x27;Evalye Ekspresyon&#x27; pou ou. Pa enkyete w, se pa osi konplike sa sanble. <span class="ph">[they]</span> pral konprann li fasil.
+
+Imajine ou nan Pòtoprens, w ap fè makèt pou manje. Ou gen yon lis.
+
+1.  <strong>Ki sa ki yon &#x27;Ekspresyon&#x27;?</strong>
+    Yon ekspresyon se yon deklarasyon matematik ki gen ladan nimewo, operasyon (tankou +, -, <em>, /), e pafwa lèt. Lèt sa yo se sa nou rele &#x27;varyab&#x27;.
+    Egzanp: Nan yon resèt, ou gen &#x27;2 tas farin + x tas sik&#x27;. Isit la, &#x27;2 tas farin + x tas sik&#x27; se ekspresyon an. &#x27;x&#x27; se varyab la.
+
+2.  <strong>Kisa &#x27;Evalye&#x27; vle di?</strong>
+    Evalye vle di jwenn valè total oswa repons lan. Li vle di ranplase lèt la (varyab la) ak yon nimewo reyèl, epi answit kalkile rezilta a.
+
+    Ann pran egzanp resèt la. Si resèt la di &#x27;2 tas farin + x tas sik&#x27;, epi zanmi ou di ou &#x27;x&#x27; (kantite sik la) se &#x27;3 tas&#x27;.
+    Etap yo:
+    </em>   <strong>Etap 1: Idantifye varyab la ak valè <span class="ph">[their]</span> la.</strong>
+        Nan &#x27;2 tas farin + x tas sik&#x27;, varyab la se &#x27;x&#x27;. Valè <span class="ph">[their]</span> la se &#x27;3&#x27;.
+    <em>   <strong>Etap 2: Ranplase varyab la ak valè <span class="ph">[their]</span> la.</strong>
+        Mete &#x27;3&#x27; nan plas &#x27;x&#x27; nan ekspresyon an. Ou jwenn: &#x27;2 tas farin + 3 tas sik&#x27;.
+    </em>   <strong>Etap 3: Kalkile rezilta a.</strong>
+        Koulye a, ou gen yon pwoblèm matematik senp: 2 + 3 = 5.
+        Kidonk, valè ekspresyon an se 5 tas.
+
+Yon lòt egzanp: Pou bidjè fanmi an. Ou mete sou kote 1500 goud chak semèn pou transpò, men ou konnen pri gaz la ka varye. Ou ka di bidjè gaz ou a se &#x27;1500 + g&#x27;, kote &#x27;g&#x27; se depans adisyonèl pou gaz. Si semèn sa a &#x27;g&#x27; se 250 goud, ou &#x27;evalye&#x27; ekspresyon an: 1500 + 250 = 1750 goud.
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> wè jan li senp? Li se jis ranplase yon &#x27;unknown&#x27; ak yon &#x27;known&#x27; epi fè matematik la. Avèk pratik, <span class="ph">[they]</span> pral konprann sa a nèt, epi <span class="ph">[they]</span> ap gen konfyans pou ede <span class="ph">[Student Name]</span> oswa pou itilize li nan pwòp tès <span class="ph">[their]</span>!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está explorando um conceito matemático super importante: &#x27;Avaliar Expressões&#x27;. Em termos simples, isso significa descobrir o valor numérico de uma &quot;frase&quot; matemática quando sabemos o valor de cada &quot;ingrediente&quot; (as letras ou variáveis). É como ter uma receita e saber exatamente o quanto de cada coisa precisa para fazer o prato final.
+
+Para uma atividade divertida hoje à noite, que tal fazerem juntos uma receita simples? Se a receita pede &quot;2 ovos + 1 xícara de farinha&quot;, e vocês decidem dobrar a receita (ou seja, multiplicar por 2), <span class="ph">[Student Name]</span> pode calcular a nova quantidade de cada ingrediente, substituindo o valor original (1) pelo novo (2) em uma expressão como &quot;2 * (quantidade original de ovos)&quot;.
+
+Na mesa do jantar, você pode perguntar a <span class="ph">[Student Name]</span>: &quot;Se um ingresso para o cinema custa R$25 e você quer comprar 3 para você e seus amigos, como você calcularia o custo total?&quot; É a mesma ideia de avaliar uma expressão!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Olá, <span class="ph">[Student Name]</span>! Que bom ver você. Hoje vamos mergulhar em um tópico muito interessante chamado &#x27;Avaliar Expressões&#x27;. É como um quebra-cabeça matemático onde vamos substituir letras por números para encontrar a resposta final. Você está pronto para começar?
+
+<strong>SE <span class="ph">[Student Name]</span> ESTÁ COM DIFICULDADE NA ETAPA 1 (Substituição):</strong>
+&quot;<span class="ph">[Student Name]</span>, não se preocupe, vamos dar uma olhada nisso juntos. Na expressão <code>3x + 5</code>, e se eu disser que <code>x</code> é igual a <code>2</code>? Onde na expressão você acha que o número <code>2</code> deve ir? Lembre-se, quando vemos <code>3x</code>, isso significa <code>3 vezes x</code>. Então, se <code>x</code> é <code>2</code>, o que <code>3x</code> se torna?&quot;
+
+<strong>SE <span class="ph">[Student Name]</span> ESTÁ COM DIFICULDADE NA ETAPA 2 (Ordem das Operações):</strong>
+&quot;Tudo bem, <span class="ph">[Student Name]</span>, você fez a substituição perfeitamente! Agora temos <code>3 * 2 + 5</code>. Qual operação fazemos primeiro? Multiplicação ou adição? Pense na nossa &#x27;ordem de operações&#x27; — Parênteses, Expoentes, Multiplicação e Divisão (da esquerda para a direita), Adição e Subtração (da esquerda para a direita). Qual delas aparece primeiro aqui?&quot;
+
+<strong>FECHAMENTO DA SESSÃO:</strong>
+&quot;Fantástico, <span class="ph">[Student Name]</span>! Você está entendendo muito bem como avaliar expressões. Você substituiu os valores corretamente e usou a ordem de operações como um verdadeiro profissional. Isso é uma habilidade muito importante que vamos usar muito. Parabéns pelo seu trabalho duro e por toda a sua dedicação hoje!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! A dificuldade mais comum que <span class="ph">[Student Name]</span> pode enfrentar ao avaliar expressões é esquecer a ordem correta das operações após substituir os números. Por exemplo, em uma expressão como <code>2x + 7</code> com <code>x = 3</code>, <span class="ph">[Student Name]</span> pode substituir <code>x</code> para obter <code>2 <em> 3 + 7</code>, mas então pode fazer <code>3 + 7 = 10</code> primeiro, e depois <code>2 </em> 10 = 20</code>, em vez da ordem correta <code>2 * 3 = 6</code>, depois <code>6 + 7 = 13</code>.
+
+Você pode reconhecer isso se o resultado final de <span class="ph">[Student Name]</span> for diferente do esperado e, ao revisar os passos, você perceber que as operações foram feitas fora da sequência (adição antes da multiplicação, por exemplo).
+
+O que dizer a <span class="ph">[Student Name]</span>: &quot;<span class="ph">[Student Name]</span>, você fez a substituição perfeitamente. Agora, vamos lembrar da ordem mágica: Parênteses, Expoentes, Multiplicação e Divisão, Adição e Subtração. Qual vem primeiro na sua conta?&quot;
+
+O que NÃO dizer a <span class="ph">[Student Name]</span>: &quot;Isso é fácil, como você não percebeu? Você sempre erra a ordem!&quot; Evite frases que desvalorizem o esforço ou a inteligência de <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;incorrect_order_of_operations&quot;, &quot;parent_description&quot;: &quot;Depois de substituir o valor na express\u00e3o, <span class="ph">[Student Name]</span> pode ter dificuldades em seguir a ordem correta das opera\u00e7\u00f5es (por exemplo, fazer adi\u00e7\u00e3o antes da multiplica\u00e7\u00e3o em <code>5 <em> 2 + 3</code>).&quot;, &quot;reassurance&quot;: &quot;\u00c9 um erro muito comum ao aprender, e com um pouco de pr\u00e1tica, <span class="ph">[Student Name]</span> vai dominar a ordem de opera\u00e7\u00f5es facilmente.&quot;, &quot;home_action&quot;: &quot;Joguem um jogo simples de &#x27;qual opera\u00e7\u00e3o primeiro&#x27;: escreva <code>4 + 3 </em> 2</code> e pe\u00e7a a <span class="ph">[Student Name]</span> para dizer qual opera\u00e7\u00e3o fazer primeiro e por qu\u00ea.&quot;}, {&quot;tag&quot;: &quot;misinterpreting_variable_notation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode interpretar uma express\u00e3o como <code>4y</code> como <code>4 + y</code> em vez de <code>4 <em> y</code>. A aus\u00eancia do sinal de multiplica\u00e7\u00e3o pode ser confusa no in\u00edcio.&quot;, &quot;reassurance&quot;: &quot;Esta \u00e9 uma nova forma de escrita matem\u00e1tica, e leva um tempo para se acostumar. \u00c9 super normal precisar de um lembrete.&quot;, &quot;home_action&quot;: &quot;Ao cozinhar, fale &#x27;precisamos de 2 vezes a quantidade de a\u00e7\u00facar&#x27;, e escreva <code>2S</code> no papel, explicando que \u00e9 a mesma coisa que <code>2 </em> S</code>.&quot;}, {&quot;tag&quot;: &quot;substitution_errors&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode substituir a vari\u00e1vel por um n\u00famero incorreto, ou esquecer de substituir todas as ocorr\u00eancias da mesma vari\u00e1vel em uma express\u00e3o mais complexa como <code>2a + 3a - 1</code> com <code>a = 4</code>.&quot;, &quot;reassurance&quot;: &quot;\u00c9 um pequeno detalhe que <span class="ph">[Student Name]</span> vai pegar com mais aten\u00e7\u00e3o. A precis\u00e3o vem com a pr\u00e1tica constante.&quot;, &quot;home_action&quot;: &quot;Crie uma pequena &#x27;tabela de valores&#x27; com vari\u00e1veis e seus n\u00fameros, e pe\u00e7a a <span class="ph">[Student Name]</span> para preencher um &#x27;cart\u00e3o de compras&#x27; substituindo os pre\u00e7os.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos desmistificar &#x27;Avaliar Expressões&#x27; para que <span class="ph">[they]</span> possa ajudar <span class="ph">[Student Name]</span> com confiança.
+
+Imagine avaliar expressões como seguir uma receita ou planejar um orçamento, mas com matemática.
+
+1.  <strong>Expressão:</strong> Uma &quot;frase&quot; matemática, sem o sinal de igual (=). Ex: <code>2x + 5</code>.
+2.  <strong>Variável:</strong> Letras (como <code>x</code>, <code>y</code>) que representam números desconhecidos. Em <code>2x + 5</code>, <code>x</code> é a variável.
+3.  <strong>Avaliar:</strong> Descobrir qual número a expressão representa quando sabemos o valor da variável. É como calcular o custo total de 5 maçãs (<code>m</code>) se cada uma (<code>m</code>) custa R$3. <span class="ph">[they]</span> avalia <code>3m</code> para <code>m=5</code>, resultando em <code>3 <em> 5 = R$15</code>.
+
+<strong>Como <span class="ph">[they]</span> Avalia – Os Passos:</strong>
+
+</em>   <strong>Passo 1: Substituir.</strong> Troque cada variável pelo seu valor numérico. Se a expressão é <code>4y - 2</code> e <code>y = 6</code>, <span class="ph">[they]</span> substitui: <code>4 <em> 6 - 2</code>. Lembre-se, <code>4y</code> significa <code>4 vezes y</code>.
+</em>   <strong>Passo 2: Calcular (Ordem das Operações).</strong> Use a ordem correta (PEMDAS/PANDAS: Parênteses, Expoentes, Multiplicação/Divisão, Adição/Subtração). Para <code>4 * 6 - 2</code>, <span class="ph">[they]</span> faz a multiplicação primeiro: <code>24 - 2</code>. Depois a subtração: <code>22</code>.
+
+Pronto! <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> acabou de avaliar uma expressão. É uma habilidade fundamental para desafios diários, de escalar uma receita a calcular custos de um projeto. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> vai dominar este conceito e ensinar <span class="ph">[Student Name]</span> com confiança.</div></div></div></div>
+</body>
+</html>

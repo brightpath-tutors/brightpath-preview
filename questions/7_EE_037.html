@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Combine Like Terms</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.037<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Combine Like Terms</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.037</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Maria is organizing her stationery. She has <code>8</code> blue pens, <code>5</code> red pens, and <code>3</code> notebooks. If <code>p</code> represents a pen and <code>n</code> represents a notebook, which expression correctly shows the total number of pens and notebooks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 16pn</div><div class="option"><span class="opt-letter">B.</span> 8p + 5p + 3n</div><div class="option"><span class="opt-letter">C.</span> 13p + 3n</div><div class="option"><span class="opt-letter">D.</span> 16p + n</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>8p</code> (blue pens), <code>5p</code> (red pens), and <code>3n</code> (notebooks). Terms with the same variable are like terms. So, <code>8p</code> and <code>5p</code> are like terms.</div>
+    <div class="step-exp">Like terms have the same variables raised to the same power. Both &#x27;blue pens&#x27; and &#x27;red pens&#x27; are simply &#x27;pens&#x27;, so they are represented by the same variable <code>p</code>.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (8p + 5p) + 3n </code></div>
+    <div class="step-exp">It&#x27;s helpful to group the like terms before combining them to avoid confusion.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (8 + 5)p + 3n = 13p + 3n </code></div>
+    <div class="step-exp">Add the numerical coefficients of the like terms (<code>p</code>). The term <code>3n</code> remains separate as it is an unlike term.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13p + 3n (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a soccer practice, Leo ran <code>4</code> laps around the field, then did <code>2</code> sets of drills, and later ran <code>6</code> more laps. Let <code>L</code> represent a lap and <code>D</code> represent a set of drills. Which expression shows the total number of laps and drill sets?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12L + D</div><div class="option"><span class="opt-letter">B.</span> 4L + 6L + 2D</div><div class="option"><span class="opt-letter">C.</span> 12LD</div><div class="option"><span class="opt-letter">D.</span> 10L + 2D</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>4L</code> (laps), <code>2D</code> (drill sets), and <code>6L</code> (more laps). Terms with the same variable are like terms. So, <code>4L</code> and <code>6L</code> are like terms.</div>
+    <div class="step-exp">Both &#x27;laps&#x27; terms are represented by the variable <code>L</code>, making them like terms. &#x27;Drill sets&#x27; are represented by <code>D</code>, making it an unlike term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (4L + 6L) + 2D </code></div>
+    <div class="step-exp">Group the terms with <code>L</code> together for easier combination.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (4 + 6)L + 2D = 10L + 2D </code></div>
+    <div class="step-exp">Add the numerical coefficients of the like terms (<code>L</code>). The term <code>2D</code> remains as it is an unlike term.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10L + 2D (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preparing ingredients. He uses <code>11</code> grams of salt, <code>6</code> grams of sugar, and <code>2</code> more grams of salt. Let <code>g</code> represent a gram of salt and <code>s</code> represent a gram of sugar. Which expression shows the total amount of salt and sugar used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 19gs</div><div class="option"><span class="opt-letter">B.</span> 11g + 6s + 2g</div><div class="option"><span class="opt-letter">C.</span> 19g + s</div><div class="option"><span class="opt-letter">D.</span> 13g + 6s</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>11g</code> (salt), <code>6s</code> (sugar), and <code>2g</code> (more salt). Terms with the same variable are like terms. So, <code>11g</code> and <code>2g</code> are like terms.</div>
+    <div class="step-exp">Both &#x27;salt&#x27; terms are represented by the variable <code>g</code>. &#x27;Sugar&#x27; is represented by <code>s</code>, making it an unlike term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (11g + 2g) + 6s </code></div>
+    <div class="step-exp">Group the terms with <code>g</code> together for easier combination.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (11 + 2)g + 6s = 13g + 6s </code></div>
+    <div class="step-exp">Add the numerical coefficients of the like terms (<code>g</code>). The term <code>6s</code> remains as it is an unlike term.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13g + 6s (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cyclist travels at a speed of <code>15</code> miles per hour for <code>x</code> hours and then <code>20</code> miles per hour for <code>2x</code> hours. She also takes a break for <code>10</code> minutes (which can be represented as <code>1/6</code> of an hour). Which expression represents the total distance traveled, assuming the <code>10</code> minutes break does not contribute to distance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15x + 20(2x)</div><div class="option"><span class="opt-letter">B.</span> 75x</div><div class="option"><span class="opt-letter">C.</span> 55x</div><div class="option"><span class="opt-letter">D.</span> 55x + 1/6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance = speed × time.
+First segment: <code>15 <em> x = 15x</code> miles.
+Second segment: <code>20 </em> 2x = 40x</code> miles.
+The break time (<code>1/6</code> hour) does not contribute to the distance traveled.</div>
+    <div class="step-exp">Apply the distance formula for each part of the journey. The break is irrelevant for total distance traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> 15x + 40x </code></div>
+    <div class="step-exp">Add the distances from each segment to find the total distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> 15x + 40x = (15 + 40)x = 55x </code></div>
+    <div class="step-exp">Both terms have the variable <code>x</code> raised to the first power, so they are like terms. Add their coefficients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 55x (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a school play, there are <code>9</code> actors, <code>4</code> stage crew members, and <code>3</code> more actors joined. Additionally, <code>2</code> ushers were hired. Let <code>a</code> represent an actor, <code>c</code> a stage crew member, and <code>u</code> an usher. Write an expression for the total number of people involved.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9a + 4c + 3a + 2u</div><div class="option"><span class="opt-letter">B.</span> 18acu</div><div class="option"><span class="opt-letter">C.</span> 16a + 2c + u</div><div class="option"><span class="opt-letter">D.</span> 12a + 4c + 2u</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>9a</code> (actors), <code>4c</code> (stage crew), <code>3a</code> (more actors), and <code>2u</code> (ushers). Terms with the same variable are like terms. So, <code>9a</code> and <code>3a</code> are like terms.</div>
+    <div class="step-exp">Terms with the variable <code>a</code> are like terms. Terms with <code>c</code> and <code>u</code> are unlike terms because they have different variables.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (9a + 3a) + 4c + 2u </code></div>
+    <div class="step-exp">Group the terms representing actors together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (9 + 3)a + 4c + 2u = 12a + 4c + 2u </code></div>
+    <div class="step-exp">Add the numerical coefficients of the like terms (<code>a</code>). The terms <code>4c</code> and <code>2u</code> remain separate as they are unlike terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12a + 4c + 2u (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A botanist is studying plant growth. Plant A grew <code>2x</code> centimeters, Plant B grew <code>5</code> centimeters, and Plant C grew <code>3x</code> centimeters. Additionally, she observed <code>y</code> new leaves on another plant. Write an expression for the total growth in centimeters and the number of new leaves.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5x + 5 + y</div><div class="option"><span class="opt-letter">B.</span> 2x + 5 + 3x + y</div><div class="option"><span class="opt-letter">C.</span> 5x + 6y</div><div class="option"><span class="opt-letter">D.</span> 10xy</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>2x</code> (Plant A growth), <code>5</code> (Plant B growth - constant), <code>3x</code> (Plant C growth), and <code>y</code> (new leaves). Terms with the same variable are like terms. So, <code>2x</code> and <code>3x</code> are like terms. <code>5</code> is a constant and <code>y</code> is a different variable, making them unlike terms.</div>
+    <div class="step-exp">Terms with the variable <code>x</code> are like terms. A constant term (<code>5</code>) and a term with a different variable (<code>y</code>) are unlike terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (2x + 3x) + 5 + y </code></div>
+    <div class="step-exp">Group the <code>x</code> terms together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (2 + 3)x + 5 + y = 5x + 5 + y </code></div>
+    <div class="step-exp">Add the numerical coefficients of the like terms (<code>x</code>). The constant term <code>5</code> and the <code>y</code> term remain separate.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5x + 5 + y (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker is calculating the total length of pipes needed for a project. He needs <code>3a</code> feet of PVC pipe, <code>7</code> feet of copper pipe, <code>5a</code> feet of another PVC pipe, and <code>4b</code> feet of steel pipe. Write an expression for the total length of all pipes.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 19ab</div><div class="option"><span class="opt-letter">B.</span> 8a + 4b + 7</div><div class="option"><span class="opt-letter">C.</span> 8a + 11b</div><div class="option"><span class="opt-letter">D.</span> 3a + 7 + 5a + 4b</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>3a</code> (PVC pipe), <code>7</code> (copper pipe - constant), <code>5a</code> (another PVC pipe), and <code>4b</code> (steel pipe). Terms with the same variable are like terms. So, <code>3a</code> and <code>5a</code> are like terms. <code>7</code> is a constant and <code>4b</code> is a different variable term.</div>
+    <div class="step-exp">Terms with the variable <code>a</code> are like terms. The constant <code>7</code> and the term with variable <code>b</code> (<code>4b</code>) are unlike terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (3a + 5a) + 4b + 7 </code></div>
+    <div class="step-exp">Group the <code>a</code> terms together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (3 + 5)a + 4b + 7 = 8a + 4b + 7 </code></div>
+    <div class="step-exp">Add the numerical coefficients of the like terms (<code>a</code>). The <code>4b</code> term and the constant <code>7</code> remain separate.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8a + 4b + 7 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project manager is tracking time spent on different tasks. Task 1 took <code>t^2</code> hours, Task 2 took <code>14t</code> hours, Task 3 took <code>6</code> hours, and Task 4 took <code>3t^2</code> hours. Task 5 took <code>5t</code> hours. Write an expression for the total time spent on all tasks.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> t^2 + 14t + 6 + 3t^2 + 5t</div><div class="option"><span class="opt-letter">B.</span> 29t^2 + 6</div><div class="option"><span class="opt-letter">C.</span> 28t^3 + 6</div><div class="option"><span class="opt-letter">D.</span> 4t^2 + 19t + 6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>t^2</code>, <code>14t</code>, <code>6</code>, <code>3t^2</code>, and <code>5t</code>.
+Like terms for <code>t^2</code>: <code>t^2</code> and <code>3t^2</code>.
+Like terms for <code>t</code>: <code>14t</code> and <code>5t</code>.
+The constant term is <code>6</code>.</div>
+    <div class="step-exp">Like terms must have the same variable raised to the same power. <code>t^2</code> and <code>t</code> are considered different variable parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (t^2 + 3t^2) + (14t + 5t) + 6 </code></div>
+    <div class="step-exp">Arrange the terms by grouping those with <code>t^2</code>, those with <code>t</code>, and the constant term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (1 + 3)t^2 + (14 + 5)t + 6 = 4t^2 + 19t + 6 </code></div>
+    <div class="step-exp">Add the coefficients for each set of like terms. The constant term remains unchanged.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4t^2 + 19t + 6 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A zoologist is tracking animal populations in a wildlife reserve. She observes <code>2m^2</code> deer, <code>9k</code> wild boars, <code>5m^2</code> rabbits, and <code>12k</code> foxes. She also notes <code>m</code> new bird nests. Write an expression for the total count of animals and nests.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 28m^3k</div><div class="option"><span class="opt-letter">B.</span> 7m^2 + 21k + m^2</div><div class="option"><span class="opt-letter">C.</span> 7m^2 + 21k + m</div><div class="option"><span class="opt-letter">D.</span> 29m^2k + m</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>2m^2</code>, <code>9k</code>, <code>5m^2</code>, <code>12k</code>, and <code>m</code>.
+Like terms for <code>m^2</code>: <code>2m^2</code> and <code>5m^2</code>.
+Like terms for <code>k</code>: <code>9k</code> and <code>12k</code>.
+The term <code>m</code> is an unlike term.</div>
+    <div class="step-exp">Remember that <code>m</code> and <code>m^2</code> are not like terms because their exponents are different. Variables must match exactly, including their exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (2m^2 + 5m^2) + (9k + 12k) + m </code></div>
+    <div class="step-exp">Group the <code>m^2</code> terms and the <code>k</code> terms. The <code>m</code> term remains separate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (2 + 5)m^2 + (9 + 12)k + m = 7m^2 + 21k + m </code></div>
+    <div class="step-exp">Add the coefficients for each set of like terms. The <code>m</code> term remains unchanged.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7m^2 + 21k + m (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A software developer is optimizing code. Module A requires <code>1.5xy</code> processing units, Module B uses <code>8x^2</code> memory units, Module C needs <code>4.5xy</code> processing units, and Module D consumes <code>10x^2</code> memory units. Module E needs <code>2y</code> display units. Write an expression for the total resource consumption.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 26x^2y + 2y</div><div class="option"><span class="opt-letter">B.</span> 6xy + 18x^2 + 2y</div><div class="option"><span class="opt-letter">C.</span> 6xy^2 + 18x^4 + 2y</div><div class="option"><span class="opt-letter">D.</span> 26xy + 2y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>1.5xy</code>, <code>8x^2</code>, <code>4.5xy</code>, <code>10x^2</code>, and <code>2y</code>.
+Like terms for <code>xy</code>: <code>1.5xy</code> and <code>4.5xy</code>.
+Like terms for <code>x^2</code>: <code>8x^2</code> and <code>10x^2</code>.
+The term <code>2y</code> is an unlike term.</div>
+    <div class="step-exp">Terms are like terms if they have the exact same variables raised to the exact same powers. <code>xy</code>, <code>x^2</code>, and <code>y</code> are all distinct variable parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code> (1.5xy + 4.5xy) + (8x^2 + 10x^2) + 2y </code></div>
+    <div class="step-exp">Group the <code>xy</code> terms, the <code>x^2</code> terms, and leave the <code>y</code> term separate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code> (1.5 + 4.5)xy + (8 + 10)x^2 + 2y = 6xy + 18x^2 + 2y </code></div>
+    <div class="step-exp">Add the coefficients for each set of like terms. The <code>2y</code> term remains unchanged.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6xy + 18x^2 + 2y (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

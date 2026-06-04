@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Vertex Form</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | F | Skill 8.F.018<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Vertex Form</h1>
+<p class="skill-subtitle">Skill ID: 8.F.018</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A football is kicked, and its height in meters above the ground is modeled by the function h(t) = -5(t - 2)^2 + 25, where t is the time in seconds after it is kicked. What is the maximum height the football reaches?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 meters</div><div class="option"><span class="opt-letter">B.</span> 25 meters</div><div class="option"><span class="opt-letter">C.</span> -25 meters</div><div class="option"><span class="opt-letter">D.</span> -2 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">Understanding the vertex form is crucial for identifying the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: h(t) = -5(t - 2)^2 + 25. Comparing with y = a(x - h)^2 + k, we have a = -5, h = 2, k = 25.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is subtracted from &#x27;x&#x27; (or &#x27;t&#x27; in this case), so the sign is flipped. The &#x27;k&#x27; value is added at the end, retaining its sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (2, 25).</div>
+    <div class="step-exp">The vertex represents the turning point of the parabola.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -5 (which is negative), the parabola opens downwards, meaning the vertex (2, 25) represents the maximum point. The maximum height is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">For a downward-opening parabola, the y-coordinate of the vertex (k) is the maximum value of the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The maximum height the football reaches is 25 meters.</div>
+    <div class="step-exp">The &#x27;k&#x27; value, 25, directly corresponds to the maximum height in the function.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company&#x27;s daily profit P, in dollars, for selling x units of a product is given by the function P(x) = -2(x - 50)^2 + 1200. What is the maximum daily profit the company can achieve?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1200 dollars</div><div class="option"><span class="opt-letter">B.</span> 50 dollars</div><div class="option"><span class="opt-letter">C.</span> -50 dollars</div><div class="option"><span class="opt-letter">D.</span> -1200 dollars</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form allows for easy identification of the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: P(x) = -2(x - 50)^2 + 1200. Comparing with y = a(x - h)^2 + k, we have a = -2, h = 50, k = 1200.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 50 (opposite sign of what&#x27;s inside the parenthesis), and &#x27;k&#x27; is 1200 (same sign as the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (50, 1200).</div>
+    <div class="step-exp">The vertex is the point where the profit function reaches its peak or lowest point.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -2 (which is negative), the parabola opens downwards, meaning the vertex (50, 1200) represents the maximum point. The maximum profit is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">A negative &#x27;a&#x27; value indicates a maximum point, so the y-coordinate of the vertex (k) is the maximum profit.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The maximum daily profit the company can achieve is 1200 dollars.</div>
+    <div class="step-exp">The &#x27;k&#x27; value, 1200, represents the maximum profit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1200 dollars (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The path of a launched rocket in a simulation can be described by the function h(t) = -4(t - 3)^2 + 36, where h(t) is the height in kilometers and t is the time in seconds. What is the maximum height the rocket reaches?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 kilometers</div><div class="option"><span class="opt-letter">B.</span> -36 kilometers</div><div class="option"><span class="opt-letter">C.</span> 36 kilometers</div><div class="option"><span class="opt-letter">D.</span> 39 kilometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This standard form helps to quickly identify key features like the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given h(t) = -4(t - 3)^2 + 36. Comparing to the vertex form, a = -4, h = 3, k = 36.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 3 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 36 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (3, 36).</div>
+    <div class="step-exp">The vertex signifies the peak or lowest point of the rocket&#x27;s path.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -4 (negative), the parabola opens downwards, indicating that the vertex represents a maximum point. The maximum height is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">A negative &#x27;a&#x27; coefficient means the parabola has a maximum value, which is the y-coordinate of the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The maximum height the rocket reaches is 36 kilometers.</div>
+    <div class="step-exp">The &#x27;k&#x27; value, 36, directly gives the maximum height.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 36 kilometers (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A drone&#x27;s altitude (in meters) over time (in minutes) is given by A(t) = -0.5(t - 15)^2 + 110. After how many minutes does the drone reach its maximum altitude?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 minutes</div><div class="option"><span class="opt-letter">B.</span> -15 minutes</div><div class="option"><span class="opt-letter">C.</span> 125 minutes</div><div class="option"><span class="opt-letter">D.</span> 110 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form allows for direct identification of the vertex, which corresponds to the maximum or minimum point.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: A(t) = -0.5(t - 15)^2 + 110. Comparing with y = a(x - h)^2 + k, we have a = -0.5, h = 15, k = 110.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 15 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 110 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (15, 110).</div>
+    <div class="step-exp">The vertex represents the point in time (t) when the maximum altitude (A(t)) is reached.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -0.5 (negative), the parabola opens downwards, meaning the vertex (15, 110) represents the maximum point. The time at which the maximum altitude occurs is the &#x27;h&#x27; value.</div>
+    <div class="step-exp">The x-coordinate (or t-coordinate) of the vertex (h) provides the time when the maximum altitude is achieved.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The drone reaches its maximum altitude after 15 minutes.</div>
+    <div class="step-exp">The &#x27;h&#x27; value, 15, directly corresponds to the time in minutes.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 minutes (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The arch of a pedestrian bridge can be modeled by the equation y = -0.01(x - 50)^2 + 30, where y is the height in meters and x is the horizontal distance in meters from the start of the arch. What is the height of the arch at its highest point?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -50 meters</div><div class="option"><span class="opt-letter">B.</span> 50 meters</div><div class="option"><span class="opt-letter">C.</span> -30 meters</div><div class="option"><span class="opt-letter">D.</span> 30 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form is used to identify the vertex, which is the highest or lowest point of the parabola.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: y = -0.01(x - 50)^2 + 30. Comparing with the vertex form, a = -0.01, h = 50, k = 30.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 50 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 30 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (50, 30).</div>
+    <div class="step-exp">The vertex represents the point where the arch reaches its maximum height.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -0.01 (negative), the parabola opens downwards, indicating that the vertex represents a maximum point. The height of the arch at its highest point is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">The y-coordinate of the vertex (k) corresponds to the maximum height of the arch.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The height of the arch at its highest point is 30 meters.</div>
+    <div class="step-exp">The &#x27;k&#x27; value, 30, represents the maximum height.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 meters (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The concentration of a drug in a patient&#x27;s bloodstream, in mg/L, is given by C(t) = -0.2(t - 4)^2 + 8, where t is the time in hours after administration. What is the highest concentration the drug reaches in the bloodstream?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 mg/L</div><div class="option"><span class="opt-letter">B.</span> -8 mg/L</div><div class="option"><span class="opt-letter">C.</span> 8 mg/L</div><div class="option"><span class="opt-letter">D.</span> -4 mg/L</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form simplifies the process of finding the maximum or minimum value of the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: C(t) = -0.2(t - 4)^2 + 8. Comparing with y = a(x - h)^2 + k, we have a = -0.2, h = 4, k = 8.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 4 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 8 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (4, 8).</div>
+    <div class="step-exp">The vertex represents the point in time (t) when the drug reaches its highest concentration (C(t)).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -0.2 (negative), the parabola opens downwards, meaning the vertex (4, 8) represents the maximum point. The highest concentration the drug reaches is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">A negative &#x27;a&#x27; value means the function has a maximum, and this maximum value is given by the k-coordinate of the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The highest concentration the drug reaches in the bloodstream is 8 mg/L.</div>
+    <div class="step-exp">The &#x27;k&#x27; value, 8, represents the maximum concentration.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 mg/L (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The signal strength S of a Wi-Fi router, measured in decibels, at a distance x meters from the router, is given by S(x) = -3(x - 6)^2 + 75. What is the maximum signal strength the router can provide?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 decibels</div><div class="option"><span class="opt-letter">B.</span> 75 decibels</div><div class="option"><span class="opt-letter">C.</span> -75 decibels</div><div class="option"><span class="opt-letter">D.</span> -6 decibels</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form simplifies the identification of the maximum or minimum point of the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: S(x) = -3(x - 6)^2 + 75. Comparing with the vertex form, a = -3, h = 6, k = 75.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 6 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 75 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (6, 75).</div>
+    <div class="step-exp">The vertex represents the point where the signal strength is at its peak.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -3 (negative), the parabola opens downwards, indicating that the vertex represents a maximum point. The maximum signal strength is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">A negative &#x27;a&#x27; coefficient means the parabola has a maximum value, which is the y-coordinate of the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The maximum signal strength the router can provide is 75 decibels.</div>
+    <div class="step-exp">The &#x27;k&#x27; value, 75, directly gives the maximum signal strength.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 75 decibels (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preheating an oven. The temperature (in degrees Celsius) inside the oven as a function of time (in minutes) is given by T(m) = -0.8(m - 10)^2 + 200. The oven needs to reach at least 190 degrees Celsius for optimal baking. Does the oven reach this temperature, and if so, what is the maximum temperature it achieves?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Yes, 200 degrees Celsius</div><div class="option"><span class="opt-letter">B.</span> Yes, 10 degrees Celsius</div><div class="option"><span class="opt-letter">C.</span> Yes, -200 degrees Celsius</div><div class="option"><span class="opt-letter">D.</span> No, 190 degrees Celsius</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form is used to quickly determine the maximum or minimum value of the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: T(m) = -0.8(m - 10)^2 + 200. Comparing with y = a(x - h)^2 + k, we have a = -0.8, h = 10, k = 200.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 10 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 200 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (10, 200).</div>
+    <div class="step-exp">The vertex represents the point in time (m) when the oven reaches its maximum temperature (T(m)).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -0.8 (negative), the parabola opens downwards, meaning the vertex (10, 200) represents the maximum point. The maximum temperature achieved is the &#x27;k&#x27; value.</div>
+    <div class="step-exp">A negative &#x27;a&#x27; coefficient indicates a downward-opening parabola, so the y-coordinate of the vertex (k) is the maximum temperature.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Maximum temperature = 200 degrees Celsius. Required temperature = 190 degrees Celsius. Since 200 &gt; 190, the oven does reach the required temperature.</div>
+    <div class="step-exp">The maximum temperature achieved by the oven is greater than the required temperature for baking.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Yes, the oven reaches the required temperature, and its maximum temperature is 200 degrees Celsius.</div>
+    <div class="step-exp">Both parts of the question are addressed by interpreting the vertex.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Yes, 200 degrees Celsius (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population growth of a small town (in hundreds of people) over a period of years can be modeled by P(t) = -0.1(t - 8)^2 + 90, where t is the number of years since the start of the study. What is the highest population the town reaches (in hundreds), and in which year does it occur?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 90 hundreds in year 8</div><div class="option"><span class="opt-letter">B.</span> 90 hundreds</div><div class="option"><span class="opt-letter">C.</span> 90 hundreds in year -8</div><div class="option"><span class="opt-letter">D.</span> 8 hundreds in year 90</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form allows for direct identification of the vertex, which provides the maximum or minimum value and the input at which it occurs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: P(t) = -0.1(t - 8)^2 + 90. Comparing with y = a(x - h)^2 + k, we have a = -0.1, h = 8, k = 90.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 8 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 90 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (8, 90).</div>
+    <div class="step-exp">The vertex represents the year (t) when the population (P(t)) is highest.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -0.1 (negative), the parabola opens downwards, meaning the vertex (8, 90) represents the maximum point. The highest population (in hundreds) is the &#x27;k&#x27; value, and the year it occurs is the &#x27;h&#x27; value.</div>
+    <div class="step-exp">The &#x27;k&#x27; value gives the maximum population, and the &#x27;h&#x27; value gives the year it happens.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The highest population the town reaches is 90 hundreds, and it occurs in year 8.</div>
+    <div class="step-exp">Both parts of the question are answered directly from the vertex coordinates.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 90 hundreds in year 8 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock pendulum&#x27;s displacement from its equilibrium position (in centimeters) is modeled by D(t) = -0.2(t - 1.5)^2 + 0.8, where t is the time in seconds. What is the maximum displacement of the pendulum from equilibrium, and at what time does it first occur?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.8 cm at 1.5 seconds</div><div class="option"><span class="opt-letter">B.</span> -0.8 cm at 1.5 seconds</div><div class="option"><span class="opt-letter">C.</span> 1.5 cm at 0.8 seconds</div><div class="option"><span class="opt-letter">D.</span> 0.8 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The general vertex form is y = a(x - h)^2 + k.</div>
+    <div class="step-exp">This form helps to easily find the maximum or minimum point of the function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given: D(t) = -0.2(t - 1.5)^2 + 0.8. Comparing with y = a(x - h)^2 + k, we have a = -0.2, h = 1.5, k = 0.8.</div>
+    <div class="step-exp">The &#x27;h&#x27; value is 1.5 (opposite sign of the term inside the parenthesis), and &#x27;k&#x27; is 0.8 (the constant term).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (h, k) = (1.5, 0.8).</div>
+    <div class="step-exp">The vertex represents the time (t) when the maximum displacement (D(t)) occurs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since &#x27;a&#x27; = -0.2 (negative), the parabola opens downwards, meaning the vertex (1.5, 0.8) represents the maximum point. The maximum displacement is the &#x27;k&#x27; value, and the time it occurs is the &#x27;h&#x27; value.</div>
+    <div class="step-exp">The y-coordinate of the vertex (k) is the maximum displacement, and the x-coordinate (h) is the time it occurs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The maximum displacement of the pendulum from equilibrium is 0.8 cm, and it first occurs at 1.5 seconds.</div>
+    <div class="step-exp">Both parts of the question are directly answered by the coordinates of the vertex.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.8 cm at 1.5 seconds (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

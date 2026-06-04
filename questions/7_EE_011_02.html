@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Comparing Solution Methods</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.011.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Comparing Solution Methods</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.011.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah bought a book for $12.75 and a magazine. She spent a total of $18.50. How much did the magazine cost? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $31.25</div><div class="option"><span class="opt-letter">B.</span> $6.75</div><div class="option"><span class="opt-letter">C.</span> $5.75</div><div class="option"><span class="opt-letter">D.</span> $1.45</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let m = cost of the magazine. 12.75 + m = 18.50</div>
+    <div class="step-exp">Define a variable for the unknown and set up an equation representing the total cost.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = 18.50 - 12.75</div>
+    <div class="step-exp">To isolate &#x27;m&#x27;, subtract the cost of the book from the total amount spent on both items.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">m = 5.75</div>
+    <div class="step-exp">Perform the subtraction to find the cost of the magazine.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $5.75 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, Team A scored 58 points. This was 23 points more than Team B. How many points did Team B score? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 81 points</div><div class="option"><span class="opt-letter">B.</span> 35 points</div><div class="option"><span class="opt-letter">C.</span> 2.52 points</div><div class="option"><span class="opt-letter">D.</span> 45 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let b = Team B&#x27;s score. b + 23 = 58</div>
+    <div class="step-exp">Define a variable for Team B&#x27;s score and set up an equation showing that Team A&#x27;s score is 23 more than Team B&#x27;s.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">b = 58 - 23</div>
+    <div class="step-exp">To isolate &#x27;b&#x27;, subtract 23 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">b = 35</div>
+    <div class="step-exp">Perform the subtraction to find Team B&#x27;s score.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 35 points (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 4.25 cups of sugar. If I have already added 1.75 cups, how much more sugar do I need? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.5 cups</div><div class="option"><span class="opt-letter">B.</span> 6 cups</div><div class="option"><span class="opt-letter">C.</span> 2.5 cups</div><div class="option"><span class="opt-letter">D.</span> 3.25 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let s = amount of sugar still needed. 1.75 + s = 4.25</div>
+    <div class="step-exp">Define a variable for the unknown amount of sugar and set up an equation representing the total amount needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s = 4.25 - 1.75</div>
+    <div class="step-exp">To isolate &#x27;s&#x27;, subtract the amount of sugar already added from the total amount required.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = 2.50</div>
+    <div class="step-exp">Perform the subtraction to find how much more sugar is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.5 cups (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Emily drove for 4 hours at a constant speed. If she had driven 15 mph faster, she would have covered 340 miles. What was her actual average speed in miles per hour? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 85 mph</div><div class="option"><span class="opt-letter">B.</span> 70 mph</div><div class="option"><span class="opt-letter">C.</span> 65 mph</div><div class="option"><span class="opt-letter">D.</span> 90 mph</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let s = Emily&#x27;s actual average speed in mph. 4(s + 15) = 340</div>
+    <div class="step-exp">Define a variable for her actual speed, then represent the hypothetical speed as (s + 15). The equation is (time) * (speed) = (distance).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4s + 60 = 340</div>
+    <div class="step-exp">Apply the distributive property to multiply 4 by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4s = 340 - 60</div>
+    <div class="step-exp">Subtract 60 from both sides of the equation to start isolating &#x27;s&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4s = 280</div>
+    <div class="step-exp">Perform the subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = 280 / 4</div>
+    <div class="step-exp">Divide both sides by 4 to solve for &#x27;s&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 70</div>
+    <div class="step-exp">Perform the division to find Emily&#x27;s actual average speed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 70 mph (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Mark scored 92 on his math test, which was 8 points lower than twice his score on the science test. What was his science test score? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 42</div><div class="option"><span class="opt-letter">B.</span> 46</div><div class="option"><span class="opt-letter">C.</span> 50</div><div class="option"><span class="opt-letter">D.</span> 100</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let s = Mark&#x27;s science test score. 2s - 8 = 92</div>
+    <div class="step-exp">Define a variable for the science test score and translate the problem into an algebraic equation. &#x27;Twice his score&#x27; is 2s, and &#x27;8 points lower&#x27; means subtracting 8.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2s = 92 + 8</div>
+    <div class="step-exp">To isolate the term with &#x27;s&#x27;, add 8 to both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2s = 100</div>
+    <div class="step-exp">Perform the addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">s = 100 / 2</div>
+    <div class="step-exp">Divide both sides by 2 to solve for &#x27;s&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = 50</div>
+    <div class="step-exp">Perform the division to find Mark&#x27;s science test score.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 50 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a lab experiment is 86 degrees Fahrenheit. If the formula to convert Celsius (C) to Fahrenheit (F) is F = 1.8C + 32, what is the temperature in Celsius? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35.56 degrees Celsius</div><div class="option"><span class="opt-letter">B.</span> 28.8 degrees Celsius</div><div class="option"><span class="opt-letter">C.</span> 30 degrees Celsius</div><div class="option"><span class="opt-letter">D.</span> 120.8 degrees Celsius</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given F = 86. Formula: F = 1.8C + 32. Substitute: 86 = 1.8C + 32</div>
+    <div class="step-exp">Substitute the given Fahrenheit temperature into the conversion formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">86 - 32 = 1.8C</div>
+    <div class="step-exp">Subtract 32 from both sides of the equation to isolate the term with &#x27;C&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">54 = 1.8C</div>
+    <div class="step-exp">Perform the subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">C = 54 / 1.8</div>
+    <div class="step-exp">Divide both sides by 1.8 to solve for &#x27;C&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">C = 30</div>
+    <div class="step-exp">Perform the division to find the temperature in Celsius.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 degrees Celsius (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder needs 350 bricks for a wall. He has already collected some bricks, and his supplier delivered 175 more. If he still needs 75 bricks, how many did he have initially? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 100 bricks</div><div class="option"><span class="opt-letter">B.</span> 250 bricks</div><div class="option"><span class="opt-letter">C.</span> 175 bricks</div><div class="option"><span class="opt-letter">D.</span> 125 bricks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let x = number of bricks initially collected. x + 175 + 75 = 350</div>
+    <div class="step-exp">Define a variable for the initial number of bricks. Set up an equation where initial bricks plus delivered bricks plus remaining needed bricks equals the total needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 250 = 350</div>
+    <div class="step-exp">Combine the known quantities of delivered and remaining bricks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 350 - 250</div>
+    <div class="step-exp">Subtract 250 from both sides of the equation to isolate &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x = 100</div>
+    <div class="step-exp">Perform the subtraction to find the number of bricks initially collected.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 100 bricks (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A workshop started at 8:30 AM and concluded at 1:00 PM. If the workshop included a 45-minute lunch break and two 10-minute coffee breaks, what was the actual instructional time? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 215 minutes</div><div class="option"><span class="opt-letter">B.</span> 205 minutes</div><div class="option"><span class="opt-letter">C.</span> 225 minutes</div><div class="option"><span class="opt-letter">D.</span> 195 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total duration = 1:00 PM - 8:30 AM = 4 hours 30 minutes = 270 minutes. Let t = actual instructional time in minutes.</div>
+    <div class="step-exp">Calculate the total duration of the workshop in minutes. Define a variable for the actual instructional time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">t + 45 + 2(10) = 270</div>
+    <div class="step-exp">Set up an equation where instructional time plus lunch break time plus coffee break times equals the total duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">t + 45 + 20 = 270</div>
+    <div class="step-exp">Calculate the total time for the coffee breaks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">t + 65 = 270</div>
+    <div class="step-exp">Combine all known non-instructional times (lunch and coffee breaks).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">t = 270 - 65</div>
+    <div class="step-exp">Subtract the total non-instructional time from the total workshop duration to isolate &#x27;t&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">t = 205</div>
+    <div class="step-exp">Perform the subtraction to find the actual instructional time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 205 minutes (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town decreased by 20% last year due to economic reasons. If the current population is 12,400, what was the population last year? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14,880</div><div class="option"><span class="opt-letter">B.</span> 10,333</div><div class="option"><span class="opt-letter">C.</span> 15,500</div><div class="option"><span class="opt-letter">D.</span> 14,500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let P = population last year. P - 0.20P = 12400</div>
+    <div class="step-exp">Define a variable for last year&#x27;s population. A 20% decrease means 20% of P is subtracted from P. 20% as a decimal is 0.20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1P - 0.20P = 12400</div>
+    <div class="step-exp">Rewrite P as 1P for clarity in subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.80P = 12400</div>
+    <div class="step-exp">Combine like terms (1P - 0.20P).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">P = 12400 / 0.80</div>
+    <div class="step-exp">Divide both sides by 0.80 to solve for P.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">P = 15500</div>
+    <div class="step-exp">Perform the division to find the population last year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15,500 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cell phone plan costs $45 per month plus $0.08 per MB of data used. If a user&#x27;s bill last month was $69.96, how many MB of data did they use? Solve this problem using an algebraic approach by setting up and solving an equation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 312 MB</div><div class="option"><span class="opt-letter">B.</span> 874.5 MB</div><div class="option"><span class="opt-letter">C.</span> 114.96 MB</div><div class="option"><span class="opt-letter">D.</span> 69.96 MB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let d = number of MB of data used. 45 + 0.08d = 69.96</div>
+    <div class="step-exp">Define a variable for the unknown data usage. Set up an equation: fixed cost + (cost per MB * MB used) = total bill.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.08d = 69.96 - 45</div>
+    <div class="step-exp">Subtract the fixed monthly cost from the total bill to find the cost attributable to data usage.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.08d = 24.96</div>
+    <div class="step-exp">Perform the subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">d = 24.96 / 0.08</div>
+    <div class="step-exp">Divide the data cost by the cost per MB to find the total MB used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">d = 312</div>
+    <div class="step-exp">Perform the division to find the number of MB of data used.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 312 MB (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

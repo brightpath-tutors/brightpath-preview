@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Operations with Scientific Notation</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.051<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Operations with Scientific Notation</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.051</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The mass of a proton is approximately 1.67 × 10⁻²⁷ kilograms. If a sample contains 3 × 10⁵ protons, what is the total mass of the protons in the sample?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.01 × 10⁻¹³⁵ kg</div><div class="option"><span class="opt-letter">B.</span> 5.01 × 10⁻³² kg</div><div class="option"><span class="opt-letter">C.</span> 5.01 × 10⁻²² kg</div><div class="option"><span class="opt-letter">D.</span> 5.01 × 10²² kg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the total mass, we multiply the mass of one proton by the number of protons. Operation: Multiplication.</div>
+    <div class="step-exp">The problem asks for a total quantity based on a unit quantity and a count, indicating multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1.67 × 3 = 5.01</div>
+    <div class="step-exp">Multiply the numerical parts (coefficients) of the scientific notation expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10⁻²⁷ × 10⁵ = 10⁽⁻²⁷⁺⁵⁾ = 10⁻²²</div>
+    <div class="step-exp">When multiplying powers with the same base, add their exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">5.01 × 10⁻²² kg</div>
+    <div class="step-exp">Combine the multiplied coefficient and the simplified power of 10 to get the final answer in scientific notation. The coefficient 5.01 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5.01 × 10⁻²² kg (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of City A is 8.7 × 10⁵ people, and the population of City B is 3.2 × 10⁴ people. What is the combined population of both cities?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9.02 × 10⁵ people</div><div class="option"><span class="opt-letter">B.</span> 9.02 × 10⁴ people</div><div class="option"><span class="opt-letter">C.</span> 1.19 × 10⁵ people</div><div class="option"><span class="opt-letter">D.</span> 1.19 × 10⁹ people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the combined population, we need to add the populations of City A and City B. Operation: Addition.</div>
+    <div class="step-exp">The word &#x27;combined&#x27; indicates that addition is the correct operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The populations are 8.7 × 10⁵ and 3.2 × 10⁴. To add or subtract numbers in scientific notation, their powers of 10 must be the same. Convert 3.2 × 10⁴ to a term with 10⁵: Move the decimal one place to the left and increase the exponent by 1. 3.2 × 10⁴ = 0.32 × 10⁵.</div>
+    <div class="step-exp">For addition and subtraction in scientific notation, it is crucial to have the same power of 10. We adjust the smaller exponent to match the larger one for easier calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8.7 + 0.32 = 9.02</div>
+    <div class="step-exp">Now that the powers of 10 are aligned, add the numerical parts (coefficients).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">9.02 × 10⁵ people</div>
+    <div class="step-exp">Attach the common power of 10 to the sum of the coefficients. The coefficient 9.02 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9.02 × 10⁵ people (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Light travels at approximately 3 × 10⁸ meters per second. If a light source is 7.5 × 10¹² meters away, how many seconds will it take for the light to reach the destination?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.5 × 10⁹⁶ seconds</div><div class="option"><span class="opt-letter">B.</span> 2.5 × 10⁴ seconds</div><div class="option"><span class="opt-letter">C.</span> 2.5 × 10²⁰ seconds</div><div class="option"><span class="opt-letter">D.</span> 2.5 × 10⁻⁴ seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the time, we divide the total distance by the speed. Operation: Division.</div>
+    <div class="step-exp">The problem asks for time, given distance and speed, implying the formula Time = Distance / Speed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">7.5 ÷ 3 = 2.5</div>
+    <div class="step-exp">Divide the numerical parts (coefficients) of the scientific notation expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10¹² ÷ 10⁸ = 10⁽¹²⁻⁸⁾ = 10⁴</div>
+    <div class="step-exp">When dividing powers with the same base, subtract the exponent of the divisor from the exponent of the dividend.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2.5 × 10⁴ seconds</div>
+    <div class="step-exp">Combine the divided coefficient and the simplified power of 10 to get the final answer in scientific notation. The coefficient 2.5 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.5 × 10⁴ seconds (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A large company&#x27;s server farm stores approximately 6.5 × 10¹² bytes of data. If they plan to expand their storage capacity by a factor of 4.2 × 10², what will be the new total storage capacity?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.73 × 10¹³ bytes</div><div class="option"><span class="opt-letter">B.</span> 2.73 × 10¹⁵ bytes</div><div class="option"><span class="opt-letter">C.</span> 2.73 × 10²⁴ bytes</div><div class="option"><span class="opt-letter">D.</span> 27.3 × 10¹⁴ bytes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the new total storage capacity after expanding by a factor, we multiply the current capacity by the expansion factor. Operation: Multiplication.</div>
+    <div class="step-exp">The phrase &#x27;by a factor of&#x27; indicates multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6.5 × 4.2 = 27.3</div>
+    <div class="step-exp">Multiply the numerical parts (coefficients) of the scientific notation expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10¹² × 10² = 10⁽¹²⁺²⁾ = 10¹⁴</div>
+    <div class="step-exp">When multiplying powers with the same base, add their exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The initial result is 27.3 × 10¹⁴. For scientific notation, the coefficient must be between 1 and 10. Move the decimal one place to the left (27.3 → 2.73) and add 1 to the exponent (14 → 15). Final answer: 2.73 × 10¹⁵ bytes.</div>
+    <div class="step-exp">The coefficient 27.3 is not in scientific notation. To correct this, we adjust the coefficient and compensate by changing the exponent. Moving the decimal left increases the exponent.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.73 × 10¹⁵ bytes (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A major online retailer reported a quarterly revenue of 9.35 × 10¹⁰ dollars. Their operating expenses for the same quarter were 2.1 × 10⁹ dollars. What was their net profit for the quarter?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7.25 × 10¹ dollars</div><div class="option"><span class="opt-letter">B.</span> 9.14 × 10¹⁰ dollars</div><div class="option"><span class="opt-letter">C.</span> 7.25 × 10¹⁰ dollars</div><div class="option"><span class="opt-letter">D.</span> 9.14 × 10⁹ dollars</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Net profit is calculated by subtracting expenses from revenue. Operation: Subtraction.</div>
+    <div class="step-exp">The problem asks for net profit, which is typically revenue minus expenses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The amounts are 9.35 × 10¹⁰ and 2.1 × 10⁹. To subtract numbers in scientific notation, their powers of 10 must be the same. Convert 2.1 × 10⁹ to a term with 10¹⁰: Move the decimal one place to the left and increase the exponent by 1. 2.1 × 10⁹ = 0.21 × 10¹⁰.</div>
+    <div class="step-exp">For addition and subtraction in scientific notation, it is crucial to have the same power of 10. We adjust the smaller exponent to match the larger one.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">9.35 - 0.21 = 9.14</div>
+    <div class="step-exp">Now that the powers of 10 are aligned, subtract the numerical parts (coefficients).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">9.14 × 10¹⁰ dollars</div>
+    <div class="step-exp">Attach the common power of 10 to the difference of the coefficients. The coefficient 9.14 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9.14 × 10¹⁰ dollars (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">There are approximately 3.15 × 10⁷ seconds in a year. How many years are there in 5.67 × 10¹⁰ seconds?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 × 10³ years</div><div class="option"><span class="opt-letter">B.</span> 1.8 × 10⁻³ years</div><div class="option"><span class="opt-letter">C.</span> 1.8 × 10³ years</div><div class="option"><span class="opt-letter">D.</span> 1.8 × 10¹⁷ years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many years are in a given number of seconds, we divide the total seconds by the seconds per year. Operation: Division.</div>
+    <div class="step-exp">The problem asks to convert a large duration in seconds into years, which requires division by the number of seconds in one year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5.67 ÷ 3.15 = 1.8</div>
+    <div class="step-exp">Divide the numerical parts (coefficients) of the scientific notation expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10¹⁰ ÷ 10⁷ = 10⁽¹⁰⁻⁷⁾ = 10³</div>
+    <div class="step-exp">When dividing powers with the same base, subtract the exponent of the divisor from the exponent of the dividend.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.8 × 10³ years</div>
+    <div class="step-exp">Combine the divided coefficient and the simplified power of 10 to get the final answer in scientific notation. The coefficient 1.8 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.8 × 10³ years (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction project requires two batches of concrete. The first batch has a volume of 2.5 × 10³ cubic meters, and the second batch has a volume of 8.0 × 10² cubic meters. What is the total volume of concrete needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 33 × 10² cubic meters</div><div class="option"><span class="opt-letter">B.</span> 1.05 × 10⁵ cubic meters</div><div class="option"><span class="opt-letter">C.</span> 3.3 × 10³ cubic meters</div><div class="option"><span class="opt-letter">D.</span> 1.05 × 10⁶ cubic meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the total volume, we need to add the volumes of the two batches of concrete. Operation: Addition.</div>
+    <div class="step-exp">The word &#x27;total&#x27; indicates that addition is the correct operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The volumes are 2.5 × 10³ and 8.0 × 10². To add or subtract numbers in scientific notation, their powers of 10 must be the same. Convert 8.0 × 10² to a term with 10³: Move the decimal one place to the left and increase the exponent by 1. 8.0 × 10² = 0.8 × 10³.</div>
+    <div class="step-exp">For addition and subtraction in scientific notation, it is crucial to have the same power of 10. We adjust the smaller exponent to match the larger one.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2.5 + 0.8 = 3.3</div>
+    <div class="step-exp">Now that the powers of 10 are aligned, add the numerical parts (coefficients).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3.3 × 10³ cubic meters</div>
+    <div class="step-exp">Attach the common power of 10 to the sum of the coefficients. The coefficient 3.3 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3.3 × 10³ cubic meters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new sports stadium has a playing field with an area of 1.25 × 10⁴ square meters. The entire complex, including seating and facilities, is 3.5 times larger than the playing field. What is the total area of the sports complex?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 43.75 × 10³ square meters</div><div class="option"><span class="opt-letter">B.</span> 4.375 × 10⁵ square meters</div><div class="option"><span class="opt-letter">C.</span> 4.375 × 10⁴ square meters</div><div class="option"><span class="opt-letter">D.</span> 4.375 × 10¹⁴ square meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the total area of the complex, we multiply the playing field&#x27;s area by the given factor. Operation: Multiplication.</div>
+    <div class="step-exp">The problem states that the complex is &#x27;3.5 times larger than&#x27; the playing field, indicating multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Area of playing field: 1.25 × 10⁴. Factor: 3.5. We can write 3.5 as 3.5 × 10⁰.</div>
+    <div class="step-exp">For consistent operations, it&#x27;s best to express all numbers in scientific notation. Any whole number &#x27;n&#x27; can be written as n × 10⁰.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1.25 × 3.5 = 4.375</div>
+    <div class="step-exp">Multiply the numerical parts (coefficients) of the scientific notation expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">10⁴ × 10⁰ = 10⁽⁴⁺⁰⁾ = 10⁴</div>
+    <div class="step-exp">When multiplying powers with the same base, add their exponents. Adding zero to an exponent does not change its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">4.375 × 10⁴ square meters. The coefficient 4.375 is already between 1 and 10, so no further normalization is needed.</div>
+    <div class="step-exp">Combine the multiplied coefficient and the simplified power of 10. Confirm the coefficient is in the correct range for scientific notation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4.375 × 10⁴ square meters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A lab technician observes a bacteria culture containing a total of 4.8 × 10⁸ individual bacteria. If each colony within the culture contains approximately 1.2 × 10³ individual bacteria, how many colonies are there in the culture?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.4 × 10⁶ colonies</div><div class="option"><span class="opt-letter">B.</span> 4.0 × 10¹¹ colonies</div><div class="option"><span class="opt-letter">C.</span> 4.0 × 10²⁴ colonies</div><div class="option"><span class="opt-letter">D.</span> 4.0 × 10⁵ colonies</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the number of colonies, we divide the total number of bacteria by the number of bacteria per colony. Operation: Division.</div>
+    <div class="step-exp">The problem requires finding how many groups (colonies) of a certain size (bacteria per colony) are contained within a total number (total bacteria), which is a division problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4.8 ÷ 1.2 = 4.0</div>
+    <div class="step-exp">Divide the numerical parts (coefficients) of the scientific notation expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10⁸ ÷ 10³ = 10⁽⁸⁻³⁾ = 10⁵</div>
+    <div class="step-exp">When dividing powers with the same base, subtract the exponent of the divisor from the exponent of the dividend.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4.0 × 10⁵ colonies</div>
+    <div class="step-exp">Combine the divided coefficient and the simplified power of 10 to get the final answer in scientific notation. The coefficient 4.0 is between 1 and 10, so no further normalization is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4.0 × 10⁵ colonies (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist is painting a mural that requires 2.5 × 10¹² paint molecules per square centimeter. If the mural has an area of 1.2 × 10⁵ square centimeters, and each tube of paint contains 3.0 × 10¹⁸ paint molecules, how many tubes of paint are needed for the mural?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.0 × 10⁻³⁰ tubes</div><div class="option"><span class="opt-letter">B.</span> 1.0 × 10⁻¹ tubes</div><div class="option"><span class="opt-letter">C.</span> 1.0 × 10¹ tubes</div><div class="option"><span class="opt-letter">D.</span> 1.0 × 10³⁰ tubes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First, calculate the total number of paint molecules required for the mural (molecules per cm² × total cm²). Then, divide this total by the number of molecules per tube to find the number of tubes. Operations: Multiplication, then Division.</div>
+    <div class="step-exp">This is a multi-step problem. We need to find the total quantity first, then divide by the quantity per unit to find the number of units.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total molecules = (2.5 × 10¹²) × (1.2 × 10⁵)
+Multiply coefficients: 2.5 × 1.2 = 3.0
+Add exponents: 12 + 5 = 17
+Result: 3.0 × 10¹⁷ molecules</div>
+    <div class="step-exp">Multiply the coefficients and add the exponents for the first part of the calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Number of tubes = (3.0 × 10¹⁷) ÷ (3.0 × 10¹⁸)
+Divide coefficients: 3.0 ÷ 3.0 = 1.0
+Subtract exponents: 17 - 18 = -1
+Result: 1.0 × 10⁻¹ tubes</div>
+    <div class="step-exp">Now, divide the total molecules by the molecules per tube. Divide the coefficients and subtract the exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The final result is 1.0 × 10⁻¹ tubes. The coefficient 1.0 is between 1 and 10, so it is in correct scientific notation.</div>
+    <div class="step-exp">Ensure the final answer is presented in correct scientific notation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.0 × 10⁻¹ tubes (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

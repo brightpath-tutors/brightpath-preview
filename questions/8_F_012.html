@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Arithmetic Sequences</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | F | Skill 8.F.012<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Arithmetic Sequences</h1>
+<p class="skill-subtitle">Skill ID: 8.F.012</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker starts the day with 30 cupcakes. Every hour, she bakes 5 more cupcakes. How many cupcakes will she have after 4 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 45 cupcakes</div><div class="option"><span class="opt-letter">B.</span> 55 cupcakes</div><div class="option"><span class="opt-letter">C.</span> 35 cupcakes</div><div class="option"><span class="opt-letter">D.</span> 50 cupcakes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial cupcakes (a_1) = 30
+Cupcakes baked per hour (d) = 5</div>
+    <div class="step-exp">The baker starts with 30 cupcakes, so this is our initial value. She adds 5 cupcakes every hour, which is the constant difference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We want to find the number of cupcakes after 4 hours. Since the initial term is at hour 0, after 4 hours will be the 5th term (a_5) of the sequence.</div>
+    <div class="step-exp">If we consider the start as hour 0 (a_1), then after 1 hour is a_2, after 2 hours is a_3, and so on. So, after 4 hours, it will be the 5th term (n=5).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term of an arithmetic sequence is a_n = a_1 + (n-1)d.
+Substitute a_1 = 30, d = 5, and n = 5:
+a_5 = 30 + (5-1) <em> 5
+a_5 = 30 + (4) </em> 5
+a_5 = 30 + 20
+a_5 = 50</div>
+    <div class="step-exp">Plug the values into the formula to find the total number of cupcakes.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 50 cupcakes (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner trains by increasing her distance by 2 kilometers each week. If she ran 12 kilometers in her first week, how many kilometers will she run in her 8th week?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 26 kilometers</div><div class="option"><span class="opt-letter">B.</span> 14 kilometers</div><div class="option"><span class="opt-letter">C.</span> 24 kilometers</div><div class="option"><span class="opt-letter">D.</span> 28 kilometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial distance (a_1) = 12
+Increase per week (d) = 2</div>
+    <div class="step-exp">The first week&#x27;s distance is 12 km, so a_1 = 12. She adds 2 km each week, so the common difference d = 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the distance for the 8th week, so n = 8.</div>
+    <div class="step-exp">The question explicitly asks for the 8th week, so n=8.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 12, d = 2, and n = 8:
+a_8 = 12 + (8-1) <em> 2
+a_8 = 12 + (7) </em> 2
+a_8 = 12 + 14
+a_8 = 26</div>
+    <div class="step-exp">Plug the values into the formula to find the total distance run in the 8th week.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 26 kilometers (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef uses 50 grams of salt for his first batch of soup. For each subsequent batch, he uses an additional 3 grams of salt. How much salt will he use for his 6th batch of soup?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 68 grams</div><div class="option"><span class="opt-letter">B.</span> 62 grams</div><div class="option"><span class="opt-letter">C.</span> 53 grams</div><div class="option"><span class="opt-letter">D.</span> 65 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial salt (a_1) = 50
+Additional salt per batch (d) = 3</div>
+    <div class="step-exp">The first batch uses 50 grams, so a_1 = 50. Each subsequent batch uses 3 grams more, so the common difference d = 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the salt used for the 6th batch, so n = 6.</div>
+    <div class="step-exp">The question asks for the 6th batch, so n=6.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 50, d = 3, and n = 6:
+a_6 = 50 + (6-1) <em> 3
+a_6 = 50 + (5) </em> 3
+a_6 = 50 + 15
+a_6 = 65</div>
+    <div class="step-exp">Plug the values into the formula to find the total salt used for the 6th batch.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 65 grams (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels 300 miles on its first day. Each day after that, it travels 15 miles less than the previous day. How many miles will it travel on its 7th day?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 210 miles</div><div class="option"><span class="opt-letter">B.</span> 90 miles</div><div class="option"><span class="opt-letter">C.</span> 225 miles</div><div class="option"><span class="opt-letter">D.</span> 195 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial distance (a_1) = 300
+Decrease per day (d) = -15</div>
+    <div class="step-exp">The first day&#x27;s distance is 300 miles, so a_1 = 300. It travels 15 miles LESS each day, so the common difference d = -15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the distance for the 7th day, so n = 7.</div>
+    <div class="step-exp">The question explicitly asks for the 7th day, so n=7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 300, d = -15, and n = 7:
+a_7 = 300 + (7-1) <em> (-15)
+a_7 = 300 + (6) </em> (-15)
+a_7 = 300 - 90
+a_7 = 210</div>
+    <div class="step-exp">Plug the values into the formula to find the distance traveled on the 7th day.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 210 miles (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student saves $25 in January. Each month, they save an additional $10. How much money will they have saved by the end of June?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $75</div><div class="option"><span class="opt-letter">B.</span> $85</div><div class="option"><span class="opt-letter">C.</span> $35</div><div class="option"><span class="opt-letter">D.</span> $65</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial savings (a_1) = 25
+Additional savings per month (d) = 10</div>
+    <div class="step-exp">January is the first month, so a_1 = $25. They save an additional $10 each month, so the common difference d = $10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">January = 1st month
+February = 2nd month
+March = 3rd month
+April = 4th month
+May = 5th month
+June = 6th month
+So, n = 6.</div>
+    <div class="step-exp">We need to find the total savings by the end of June, which is the 6th month, so n=6.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 25, d = 10, and n = 6:
+a_6 = 25 + (6-1) <em> 10
+a_6 = 25 + (5) </em> 10
+a_6 = 25 + 50
+a_6 = 75</div>
+    <div class="step-exp">Plug the values into the formula to find the total money saved by the end of June.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $75 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker lays 20 bricks in the first hour. Due to fatigue, he lays 2 fewer bricks each subsequent hour. How many bricks will he lay in the 5th hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 bricks</div><div class="option"><span class="opt-letter">B.</span> 14 bricks</div><div class="option"><span class="opt-letter">C.</span> 12 bricks</div><div class="option"><span class="opt-letter">D.</span> 16 bricks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial bricks (a_1) = 20
+Decrease per hour (d) = -2</div>
+    <div class="step-exp">The first hour&#x27;s work is 20 bricks, so a_1 = 20. He lays 2 fewer bricks each hour, so the common difference d = -2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the bricks laid in the 5th hour, so n = 5.</div>
+    <div class="step-exp">The question explicitly asks for the 5th hour, so n=5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 20, d = -2, and n = 5:
+a_5 = 20 + (5-1) <em> (-2)
+a_5 = 20 + (4) </em> (-2)
+a_5 = 20 - 8
+a_5 = 12</div>
+    <div class="step-exp">Plug the values into the formula to find the number of bricks laid in the 5th hour.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 bricks (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock tower chimes once at 1:00, twice at 2:00, and so on. How many times will it chime at 9:00?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 chime</div><div class="option"><span class="opt-letter">B.</span> 10 chimes</div><div class="option"><span class="opt-letter">C.</span> 9 chimes</div><div class="option"><span class="opt-letter">D.</span> 8 chimes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial chimes (a_1) = 1
+Increase per hour (d) = 1</div>
+    <div class="step-exp">At 1:00 it chimes once, so a_1 = 1. It increases by one chime each hour, so the common difference d = 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the number of chimes at 9:00, so n = 9.</div>
+    <div class="step-exp">The question explicitly asks for 9:00, which corresponds to the 9th term in this sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 1, d = 1, and n = 9:
+a_9 = 1 + (9-1) <em> 1
+a_9 = 1 + (8) </em> 1
+a_9 = 1 + 8
+a_9 = 9</div>
+    <div class="step-exp">Plug the values into the formula to find the number of chimes at 9:00.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9 chimes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes a bacterial colony that starts with 150 cells. The colony increases by 25 cells every 2 hours. How many cells will there be after 10 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 275 cells</div><div class="option"><span class="opt-letter">B.</span> 300 cells</div><div class="option"><span class="opt-letter">C.</span> 250 cells</div><div class="option"><span class="opt-letter">D.</span> 200 cells</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial cells (a_1) = 150
+Increase is 25 cells per 2 hours. So, the common difference &#x27;d&#x27; for each 2-hour interval is 25.</div>
+    <div class="step-exp">The colony starts with 150 cells, so a_1 = 150. The increase is 25 cells for every 2 hours. This means our &#x27;steps&#x27; in the sequence will be 2-hour intervals.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 10 hours
+Each interval = 2 hours
+Number of intervals = 10 / 2 = 5 intervals.
+Since the initial count is the 1st term (0 hours passed), after 5 intervals, it will be the (5+1) = 6th term (a_6).</div>
+    <div class="step-exp">We need to find how many 2-hour intervals occur in 10 hours. Since the initial state is at 0 hours, after 5 intervals, we are looking for the 6th term (a_6).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 150, d = 25, and n = 6:
+a_6 = 150 + (6-1) <em> 25
+a_6 = 150 + (5) </em> 25
+a_6 = 150 + 125
+a_6 = 275</div>
+    <div class="step-exp">Plug the values into the formula to find the total number of cells after 10 hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 275 cells (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town starts at 5,000 people and grows by 120 people each year. What will the population be in the 15th year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6800 people</div><div class="option"><span class="opt-letter">B.</span> 6560 people</div><div class="option"><span class="opt-letter">C.</span> 6680 people</div><div class="option"><span class="opt-letter">D.</span> 5120 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population (a_1) = 5000
+Growth per year (d) = 120</div>
+    <div class="step-exp">The starting population is 5000, so a_1 = 5000. It grows by 120 people each year, so the common difference d = 120.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the population in the 15th year, so n = 15.</div>
+    <div class="step-exp">The question explicitly asks for the 15th year, so n=15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 5000, d = 120, and n = 15:
+a_15 = 5000 + (15-1) <em> 120
+a_15 = 5000 + (14) </em> 120
+a_15 = 5000 + 1680
+a_15 = 6680</div>
+    <div class="step-exp">Plug the values into the formula to find the population in the 15th year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6680 people (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A programmer is writing a code that takes 0.5 seconds for the first line to execute. Each subsequent line takes an additional 0.05 seconds to execute. How long will the 20th line take to execute?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.50 seconds</div><div class="option"><span class="opt-letter">B.</span> 0.55 seconds</div><div class="option"><span class="opt-letter">C.</span> 1.45 seconds</div><div class="option"><span class="opt-letter">D.</span> 1.40 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial execution time (a_1) = 0.5
+Additional time per line (d) = 0.05</div>
+    <div class="step-exp">The first line takes 0.5 seconds, so a_1 = 0.5. Each subsequent line adds 0.05 seconds, so the common difference d = 0.05.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the execution time for the 20th line, so n = 20.</div>
+    <div class="step-exp">The question explicitly asks for the 20th line, so n=20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 0.5, d = 0.05, and n = 20:
+a_20 = 0.5 + (20-1) <em> 0.05
+a_20 = 0.5 + (19) </em> 0.05
+a_20 = 0.5 + 0.95
+a_20 = 1.45</div>
+    <div class="step-exp">Plug the values into the formula to find the execution time for the 20th line.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.45 seconds (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A sculpture&#x27;s height is initially 70 cm. Each day, due to material settling, its height decreases by 0.8 cm. What will its height be after 25 days?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 70 cm</div><div class="option"><span class="opt-letter">B.</span> 50.8 cm</div><div class="option"><span class="opt-letter">C.</span> 50 cm</div><div class="option"><span class="opt-letter">D.</span> 49.2 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial height (a_1) = 70
+Decrease per day (d) = -0.8</div>
+    <div class="step-exp">The initial height is 70 cm, so a_1 = 70. It decreases by 0.8 cm each day, so the common difference d = -0.8.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the height after 25 days. Since the initial height is at day 0, after 25 days will be the 26th term (a_26) of the sequence.</div>
+    <div class="step-exp">If the initial height is the first term (day 0), then after 25 days, we are looking for the 26th term (n=26).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 70, d = -0.8, and n = 26:
+a_26 = 70 + (26-1) <em> (-0.8)
+a_26 = 70 + (25) </em> (-0.8)
+a_26 = 70 - 20
+a_26 = 50</div>
+    <div class="step-exp">Plug the values into the formula to find the height after 25 days.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 50 cm (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A health club membership costs $40 to join, plus an additional $15 per month. What is the total cost of membership after 18 months?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $270</div><div class="option"><span class="opt-letter">B.</span> $310</div><div class="option"><span class="opt-letter">C.</span> $285</div><div class="option"><span class="opt-letter">D.</span> $325</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial cost (a_1) = 40
+Cost per month (d) = 15</div>
+    <div class="step-exp">The joining fee is $40, representing the cost at month 0 (a_1). The monthly fee of $15 is the common difference, as it&#x27;s added each subsequent month.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We want to find the total cost after 18 months. Since the initial cost is for month 0, after 18 months will be the 19th term (a_19) of the sequence.</div>
+    <div class="step-exp">If we consider the joining fee as month 0 (a_1), then after 18 months, it will be the 19th term (n=19).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 40, d = 15, and n = 19:
+a_19 = 40 + (19-1) <em> 15
+a_19 = 40 + (18) </em> 15
+a_19 = 40 + 270
+a_19 = 310</div>
+    <div class="step-exp">Plug the values into the formula to find the total cost after 18 months.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $310 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tree grows 0.75 meters in its first year. Each year after that, it grows an additional 0.25 meters. What will be the total height of the tree at the end of its 10th year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.25 meters</div><div class="option"><span class="opt-letter">B.</span> 2.75 meters</div><div class="option"><span class="opt-letter">C.</span> 3 meters</div><div class="option"><span class="opt-letter">D.</span> 2.5 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial growth (a_1) = 0.75
+Additional growth per year (d) = 0.25</div>
+    <div class="step-exp">The growth in the first year is 0.75m, so a_1 = 0.75. It adds 0.25m each year, so the common difference d = 0.25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the total height at the end of its 10th year, so n = 10.</div>
+    <div class="step-exp">The question explicitly asks for the 10th year, so n=10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 0.75, d = 0.25, and n = 10:
+a_10 = 0.75 + (10-1) <em> 0.25
+a_10 = 0.75 + (9) </em> 0.25
+a_10 = 0.75 + 2.25
+a_10 = 3</div>
+    <div class="step-exp">Plug the values into the formula to find the total height of the tree at the end of its 10th year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 meters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist creates a mosaic with 120 tiles in the first row. Each subsequent row has 6 fewer tiles than the row before it. If the mosaic has 16 rows, how many tiles are in the last row?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 114 tiles</div><div class="option"><span class="opt-letter">B.</span> 30 tiles</div><div class="option"><span class="opt-letter">C.</span> 36 tiles</div><div class="option"><span class="opt-letter">D.</span> 24 tiles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial tiles (a_1) = 120
+Decrease per row (d) = -6</div>
+    <div class="step-exp">The first row has 120 tiles, so a_1 = 120. Each subsequent row has 6 fewer tiles, so the common difference d = -6.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the number of tiles in the 16th row, so n = 16.</div>
+    <div class="step-exp">The question explicitly asks for the 16th row, so n=16.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 120, d = -6, and n = 16:
+a_16 = 120 + (16-1) <em> (-6)
+a_16 = 120 + (15) </em> (-6)
+a_16 = 120 - 90
+a_16 = 30</div>
+    <div class="step-exp">Plug the values into the formula to find the number of tiles in the last row.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 tiles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An online game starts with 100 players. Every week, 8% of the remaining players quit the game. If the number of players quitting is based on the initial 100 players, how many players will be left after 5 weeks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 92 players</div><div class="option"><span class="opt-letter">B.</span> 68 players</div><div class="option"><span class="opt-letter">C.</span> 60 players</div><div class="option"><span class="opt-letter">D.</span> 52 players</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial players (a_1) = 100
+Players quitting per week = 8% of initial players = 0.08 * 100 = 8
+This is a decrease, so the common difference (d) = -8</div>
+    <div class="step-exp">The game starts with 100 players, so a_1 = 100. Since 8% of the <em>initial</em> players quit each week, this means a constant number (8) of players quit each week, making it an arithmetic sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the number of players left after 5 weeks. Since the initial count is for week 0, after 5 weeks will be the 6th term (a_6) of the sequence.</div>
+    <div class="step-exp">If the initial state is the first term (week 0), then after 5 weeks, we are looking for the 6th term (n=6).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 100, d = -8, and n = 6:
+a_6 = 100 + (6-1) <em> (-8)
+a_6 = 100 + (5) </em> (-8)
+a_6 = 100 - 40
+a_6 = 60</div>
+    <div class="step-exp">Plug the values into the formula to find the number of players left after 5 weeks.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 players (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company&#x27;s quarterly profit was $15,000 in the first quarter. Due to market fluctuations, its profit decreased by $750 in each of the subsequent quarters. What was the company&#x27;s profit in the 9th quarter?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $8250</div><div class="option"><span class="opt-letter">B.</span> $14250</div><div class="option"><span class="opt-letter">C.</span> $9750</div><div class="option"><span class="opt-letter">D.</span> $9000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial profit (a_1) = 15000
+Decrease per quarter (d) = -750</div>
+    <div class="step-exp">The profit in the first quarter is $15,000, so a_1 = 15000. It decreased by $750 each subsequent quarter, so the common difference d = -750.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the profit in the 9th quarter, so n = 9.</div>
+    <div class="step-exp">The question explicitly asks for the 9th quarter, so n=9.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 15000, d = -750, and n = 9:
+a_9 = 15000 + (9-1) <em> (-750)
+a_9 = 15000 + (8) </em> (-750)
+a_9 = 15000 - 6000
+a_9 = 9000</div>
+    <div class="step-exp">Plug the values into the formula to find the company&#x27;s profit in the 9th quarter.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $9000 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is tracking the temperature of a chemical reaction. It starts at 35°C and increases by 1.5°C every 30 minutes. What will the temperature be after 4 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 45.5°C</div><div class="option"><span class="opt-letter">B.</span> 47°C</div><div class="option"><span class="opt-letter">C.</span> 48.5°C</div><div class="option"><span class="opt-letter">D.</span> 44°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial temperature (a_1) = 35
+Increase is 1.5°C every 30 minutes. So, the common difference &#x27;d&#x27; for each 30-minute interval is 1.5.</div>
+    <div class="step-exp">The starting temperature is 35°C, so a_1 = 35. The increase is 1.5°C for every 30-minute interval. This means our &#x27;steps&#x27; in the sequence will be 30-minute intervals.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 4 hours = 4 * 60 minutes = 240 minutes
+Each interval = 30 minutes
+Number of intervals = 240 / 30 = 8 intervals.
+Since the initial temperature is the 1st term (0 minutes passed), after 8 intervals, it will be the (8+1) = 9th term (a_9).</div>
+    <div class="step-exp">Convert the total time to minutes and divide by the interval duration to find the number of intervals. Since the initial state is at 0 minutes, after 8 intervals, we are looking for the 9th term (a_9).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 35, d = 1.5, and n = 9:
+a_9 = 35 + (9-1) <em> 1.5
+a_9 = 35 + (8) </em> 1.5
+a_9 = 35 + 12
+a_9 = 47</div>
+    <div class="step-exp">Plug the values into the formula to find the temperature after 4 hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 47°C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A municipal pool is being drained. It starts with 4,000 gallons of water. Water is drained at a rate of 150 gallons every 20 minutes. How many gallons will be left in the pool after 3 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2650 gallons</div><div class="option"><span class="opt-letter">B.</span> 2500 gallons</div><div class="option"><span class="opt-letter">C.</span> 1450 gallons</div><div class="option"><span class="opt-letter">D.</span> 1300 gallons</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial gallons (a_1) = 4000
+Decrease is 150 gallons every 20 minutes. So, the common difference &#x27;d&#x27; for each 20-minute interval is -150.</div>
+    <div class="step-exp">The pool starts with 4000 gallons, so a_1 = 4000. It drains 150 gallons for every 20-minute interval, so the common difference d = -150.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 3 hours = 3 * 60 minutes = 180 minutes
+Each interval = 20 minutes
+Number of intervals = 180 / 20 = 9 intervals.
+Since the initial volume is the 1st term (0 minutes passed), after 9 intervals, it will be the (9+1) = 10th term (a_10).</div>
+    <div class="step-exp">Convert the total time to minutes and divide by the interval duration to find the number of intervals. Since the initial state is at 0 minutes, after 9 intervals, we are looking for the 10th term (a_10).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 4000, d = -150, and n = 10:
+a_10 = 4000 + (10-1) <em> (-150)
+a_10 = 4000 + (9) </em> (-150)
+a_10 = 4000 - 1350
+a_10 = 2650</div>
+    <div class="step-exp">Plug the values into the formula to find the number of gallons left after 3 hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1300 gallons (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The average daily screen time for teenagers was 4.5 hours in 2010. If this average increased by 0.2 hours each year, in what year will the average daily screen time reach 6.7 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2022</div><div class="option"><span class="opt-letter">B.</span> 2023</div><div class="option"><span class="opt-letter">C.</span> 2020</div><div class="option"><span class="opt-letter">D.</span> 2021</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial screen time (a_1) = 4.5
+Increase per year (d) = 0.2
+Target screen time (a_n) = 6.7</div>
+    <div class="step-exp">The starting screen time is 4.5 hours, so a_1 = 4.5. It increases by 0.2 hours each year, so the common difference d = 0.2. We want to find the year when it reaches 6.7 hours, so a_n = 6.7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 4.5, d = 0.2, and a_n = 6.7:
+6.7 = 4.5 + (n-1) <em> 0.2
+Subtract 4.5 from both sides:
+6.7 - 4.5 = (n-1) </em> 0.2
+2.2 = (n-1) * 0.2
+Divide by 0.2:
+2.2 / 0.2 = n-1
+11 = n-1
+Add 1 to both sides:
+n = 11 + 1
+n = 12</div>
+    <div class="step-exp">Solve the formula for &#x27;n&#x27; to find which term corresponds to 6.7 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The first term (n=1) corresponds to the year 2010.
+So, the 12th term (n=12) corresponds to year 2010 + (12-1) = 2010 + 11 = 2021.</div>
+    <div class="step-exp">Since n=1 is 2010, the year for any &#x27;n&#x27; is 2010 + (n-1). Alternatively, counting 11 years after 2010 leads to 2021.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2021 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient is taking a medication where the initial dose is 150 mg. The dose is reduced by 7.5 mg every other day. If the treatment lasts for 20 days (starting from day 0), what will be the dose on the last day of treatment?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 75 mg</div><div class="option"><span class="opt-letter">B.</span> 82.5 mg</div><div class="option"><span class="opt-letter">C.</span> 67.5 mg</div><div class="option"><span class="opt-letter">D.</span> 90 mg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial dose (a_1) = 150
+Reduction is 7.5 mg every other day. So, the common difference &#x27;d&#x27; for each 2-day interval is -7.5.</div>
+    <div class="step-exp">The initial dose is 150 mg, so a_1 = 150. The reduction is 7.5 mg for every 2-day interval, so the common difference d = -7.5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total treatment days = 20 days
+Each interval = 2 days
+Number of intervals = 20 / 2 = 10 intervals.
+Since the initial dose is the 1st term (day 0), after 10 intervals, it will be the (10+1) = 11th term (a_11).</div>
+    <div class="step-exp">Divide the total treatment days by the interval duration to find the number of intervals. Since the initial state is at day 0, after 10 intervals, we are looking for the 11th term (a_11).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The formula for the nth term is a_n = a_1 + (n-1)d.
+Substitute a_1 = 150, d = -7.5, and n = 11:
+a_11 = 150 + (11-1) <em> (-7.5)
+a_11 = 150 + (10) </em> (-7.5)
+a_11 = 150 - 75
+a_11 = 75</div>
+    <div class="step-exp">Plug the values into the formula to find the dose on the last day of treatment (Day 20).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 82.5 mg (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

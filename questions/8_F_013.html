@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Geometric Sequences</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | F | Skill 8.F.013<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Geometric Sequences</h1>
+<p class="skill-subtitle">Skill ID: 8.F.013</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A special collector&#x27;s coin doubles its market value every day. If it starts with a value of $3 on Monday, what will its value be on Wednesday?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $12</div><div class="option"><span class="opt-letter">B.</span> $18</div><div class="option"><span class="opt-letter">C.</span> $6</div><div class="option"><span class="opt-letter">D.</span> $9</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The first term (\(a_1\)) is the value on Monday, which is $3.
+The value doubles every day, so the common ratio (\(r\)) is 2.</div>
+    <div class="step-exp">A geometric sequence has a constant ratio between consecutive terms. &#x27;Doubles&#x27; indicates a ratio of 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Value on Tuesday (\(a_2\)) = \(a_1 \times r = 3 \times 2 = 6\).</div>
+    <div class="step-exp">To find the next term in a geometric sequence, multiply the current term by the common ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Value on Wednesday (\(a_3\)) = \(a_2 \times r = 6 \times 2 = 12\).</div>
+    <div class="step-exp">Continue multiplying by the common ratio to find subsequent terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $12 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a video game, a player scores 2 points in the first round. In each subsequent round, they score three times the points of the previous round. How many points do they score in the third round?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 points</div><div class="option"><span class="opt-letter">B.</span> 18 points</div><div class="option"><span class="opt-letter">C.</span> 8 points</div><div class="option"><span class="opt-letter">D.</span> 6 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The first term (\(a_1\)) is the points in round 1, which is 2.
+The player scores three times the points, so the common ratio (\(r\)) is 3.</div>
+    <div class="step-exp">&#x27;Three times&#x27; indicates a common ratio of 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Points in Round 2 (\(a_2\)) = \(a_1 \times r = 2 \times 3 = 6\).</div>
+    <div class="step-exp">Multiply the previous term by the common ratio to find the next term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Points in Round 3 (\(a_3\)) = \(a_2 \times r = 6 \times 3 = 18\).</div>
+    <div class="step-exp">Repeat the multiplication to find the desired term.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 18 points (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 4 grams of active dry yeast for the first batch of bread. If you want to make a larger batch, and each new batch requires twice the amount of yeast as the previous one, how much yeast will the third batch require?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 grams</div><div class="option"><span class="opt-letter">B.</span> 16 grams</div><div class="option"><span class="opt-letter">C.</span> 10 grams</div><div class="option"><span class="opt-letter">D.</span> 8 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The first term (\(a_1\)) is the yeast for the first batch, which is 4 grams.
+Each new batch requires twice the amount, so the common ratio (\(r\)) is 2.</div>
+    <div class="step-exp">&#x27;Twice the amount&#x27; indicates a common ratio of 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Yeast for Batch 2 (\(a_2\)) = \(a_1 \times r = 4 \times 2 = 8\) grams.</div>
+    <div class="step-exp">Multiply the amount for the previous batch by the common ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Yeast for Batch 3 (\(a_3\)) = \(a_2 \times r = 8 \times 2 = 16\) grams.</div>
+    <div class="step-exp">Continue multiplying by the common ratio to find the amount for the third batch.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 grams (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car is traveling at 5 mph. After each hour, its speed increases by a factor of 1.5. What will its speed be after 3 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 16.875 mph</div><div class="option"><span class="opt-letter">B.</span> 8 mph</div><div class="option"><span class="opt-letter">C.</span> 20 mph</div><div class="option"><span class="opt-letter">D.</span> 11.25 mph</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The initial speed (\(a_1\)) is 5 mph.
+The speed increases by a factor of 1.5, so the common ratio (\(r\)) is 1.5.</div>
+    <div class="step-exp">&#x27;Increases by a factor of 1.5&#x27; means to multiply by 1.5 each time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need the speed &#x27;after 3 hours&#x27;. This means we calculate the initial speed (\(a_1\)), then the speed after 1 hour (\(a_2\)), after 2 hours (\(a_3\)), and after 3 hours (\(a_4\)). So, we need to find the 4th term (n = 4).</div>
+    <div class="step-exp">The &#x27;initial&#x27; term is the 1st term. &#x27;After 3 hours&#x27; refers to the value after 3 applications of the ratio, making it the 4th term in the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Initial speed (\(a_1\)): 5 mph
+Speed after 1 hour (\(a_2\)): $5 \times 1.5 = 7.5$ mph
+Speed after 2 hours (\(a_3\)): $7.5 \times 1.5 = 11.25$ mph
+Speed after 3 hours (\(a_4\)): $11.25 \times 1.5 = 16.875$ mph.</div>
+    <div class="step-exp">Multiply the previous hour&#x27;s speed by the common ratio (1.5) repeatedly.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16.875 mph (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student starts the school year with 6 pencils. Every week, they use half of their pencils. How many pencils will they have at the end of 3 weeks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.5 pencils</div><div class="option"><span class="opt-letter">B.</span> 0 pencils</div><div class="option"><span class="opt-letter">C.</span> 0.75 pencils</div><div class="option"><span class="opt-letter">D.</span> 3 pencils</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The initial number of pencils (\(a_1\)) is 6.
+Using half of their pencils means the remaining portion is 1/2 or 0.5. So the common ratio (\(r\)) is 0.5.</div>
+    <div class="step-exp">&#x27;Uses half&#x27; implies multiplying by 0.5 (or dividing by 2).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need the number of pencils &#x27;at the end of 3 weeks&#x27;. This means we start with \(a_1\), then count after week 1 (\(a_2\)), after week 2 (\(a_3\)), and after week 3 (\(a_4\)). So, we need to find the 4th term (n = 4).</div>
+    <div class="step-exp">The &#x27;initial&#x27; amount is the 1st term. &#x27;At the end of 3 weeks&#x27; refers to the amount remaining after 3 applications of the ratio, making it the 4th term in the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Initial pencils (\(a_1\)): 6
+Pencils after week 1 (\(a_2\)): $6 \times 0.5 = 3$
+Pencils after week 2 (\(a_3\)): $3 \times 0.5 = 1.5$
+Pencils after week 3 (\(a_4\)): $1.5 \times 0.5 = 0.75$.</div>
+    <div class="step-exp">Multiply the previous week&#x27;s amount by the common ratio (0.5) repeatedly.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.75 pencils (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bacterial colony in a petri dish starts with 100 cells. Every hour, the number of cells triples. How many cells will there be after 4 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2700 cells</div><div class="option"><span class="opt-letter">B.</span> 8100 cells</div><div class="option"><span class="opt-letter">C.</span> 400 cells</div><div class="option"><span class="opt-letter">D.</span> 1300 cells</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The initial number of cells (\(a_1\)) is 100.
+The number of cells triples every hour, so the common ratio (\(r\)) is 3.</div>
+    <div class="step-exp">&#x27;Triples&#x27; indicates a common ratio of 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need the number of cells &#x27;after 4 hours&#x27;. This means we start with \(a_1\), then count after 1 hour (\(a_2\)), after 2 hours (\(a_3\)), after 3 hours (\(a_4\)), and after 4 hours (\(a_5\)). So, we need to find the 5th term (n = 5).</div>
+    <div class="step-exp">The &#x27;initial&#x27; amount is the 1st term. &#x27;After 4 hours&#x27; refers to the amount after 4 applications of the ratio, making it the 5th term in the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Initial cells (\(a_1\)): 100
+After 1 hour (\(a_2\)): $100 \times 3 = 300$
+After 2 hours (\(a_3\)): $300 \times 3 = 900$
+After 3 hours (\(a_4\)): $900 \times 3 = 2700$
+After 4 hours (\(a_5\)): $2700 \times 3 = 8100$.</div>
+    <div class="step-exp">Multiply the previous hour&#x27;s cell count by the common ratio (3) repeatedly.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8100 cells (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew builds 5 meters of a road on the first day. On each subsequent day, they build 1.2 times the length they built the previous day. How many meters of road will they build on the 4th day?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7.2 meters</div><div class="option"><span class="opt-letter">B.</span> 8.64 meters</div><div class="option"><span class="opt-letter">C.</span> 6.2 meters</div><div class="option"><span class="opt-letter">D.</span> 9.6 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The length built on Day 1 (\(a_1\)) is 5 meters.
+On each subsequent day, they build 1.2 times the length, so the common ratio (\(r\)) is 1.2.</div>
+    <div class="step-exp">&#x27;1.2 times the length&#x27; means to multiply by 1.2 each time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need the length built &#x27;on the 4th day&#x27;. So, we need to find the 4th term (n = 4) directly.</div>
+    <div class="step-exp">The first day is the 1st term, the second day is the 2nd term, and so on. We need the value for the 4th day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Day 1 (\(a_1\)): 5 meters
+Day 2 (\(a_2\)): $5 \times 1.2 = 6$ meters
+Day 3 (\(a_3\)): $6 \times 1.2 = 7.2$ meters
+Day 4 (\(a_4\)): $7.2 \times 1.2 = 8.64$ meters.</div>
+    <div class="step-exp">Multiply the previous day&#x27;s length by the common ratio (1.2) repeatedly.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8.64 meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A grandfather clock chimes 2 times on the first minute. On the second minute, it chimes 4 times. On the third minute, it chimes 8 times. Assuming this pattern continues, how many times will it chime on the 6th minute?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 64 times</div><div class="option"><span class="opt-letter">B.</span> 16 times</div><div class="option"><span class="opt-letter">C.</span> 12 times</div><div class="option"><span class="opt-letter">D.</span> 32 times</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The first term (\(a_1\)) is 2 chimes.</div>
+    <div class="step-exp">The number of chimes on the first minute is the starting term of the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The sequence is 2, 4, 8, ...
+To find the common ratio (\(r\)), divide a term by its preceding term: $4 \div 2 = 2$ or $8 \div 4 = 2$.
+So, the common ratio (\(r\)) is 2.</div>
+    <div class="step-exp">The common ratio is found by dividing any term by its previous term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to find the number of chimes on the 6th minute, so \(n = 6\).</div>
+    <div class="step-exp">The &#x27;6th minute&#x27; corresponds to the 6th term in the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The formula is \(a_n = a_1 \times r^{(n-1)}\)
+Substitute the values: \(a_6 = 2 \times 2^{(6-1)}\)
+\(a_6 = 2 \times 2^5\)
+\(a_6 = 2 \times 32\)
+\(a_6 = 64\).</div>
+    <div class="step-exp">Apply the formula to directly calculate the 6th term, evaluating the exponent first.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 64 times (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small town&#x27;s population is currently 2,000. If the population is projected to decrease by 10% each year, what will the approximate population be after 3 years?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1400 people</div><div class="option"><span class="opt-letter">B.</span> 1700 people</div><div class="option"><span class="opt-letter">C.</span> 1620 people</div><div class="option"><span class="opt-letter">D.</span> 1458 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The initial population (\(a_1\)) is 2,000.
+A decrease of 10% means that 100% - 10% = 90% of the population remains each year. So, the common ratio (\(r\)) is 0.9.</div>
+    <div class="step-exp">A percentage decrease means the remaining percentage is the common ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need the population &#x27;after 3 years&#x27;. This means we start with \(a_1\), then calculate after 1 year (\(a_2\)), after 2 years (\(a_3\)), and after 3 years (\(a_4\)). So, we need to find the 4th term (n = 4).</div>
+    <div class="step-exp">The &#x27;initial&#x27; population is the 1st term. &#x27;After 3 years&#x27; refers to the population after 3 applications of the ratio, making it the 4th term in the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Year 0 (initial, \(a_1\)): 2000
+After 1 year (\(a_2\)): $2000 \times 0.9 = 1800$
+After 2 years (\(a_3\)): $1800 \times 0.9 = 1620$
+After 3 years (\(a_4\)): $1620 \times 0.9 = 1458$.</div>
+    <div class="step-exp">Multiply the previous year&#x27;s population by the common ratio (0.9) repeatedly.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1458 people (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer chip&#x27;s processing power doubles every 18 months. If a chip initially has a power of 100 units, what will its power be after 54 months?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 400 units</div><div class="option"><span class="opt-letter">B.</span> 600 units</div><div class="option"><span class="opt-letter">C.</span> 800 units</div><div class="option"><span class="opt-letter">D.</span> 1600 units</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The initial power (\(a_1\)) is 100 units.
+The power doubles, so the common ratio (\(r\)) is 2.</div>
+    <div class="step-exp">&#x27;Doubles&#x27; indicates a common ratio of 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The power doubles every 18 months. We want to find the power after 54 months.
+Number of periods = $54 \text{ months} \div 18 \text{ months/period} = 3$ periods.</div>
+    <div class="step-exp">Divide the total time by the period length to find how many times the ratio is applied.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since we start with \(a_1\) (initial power), after 3 periods, we will be looking for the \((1 + 3) = 4\)th term. So, \(n = 4\).</div>
+    <div class="step-exp">If the initial state is the 1st term, then after 3 periods, you&#x27;re looking for the 4th term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The formula is \(a_n = a_1 \times r^{(n-1)}\)
+Substitute the values: \(a_4 = 100 \times 2^{(4-1)}\)
+\(a_4 = 100 \times 2^3\)
+\(a_4 = 100 \times 8\)
+\(a_4 = 800\).</div>
+    <div class="step-exp">Apply the formula to directly calculate the 4th term, evaluating the exponent first.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 800 units (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

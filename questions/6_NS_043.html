@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Divide Rational Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.043<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Divide Rational Numbers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.043</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker uses 1/4 cup of sugar for every batch of cookies. If she has 3/2 cups of sugar, how many batches of cookies can she make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3/8 batches</div><div class="option"><span class="opt-letter">B.</span> 12 batches</div><div class="option"><span class="opt-letter">C.</span> 6 batches</div><div class="option"><span class="opt-letter">D.</span> 2/3 batches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many batches can be made, divide the total amount of sugar by the amount of sugar needed per batch.</div>
+    <div class="step-exp">The problem asks &#x27;how many batches&#x27;, which implies dividing the total quantity into equal parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{3}{2} \div \frac{1}{4} \)</div>
+    <div class="step-exp">We are dividing the total sugar (3/2 cups) by the sugar per batch (1/4 cup).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{3}{2} \times \frac{4}{1} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{1}{4} \) is \( \frac{4}{1} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{3 \times 4}{2 \times 1} = \frac{12}{2} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{12}{2} = 6 \)</div>
+    <div class="step-exp">Divide 12 by 2 to get the whole number result.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">6 batches</div>
+    <div class="step-exp">The baker can make 6 batches of cookies.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 batches (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner completed a 26.2-mile race. If they ran each mile in approximately 1/5 of an hour, how long did it take them to finish the race?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.24 hours</div><div class="option"><span class="opt-letter">B.</span> 13.1 hours</div><div class="option"><span class="opt-letter">C.</span> 262 hours</div><div class="option"><span class="opt-letter">D.</span> 131 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the total time, multiply the total distance by the time taken per mile.</div>
+    <div class="step-exp">The problem asks for total time, and since we have distance and time per unit distance, multiplication is appropriate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{1}{5} = 0.2 \)</div>
+    <div class="step-exp">It&#x27;s easier to perform multiplication with decimals when one number is already a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 26.2 \times 0.2 \)</div>
+    <div class="step-exp">Total distance multiplied by time per mile.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 26.2 \times 0.2 = 5.24 \)</div>
+    <div class="step-exp">Multiply 262 by 2, then place the decimal point two places from the right.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">5.24 hours</div>
+    <div class="step-exp">The runner took 5.24 hours to finish the race.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 131 hours (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 5/8 cup of milk. If you want to make only 1/2 of the recipe, how much milk do you need?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5/16 cup</div><div class="option"><span class="opt-letter">B.</span> 5/4 cup</div><div class="option"><span class="opt-letter">C.</span> 1/4 cup</div><div class="option"><span class="opt-letter">D.</span> 10/16 cup</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how much milk is needed for half the recipe, multiply the original amount by 1/2.</div>
+    <div class="step-exp">Making &#x27;1/2 of&#x27; something implies multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{5}{8} \times \frac{1}{2} \)</div>
+    <div class="step-exp">Multiply the amount of milk by 1/2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 5 \times 1 = 5 \)</div>
+    <div class="step-exp">The new numerator is the product of the original numerators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 8 \times 2 = 16 \)</div>
+    <div class="step-exp">The new denominator is the product of the original denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{5}{16} \)</div>
+    <div class="step-exp">The resulting fraction is 5/16.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">5 and 16 have no common factors other than 1.</div>
+    <div class="step-exp">The fraction is already in simplest form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">5/16 cup</div>
+    <div class="step-exp">You need 5/16 cup of milk.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5/16 cup (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is observing a cell that divides into 2 new cells every 1/3 of an hour. How many cells will there be from a single cell after 2 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 cells</div><div class="option"><span class="opt-letter">B.</span> 64 cells</div><div class="option"><span class="opt-letter">C.</span> 6 cells</div><div class="option"><span class="opt-letter">D.</span> 32 cells</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 2 hours. Time per division = 1/3 hour. Number of divisions = \( 2 \div \frac{1}{3} = 2 \times 3 = 6 \) divisions.</div>
+    <div class="step-exp">Divide the total time by the time it takes for one division to find how many times the cell divides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Starting with 1 cell, after 1 division: \( 1 \times 2 = 2 \) cells. After 2 divisions: \( 2 \times 2 = 4 \) cells. This is an exponential growth pattern: \( 2^n \) where n is the number of divisions.</div>
+    <div class="step-exp">Each cell divides into 2, so the number of cells doubles with each division. This is a power of 2 problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">For 6 divisions, the number of cells will be \( 2^6 \).</div>
+    <div class="step-exp">Raise 2 to the power of the number of divisions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 2^6 = 2 \times 2 \times 2 \times 2 \times 2 \times 2 = 64 \)</div>
+    <div class="step-exp">Multiply 2 by itself 6 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">64 cells</div>
+    <div class="step-exp">After 2 hours, there will be 64 cells.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 64 cells (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student has 15.5 inches of ribbon. If they need to cut pieces that are 0.5 inches long for a craft project, how many pieces can they cut?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 31 pieces</div><div class="option"><span class="opt-letter">B.</span> 7.75 pieces</div><div class="option"><span class="opt-letter">C.</span> 310 pieces</div><div class="option"><span class="opt-letter">D.</span> 3.1 pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many pieces can be cut, divide the total length of ribbon by the length of each piece.</div>
+    <div class="step-exp">The problem asks &#x27;how many pieces&#x27;, which implies dividing the total quantity into equal parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 15.5 \div 0.5 \)</div>
+    <div class="step-exp">Divide total ribbon length (15.5 inches) by the length of each piece (0.5 inches).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 15.5 \times 10 = 155 \)
+\( 0.5 \times 10 = 5 \)
+So, \( 155 \div 5 \)</div>
+    <div class="step-exp">Move the decimal point one place to the right in both the dividend and the divisor to make the divisor a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 155 \div 5 = 31 \)</div>
+    <div class="step-exp">Divide 155 by 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">31 pieces</div>
+    <div class="step-exp">The student can cut 31 pieces of ribbon.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 31 pieces (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a metal beam that is 8 1/2 feet long into pieces that are 1 1/4 feet long. How many full pieces can be cut from the beam?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7 full pieces</div><div class="option"><span class="opt-letter">B.</span> 8 full pieces</div><div class="option"><span class="opt-letter">C.</span> 4 full pieces</div><div class="option"><span class="opt-letter">D.</span> 6 full pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many pieces can be cut, divide the total length of the beam by the length of each piece.</div>
+    <div class="step-exp">The problem asks &#x27;how many full pieces&#x27;, which implies division and then taking the whole number part of the result.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 8 \frac{1}{2} = \frac{16}{2} + \frac{1}{2} = \frac{17}{2} \)
+\( 1 \frac{1}{4} = \frac{4}{4} + \frac{1}{4} = \frac{5}{4} \)</div>
+    <div class="step-exp">Convert mixed numbers to improper fractions for easier division: multiply the whole number by the denominator and add the numerator, then place over the original denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{17}{2} \div \frac{5}{4} \)</div>
+    <div class="step-exp">Divide the total length (17/2 feet) by the length of each piece (5/4 feet).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{17}{2} \times \frac{4}{5} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{5}{4} \) is \( \frac{4}{5} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{17 \times 4}{2 \times 5} = \frac{68}{10} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{68}{10} = 6 \frac{8}{10} = 6 \frac{4}{5} \)</div>
+    <div class="step-exp">Divide 68 by 10 to get the whole number and the remainder as a fraction, then simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">The whole number part of \( 6 \frac{4}{5} \) is 6.</div>
+    <div class="step-exp">Since the question asks for &#x27;full pieces&#x27;, we only consider the whole number part of the result.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">6 full pieces</div>
+    <div class="step-exp">6 full pieces can be cut from the beam.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 full pieces (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist is creating a mosaic. She has 7 1/2 square feet of tile and each small mosaic piece covers 1/8 square foot. How many small mosaic pieces does she have?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15/16 pieces</div><div class="option"><span class="opt-letter">B.</span> 60 pieces</div><div class="option"><span class="opt-letter">C.</span> 30 pieces</div><div class="option"><span class="opt-letter">D.</span> 120 pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many small pieces the artist has, divide the total area of tile by the area covered by each small piece.</div>
+    <div class="step-exp">The problem asks &#x27;how many small mosaic pieces&#x27;, which implies dividing the total quantity into equal parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 7 \frac{1}{2} = \frac{(7 \times 2) + 1}{2} = \frac{14 + 1}{2} = \frac{15}{2} \)</div>
+    <div class="step-exp">Convert mixed number to an improper fraction for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{15}{2} \div \frac{1}{8} \)</div>
+    <div class="step-exp">Divide the total tile area (15/2 sq ft) by the area of each piece (1/8 sq ft).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{15}{2} \times \frac{8}{1} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{1}{8} \) is \( \frac{8}{1} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{15 \times 8}{2 \times 1} = \frac{120}{2} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{120}{2} = 60 \)</div>
+    <div class="step-exp">Divide 120 by 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">60 pieces</div>
+    <div class="step-exp">The artist has 60 small mosaic pieces.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 pieces (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small village has a population of 250. It is estimated that 2/5 of the population are children. If each family with children has an average of 1 1/4 children, how many families in the village have children?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 125 families</div><div class="option"><span class="opt-letter">B.</span> 50 families</div><div class="option"><span class="opt-letter">C.</span> 80 families</div><div class="option"><span class="opt-letter">D.</span> 62.5 families</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">\( 250 \times \frac{2}{5} = \frac{250 \times 2}{5} = \frac{500}{5} = 100 \) children</div>
+    <div class="step-exp">Multiply the total population by the fraction of children.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 1 \frac{1}{4} = \frac{(1 \times 4) + 1}{4} = \frac{5}{4} \)</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">To find the number of families with children, divide the total number of children by the average number of children per family.</div>
+    <div class="step-exp">We are distributing the total number of children among families, so division is needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 100 \div \frac{5}{4} \)</div>
+    <div class="step-exp">Divide the total children (100) by children per family (5/4).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( 100 \times \frac{4}{5} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{5}{4} \) is \( \frac{4}{5} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{100 \times 4}{5} = \frac{400}{5} = 80 \)</div>
+    <div class="step-exp">Multiply 100 by 4, then divide by 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">80 families</div>
+    <div class="step-exp">There are 80 families with children in the village.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 80 families (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A software company releases a new app that takes up 18 3/4 MB of storage. If a user has 300 MB of free space on their device, how many copies of the app can they install?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 copies</div><div class="option"><span class="opt-letter">B.</span> 16 copies</div><div class="option"><span class="opt-letter">C.</span> 20 copies</div><div class="option"><span class="opt-letter">D.</span> 15 copies</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many copies of the app can be installed, divide the total free space by the size of one app.</div>
+    <div class="step-exp">The problem asks &#x27;how many copies&#x27;, which implies dividing the total quantity into equal parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 18 \frac{3}{4} = \frac{(18 \times 4) + 3}{4} = \frac{72 + 3}{4} = \frac{75}{4} \)</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 300 \div \frac{75}{4} \)</div>
+    <div class="step-exp">Divide the total free space (300 MB) by the app size (75/4 MB).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 300 \times \frac{4}{75} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{75}{4} \) is \( \frac{4}{75} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{300 \times 4}{75} = \frac{1200}{75} \)</div>
+    <div class="step-exp">Multiply the whole number by the numerator, then divide by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{1200}{75} = 16 \)</div>
+    <div class="step-exp">Divide 1200 by 75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">16 copies</div>
+    <div class="step-exp">The user can install 16 copies of the app.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 copies (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A painter is mixing colors for a mural. She has 5 1/3 liters of blue paint. If she wants to pour this paint into smaller containers, each holding 2/3 of a liter, how many containers can she fill completely?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 containers</div><div class="option"><span class="opt-letter">B.</span> 10 containers</div><div class="option"><span class="opt-letter">C.</span> 5 containers</div><div class="option"><span class="opt-letter">D.</span> 8 containers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many containers can be filled, divide the total amount of blue paint by the capacity of each small container.</div>
+    <div class="step-exp">The problem asks &#x27;how many containers&#x27;, which implies dividing the total quantity into equal parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 5 \frac{1}{3} = \frac{(5 \times 3) + 1}{3} = \frac{15 + 1}{3} = \frac{16}{3} \)</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{16}{3} \div \frac{2}{3} \)</div>
+    <div class="step-exp">Divide the total blue paint (16/3 liters) by the container capacity (2/3 liters).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{16}{3} \times \frac{3}{2} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{2}{3} \) is \( \frac{3}{2} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{16 \times 3}{3 \times 2} = \frac{48}{6} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{48}{6} = 8 \)</div>
+    <div class="step-exp">Divide 48 by 6.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">8 containers</div>
+    <div class="step-exp">The painter can fill 8 containers completely.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 containers (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store is selling a gadget for $75.50. During a sale, the price is reduced to 3/5 of its original price. How much is the discount in dollars?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $45.30</div><div class="option"><span class="opt-letter">B.</span> $30.20</div><div class="option"><span class="opt-letter">C.</span> $15.10</div><div class="option"><span class="opt-letter">D.</span> $22.65</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First, find the sale price, then subtract it from the original price to find the discount.</div>
+    <div class="step-exp">The problem asks for the discount, which is the difference between the original and sale prices.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{3}{5} = 0.6 \)</div>
+    <div class="step-exp">It&#x27;s easier to perform multiplication with decimals when one number is already a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 75.50 \times 0.6 = 45.30 \)</div>
+    <div class="step-exp">Multiply the original price by the decimal equivalent of the fraction to find the sale price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 75.50 - 45.30 = 30.20 \)</div>
+    <div class="step-exp">Subtract the sale price from the original price to find the discount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">$30.20</div>
+    <div class="step-exp">The discount is $30.20.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $30.20 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A travel agency offers a special package where you pay 3/4 of the total cost upfront. If the upfront payment is $1200.75, what is the total cost of the package?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $4803.00</div><div class="option"><span class="opt-letter">B.</span> $1500.94</div><div class="option"><span class="opt-letter">C.</span> $1601.00</div><div class="option"><span class="opt-letter">D.</span> $900.56</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">If the upfront payment is a fraction of the total cost, then divide the upfront payment by the fraction to find the total cost.</div>
+    <div class="step-exp">We know a part (upfront payment) and the fraction it represents of the whole (total cost), so division is used to find the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 1200.75 \div \frac{3}{4} \)</div>
+    <div class="step-exp">Divide the upfront payment by the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 1200.75 \times \frac{4}{3} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{3}{4} \) is \( \frac{4}{3} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 1200.75 \times 4 = 4803 \)</div>
+    <div class="step-exp">Multiply the decimal by the numerator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( 4803 \div 3 = 1601 \)</div>
+    <div class="step-exp">Divide the result by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">$1601.00</div>
+    <div class="step-exp">The total cost of the package is $1601.00.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $1601.00 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new energy drink contains 2/3 of the daily recommended vitamin C. If the recommended daily amount is 90 mg, how many mg of vitamin C are in one serving of the drink?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 135 mg</div><div class="option"><span class="opt-letter">B.</span> 30 mg</div><div class="option"><span class="opt-letter">C.</span> 45 mg</div><div class="option"><span class="opt-letter">D.</span> 60 mg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the amount of vitamin C in one serving, multiply the daily recommended amount by the fraction present in the drink.</div>
+    <div class="step-exp">Finding &#x27;a fraction of&#x27; a quantity implies multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 90 \times \frac{2}{3} \)</div>
+    <div class="step-exp">Multiply the total daily amount by the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{90 \times 2}{3} = \frac{180}{3} \)</div>
+    <div class="step-exp">Multiply 90 by 2, then divide by 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{180}{3} = 60 \)</div>
+    <div class="step-exp">Divide 180 by 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">60 mg</div>
+    <div class="step-exp">One serving of the drink contains 60 mg of vitamin C.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 mg (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A pharmaceutical company uses 1/10 of a gram of active ingredient for every 1/25 of a liter of solution. How many grams of active ingredient are needed for 1 liter of solution?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1/250 grams</div><div class="option"><span class="opt-letter">B.</span> 2.5 grams</div><div class="option"><span class="opt-letter">C.</span> 1.5 grams</div><div class="option"><span class="opt-letter">D.</span> 0.4 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the amount of active ingredient per liter, divide the amount of active ingredient by the volume of solution.</div>
+    <div class="step-exp">The problem asks for &#x27;grams per liter&#x27;, which indicates a rate and requires division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{1}{10} \div \frac{1}{25} \)</div>
+    <div class="step-exp">Divide the amount of ingredient (1/10 gram) by the volume of solution (1/25 liter).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{1}{10} \times \frac{25}{1} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{1}{25} \) is \( \frac{25}{1} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{1 \times 25}{10 \times 1} = \frac{25}{10} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{25}{10} = 2.5 \)</div>
+    <div class="step-exp">Convert the improper fraction to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">2.5 grams</div>
+    <div class="step-exp">2.5 grams of active ingredient are needed for 1 liter of solution.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.5 grams (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A country&#x27;s national debt is $1.5 trillion. If the country plans to pay off 1/20 of the debt each year, how many years will it take to pay off the entire debt?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.05 years</div><div class="option"><span class="opt-letter">B.</span> 10 years</div><div class="option"><span class="opt-letter">C.</span> 20 years</div><div class="option"><span class="opt-letter">D.</span> 40 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find out how many years it will take, divide the total debt by the fraction of debt paid each year.</div>
+    <div class="step-exp">The problem asks for &#x27;how many years&#x27;, implying division of the total by the rate of repayment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 1 \div \frac{1}{20} \)</div>
+    <div class="step-exp">We are looking for how many times 1/20 fits into 1 whole (representing the entire debt).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 1 \times \frac{20}{1} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{1}{20} \) is \( \frac{20}{1} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 1 \times 20 = 20 \)</div>
+    <div class="step-exp">Multiply 1 by 20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">20 years</div>
+    <div class="step-exp">It will take 20 years to pay off the entire debt. (Note: The actual dollar amount of the debt is irrelevant here, as we&#x27;re calculating how many &#x27;1/20th portions&#x27; make up the whole debt).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 years (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A team of researchers is studying a new type of bacteria. They observe that a colony of bacteria, initially weighing 0.00045 grams, increases its mass by 2 1/2 times every hour. What will be the mass of the colony after 3 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.001125 grams</div><div class="option"><span class="opt-letter">B.</span> 0.00703125 grams</div><div class="option"><span class="opt-letter">C.</span> 0.01125 grams</div><div class="option"><span class="opt-letter">D.</span> 0.003375 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The mass increases by a factor, so we multiply the initial mass by this factor, repeatedly for each hour.</div>
+    <div class="step-exp">Repeated multiplication by a factor implies exponential growth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 2 \frac{1}{2} = 2.5 \)</div>
+    <div class="step-exp">Convert the mixed number to a decimal for easier calculations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 0.00045 \times 2.5 = 0.001125 \) grams</div>
+    <div class="step-exp">Multiply the initial mass by the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( 0.001125 \times 2.5 = 0.0028125 \) grams</div>
+    <div class="step-exp">Multiply the mass after 1 hour by the growth factor again.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( 0.0028125 \times 2.5 = 0.00703125 \) grams</div>
+    <div class="step-exp">Multiply the mass after 2 hours by the growth factor one more time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">0.00703125 grams</div>
+    <div class="step-exp">The mass of the colony after 3 hours will be 0.00703125 grams.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.00703125 grams (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A film director is shooting a scene that is 2 1/5 minutes long. If the camera records at a slow-motion speed, taking 1 1/2 times longer than real-time, how long will the recorded scene be in minutes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 1/2 minutes</div><div class="option"><span class="opt-letter">B.</span> 1 7/10 minutes</div><div class="option"><span class="opt-letter">C.</span> 3 3/10 minutes</div><div class="option"><span class="opt-letter">D.</span> 2 1/10 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the length of the recorded scene, multiply the real-time length by the slow-motion factor.</div>
+    <div class="step-exp">Taking &#x27;times longer&#x27; implies multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 2 \frac{1}{5} = \frac{(2 \times 5) + 1}{5} = \frac{11}{5} \)
+\( 1 \frac{1}{2} = \frac{(1 \times 2) + 1}{2} = \frac{3}{2} \)</div>
+    <div class="step-exp">Convert mixed numbers to improper fractions for easier multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{11}{5} \times \frac{3}{2} \)</div>
+    <div class="step-exp">Multiply the real-time length by the slow-motion factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{11 \times 3}{5 \times 2} = \frac{33}{10} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{33}{10} = 3 \frac{3}{10} \)</div>
+    <div class="step-exp">Divide 33 by 10 to get the whole number and the remainder as a fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">3 3/10 minutes</div>
+    <div class="step-exp">The recorded scene will be 3 3/10 minutes long.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 3/10 minutes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An archaeological team unearths an ancient artifact that weighs 4 1/8 pounds. If its weight is only 3/4 of its original weight due to erosion over time, what was the original weight of the artifact in pounds?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 1/2 pounds</div><div class="option"><span class="opt-letter">B.</span> 5 1/2 pounds</div><div class="option"><span class="opt-letter">C.</span> 3 1/16 pounds</div><div class="option"><span class="opt-letter">D.</span> 6 1/4 pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">If the current weight is a fraction of the original weight, then divide the current weight by the fraction to find the original weight.</div>
+    <div class="step-exp">We know a part (current weight) and the fraction it represents of the whole (original weight), so division is used to find the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 4 \frac{1}{8} = \frac{(4 \times 8) + 1}{8} = \frac{32 + 1}{8} = \frac{33}{8} \)</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{33}{8} \div \frac{3}{4} \)</div>
+    <div class="step-exp">Divide the current weight by the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{33}{8} \times \frac{4}{3} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{3}{4} \) is \( \frac{4}{3} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{33 \times 4}{8 \times 3} = \frac{132}{24} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{132}{24} = \frac{11}{2} = 5 \frac{1}{2} \)</div>
+    <div class="step-exp">Simplify the fraction by dividing both numerator and denominator by their greatest common divisor (12), then convert to a mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">5 1/2 pounds</div>
+    <div class="step-exp">The original weight of the artifact was 5 1/2 pounds.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 1/2 pounds (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bakery uses a large oven that bakes 12.5 dozen cookies in 1 1/4 hours. What is the oven&#x27;s baking rate in dozens of cookies per hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.25 dozens/hour</div><div class="option"><span class="opt-letter">B.</span> 12.5 dozens/hour</div><div class="option"><span class="opt-letter">C.</span> 10 dozens/hour</div><div class="option"><span class="opt-letter">D.</span> 15.625 dozens/hour</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the baking rate (dozens per hour), divide the total dozens of cookies by the total time taken.</div>
+    <div class="step-exp">The problem asks for &#x27;dozens per hour&#x27;, which implies a rate and requires division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 1 \frac{1}{4} = 1.25 \)</div>
+    <div class="step-exp">Convert the mixed number to a decimal for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( 12.5 \div 1.25 \)</div>
+    <div class="step-exp">Divide total dozens (12.5) by total time (1.25 hours).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Multiply both numbers by 100:
+\( 12.5 \times 100 = 1250 \)
+\( 1.25 \times 100 = 125 \)
+So, \( 1250 \div 125 \)</div>
+    <div class="step-exp">Move the decimal point two places to the right in both the dividend and the divisor to make the divisor a whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( 1250 \div 125 = 10 \)</div>
+    <div class="step-exp">Divide 1250 by 125.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">10 dozens/hour</div>
+    <div class="step-exp">The oven&#x27;s baking rate is 10 dozens of cookies per hour.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 dozens/hour (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An oceanographer is studying the depth of a new trench. A submersible descends at a rate of 1 1/5 miles per hour. If the trench is estimated to be 7 1/2 miles deep, how long will it take the submersible to reach the bottom?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 1/4 hours</div><div class="option"><span class="opt-letter">B.</span> 4 1/2 hours</div><div class="option"><span class="opt-letter">C.</span> 5 5/6 hours</div><div class="option"><span class="opt-letter">D.</span> 8 1/2 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">To find the time it will take, divide the total depth by the descent rate.</div>
+    <div class="step-exp">The problem asks for &#x27;how long&#x27;, which implies calculating time using distance and speed, thus requiring division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\( 7 \frac{1}{2} = \frac{(7 \times 2) + 1}{2} = \frac{15}{2} \)
+\( 1 \frac{1}{5} = \frac{(1 \times 5) + 1}{5} = \frac{6}{5} \)</div>
+    <div class="step-exp">Convert mixed numbers to improper fractions for easier division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{15}{2} \div \frac{6}{5} \)</div>
+    <div class="step-exp">Divide the total depth (15/2 miles) by the descent rate (6/5 miles per hour).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{15}{2} \times \frac{5}{6} \)</div>
+    <div class="step-exp">To divide by a fraction, multiply by its reciprocal. The reciprocal of \( \frac{6}{5} \) is \( \frac{5}{6} \).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{15 \times 5}{2 \times 6} = \frac{75}{12} \)</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\( \frac{75}{12} = \frac{25}{4} = 6 \frac{1}{4} \)</div>
+    <div class="step-exp">Simplify the fraction by dividing both numerator and denominator by their greatest common divisor (3), then convert to a mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">6 1/4 hours</div>
+    <div class="step-exp">It will take 6 1/4 hours for the submersible to reach the bottom.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 1/4 hours (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

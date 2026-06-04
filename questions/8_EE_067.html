@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Properties of Operations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.067<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Properties of Operations</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.067</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preparing a large meal and needs to combine two batches of sauce. Batch A has 3 containers, each holding 2.5 liters of sauce. Batch B has 2 containers, each holding 2.5 liters of sauce. To find the total amount of sauce, the chef adds (3 × 2.5) + (2 × 2.5). Which property of operations allows the chef to simplify this to (3 + 2) × 2.5?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property</div><div class="option"><span class="opt-letter">B.</span> Distributive Property</div><div class="option"><span class="opt-letter">C.</span> Associative Property</div><div class="option"><span class="opt-letter">D.</span> Identity Property</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Expression: (3 × 2.5) + (2 × 2.5)</div>
+    <div class="step-exp">The problem provides two terms being added, where each term is a product of two numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Both terms (3 × 2.5) and (2 × 2.5) share a common factor of 2.5.</div>
+    <div class="step-exp">This common factor is key to applying the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">According to the distributive property, a × b + c × b = (a + c) × b. So, (3 × 2.5) + (2 × 2.5) can be rewritten as (3 + 2) × 2.5.</div>
+    <div class="step-exp">The distributive property allows us to &#x27;factor out&#x27; the common multiplier from the sum of products.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The property used is the Distributive Property.</div>
+    <div class="step-exp">This property simplifies calculations by combining the multipliers before performing the final multiplication.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a technology company, a team is calculating the total storage space used by two different projects. Project A uses 15 GB on server X and 20 GB on server Y. Project B uses 20 GB on server Y and 15 GB on server X. The team writes this as (15 + 20) for Project A and (20 + 15) for Project B. Which property explains why the total storage for both projects is the same?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Distributive Property</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Project A: 15 + 20. Project B: 20 + 15.</div>
+    <div class="step-exp">The problem gives the sums representing storage for two projects.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The expressions 15 + 20 and 20 + 15 involve the same two numbers, but in a different order of addition.</div>
+    <div class="step-exp">This directly points to a property related to the order of operations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Commutative Property of Addition states that changing the order of addends does not change the sum (a + b = b + a).</div>
+    <div class="step-exp">This property precisely describes the relationship between the two expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Commutative Property of Addition explains why the total storage for both projects is the same.</div>
+    <div class="step-exp">The property ensures that 15 + 20 equals 20 + 15.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Commutative Property of Addition (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store manager is organizing a display of 48 new video games. They decide to arrange them in 6 rows with 8 games per row. However, a customer suggests arranging them as 8 rows with 6 games per row. Which property of multiplication ensures that both arrangements will display the same total number of games?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Distributive Property</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First arrangement: 6 rows × 8 games/row (6 × 8). Second arrangement: 8 rows × 6 games/row (8 × 6).</div>
+    <div class="step-exp">The problem presents two multiplication expressions representing different arrangements.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The expressions 6 × 8 and 8 × 6 involve the same two numbers, but in a different order of multiplication.</div>
+    <div class="step-exp">This pattern indicates a property related to the order of factors in multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Commutative Property of Multiplication states that changing the order of factors does not change the product (a × b = b × a).</div>
+    <div class="step-exp">This property directly addresses the situation described.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Commutative Property of Multiplication ensures both arrangements have the same total number of games.</div>
+    <div class="step-exp">Both 6 × 8 and 8 × 6 will result in 48 games.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Commutative Property of Multiplication (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter is calculating the total length of wood needed for a project. They have three pieces of wood: 2 feet, 3 feet, and 5 feet. They calculate the total length as (2 + 3) + 5. Their colleague calculates it as 2 + (3 + 5). Which property of operations guarantees that both calculations will yield the same total length?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Distributive Property</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First calculation: (2 + 3) + 5. Second calculation: 2 + (3 + 5).</div>
+    <div class="step-exp">The problem presents two sums with different groupings of addends.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Both expressions involve the same three numbers (2, 3, and 5) and the same operation (addition), but the parentheses (grouping) are different.</div>
+    <div class="step-exp">This pattern specifically addresses the associative property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Associative Property of Addition states that changing the grouping of addends does not change the sum (a + b) + c = a + (b + c).</div>
+    <div class="step-exp">This property directly applies to the given expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Associative Property of Addition guarantees that both calculations will yield the same total length.</div>
+    <div class="step-exp">Both methods will result in a total of 10 feet of wood.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Associative Property of Addition (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker is making several batches of cookies. Each batch requires 0.5 kilograms of sugar. If the baker makes 12 batches, how much sugar is needed? The baker calculates this as 12 × 0.5. Which property of operations states that multiplying by 1 does not change the amount, as in 12 × 1 = 12?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Distributive Property</div><div class="option"><span class="opt-letter">B.</span> Commutative Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem involves multiplication to find the total sugar: 12 × 0.5.</div>
+    <div class="step-exp">The core operation is multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The example shows 12 × 1 = 12.</div>
+    <div class="step-exp">This specific example demonstrates how multiplying by one affects a number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Identity Property of Multiplication states that any number multiplied by 1 remains that number (a × 1 = a).</div>
+    <div class="step-exp">This property directly matches the given example.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Identity Property of Multiplication states that multiplying by 1 does not change the amount.</div>
+    <div class="step-exp">This property is fundamental to understanding the role of the number 1 in multiplication.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Identity Property of Multiplication (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is mixing two solutions. Solution A has 10 milliliters of chemical X and 15 milliliters of chemical Y. Solution B has 15 milliliters of chemical Y and 10 milliliters of chemical X. To find the total volume of Solution A, the scientist uses 10 + 15. For Solution B, the scientist uses 15 + 10. Which property ensures that both solutions have the same total volume?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Distributive Property</div><div class="option"><span class="opt-letter">C.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Solution A: 10 + 15. Solution B: 15 + 10.</div>
+    <div class="step-exp">The problem provides two addition expressions representing the total volume of two different solutions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The expressions 10 + 15 and 15 + 10 involve the same two numbers, but the order of addition is different.</div>
+    <div class="step-exp">This directly relates to a property that governs the order of operations in addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Commutative Property of Addition states that changing the order of addends does not change the sum (a + b = b + a).</div>
+    <div class="step-exp">This property precisely explains why rearranging the numbers in an addition problem yields the same result.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Commutative Property of Addition ensures that both solutions have the same total volume.</div>
+    <div class="step-exp">Both 10 + 15 and 15 + 10 will result in 25 milliliters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Commutative Property of Addition (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew is ordering 1.5 tons of gravel for each of 4 different sites. They initially calculate the total as 4 × 1.5. However, they realize they also need to consider that ordering 0 tons of gravel would mean no gravel at all, as in 4 × 0 = 0. Which property of operations does this latter statement represent?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">B.</span> Commutative Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Zero Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The core operation for gravel is multiplication: 4 × 1.5. The additional statement is 4 × 0 = 0.</div>
+    <div class="step-exp">The problem presents two multiplication scenarios.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The statement is 4 × 0 = 0, meaning any number multiplied by zero results in zero.</div>
+    <div class="step-exp">This is a direct definition of a multiplication property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Zero Property of Multiplication states that the product of any number and zero is zero (a × 0 = 0).</div>
+    <div class="step-exp">This property directly applies to the given statement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the statement 4 × 0 = 0 represents the Zero Property of Multiplication.</div>
+    <div class="step-exp">This property ensures that if no quantity is ordered, the total amount is zero.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Zero Property of Multiplication (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A financial analyst is tracking stock performance. A particular stock increased by $1.25, then decreased by $0.75, then increased by $2.50. The total change is calculated as (1.25 - 0.75) + 2.50. Which property of operations could be used to rearrange this calculation to 1.25 + (2.50 - 0.75) to make it easier to group the increases and then subtract the decrease?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Distributive Property</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original expression: (1.25 - 0.75) + 2.50. This can be viewed as (1.25 + (-0.75)) + 2.50.</div>
+    <div class="step-exp">Subtraction can be rewritten as addition of a negative number, which is important for applying properties of addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Target expression: 1.25 + (2.50 - 0.75). This can be viewed as 1.25 + (2.50 + (-0.75)).</div>
+    <div class="step-exp">Similarly, rewrite subtraction as addition of a negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The numbers involved are 1.25, -0.75, and 2.50. The order of these numbers is changed, and the grouping of the additions is changed. Specifically, the -0.75 moves from being grouped with 1.25 to being grouped with 2.50. The actual order of the numbers in the sequence (1.25, -0.75, 2.50) is maintained, but the order of operations changes, effectively shifting the -0.75 to be added later.</div>
+    <div class="step-exp">This rearrangement of grouping while maintaining the sequence of terms points to the Associative Property when viewed as addition of signed numbers. The Commutative Property would change the order of the actual numbers being operated on, e.g. 1.25 + (-0.75) = (-0.75) + 1.25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since we are essentially re-grouping the terms for addition (even if some terms are negative), the Associative Property of Addition applies. (a + b) + c = a + (b + c). In this case, if a = 1.25, b = -0.75, and c = 2.50, then (1.25 + (-0.75)) + 2.50 becomes 1.25 + (-0.75 + 2.50), which is 1.25 + (2.50 - 0.75).</div>
+    <div class="step-exp">The Associative Property allows us to change how terms are grouped in a sum without altering the final result. Although it appears the -0.75 &#x27;moved&#x27;, it&#x27;s actually the grouping of the addition that changed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Associative Property of Addition (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An event planner is budgeting for a party. They estimate that 15 guests will attend. Each guest will receive a party favor that costs $3.75 and a drink that costs $2.25. The total cost can be represented by 15 × (3.75 + 2.25). Which property allows the planner to calculate this as (15 × 3.75) + (15 × 2.25) to find the cost of favors and drinks separately before adding them?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Distributive Property</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original expression: 15 × (3.75 + 2.25).</div>
+    <div class="step-exp">The expression represents multiplying a number by a sum.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The expression is transformed into (15 × 3.75) + (15 × 2.25).</div>
+    <div class="step-exp">The multiplier (15) is distributed to each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Distributive Property states that a × (b + c) = (a × b) + (a × c).</div>
+    <div class="step-exp">This property directly describes the observed transformation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Distributive Property allows the planner to calculate the cost this way.</div>
+    <div class="step-exp">This allows for breaking down the calculation into smaller, more manageable parts.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner is tracking their training. They ran 3.5 miles on Monday, 4.0 miles on Tuesday, and 5.5 miles on Wednesday. To find the total distance, they could calculate (3.5 + 4.0) + 5.5. Which property of operations allows them to also calculate this as 3.5 + (4.0 + 5.5) without changing the final total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Distributive Property</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First calculation: (3.5 + 4.0) + 5.5. Second calculation: 3.5 + (4.0 + 5.5).</div>
+    <div class="step-exp">The problem provides two sums with different groupings of addends.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Both expressions involve the same three numbers (3.5, 4.0, and 5.5) and the same operation (addition), but the parentheses (grouping) are different.</div>
+    <div class="step-exp">This pattern is characteristic of the associative property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The Associative Property of Addition states that changing the grouping of addends does not change the sum (a + b) + c = a + (b + c).</div>
+    <div class="step-exp">This property directly applies to the given expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Therefore, the Associative Property of Addition allows them to calculate the total distance in either way.</div>
+    <div class="step-exp">Both methods will result in a total of 13.0 miles.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Associative Property of Addition (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

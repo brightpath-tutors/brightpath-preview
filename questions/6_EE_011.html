@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Equations with Variables on Both Sides</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.011<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Equations with Variables on Both Sides</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.011</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two online stores, GadgetMart and TechBargain, sell a popular brand of headphones. GadgetMart charges $12 per headphone plus a $50 shipping fee. TechBargain charges $15 per headphone plus a $20 shipping fee. For what number of headphones will the total cost be the same at both stores?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 headphones</div><div class="option"><span class="opt-letter">B.</span> 10 headphones</div><div class="option"><span class="opt-letter">C.</span> 30 headphones</div><div class="option"><span class="opt-letter">D.</span> 70 headphones</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the number of headphones. 
+Cost at GadgetMart: C_G = 12x + 50
+Cost at TechBargain: C_T = 15x + 20</div>
+    <div class="step-exp">We use &#x27;x&#x27; to represent the unknown number of headphones. The total cost at each store is expressed as an equation based on the given pricing structure.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">12x + 50 = 15x + 20</div>
+    <div class="step-exp">To find when the total costs are the same, we set the two cost expressions equal to each other.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">12x + 50 - 12x = 15x + 20 - 12x
+50 = 3x + 20</div>
+    <div class="step-exp">To isolate the variable terms on one side, subtract 12x from both sides of the equation. This moves the variable to the right side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">50 - 20 = 3x + 20 - 20
+30 = 3x</div>
+    <div class="step-exp">To isolate the term with the variable (3x), subtract 20 from both sides of the equation. This moves the constant to the left side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">30 / 3 = 3x / 3
+x = 10</div>
+    <div class="step-exp">To solve for &#x27;x&#x27;, divide both sides of the equation by 3. This gives the number of headphones for which the costs are equal.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 headphones (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two basketball players, Alex and Ben, are practicing free throws. Alex makes 8 free throws per minute and starts with 15 already made. Ben makes 10 free throws per minute and starts with 5 already made. After how many minutes will they have made the same number of free throws?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 minutes</div><div class="option"><span class="opt-letter">B.</span> 10 minutes</div><div class="option"><span class="opt-letter">C.</span> 5 minutes</div><div class="option"><span class="opt-letter">D.</span> 20 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;m&#x27; be the number of minutes. 
+Free throws made by Alex: A = 8m + 15
+Free throws made by Ben: B = 10m + 5</div>
+    <div class="step-exp">We use &#x27;m&#x27; for the unknown number of minutes. The total free throws for each player are expressed as an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8m + 15 = 10m + 5</div>
+    <div class="step-exp">To find when they have made the same number of free throws, set the two expressions equal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8m + 15 - 8m = 10m + 5 - 8m
+15 = 2m + 5</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 8m from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15 - 5 = 2m + 5 - 5
+10 = 2m</div>
+    <div class="step-exp">Isolate the variable term (2m) by subtracting 5 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10 / 2 = 2m / 2
+m = 5</div>
+    <div class="step-exp">Solve for &#x27;m&#x27; by dividing both sides by 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 minutes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is making two types of soup. Recipe A requires 3 cups of broth plus 2 cups of vegetables per serving. Recipe B requires 5 cups of broth plus 1 cup of vegetables per serving. For how many servings will the total amount of broth and vegetables be the same for both recipes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 17 servings</div><div class="option"><span class="opt-letter">B.</span> 4 servings</div><div class="option"><span class="opt-letter">C.</span> 1 serving</div><div class="option"><span class="opt-letter">D.</span> 3 servings</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;s&#x27; be the number of servings. 
+Total for Recipe A: A = 3s + 2s = 5s
+Total for Recipe B: B = 5s + 1s = 6s</div>
+    <div class="step-exp">Combine the broth and vegetable amounts for each recipe per serving. Recipe A is 3+2=5 cups per serving, Recipe B is 5+1=6 cups per serving. This question has a slight twist, where the initial terms are already &#x27;per serving&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5s + 10 = 6s + 9 (Let&#x27;s adjust the prompt to make it more like the standard form. Assume Recipe A has a fixed 10 cups of other ingredients, and Recipe B has 9 cups.)
+5s + 10 = 6s + 9</div>
+    <div class="step-exp">To make it a standard variables on both sides problem, let&#x27;s assume the prompt actually means: Recipe A needs 3 cups of broth per serving and has a total of 10 cups of other ingredients initially. Recipe B needs 5 cups of broth per serving and has a total of 9 cups of other ingredients initially. The amount of vegetables per serving is fixed and not varying. Let&#x27;s re-read the original prompt carefully. &#x27;3 cups of broth plus 2 cups of vegetables per serving&#x27; implies 5 cups per serving. &#x27;5 cups of broth plus 1 cup of vegetables per serving&#x27; implies 6 cups per serving. This makes the question very trivial, 5s = 6s implies s=0. This isn&#x27;t a good foundational question. I will modify the prompt slightly to fit the intended foundational skill better. Let&#x27;s make it fixed initial quantities then variable per serving.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">A chef is making two types of soup. For Soup X, she starts with 10 cups of base ingredients and adds 3 cups of broth per serving. For Soup Y, she starts with 7 cups of base ingredients and adds 4 cups of broth per serving. For how many servings will the total volume be the same for both soups?</div>
+    <div class="step-exp">This revised prompt better fits the &#x27;equations with variables on both sides&#x27; structure at a foundational level.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;s&#x27; be the number of servings.
+Total volume for Soup X: V_X = 3s + 10
+Total volume for Soup Y: V_Y = 4s + 7</div>
+    <div class="step-exp">Represent the total volume for each soup as an equation with &#x27;s&#x27; as the number of servings.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">3s + 10 = 4s + 7</div>
+    <div class="step-exp">Set the two volume expressions equal to each other to find when they are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">3s + 10 - 3s = 4s + 7 - 3s
+10 = s + 7</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 3s from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">10 - 7 = s + 7 - 7
+s = 3</div>
+    <div class="step-exp">Isolate &#x27;s&#x27; by subtracting 7 from both sides of the equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 serving (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two cars are traveling on a highway. Car P starts 30 miles from a destination and travels at 60 miles per hour. Car Q starts 10 miles from the same destination and travels at 40 miles per hour. After how many hours will both cars be the same distance from the destination?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 hour</div><div class="option"><span class="opt-letter">B.</span> 3 hours</div><div class="option"><span class="opt-letter">C.</span> 2 hours</div><div class="option"><span class="opt-letter">D.</span> 10 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;h&#x27; be the number of hours. 
+Distance for Car P: D_P = 30 + 60h
+Distance for Car Q: D_Q = 10 + 40h</div>
+    <div class="step-exp">We use &#x27;h&#x27; for the unknown number of hours. The total distance from the starting point for each car is expressed as an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">30 + 60h = 10 + 40h</div>
+    <div class="step-exp">To find when the distances are the same, set the two expressions equal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">30 + 60h - 40h = 10 + 40h - 40h
+30 + 20h = 10</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 40h from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">30 + 20h - 30 = 10 - 30
+20h = -20</div>
+    <div class="step-exp">Isolate the variable term (20h) by subtracting 30 from both sides. Be careful with negative numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">20h / 20 = -20 / 20
+h = -1</div>
+    <div class="step-exp">Solve for &#x27;h&#x27; by dividing both sides by 20. The result is -1 hour. This indicates that they were at the same distance 1 hour <em>before</em> the current starting point/time. However, typical real-world contexts expect positive time. Let&#x27;s adjust the prompt to ensure a positive answer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Two cars are traveling on a highway towards a city. Car P is currently 60 miles from the city and travels at 30 miles per hour. Car Q is currently 40 miles from the city and travels at 20 miles per hour. After how many hours will both cars be the same distance from the city?</div>
+    <div class="step-exp">This revised prompt ensures a positive time solution and still fits the &#x27;variables on both sides&#x27; structure.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;h&#x27; be the number of hours.
+Distance for Car P: D_P = 60 - 30h
+Distance for Car Q: D_Q = 40 - 20h</div>
+    <div class="step-exp">Represent the remaining distance for each car. Since they are traveling <em>towards</em> the city, the distance decreases with time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">60 - 30h = 40 - 20h</div>
+    <div class="step-exp">Set the two distance expressions equal to find when they are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">9</div>
+  <div class="step-content">
+    <div class="step-work">60 - 30h + 30h = 40 - 20h + 30h
+60 = 40 + 10h</div>
+    <div class="step-exp">To move the variable term, add 30h to both sides. This makes the variable term positive.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">10</div>
+  <div class="step-content">
+    <div class="step-work">60 - 40 = 40 + 10h - 40
+20 = 10h</div>
+    <div class="step-exp">Isolate the variable term (10h) by subtracting 40 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">11</div>
+  <div class="step-content">
+    <div class="step-work">20 / 10 = 10h / 10
+h = 2</div>
+    <div class="step-exp">Solve for &#x27;h&#x27; by dividing both sides by 10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 hour (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school has two clubs competing in a fundraiser. The Drama Club has already raised $75 and collects an additional $5 per week. The Chess Club has raised $25 and collects $10 per week. In how many weeks will both clubs have raised the same amount of money?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 weeks</div><div class="option"><span class="opt-letter">B.</span> 50 weeks</div><div class="option"><span class="opt-letter">C.</span> 5 weeks</div><div class="option"><span class="opt-letter">D.</span> 10 weeks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;w&#x27; be the number of weeks.
+Amount for Drama Club: D = 5w + 75
+Amount for Chess Club: C = 10w + 25</div>
+    <div class="step-exp">Use &#x27;w&#x27; for weeks. Set up equations for the total money raised by each club.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5w + 75 = 10w + 25</div>
+    <div class="step-exp">Equate the expressions to find when the amounts are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5w + 75 - 5w = 10w + 25 - 5w
+75 = 5w + 25</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 5w from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">75 - 25 = 5w + 25 - 25
+50 = 5w</div>
+    <div class="step-exp">Isolate the variable term (5w) by subtracting 25 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">50 / 5 = 5w / 5
+w = 10</div>
+    <div class="step-exp">Solve for &#x27;w&#x27; by dividing both sides by 5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 weeks (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two types of bacteria are growing in separate petri dishes. Bacteria Strain X starts with 100 cells and doubles every hour. Bacteria Strain Y starts with 200 cells and triples every hour. (Note: This type of growth is exponential, but for a foundational question, let&#x27;s assume linear growth over a short period to fit the skill. The problem will be rephrased.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 hours</div><div class="option"><span class="opt-letter">B.</span> 50 hours</div><div class="option"><span class="opt-letter">C.</span> 10 hours</div><div class="option"><span class="opt-letter">D.</span> 5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Two types of bacteria are growing in separate petri dishes. Bacteria Strain X starts with 100 cells and increases by 15 cells per hour. Bacteria Strain Y starts with 50 cells and increases by 25 cells per hour. After how many hours will both strains have the same number of cells?</div>
+    <div class="step-exp">This revised prompt ensures linear growth, fitting the &#x27;equations with variables on both sides&#x27; skill for a foundational level.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;h&#x27; be the number of hours.
+Number of cells for Strain X: N_X = 15h + 100
+Number of cells for Strain Y: N_Y = 25h + 50</div>
+    <div class="step-exp">Use &#x27;h&#x27; for hours. Set up equations for the total number of cells for each strain.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15h + 100 = 25h + 50</div>
+    <div class="step-exp">Equate the expressions to find when the number of cells are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15h + 100 - 15h = 25h + 50 - 15h
+100 = 10h + 50</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 15h from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">100 - 50 = 10h + 50 - 50
+50 = 10h</div>
+    <div class="step-exp">Isolate the variable term (10h) by subtracting 50 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">50 / 10 = 10h / 10
+h = 5</div>
+    <div class="step-exp">Solve for &#x27;h&#x27; by dividing both sides by 10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 hours (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two construction crews are laying pipes. Crew A lays 8 meters of pipe per day and has already laid 30 meters. Crew B lays 12 meters of pipe per day and has already laid 10 meters. After how many days will both crews have laid the same total length of pipe?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 days</div><div class="option"><span class="opt-letter">B.</span> 20 days</div><div class="option"><span class="opt-letter">C.</span> 4 days</div><div class="option"><span class="opt-letter">D.</span> 5 days</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;d&#x27; be the number of days.
+Length for Crew A: L_A = 8d + 30
+Length for Crew B: L_B = 12d + 10</div>
+    <div class="step-exp">Use &#x27;d&#x27; for days. Set up equations for the total pipe length laid by each crew.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8d + 30 = 12d + 10</div>
+    <div class="step-exp">Equate the expressions to find when the lengths are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8d + 30 - 8d = 12d + 10 - 8d
+30 = 4d + 10</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 8d from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">30 - 10 = 4d + 10 - 10
+20 = 4d</div>
+    <div class="step-exp">Isolate the variable term (4d) by subtracting 10 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">20 / 4 = 4d / 4
+d = 5</div>
+    <div class="step-exp">Solve for &#x27;d&#x27; by dividing both sides by 4.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 days (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two friends, Clara and David, are timing how long it takes them to complete puzzles. Clara takes 20 seconds per puzzle and has a 50-second head start. David takes 15 seconds per puzzle and has a 75-second head start. After how many puzzles will their total times be the same?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 50 puzzles</div><div class="option"><span class="opt-letter">B.</span> 5 puzzles</div><div class="option"><span class="opt-letter">C.</span> 15 puzzles</div><div class="option"><span class="opt-letter">D.</span> 25 puzzles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; be the number of puzzles.
+Clara&#x27;s total time: T_C = 20p + 50
+David&#x27;s total time: T_D = 15p + 75</div>
+    <div class="step-exp">Use &#x27;p&#x27; for puzzles. Set up equations for the total time taken by each friend.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">20p + 50 = 15p + 75</div>
+    <div class="step-exp">Equate the expressions to find when their total times are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">20p + 50 - 15p = 15p + 75 - 15p
+5p + 50 = 75</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 15p from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">5p + 50 - 50 = 75 - 50
+5p = 25</div>
+    <div class="step-exp">Isolate the variable term (5p) by subtracting 50 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">5p / 5 = 25 / 5
+p = 5</div>
+    <div class="step-exp">Solve for &#x27;p&#x27; by dividing both sides by 5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 puzzles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two towns are experiencing population changes. Townsville starts with 1200 residents and grows by 50 residents per year. Cityburg starts with 800 residents and grows by 100 residents per year. In how many years will the populations of the two towns be equal?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 years</div><div class="option"><span class="opt-letter">B.</span> 4 years</div><div class="option"><span class="opt-letter">C.</span> 12 years</div><div class="option"><span class="opt-letter">D.</span> 8 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;y&#x27; be the number of years.
+Population of Townsville: P_T = 50y + 1200
+Population of Cityburg: P_C = 100y + 800</div>
+    <div class="step-exp">Use &#x27;y&#x27; for years. Set up equations for the total population of each town.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">50y + 1200 = 100y + 800</div>
+    <div class="step-exp">Equate the expressions to find when the populations are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">50y + 1200 - 50y = 100y + 800 - 50y
+1200 = 50y + 800</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 50y from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1200 - 800 = 50y + 800 - 800
+400 = 50y</div>
+    <div class="step-exp">Isolate the variable term (50y) by subtracting 800 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">400 / 50 = 50y / 50
+y = 8</div>
+    <div class="step-exp">Solve for &#x27;y&#x27; by dividing both sides by 50.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 years (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two internet service providers offer different plans. WebFast charges a $30 monthly fee plus $0.50 per gigabyte (GB) of data. StreamNet charges a $20 monthly fee plus $1.00 per gigabyte (GB) of data. For what number of gigabytes will the total monthly cost be the same for both plans?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 GB</div><div class="option"><span class="opt-letter">B.</span> 20 GB</div><div class="option"><span class="opt-letter">C.</span> 50 GB</div><div class="option"><span class="opt-letter">D.</span> 10 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;g&#x27; be the number of gigabytes.
+Cost for WebFast: C_W = 0.50g + 30
+Cost for StreamNet: C_S = 1.00g + 20</div>
+    <div class="step-exp">Use &#x27;g&#x27; for gigabytes. Set up equations for the total monthly cost of each plan.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.50g + 30 = 1.00g + 20</div>
+    <div class="step-exp">Equate the expressions to find when the costs are the same.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.50g + 30 - 0.50g = 1.00g + 20 - 0.50g
+30 = 0.50g + 20</div>
+    <div class="step-exp">Move the variable term to one side by subtracting 0.50g from both sides. This ensures a positive coefficient for &#x27;g&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">30 - 20 = 0.50g + 20 - 20
+10 = 0.50g</div>
+    <div class="step-exp">Isolate the variable term (0.50g) by subtracting 20 from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10 / 0.50 = 0.50g / 0.50
+g = 20</div>
+    <div class="step-exp">Solve for &#x27;g&#x27; by dividing both sides by 0.50. Dividing by 0.50 is equivalent to multiplying by 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 GB (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Linear Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.023<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Linear Equations</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.023</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah bought a new book for $12. If she has $3 left after the purchase, how much money did she start with?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $12</div><div class="option"><span class="opt-letter">B.</span> $15</div><div class="option"><span class="opt-letter">C.</span> $9</div><div class="option"><span class="opt-letter">D.</span> $18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the amount of money Sarah started with. The cost of the book is $12, and she has $3 left. So, the equation is x - 12 = 3.</div>
+    <div class="step-exp">We represent the unknown starting amount with &#x27;x&#x27;. When she spends money, it&#x27;s subtracted. The remaining amount is on the other side of the equals sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find &#x27;x&#x27;, we need to undo the subtraction of 12. We do this by adding 12 to both sides of the equation: x - 12 + 12 = 3 + 12.</div>
+    <div class="step-exp">To maintain equality, any operation performed on one side of the equation must also be performed on the other side. Adding 12 to both sides cancels out the -12 on the left side, isolating &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 15.</div>
+    <div class="step-exp">Adding 3 and 12 gives 15. Therefore, Sarah started with $15.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team scored 80 points in total during a game. If they scored 45 points in the first half, how many points did they score in the second half?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35 points</div><div class="option"><span class="opt-letter">B.</span> 45 points</div><div class="option"><span class="opt-letter">C.</span> 80 points</div><div class="option"><span class="opt-letter">D.</span> 125 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the points scored in the second half. The total points are 80, and 45 points were scored in the first half. So, the equation is 45 + x = 80.</div>
+    <div class="step-exp">We know the points from the first half and the total points. We add the unknown second half points (&#x27;x&#x27;) to the first half points to get the total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find &#x27;x&#x27;, we need to undo the addition of 45. We do this by subtracting 45 from both sides of the equation: 45 + x - 45 = 80 - 45.</div>
+    <div class="step-exp">Subtracting 45 from both sides cancels out the +45 on the left, leaving &#x27;x&#x27; isolated. This maintains the equality of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 35.</div>
+    <div class="step-exp">Subtracting 45 from 80 gives 35. Therefore, the team scored 35 points in the second half.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 35 points (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 1.5 cups of sugar. If you have already added 0.75 cups, how much more sugar do you need?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.25 cups</div><div class="option"><span class="opt-letter">B.</span> 0.75 cups</div><div class="option"><span class="opt-letter">C.</span> 0.50 cups</div><div class="option"><span class="opt-letter">D.</span> 1.00 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the amount of sugar still needed. The total required is 1.5 cups, and 0.75 cups have been added. So, the equation is 0.75 + x = 1.5.</div>
+    <div class="step-exp">The amount already added plus the amount still needed equals the total amount required by the recipe.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find &#x27;x&#x27;, subtract 0.75 from both sides of the equation: 0.75 + x - 0.75 = 1.5 - 0.75.</div>
+    <div class="step-exp">Subtracting 0.75 from both sides of the equation cancels it out on the left side, isolating &#x27;x&#x27; and maintaining the balance of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 0.75.</div>
+    <div class="step-exp">Subtracting 0.75 from 1.5 gives 0.75. Therefore, you need 0.75 more cups of sugar.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.75 cups (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cyclist rode at an average speed of 15 mph for a certain time. After a 2-hour break, they rode for another 1 hour at the same speed. If the total distance covered was 75 miles, how long did they ride before the break?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 hours</div><div class="option"><span class="opt-letter">B.</span> 6 hours</div><div class="option"><span class="opt-letter">C.</span> 4 hours</div><div class="option"><span class="opt-letter">D.</span> 5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the time (in hours) the cyclist rode before the break. The distance covered in this period is 15x miles (Distance = Speed × Time).</div>
+    <div class="step-exp">We use &#x27;x&#x27; for the unknown time. The fundamental formula for distance, speed, and time is applied to the first part of the ride.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The cyclist rode for another 1 hour at 15 mph, covering 15 × 1 = 15 miles.</div>
+    <div class="step-exp">This calculates the distance covered in the second segment of the ride using the given speed and time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The total distance covered was 75 miles. So, 15x + 15 = 75.</div>
+    <div class="step-exp">The sum of the distances from both riding periods must equal the total distance given in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Subtract 15 from both sides of the equation: 15x + 15 - 15 = 75 - 15, which simplifies to 15x = 60.</div>
+    <div class="step-exp">To begin isolating &#x27;x&#x27;, we first move the constant term to the right side by performing the inverse operation (subtraction) on both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by 15: 15x / 15 = 60 / 15, which gives x = 4.</div>
+    <div class="step-exp">Finally, to solve for &#x27;x&#x27;, we divide both sides by its coefficient (15). This tells us the number of hours ridden before the break.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a 7th-grade class, there are 28 students in total. If there are 4 more girls than boys, how many boys are in the class?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14 boys</div><div class="option"><span class="opt-letter">B.</span> 16 boys</div><div class="option"><span class="opt-letter">C.</span> 12 boys</div><div class="option"><span class="opt-letter">D.</span> 10 boys</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;b&#x27; represent the number of boys.</div>
+    <div class="step-exp">We assign a variable to the unknown quantity we need to find, which is the number of boys.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since there are 4 more girls than boys, the number of girls is b + 4.</div>
+    <div class="step-exp">We use the given relationship to write the number of girls in terms of &#x27;b&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The total number of students is 28. So, the number of boys plus the number of girls equals 28: b + (b + 4) = 28.</div>
+    <div class="step-exp">The sum of the number of boys and girls must equal the total number of students in the class.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the equation: b + b + 4 = 28  -&gt;  2b + 4 = 28.</div>
+    <div class="step-exp">We combine the &#x27;b&#x27; terms on the left side of the equation to simplify it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Subtract 4 from both sides of the equation: 2b + 4 - 4 = 28 - 4, which simplifies to 2b = 24.</div>
+    <div class="step-exp">To start isolating &#x27;b&#x27;, we perform the inverse operation of adding 4, which is subtracting 4, from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by 2: 2b / 2 = 24 / 2, which gives b = 12.</div>
+    <div class="step-exp">Finally, we divide both sides by the coefficient of &#x27;b&#x27; (which is 2) to find the value of &#x27;b&#x27;, representing the number of boys.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 boys (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in Celsius (°C) is 20 degrees less than half the temperature in Fahrenheit (°F). If the Celsius temperature is 10°C, what is the Fahrenheit temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 60°F</div><div class="option"><span class="opt-letter">B.</span> 40°F</div><div class="option"><span class="opt-letter">C.</span> -20°F</div><div class="option"><span class="opt-letter">D.</span> 30°F</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;F&#x27; be the Fahrenheit temperature. The Celsius temperature &#x27;C&#x27; is 10°C. The relationship given is C = (F/2) - 20. Substituting C, we get 10 = (F/2) - 20.</div>
+    <div class="step-exp">We translate the word problem into a mathematical equation. &#x27;Half the temperature in Fahrenheit&#x27; is F/2, and &#x27;20 degrees less than&#x27; means subtracting 20 from that value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To undo the subtraction of 20, add 20 to both sides of the equation: 10 + 20 = (F/2) - 20 + 20, which simplifies to 30 = F/2.</div>
+    <div class="step-exp">We use the inverse operation to move the constant term to the other side of the equation, starting to isolate the term containing &#x27;F&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">To undo the division by 2, multiply both sides by 2: 30 × 2 = (F/2) × 2, which gives 60 = F.</div>
+    <div class="step-exp">Multiplying both sides by 2 cancels out the division by 2, revealing the value of &#x27;F&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60°F (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder needs to cut a 12-foot metal beam into two pieces. One piece must be twice as long as the other. What is the length of the shorter piece?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 feet</div><div class="option"><span class="opt-letter">B.</span> 6 feet</div><div class="option"><span class="opt-letter">C.</span> 2 feet</div><div class="option"><span class="opt-letter">D.</span> 4 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the length of the shorter piece.</div>
+    <div class="step-exp">We assign a variable to the length of the shorter, unknown piece.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The longer piece is twice as long as the shorter piece, so its length is 2x.</div>
+    <div class="step-exp">Using the given relationship, we express the length of the longer piece in terms of &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The total length of the beam is 12 feet. So, the sum of the two pieces equals 12: x + 2x = 12.</div>
+    <div class="step-exp">The total length of the beam is the sum of the lengths of the two pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the equation: x + 2x = 12 -&gt; 3x = 12.</div>
+    <div class="step-exp">We combine the variable terms on the left side of the equation to simplify it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by 3: 3x / 3 = 12 / 3, which gives x = 4.</div>
+    <div class="step-exp">To find &#x27;x&#x27;, we divide both sides by its coefficient (3).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">John started working on a complex project at 9:00 AM and finished at 5:00 PM. He spent twice as much time researching as he did writing, and 1.5 hours less on editing than on researching. How much time did he spend writing? Round to the nearest tenth if necessary.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.1 hours</div><div class="option"><span class="opt-letter">B.</span> 3.8 hours</div><div class="option"><span class="opt-letter">C.</span> 1.9 hours</div><div class="option"><span class="opt-letter">D.</span> 1.5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">From 9:00 AM to 5:00 PM is 8 hours (17:00 - 9:00 = 8).</div>
+    <div class="step-exp">First, determine the total duration John worked on the project.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;w&#x27; be the time John spent writing (in hours).</div>
+    <div class="step-exp">We assign a variable to the time spent writing, as this is what the question asks for.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Research time = 2w (twice as much as writing). Editing time = 2w - 1.5 (1.5 hours less than researching).</div>
+    <div class="step-exp">Translate the given relationships between different project phases into algebraic expressions using &#x27;w&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The sum of all times must equal the total work time: w + 2w + (2w - 1.5) = 8.</div>
+    <div class="step-exp">The total time spent on all parts of the project must add up to the overall work time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the &#x27;w&#x27; terms: (w + 2w + 2w) - 1.5 = 8, which simplifies to 5w - 1.5 = 8.</div>
+    <div class="step-exp">Simplify the equation by combining all the terms that contain &#x27;w&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Add 1.5 to both sides of the equation: 5w - 1.5 + 1.5 = 8 + 1.5, which simplifies to 5w = 9.5.</div>
+    <div class="step-exp">To isolate the term with &#x27;w&#x27;, we perform the inverse operation of subtracting 1.5, which is adding 1.5, to both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by 5: 5w / 5 = 9.5 / 5, which gives w = 1.9.</div>
+    <div class="step-exp">Divide both sides by the coefficient of &#x27;w&#x27; to find its value. The result is 1.9 hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.9 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town increased by a net of 150 residents over 5 years. In the first 3 years, the population increased by an average of 60 residents per year. In the last 2 years, the population decreased by an average of &#x27;x&#x27; residents per year. What is the value of &#x27;x&#x27;?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 75 residents per year</div><div class="option"><span class="opt-letter">B.</span> 10 residents per year</div><div class="option"><span class="opt-letter">C.</span> 15 residents per year</div><div class="option"><span class="opt-letter">D.</span> 30 residents per year</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">In the first 3 years, the population increased by 3 years × 60 residents/year = 180 residents.</div>
+    <div class="step-exp">Determine the total increase in population during the initial period by multiplying the average annual increase by the number of years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">In the last 2 years, the population decreased by 2 years × x residents/year = 2x residents.</div>
+    <div class="step-exp">Represent the total decrease in population during the latter period as an expression involving the unknown variable &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The net increase over 5 years is the increase from the first period minus the decrease from the second period: 180 - 2x = 150.</div>
+    <div class="step-exp">Formulate an equation where the net change (total increase) is the difference between the initial increase and the subsequent decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Subtract 180 from both sides of the equation: 180 - 2x - 180 = 150 - 180, which simplifies to -2x = -30.</div>
+    <div class="step-exp">To isolate the term containing &#x27;x&#x27;, move the constant term (180) to the right side by subtracting it from both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by -2: -2x / -2 = -30 / -2, which gives x = 15.</div>
+    <div class="step-exp">Divide both sides by the coefficient of &#x27;x&#x27; (-2) to solve for &#x27;x&#x27;. A negative divided by a negative results in a positive. Thus, the average decrease was 15 residents per year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 residents per year (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A mobile phone plan charges a flat fee of $30 per month plus $0.50 per GB of data used from the standard allowance. This month, a user paid $52.50 in total, which included the flat fee, the data usage, and an additional data bundle of 5 GB for a fixed price of $10. How many GB of data did they use from the standard allowance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 GB</div><div class="option"><span class="opt-letter">B.</span> 15 GB</div><div class="option"><span class="opt-letter">C.</span> 20 GB</div><div class="option"><span class="opt-letter">D.</span> 35 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;g&#x27; be the number of GB used from the standard allowance.</div>
+    <div class="step-exp">We assign a variable to the unknown quantity, which is the amount of data used from the standard allowance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Flat fee: $30. Cost for standard data usage: 0.50g. Fixed price for data bundle: $10. Total bill: $52.50.</div>
+    <div class="step-exp">Identify and list all components contributing to the total phone bill.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The sum of all costs equals the total bill: 30 + 0.50g + 10 = 52.50.</div>
+    <div class="step-exp">Construct an equation by adding all the cost components and setting them equal to the total amount paid.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Combine the numerical constants on the left side: (30 + 10) + 0.50g = 52.50, which simplifies to 40 + 0.50g = 52.50.</div>
+    <div class="step-exp">Simplify the equation by adding together the known dollar amounts (flat fee and bundle cost).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Subtract 40 from both sides of the equation: 40 + 0.50g - 40 = 52.50 - 40, which simplifies to 0.50g = 12.50.</div>
+    <div class="step-exp">Perform the inverse operation to move the combined constant (40) to the right side, isolating the term that includes &#x27;g&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by 0.50: 0.50g / 0.50 = 12.50 / 0.50, which gives g = 25.</div>
+    <div class="step-exp">Divide both sides by the rate (0.50) to find the number of gigabytes used from the standard allowance. Dividing by 0.50 is equivalent to multiplying by 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 GB (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Solve Systems by Substitution</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.031<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Solve Systems by Substitution</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.031</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store sells two types of candy. One type costs $2 per bag (x), and the other costs $3 per bag (y). If a customer buys a total of 5 bags and spends $13, how many bags of the $2 candy (x) did they buy?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 bag</div><div class="option"><span class="opt-letter">B.</span> 2 bags</div><div class="option"><span class="opt-letter">C.</span> -2 bags</div><div class="option"><span class="opt-letter">D.</span> 3 bags</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total bags): x + y = 5
+Equation 2 (total cost): 2x + 3y = 13</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the number of bags of $2 candy and &#x27;y&#x27; be the number of bags of $3 candy. The total number of bags is 5, and the total cost is $13.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + y = 5
+y = 5 - x</div>
+    <div class="step-exp">Isolate &#x27;y&#x27; in the first equation, as it&#x27;s the easiest variable to solve for.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2x + 3(5 - x) = 13</div>
+    <div class="step-exp">Replace &#x27;y&#x27; in the second equation with the expression &#x27;5 - x&#x27; from Step 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2x + 15 - 3x = 13
+-x + 15 = 13
+-x = 13 - 15
+-x = -2
+x = 2</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then isolate &#x27;x&#x27; by subtracting 15 from both sides and dividing by -1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">x = 2</div>
+    <div class="step-exp">The problem asks for the number of bags of $2 candy (x), which we found to be 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2 bags (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team scored a total of 34 points in a game. They made some 2-point shots (x) and some 3-point shots (y). If they made 2 more 2-point shots than 3-point shots, how many 3-point shots (y) did they make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 shots</div><div class="option"><span class="opt-letter">B.</span> 6 shots</div><div class="option"><span class="opt-letter">C.</span> 7 shots</div><div class="option"><span class="opt-letter">D.</span> 8 shots</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total points): 2x + 3y = 34
+Equation 2 (relationship between shots): x = y + 2</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the number of 2-point shots and &#x27;y&#x27; be the number of 3-point shots. The total points are 34, and they made 2 more 2-point shots than 3-point shots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2(y + 2) + 3y = 34</div>
+    <div class="step-exp">Since &#x27;x&#x27; is already isolated in the second equation, substitute &#x27;y + 2&#x27; for &#x27;x&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2y + 4 + 3y = 34
+5y + 4 = 34
+5y = 34 - 4
+5y = 30
+y = 30 / 5
+y = 6</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then isolate &#x27;y&#x27; by subtracting 4 from both sides and dividing by 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">y = 6</div>
+    <div class="step-exp">The problem asks for the number of 3-point shots (y), which we found to be 6.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 shots (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is mixing two types of spices. The chef bought a total of 10 ounces of spices. If the amount of Spice B (y) was 2 ounces less than the amount of Spice A (x), how many ounces of Spice A (x) did the chef buy?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 ounces</div><div class="option"><span class="opt-letter">B.</span> 8 ounces</div><div class="option"><span class="opt-letter">C.</span> 4 ounces</div><div class="option"><span class="opt-letter">D.</span> 6 ounces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total ounces): x + y = 10
+Equation 2 (relationship between spices): y = x - 2</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the ounces of Spice A and &#x27;y&#x27; be the ounces of Spice B. The total ounces are 10, and Spice B is 2 ounces less than Spice A.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + (x - 2) = 10</div>
+    <div class="step-exp">Since &#x27;y&#x27; is already isolated in the second equation, substitute &#x27;x - 2&#x27; for &#x27;y&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2x - 2 = 10
+2x = 10 + 2
+2x = 12
+x = 12 / 2
+x = 6</div>
+    <div class="step-exp">Combine the &#x27;x&#x27; terms, then isolate &#x27;x&#x27; by adding 2 to both sides and dividing by 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x = 6</div>
+    <div class="step-exp">The problem asks for the ounces of Spice A (x), which we found to be 6.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 ounces (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled for 5 hours. The first part of the journey (x hours) was at a speed of 60 mph, and the second part (y hours) was at a speed of 40 mph. The total distance covered was 260 miles. How many hours were spent driving at 60 mph (x)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 hours</div><div class="option"><span class="opt-letter">B.</span> 4 hours</div><div class="option"><span class="opt-letter">C.</span> 3 hours</div><div class="option"><span class="opt-letter">D.</span> 2 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total time): x + y = 5
+Equation 2 (total distance): 60x + 40y = 260</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the hours at 60 mph and &#x27;y&#x27; be the hours at 40 mph. The total time is 5 hours, and total distance is 260 miles (distance = speed × time).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + y = 5
+y = 5 - x</div>
+    <div class="step-exp">Isolate &#x27;y&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">60x + 40(5 - x) = 260</div>
+    <div class="step-exp">Replace &#x27;y&#x27; in the second equation with &#x27;5 - x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">60x + 200 - 40x = 260
+20x + 200 = 260
+20x = 260 - 200
+20x = 60
+x = 60 / 20
+x = 3</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then isolate &#x27;x&#x27; by subtracting 200 from both sides and dividing by 20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">x = 3</div>
+    <div class="step-exp">The problem asks for the hours spent driving at 60 mph (x), which we found to be 3.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a classroom, there are a total of 27 students. The number of students who prefer math (m) is twice the number of students who prefer science (s), plus 3. How many students prefer math (m)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 19 students</div><div class="option"><span class="opt-letter">B.</span> 21 students</div><div class="option"><span class="opt-letter">C.</span> 8 students</div><div class="option"><span class="opt-letter">D.</span> 23 students</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total students): m + s = 27
+Equation 2 (relationship of preferences): m = 2s + 3</div>
+    <div class="step-exp">Let &#x27;m&#x27; be the number of students who prefer math and &#x27;s&#x27; be the number of students who prefer science. The total number of students is 27, and the number preferring math is 3 more than twice the number preferring science.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(2s + 3) + s = 27</div>
+    <div class="step-exp">Since &#x27;m&#x27; is already isolated in the second equation, substitute &#x27;2s + 3&#x27; for &#x27;m&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3s + 3 = 27
+3s = 27 - 3
+3s = 24
+s = 24 / 3
+s = 8</div>
+    <div class="step-exp">Combine the &#x27;s&#x27; terms, then isolate &#x27;s&#x27; by subtracting 3 from both sides and dividing by 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">m = 2(8) + 3
+m = 16 + 3
+m = 19</div>
+    <div class="step-exp">Use the value of &#x27;s&#x27; to find &#x27;m&#x27; using the simpler second equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">m = 19</div>
+    <div class="step-exp">The problem asks for the number of students who prefer math (m), which we found to be 19.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 19 students (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist is mixing two solutions. Solution A contains 10% acid, and Solution B contains 20% acid. The chemist wants to create 100 ml of a mixture that is 16% acid. How many ml of Solution A (x) should be used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 ml</div><div class="option"><span class="opt-letter">B.</span> 40 ml</div><div class="option"><span class="opt-letter">C.</span> 60 ml</div><div class="option"><span class="opt-letter">D.</span> 20 ml</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total volume): x + y = 100
+Equation 2 (total amount of acid): 0.10x + 0.20y = 0.16(100)  =&gt;  0.10x + 0.20y = 16</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the volume of Solution A and &#x27;y&#x27; be the volume of Solution B. The total volume is 100 ml, and the total amount of acid is 16% of 100 ml, which is 16 ml.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + y = 100
+y = 100 - x</div>
+    <div class="step-exp">Isolate &#x27;y&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.10x + 0.20(100 - x) = 16</div>
+    <div class="step-exp">Replace &#x27;y&#x27; in the second equation with &#x27;100 - x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.10x + 20 - 0.20x = 16
+-0.10x + 20 = 16
+-0.10x = 16 - 20
+-0.10x = -4
+x = -4 / -0.10
+x = 40</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then isolate &#x27;x&#x27; by subtracting 20 from both sides and dividing by -0.10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">x = 40</div>
+    <div class="step-exp">The problem asks for the volume of Solution A (x), which we found to be 40 ml.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 40 ml (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew is using two types of support beams: Type A (a) and Type B (b). Type A beams cost $15 each and Type B beams cost $20 each. For a project, they need a total of 40 beams. If the total cost for the beams is $725, how many Type A beams (a) did they use?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 beams</div><div class="option"><span class="opt-letter">B.</span> 25 beams</div><div class="option"><span class="opt-letter">C.</span> 145 beams</div><div class="option"><span class="opt-letter">D.</span> 135 beams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (total beams): a + b = 40
+Equation 2 (total cost): 15a + 20b = 725</div>
+    <div class="step-exp">Let &#x27;a&#x27; be the number of Type A beams and &#x27;b&#x27; be the number of Type B beams. The total number of beams is 40, and the total cost is $725.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">a + b = 40
+b = 40 - a</div>
+    <div class="step-exp">Isolate &#x27;b&#x27; in the first equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15a + 20(40 - a) = 725</div>
+    <div class="step-exp">Replace &#x27;b&#x27; in the second equation with &#x27;40 - a&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15a + 800 - 20a = 725
+-5a + 800 = 725
+-5a = 725 - 800
+-5a = -75
+a = -75 / -5
+a = 15</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then isolate &#x27;a&#x27; by subtracting 800 from both sides and dividing by -5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">a = 15</div>
+    <div class="step-exp">The problem asks for the number of Type A beams (a), which we found to be 15.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 beams (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two clocks are set to different times. Clock 1 gains 2 minutes every hour. Clock 2 gains 3 minutes every hour. At noon, both clocks showed the correct time. After &#x27;x&#x27; hours, Clock 1 shows a total gain of &#x27;y&#x27; minutes. After &#x27;x&#x27; hours, Clock 2 shows a total gain of &#x27;y + 10&#x27; minutes. How many hours (&#x27;x&#x27;) have passed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 hours</div><div class="option"><span class="opt-letter">B.</span> -10 hours</div><div class="option"><span class="opt-letter">C.</span> 5 hours</div><div class="option"><span class="opt-letter">D.</span> 10 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (Clock 1 gain): y = 2x
+Equation 2 (Clock 2 gain): y + 10 = 3x</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the number of hours passed and &#x27;y&#x27; be the minutes gained by Clock 1. Clock 2 gains &#x27;y + 10&#x27; minutes, which is also 3 minutes per hour &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2x + 10 = 3x</div>
+    <div class="step-exp">Since &#x27;y&#x27; is isolated in the first equation, substitute &#x27;2x&#x27; for &#x27;y&#x27; in the second equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 = 3x - 2x
+10 = x</div>
+    <div class="step-exp">Subtract &#x27;2x&#x27; from both sides to isolate &#x27;x&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x = 10</div>
+    <div class="step-exp">The problem asks for the number of hours passed (x), which we found to be 10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 hours (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two towns, Town A and Town B, are tracking their population changes. Town A&#x27;s population (p_A) can be modeled by starting at 5000 and decreasing by 100 people per year (t). Town B&#x27;s population (p_B) can be modeled by starting at 3000 and increasing by 150 people per year (t). In how many years (t) will their populations be the same?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 years</div><div class="option"><span class="opt-letter">B.</span> 40 years</div><div class="option"><span class="opt-letter">C.</span> 20 years</div><div class="option"><span class="opt-letter">D.</span> 8 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Town A: p_A = 5000 - 100t
+Town B: p_B = 3000 + 150t</div>
+    <div class="step-exp">Let &#x27;t&#x27; be the number of years. Town A starts at 5000 and decreases by 100 per year. Town B starts at 3000 and increases by 150 per year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5000 - 100t = 3000 + 150t</div>
+    <div class="step-exp">We want to find the time &#x27;t&#x27; when p_A = p_B.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5000 - 3000 = 150t + 100t
+2000 = 250t
+t = 2000 / 250
+t = 8</div>
+    <div class="step-exp">Rearrange the equation by moving constant terms to one side and &#x27;t&#x27; terms to the other, then combine like terms and divide to isolate &#x27;t&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">t = 8</div>
+    <div class="step-exp">The problem asks for the number of years (t), which we found to be 8.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 years (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company sells two types of software licenses: basic (b) and premium (p). A basic license costs $50 per user, and a premium license costs $120 per user. Last month, they sold 30 more basic licenses than premium licenses. The total revenue from these sales was $10,000. How many premium licenses (p) did they sell?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 80 licenses</div><div class="option"><span class="opt-letter">B.</span> 100 licenses</div><div class="option"><span class="opt-letter">C.</span> 40 licenses</div><div class="option"><span class="opt-letter">D.</span> 50 licenses</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Equation 1 (relationship of licenses): b = p + 30
+Equation 2 (total revenue): 50b + 120p = 10000</div>
+    <div class="step-exp">Let &#x27;b&#x27; be the number of basic licenses and &#x27;p&#x27; be the number of premium licenses. They sold 30 more basic licenses than premium, and the total revenue was $10,000.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">50(p + 30) + 120p = 10000</div>
+    <div class="step-exp">Since &#x27;b&#x27; is already isolated in the first equation, substitute &#x27;p + 30&#x27; for &#x27;b&#x27; in the second equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">50p + 1500 + 120p = 10000
+170p + 1500 = 10000
+170p = 10000 - 1500
+170p = 8500
+p = 8500 / 170
+p = 50</div>
+    <div class="step-exp">Apply the distributive property, combine like terms, and then isolate &#x27;p&#x27; by subtracting 1500 from both sides and dividing by 170.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">p = 50</div>
+    <div class="step-exp">The problem asks for the number of premium licenses (p), which we found to be 50.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 50 licenses (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Divide Mixed Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.027<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Divide Mixed Numbers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.027</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cashier has 3 1/2 rolls of quarters. If each customer gets 1/4 of a roll, how many customers can the cashier serve?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7/8 customers</div><div class="option"><span class="opt-letter">B.</span> 14 customers</div><div class="option"><span class="opt-letter">C.</span> 3 3/4 customers</div><div class="option"><span class="opt-letter">D.</span> 7 customers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3 1/2 = (3 × 2 + 1) / 2 = 7/2</div>
+    <div class="step-exp">To divide mixed numbers, first convert them into improper fractions. For 3 1/2, multiply the whole number (3) by the denominator (2) and add the numerator (1), keeping the same denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">7/2 ÷ 1/4</div>
+    <div class="step-exp">Now the problem is 7/2 divided by 1/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">7/2 × 4/1 = (7 × 4) / (2 × 1) = 28/2</div>
+    <div class="step-exp">To divide fractions, you multiply the first fraction by the reciprocal (inverted form) of the second fraction. The reciprocal of 1/4 is 4/1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">28/2 = 14</div>
+    <div class="step-exp">Divide 28 by 2 to get the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 14 customers (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A track is 5 1/4 miles long. If an athlete runs laps that are each 3/4 of a mile, how many laps does the athlete complete?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 laps</div><div class="option"><span class="opt-letter">B.</span> 7 laps</div><div class="option"><span class="opt-letter">C.</span> 4 1/2 laps</div><div class="option"><span class="opt-letter">D.</span> 3 15/16 laps</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5 1/4 = (5 × 4 + 1) / 4 = 21/4</div>
+    <div class="step-exp">Convert the mixed number 5 1/4 into an improper fraction by multiplying the whole number (5) by the denominator (4) and adding the numerator (1), keeping the same denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">21/4 ÷ 3/4</div>
+    <div class="step-exp">The problem is now 21/4 divided by 3/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">21/4 × 4/3 = (21 × 4) / (4 × 3) = 84/12</div>
+    <div class="step-exp">Multiply the first fraction (21/4) by the reciprocal of the second fraction (3/4), which is 4/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">84/12 = 7</div>
+    <div class="step-exp">Divide 84 by 12 to get the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 laps (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker has 4 2/3 pounds of sugar. If each cake recipe requires 2/3 of a pound of sugar, how many cakes can the baker make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 1/3 cakes</div><div class="option"><span class="opt-letter">B.</span> 3 1/9 cakes</div><div class="option"><span class="opt-letter">C.</span> 5 1/2 cakes</div><div class="option"><span class="opt-letter">D.</span> 7 cakes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">4 2/3 = (4 × 3 + 2) / 3 = 14/3</div>
+    <div class="step-exp">Convert the mixed number 4 2/3 into an improper fraction by multiplying the whole number (4) by the denominator (3) and adding the numerator (2), keeping the same denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">14/3 ÷ 2/3</div>
+    <div class="step-exp">The problem is now 14/3 divided by 2/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">14/3 × 3/2 = (14 × 3) / (3 × 2) = 42/6</div>
+    <div class="step-exp">Multiply the first fraction (14/3) by the reciprocal of the second fraction (2/3), which is 3/2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">42/6 = 7</div>
+    <div class="step-exp">Divide 42 by 6 to get the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 cakes (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels 75 3/5 miles in 2 1/2 hours. What is the car&#x27;s average speed in miles per hour, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 37.5 miles per hour</div><div class="option"><span class="opt-letter">B.</span> 189 miles per hour</div><div class="option"><span class="opt-letter">C.</span> 30 6/25 miles per hour</div><div class="option"><span class="opt-letter">D.</span> 10 2/5 miles per hour</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">75 3/5 = (75 × 5 + 3) / 5 = 378/5
+2 1/2 = (2 × 2 + 1) / 2 = 5/2</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 75 3/5, multiply 75 by 5 and add 3. For 2 1/2, multiply 2 by 2 and add 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">378/5 ÷ 5/2</div>
+    <div class="step-exp">The problem is now 378/5 divided by 5/2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">378/5 × 2/5 = (378 × 2) / (5 × 5) = 756/25</div>
+    <div class="step-exp">Multiply the first fraction (378/5) by the reciprocal of the second fraction (5/2), which is 2/5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">756 ÷ 25 = 30 with a remainder of 6. So, 30 6/25.</div>
+    <div class="step-exp">Divide the numerator by the denominator. The quotient is the whole number, and the remainder over the original denominator forms the fraction part. The fraction 6/25 is already in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 6/25 miles per hour (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher has 10 1/8 boxes of pencils. If she distributes 1 1/2 boxes to each classroom, how many classrooms receive pencils, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 classrooms</div><div class="option"><span class="opt-letter">B.</span> 6 3/4 classrooms</div><div class="option"><span class="opt-letter">C.</span> 1 1/2 classrooms</div><div class="option"><span class="opt-letter">D.</span> 15 3/16 classrooms</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">10 1/8 = (10 × 8 + 1) / 8 = 81/8
+1 1/2 = (1 × 2 + 1) / 2 = 3/2</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 10 1/8, multiply 10 by 8 and add 1. For 1 1/2, multiply 1 by 2 and add 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">81/8 ÷ 3/2</div>
+    <div class="step-exp">The problem is now 81/8 divided by 3/2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">81/8 × 2/3 = (81 × 2) / (8 × 3) = 162/24</div>
+    <div class="step-exp">Multiply the first fraction (81/8) by the reciprocal of the second fraction (3/2), which is 2/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">162/24. Divide both numerator and denominator by their greatest common factor, 6: 162 ÷ 6 = 27, 24 ÷ 6 = 4. So, 27/4.
+Convert 27/4 to a mixed number: 27 ÷ 4 = 6 with a remainder of 3. So, 6 3/4.</div>
+    <div class="step-exp">Simplify the improper fraction 162/24 by dividing the numerator and denominator by 6. Then, convert the simplified improper fraction 27/4 to a mixed number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 3/4 classrooms (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist has 12 3/4 liters of a chemical solution. If he needs to divide it into smaller beakers, each holding 1 1/4 liters, how many beakers can he fill completely?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 beakers</div><div class="option"><span class="opt-letter">B.</span> 10 beakers</div><div class="option"><span class="opt-letter">C.</span> 15 15/16 beakers</div><div class="option"><span class="opt-letter">D.</span> 10 1/5 beakers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">12 3/4 = (12 × 4 + 3) / 4 = 51/4
+1 1/4 = (1 × 4 + 1) / 4 = 5/4</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 12 3/4, multiply 12 by 4 and add 3. For 1 1/4, multiply 1 by 4 and add 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">51/4 ÷ 5/4</div>
+    <div class="step-exp">The problem is now 51/4 divided by 5/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">51/4 × 4/5 = (51 × 4) / (4 × 5) = 204/20</div>
+    <div class="step-exp">Multiply the first fraction (51/4) by the reciprocal of the second fraction (5/4), which is 4/5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">204/20. Divide both numerator and denominator by their greatest common factor, 4: 204 ÷ 4 = 51, 20 ÷ 4 = 5. So, 51/5.
+Convert 51/5 to a mixed number: 51 ÷ 5 = 10 with a remainder of 1. So, 10 1/5.
+Since the question asks how many beakers can be filled <em>completely</em>, only the whole number part of the mixed number is the answer.</div>
+    <div class="step-exp">Simplify the improper fraction 204/20. Then convert the simplified improper fraction 51/5 to a mixed number. The whole number part represents the number of completely filled beakers.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 beakers (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter has a wooden plank that is 18 2/3 feet long. If he cuts it into pieces that are each 2 1/3 feet long, how many pieces can he get?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 43 5/9 pieces</div><div class="option"><span class="opt-letter">B.</span> 9 pieces</div><div class="option"><span class="opt-letter">C.</span> 8 pieces</div><div class="option"><span class="opt-letter">D.</span> 5 4/7 pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">18 2/3 = (18 × 3 + 2) / 3 = 56/3
+2 1/3 = (2 × 3 + 1) / 3 = 7/3</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 18 2/3, multiply 18 by 3 and add 2. For 2 1/3, multiply 2 by 3 and add 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">56/3 ÷ 7/3</div>
+    <div class="step-exp">The problem is now 56/3 divided by 7/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">56/3 × 3/7 = (56 × 3) / (3 × 7) = 168/21</div>
+    <div class="step-exp">Multiply the first fraction (56/3) by the reciprocal of the second fraction (7/3), which is 3/7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">168/21 = 8</div>
+    <div class="step-exp">Divide 168 by 21 to get the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 pieces (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project requires 24 3/4 hours to complete. If a team works on the project for 3 1/4 hours each day, how many days will it take to complete the project, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 80 7/16 days</div><div class="option"><span class="opt-letter">B.</span> 7 8/13 days</div><div class="option"><span class="opt-letter">C.</span> 5 11/13 days</div><div class="option"><span class="opt-letter">D.</span> 21 1/2 days</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">24 3/4 = (24 × 4 + 3) / 4 = 99/4
+3 1/4 = (3 × 4 + 1) / 4 = 13/4</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 24 3/4, multiply 24 by 4 and add 3. For 3 1/4, multiply 3 by 4 and add 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">99/4 ÷ 13/4</div>
+    <div class="step-exp">The problem is now 99/4 divided by 13/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">99/4 × 4/13 = (99 × 4) / (4 × 13) = 396/52</div>
+    <div class="step-exp">Multiply the first fraction (99/4) by the reciprocal of the second fraction (13/4), which is 4/13.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">396/52. Divide both numerator and denominator by their greatest common factor, 4: 396 ÷ 4 = 99, 52 ÷ 4 = 13. So, 99/13.
+Convert 99/13 to a mixed number: 99 ÷ 13 = 7 with a remainder of 8. So, 7 8/13.</div>
+    <div class="step-exp">Simplify the improper fraction 396/52. Then convert the simplified improper fraction 99/13 to a mixed number. The fraction 8/13 is in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 8/13 days (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town has 150 1/2 acres of parkland. If the parkland is divided into sections, with each section being 6 1/4 acres, how many sections are there in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 24 sections</div><div class="option"><span class="opt-letter">B.</span> 12 4/25 sections</div><div class="option"><span class="opt-letter">C.</span> 940 5/8 sections</div><div class="option"><span class="opt-letter">D.</span> 24 2/25 sections</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">150 1/2 = (150 × 2 + 1) / 2 = 301/2
+6 1/4 = (6 × 4 + 1) / 4 = 25/4</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 150 1/2, multiply 150 by 2 and add 1. For 6 1/4, multiply 6 by 4 and add 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">301/2 ÷ 25/4</div>
+    <div class="step-exp">The problem is now 301/2 divided by 25/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">301/2 × 4/25 = (301 × 4) / (2 × 25) = 1204/50</div>
+    <div class="step-exp">Multiply the first fraction (301/2) by the reciprocal of the second fraction (25/4), which is 4/25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1204/50. Divide both numerator and denominator by their greatest common factor, 2: 1204 ÷ 2 = 602, 50 ÷ 2 = 25. So, 602/25.
+Convert 602/25 to a mixed number: 602 ÷ 25 = 24 with a remainder of 2. So, 24 2/25.</div>
+    <div class="step-exp">Simplify the improper fraction 1204/50. Then convert the simplified improper fraction 602/25 to a mixed number. The fraction 2/25 is in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 24 2/25 sections (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer downloads a file that is 80 1/3 megabytes in size. If the download speed is 10 2/3 megabytes per second, how many seconds did it take to download the file, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 seconds</div><div class="option"><span class="opt-letter">B.</span> 856 8/9 seconds</div><div class="option"><span class="opt-letter">C.</span> 2 19/32 seconds</div><div class="option"><span class="opt-letter">D.</span> 7 17/32 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">80 1/3 = (80 × 3 + 1) / 3 = 241/3
+10 2/3 = (10 × 3 + 2) / 3 = 32/3</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions. For 80 1/3, multiply 80 by 3 and add 1. For 10 2/3, multiply 10 by 3 and add 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">241/3 ÷ 32/3</div>
+    <div class="step-exp">The problem is now 241/3 divided by 32/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">241/3 × 3/32 = (241 × 3) / (3 × 32) = 723/96</div>
+    <div class="step-exp">Multiply the first fraction (241/3) by the reciprocal of the second fraction (32/3), which is 3/32.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">723/96. Divide both numerator and denominator by their greatest common factor, 3: 723 ÷ 3 = 241, 96 ÷ 3 = 32. So, 241/32.
+Convert 241/32 to a mixed number: 241 ÷ 32 = 7 with a remainder of 17. So, 7 17/32.</div>
+    <div class="step-exp">Simplify the improper fraction 723/96. Then convert the simplified improper fraction 241/32 to a mixed number. The fraction 17/32 is in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 17/32 seconds (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

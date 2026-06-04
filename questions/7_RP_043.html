@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Similar Figures</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | RP | Skill 7.RP.043<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Similar Figures</h1>
+<p class="skill-subtitle">Skill ID: 7.RP.043</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small toy car is a miniature replica of a real car. The toy car is 10 cm long and 4 cm wide. If the real car is 400 cm long, what is the width of the real car, assuming the toy and real car are similar figures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 160 cm</div><div class="option"><span class="opt-letter">B.</span> 1600 cm</div><div class="option"><span class="opt-letter">C.</span> 40 cm</div><div class="option"><span class="opt-letter">D.</span> 100 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let L_toy = 10 cm, W_toy = 4 cm, L_real = 400 cm. Let W_real be the unknown width of the real car. Since the figures are similar, the ratio of corresponding sides is equal: L_toy / L_real = W_toy / W_real.</div>
+    <div class="step-exp">We set up a proportion comparing the ratio of length to width for both the toy car and the real car. It&#x27;s crucial to match corresponding sides (length with length, width with width).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">10 / 400 = 4 / W_real</div>
+    <div class="step-exp">We plug in the known dimensions into our established proportion.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 <em> W_real = 400 </em> 4
+10 * W_real = 1600
+W_real = 1600 / 10
+W_real = 160</div>
+    <div class="step-exp">We use cross-multiplication to solve for the unknown width. Multiply the numerator of one fraction by the denominator of the other, then divide to isolate W_real.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The width of the real car is 160 cm.</div>
+    <div class="step-exp">Always include appropriate units in the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 160 cm (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a soccer match, a coach uses a small diagram to explain a play. The diagram shows the field as a rectangle 15 cm long and 10 cm wide. If the actual soccer field is 105 meters long, what is the actual width of the field in meters, assuming the diagram and field are similar figures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 150 meters</div><div class="option"><span class="opt-letter">B.</span> 15 meters</div><div class="option"><span class="opt-letter">C.</span> 70 meters</div><div class="option"><span class="opt-letter">D.</span> 105 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let L_diagram = 15 cm, W_diagram = 10 cm, L_field = 105 m. Let W_field be the unknown width of the actual field. Proportion: L_diagram / L_field = W_diagram / W_field.</div>
+    <div class="step-exp">We establish a ratio of length to width for both the diagram and the actual field, ensuring that corresponding sides are in the same positions in the fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">15 / 105 = 10 / W_field</div>
+    <div class="step-exp">Insert the known measurements into the proportion.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 <em> W_field = 105 </em> 10
+15 * W_field = 1050
+W_field = 1050 / 15
+W_field = 70</div>
+    <div class="step-exp">Use cross-multiplication to solve for the unknown width. Multiply diagonally and then divide to isolate W_field.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The actual width of the field is 70 meters.</div>
+    <div class="step-exp">Ensure the final answer includes the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 70 meters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is scaling down a recipe. The original recipe calls for a rectangular baking dish that is 30 cm long and 20 cm wide. The new recipe requires a similar baking dish that is 15 cm long. What is the width of the smaller baking dish?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 cm</div><div class="option"><span class="opt-letter">B.</span> 10 cm</div><div class="option"><span class="opt-letter">C.</span> 20 cm</div><div class="option"><span class="opt-letter">D.</span> 15 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let L_original = 30 cm, W_original = 20 cm, L_new = 15 cm. Let W_new be the unknown width of the new baking dish. Proportion: L_original / L_new = W_original / W_new.</div>
+    <div class="step-exp">We create a proportion where the ratio of lengths is equal to the ratio of widths for both the original and new baking dishes. Maintain consistency in placing corresponding measurements.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">30 / 15 = 20 / W_new</div>
+    <div class="step-exp">Input the known dimensions into the proportional relationship.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">30 <em> W_new = 15 </em> 20
+30 * W_new = 300
+W_new = 300 / 30
+W_new = 10</div>
+    <div class="step-exp">Use cross-multiplication. Multiply the diagonal terms, then divide to isolate W_new.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The width of the smaller baking dish is 10 cm.</div>
+    <div class="step-exp">The final answer should always include the appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 cm (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A rectangular billboard is 8 meters tall and 12 meters wide. A smaller advertisement poster is made to be similar to the billboard. If the poster is 2 meters tall, what is its width?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 meters</div><div class="option"><span class="opt-letter">B.</span> 3 meters</div><div class="option"><span class="opt-letter">C.</span> 6 meters</div><div class="option"><span class="opt-letter">D.</span> 1.33 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let H_billboard = 8 m, W_billboard = 12 m, H_poster = 2 m. Let W_poster be the unknown width of the poster. Proportion: H_billboard / H_poster = W_billboard / W_poster.</div>
+    <div class="step-exp">We set up a proportion comparing the ratio of height to width for both the billboard and the poster, making sure to align corresponding dimensions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 / 2 = 12 / W_poster</div>
+    <div class="step-exp">Plug in the known values into the established proportion.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8 <em> W_poster = 2 </em> 12
+8 * W_poster = 24
+W_poster = 24 / 8
+W_poster = 3</div>
+    <div class="step-exp">Perform cross-multiplication, then divide to find the value of W_poster.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The width of the poster is 3 meters.</div>
+    <div class="step-exp">The final answer should include the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A photographer is adjusting the dimensions of a photo. The original photo is a rectangle 18 cm long and 12 cm wide. She wants to print a smaller similar version that is 9 cm long. What will be the width of the printed photo?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 cm</div><div class="option"><span class="opt-letter">B.</span> 4 cm</div><div class="option"><span class="opt-letter">C.</span> 6 cm</div><div class="option"><span class="opt-letter">D.</span> 9 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let L_original = 18 cm, W_original = 12 cm, L_printed = 9 cm. Let W_printed be the unknown width of the printed photo. Proportion: L_original / L_printed = W_original / W_printed.</div>
+    <div class="step-exp">We establish a proportional relationship between the original and printed photo dimensions, ensuring that corresponding lengths and widths are correctly paired.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">18 / 9 = 12 / W_printed</div>
+    <div class="step-exp">Insert the known measurements into the proportional equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">18 <em> W_printed = 9 </em> 12
+18 * W_printed = 108
+W_printed = 108 / 18
+W_printed = 6</div>
+    <div class="step-exp">Use cross-multiplication to solve for W_printed. Multiply diagonally, then divide to isolate the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The width of the printed photo is 6 cm.</div>
+    <div class="step-exp">The final answer must include the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 cm (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A designer is creating a scaled model of a new building. The actual building will be 60 meters tall and 45 meters wide. If the model is 40 cm tall, what is the width of the model in cm, assuming the model and building are similar figures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 cm</div><div class="option"><span class="opt-letter">B.</span> 35 cm</div><div class="option"><span class="opt-letter">C.</span> 40 cm</div><div class="option"><span class="opt-letter">D.</span> 25 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let H_building = 60 m, W_building = 45 m, H_model = 40 cm. Let W_model be the unknown width of the model. Proportion: H_building / H_model = W_building / W_model. Units must be consistent for each ratio or converted. In this case, we can keep the ratio in meters/cm as long as we are consistent.</div>
+    <div class="step-exp">We set up a proportion comparing the ratio of height to width for both the actual building and the model. It&#x27;s important that corresponding dimensions are aligned.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">60 / 40 = 45 / W_model</div>
+    <div class="step-exp">Plug in the known values into the established proportion.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">60 <em> W_model = 40 </em> 45
+60 * W_model = 1800
+W_model = 1800 / 60
+W_model = 30</div>
+    <div class="step-exp">Use cross-multiplication to solve for W_model. Multiply diagonally, then divide to isolate the variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The width of the model is 30 cm.</div>
+    <div class="step-exp">The final answer must include the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 cm (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A research scientist uses a microscope to view a bacteria sample. A bacterium appears as a rectangle 20 mm long and 8 mm wide on the screen. If the actual bacterium is 0.05 mm long, what is its actual width in mm, assuming the image and actual bacterium are similar figures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.01 mm</div><div class="option"><span class="opt-letter">B.</span> 0.04 mm</div><div class="option"><span class="opt-letter">C.</span> 0.02 mm</div><div class="option"><span class="opt-letter">D.</span> 0.002 mm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let L_screen = 20 mm, W_screen = 8 mm, L_actual = 0.05 mm. Let W_actual be the unknown width of the actual bacterium. Proportion: L_screen / L_actual = W_screen / W_actual.</div>
+    <div class="step-exp">We establish a proportion relating the dimensions of the bacterium on the screen to its actual dimensions, ensuring corresponding sides are in the correct ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">20 / 0.05 = 8 / W_actual</div>
+    <div class="step-exp">Insert the known values into the proportional equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">20 <em> W_actual = 0.05 </em> 8
+20 * W_actual = 0.4
+W_actual = 0.4 / 20
+W_actual = 0.02</div>
+    <div class="step-exp">Use cross-multiplication. Multiply the diagonal terms, then divide to find W_actual.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The actual width of the bacterium is 0.02 mm.</div>
+    <div class="step-exp">The final answer must include the appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.02 mm (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cartographer is drawing a map where a city park is represented as a rectangular shape 5 cm long and 3.5 cm wide. If the actual park is 1.5 km long, what is the actual width of the park in kilometers, in simplest form, assuming the map and park are similar figures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.1 km</div><div class="option"><span class="opt-letter">B.</span> 1.05 km</div><div class="option"><span class="opt-letter">C.</span> 1.25 km</div><div class="option"><span class="opt-letter">D.</span> 0.75 km</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let L_map = 5 cm, W_map = 3.5 cm, L_park = 1.5 km. Let W_park be the unknown width of the actual park. Proportion: L_map / L_park = W_map / W_park.</div>
+    <div class="step-exp">We establish a proportion comparing the ratio of length to width for both the map representation and the actual park, ensuring corresponding sides are consistently placed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5 / 1.5 = 3.5 / W_park</div>
+    <div class="step-exp">Insert the known measurements into the proportional equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5 <em> W_park = 1.5 </em> 3.5
+5 * W_park = 5.25
+W_park = 5.25 / 5
+W_park = 1.05</div>
+    <div class="step-exp">Use cross-multiplication. Multiply the diagonal terms, then divide to solve for W_park.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The actual width of the park is 1.05 km.</div>
+    <div class="step-exp">The final answer must include the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.05 km (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A group of students is building a model of the solar system. Earth&#x27;s model is a sphere with a diameter of 4 cm. If the actual Earth has a diameter of approximately 12,742 km and they want to make a model of Jupiter, which has an actual diameter of 139,820 km, what should be the diameter of the Jupiter model in cm, assuming the models are similar to the actual planets and the same scale is used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 43.86 cm</div><div class="option"><span class="opt-letter">B.</span> 4389.26 cm</div><div class="option"><span class="opt-letter">C.</span> 438.93 cm</div><div class="option"><span class="opt-letter">D.</span> 4.39 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scale factor = D_model_Earth / D_actual_Earth = 4 cm / 12,742 km. This ratio relates model cm to actual km.</div>
+    <div class="step-exp">We first find the ratio that connects the model size to the actual size for Earth. This scale factor will be used for Jupiter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">D_model_Earth / D_actual_Earth = D_model_Jupiter / D_actual_Jupiter
+4 / 12742 = D_model_Jupiter / 139820</div>
+    <div class="step-exp">We use the established scale factor to set up a proportion to find the unknown diameter of the Jupiter model. Ensure corresponding measurements are in the same parts of the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 <em> 139820 = 12742 </em> D_model_Jupiter
+559280 = 12742 * D_model_Jupiter
+D_model_Jupiter = 559280 / 12742
+D_model_Jupiter ≈ 43.8926</div>
+    <div class="step-exp">Use cross-multiplication to solve for the unknown diameter. Multiply diagonally, then divide to isolate D_model_Jupiter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">D_model_Jupiter ≈ 43.89 cm</div>
+    <div class="step-exp">Rounding to two decimal places is appropriate for this context, and units are essential.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 43.86 cm (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An architect is designing a new commercial complex. A scaled blueprint shows a main building with a height of 25 cm and a width of 18 cm. Another building in the complex, which is similar in shape, has a height of 35 meters. What is the actual width of this second building in meters, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25.2 meters</div><div class="option"><span class="opt-letter">B.</span> 35 meters</div><div class="option"><span class="opt-letter">C.</span> 22.5 meters</div><div class="option"><span class="opt-letter">D.</span> 30 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let H_blueprint1 = 25 cm, W_blueprint1 = 18 cm, H_actual2 = 35 m. Let W_actual2 be the unknown width of the second building. Proportion: H_blueprint1 / W_blueprint1 = H_actual2 / W_actual2.</div>
+    <div class="step-exp">We establish a proportion comparing the ratio of height to width for both the blueprint and the actual second building. It&#x27;s crucial to maintain consistency in placing corresponding dimensions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">25 / 18 = 35 / W_actual2</div>
+    <div class="step-exp">Insert the known measurements into the proportional equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">25 <em> W_actual2 = 18 </em> 35
+25 * W_actual2 = 630
+W_actual2 = 630 / 25
+W_actual2 = 25.2</div>
+    <div class="step-exp">Use cross-multiplication. Multiply the diagonal terms, then divide to solve for W_actual2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The actual width of the second building is 25.2 meters.</div>
+    <div class="step-exp">The final answer must include the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25.2 meters (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

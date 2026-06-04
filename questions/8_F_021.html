@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Exponential Growth</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | F | Skill 8.F.021<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Exponential Growth</h1>
+<p class="skill-subtitle">Skill ID: 8.F.021</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Alex invests $500 in a savings account that offers an annual interest rate of 4% compounded annually. What will be the value of his investment after 1 year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $500.04</div><div class="option"><span class="opt-letter">B.</span> $520.00</div><div class="option"><span class="opt-letter">C.</span> $540.00</div><div class="option"><span class="opt-letter">D.</span> $504.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = $500
+r = 4% = 0.04
+t = 1 year</div>
+    <div class="step-exp">The initial investment is $500. The annual interest rate is 4%, which is 0.04 as a decimal. The investment period is 1 year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 500(1 + 0.04)^1</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.04 = 1.04</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.04^1 = 1.04</div>
+    <div class="step-exp">Since the time is 1 year, the growth factor remains 1.04.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">A = 500 * 1.04 = 520</div>
+    <div class="step-exp">Multiply the initial amount by the growth factor to find the final value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The value of the investment after 1 year will be $520.00.</div>
+    <div class="step-exp">The investment will grow to $520.00 after one year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $520.00 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new football team starts with a fan base of 1,200 people. If their fan base grows by 5% each year, how many fans will they have after 1 year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1260 fans</div><div class="option"><span class="opt-letter">B.</span> 1320 fans</div><div class="option"><span class="opt-letter">C.</span> 1200.05 fans</div><div class="option"><span class="opt-letter">D.</span> 1205 fans</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 1200 fans
+r = 5% = 0.05
+t = 1 year</div>
+    <div class="step-exp">The initial fan base is 1200. The annual growth rate is 5%, which is 0.05 as a decimal. The growth period is 1 year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 1200(1 + 0.05)^1</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.05 = 1.05</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.05^1 = 1.05</div>
+    <div class="step-exp">Since the time is 1 year, the growth factor remains 1.05.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">A = 1200 * 1.05 = 1260</div>
+    <div class="step-exp">Multiply the initial amount by the growth factor to find the final number of fans.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The team will have 1260 fans after 1 year.</div>
+    <div class="step-exp">The fan base will grow to 1260 after one year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1260 fans (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new social media platform starts with 800 users and its user base grows by 10% every month. How many users will it have after 1 month?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 880 users</div><div class="option"><span class="opt-letter">B.</span> 800.10 users</div><div class="option"><span class="opt-letter">C.</span> 810 users</div><div class="option"><span class="opt-letter">D.</span> 960 users</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 800 users
+r = 10% = 0.10
+t = 1 month</div>
+    <div class="step-exp">The initial user base is 800. The monthly growth rate is 10%, which is 0.10 as a decimal. The growth period is 1 month.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 800(1 + 0.10)^1</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.10 = 1.10</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.10^1 = 1.10</div>
+    <div class="step-exp">Since the time is 1 month, the growth factor remains 1.10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">A = 800 * 1.10 = 880</div>
+    <div class="step-exp">Multiply the initial amount by the growth factor to find the final number of users.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The platform will have 880 users after 1 month.</div>
+    <div class="step-exp">The user base will grow to 880 after one month.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 880 users (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town is currently 15,000 people and is growing at an annual rate of 2% per year. What will the population be after 3 years? Round to the nearest whole person.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 45900 people</div><div class="option"><span class="opt-letter">B.</span> 15900 people</div><div class="option"><span class="opt-letter">C.</span> 15008 people</div><div class="option"><span class="opt-letter">D.</span> 15918 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 15000 people
+r = 2% = 0.02
+t = 3 years</div>
+    <div class="step-exp">The initial population is 15,000. The annual growth rate is 2%, which is 0.02 as a decimal. The growth period is 3 years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 15000(1 + 0.02)^3</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.02 = 1.02</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.02^3 = 1.02 <em> 1.02 </em> 1.02 = 1.061208</div>
+    <div class="step-exp">Multiply the growth factor by itself 3 times for 3 years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">A = 15000 * 1.061208 = 15918.12</div>
+    <div class="step-exp">Multiply the initial population by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">15918.12 rounded to the nearest whole person is 15918.</div>
+    <div class="step-exp">Since you cannot have a fraction of a person, round the result to the nearest whole number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15918 people (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes a culture of bacteria that initially contains 500 cells. The number of cells doubles every hour. How many cells will there be after 4 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1250 cells</div><div class="option"><span class="opt-letter">B.</span> 8000 cells</div><div class="option"><span class="opt-letter">C.</span> 1000 cells</div><div class="option"><span class="opt-letter">D.</span> 2500 cells</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 500 cells
+&#x27;Doubles&#x27; means the growth factor is 2 (100% growth rate, r=1).
+t = 4 hours</div>
+    <div class="step-exp">The initial number of cells is 500. &#x27;Doubles&#x27; implies a growth rate of 100%, so the growth factor (1+r) is 2. The growth period is 4 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 500(2)^4</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2^4 = 2 <em> 2 </em> 2 * 2 = 16</div>
+    <div class="step-exp">Multiply the growth factor by itself 4 times for 4 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">A = 500 * 16 = 8000</div>
+    <div class="step-exp">Multiply the initial number of cells by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">There will be 8000 cells after 4 hours.</div>
+    <div class="step-exp">The number of cells will grow to 8000 after four hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8000 cells (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car dealership sold 250 cars in January. They predict their sales will increase by 8% each month. How many cars do they expect to sell in April? (Count January as month 0, so April is month 3). Round to the nearest whole car.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 270 cars</div><div class="option"><span class="opt-letter">B.</span> 310 cars</div><div class="option"><span class="opt-letter">C.</span> 315 cars</div><div class="option"><span class="opt-letter">D.</span> 2508 cars</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 250 cars
+r = 8% = 0.08
+Time from January to April is 3 months (Feb=1, Mar=2, Apr=3). So, t = 3.</div>
+    <div class="step-exp">The initial sales in January are 250 cars. The monthly growth rate is 8%, which is 0.08 as a decimal. Counting from January (month 0), April is the 3rd month of growth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 250(1 + 0.08)^3</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.08 = 1.08</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.08^3 = 1.08 <em> 1.08 </em> 1.08 = 1.259712</div>
+    <div class="step-exp">Multiply the growth factor by itself 3 times for 3 months.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">A = 250 * 1.259712 = 314.928</div>
+    <div class="step-exp">Multiply the initial sales by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">314.928 rounded to the nearest whole car is 315.</div>
+    <div class="step-exp">Since you cannot sell a fraction of a car, round the result to the nearest whole number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 315 cars (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker starts with 10 grams of yeast. If the yeast grows at a rate of 15% per hour, how many grams of yeast will there be after 2 hours? Round to two decimal places.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 11.50 grams</div><div class="option"><span class="opt-letter">B.</span> 10.15 grams</div><div class="option"><span class="opt-letter">C.</span> 13.23 grams</div><div class="option"><span class="opt-letter">D.</span> 13.00 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 10 grams
+r = 15% = 0.15
+t = 2 hours</div>
+    <div class="step-exp">The initial amount of yeast is 10 grams. The hourly growth rate is 15%, which is 0.15 as a decimal. The growth period is 2 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A = 10(1 + 0.15)^2</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.15 = 1.15</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.15^2 = 1.15 * 1.15 = 1.3225</div>
+    <div class="step-exp">Multiply the growth factor by itself 2 times for 2 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">A = 10 * 1.3225 = 13.225</div>
+    <div class="step-exp">Multiply the initial amount of yeast by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">13.225 rounded to two decimal places is 13.23.</div>
+    <div class="step-exp">Round the result to the nearest hundredth as requested.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13.23 grams (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A rabbit population in a nature reserve starts with 30 rabbits. If the population increases by 20% every 6 months, how many rabbits will there be after 2 years? Round to the nearest whole rabbit.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 54 rabbits</div><div class="option"><span class="opt-letter">B.</span> 62 rabbits</div><div class="option"><span class="opt-letter">C.</span> 75 rabbits</div><div class="option"><span class="opt-letter">D.</span> 43 rabbits</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 30 rabbits
+r = 20% = 0.20</div>
+    <div class="step-exp">The initial rabbit population is 30. The growth rate every 6 months is 20%, which is 0.20 as a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The growth occurs every 6 months.
+2 years = 2 * 12 months = 24 months
+Number of periods (t) = 24 months / 6 months/period = 4 periods</div>
+    <div class="step-exp">Since the growth rate is given for every 6 months, we need to convert 2 years into 6-month periods. 2 years is 24 months, so there are 4 such periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">A = 30(1 + 0.20)^4</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.20 = 1.20</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1.20^4 = 1.20 <em> 1.20 </em> 1.20 * 1.20 = 2.0736</div>
+    <div class="step-exp">Multiply the growth factor by itself 4 times for 4 periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">A = 30 * 2.0736 = 62.208</div>
+    <div class="step-exp">Multiply the initial population by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">62.208 rounded to the nearest whole rabbit is 62.</div>
+    <div class="step-exp">Round the result to the nearest whole number as requested.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 62 rabbits (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The cost of a specific construction material is currently $2,000 per ton. Due to increased demand, the cost is expected to rise by 7% every 3 months. What will be the cost per ton after 1 year? Round to two decimal places.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $2007.00</div><div class="option"><span class="opt-letter">B.</span> $2560.00</div><div class="option"><span class="opt-letter">C.</span> $2621.59</div><div class="option"><span class="opt-letter">D.</span> $2289.80</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = $2000
+r = 7% = 0.07</div>
+    <div class="step-exp">The initial cost per ton is $2,000. The growth rate every 3 months is 7%, which is 0.07 as a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The growth occurs every 3 months.
+1 year = 12 months
+Number of periods (t) = 12 months / 3 months/period = 4 periods</div>
+    <div class="step-exp">Since the cost rises every 3 months, we need to convert 1 year into 3-month periods. 1 year is 12 months, so there are 4 such periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">A = 2000(1 + 0.07)^4</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.07 = 1.07</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1.07^4 = 1.07 <em> 1.07 </em> 1.07 * 1.07 = 1.31079601</div>
+    <div class="step-exp">Multiply the growth factor by itself 4 times for 4 periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">A = 2000 * 1.31079601 = 2621.59202</div>
+    <div class="step-exp">Multiply the initial cost by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">2621.59202 rounded to two decimal places is $2621.59.</div>
+    <div class="step-exp">Round the result to the nearest hundredth as requested, since it represents currency.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $2621.59 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school chess club has 25 members. They increase their membership by 12% every semester. If there are two semesters in a school year, how many members will the club have after 1.5 school years? Round to the nearest whole member.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 34 members</div><div class="option"><span class="opt-letter">B.</span> 28 members</div><div class="option"><span class="opt-letter">C.</span> 38 members</div><div class="option"><span class="opt-letter">D.</span> 35 members</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P = 25 members
+r = 12% = 0.12</div>
+    <div class="step-exp">The initial chess club membership is 25. The growth rate every semester is 12%, which is 0.12 as a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Growth occurs every semester.
+1.5 school years = 1.5 * 2 semesters/year = 3 semesters
+Number of periods (t) = 3</div>
+    <div class="step-exp">Since there are two semesters in a school year, 1.5 school years equate to 1.5 * 2 = 3 semesters. So, there are 3 growth periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">A = 25(1 + 0.12)^3</div>
+    <div class="step-exp">Substitute the identified values into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.12 = 1.12</div>
+    <div class="step-exp">Add the growth rate to 1 to find the growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1.12^3 = 1.12 <em> 1.12 </em> 1.12 = 1.404928</div>
+    <div class="step-exp">Multiply the growth factor by itself 3 times for 3 semesters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">A = 25 * 1.404928 = 35.1232</div>
+    <div class="step-exp">Multiply the initial membership by the calculated growth factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">35.1232 rounded to the nearest whole member is 35.</div>
+    <div class="step-exp">Round the result to the nearest whole number as requested.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 35 members (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

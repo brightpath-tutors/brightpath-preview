@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Equivalent Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.039<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Equivalent Expressions</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.039</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker uses 3x + 5 grams of sugar for a cake and x + 2 grams of sugar for cookies. Which expression represents the total amount of sugar used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4x + 5</div><div class="option"><span class="opt-letter">B.</span> 4x + 7</div><div class="option"><span class="opt-letter">C.</span> 3x + 10</div><div class="option"><span class="opt-letter">D.</span> 3x + 7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cake sugar: 3x + 5, Cookie sugar: x + 2</div>
+    <div class="step-exp">The problem provides the amount of sugar for each item as algebraic expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(3x + 5) + (x + 2)</div>
+    <div class="step-exp">To find the total amount, we need to sum the expressions for sugar used in the cake and cookies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(3x + x) + (5 + 2) = 4x + 7</div>
+    <div class="step-exp">Combine the &#x27;x&#x27; terms and the constant terms separately. 3x + x = 4x, and 5 + 2 = 7.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4x + 7 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store offers a discount on a shirt. The original price is represented by 50 - 2y dollars, and the discount is 10 + y dollars. Which expression represents the final price of the shirt after the discount?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 60 - y</div><div class="option"><span class="opt-letter">B.</span> 40 - y</div><div class="option"><span class="opt-letter">C.</span> 60 - 3y</div><div class="option"><span class="opt-letter">D.</span> 40 - 3y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original price: 50 - 2y, Discount: 10 + y</div>
+    <div class="step-exp">The problem provides the original price and the discount as algebraic expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(50 - 2y) - (10 + y)</div>
+    <div class="step-exp">To find the final price after a discount, subtract the discount amount from the original price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">50 - 2y - 10 - y</div>
+    <div class="step-exp">When subtracting an expression, remember to change the sign of each term within the subtracted parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(50 - 10) + (-2y - y) = 40 - 3y</div>
+    <div class="step-exp">Combine the constant terms and the &#x27;y&#x27; terms separately. 50 - 10 = 40, and -2y - y = -3y.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 40 - 3y (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef prepares a recipe that requires (4w - 7) ounces of chicken. They decide to double the recipe. Which expression represents the total amount of chicken needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4w - 14</div><div class="option"><span class="opt-letter">B.</span> 8w - 7</div><div class="option"><span class="opt-letter">C.</span> 6w - 9</div><div class="option"><span class="opt-letter">D.</span> 8w - 14</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Chicken needed: 4w - 7</div>
+    <div class="step-exp">The problem provides the amount of chicken for one recipe as an algebraic expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2 * (4w - 7)</div>
+    <div class="step-exp">To double the recipe, multiply the entire expression by 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 <em> 4w - 2 </em> 7 = 8w - 14</div>
+    <div class="step-exp">Apply the distributive property: multiply 2 by 4w and 2 by -7.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8w - 14 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An athlete&#x27;s training schedule involves running (6t + 8) miles per week. Due to injury, they reduce their training by (2t + 3) miles per week. Which expression represents the new weekly training distance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4t + 5</div><div class="option"><span class="opt-letter">B.</span> 8t + 11</div><div class="option"><span class="opt-letter">C.</span> 4t + 11</div><div class="option"><span class="opt-letter">D.</span> 8t + 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original distance: 6t + 8, Reduction: 2t + 3</div>
+    <div class="step-exp">The problem provides the original training distance and the reduction as algebraic expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(6t + 8) - (2t + 3)</div>
+    <div class="step-exp">To find the new distance after a reduction, subtract the reduction amount from the original distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6t + 8 - 2t - 3</div>
+    <div class="step-exp">When subtracting an expression, remember to change the sign of each term within the subtracted parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(6t - 2t) + (8 - 3) = 4t + 5</div>
+    <div class="step-exp">Combine the &#x27;t&#x27; terms and the constant terms separately. 6t - 2t = 4t, and 8 - 3 = 5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4t + 5 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student has (2k - 4) pencils. They receive another (k + 9) pencils. Which expression represents the total number of pencils the student has?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3k + 13</div><div class="option"><span class="opt-letter">B.</span> 2k + 5</div><div class="option"><span class="opt-letter">C.</span> 3k + 5</div><div class="option"><span class="opt-letter">D.</span> 2k + 13</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial pencils: 2k - 4, Received pencils: k + 9</div>
+    <div class="step-exp">The problem provides the number of pencils in two scenarios as algebraic expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(2k - 4) + (k + 9)</div>
+    <div class="step-exp">To find the total, sum the initial number of pencils and the number of pencils received.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(2k + k) + (-4 + 9) = 3k + 5</div>
+    <div class="step-exp">Combine the &#x27;k&#x27; terms and the constant terms separately. 2k + k = 3k, and -4 + 9 = 5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3k + 5 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes (5p + 12) bacteria in a petri dish. After an experiment, the number of bacteria decreases by (2p + 5). Which expression represents the remaining number of bacteria?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7p + 7</div><div class="option"><span class="opt-letter">B.</span> 3p + 7</div><div class="option"><span class="opt-letter">C.</span> 7p + 17</div><div class="option"><span class="opt-letter">D.</span> 3p + 17</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial bacteria: 5p + 12, Decrease: 2p + 5</div>
+    <div class="step-exp">The problem provides the initial number of bacteria and the decrease as algebraic expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(5p + 12) - (2p + 5)</div>
+    <div class="step-exp">To find the remaining number, subtract the decrease from the initial amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5p + 12 - 2p - 5</div>
+    <div class="step-exp">When subtracting an expression, remember to change the sign of each term within the subtracted parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(5p - 2p) + (12 - 5) = 3p + 7</div>
+    <div class="step-exp">Combine the &#x27;p&#x27; terms and the constant terms separately. 5p - 2p = 3p, and 12 - 5 = 7.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3p + 7 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker uses (7h + 10) feet of wire. They cut off a piece that is (3h + 2) feet long. Which expression represents the length of the remaining wire?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10h + 12</div><div class="option"><span class="opt-letter">B.</span> 4h + 8</div><div class="option"><span class="opt-letter">C.</span> 10h + 8</div><div class="option"><span class="opt-letter">D.</span> 4h + 12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total wire: 7h + 10, Cut off: 3h + 2</div>
+    <div class="step-exp">The problem provides the lengths of wire in two scenarios as algebraic expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(7h + 10) - (3h + 2)</div>
+    <div class="step-exp">To find the remaining length, subtract the length cut off from the total length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">7h + 10 - 3h - 2</div>
+    <div class="step-exp">When subtracting an expression, remember to change the sign of each term within the subtracted parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(7h - 3h) + (10 - 2) = 4h + 8</div>
+    <div class="step-exp">Combine the &#x27;h&#x27; terms and the constant terms separately. 7h - 3h = 4h, and 10 - 2 = 8.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4h + 8 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A traveler estimates their driving time to be (15m + 25) minutes. If they encounter traffic that adds 1/3 of their estimated time, which expression represents the new total driving time?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20m + 50</div><div class="option"><span class="opt-letter">B.</span> 20m + 33.33</div><div class="option"><span class="opt-letter">C.</span> 15m + 33.33</div><div class="option"><span class="opt-letter">D.</span> 20m + 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Estimated time: 15m + 25</div>
+    <div class="step-exp">The problem provides the estimated driving time as an algebraic expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Additional time = (1/3) * (15m + 25) = 5m + 25/3</div>
+    <div class="step-exp">Multiply the estimated time by 1/3 to find the additional time. Distribute 1/3 to both terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(15m + 25) + (5m + 25/3)</div>
+    <div class="step-exp">The new total driving time is the sum of the estimated time and the additional traffic time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(15m + 5m) + (25 + 25/3) = 20m + 75/3 + 25/3 = 20m + 100/3</div>
+    <div class="step-exp">Combine the &#x27;m&#x27; terms and the constant terms. Convert 25 to 75/3 to add fractions. 100/3 is approximately 33.33.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20m + 33.33 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population is currently (10000 + 150y) people. Due to urban development, the population is projected to increase by 20% over the next year. Which expression represents the new projected population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12000 + 180y</div><div class="option"><span class="opt-letter">B.</span> 12000 + 30y</div><div class="option"><span class="opt-letter">C.</span> 12000 + 150y</div><div class="option"><span class="opt-letter">D.</span> 10000 + 180y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current population: 10000 + 150y</div>
+    <div class="step-exp">The problem provides the current population as an algebraic expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Increase = 0.20 * (10000 + 150y) = 2000 + 30y</div>
+    <div class="step-exp">Multiply the current population expression by 0.20 (20%) to find the increase. Distribute 0.20 to both terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(10000 + 150y) + (2000 + 30y)</div>
+    <div class="step-exp">The new projected population is the sum of the current population and the increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(10000 + 2000) + (150y + 30y) = 12000 + 180y</div>
+    <div class="step-exp">Combine the constant terms and the &#x27;y&#x27; terms separately. 10000 + 2000 = 12000, and 150y + 30y = 180y.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12000 + 180y (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company produces (250z + 500) computer chips each day. If 1/5 of the chips produced are defective and recycled, which expression represents the number of non-defective chips produced daily?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 250z + 400</div><div class="option"><span class="opt-letter">B.</span> 200z + 400</div><div class="option"><span class="opt-letter">C.</span> 200z + 600</div><div class="option"><span class="opt-letter">D.</span> 300z + 600</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total chips: 250z + 500</div>
+    <div class="step-exp">The problem provides the total number of chips as an algebraic expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Defective chips = (1/5) * (250z + 500) = 50z + 100</div>
+    <div class="step-exp">Multiply the total chips by 1/5 to find the number of defective chips. Distribute 1/5 to both terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(250z + 500) - (50z + 100)</div>
+    <div class="step-exp">The number of non-defective chips is the total chips minus the defective chips.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">250z + 500 - 50z - 100</div>
+    <div class="step-exp">When subtracting an expression, remember to change the sign of each term within the subtracted parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">(250z - 50z) + (500 - 100) = 200z + 400</div>
+    <div class="step-exp">Combine the &#x27;z&#x27; terms and the constant terms separately. 250z - 50z = 200z, and 500 - 100 = 400.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 200z + 400 (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

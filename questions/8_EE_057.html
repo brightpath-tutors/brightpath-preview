@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Slope-Intercept Form</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.057<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Slope-Intercept Form</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.057</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clothing store charges a base fee for custom t-shirts plus a cost per shirt. The total cost, y, for x shirts is given by the equation y = 8x + 25. What is the base fee charged by the store?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $8</div><div class="option"><span class="opt-letter">B.</span> $17</div><div class="option"><span class="opt-letter">C.</span> $33</div><div class="option"><span class="opt-letter">D.</span> $25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The slope-intercept form of a linear equation is y = mx + b, where &#x27;m&#x27; is the slope (rate of change) and &#x27;b&#x27; is the y-intercept (initial value).</div>
+    <div class="step-exp">In real-world contexts, the y-intercept often represents an initial or fixed value, while the slope represents a rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given equation: y = 8x + 25
+Comparing to y = mx + b, we have m = 8 and b = 25.</div>
+    <div class="step-exp">Here, &#x27;m&#x27; (8) represents the cost per shirt, and &#x27;b&#x27; (25) represents the fixed base fee.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The base fee is the initial cost when no shirts are produced (x=0), which corresponds to the y-intercept.</div>
+    <div class="step-exp">Therefore, the base fee charged by the store is $25.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $25 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner&#x27;s distance in miles, y, after x hours is modeled by the equation y = 7.5x + 0.5, where 0.5 represents a head start due to a staggered race start. What is the runner&#x27;s speed in miles per hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7 miles per hour</div><div class="option"><span class="opt-letter">B.</span> 8 miles per hour</div><div class="option"><span class="opt-letter">C.</span> 7.5 miles per hour</div><div class="option"><span class="opt-letter">D.</span> 0.5 miles per hour</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The slope-intercept form of a linear equation is y = mx + b, where &#x27;m&#x27; is the slope (rate of change) and &#x27;b&#x27; is the y-intercept (initial value).</div>
+    <div class="step-exp">In this context, the speed is a rate, which corresponds to the slope.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given equation: y = 7.5x + 0.5
+Comparing to y = mx + b, we have m = 7.5 and b = 0.5.</div>
+    <div class="step-exp">Here, &#x27;m&#x27; (7.5) represents the runner&#x27;s speed, and &#x27;b&#x27; (0.5) represents the head start.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The runner&#x27;s speed is the rate at which distance changes over time, which corresponds to the slope.</div>
+    <div class="step-exp">Therefore, the runner&#x27;s speed is 7.5 miles per hour.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7.5 miles per hour (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature, y, of an oven in degrees Fahrenheit after x minutes of preheating is given by the equation y = 15x + 70. What is the initial temperature of the oven (before preheating starts)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 degrees Fahrenheit</div><div class="option"><span class="opt-letter">B.</span> 70 degrees Fahrenheit</div><div class="option"><span class="opt-letter">C.</span> 85 degrees Fahrenheit</div><div class="option"><span class="opt-letter">D.</span> 55 degrees Fahrenheit</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The slope-intercept form of a linear equation is y = mx + b, where &#x27;m&#x27; is the slope (rate of change) and &#x27;b&#x27; is the y-intercept (initial value).</div>
+    <div class="step-exp">The initial temperature is the temperature at time x = 0, which is the y-intercept.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Given equation: y = 15x + 70
+Comparing to y = mx + b, we have m = 15 and b = 70.</div>
+    <div class="step-exp">Here, &#x27;m&#x27; (15) represents the rate of temperature increase per minute, and &#x27;b&#x27; (70) represents the initial temperature.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The initial temperature is the y-intercept.</div>
+    <div class="step-exp">Therefore, the initial temperature of the oven is 70 degrees Fahrenheit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 70 degrees Fahrenheit (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a constant speed. After 1 hour, it has traveled 60 miles. After 3 hours, it has traveled 180 miles. Write an equation in slope-intercept form (y = mx + b) to represent the distance traveled, y, after x hours.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 60x</div><div class="option"><span class="opt-letter">B.</span> y = 60x + 1</div><div class="option"><span class="opt-letter">C.</span> y = 120x</div><div class="option"><span class="opt-letter">D.</span> y = 60x + 60</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (x1, y1) = (1 hour, 60 miles)
+Point 2: (x2, y2) = (3 hours, 180 miles)</div>
+    <div class="step-exp">Each pair of (time, distance) forms a coordinate pair.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (y2 - y1) / (x2 - x1)
+m = (180 - 60) / (3 - 1)
+m = 120 / 2
+m = 60</div>
+    <div class="step-exp">The slope represents the speed of the car in miles per hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using point (1, 60) and m = 60 in y = mx + b:
+60 = 60(1) + b
+60 = 60 + b
+b = 60 - 60
+b = 0</div>
+    <div class="step-exp">The y-intercept represents the initial distance when x=0 hours. A &#x27;b&#x27; of 0 means the car started at 0 miles at 0 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">With m = 60 and b = 0, the equation is y = 60x + 0.</div>
+    <div class="step-exp">This simplifies to y = 60x.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 60x (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student starts a fundraiser with 15 flyers already distributed. They plan to distribute 10 new flyers each day. Write an equation in slope-intercept form (y = mx + b) showing the total number of flyers, y, after x days.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 10x + 15</div><div class="option"><span class="opt-letter">B.</span> y = 15x + 10</div><div class="option"><span class="opt-letter">C.</span> y = 25x</div><div class="option"><span class="opt-letter">D.</span> y = 10x - 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The student distributes 10 new flyers each day. This is the rate of change.</div>
+    <div class="step-exp">So, m = 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The student starts with 15 flyers already distributed. This is the initial number of flyers at day 0.</div>
+    <div class="step-exp">So, b = 15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 10 and b = 15 into y = mx + b.</div>
+    <div class="step-exp">The equation is y = 10x + 15.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 10x + 15 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is tracking the growth of a plant. On day 2, the plant is 8 cm tall. On day 5, it is 17 cm tall. Assuming linear growth, write an equation in slope-intercept form (y = mx + b) that models the plant&#x27;s height, y, after x days.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 3x + 8</div><div class="option"><span class="opt-letter">B.</span> y = 3x + 17</div><div class="option"><span class="opt-letter">C.</span> y = 3x + 2</div><div class="option"><span class="opt-letter">D.</span> y = 1/3x + 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (x1, y1) = (2 days, 8 cm)
+Point 2: (x2, y2) = (5 days, 17 cm)</div>
+    <div class="step-exp">Each pair of (day, height) forms a coordinate pair.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (y2 - y1) / (x2 - x1)
+m = (17 - 8) / (5 - 2)
+m = 9 / 3
+m = 3</div>
+    <div class="step-exp">The slope represents the plant&#x27;s growth rate in cm per day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using point (2, 8) and m = 3 in y = mx + b:
+8 = 3(2) + b
+8 = 6 + b
+b = 8 - 6
+b = 2</div>
+    <div class="step-exp">The y-intercept represents the initial height of the plant at day 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">With m = 3 and b = 2, the equation is y = 3x + 2.</div>
+    <div class="step-exp">This equation models the plant&#x27;s height over time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 3x + 2 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker is laying bricks. They start with 50 bricks laid. Each hour, they lay 75 more bricks. Write an equation in slope-intercept form (y = mx + b) to represent the total number of bricks laid, y, after x hours.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 75x - 50</div><div class="option"><span class="opt-letter">B.</span> y = 50x + 75</div><div class="option"><span class="opt-letter">C.</span> y = 75x + 50</div><div class="option"><span class="opt-letter">D.</span> y = 125x</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The worker lays 75 more bricks each hour. This is the rate of change.</div>
+    <div class="step-exp">So, m = 75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The worker starts with 50 bricks laid. This is the initial number of bricks at hour 0.</div>
+    <div class="step-exp">So, b = 50.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 75 and b = 50 into y = mx + b.</div>
+    <div class="step-exp">The equation is y = 75x + 50.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 75x + 50 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital clock displays time in minutes. A timer is set for a certain duration. After 5 minutes have passed, there are 115 minutes remaining. After 15 minutes have passed, there are 85 minutes remaining. Write an equation in slope-intercept form (y = mx + b) to represent the minutes remaining, y, after x minutes have passed.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = -3x + 130</div><div class="option"><span class="opt-letter">B.</span> y = -3x + 115</div><div class="option"><span class="opt-letter">C.</span> y = 3x + 130</div><div class="option"><span class="opt-letter">D.</span> y = 3x + 100</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (x1, y1) = (5 minutes passed, 115 minutes remaining)
+Point 2: (x2, y2) = (15 minutes passed, 85 minutes remaining)</div>
+    <div class="step-exp">Each pair of (minutes passed, minutes remaining) forms a coordinate pair.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (y2 - y1) / (x2 - x1)
+m = (85 - 115) / (15 - 5)
+m = -30 / 10
+m = -3</div>
+    <div class="step-exp">The slope represents the rate at which minutes remaining decrease per minute passed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using point (5, 115) and m = -3 in y = mx + b:
+115 = -3(5) + b
+115 = -15 + b
+b = 115 + 15
+b = 130</div>
+    <div class="step-exp">The y-intercept represents the initial total duration of the timer when 0 minutes have passed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">With m = -3 and b = 130, the equation is y = -3x + 130.</div>
+    <div class="step-exp">This equation models the minutes remaining on the timer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = -3x + 130 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town has been decreasing linearly. In 2010 (x=0), the population was 4,500. By 2018 (x=8), the population had dropped to 3,700. Write an equation in slope-intercept form (y = mx + b) to model the town&#x27;s population, y, x years after 2010.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 100x + 4500</div><div class="option"><span class="opt-letter">B.</span> y = -100x + 3700</div><div class="option"><span class="opt-letter">C.</span> y = -800x + 4500</div><div class="option"><span class="opt-letter">D.</span> y = -100x + 4500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (x1, y1) = (0 years, 4500 population)
+Point 2: (x2, y2) = (8 years, 3700 population)</div>
+    <div class="step-exp">The year 2010 is defined as x=0, which directly gives the y-intercept. 2018 is 8 years after 2010.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (y2 - y1) / (x2 - x1)
+m = (3700 - 4500) / (8 - 0)
+m = -800 / 8
+m = -100</div>
+    <div class="step-exp">The slope represents the rate of population decrease per year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since x=0 corresponds to the year 2010, the population at x=0 is the y-intercept.</div>
+    <div class="step-exp">So, b = 4500.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">With m = -100 and b = 4500, the equation is y = -100x + 4500.</div>
+    <div class="step-exp">This equation models the town&#x27;s population over time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = -100x + 4500 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company manufactures computer chips. The cost to produce 100 chips is $2,500. The cost to produce 300 chips is $6,500. Assuming the relationship between cost and chips produced is linear, write an equation in slope-intercept form (y = mx + b) representing the total cost, y, to produce x chips.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 20x - 500</div><div class="option"><span class="opt-letter">B.</span> y = 20x + 2500</div><div class="option"><span class="opt-letter">C.</span> y = 20x + 500</div><div class="option"><span class="opt-letter">D.</span> y = 40x - 1500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (x1, y1) = (100 chips, $2500)
+Point 2: (x2, y2) = (300 chips, $6500)</div>
+    <div class="step-exp">Each pair of (number of chips, cost) forms a coordinate pair.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (y2 - y1) / (x2 - x1)
+m = (6500 - 2500) / (300 - 100)
+m = 4000 / 200
+m = 20</div>
+    <div class="step-exp">The slope represents the cost per chip produced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using point (100, 2500) and m = 20 in y = mx + b:
+2500 = 20(100) + b
+2500 = 2000 + b
+b = 2500 - 2000
+b = 500</div>
+    <div class="step-exp">The y-intercept represents the fixed cost of production (e.g., overhead, equipment) when 0 chips are produced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">With m = 20 and b = 500, the equation is y = 20x + 500.</div>
+    <div class="step-exp">This equation models the total cost to produce x chips.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 20x + 500 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

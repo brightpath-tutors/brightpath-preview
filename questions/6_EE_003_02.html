@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Writing Algebraic Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.003.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Writing Algebraic Expressions</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.003.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A candy bar costs $2. If Sarah buys &#x27;x&#x27; candy bars, which expression represents the total cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2x</div><div class="option"><span class="opt-letter">B.</span> x</div><div class="option"><span class="opt-letter">C.</span> x + 2</div><div class="option"><span class="opt-letter">D.</span> 2 - x</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost per candy bar = $2</div>
+    <div class="step-exp">Identify the unit cost of one candy bar.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of candy bars = x</div>
+    <div class="step-exp">Identify the variable representing the number of candy bars bought.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = (Cost per candy bar) × (Number of candy bars)</div>
+    <div class="step-exp">To find the total cost, multiply the cost of one item by the number of items.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = 2 × x = 2x</div>
+    <div class="step-exp">Substitute the identified values into the formula to form the algebraic expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2x (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball player scores 3 points for each basket. If they make &#x27;b&#x27; baskets, what is the total number of points scored?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> b + 3</div><div class="option"><span class="opt-letter">B.</span> b</div><div class="option"><span class="opt-letter">C.</span> 3b</div><div class="option"><span class="opt-letter">D.</span> b / 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points per basket = 3</div>
+    <div class="step-exp">Identify the number of points scored for each basket.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of baskets = b</div>
+    <div class="step-exp">Identify the variable representing the number of baskets made.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total points = (Points per basket) × (Number of baskets)</div>
+    <div class="step-exp">To find the total points, multiply the points per basket by the number of baskets.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total points = 3 × b = 3b</div>
+    <div class="step-exp">Substitute the identified values into the formula to form the algebraic expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3b (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 4 cups of sugar. If a chef wants to make &#x27;r&#x27; times the recipe, how many cups of sugar will be needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> r / 4</div><div class="option"><span class="opt-letter">B.</span> r - 4</div><div class="option"><span class="opt-letter">C.</span> 4r</div><div class="option"><span class="opt-letter">D.</span> 4 + r</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial sugar amount = 4 cups</div>
+    <div class="step-exp">Identify the amount of sugar required for one recipe.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Scaling factor = r</div>
+    <div class="step-exp">Identify the variable representing how many times the recipe will be made.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total sugar = (Initial sugar amount) × (Scaling factor)</div>
+    <div class="step-exp">To find the total sugar, multiply the initial amount by the scaling factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total sugar = 4 × r = 4r</div>
+    <div class="step-exp">Substitute the identified values into the formula to form the algebraic expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4r (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A train travels at a constant speed of 80 miles per hour. Which expression represents the distance the train travels in &#x27;h&#x27; hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> h / 80</div><div class="option"><span class="opt-letter">B.</span> 80h</div><div class="option"><span class="opt-letter">C.</span> 80 + h</div><div class="option"><span class="opt-letter">D.</span> h - 80</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Speed = 80 miles per hour</div>
+    <div class="step-exp">Identify the speed at which the train is traveling.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time = h hours</div>
+    <div class="step-exp">Identify the variable representing the number of hours the train travels.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Formula: Distance = Speed × Time</div>
+    <div class="step-exp">Recall the formula to calculate distance when speed and time are known.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Distance = 80 × h = 80h</div>
+    <div class="step-exp">Substitute the given values into the distance formula to form the algebraic expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 80h (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher divides students into &#x27;g&#x27; groups of 5 students each. If there are 2 students left over, which expression represents the total number of students?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> g + 7</div><div class="option"><span class="opt-letter">B.</span> 5g - 2</div><div class="option"><span class="opt-letter">C.</span> 5g</div><div class="option"><span class="opt-letter">D.</span> 5g + 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Students per group = 5</div>
+    <div class="step-exp">Identify the number of students in each group.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of groups = g</div>
+    <div class="step-exp">Identify the variable representing the number of groups.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Students in groups = 5 × g = 5g</div>
+    <div class="step-exp">Multiply the number of students per group by the number of groups to find the total students in groups.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Leftover students = 2</div>
+    <div class="step-exp">Identify the number of students remaining after forming groups.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total students = Students in groups + Leftover students = 5g + 2</div>
+    <div class="step-exp">Add the students in groups and the leftover students to find the total number of students.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5g + 2 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a lab starts at 15 degrees Celsius and decreases by 3 degrees every &#x27;t&#x27; hours. Which expression represents the temperature after &#x27;t&#x27; hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 + 3t</div><div class="option"><span class="opt-letter">B.</span> 3t - 15</div><div class="option"><span class="opt-letter">C.</span> 15 - 3t</div><div class="option"><span class="opt-letter">D.</span> 15 - t</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial temperature = 15 degrees Celsius</div>
+    <div class="step-exp">Identify the starting temperature in the lab.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Decrease rate = 3 degrees per hour</div>
+    <div class="step-exp">Identify how much the temperature decreases each hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Time passed = t hours</div>
+    <div class="step-exp">Identify the variable representing the number of hours that have passed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total decrease = Decrease rate × Time passed = 3 × t = 3t</div>
+    <div class="step-exp">Multiply the decrease rate by the time passed to find the total amount the temperature has decreased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Final temperature = Initial temperature - Total decrease = 15 - 3t</div>
+    <div class="step-exp">Subtract the total decrease from the initial temperature to find the final temperature expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 - 3t (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter needs to cut &#x27;w&#x27; pieces of wood, each 7 inches long. He also needs a single piece 12 inches long for a brace. Which expression represents the total length of wood needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 19w</div><div class="option"><span class="opt-letter">B.</span> 7w - 12</div><div class="option"><span class="opt-letter">C.</span> 7w</div><div class="option"><span class="opt-letter">D.</span> 7w + 12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Length of each small piece = 7 inches</div>
+    <div class="step-exp">Identify the length of each individual piece of wood to be cut.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of small pieces = w</div>
+    <div class="step-exp">Identify the variable representing the number of small pieces needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total length of small pieces = 7 × w = 7w</div>
+    <div class="step-exp">Multiply the length of one small piece by the number of small pieces to get their combined length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Length of brace = 12 inches</div>
+    <div class="step-exp">Identify the length of the additional piece needed for the brace.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total length of wood = Total length of small pieces + Length of brace = 7w + 12</div>
+    <div class="step-exp">Add the total length of the small pieces to the length of the brace to find the overall total length of wood required.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7w + 12 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An hour has 60 minutes. If &#x27;m&#x27; minutes have already passed, which expression represents the number of minutes remaining in the hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> m - 60</div><div class="option"><span class="opt-letter">B.</span> 60 - m</div><div class="option"><span class="opt-letter">C.</span> 60 / m</div><div class="option"><span class="opt-letter">D.</span> 60 + m</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total minutes in an hour = 60</div>
+    <div class="step-exp">Identify the total number of minutes in a full hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Minutes already passed = m</div>
+    <div class="step-exp">Identify the variable representing the number of minutes that have already elapsed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Remaining minutes = Total minutes - Minutes already passed</div>
+    <div class="step-exp">To find the remaining minutes, subtract the minutes passed from the total minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Remaining minutes = 60 - m</div>
+    <div class="step-exp">Substitute the identified values into the formula to form the algebraic expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 - m (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town has an initial population of 1000 people. If the population increases by 50 people each year for &#x27;y&#x27; years, which expression represents the town&#x27;s population after &#x27;y&#x27; years?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1050 + y</div><div class="option"><span class="opt-letter">B.</span> 1000 × 50y</div><div class="option"><span class="opt-letter">C.</span> 1000 + y</div><div class="option"><span class="opt-letter">D.</span> 1000 + 50y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population = 1000 people</div>
+    <div class="step-exp">Identify the starting population of the town.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Annual increase = 50 people per year</div>
+    <div class="step-exp">Identify the amount the population increases by each year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Number of years = y</div>
+    <div class="step-exp">Identify the variable representing the number of years the increase occurs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total increase = Annual increase × Number of years = 50 × y = 50y</div>
+    <div class="step-exp">Multiply the annual increase by the number of years to find the total population increase over &#x27;y&#x27; years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Final population = Initial population + Total increase = 1000 + 50y</div>
+    <div class="step-exp">Add the total increase to the initial population to find the expression for the town&#x27;s population after &#x27;y&#x27; years.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1000 + 50y (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A mobile plan has a fixed monthly cost of $25. Any additional data used costs $3 per gigabyte. If a user uses &#x27;d&#x27; additional gigabytes, which expression represents the total monthly cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 × 3d</div><div class="option"><span class="opt-letter">B.</span> 25 + d</div><div class="option"><span class="opt-letter">C.</span> 25 + 3d</div><div class="option"><span class="opt-letter">D.</span> 28 + d</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fixed monthly cost = $25</div>
+    <div class="step-exp">Identify the base cost of the mobile plan.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cost per additional gigabyte = $3</div>
+    <div class="step-exp">Identify the rate charged for each extra gigabyte of data.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Additional gigabytes used = d</div>
+    <div class="step-exp">Identify the variable representing the number of additional gigabytes used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Cost of additional data = Cost per additional gigabyte × Additional gigabytes used = 3 × d = 3d</div>
+    <div class="step-exp">Multiply the cost per additional gigabyte by the number of additional gigabytes to find the total cost for extra data.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total monthly cost = Fixed monthly cost + Cost of additional data = 25 + 3d</div>
+    <div class="step-exp">Add the fixed monthly cost to the cost of the additional data to get the total monthly cost expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 + 3d (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

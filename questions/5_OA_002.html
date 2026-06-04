@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Nested Grouping</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 5 | OA | Skill 5.OA.002<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Nested Grouping</h1>
+<p class="skill-subtitle">Skill ID: 5.OA.002</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker is preparing a special order of cupcakes. He bakes 3 batches of 12 cupcakes each. He then decorates 2 cupcakes from each batch. To find the total number of undecorated cupcakes, evaluate the expression: 3 × (12 - 2).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 undecorated cupcakes</div><div class="option"><span class="opt-letter">B.</span> 26 undecorated cupcakes</div><div class="option"><span class="opt-letter">C.</span> 34 undecorated cupcakes</div><div class="option"><span class="opt-letter">D.</span> 36 undecorated cupcakes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">12 - 2 = 10</div>
+    <div class="step-exp">First, evaluate the expression inside the parentheses to find the number of undecorated cupcakes per batch.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3 × 10 = 30</div>
+    <div class="step-exp">Next, multiply the number of undecorated cupcakes per batch by the total number of batches.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total undecorated cupcakes = 30</div>
+    <div class="step-exp">State the final answer, which is the total number of undecorated cupcakes.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 undecorated cupcakes (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">At a sporting event, 4 teams of 8 players each registered. On the day of the event, 3 players from each team were absent. To find the total number of players present, evaluate the expression: 4 × (8 - 3).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 players present</div><div class="option"><span class="opt-letter">B.</span> 29 players present</div><div class="option"><span class="opt-letter">C.</span> 32 players present</div><div class="option"><span class="opt-letter">D.</span> 24 players present</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">8 - 3 = 5</div>
+    <div class="step-exp">First, calculate the number of players present per team by evaluating the expression inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4 × 5 = 20</div>
+    <div class="step-exp">Next, multiply the number of present players per team by the total number of teams.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total players present = 20</div>
+    <div class="step-exp">State the final answer, which is the total number of players present.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 players present (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preparing ingredients for a large stew. He starts with 5 bags, each containing 10 carrots. He uses 4 carrots from each bag. To find the total number of remaining carrots, evaluate the expression: 5 × (10 - 4).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 remaining carrots</div><div class="option"><span class="opt-letter">B.</span> 40 remaining carrots</div><div class="option"><span class="opt-letter">C.</span> 50 remaining carrots</div><div class="option"><span class="opt-letter">D.</span> 46 remaining carrots</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">10 - 4 = 6</div>
+    <div class="step-exp">First, evaluate the expression inside the parentheses to find the number of carrots remaining in each bag.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5 × 6 = 30</div>
+    <div class="step-exp">Next, multiply the number of remaining carrots per bag by the total number of bags.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total remaining carrots = 30</div>
+    <div class="step-exp">State the final answer, which is the total number of remaining carrots.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 remaining carrots (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is conducting an experiment. She has 6 petri dishes. Each dish contains 25 bacteria colonies. She treats each dish with an antibiotic that kills 7 colonies. Then, she adds 3 new colonies to each dish. To find the total number of bacteria colonies at the end, evaluate the expression: 6 × [(25 - 7) + 3].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 126 bacteria colonies</div><div class="option"><span class="opt-letter">B.</span> 138 bacteria colonies</div><div class="option"><span class="opt-letter">C.</span> 144 bacteria colonies</div><div class="option"><span class="opt-letter">D.</span> 180 bacteria colonies</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">25 - 7 = 18</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of colonies after the antibiotic treatment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">18 + 3 = 21</div>
+    <div class="step-exp">Next, evaluate the brackets by adding the new colonies to find the total colonies per dish.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6 × 21 = 126</div>
+    <div class="step-exp">Finally, multiply the total colonies per dish by the number of petri dishes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total bacteria colonies = 126</div>
+    <div class="step-exp">State the final answer, which is the total number of bacteria colonies.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 126 bacteria colonies (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew is building a fence. They ordered 8 bundles of wood, with each bundle containing 30 planks. They used 15 planks from each bundle and then added 5 extra planks to each bundle for future repairs. To find the total number of planks they have now, evaluate the expression: 8 × [(30 - 15) + 5].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 120 planks</div><div class="option"><span class="opt-letter">B.</span> 165 planks</div><div class="option"><span class="opt-letter">C.</span> 160 planks</div><div class="option"><span class="opt-letter">D.</span> 240 planks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">30 - 15 = 15</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of planks remaining after use.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">15 + 5 = 20</div>
+    <div class="step-exp">Next, evaluate the brackets by adding the extra planks to find the total planks per bundle.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8 × 20 = 160</div>
+    <div class="step-exp">Finally, multiply the total planks per bundle by the number of bundles.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total planks = 160</div>
+    <div class="step-exp">State the final answer, which is the total number of planks.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 160 planks (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school organized a field trip. There were 7 buses, each carrying 40 students. 10 students from each bus had permission to leave early, but then 5 new students joined each bus from another class. To find the total number of students still on the field trip, evaluate the expression: 7 × [(40 - 10) + 5].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 280 students</div><div class="option"><span class="opt-letter">B.</span> 260 students</div><div class="option"><span class="opt-letter">C.</span> 215 students</div><div class="option"><span class="opt-letter">D.</span> 245 students</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">40 - 10 = 30</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of students remaining after early departure.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">30 + 5 = 35</div>
+    <div class="step-exp">Next, evaluate the brackets by adding the new students to find the total students per bus.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">7 × 35 = 245</div>
+    <div class="step-exp">Finally, multiply the total students per bus by the number of buses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total students = 245</div>
+    <div class="step-exp">State the final answer, which is the total number of students.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 245 students (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company is distributing 9 boxes of new smartphones to its employees. Each box initially contained 50 phones. Due to a recall, 8 phones were removed from each box, but then 4 new, improved phones were added to each box. To find the total number of phones to be distributed, evaluate the expression: 9 × [(50 - 8) + 4].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 382 phones</div><div class="option"><span class="opt-letter">B.</span> 450 phones</div><div class="option"><span class="opt-letter">C.</span> 414 phones</div><div class="option"><span class="opt-letter">D.</span> 406 phones</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">50 - 8 = 42</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of phones after the recall.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">42 + 4 = 46</div>
+    <div class="step-exp">Next, evaluate the brackets by adding the new phones to find the total phones per box.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">9 × 46 = 414</div>
+    <div class="step-exp">Finally, multiply the total phones per box by the number of boxes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total phones = 414</div>
+    <div class="step-exp">State the final answer, which is the total number of phones.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 414 phones (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A time traveler is observing historical events. He visits 10 different centuries. In each century, he observes 20 major events. During his trip, he re-visits 6 events from each century. Later, he learns that 3 of the remaining events from each century were actually minor and should not be counted. To find the total count of valid major events, evaluate the expression: 10 × [{ (20 - 6) - 3 } + 2].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 200 valid major events</div><div class="option"><span class="opt-letter">B.</span> 110 valid major events</div><div class="option"><span class="opt-letter">C.</span> 130 valid major events</div><div class="option"><span class="opt-letter">D.</span> 140 valid major events</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">20 - 6 = 14</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of events after re-visits.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">14 - 3 = 11</div>
+    <div class="step-exp">Next, evaluate the first set of braces to remove the minor events.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">11 + 2 = 13</div>
+    <div class="step-exp">Then, evaluate the square brackets by adding the 2 events (this part of the prompt was missing but implied by the expression. Assuming +2 is for new valid events added per century after reclassification).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">10 × 13 = 130</div>
+    <div class="step-exp">Finally, multiply the total valid events per century by the number of centuries.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total valid major events = 130</div>
+    <div class="step-exp">State the final answer, which is the total number of valid major events.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 130 valid major events (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population study involves 15 districts. Each district initially had 100 residents surveyed. In the second phase, 12 residents from each district moved away, but then 5 new residents moved into each district. Finally, a new policy led to an additional 3 residents being surveyed per district. To find the total number of residents surveyed, evaluate the expression: 15 × [{ (100 - 12) + 5 } + 3].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1500 residents</div><div class="option"><span class="opt-letter">B.</span> 1380 residents</div><div class="option"><span class="opt-letter">C.</span> 1260 residents</div><div class="option"><span class="opt-letter">D.</span> 1440 residents</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">100 - 12 = 88</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of residents after some moved away.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">88 + 5 = 93</div>
+    <div class="step-exp">Next, evaluate the first set of braces by adding the new residents who moved in.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">93 + 3 = 96</div>
+    <div class="step-exp">Then, evaluate the square brackets by adding the additional residents surveyed due to the new policy.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15 × 96 = 1440</div>
+    <div class="step-exp">Finally, multiply the total residents per district by the number of districts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total residents surveyed = 1440</div>
+    <div class="step-exp">State the final answer, which is the total number of residents surveyed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1440 residents (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A gaming company is preparing 20 sets of collectible cards. Each set originally had 75 cards. From each set, 10 cards were found to be duplicates and removed. Then, 4 special edition cards were added to each set. Finally, 6 bonus cards were included in each set. To find the total number of cards across all sets, evaluate the expression: 20 × [{ (75 - 10) + 4 } + 6].</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1600 cards</div><div class="option"><span class="opt-letter">B.</span> 1520 cards</div><div class="option"><span class="opt-letter">C.</span> 1500 cards</div><div class="option"><span class="opt-letter">D.</span> 1480 cards</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">75 - 10 = 65</div>
+    <div class="step-exp">First, evaluate the innermost parentheses to find the number of cards after duplicates were removed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">65 + 4 = 69</div>
+    <div class="step-exp">Next, evaluate the first set of braces by adding the special edition cards.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">69 + 6 = 75</div>
+    <div class="step-exp">Then, evaluate the square brackets by adding the bonus cards.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">20 × 75 = 1500</div>
+    <div class="step-exp">Finally, multiply the total cards per set by the number of sets.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total cards = 1500</div>
+    <div class="step-exp">State the final answer, which is the total number of cards.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1580 cards (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

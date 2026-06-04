@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: One-Step Multiplication Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | Expressions and Equations<br>76 atoms | Skill 6.EE.017.03<br></div>
+</div>
+<h1 class="skill-title">One-Step Multiplication Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.017.03 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can solve one-step multiplication equations by finding the unknown factor using the inverse operation of division.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">A One-Step Multiplication Equation is a mathematical statement where an unknown number is multiplied by a known number, and the entire expression is equal to a known product. Our goal is to discover that unknown number. For example, consider the equation <code>6 * ? = 48</code>. Here, 6 is a known factor, 48 is the product, and <code>?</code> represents the unknown factor we need to find. To solve this, we use the inverse operation: division. Multiplication and division are like two sides of the same coin – they undo each other. If multiplying 6 by <code>?</code> gives us 48, then dividing 48 by 6 will reveal what <code>?</code> must be. So, <code>48 / 6 = ?</code>, which means <code>? = 8</code>. This is similar to how a key unlocks a lock; division is the key that unlocks the value of the unknown in a multiplication equation. <span class="ph">[Student Name]</span>, once you understand this fundamental inverse relationship, solving these equations becomes much clearer. You&#x27;re simply performing the opposite action to find the missing piece, <span class="ph">[Student Name]</span>. This process is precise and always works.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content"><span class="ph">[Student Name]</span>, you’ve already got a strong foundation for understanding One-Step Multiplication Equations because of what you learned in 6.EE.017.02! Remember how you analyzed expressions like <code>5 <em> 7</code> and identified 5 and 7 as factors, and 35 as the product? You knew that 5 multiplied by 7 gives you 35. Well, a One-Step Multiplication Equation is just like that, but with one of the factors taking a little vacation! Imagine you see <code>5 </em> ? = 35</code>. Instead of both factors being right there, one is simply hidden, waiting for you to find it. You already know the relationship between factors and products, so this isn&#x27;t a completely new concept. It&#x27;s like having a puzzle where you have most of the pieces, and you just need to figure out one last missing shape. You’re not learning an entirely new game, <span class="ph">[Student Name]</span>; you’re just applying your existing awesome factor-finding skills in a slightly different way. You absolutely have what it takes to find that missing factor, <span class="ph">[they]</span> just needs to use division, the inverse operation, to uncover it. This is a very achievable next step for you!</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that One-Step Multiplication Equations are secretly used in predicting the outcomes of major sports events, like the NFL Super Bowl? It’s true! Sports statisticians and analysts use these equations to figure out things like how many points a team scores per game on average. For instance, if the Kansas City Chiefs scored a total of 495 points over 17 games in a season, an equation like <code>17 <em> ? = 495</code> could help us find their average points per game. The <code>?</code> here is the average points. Without knowing how to solve for <code>?</code>, it would be much harder to calculate crucial performance metrics! Even in budgeting for a school trip, if tickets cost $15 each and the total bill was $300, the equation <code>15 </em> ? = 300</code> would tell us how many students attended. <span class="ph">[Student Name]</span>, understanding these equations lets you uncover hidden information in exciting real-world scenarios, from sports stats to your own allowance! It&#x27;s a powerful tool <span class="ph">[they]</span> will use all the time, <span class="ph">[Student Name]</span>!</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">A One-Step Multiplication Equation is a straightforward mathematical statement involving one unknown value that we need to find. It always takes the form of a known number multiplied by an unknown number, which then equals a specific product. For instance, if you see an equation like <code>7 <em> ? = 63</code>, it means &#x27;what number, when multiplied by 7, gives us a total of 63?&#x27; To solve this, we rely on the fundamental relationship between multiplication and division. Since division is the inverse of multiplication, we can undo the multiplication by performing division. To find the value of <code>?</code>, we simply divide the product (63) by the known factor (7). So, <code>63 / 7 = ?</code>, which means <code>? = 9</code>. This systematic approach ensures you can always confidently find the unknown. For example, if <span class="ph">[Student Name]</span> wanted to know how many $5 items <span class="ph">[they]</span> could buy with $30, <span class="ph">[they]</span> would set up <code>5 </em> ? = 30</code> and solve it with division. This consistent method, <span class="ph">[Student Name]</span>, makes solving these equations clear and predictable.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">In Grade 6, specifically with standard 6.EE.017.02, you mastered the skill of identifying parts of mathematical expressions. You learned to look at something like <code>8 <em> 4</code> and recognize that 8 and 4 are the &quot;factors,&quot; and their result, 32, is the &quot;product.&quot; You understood that an expression like <code>3 </em> (5 + 2)</code> is a product of two factors, 3 and the quantity <code>(5 + 2)</code>. This foundational understanding of how numbers combine through multiplication is crucial. <span class="ph">[Student Name]</span>, you already know that <code>8 <em> 4</code> gives you 32.
+
+Now, imagine we take that understanding and add a tiny twist: what if one of those factors is unknown? Instead of <code>8 </em> 4 = 32</code>, what if you encountered <code>8 <em> ? = 32</code>? This is the bridge to One-Step Multiplication Equations. You still recognize 8 as a factor and 32 as the product, but now your task is to discover the missing factor, represented by the question mark. This shift transforms a simple expression into an equation that needs solving. <span class="ph">[Student Name]</span>, it’s like knowing two numbers that multiply to a certain value, but one number is just hidden from view.
+
+The new skill you&#x27;re developing is how to systematically find that hidden factor. Since you know multiplication and division are inverse operations, if <code>8 </em> ? = 32</code>, then you can simply use division to undo the multiplication. You would calculate <code>32 / 8</code> to find that the unknown number, <code>?</code>, is 4. This shows how your prior knowledge, <span class="ph">[Student Name]</span>, directly leads you to mastering these new, powerful problem-solving techniques.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Problem: Maya is selling handmade friendship bracelets. She sells each bracelet for $4. If she earned a total of $36 this weekend, how many bracelets did she sell?
+
+<span class="ph">[Student Name]</span>, let&#x27;s break down how to solve this one-step multiplication equation step by step. We want to find out how many bracelets Maya sold, given her earnings and the price per bracelet. This type of problem is perfect for setting up an equation where a number (the price) times an unknown (the number of bracelets) equals a total.
+
+1.  <strong><span class="hint-tag">&#128161; Hint: What information do you know, and what are you trying to find? How can you write this relationship using a variable?</span></strong>
+    First, let&#x27;s identify what we know and what we need to discover. We know Maya sells each bracelet for $4. This is the constant amount per item. We also know she earned a total of $36. This is our grand total. What we don&#x27;t know is the <em>number</em> of bracelets she sold. Let&#x27;s use the variable <code>b</code> to represent this unknown quantity – the number of bracelets. Since the cost per bracelet multiplied by the number of bracelets equals the total earnings, we can set up the equation:
+    <code>4b = 36</code>
+    This equation clearly shows that 4 multiplied by <code>b</code> (the number of bracelets) equals 36.
+
+2.  <strong><span class="hint-tag">&#128161; Hint: How do you &quot;undo&quot; multiplication to get the variable by itself?</span></strong>
+    Our goal is to isolate the variable <code>b</code> on one side of the equation. Currently, <code>b</code> is being multiplied by 4. To &quot;undo&quot; multiplication, we use its inverse operation, which is division. To keep the equation balanced and fair, whatever operation we perform on one side of the equation, we <em>must</em> perform on the other side. So, we will divide both sides of the equation by 4:
+    <code>4b / 4 = 36 / 4</code>
+
+3.  <strong><span class="hint-tag">&#128161; Hint: Now perform the calculation to find the value of the variable.</span></strong>
+    When we divide <code>4b</code> by 4, the 4s cancel out, leaving us with just <code>b</code>. On the right side, we perform the division: 36 divided by 4 equals 9.
+    <code>b = 9</code>
+    This tells us that Maya sold 9 bracelets.
+
+4.  <strong><span class="hint-tag">&#128161; Hint: How can you make sure your answer is correct?</span></strong>
+    It&#x27;s always a good idea to check your solution! To do this, substitute the value you found for <code>b</code> back into the <em>original</em> equation:
+    <code>4 * 9 = 36</code>
+    <code>36 = 36</code>
+    Since both sides of the equation are equal, our answer is correct! Maya indeed sold 9 bracelets to earn $36. Great job, <span class="ph">[Student Name]</span>!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Problem: A local bakery uses 12 pounds of flour to make one batch of their popular apple pies. If they used a total of 180 pounds of flour yesterday, how many batches of apple pies did they make?
+
+Solving one-step multiplication equations involves finding the value of an unknown variable. Here’s how to approach this problem:
+
+1.  <strong>Identify the variable and write the equation.</strong>
+    We know that 12 pounds of flour are used for <em>one</em> batch of pies. We also know the <em>total</em> flour used was 180 pounds. Let&#x27;s use <code>p</code> to represent the number of batches of apple pies. The total flour used is the amount per batch multiplied by the number of batches, so our equation is:
+    <code>12p = 180</code>
+
+2.  <strong>Isolate the variable using the inverse operation.</strong>
+    The variable <code>p</code> is being multiplied by 12. To get <code>p</code> by itself (isolate it), we need to perform the inverse operation of multiplication, which is division. We must divide <em>both sides</em> of the equation by 12 to keep it balanced.
+    <code>12p / 12 = 180 / 12</code>
+
+3.  <strong>Perform the calculation to solve for the variable.</strong>
+    Dividing both sides:
+    <code>p = 15</code>
+    So, the bakery made 15 batches of apple pies.
+
+4.  <strong>Check your solution.</strong>
+    To ensure our answer is correct, substitute the value of <code>p</code> back into the original equation:
+    <code>12 * 15 = 180</code>
+    <code>180 = 180</code>
+    Since both sides are equal, <span class="ph">[Student Name]</span>, our solution is correct!</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">Problem: Coach Davis ordered new soccer goals for the school, and each goal cost $175. He received a total bill of $1400. How many soccer goals did Coach Davis order?
+
+This problem involves a slightly larger number, but the core idea of one-step multiplication equations remains the same. Let&#x27;s tackle it, keeping an eye out for common errors.
+
+1.  <strong>Understand the problem and set up the equation.</strong>
+    We know the cost of <em>one</em> soccer goal is $175. We also know the <em>total</em> cost was $1400. We need to find the number of goals. Let&#x27;s use <code>g</code> for the number of goals. The equation is:
+    <code>175g = 1400</code>
+    <em>Common Error:</em> Some students might accidentally set up <code>1400g = 175</code>, thinking the larger number should be the coefficient. Always remember the coefficient (<code>a</code> in <code>ax=b</code>) is the &quot;per unit&quot; amount.
+
+2.  <strong>Choose the correct inverse operation.</strong>
+    Since <code>g</code> is being multiplied by 175, we need to divide both sides of the equation by 175 to isolate <code>g</code>.
+    <code>175g / 175 = 1400 / 175</code>
+    <em>Common Error:</em> A common mistake is to multiply both sides by 175. Remember, you want to &quot;undo&quot; the multiplication, so division is the key!
+
+3.  <strong>Perform the calculation carefully.</strong>
+    <code>g = 8</code>
+    Coach Davis ordered 8 soccer goals. This division might require long division or careful mental math.
+    <em>Common Error:</em> Calculation errors, especially with larger numbers, are frequent. Double-check your division.
+
+4.  <strong>Check your answer.</strong>
+    Substitute <code>g = 8</code> back into the original equation:
+    <code>175 * 8 = 1400</code>
+    <code>1400 = 1400</code>
+    Since the equation holds true, <span class="ph">[Student Name]</span>, our solution is correct!</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Imagine you have a big pile of your favorite stickers, <span class="ph">[Student Name]</span>. You know that each pack of stickers has 5 stickers inside. If you counted all your stickers and found you have 20 stickers in total, how many <em>packs</em> did you open? You just need to share the big pile of 20 stickers into groups of 5 to see how many packs there were!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Think of a vending machine for candy bars, <span class="ph">[Student Name]</span>. Let&#x27;s say each candy bar costs $1.50. You put in some money and walk away with a bunch of candy bars. If you remember that you spent a total of $6.00, but you forgot how many candy bars you bought, this is a one-step multiplication equation! The <em>cost of one candy bar</em> ($1.50) times the <em>number of candy bars</em> (what we don&#x27;t know) equals the <em>total money spent</em> ($6.00). To find out how many candy bars you got, you don&#x27;t multiply; you figure out how many $1.50 chunks fit into your $6.00 total. You divide the total amount by the price of each item.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, imagine a long strip of paper that represents a total amount, let&#x27;s say 24 units long. Now, imagine you have 4 identical, smaller, empty boxes. You are told that if you put an equal number of small blocks into each of those 4 boxes, they would perfectly fill up to that total length of 24 units. To find out how many blocks go into <em>one</em> box, you can literally &quot;see&quot; yourself taking the 24 units and dividing them equally into the 4 boxes. Each box gets one &quot;share&quot; of the total. You&#x27;re visually partitioning the whole into equal groups to find the size of one group.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! So, you know those times when you&#x27;re trying to figure out something like, &#x27;If I bought 5 packs of Pokemon cards and spent $25 total, how much was each pack?&#x27; That&#x27;s exactly a one-step multiplication equation. You&#x27;re basically saying, &#x27;5 times some unknown price equals 25 bucks.&#x27; The cool thing is, to &#x27;undo&#x27; the multiplication, you just do the opposite, which is division! So, you&#x27;d take that $25 total and divide it by the 5 packs to find out one pack cost $5. It&#x27;s like working backward, and once you get it, it makes sense for everything, from arcade tokens to snacks at the school store!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine a career as a <strong>Retail Store Manager</strong> at a popular clothing store in a US mall. A big part of your job is managing inventory and sales. Let&#x27;s say your store has a daily sales goal for a specific new t-shirt. On Tuesday, the goal is to sell $450 worth of these t-shirts. If each t-shirt costs $25, you need to figure out how many t-shirts your team needs to sell. This is a perfect example of a one-step multiplication equation in action! You&#x27;d set up the equation like this: <code>25 * T = 450</code>, where <code>T</code> represents the number of t-shirts to sell. To find <code>T</code>, you divide both sides by $25. Solving this helps you guide your sales team and ensure the store meets its targets. <span class="ph">[Student Name]</span>, understanding these equations means you can help run a successful business, track profits, and even plan for future sales, potentially earning a great salary in management!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Have you ever planned a fun outing with friends or family, like going to a baseball game? Let&#x27;s say you and three friends are going to watch the New York Yankees play, making it a total of four people. You&#x27;ve already spent $120 on tickets, but you want to know the cost of <em>each</em> ticket. This is a common everyday situation where one-step multiplication equations come in handy! You can represent this with the equation: <code>4 * C = 120</code>, where <code>C</code> is the cost of one ticket. To find the value of <code>C</code>, you would divide the total cost ($120) by the number of tickets (4). Knowing how to solve this equation quickly helps you budget, understand expenses, and even split costs fairly with friends. <span class="ph">[Student Name]</span>, math isn&#x27;t just in textbooks; it&#x27;s right there when you&#x27;re planning your next trip to the stadium or buying snacks at the school fair!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering one-step multiplication equations now, <span class="ph">[Student Name]</span>, is like building a strong foundation for a skyscraper – it&#x27;s crucial for everything that comes next! These basic algebraic skills are fundamental to higher-level math you&#x27;ll encounter in high school, preparing you for standardized tests like the SAT and ACT. These tests are key for college admissions to top US universities. For example, a question might present a scenario like &#x27;If 5 times a number is 75, what is the number?&#x27; which translates directly to <code>5x = 75</code>. Excelling in algebra means you&#x27;re more likely to score higher, opening doors to better colleges and, eventually, careers with higher earning potential. Many high-paying jobs in fields like engineering, finance, and technology require a solid grasp of algebraic problem-solving, directly building on the skills you&#x27;re developing right now.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Solve for the unknown value: <code>8m = 72</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">A farmer is planting corn. If each row can hold 15 corn stalks and <span class="ph">[they]</span> planted a total of 180 stalks, how many rows did <span class="ph">[they]</span> plant? Let &#x27;r&#x27; represent the number of rows.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Solve for &#x27;p&#x27;: <code>2.5p = 35</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">A school in Illinois is fundraising. They sold raffle tickets that cost $3 each. If the school raised $675 from ticket sales, how many tickets did they sell? Let &#x27;t&#x27; be the number of tickets.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">Solve for &#x27;k&#x27;: <code>-4k = 52</code></div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">During a cold snap in Minnesota, the temperature dropped by an equal number of degrees each hour for 6 hours. If the total temperature drop was 36 degrees Fahrenheit, how many degrees did the temperature drop per hour? Let &#x27;d&#x27; be the temperature drop per hour (as a negative number if it&#x27;s a drop).</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">What is the value of &#x27;x&#x27; in the equation <code>x * 9 = 108</code>?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">A store in California sells headphones for $18 each. If the store&#x27;s sales goal for the day is to sell enough headphones to make $378, how many headphones do they need to sell? Let &#x27;h&#x27; be the number of headphones.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Solve for x: 3x = 21</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">A school sports team has 4 times as many practice jerseys as game jerseys. If they have 20 practice jerseys, how many game jerseys do they have?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Solve for n: 5.5n = 44</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Liam bought 6 packs of stickers for his collection. The total cost was $15.00. If each pack cost the same amount, how much did one pack of stickers cost?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Solve for y: (1/2)y = 12</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">An artist sells paintings at a local art fair. Each painting sells for $75.00. If the artist earned $675.00 in total, how many paintings did <span class="ph">[they]</span> sell?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Solve for k: 0.25k = 10.5</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A librarian is organizing new books for the 6th-grade section. <span class="ph">[they]</span> wants to place 8 books on each shelf. If <span class="ph">[they]</span> has 144 books to organize, how many shelves will <span class="ph">[they]</span> need?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">If four times a number is equal to 132, what is the number?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A city block measures 330 feet in length. If a developer plans to build identical townhouses along one side, and 6 townhouses exactly fit the length of the block when placed side-by-side, what is the length of one townhouse in feet?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Reversing the Division Order&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might incorrectly divide the coefficient by the constant term, instead of the constant term by the coefficient, leading to a fractional or incorrect whole number answer.&quot;, &quot;WHY TEMPTING&quot;: &quot;It can feel natural to divide the smaller number by the larger number, or the number appearing first by the second, regardless of variable placement.&quot;, &quot;SOLUTION&quot;: &quot;Remember that to isolate the variable, you must divide the number on the side <em>without</em> the variable by the number <em>multiplying</em> the variable (the coefficient).&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>4m = 24</code>. Wrong answer: <code>m = 4 / 24 = 1/6</code>. Right answer: <code>m = 24 / 4 = 6</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Subtracting Instead of Dividing&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might mistakenly subtract the coefficient from both sides of the equation, confusing multiplication with addition/subtraction operations.&quot;, &quot;WHY TEMPTING&quot;: &quot;Students are sometimes more comfortable with addition and subtraction, or might confuse the form <code>ax = b</code> with <code>a + x = b</code>.&quot;, &quot;SOLUTION&quot;: &quot;Always use the inverse operation to isolate the variable. The inverse of multiplication is division, not subtraction.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>3b = 18</code>. Wrong answer: <code>b = 18 - 3 = 15</code>. Right answer: <code>b = 18 / 3 = 6</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring Negative Coefficients&quot;, &quot;MISTAKE&quot;: &quot;When a coefficient is negative, <span class="ph">[Student Name]</span> might forget to divide by the negative sign, resulting in an incorrect sign for the variable&#x27;s solution.&quot;, &quot;WHY TEMPTING&quot;: &quot;It&#x27;s easy to overlook negative signs when focusing on the numerical value, or to misapply integer division rules.&quot;, &quot;SOLUTION&quot;: &quot;To isolate the variable, you must divide by the <em>entire</em> coefficient, including its negative sign. Remember that a positive divided by a negative results in a negative.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>-5c = 30</code>. Wrong answer: <code>c = 30 / 5 = 6</code>. Right answer: <code>c = 30 / (-5) = -6</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Incorrect Decimal Coefficient Handling&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might incorrectly perform division when the coefficient is a decimal, sometimes multiplying instead of dividing, or misplacing the decimal point.&quot;, &quot;WHY TEMPTING&quot;: &quot;Dividing by decimals can be perceived as more complex than dividing by whole numbers, leading to confusion with multiplication or standard division errors.&quot;, &quot;SOLUTION&quot;: &quot;To solve, divide both sides by the decimal coefficient. Remember that dividing by a decimal like <code>0.5</code> is the same as multiplying by <code>2</code>.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>0.5y = 12</code>. Wrong answer: <code>y = 12 * 0.5 = 6</code>. Right answer: <code>y = 12 / 0.5 = 24</code>.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Misinterpreting Implicit Multiplication&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might not recognize that a number next to a variable (e.g., <code>6x</code>) implies multiplication and attempts other operations like addition or subtraction.&quot;, &quot;WHY TEMPTING&quot;: &quot;If the multiplication symbol <code>*</code> is not explicitly shown, some students may not immediately identify the operation as multiplication.&quot;, &quot;SOLUTION&quot;: &quot;Always remember that a number written directly next to a variable indicates multiplication. Use division as the inverse operation to solve.&quot;, &quot;EXAMPLE&quot;: &quot;Equation: <code>8k = 40</code>. Wrong answer: <code>k = 40 - 8 = 32</code>. Right answer: <code>k = 40 / 8 = 5</code>.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>Solve the equation for x: 5x = 45.</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>A group of 7 friends bought tickets to a concert. If the total cost for all tickets was $77, what was the cost of one ticket? Let &#x27;t&#x27; represent the cost of one ticket. Write and solve an equation.</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div>Find the value of y in the equation: 12y = 84.</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div><span class="ph">[Student Name]</span> is buying snacks for a school party. Each bag of chips costs $2.75. If <span class="ph">[they]</span> spent a total of $22.00, how many bags of chips did <span class="ph">[they]</span> buy? Let &#x27;b&#x27; be the number of bags of chips.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div>Solve for p: (1/3)p = 9.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>A car travels at a constant speed. If it covers 350 miles in 7 hours, what is its speed in miles per hour? Let &#x27;s&#x27; be the speed.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>Determine the value of m in the equation: 15m = 105.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>Coach Ramirez is buying new basketballs for the school team. Each basketball costs $18.50. If <span class="ph">[Student Name]</span> has $148.00 in the team fund, how many basketballs can <span class="ph">[they]</span> buy? Let &#x27;b&#x27; represent the number of basketballs.</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>At the school carnival, the ring toss game earned 2/5 of the total money collected. If the ring toss game earned $60, what was the total amount of money collected at the carnival? Let &#x27;T&#x27; be the total amount.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div><span class="ph">[Student Name]</span> is planning a garden. <span class="ph">[they]</span> wants to plant roses in a rectangular section that has an area of 72 square feet. If the length of the section is 9 feet, what is the width? Use &#x27;w&#x27; for the width.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into One-Step Multiplication Equations in Grade 6 math. The key concept <span class="ph">[they]</span> will learn is how to find a missing number in a multiplication problem by using division. For example, if we know that 4 times a mystery number equals 20, <span class="ph">[they]</span> will learn to find that mystery number is 5. Tonight, you could do a hands-on activity together: Grab some small snacks, like pretzels or M&amp;Ms. Arrange them into equal groups and hide the number in each group (e.g., 3 bags, each with an unknown number of pretzels, totaling 15 pretzels). Ask <span class="ph">[Student Name]</span> how many pretzels are in each bag. At dinner, you might ask: &#x27;If I bought 5 identical packs of baseball cards and spent $10, how much did each pack cost, <span class="ph">[Student Name]</span>?&#x27; This will help <span class="ph">[they]</span> connect the math to everyday life.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &#x27;Hi <span class="ph">[Student Name]</span>! Welcome! Today, we’re going to be awesome equation solvers. We’re focusing on One-Step Multiplication Equations, which means finding a missing number in a multiplication problem. You’ve got this, <span class="ph">[Student Name]</span>!&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &#x27;It looks like you have 3 times some number equals 18. We want to get that mystery number all by itself. What&#x27;s the opposite operation of multiplying by 3, <span class="ph">[Student Name]</span>? Remember, we need to &#x27;undo&#x27; what&#x27;s happening to our mystery number to find its value.&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &#x27;You&#x27;ve correctly divided the side with the variable by 3, <span class="ph">[Student Name]</span>! That’s fantastic! Now, an equation is like a balanced scale, right? Whatever you do to one side to keep it equal, you <em>must</em> do to the other side. So, what do you need to do to the 18 on the other side of the equal sign, <span class="ph">[Student Name]</span>?&#x27;
+
+SESSION CLOSING: &#x27;Amazing work today, <span class="ph">[Student Name]</span>! You really showed great thinking in figuring out those One-Step Multiplication Equations. You’re building a strong foundation for more complex math, and I&#x27;m so proud of your effort, <span class="ph">[Student Name]</span>! Keep up the great work!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content"><span class="ph">[Student Name]</span>&#x27;s most common mistake with One-Step Multiplication Equations is forgetting to apply the inverse operation to <em>both</em> sides of the equation. For example, if <span class="ph">[Student Name]</span> has &#x27;4x = 24,&#x27; <span class="ph">[they]</span> might divide the 4x by 4 to get &#x27;x&#x27; but forget to divide the 24 by 4, leaving &#x27;x = 24&#x27; instead of &#x27;x = 6&#x27;. You&#x27;ll recognize this if <span class="ph">[Student Name]</span> gets the variable isolated but the number on the other side of the equation remains unchanged, or if the answer is clearly too large. To intervene, say: &#x27;That&#x27;s a great start, <span class="ph">[Student Name]</span>! You&#x27;re right to use division to &#x27;undo&#x27; the multiplication. Remember, an equation is like a balanced scale. Whatever you do to one side, you <em>must</em> do to the other to keep it perfectly balanced.&#x27; What NOT to say: &#x27;You only did half the problem!&#x27; or &#x27;That&#x27;s wrong, try again.&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;inverse_operation_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might try to add or subtract to isolate the variable, instead of using division as the inverse operation for multiplication. For instance, with &#x27;3x = 15&#x27;, <span class="ph">[they]</span> might try to subtract 3 instead of dividing by 3.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s very common to mix up operations when learning inverse relationships; <span class="ph">[Student Name]</span> is doing great by thinking about how to get the variable alone.&quot;, &quot;home_action&quot;: &quot;Tonight, play &#x27;Opposite Day&#x27; with math operations. You say &#x27;multiply by 5,&#x27; and <span class="ph">[Student Name]</span> says &#x27;divide by 5.&#x27; Then, use simple examples like &#x27;5 times 4 equals 20&#x27; and ask <span class="ph">[Student Name]</span> how to get back to 4 using division.&quot;}, {&quot;tag&quot;: &quot;unbalanced_equation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> correctly identifies the need to divide, but only performs the division on one side of the equation. For example, for &#x27;6x = 30&#x27;, <span class="ph">[they]</span> divides 6x by 6 but leaves the other side as 30, thinking x = 30.&quot;, &quot;reassurance&quot;: &quot;Balancing equations is a fundamental concept, and remembering to apply operations to both sides is a key step <span class="ph">[Student Name]</span> will absolutely master with practice.&quot;, &quot;home_action&quot;: &quot;Use a real-world scale (like a kitchen scale or even a see-saw if you have one). Put 5 blocks on each side. Remove 2 blocks from one side. Ask <span class="ph">[Student Name]</span> what needs to happen to the other side to keep it balanced, linking it to keeping an equation equal.&quot;}, {&quot;tag&quot;: &quot;calculation_error&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> correctly sets up the equation and applies the inverse operation to both sides, but makes a simple mistake in the final division calculation (e.g., for &#x27;5x = 40&#x27;, <span class="ph">[they]</span> correctly writes 40/5 but calculates 7 instead of 8).&quot;, &quot;reassurance&quot;: &quot;Accuracy in arithmetic improves with consistent practice. <span class="ph">[Student Name]</span> has already done the hard part by understanding the equation-solving process, which is fantastic!&quot;, &quot;home_action&quot;: &quot;Encourage <span class="ph">[Student Name]</span> to double-check their division using multiplication (e.g., if <span class="ph">[they]</span> thinks 40/5 = 7, have <span class="ph">[they]</span> multiply 7x5 to see if it equals 40). Alternatively, practice quick division facts for 5-10 minutes.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! Let&#x27;s break down One-Step Multiplication Equations so <span class="ph">[they]</span> can feel super confident. Imagine an equation is like a balanced scale. Whatever is on one side must be equal to what&#x27;s on the other. In math, we use a letter, often &#x27;x,&#x27; to represent a &#x27;mystery number&#x27; that makes the equation true.
+
+Here’s how it works:
+1.  <strong>Understand the Goal:</strong> When you see an equation like &#x27;3 times a number equals 15&#x27; (which in math looks like 3x = 15), your goal is to figure out what that &#x27;x&#x27; (the mystery number) is. We need to get &#x27;x&#x27; all by itself on one side of the scale.
+2.  <strong>Use the Inverse Operation:</strong> To &#x27;undo&#x27; multiplication, we use its opposite, which is division. So, if &#x27;x&#x27; is being multiplied by 3, we need to divide by 3 to get &#x27;x&#x27; by itself.
+3.  <strong>Keep the Scale Balanced:</strong> This is crucial! Whatever you do to one side of the equation (like dividing by 3), you <em>must</em> do the exact same thing to the other side to keep it balanced. So, if you divide 3x by 3, you also have to divide 15 by 3.
+4.  <strong>Solve for the Mystery:</strong> After dividing both sides, you&#x27;ll have &#x27;x = 5&#x27; (because 3x divided by 3 is x, and 15 divided by 3 is 5).
+
+<strong>Example from everyday life:</strong> Let&#x27;s say <span class="ph">[Parent Name]</span> bought 4 identical cases of soda for a party, and the total cost was $28. How much did each case cost? 
+<em>   Equation: 4 </em> (cost per case) = $28. Or, 4x = 28.
+<em>   To find x, divide both sides by 4: (4x)/4 = 28/4.
+</em>   So, x = 7. Each case cost $7. 
+
+See? <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está aprendiendo sobre Ecuaciones de Multiplicación de Un Paso en matemáticas de sexto grado. Esto significa que <span class="ph">[they]</span> aprenderá a encontrar un número desconocido en una multiplicación cuando ya se le da el resultado final y uno de los factores. Es como ser un detective de números, ¡muy útil en la vida real! Por ejemplo, si sabes que 4 boletos para el cine costaron 36 dólares en total, <span class="ph">[Student Name]</span> aprenderá a descifrar cuánto costó cada boleto. 
+
+Para una actividad práctica esta noche, pueden cocinar juntos. Si una receta requiere 2 tazas de harina por cada lote de galletas y quieren usar 8 tazas de harina en total, pregúntenle a <span class="ph">[Student Name]</span>: &quot;Si sabemos que cada lote usa 2 tazas de harina y tenemos 8 tazas en total, ¿cuántos lotes de galletas podemos hacer?&quot; En la cena, pueden preguntarle: &quot;<span class="ph">[Student Name]</span>, hoy en la escuela, ¿aprendiste a resolver problemas donde sabes el total y cuántas veces algo se repite, pero necesitas saber la cantidad en cada repetición?&quot;.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">¡Hola, <span class="ph">[Student Name]</span>! ¡Es un placer verte! Hoy vamos a explorar las ecuaciones de multiplicación de un paso, donde encontraremos un número secreto. Será divertido, ya verás. 
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1:</strong> &quot;Entiendo que a veces es difícil saber por dónde empezar, <span class="ph">[Student Name]</span>. Piensa en la ecuación como una balanza: lo que haces a un lado, debes hacerlo al otro para que se mantenga equilibrada. En &#x27;5 multiplicado por un número desconocido es igual a 30&#x27;, nuestro objetivo es dejar solo el número desconocido. ¿Cuál es la operación opuesta a la multiplicación que nos ayudará a &#x27;deshacer&#x27; ese &#x27;multiplicado por 5&#x27; que está con el número desconocido?&quot;
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2:</strong> &quot;¡Excelente, <span class="ph">[Student Name]</span>! Has identificado muy bien que la operación opuesta es la división. Ahora, para que nuestra balanza de ecuaciones se mantenga equilibrada, si divides un lado por 5, ¿qué crees que debemos hacer con el otro lado de la ecuación? ¡Eso es! Debemos dividir ambos lados por 5. Inténtalo y veamos qué número secreto encontramos, <span class="ph">[Student Name]</span>.&quot;
+
+<strong>SESSION CLOSING:</strong> &quot;¡Impresionante trabajo, <span class="ph">[Student Name]</span>! Estoy muy orgulloso de cómo has resuelto estas ecuaciones de multiplicación de un paso. Has demostrado mucha concentración y habilidad. ¡Sigue así, campeón/campeona!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La confusión más común que <span class="ph">[Student Name]</span> podría tener es olvidar que para resolver una ecuación de multiplicación, debe aplicar la operación <em>inversa</em> (división) en <em>ambos lados</em> de la ecuación. En lugar de dividir, <span class="ph">[they]</span> podría intentar sumar o restar el número conocido, o dividir solo un lado. 
+
+Para reconocerlo, verifique si <span class="ph">[Student Name]</span> está dividiendo. Si ve que <span class="ph">[they]</span> está sumando o restando, o si solo divide un lado y obtiene un resultado que no es un número entero obvio (si las respuestas esperadas son números enteros), es una señal. 
+
+Exactas palabras a decir: &quot;Recuerda, <span class="ph">[Student Name]</span>, para mantener la ecuación &#x27;justa&#x27; y equilibrada, lo que le haces a un lado del signo de igual, se lo tienes que hacer al otro lado. Si quieres &#x27;deshacer&#x27; una multiplicación, ¿qué operación usas? Y si la usas en un lado, ¿qué tienes que hacer al otro?&quot; 
+
+Lo que NO decir: &quot;¡Eso está completamente mal!&quot; o &quot;No estás entendiendo nada de la división.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;incorrect_inverse_operation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> podr\u00eda intentar sumar o restar el n\u00famero que est\u00e1 multiplicando a la variable, en lugar de dividir.&quot;, &quot;reassurance&quot;: &quot;Es muy com\u00fan confundirse con las operaciones inversas al principio, \u00a1pero <span class="ph">[Student Name]</span> est\u00e1 aprendiendo y mejorar\u00e1 con la pr\u00e1ctica!&quot;, &quot;home_action&quot;: &quot;Jueguen a encontrar \&quot;familias de operaciones\&quot; con n\u00fameros peque\u00f1os. Por ejemplo, con 3, 4 y 12: \&quot;Si 3 multiplicado por 4 es 12, entonces 12 dividido por 3 es 4, y 12 dividido por 4 es 3.\&quot;&quot;, &quot;_worksheet&quot;: &quot;worked_examples&quot;}, {&quot;tag&quot;: &quot;not_balancing_equation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> puede dividir un lado de la ecuaci\u00f3n por el coeficiente, pero se olvida de aplicar la misma divisi\u00f3n al otro lado del signo de igual.&quot;, &quot;reassurance&quot;: &quot;A <span class="ph">[Student Name]</span> se le est\u00e1 escapando un paso clave para mantener la igualdad, pero es algo f\u00e1cil de reforzar.&quot;, &quot;home_action&quot;: &quot;Usen una balanza de cocina. Pongan 3 manzanas en un lado (representando 3x) y 15 galletas en el otro (representando 15). Para saber cu\u00e1ntas galletas valen 1 manzana, quiten las 2 manzanas extra y dividan las galletas entre 3. Muestren c\u00f3mo si quitan un grupo de algo de un lado, deben hacer lo equivalente al otro para que la balanza se mantenga.&quot;, &quot;_worksheet&quot;: &quot;visual_models&quot;}, {&quot;tag&quot;: &quot;division_errors&quot;, &quot;parent_description&quot;: &quot;Aunque <span class="ph">[Student Name]</span> entiende que debe dividir para resolver, <span class="ph">[they]</span> comete errores al realizar el c\u00e1lculo de la divisi\u00f3n.&quot;, &quot;reassurance&quot;: &quot;Las operaciones de divisi\u00f3n son una habilidad fundamental que mejora con la pr\u00e1ctica. \u00a1Es normal necesitar un repaso de vez en cuando!&quot;, &quot;home_action&quot;: &quot;Practiquen la divisi\u00f3n usando tarjetas de memoria con las tablas de multiplicar invertidas. Por ejemplo, en lugar de &#x27;3 x 7 = ?&#x27;, preg\u00fantenle &#x27;\u00bfQu\u00e9 n\u00famero multiplicado por 3 da 21?&#x27;&quot;, &quot;_worksheet&quot;: &quot;timed_drill&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Permítame explicarle las Ecuaciones de Multiplicación de Un Paso de una manera sencilla. Es como un rompecabezas donde conocemos el resultado final de una multiplicación y uno de los números que se multiplicaron, pero nos falta el otro. Su objetivo, <span class="ph">[Parent Name]</span>, es encontrar ese número que falta.
+
+Aquí le presento un ejemplo cotidiano para usted:
+
+1.  <strong>En el supermercado:</strong> Usted sabe que compró 4 cajas de jugo y el total a pagar fue de 12 dólares. ¿Cuánto costó cada caja de jugo? (4 multiplicado por un número desconocido es igual a 12).
+2.  <strong>En el trabajo:</strong> Si <span class="ph">[they]</span> fabrica 6 piezas por hora y necesita producir 48 piezas en total. ¿Cuántas horas le tomará?
+
+<strong>Pasos para resolverlo, <span class="ph">[Parent Name]</span>:</strong>
+
+1.  <strong>Identifique lo que sabe:</strong> El total (12 dólares) y cuántas veces algo se repite (4 cajas).
+2.  <strong>Identifique lo que no sabe:</strong> El valor de una sola repetición (el costo de cada caja).
+3.  <strong>Plantee la ecuación:</strong> Escríbalo como &#x27;4 multiplicado por (número desconocido) = 12&#x27;. (En matemáticas, usamos letras como &#x27;x&#x27;, pero para usted, pensemos en &#x27;número desconocido&#x27;).
+4.  <strong>Use la operación inversa:</strong> Para &#x27;deshacer&#x27; la multiplicación y encontrar el número desconocido, usamos su operación opuesta: la división.
+5.  <strong>Mantenga el equilibrio:</strong> Si divide un lado de la ecuación, debe dividir el otro lado por el mismo número para que la ecuación siga siendo verdadera. En el ejemplo del jugo, divida 12 por 4.
+6.  <strong>Encuentre el número:</strong> 12 dividido por 4 es 3. ¡Cada caja de jugo cuesta 3 dólares! <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> dominará este concepto y podrá ayudar a <span class="ph">[Student Name]</span> con confianza.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>! Cette semaine, <span class="ph">[Student Name]</span> explore les Équations de multiplication à une étape en mathématiques de 6e année. Le concept clé est de découvrir un nombre inconnu quand on connaît la quantité de groupes et le total. Imaginez que vous ayez 24 mini-donuts et que vous vouliez les mettre dans 4 sacs, chacun avec le même nombre de donuts. Quelle serait la quantité dans chaque sac ? C&#x27;est exactement ce que <span class="ph">[Student Name]</span> apprend à résoudre. 
+
+Ce soir, pour une activité pratique, prenez 30 cartes de baseball. Dites à <span class="ph">[Student Name]</span>: « Si nous mettons le même nombre de cartes dans 5 pochettes de protection, combien y a-t-il de cartes dans chaque pochette ? » Écrivez l&#x27;équation <code>5x = 30</code> et demandez à <span class="ph">[Student Name]</span> de la résoudre. À table, vous pourriez demander: « Si un joueur de football américain marque 6 points à chaque touchdown, et que son équipe a un total de 42 points grâce à ses touchdowns, combien de touchdowns le joueur a-t-il marqués ? Comment écrirais-tu ça en équation ? » Cela aide <span class="ph">[they]</span> à relier les mathématiques au monde réel.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: « Salut <span class="ph">[Student Name]</span>! Aujourd&#x27;hui, nous allons nous amuser à résoudre des équations de multiplication à une étape. C&#x27;est comme un petit puzzle où nous cherchons un nombre secret. Regardons cette équation : <code>4x = 28</code>. Qu&#x27;est-ce que tu penses que ça signifie, <span class="ph">[Student Name]</span>? »
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: « Pas de souci, <span class="ph">[Student Name]</span>! L&#x27;équation <code>4x = 28</code> veut dire que nous avons un nombre inconnu, que nous appelons &#x27;x&#x27;, et que si nous le multiplions par 4, le résultat est 28. C&#x27;est comme dire: &#x27;Quatre fois un certain nombre, c&#x27;est égal à vingt-huit&#x27;. Ton travail est de trouver ce nombre &#x27;x&#x27;. Comment pourrions-nous commencer à chercher ce nombre, <span class="ph">[Student Name]</span>? »
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: « Tu as raison, <span class="ph">[Student Name]</span>, la multiplication est l&#x27;opération principale ici. Maintenant, pour trouver &#x27;x&#x27; tout seul, nous devons &#x27;défaire&#x27; cette multiplication. Quelle est l&#x27;opération inverse de la multiplication? Exactement, c&#x27;est la division! Donc, si nous avons 4 fois &#x27;x&#x27;, nous devons diviser le total par 4 pour isoler &#x27;x&#x27;. Comment ferions-nous cela avec le 28? N&#x27;oublie pas de faire la même chose des deux côtés de l&#x27;équation, <span class="ph">[Student Name]</span>! »
+
+SESSION CLOSING: « Excellent travail, <span class="ph">[Student Name]</span>! Tu as vraiment bien compris comment utiliser l&#x27;opération inverse pour résoudre ces équations. Chaque fois que tu vois une équation de multiplication à une étape, souviens-toi que la division est ton amie. Je suis très fier de tes efforts et de la façon dont tu as persévéré, <span class="ph">[Student Name]</span>! Continue comme ça! »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus fréquente erreur que <span class="ph">[Student Name]</span> fera avec les équations de multiplication à une étape est de ne pas utiliser l&#x27;opération inverse correcte. Par exemple, pour l&#x27;équation <code>6x = 36</code>, <span class="ph">[Student Name]</span> pourrait essayer de soustraire 6 de 36 (<code>36 - 6 = 30</code>) au lieu de diviser (<code>36 / 6 = 6</code>).
+
+Pour la reconnaître, observez si <span class="ph">[Student Name]</span> effectue une addition ou une soustraction quand le coefficient est multiplié par la variable. Si <span class="ph">[they]</span> fait <code>total - coefficient</code>, c&#x27;est un signal.
+
+Les mots exacts à dire à <span class="ph">[Student Name]</span>: « Je vois que tu as soustrait le 6 du 36. L&#x27;équation <code>6x = 36</code> signifie &#x27;6 fois un nombre est 36&#x27;. Pour trouver ce nombre &#x27;x&#x27; tout seul, nous devons &#x27;défaire&#x27; la multiplication. Quelle est l&#x27;opération qui &#x27;défait&#x27; une multiplication, <span class="ph">[Student Name]</span>? »
+
+Ce qu&#x27;il ne faut PAS dire: « C&#x27;est faux, tu ne devrais jamais soustraire dans ce type de problème. »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;inverse_operation_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> peut confondre les op\u00e9rations et essayer d&#x27;ajouter ou de soustraire le coefficient au lieu de diviser pour isoler la variable. Pour une \u00e9quation comme <code>8x = 40</code>, <span class="ph">[they]</span> pourrait calculer <code>40 - 8 = 32</code>.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s commune! Cela montre que <span class="ph">[Student Name]</span> r\u00e9fl\u00e9chit aux op\u00e9rations, et c&#x27;est une excellente occasion de renforcer la r\u00e8gle des op\u00e9rations inverses.&quot;, &quot;home_action&quot;: &quot;Utilisez des paquets de chewing-gum. Si vous avez 3 paquets et 24 chewing-gums au total, combien y en a-t-il dans chaque paquet ? \u00c9crivez <code>3x = 24</code> et demandez \u00e0 <span class="ph">[Student Name]</span> de montrer comment trouver le nombre de chewing-gums par paquet.&quot;}, {&quot;tag&quot;: &quot;arithmetic_errors&quot;, &quot;parent_description&quot;: &quot;M\u00eame si <span class="ph">[Student Name]</span> conna\u00eet la bonne m\u00e9thode (division), <span class="ph">[they]</span> peut faire une erreur de calcul. Par exemple, pour <code>5x = 45</code>, <span class="ph">[they]</span> pourrait diviser <code>45 / 5</code> mais arriver \u00e0 une r\u00e9ponse incorrecte comme 8 au lieu de 9.&quot;, &quot;reassurance&quot;: &quot;Les erreurs de calcul arrivent \u00e0 tout le monde, m\u00eame aux adultes ! L&#x27;important est que <span class="ph">[Student Name]</span> comprenne la d\u00e9marche. La pr\u00e9cision viendra avec plus de pratique.&quot;, &quot;home_action&quot;: &quot;Faites un petit jeu de &#x27;flashcards&#x27; verbales de multiplication et de division rapide pendant que vous pr\u00e9parez le d\u00eener ou que vous attendez le bus scolaire. Par exemple, \u00ab Combien font 7 fois 6 ? \u00bb ou \u00ab Combien de fois 4 va dans 32 ? \u00bb&quot;}, {&quot;tag&quot;: &quot;word_problem_setup&quot;, &quot;parent_description&quot;: &quot;Lorsque le probl\u00e8me est pr\u00e9sent\u00e9 sous forme de texte, <span class="ph">[Student Name]</span> peut avoir du mal \u00e0 traduire les informations en une \u00e9quation de multiplication correcte. Par exemple, pour \u00ab Un billet de cin\u00e9ma co\u00fbte 12 dollars. Combien de billets (x) pouvez-vous acheter avec 60 dollars ? \u00bb, <span class="ph">[they]</span> pourrait \u00e9crire <code>x + 12 = 60</code>.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une comp\u00e9tence qui prend du temps \u00e0 d\u00e9velopper. <span class="ph">[Student Name]</span> apprend \u00e0 &#x27;lire&#x27; le langage des math\u00e9matiques. Nous allons nous concentrer sur la traduction des mots cl\u00e9s.&quot;, &quot;home_action&quot;: &quot;Cr\u00e9ez des sc\u00e9narios simples avec <span class="ph">[Student Name]</span> sur l&#x27;achat d&#x27;articles de sport ou de jouets. Par exemple, \u00ab Si chaque casquette des Yankees co\u00fbte 20 dollars, et que j&#x27;ai 100 dollars, combien de casquettes puis-je acheter ? \u00bb Aidez <span class="ph">[Student Name]</span> \u00e0 identifier le &#x27;x&#x27; (nombre de casquettes) et le total (100 dollars) pour construire l&#x27;\u00e9quation <code>20x = 100</code>.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>! Ne vous inquiétez pas, <span class="ph">[they]</span> allez comprendre les Équations de multiplication à une étape en un rien de temps. C&#x27;est plus simple qu&#x27;il n&#x27;y paraît et cela nous aide à résoudre des problèmes quotidiens.
+
+Imaginez ceci:
+1.  <strong>Scénario d&#x27;achat:</strong> Vous êtes au supermarché. Vous voulez acheter 3 boîtes de céréales. Vous savez que le total à la caisse pour les céréales est de 18 dollars. Combien coûte une seule boîte de céréales ?
+    <em>   En mathématiques, on dirait: &#x27;3 fois le prix d&#x27;une boîte (que nous ne connaissons pas) égale 18 dollars&#x27;.
+    </em>   On écrit ça comme <code>3x = 18</code>. Ici, <code>x</code> représente le prix inconnu d&#x27;une boîte.
+
+2.  <strong>Pour trouver &#x27;x&#x27; (le prix d&#x27;une boîte):</strong> Puisque &#x27;3x&#x27; signifie <code>3 multiplié par x</code>, pour &#x27;défaire&#x27; cette multiplication et trouver &#x27;x&#x27; tout seul, nous utilisons l&#x27;opération inverse, qui est la division.
+    <em>   On divise le total (18 dollars) par le nombre de boîtes (3).
+    </em>   <code>x = 18 / 3</code>.
+    *   Donc, <code>x = 6</code>. Une boîte de céréales coûte 6 dollars.
+
+Voici les étapes clés:
+1.  <strong>Identifiez l&#x27;inconnu (votre &#x27;x&#x27;):</strong> C&#x27;est ce que vous essayez de trouver (ex: le prix d&#x27;une boîte, le nombre d&#x27;heures).
+2.  <strong>Repérez la multiplication:</strong> Dans <code>3x = 18</code>, le &#x27;3&#x27; multiplie le &#x27;x&#x27;.
+3.  <strong>Appliquez l&#x27;opération inverse:</strong> Pour isoler &#x27;x&#x27;, divisez le nombre total par le nombre qui multiplie &#x27;x&#x27;.
+
+Un autre exemple: Au travail, vous gagnez 15 dollars de l&#x27;heure. Vous voulez savoir combien d&#x27;heures (h) vous devez travailler pour gagner 120 dollars. L&#x27;équation serait <code>15h = 120</code>. Pour trouver &#x27;h&#x27;, vous divisez <code>120 / 15</code>, ce qui donne <code>h = 8</code> heures. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> voyez, ce concept est super utile et <span class="ph">[they]</span> pouvez maintenant aider <span class="ph">[Student Name]</span> ou l&#x27;appliquer dans <span class="ph">[their]</span> propre vie !</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estará mergulhando no mundo das Equações de Multiplicação de Um Passo, um conceito fundamental na matemática do 6º ano. Em termos simples, <span class="ph">[they]</span> aprenderá a descobrir um número desconhecido que, quando multiplicado por outro número, resulta em um total conhecido. É como resolver um pequeno mistério matemático!
+
+Para ajudar <span class="ph">[Student Name]</span> esta noite, que tal fazerem juntos uma atividade prática? Peça a <span class="ph">[Student Name]</span> para ajudar a organizar a compra de materiais para um projeto escolar. Se vocês precisam de 24 lápis e cada pacote vem com 3 lápis, <span class="ph">[they]</span> pode calcular quantos pacotes precisam comprar usando uma equação de multiplicação.
+
+No jantar, pergunte a <span class="ph">[Student Name]</span>: &quot;Se um ingresso para o cinema custa 12 reais, e eu gastei 60 reais no total, como podemos descobrir quantos ingressos eu comprei usando uma multiplicação?&quot; Isso estimulará o pensamento <span class="ph">[their]</span> sobre como a matemática se aplica a situações reais, mesmo usando a nossa moeda.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;SESSION OPENING&quot;: &quot;Oi, <span class="ph">[Student Name]</span>! Tudo bem? Hoje vamos nos divertir muito explorando as Equa\u00e7\u00f5es de Multiplica\u00e7\u00e3o de Um Passo. \u00c9 um t\u00f3pico superimportante que vai te ajudar a resolver muitos problemas do dia a dia. Tenho certeza que <span class="ph">[they]</span> vai arrasar!&quot;, &quot;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1&quot;: &quot;N\u00e3o se preocupe, <span class="ph">[Student Name]</span>, \u00e9 normal ter d\u00favidas no come\u00e7o! Vamos olhar essa equa\u00e7\u00e3o: <code>4 <em> x = 20</code>. O que essa equa\u00e7\u00e3o est\u00e1 nos dizendo? Ela significa que &#x27;4 vezes algum n\u00famero desconhecido \u00e9 igual a 20&#x27;. Qual opera\u00e7\u00e3o matem\u00e1tica voc\u00ea v\u00ea aqui? Isso mesmo, multiplica\u00e7\u00e3o! Para encontrar o &#x27;x&#x27;, precisamos pensar na opera\u00e7\u00e3o oposta, que \u00e9 a divis\u00e3o. Lembra-se de que a multiplica\u00e7\u00e3o e a divis\u00e3o s\u00e3o &#x27;opera\u00e7\u00f5es inversas&#x27;?&quot;, &quot;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2&quot;: &quot;Voc\u00ea est\u00e1 quase l\u00e1, <span class="ph">[Student Name]</span>! J\u00e1 sabemos que para &#x27;desfazer&#x27; a multiplica\u00e7\u00e3o de <code>4 </em> x = 20</code>, precisamos dividir. O que devemos dividir por qual n\u00famero? Precisamos isolar o &#x27;x&#x27;. Para fazer isso, dividimos ambos os lados da equa\u00e7\u00e3o pelo n\u00famero que est\u00e1 multiplicando o &#x27;x&#x27;. Ent\u00e3o, vamos dividir 20 por 4. Qual \u00e9 o resultado de 20 dividido por 4? Isso mesmo, \u00e9 5! Ent\u00e3o, x \u00e9 igual a 5. E se substituirmos 5 na equa\u00e7\u00e3o original, teremos <code>4 * 5 = 20</code>, o que est\u00e1 correto!&quot;, &quot;SESSION CLOSING&quot;: &quot;Fant\u00e1stico trabalho, <span class="ph">[Student Name]</span>! Voc\u00ea resolveu essas equa\u00e7\u00f5es de multiplica\u00e7\u00e3o como um verdadeiro detetive da matem\u00e1tica. Estou muito orgulhoso(a) do seu esfor\u00e7o e de como <span class="ph">[they]</span> se dedicou. Continue praticando, e <span class="ph">[they]</span> ser\u00e1 um(a) mestre nisso em pouco tempo!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Um erro muito comum que <span class="ph">[Student Name]</span> pode cometer com as Equações de Multiplicação de Um Passo é usar a operação errada para isolar a variável. Por exemplo, em <code>3 <em> x = 15</code>, em vez de dividir 15 por 3, <span class="ph">[they]</span> pode tentar </em>subtrair<em> 3 ou </em>multiplicar* 3.
+
+Para reconhecer isso, observe se <span class="ph">[Student Name]</span> está aplicando a operação inversa (divisão) corretamente. Se a resposta parecer muito grande ou muito pequena para a lógica do problema, isso pode ser um sinal.
+
+Os melhores palavras para dizer a <span class="ph">[Student Name]</span> são: &quot;Lembre-se, <span class="ph">[Student Name]</span>, para desfazer uma multiplicação, sempre usamos a divisão. A multiplicação e a divisão são como opostos, elas se anulam! Se temos &#x27;3 vezes algo igual a 15&#x27;, para descobrir o &#x27;algo&#x27;, precisamos dividir o total (15) pelo número que conhecemos (3).&quot;
+
+O que NÃO dizer: &quot;Você errou de novo!&quot; ou &quot;Você não lembra da operação inversa?&quot;. Isso pode desmotivar <span class="ph">[Student Name]</span>. Foque sempre no processo e no conceito de operações inversas.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;wrong_inverse_operation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode confundir qual opera\u00e7\u00e3o inversa usar. Em uma equa\u00e7\u00e3o como <code>5 <em> x = 25</code>, em vez de dividir 25 por 5, <span class="ph">[they]</span> pode tentar subtrair 5 ou at\u00e9 mesmo multiplicar por 5 novamente. Isso mostra que <span class="ph">[they]</span> n\u00e3o consolidou a ideia de que a divis\u00e3o \&quot;desfaz\&quot; a multiplica\u00e7\u00e3o.&quot;, &quot;reassurance&quot;: &quot;\u00c9 muito comum ter essa confus\u00e3o no in\u00edcio, mas com pr\u00e1tica e foco na l\u00f3gica, <span class="ph">[Student Name]</span> vai superar isso rapidamente.&quot;, &quot;home_action&quot;: &quot;Use blocos de montar (LEGO ou similar). Pe\u00e7a a <span class="ph">[Student Name]</span> para montar 3 torres de 4 blocos cada (total de 12). Depois, remova uma torre e pergunte: \&quot;Se temos 12 blocos no total e 3 torres, quantos blocos h\u00e1 em cada torre? Como voc\u00ea desfaz o processo de montar as torres para encontrar o n\u00famero em cada uma?\&quot; (12 / 3 = 4)&quot;}, {&quot;tag&quot;: &quot;not_balancing_equation&quot;, &quot;parent_description&quot;: &quot;Ao resolver uma equa\u00e7\u00e3o como <code>7 </em> y = 42</code>, <span class="ph">[Student Name]</span> pode dividir apenas um lado da equa\u00e7\u00e3o (por exemplo, 42 por 7) e esquecer de aplicar a mesma opera\u00e7\u00e3o ao outro lado, ou simplesmente n\u00e3o entender por que \u00e9 crucial fazer isso para manter a igualdade. <span class="ph">[they]</span> pode chegar \u00e0 resposta correta por intui\u00e7\u00e3o, mas sem a compreens\u00e3o do \&quot;balanceamento\&quot;.&quot;, &quot;reassurance&quot;: &quot;A ideia de manter a equa\u00e7\u00e3o equilibrada \u00e9 um pilar da \u00e1lgebra e <span class="ph">[Student Name]</span> est\u00e1 no caminho certo para domin\u00e1-la com um pouco mais de aten\u00e7\u00e3o ao conceito.&quot;, &quot;home_action&quot;: &quot;Use uma balan\u00e7a de cozinha ou fa\u00e7a um balancinho simples com um cabide. Coloque 2 objetos iguais de um lado e 6 objetos menores (id\u00eanticos entre si) do outro, equilibrando. Explique que para descobrir o peso de um objeto menor, <span class="ph">[they]</span> precisa dividir igualmente em ambos os lados para manter o equil\u00edbrio.&quot;}, {&quot;tag&quot;: &quot;multiplication_facts_weakness&quot;, &quot;parent_description&quot;: &quot;\u00c0s vezes, <span class="ph">[Student Name]</span> entende o conceito de dividir para resolver uma equa\u00e7\u00e3o como <code>9 * z = 63</code>, mas erra a resposta porque ainda est\u00e1 inseguro com as tabuadas. <span class="ph">[they]</span> sabe que precisa dividir 63 por 9, mas pode ter dificuldade em lembrar que 63 / 9 = 7.&quot;, &quot;reassurance&quot;: &quot;Conhecer as tabuadas \u00e9 um superpoder na matem\u00e1tica, e <span class="ph">[Student Name]</span> pode fortalec\u00ea-lo com um pouco de pr\u00e1tica di\u00e1ria.&quot;, &quot;home_action&quot;: &quot;Joguem um jogo de cartas \&quot;Flashcards\&quot; de multiplica\u00e7\u00e3o. Fa\u00e7am cart\u00f5es com opera\u00e7\u00f5es como \&quot;9 x 7\&quot; e a resposta \&quot;63\&quot; no verso. Pratiquem por 5-10 minutos antes do jantar.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos descomplicar as Equações de Multiplicação de Um Passo para que <span class="ph">[they]</span> possa ajudar <span class="ph">[Student Name]</span> com total confiança. Imagine que uma equação é como um quebra-cabeça onde precisamos descobrir um número escondido.
+
+<strong>1. Entendendo a Equação:</strong>
+Pense assim: Você foi à loja para comprar pacotes de adesivos para o caderno de <span class="ph">[Student Name]</span>. Cada pacote custa 3 reais. Você gastou um total de 18 reais. Quantos pacotes de adesivos você comprou?
+A equação seria: <code>3 <em> ? = 18</code> (ou <code>3 </em> x = 18</code>). O &#x27;?&#x27; ou &#x27;x&#x27; é o número de pacotes que você não sabe.
+
+<strong>2. A Chave: A Operação Inversa:</strong>
+Sempre que vemos uma multiplicação, para &quot;desfazer&quot; e encontrar o número escondido, precisamos usar a operação <em>inversa</em>, que é a divisão. Se estivéssemos somando, usaríamos a subtração; se subtraindo, usaríamos a soma. Para multiplicação, a divisão é nossa amiga.
+
+<strong>3. Mantenha o Equilíbrio:</strong>
+Uma equação é como uma balança. O que você faz de um lado, <span class="ph">[they]</span> precisa fazer do outro para manter o equilíbrio.
+Na nossa equação <code>3 <em> x = 18</code>, queremos que o &#x27;x&#x27; fique sozinho. Ele está sendo multiplicado por 3. Para &quot;tirar&quot; o 3, dividimos </em>ambos os lados<em> por 3.
+Lado esquerdo: <code>(3 </em> x) / 3 = x</code> (o 3 &quot;corta&quot; o 3, sobrando só o x).
+Lado direito: <code>18 / 3 = 6</code>.
+
+<strong>4. A Solução:</strong>
+Então, <code>x = 6</code>. Você comprou 6 pacotes de adesivos!
+Vamos testar: <code>3 reais * 6 pacotes = 18 reais</code>. Perfeito!
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> agora tem a base para entender e explicar essas equações. É apenas sobre encontrar o número escondido usando a operação contrária e mantendo o equilíbrio.</div></div></div></div>
+</body>
+</html>

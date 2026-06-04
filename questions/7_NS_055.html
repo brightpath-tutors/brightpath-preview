@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Integers on Number Line</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.055<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Integers on Number Line</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.055</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in Anchorage, Alaska, dropped from 5 degrees Celsius to 2 degrees below zero. What integer represents the final temperature relative to zero?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2</div><div class="option"><span class="opt-letter">B.</span> -2</div><div class="option"><span class="opt-letter">C.</span> 5</div><div class="option"><span class="opt-letter">D.</span> -5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial temperature: 5 degrees Celsius. Change: dropped to 2 degrees below zero.</div>
+    <div class="step-exp">The problem describes a starting point and a final state relative to zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2 degrees below zero&quot; means a negative value.</div>
+    <div class="step-exp">Phrases like &#x27;below zero&#x27; or &#x27;below sea level&#x27; indicate negative integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 degrees below zero = -2</div>
+    <div class="step-exp">Negative numbers are used to represent values less than zero.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -2 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A hiker descended 15 meters from the base of a cliff. If the base of the cliff is considered 0, what integer represents the hiker&#x27;s position?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -15</div><div class="option"><span class="opt-letter">B.</span> 15</div><div class="option"><span class="opt-letter">C.</span> 1</div><div class="option"><span class="opt-letter">D.</span> 0</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Starting point: Base of cliff (0 meters). Direction: Descended 15 meters.</div>
+    <div class="step-exp">The problem sets a reference point (0) and describes movement relative to it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Descended&quot; means moving downwards, which implies a negative change from the reference point.</div>
+    <div class="step-exp">Words like &#x27;descended&#x27;, &#x27;dropped&#x27;, or &#x27;below&#x27; indicate negative values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Descended 15 meters = -15</div>
+    <div class="step-exp">Negative numbers represent positions below a reference point.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a financial audit, a company recorded a loss of $1,200,000 in the first quarter. What integer represents this loss?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0</div><div class="option"><span class="opt-letter">B.</span> -1,200,000</div><div class="option"><span class="opt-letter">C.</span> 120,000</div><div class="option"><span class="opt-letter">D.</span> 1,200,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The company had a &quot;loss&quot; of $1,200,000.</div>
+    <div class="step-exp">A loss in financial terms means a decrease in value or money.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A loss is represented by a negative integer.</div>
+    <div class="step-exp">Gains are positive, losses are negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Loss of $1,200,000 = -1,200,000</div>
+    <div class="step-exp">The magnitude of the loss is 1,200,000, and &#x27;loss&#x27; indicates a negative sign.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -1,200,000 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A geologist discovered a fossil 75 feet below sea level. What integer represents the depth of the fossil?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0</div><div class="option"><span class="opt-letter">B.</span> -7.5</div><div class="option"><span class="opt-letter">C.</span> -75</div><div class="option"><span class="opt-letter">D.</span> 75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Reference point: Sea level (0 feet). Direction: 75 feet below sea level.</div>
+    <div class="step-exp">Sea level is typically considered the zero point for elevation and depth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Below sea level&quot; means a negative value.</div>
+    <div class="step-exp">Similar to &#x27;below zero&#x27;, &#x27;below sea level&#x27; implies a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">75 feet below sea level = -75</div>
+    <div class="step-exp">The magnitude is 75, and the direction &#x27;below&#x27; makes it negative.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -75 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A diver is exploring a shipwreck at a depth of 28 meters. What integer represents the diver&#x27;s position relative to the surface?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0</div><div class="option"><span class="opt-letter">B.</span> 2.8</div><div class="option"><span class="opt-letter">C.</span> -28</div><div class="option"><span class="opt-letter">D.</span> 28</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Reference point: Surface (0 meters). Position: 28 meters deep.</div>
+    <div class="step-exp">The surface of the water is the standard zero reference for depth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Depth implies a position below the surface, which is represented by a negative integer.</div>
+    <div class="step-exp">Any measurement &#x27;below&#x27; a reference point is typically negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Depth of 28 meters = -28</div>
+    <div class="step-exp">The number 28 indicates the distance from the surface, and the negative sign indicates it&#x27;s below.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -28 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A football team lost 6 yards on a play. What integer represents the change in yardage?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -6</div><div class="option"><span class="opt-letter">B.</span> 0</div><div class="option"><span class="opt-letter">C.</span> 6</div><div class="option"><span class="opt-letter">D.</span> 1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The team &quot;lost&quot; 6 yards.</div>
+    <div class="step-exp">In sports, &#x27;losing&#x27; yards means moving backward or a decrease in position.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A loss is represented by a negative integer.</div>
+    <div class="step-exp">Forward movement or gains are positive; backward movement or losses are negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Lost 6 yards = -6</div>
+    <div class="step-exp">The number 6 indicates the amount of change, and the negative sign indicates a loss.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -6 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef noted that the freezer temperature dropped to 10 degrees Fahrenheit below zero. What integer represents this temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -1</div><div class="option"><span class="opt-letter">B.</span> -10</div><div class="option"><span class="opt-letter">C.</span> 0</div><div class="option"><span class="opt-letter">D.</span> 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Reference point: Zero degrees Fahrenheit. Description: 10 degrees Fahrenheit below zero.</div>
+    <div class="step-exp">Zero is the standard reference point for temperature scales.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Below zero&quot; means a negative value.</div>
+    <div class="step-exp">Similar to other contexts, &#x27;below zero&#x27; translates to a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 degrees Fahrenheit below zero = -10</div>
+    <div class="step-exp">The value 10 indicates the magnitude, and &#x27;below zero&#x27; indicates the negative sign.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -10 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A historian dated an artifact to 135 years before the common era (B.C.E.). If the common era is year 0, what integer represents the artifact&#x27;s age relative to year 0?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0</div><div class="option"><span class="opt-letter">B.</span> 135</div><div class="option"><span class="opt-letter">C.</span> 13.5</div><div class="option"><span class="opt-letter">D.</span> -135</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Reference point: Common Era (year 0). Time period: 135 years before the Common Era.</div>
+    <div class="step-exp">The Common Era is the zero point for this timeline.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">&#x27;Before the Common Era&#x27; (B.C.E.) means a negative value relative to year 0.</div>
+    <div class="step-exp">Historical dates before year 0 are represented by negative integers on a number line.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">135 years B.C.E. = -135</div>
+    <div class="step-exp">The number 135 is the magnitude, and B.C.E. indicates the negative sign.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -135 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s annual budget experienced a deficit of $3,500,000. What integer represents this financial state relative to a balanced budget?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0</div><div class="option"><span class="opt-letter">B.</span> 350,000</div><div class="option"><span class="opt-letter">C.</span> -3,500,000</div><div class="option"><span class="opt-letter">D.</span> 3,500,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The budget experienced a &quot;deficit&quot; of $3,500,000.</div>
+    <div class="step-exp">A deficit means spending more than is earned, resulting in a negative balance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A deficit is represented by a negative integer, assuming a balanced budget is 0.</div>
+    <div class="step-exp">A balanced budget is the zero point; a surplus is positive, a deficit is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Deficit of $3,500,000 = -3,500,000</div>
+    <div class="step-exp">The value 3,500,000 is the amount, and &#x27;deficit&#x27; implies a negative sign.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -3,500,000 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital artist created a new layer that is 4 units behind the background layer. If the background layer is considered 0 on the depth axis, what integer represents the new layer&#x27;s position?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4</div><div class="option"><span class="opt-letter">B.</span> 0</div><div class="option"><span class="opt-letter">C.</span> 1</div><div class="option"><span class="opt-letter">D.</span> -4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Reference point: Background layer (0 units). Position: 4 units behind the background layer.</div>
+    <div class="step-exp">The background layer serves as the zero reference for depth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">&#x27;Behind&#x27; in this context means further away from the viewer or deeper into the scene, implying a negative value.</div>
+    <div class="step-exp">Positions in front are positive, positions behind are negative relative to the reference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 units behind the background layer = -4</div>
+    <div class="step-exp">The number 4 indicates the distance, and &#x27;behind&#x27; indicates the negative sign.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -4 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

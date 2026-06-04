@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Multiplying Rational Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | The Number System<br>71 atoms | Skill 7.NS.013.03<br></div>
+</div>
+<h1 class="skill-title">Multiplying Rational Numbers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.013.03 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can accurately multiply any two rational numbers, including positive and negative fractions, decimals, and mixed numbers.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">A rational number is any number that can be expressed as a fraction p/q, where p and q are integers and q is not zero. Multiplying rational numbers means finding the product when you combine two such numbers. The mechanism is straightforward: for fractions, multiply the numerators together and the denominators together. For example, to find the product of (-1/2) and (3/4), we multiply -1 by 3 to get -3 for the numerator, and 2 by 4 to get 8 for the denominator, resulting in -3/8. For decimals, <span class="ph">[Student Name]</span> can multiply the numbers as if they were whole numbers, then count the total number of decimal places in the original numbers to place the decimal point in the product. Remember the sign rules from integers: same signs yield a positive product, different signs yield a negative product. Think of it like scaling a recipe: if you need 1/2 of an ingredient that already calls for 3/4 cup, you&#x27;re multiplying (1/2) * (3/4) = 3/8 cup. This is a crucial skill, <span class="ph">[Student Name]</span>, as <span class="ph">[they]</span> will use it constantly.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">Great job, <span class="ph">[Student Name]</span>! You&#x27;ve already mastered so much about rational numbers. Remember how we confidently added and subtracted fractions and decimals, even negative ones, in 7.NS.013.01? You used number lines to visualize these operations and became comfortable with the idea of a number&#x27;s distance from zero. In 7.NS.013.02, we solidified your understanding that negative numbers behave predictably, and that the product of signs – like a negative times a negative – always follows a consistent rule. Multiplying rational numbers is just the next logical step, building directly on these strong foundations. You already know how to multiply basic fractions and decimals, and you&#x27;re an expert at handling positive and negative signs. Think of it as combining two skills you already possess: the mechanics of multiplying numbers and the rules for signs. We&#x27;re simply applying those same clear rules to a new operation, making it feel very familiar and achievable. <span class="ph">[Student Name]</span>, you absolutely have the skills to excel at this!</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Here&#x27;s a cool fact, <span class="ph">[Student Name]</span>: Many people find multiplying fractions easier than adding or subtracting them because you don&#x27;t need a common denominator! That&#x27;s right, no extra steps to make the bottom numbers match. This makes multiplying rational numbers surprisingly straightforward and incredibly useful in everyday US life. Imagine you&#x27;re helping your family prepare for a big Thanksgiving dinner, and you need to make 1/2 of a recipe that calls for 3/4 cup of sugar. To figure out how much sugar you actually need, you&#x27;re multiplying (1/2) * (3/4). Or, consider a 25% off sale at your favorite store, like Walmart or Target. If a pair of sneakers costs $60, you&#x27;re implicitly multiplying $60 by the rational number 0.25 to find your savings, or by 0.75 to find the new price! <span class="ph">[Student Name]</span>, knowing how to multiply rational numbers helps <span class="ph">[them]</span> become a smart consumer and an awesome home chef. It&#x27;s a skill that pays off!</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Let&#x27;s calmly and clearly understand how to multiply rational numbers. A rational number is any number that can be written as a fraction, where both the numerator and the denominator are integers, and the denominator is not zero. This includes whole numbers (like 5, which is 5/1), integers (like -3, which is -3/1), fractions (like 2/3), and terminating or repeating decimals (like 0.75, which is 3/4). When we multiply rational numbers, we are essentially finding a &#x27;part of a part&#x27; or scaling a quantity. For example, let&#x27;s multiply (-2/5) by (1/4). First, we multiply the numerators: -2 <em> 1 = -2. Next, we multiply the denominators: 5 </em> 4 = 20. So, the product is -2/20, which simplifies to -1/10. An application for <span class="ph">[Student Name]</span> could be calculating discounts: if a $50 video game is on sale for &#x27;1/5 off,&#x27; you multiply $50 by (1/5) to find the $10 discount. <span class="ph">[Student Name]</span>, this predictable process will help <span class="ph">[they]</span> solve many problems.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">In Grade 7, <span class="ph">[Student Name]</span>, you&#x27;ve built a strong understanding of rational numbers. You became proficient with 7.NS.013.01 by adding and subtracting various rational numbers, like combining 2.5 and -1.3, or finding the sum of 1/3 and -1/6. You also explored 7.NS.013.02, gaining confidence in understanding negative rational numbers, their absolute values, and how division of integers always results in a rational number. You know that numbers like -0.75 or -5/8 are just as valid as positive ones, and you understand the rules for how signs behave in different operations.
+
+Now, we&#x27;re going to seamlessly connect that knowledge to multiplication. The fundamental sign rules you already mastered for integers – that a negative times a negative is positive, and a negative times a positive is negative – are exactly the same when multiplying rational numbers. You&#x27;ve also already learned the basic mechanics of multiplying fractions (numerator times numerator, denominator times denominator) and decimals from earlier grades. This means you possess all the individual components needed for today&#x27;s lesson!
+
+Today, we&#x27;re bringing these pieces together to master multiplying rational numbers. You&#x27;ll apply your knowledge of fraction and decimal multiplication, combined with your strong grasp of positive and negative signs, to solve problems like (-3/4) * (2/5). This new skill will empower <span class="ph">[Student Name]</span> to tackle a whole new range of real-world scenarios, from calculating half of a recipe to figuring out the change in stock value for a company!</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hey there, <span class="ph">[Student Name]</span>! Let&#x27;s tackle multiplying rational numbers, starting with a problem involving fractions. We&#x27;ll multiply -3/4 by 1/2. It might look a little tricky with that negative sign, but we&#x27;ll break it down step-by-step to make sure you understand each part. Remember that multiplying fractions means we&#x27;ll multiply the top numbers (numerators) together and the bottom numbers (denominators) together. The trickiest part often comes down to managing the signs correctly, but if you remember the rules for multiplying positive and negative numbers, you&#x27;ll be golden. Let&#x27;s get started!
+
+<strong>Problem:</strong> Calculate the product of -3/4 and 1/2.
+
+1.  <strong><span class="hint-tag">&#128161; Hint: First, think about the signs. What is a negative number multiplied by a positive number? Also, how do you multiply fractions?</span></strong>
+    Identify the numbers: We have a negative fraction, -3/4, and a positive fraction, 1/2. When multiplying a negative number by a positive number, the result will always be negative. To multiply fractions, we multiply the numerators together and the denominators together.
+    So, (-3/4) <em> (1/2) will give a negative result.
+
+2.  <strong><span class="hint-tag">&#128161; Hint: Now, let&#x27;s multiply just the top numbers (numerators).</span></strong>
+    Multiply the numerators: The numerators are 3 and 1.
+    3 </em> 1 = 3.
+
+3.  <strong><span class="hint-tag">&#128161; Hint: Next, multiply the bottom numbers (denominators).</span></strong>
+    Multiply the denominators: The denominators are 4 and 2.
+    4 <em> 2 = 8.
+
+4.  <strong><span class="hint-tag">&#128161; Hint: Put the new numerator over the new denominator and remember the sign you determined in Step 1. Can the fraction be simplified?</span></strong>
+    Combine the results and apply the sign: We have a new numerator of 3 and a new denominator of 8. Since we determined the final answer must be negative, the product is -3/8. The fraction 3/8 cannot be simplified further because the greatest common divisor of 3 and 8 is 1.
+    <strong>Final Answer: -3/8</strong>
+
+5.  <strong><span class="hint-tag">&#128161; Hint: How can you check if your answer is reasonable? Think about decimals or visualizing parts of a whole.</span></strong>
+    Check: We can approximate this using decimals. -3/4 is -0.75, and 1/2 is 0.5.
+    -0.75 </em> 0.5 = -0.375.
+    Our answer, -3/8, is also -0.375. The answer matches, confirming our calculation is correct.</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Alright, <span class="ph">[Student Name]</span>, let&#x27;s take on another multiplication problem with rational numbers, this time involving a mixed number and a negative fraction. We need to find the product of 2 1/3 and -3/5. The key here is to first make sure all numbers are in a consistent format – improper fractions are usually best for multiplication. Then, we apply the same multiplication rules for fractions and pay close attention to the signs. This problem combines a few important skills you&#x27;ve learned, so let&#x27;s work through it systematically.
+
+<strong>Problem:</strong> Calculate the product of 2 1/3 and -3/5.
+
+1.  <strong>Convert mixed numbers to improper fractions:</strong> The first number, 2 1/3, needs to be converted.
+    To do this, multiply the whole number by the denominator (2 <em> 3 = 6), then add the numerator (6 + 1 = 7). Keep the original denominator, so 2 1/3 becomes 7/3.
+    The second number, -3/5, is already an improper fraction.
+
+2.  <strong>Multiply the numerators:</strong> Now we have (7/3) </em> (-3/5). Let&#x27;s first consider the absolute values of the numerators, which are 7 and 3.
+    7 <em> 3 = 21.
+
+3.  <strong>Multiply the denominators:</strong> Next, we multiply the denominators, which are 3 and 5.
+    3 </em> 5 = 15.
+
+4.  <strong>Combine and simplify, applying the sign:</strong> We now have 21/15. Since we multiplied a positive number (7/3) by a negative number (-3/5), the final result must be negative. So, the product is -21/15. This fraction can be simplified by dividing both the numerator and the denominator by their greatest common divisor, which is 3.
+    -21 ÷ 3 = -7
+    15 ÷ 3 = 5
+    So, the simplified product is -7/5. This can also be written as a mixed number, -1 2/5.
+    <strong>Final Answer: -7/5 (or -1 2/5)</strong>
+
+5.  <strong>Check the answer:</strong> Let&#x27;s convert to decimals for a quick check.
+    2 1/3 is approximately 2.333.
+    -3/5 is -0.6.
+    2.333 * -0.6 is approximately -1.3998.
+    Our answer, -7/5, is exactly -1.4. The values are very close, indicating our calculation is likely correct. The slight difference is due to the repeating decimal approximation for 2 1/3.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">This problem will truly test your understanding of multiplying rational numbers, <span class="ph">[Student Name]</span>! It&#x27;s a multi-step scenario involving decimals, fractions, and negative numbers. Remember &#x27;depth&#x27; below the surface is negative. Pay close attention to the order of operations and, especially, the signs. A common pitfall here is mismanaging those negative numbers, so let&#x27;s be super careful!
+
+<strong>Problem:</strong> A deep-sea submersible starts at a position of -250.5 feet. If its depth then changes by a factor of -0.6, and subsequently, its <em>new</em> depth changes again by a factor of 1/3, what is its final depth relative to the surface?
+
+1.  <strong>Multiply the initial depth by the first factor:</strong>
+    Initial depth: -250.5 feet. First factor: -0.6.
+    -250.5 <em> -0.6
+    </em>Common Error:<em> Forgetting that a negative multiplied by a negative equals a positive. Students might incorrectly keep the result negative.
+    </em>How to Avoid:<em> Always perform a quick sign check. Negative </em> Negative = Positive.
+    Calculation: 250.5 <em> 0.6 = 150.3. So, -250.5 </em> -0.6 = 150.3 feet.
+
+2.  <strong>Multiply the result from Step 1 by the second factor:</strong>
+    Current depth: 150.3 feet. Second factor: 1/3.
+    150.3 <em> 1/3
+    </em>Common Error:<em> Making calculation errors when multiplying a decimal by a fraction.
+    </em>How to Avoid:<em> Convert the decimal to a fraction (150.3 = 1503/10) for exact calculation.
+    (1503/10) </em> (1/3) = 1503/30.
+    Simplify: Both 1503 and 30 are divisible by 3.
+    1503 ÷ 3 = 501. 30 ÷ 3 = 10.
+    So, the final depth is 501/10 feet.
+
+3.  <strong>Express the final answer and determine its sign:</strong>
+    The final depth is 501/10 feet, which is 50.1 feet.
+    <em>Common Error:</em> Incorrectly applying the sign rules for the final product.
+    <em>How to Avoid:</em> Track signs at each step: (Negative) <em> (Negative) = Positive. Then (Positive) </em> (Positive) = Positive. The final answer is positive.
+    <strong>Final Answer: 50.1 feet.</strong>
+
+    Check: -250.5 <em> -0.6 </em> (1/3) = 150.3 * (1/3) = 50.1. The submersible is 50.1 feet above the ocean surface.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Imagine you have a big delicious pizza, cut into 4 big slices. That&#x27;s like having &#x27;one whole pizza.&#x27; Now, imagine your friend only wants half of one of those slices. So, you cut one slice in half. How much pizza does your friend get? Just a tiny bit, right? It&#x27;s like taking a piece of a piece. Or, think about a baseball game. If the coach says &#x27;we&#x27;re going to play half of the usual 9 innings,&#x27; that&#x27;s 4 and a half innings. But then a rain delay means &#x27;we&#x27;ll only play half of <em>that</em> half-game,&#x27; so you end up playing even less!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content"><span class="ph">[Student Name]</span>, imagine you&#x27;re a superhero whose superpower is controlling direction and speed. When you move forward, that&#x27;s like multiplying by a positive number. Moving backward is like multiplying by a negative number. Now, imagine a &#x27;factor&#x27; that changes your speed. If you apply a factor of 1/2, you go half as fast. If you apply a factor of -2/3, you go two-thirds as fast <em>and</em> you reverse direction! Let&#x27;s say you&#x27;re trying to reach a hidden treasure that&#x27;s 100 feet <em>forward</em> (positive 100). If you encounter a &#x27;slow-down&#x27; trap that multiplies your distance by -1/4, you wouldn&#x27;t go to 25 feet. Instead, you&#x27;d end up 25 feet <em>backward</em> from where you started (100 * -1/4 = -25 feet). Each multiplication changes your current &#x27;position&#x27; or &#x27;outcome&#x27; by a specific ratio and direction, just like these factors change your superhero&#x27;s journey!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, picture a large square representing &#x27;one whole unit.&#x27; If you need to multiply two fractions like (3/4) <em> (2/5), imagine dividing that square into 4 rows horizontally and shading 3 of them. This visually represents 3/4. Then, imagine dividing the </em>same* square into 5 columns vertically and shading 2 of them. The area where the shading overlaps is the product! It&#x27;s like finding a &#x27;fraction of a fraction&#x27; of that whole square. The overlapping region will have 3 rows and 2 columns shaded from a total of 4 rows and 5 columns. So, you&#x27;ll see 6 shaded boxes out of a total of 20 smaller boxes, representing 6/20. If you&#x27;re multiplying by a negative number, just imagine that the entire shaded overlapping area &#x27;flips&#x27; its color to represent a negative value – perhaps from blue to red to signify &#x27;negative&#x27; space.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Alright, <span class="ph">[Student Name]</span>, so multiplying rational numbers, especially fractions and decimals, is actually pretty straightforward once you get the hang of it. Think of it this way: if you&#x27;re multiplying fractions, you just multiply the numbers on top (numerators) and then multiply the numbers on the bottom (denominators). Like (1/2) <em> (3/4) is just (1</em>3) over (2<em>4), which is 3/8. Easy peasy! The main thing to watch out for is the negative signs. Remember those rules from earlier this year: a positive times a positive is positive, a negative times a negative is also positive, but a positive times a negative (or vice versa) is </em>always* negative. So, if you&#x27;re multiplying -1/2 by 3/4, you know the answer will be negative, and the numbers give you 3/8, so it&#x27;s -3/8. Decimals are the same; just multiply like regular numbers and count your decimal places, then apply the sign rule. You got this, it’s like batting practice – consistent swings get you home runs!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">A financial analyst on Wall Street uses multiplying rational numbers daily to forecast earnings, calculate returns, and assess risks for investment portfolios. For instance, if an analyst predicts that a stock currently valued at $72.50 per share is expected to decrease by 3.2% next quarter due to market fluctuations, <span class="ph">[Student Name]</span> would calculate this change. The analyst multiplies the current price by the percentage change (expressed as a decimal) to find the predicted drop in value: $72.50 <em> -0.032 = -$2.32. This indicates a predicted drop of $2.32 per share. They might also project a company’s profits, for example, if a company makes $4.5 million in revenue and anticipates a 0.28 profit margin, they calculate $4,500,000 </em> 0.28 = $1,260,000 to estimate profit. These precise calculations are vital for guiding investment decisions for clients across the US.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Multiplying rational numbers is something you do almost without thinking. Imagine <span class="ph">[Student Name]</span> is helping out with a bake sale at <span class="ph">[their]</span> school, Lincoln Middle School, and the recipe for chocolate chip cookies calls for 2 and 1/4 cups of sugar. If the school decides to double the recipe to make enough cookies for everyone, how much sugar is needed? You&#x27;d multiply the original amount by 2. So, 2 and 1/4 cups <em> 2 = (9/4) </em> 2 = 18/4 = 4 and 1/2 cups of sugar. Or consider a sale at your favorite store, like Target. If a video game usually costs $59.99 and it&#x27;s marked down by 0.20 (20%), you multiply $59.99 * 0.20 = $11.998, which rounds to $12.00 saved. These everyday calculations help us manage our time and money, making life a little easier.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering the multiplication of rational numbers is a foundational skill that will significantly impact <span class="ph">[Student Name]</span>&#x27;s academic and professional future. On standardized tests like the SAT or ACT, proficiency with fractions, decimals, and negative numbers in multiplication is crucial for success in the math sections, especially in algebra and problem-solving questions involving percentages, rates, or scaling. Achieving higher scores on these tests can open doors to more competitive colleges and universities across the US, potentially leading to better scholarship opportunities. In college, regardless of whether <span class="ph">[they]</span> pursues a degree in business, engineering, healthcare, or even the arts, understanding how to multiply rational numbers will be vital for budgeting, data analysis, scientific calculations, and financial planning. These skills directly translate into higher earning potential; studies show a strong correlation between advanced math proficiency and higher lifetime earnings. For example, understanding compound interest or investment returns relies heavily on this concept.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Multiply (3/4) * (2/5).</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">Calculate -1.5 * 3.2.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">A recipe calls for 2/3 cup of flour. If <span class="ph">[Student Name]</span> wants to make 1 and 1/2 times the recipe, how much flour is needed?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">Multiply (-1/2) * (-4/7).</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">A diver descends from the surface at a rate of -0.75 feet per second. How far does the diver descend in 6.5 seconds? (Represent descent as a negative value).</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">Find the product of -2.5 and 0.4.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">A rectangular garden plot has a length of 5 and 1/4 yards and a width of 3 and 1/3 yards. What is the area of the garden?</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">On a particularly cold winter day in Bismarck, North Dakota, the temperature dropped by an average of -1.2 degrees Fahrenheit per hour for 3.5 hours. What was the total temperature change?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring Integer Sign Rules&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> multiplies two negative rational numbers and incorrectly gets a negative product, or multiplies a negative and a positive rational number and incorrectly gets a positive product. <span class="ph">[they]</span> forgets the rules for signs in multiplication.&quot;, &quot;WHY TEMPTING&quot;: &quot;Students often default to positive answers for multiplication or confuse multiplication sign rules with addition/subtraction rules.&quot;, &quot;SOLUTION&quot;: &quot;Always determine the sign of the product first. Remember: Same signs result in a positive product; different signs result in a negative product.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: (-4.5) <em> (-2) = -9.0. Right: (-4.5) </em> (-2) = 9.0.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Incorrect Mixed Number Conversion&quot;, &quot;MISTAKE&quot;: &quot;When multiplying mixed numbers, <span class="ph">[Student Name]</span> might try to multiply the whole number parts and fractional parts separately, or incorrectly convert a mixed number to an improper fraction (e.g., forgetting to add the numerator after multiplying the whole number by the denominator).&quot;, &quot;WHY TEMPTING&quot;: &quot;Converting mixed numbers is an extra step that can feel cumbersome or be rushed, leading to calculation errors.&quot;, &quot;SOLUTION&quot;: &quot;Always convert mixed numbers into improper fractions FIRST, then proceed with multiplying the improper fractions.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 2 1/2 <em> 3/4 = (2 </em> 3/4) + (1/2 <em> 3/4) = 1 1/2 + 3/8 = 1 7/8. Right: 2 1/2 </em> 3/4 = (5/2) * (3/4) = 15/8 = 1 7/8.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Trying to Find a Common Denominator&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> attempts to find a common denominator for two fractions before multiplying them, wasting time and often leading to incorrect calculations if <span class="ph">[they]</span> then combines them as if adding.&quot;, &quot;WHY TEMPTING&quot;: &quot;Students are accustomed to finding common denominators for adding and subtracting fractions, and mistakenly apply this rule to multiplication.&quot;, &quot;SOLUTION&quot;: &quot;For multiplying fractions, common denominators are NOT necessary. Simply multiply the numerators straight across and the denominators straight across.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: (1/3) <em> (2/5) = (5/15) </em> (6/15) = 30/225 (if multiplied, or 11/15 if added). Right: (1/3) <em> (2/5) = (1</em>2)/(3*5) = 2/15.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Misplacing Decimal Points&quot;, &quot;MISTAKE&quot;: &quot;When multiplying decimals, <span class="ph">[Student Name]</span> might miscount the total number of decimal places in the factors or incorrectly place the decimal point in the product.&quot;, &quot;WHY TEMPTING&quot;: &quot;It&#x27;s easy to lose track of decimal places, especially with multiple digits, or to align decimal points as one would for addition.&quot;, &quot;SOLUTION&quot;: &quot;Multiply the numbers as if they were whole numbers. Then, count the total number of digits after the decimal point in ALL factors. Place the decimal point in the product so it has that same total number of decimal places, counting from the right.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: 0.25 <em> 0.4 = 1.0 (multiplies 25</em>4=100, then puts decimal two places from right). Right: 0.25 * 0.4 = 0.100 or 0.1 (two decimal places + one decimal place = three decimal places).</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Skipping Simplification Until the End&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> multiplies large numerators and denominators together first, then tries to simplify a large, complex resulting fraction, increasing the chance of calculation errors.&quot;, &quot;WHY TEMPTING&quot;: &quot;It seems straightforward to multiply directly, and students might not realize the benefit of simplifying before multiplication.&quot;, &quot;SOLUTION&quot;: &quot;Look for opportunities to simplify fractions BEFORE multiplying. You can cross-simplify by finding common factors between any numerator and any denominator.&quot;, &quot;EXAMPLE&quot;: &quot;Wrong: (3/8) <em> (4/9) = (3</em>4)/(8<em>9) = 12/72. Then simplifies 12/72 to 1/6. Right: (3/8) </em> (4/9) = (1/2) * (1/3) (after simplifying 3 and 9 by 3, and 4 and 8 by 4) = 1/6.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>A rectangular garden plot measures 3/4 yard in length and 2/5 yard in width. What is the area of the garden plot, <span class="ph">[Student Name]</span>? Remember to express your answer as a simplified fraction.</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>A submarine descends at a rate of 1/3 of a mile per minute. If it descends for 6/7 of a minute, how much will its elevation change, <span class="ph">[Student Name]</span>? Express the change as a negative fraction.</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div><span class="ph">[Student Name]</span>, a professional bowler&#x27;s average score changes by -1.5 points for every tournament <span class="ph">[they]</span> attends if <span class="ph">[they]</span> doesn&#x27;t practice. If <span class="ph">[they]</span> goes to 0.8 tournaments without practicing, what is the total change in <span class="ph">[their]</span> average score?</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div>Calculate the product of (-2/3), (5/4), and (-1/2), <span class="ph">[Student Name]</span>. Simplify your answer to its lowest terms.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div><span class="ph">[Student Name]</span>, a baker needs 3/4 cup of flour for a single batch of cookies. If <span class="ph">[they]</span> wants to make 2 and a half batches for a school bake sale, how much flour will <span class="ph">[they]</span> need in total?</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div><span class="ph">[Student Name]</span>, compute the product of -2 1/4 and 1 1/3.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>A science experiment recorded a temperature change of -3/5 degrees Fahrenheit per hour. If the experiment ran for -2.5 hours (meaning it was observed 2.5 hours <em>before</em> the reference point), what was the total temperature change, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>A tech stock&#x27;s value was $72.50 at the start of the week. By Wednesday, it had decreased by 1/8 of its original value. By Friday, its <em>new</em> value decreased by an additional 0.25. What was the stock&#x27;s final value, <span class="ph">[Student Name]</span>?</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>Evaluate the following expression: (2/3) + (-1/4) * (8/5) - 0.75, <span class="ph">[Student Name]</span>. Write your final answer as a simplified fraction.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div>Simplify the following product completely: (-4/9) <em> (15/16) </em> (-6/5), <span class="ph">[Student Name]</span>. Write your answer as a simplified fraction.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hi <span class="ph">[Parent Name]</span>, this week, <span class="ph">[Student Name]</span> is diving into Multiplying Rational Numbers in Grade 7. This is a fundamental skill that helps <span class="ph">[Student Name]</span> understand how to combine quantities that aren&#x27;t just whole numbers, like fractions, decimals, and mixed numbers, including positive and negative values. Essentially, <span class="ph">[Student Name]</span> is learning how to calculate the product of any two numbers that can be written as a fraction. 
+
+Tonight, you could try a simple baking activity together. If a recipe calls for 0.75 cups of sugar and you want to make half a batch (multiply by 0.5), ask <span class="ph">[Student Name]</span> to calculate how much sugar is needed (0.75 <em> 0.5 = 0.375 cups). This makes the abstract concept very real. 
+
+At dinner, you could ask <span class="ph">[Student Name]</span>, &#x27;If your favorite stock lost $1.50 per share for 4 consecutive days, how much did its value change over those days?&#x27; (Solution: -1.50 </em> 4 = -6.00 dollars). It’s a great way to connect math to everyday finances for <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &#x27;Hey <span class="ph">[Student Name]</span>! Welcome back. Today, we&#x27;re going to tackle multiplying rational numbers, which means working with fractions, decimals, and negative numbers. It&#x27;s like combining parts of things, and it’s a super useful skill. Are you ready to dive in, <span class="ph">[Student Name]</span>?&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &#x27;No worries, <span class="ph">[Student Name]</span>! Let&#x27;s remember our sign rules first. A positive number times a negative number always gives us a negative result, and a negative number times a negative number gives us a positive result. Think of it like this: if you owe me money (negative) twice (positive), you still owe me money (negative). If you <em>don&#x27;t</em> owe me money (negative idea) twice (negative idea meaning reversal), then you end up with money (positive)! What sign do you think our answer should have for this problem, <span class="ph">[Student Name]</span>?&#x27;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &#x27;You’re doing great, <span class="ph">[Student Name]</span>! Let&#x27;s focus on the actual numbers now. If we&#x27;re multiplying fractions, we just multiply straight across: numerator times numerator, and denominator times denominator. If it&#x27;s decimals, we multiply them as if they were whole numbers and then count the total decimal places. Take your time, <span class="ph">[Student Name]</span>. You&#x27;ve got this!&#x27;
+
+SESSION CLOSING: &#x27;Fantastic work today, <span class="ph">[Student Name]</span>! You really showed how well you can multiply rational numbers. Remember, practice makes perfect, and you&#x27;re building a strong math foundation. Keep up the amazing effort, <span class="ph">[Student Name]</span>!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, the single most common mistake <span class="ph">[Student Name]</span> will make with multiplying rational numbers is incorrectly applying the rules for positive and negative signs. For example, <span class="ph">[Student Name]</span> might multiply two negative numbers like -0.5 * -3.0 and mistakenly get a negative answer, such as -1.5, instead of the correct positive answer, 1.5. 
+
+You can recognize this if <span class="ph">[Student Name]</span> consistently gets the correct absolute value but the wrong sign. 
+
+The exact words to say to <span class="ph">[Student Name]</span> are: &#x27;I see you&#x27;ve got the numerical part right, <span class="ph">[Student Name]</span>, but let’s double-check the sign. What happens when we multiply two negative numbers together?&#x27; 
+
+What NOT to say to <span class="ph">[Student Name]</span>: &#x27;You always forget the signs!&#x27; or &#x27;This is easy, why are you making a mistake?&#x27; Such statements can be discouraging.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;incorrect_sign_application&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might correctly multiply the numbers but forget or incorrectly apply the rules for signs, often getting a negative answer when it should be positive (e.g., -2.5 <em> -4 = -10 instead of 10).&quot;, &quot;reassurance&quot;: &quot;It&#x27;s very common to mix up sign rules at first, <span class="ph">[Student Name]</span>. Many people make this mistake, and it just takes a bit of focused practice to get it right consistently.&quot;, &quot;home_action&quot;: &quot;Tonight, play a quick &#x27;Sign Game&#x27; where <span class="ph">[Student Name]</span> just states the sign of the product for problems like (-5) </em> (2), (-3) <em> (-4), (1.5) </em> (-2).&quot;}, {&quot;tag&quot;: &quot;fraction_decimal_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might struggle to switch between multiplying fractions and decimals, or might convert unnecessarily, making problems more complex than needed (e.g., converting 0.5 to 1/2 when multiplying 0.5 by 3.2).&quot;, &quot;reassurance&quot;: &quot;It&#x27;s natural to feel more comfortable with one form over another, <span class="ph">[Student Name]</span>. You&#x27;ll develop a sense for when it&#x27;s best to use fractions or decimals with more practice.&quot;, &quot;home_action&quot;: &quot;Ask <span class="ph">[Student Name]</span> to estimate the product of 1/3 and 0.75, then solve it using both methods (fractions and decimals) and compare the ease of each.&quot;}, {&quot;tag&quot;: &quot;mixed_number_oversight&quot;, &quot;parent_description&quot;: &quot;When multiplying mixed numbers, <span class="ph">[Student Name]</span> might forget to convert them into improper fractions first, instead trying to multiply the whole numbers and fractions separately (e.g., 2 1/2 <em> 3 1/3 is not 6 1/6).&quot;, &quot;reassurance&quot;: &quot;This is a classic step that many students miss, <span class="ph">[Student Name]</span>. It shows you&#x27;re thinking about the parts, but remember we need to combine them before multiplying!&quot;, &quot;home_action&quot;: &quot;Have <span class="ph">[Student Name]</span> multiply 1 1/2 by 2 1/3. Work through the conversion to improper fractions (3/2 </em> 7/3) as the first crucial step together.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! Let&#x27;s get you comfortable with multiplying rational numbers so <span class="ph">[they]</span> can help <span class="ph">[Student Name]</span> confidently.
+
+Imagine rational numbers as any number you can write as a simple fraction – like 1/2, 3/4, or even 5 (which is 5/1) or -2.75 (which is -11/4). This includes all fractions, decimals that end or repeat, and whole numbers.
+
+Multiplying them is like scaling something up or down, or combining groups of these fractional amounts. Here’s how <span class="ph">[they]</span> can think about it:
+
+1.  <strong>Forget the Signs First:</strong> Just like when you multiply 2 by 3 to get 6, initially, ignore if the numbers are positive or negative. For example, if you&#x27;re multiplying -2.5 by -4, first just multiply 2.5 by 4, which is 10.
+
+2.  <strong>Apply the Sign Rules:</strong> Now, remember these simple rules:
+    <em>   Positive x Positive = Positive (e.g., 2 x 3 = 6)
+    </em>   Positive x Negative = Negative (e.g., 2 x -3 = -6)
+    <em>   Negative x Positive = Negative (e.g., -2 x 3 = -6)
+    </em>   Negative x Negative = Positive (e.g., -2 x -3 = 6)
+    Think of it in terms of money: if your bank account balance <em>drops</em> (negative) by $5 (positive value) twice (positive multiplier), your balance <em>decreases</em> (negative total change). If you <em>remove</em> (negative operation) a debt (negative value), that&#x27;s a positive change for your finances!
+
+3.  <strong>Handle Fractions and Decimals:</strong>
+    <em>   <strong>Fractions:</strong> Multiply the top numbers (numerators) together, and the bottom numbers (denominators) together. Simplify if needed. For example, (1/2) </em> (3/4) = (1<em>3)/(2</em>4) = 3/8.
+    <em>   <strong>Decimals:</strong> Multiply them as if they were whole numbers. Then, count the total number of decimal places in the original numbers and place the decimal point that many places from the right in your answer. For instance, 0.5 </em> 0.3: 5<em>3=15. Two decimal places total (one in 0.5, one in 0.3), so 0.15.
+
+Example: <span class="ph">[Parent Name]</span>, if you&#x27;re budgeting and need to cut your grocery spending by 0.15 (or 15%) each week for 4 weeks (represented as a positive 4, or -0.15 </em> 4), your total change would be -0.60, or a 60% reduction over that period. <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Esta semana, tu hijo/a, <span class="ph">[Student Name]</span>, está aprendiendo a multiplicar números racionales en matemáticas de 7º grado. En pocas palabras, <span class="ph">[Student Name]</span> aprenderá a multiplicar fracciones, decimales o números enteros, ¡y a aplicar las reglas de los signos para números positivos y negativos! Es una habilidad fundamental que usamos en la vida cotidiana para entender porciones y cambios. Para una actividad práctica esta noche, pueden cocinar juntos: si una receta pide 1 1/2 tazas de azúcar y quieren hacer 2/3 de la receta, pídele a <span class="ph">[Student Name]</span> que calcule cuánta azúcar necesitan (1 1/2 * 2/3). En la cena, podrían preguntarle: &#x27;Si una tienda ofrece un descuento de 1/4 sobre el precio de unos zapatos de 600 pesos, ¿cuántos pesos es el descuento total?&#x27; Esto ayuda a <span class="ph">[Student Name]</span> a ver las matemáticas en el mundo real.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;¡Hola, <span class="ph">[Student Name]</span>! Me alegra mucho verte hoy. ¿Cómo te fue en la escuela? Hoy vamos a trabajar en algo muy importante y práctico en matemáticas: la multiplicación de números racionales. No te preocupes si suena complicado, son números que puedes escribir como fracciones, ¡y verás que es más fácil de lo que parece! Vamos a aprender a multiplicar cosas como 1/2 por 3/4 o -0.5 por 2. ¿Listo/a para empezar?&quot; 
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;No te preocupes, <span class="ph">[Student Name]</span>, es normal que a veces nos trabemos. Recuerda, cuando multiplicamos fracciones, multiplicamos los números de arriba (los numeradores) entre sí y luego multiplicamos los números de abajo (los denominadores) entre sí. Por ejemplo, si tienes (2/5) <em> (1/3), ¿cuál sería la multiplicación de los numeradores? ¿Y la de los denominadores?&quot; 
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;¡Lo tienes casi perfecto, <span class="ph">[Student Name]</span>! Ahora, revisemos los signos. Recuerda la regla importante: si multiplicamos un número negativo por un número positivo, ¿el resultado es positivo o negativo? Piensa en el ejemplo de (-1/2) </em> (3/4). Un negativo por un positivo siempre nos da un negativo. Si tienes (-0.6) * 5, ¿cuál será el signo de la respuesta?&quot; 
+SESSION CLOSING: &quot;¡Excelente trabajo hoy, <span class="ph">[Student Name]</span>! Has demostrado una gran comprensión de cómo multiplicar números racionales y aplicar las reglas de los signos. Es un tema fundamental que te ayudará mucho en el futuro. ¡Estoy muy orgulloso/a de tu esfuerzo y dedicación! Sigue así, eres un/a gran matemático/a.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La dificultad más común que <span class="ph">[Student Name]</span> podría enfrentar al multiplicar números racionales es olvidar aplicar correctamente las reglas de los signos. Por ejemplo, <span class="ph">[they]</span> podría multiplicar (-0.5) <em> (-0.2) y obtener -0.1 en lugar de 0.1, o (-1/4) </em> (2/3) y obtener 2/12 en lugar de -2/12. Para reconocerlo, notarás que los cálculos numéricos son correctos, pero el signo final de la respuesta es incorrecto. Si esto sucede, dile a <span class="ph">[Student Name]</span>: &#x27;Veo que el cálculo numérico es correcto. Ahora, volvamos a las reglas de los signos. Cuando multiplicamos dos números negativos, ¿el resultado final es positivo o negativo? Pensemos juntos en un ejemplo simple: -2 * -3.&#x27; Lo que NO debes decir es: &#x27;¡Otra vez te equivocaste en el signo! Siempre te pasa lo mismo.&#x27; Esto puede desmotivar a <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;ignoring_sign_rules&quot;, &quot;parent_description&quot;: &quot;Tu hijo/a, <span class="ph">[Student Name]</span>, puede multiplicar correctamente los valores num\u00e9ricos de los n\u00fameros racionales, pero a veces omite aplicar las reglas de los signos. Por ejemplo, <span class="ph">[they]</span> podr\u00eda decir que (-1/2) <em> (1/3) es 1/6 en lugar de -1/6.&quot;, &quot;reassurance&quot;: &quot;Es un error muy com\u00fan. <span class="ph">[they]</span> ya est\u00e1 dominando la parte de la multiplicaci\u00f3n; el siguiente paso es prestar m\u00e1s atenci\u00f3n a los signos, lo cual es una habilidad que se perfecciona con la pr\u00e1ctica.&quot;, &quot;home_action&quot;: &quot;Mientras hacen planes para la semana, preg\u00fantale a <span class="ph">[Student Name]</span>: &#x27;Si hoy pierdes 2 pesos (-2) por cada d\u00eda de la semana que llueva, y llueve 3 d\u00edas, \u00bfcu\u00e1nto dinero has &#x27;perdido&#x27; en total? (-2 </em> 3 = -6)&#x27;. Esto ayuda a visualizar el concepto de &#x27;negativo por positivo es negativo&#x27;.&quot;}, {&quot;tag&quot;: &quot;mixed_number_conversion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> podr\u00eda olvidar un paso crucial al multiplicar n\u00fameros mixtos (como 2 1/2) por otras fracciones o decimales, no convirti\u00e9ndolos primero a fracciones impropias (como 5/2) antes de multiplicar.&quot;, &quot;reassurance&quot;: &quot;Es una etapa natural en el aprendizaje de las fracciones. Una vez que <span class="ph">[they]</span> domine la conversi\u00f3n, ver\u00e1 que el proceso de multiplicaci\u00f3n se vuelve mucho m\u00e1s directo y preciso.&quot;, &quot;home_action&quot;: &quot;Al hornear, si una receta requiere 1 1/2 tazas de harina y quieren hacer 1/2 de la receta, p\u00eddele a <span class="ph">[Student Name]</span> que primero convierta 1 1/2 a una fracci\u00f3n impropia (3/2). Luego, pueden multiplicar (3/2) <em> (1/2) para encontrar la cantidad correcta.&quot;}, {&quot;tag&quot;: &quot;not_simplifying_fractions&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> realiza correctamente la multiplicaci\u00f3n de fracciones (por ejemplo, (2/3) </em> (3/4) = 6/12), pero puede pasar por alto el paso final de simplificar la fracci\u00f3n resultante a su forma m\u00e1s simple (en este caso, 1/2).&quot;, &quot;reassurance&quot;: &quot;\u00a1El c\u00e1lculo principal de <span class="ph">[Student Name]</span> es correcto! La simplificaci\u00f3n es el &#x27;toque final&#x27; que hace que las respuestas sean m\u00e1s claras y \u00fatiles. Es una habilidad que viene con la pr\u00e1ctica.&quot;, &quot;home_action&quot;: &quot;Despu\u00e9s de que <span class="ph">[Student Name]</span> resuelva un problema de multiplicaci\u00f3n, como (1/2) * (4/5) = 4/10, preg\u00fantale: &#x27;\u00bfPodemos hacer esta fracci\u00f3n m\u00e1s sencilla, como cuando reducimos el n\u00famero de ingredientes en una receta?&#x27; An\u00edmale a encontrar el n\u00famero m\u00e1s grande que divide tanto el numerador como el denominador (en 4/10, el 2).&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Vamos a desglosar la multiplicación de números racionales. Los números racionales son simplemente números que se pueden escribir como una fracción, como 1/2, 3, -0.75 (que es -3/4) o 2.333... (que es 7/3). La clave es entender cómo multiplicarlos, especialmente con números negativos.
+
+Aquí tienes los pasos:
+1.  <strong>Convierte a fracciones:</strong> Si tienes decimales o números enteros, conviértelos a fracciones. Por ejemplo, 0.5 es 1/2. Si tienes un entero como 4, es 4/1. Un número mixto como 1 1/2 se convierte en 3/2.
+2.  <strong>Multiplica directo:</strong> Multiplica los números de arriba (numeradores) y luego multiplica los números de abajo (denominadores). Así, (1/2) <em> (3/4) es (1</em>3)/(2<em>4) = 3/8.
+3.  <strong>Aplica las reglas de los signos:</strong> ¡Esto es crucial, <span class="ph">[Parent Name]</span>! <span class="ph">[they]</span> puede pensar en ello así:
+    </em>   <strong>Positivo (+) por Positivo (+) = Positivo (+)</strong>: Si ganas 5 pesos (un +5) de 2 amigos (un +2), tienes +10 pesos (+5 <em> +2 = +10).
+    </em>   <strong>Negativo (-) por Negativo (-) = Positivo (+)</strong>: Si te &#x27;quitan&#x27; una deuda de 5 pesos (un -5) por 2 personas (un -2, porque quitar es negativo), en realidad ¡estás 10 pesos más rico! (-5 <em> -2 = +10).
+    </em>   <strong>Positivo (+) por Negativo (-) = Negativo (-)</strong>: Si ganas 5 pesos (+5) pero lo pierdes 2 veces (-2), en total has perdido 10 pesos. (+5 <em> -2 = -10).
+    </em>   <strong>Negativo (-) por Positivo (+) = Negativo (-)</strong>: Si debes 5 pesos (-5) y esta situación se repite 2 veces (+2), tu deuda total es de 10 pesos. (-5 <em> +2 = -10).
+4.  <strong>Simplifica (si es posible):</strong> Reduce la fracción a su expresión más sencilla.
+
+Por ejemplo, si tienes -1.5 y lo multiplicas por 2/3. Primero, -1.5 es -3/2. Entonces, (-3/2) </em> (2/3). Multiplicas numeradores: -3 <em> 2 = -6. Multiplicas denominadores: 2 </em> 3 = 6. El resultado es -6/6, que simplifica a -1. ¡<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> dominará este concepto y podrá ayudar a <span class="ph">[Student Name]</span> con confianza!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>! Cette semaine, <span class="ph">[Student Name]</span> va explorer la multiplication des nombres rationnels en 7ème année. En termes simples, <span class="ph">[Student Name]</span> apprendra à multiplier des fractions, des décimales et des nombres entiers, y compris les nombres négatifs. C&#x27;est comme calculer un rabais de 25% sur un article de 24,50 $ ou doubler une recette de 1/2 tasse de farine. Pour une activité pratique ce soir, préparez un lot de cookies ensemble. Si la recette demande 2/3 de tasse de sucre, demandez à <span class="ph">[Student Name]</span> combien il faudrait pour faire une demi-recette (1/2 * 2/3 = 1/3 tasse). Pour la question à table: «Si vous réduisez de moitié un prix qui était déjà réduit de 1/4, quelle serait la réduction totale par rapport au prix original?» C&#x27;est une excellente façon d&#x27;ancrer ces concepts dans la vie quotidienne de <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: «Bonjour <span class="ph">[Student Name]</span>! Je suis ravi(e) de te retrouver. Aujourd&#x27;hui, nous allons plonger dans un sujet super intéressant: la multiplication des nombres rationnels. C&#x27;est une compétence clé qui t&#x27;aidera dans de nombreuses situations, comme le calcul de réductions ou le partage de recettes. Es-tu prêt(e) à explorer cela ensemble?»
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: «Je vois que tu hésites un peu. Rappelle-toi, la première étape est toujours de déterminer le signe de ta réponse finale. Si tu multiplies un nombre négatif par un nombre positif, la réponse est toujours négative. Par exemple, si nous avons -2,50 $ (une dette) et que tu en as 3 fois plus, c&#x27;est -2,50 $ <em> 3, ce qui donne une dette de -7,50 $. Essaye avec -1/2 </em> 4. Quel devrait être le signe de la réponse?»
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: «Tu as bien compris le signe, c&#x27;est excellent! Maintenant, concentrons-nous sur la multiplication elle-même. Quand tu multiplies des fractions, c&#x27;est simple: multiplie les numérateurs ensemble et les dénominateurs ensemble. Par exemple, pour (2/3) <em> (1/4), tu ferais 2</em>1 pour le numérateur et 3<em>4 pour le dénominateur. Pour les décimales, tu multiplies comme des nombres entiers, puis tu comptes le nombre total de décimales dans les facteurs pour placer la virgule dans le produit. Essaye avec (3/5) </em> (-1/2) ou -0.5 * 2.2.»
+SESSION CLOSING: «Fantastique, <span class="ph">[Student Name]</span>! Tu as fait un travail incroyable aujourd&#x27;hui avec la multiplication des nombres rationnels. Tu as vraiment compris comment gérer les signes et comment multiplier différentes formes de nombres. C&#x27;est une compétence puissante. Continue de t&#x27;entraîner, et tu deviendras un(e) véritable expert(e) ! Je suis très fier(ère) de toi!»</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus grande erreur que <span class="ph">[Student Name]</span> fera probablement est d&#x27;oublier les règles des signes pour la multiplication. Par exemple, <span class="ph">[Student Name]</span> pourrait calculer (-1/2) <em> (-1/4) et donner -1/8 au lieu de 1/8. Pour le reconnaître, cherchez des réponses négatives là où elles devraient être positives (un nombre pair de facteurs négatifs donne un produit positif) ou vice versa (un nombre impair de facteurs négatifs donne un produit négatif). Dites à <span class="ph">[Student Name]</span>: «Quand tu multiplies, regarde toujours combien de nombres négatifs tu as. Si c&#x27;est un nombre pair (comme deux négatifs), ta réponse finale sera positive. Si c&#x27;est un nombre impair (comme un seul négatif), ta réponse sera négative. Dans (-1/2) </em> (-1/4), nous avons deux nombres négatifs, donc la réponse est positive.» NE DITES PAS: «Tu as encore oublié les signes! Fais attention!»</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;sign_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> oublie la r\u00e8gle des signes et donne une r\u00e9ponse n\u00e9gative lorsque deux nombres n\u00e9gatifs sont multipli\u00e9s, par exemple, (-2/3) <em> (-1/2) = -1/3 au lieu de 1/3.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s courante, <span class="ph">[Student Name]</span> apprend une nouvelle r\u00e8gle et les signes peuvent \u00eatre d\u00e9licats au d\u00e9but. C&#x27;est un simple oubli qui se corrigera avec la pratique.&quot;, &quot;home_action&quot;: &quot;Jouez \u00e0 un jeu de cartes simple o\u00f9 les cartes rouges sont des nombres n\u00e9gatifs et les cartes noires sont positives. Multipliez deux cartes et d\u00e9terminez le signe du produit. Par exemple, une carte rouge (-5) et une autre carte rouge (-3) donnent un produit positif (+15).&quot;}, {&quot;tag&quot;: &quot;common_denominator_error&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> tente de trouver un d\u00e9nominateur commun avant de multiplier des fractions, par exemple, pour (1/3) </em> (1/2), <span class="ph">[Student Name]</span> essaie de les rendre (2/6) <em> (3/6) avant de multiplier, ce qui n&#x27;est pas n\u00e9cessaire et peut compliquer l&#x27;op\u00e9ration.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span> applique une r\u00e8gle qu&#x27;il/elle a d\u00e9j\u00e0 apprise pour l&#x27;addition et la soustraction de fractions. C&#x27;est un signe que <span class="ph">[they]</span> essaie d&#x27;utiliser ses connaissances existantes, ce qui est une bonne chose!&quot;, &quot;home_action&quot;: &quot;R\u00e9duisez de moiti\u00e9 (multipliez par 1/2) des quantit\u00e9s dans une recette de cuisine. Par exemple, si vous avez besoin de 3/4 de tasse de lait, demandez \u00e0 <span class="ph">[Student Name]</span> quelle est la moiti\u00e9 de cette quantit\u00e9. Cela renforce l&#x27;id\u00e9e de multiplier directement les fractions.&quot;}, {&quot;tag&quot;: &quot;decimal_placement_mistake&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> fait des erreurs en pla\u00e7ant la virgule d\u00e9cimale dans le produit final lors de la multiplication de d\u00e9cimales. Par exemple, 0.5 </em> 0.2 pourrait devenir 1.0 au lieu de 0.1.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une comp\u00e9tence qui demande de la pr\u00e9cision et <span class="ph">[Student Name]</span> est sur la bonne voie pour ma\u00eetriser le d\u00e9compte des d\u00e9cimales.&quot;, &quot;home_action&quot;: &quot;Utilisez des prix d&#x27;articles de magasin (par exemple, un snack \u00e0 1,25 $) et demandez \u00e0 <span class="ph">[Student Name]</span> de calculer le co\u00fbt de 3 articles ou de la moiti\u00e9 du prix (0,5 * 1,25 $). Comptez ensemble le nombre total de chiffres apr\u00e8s la virgule dans les facteurs pour placer correctement la virgule.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span>! Vous êtes sur le point de maîtriser la multiplication des nombres rationnels, et vous pourrez bientôt aider <span class="ph">[Student Name]</span> avec confiance. C&#x27;est plus simple qu&#x27;il n&#x27;y paraît!
+
+1.  <strong>Qu&#x27;est-ce qu&#x27;un nombre rationnel?</strong> Imaginez des nombres que vous utilisez tous les jours: des nombres entiers (comme 3, -5, 10), des fractions (comme 1/2, 3/4) et des décimales (comme 0.5, -2.75). Ce sont tous des nombres rationnels. En gros, tout nombre qui peut être écrit comme une fraction est rationnel.
+
+2.  <strong>La règle d&#x27;or des signes:</strong> C&#x27;est crucial! Quand vous multipliez:
+    <em>   Positif par positif = Positif (Ex: 2 x 3 = 6)
+    </em>   Négatif par négatif = Positif (Ex: -2 x -3 = 6). Pensez à deux &#x27;mauvaises&#x27; choses qui s&#x27;annulent pour donner un bon résultat.
+    <em>   Positif par négatif = Négatif (Ex: 2 x -3 = -6). Une bonne chose et une mauvaise chose donnent une mauvaise chose.
+    </em>   Négatif par positif = Négatif (Ex: -2 x 3 = -6).
+
+3.  <strong>Multiplier les fractions:</strong> C&#x27;est le plus simple! Multipliez les numérateurs (les chiffres du haut) ensemble, puis multipliez les dénominateurs (les chiffres du bas) ensemble. Par exemple, si vous voulez 1/2 d&#x27;un 1/4 de tarte, vous faites (1/2) <em> (1/4) = (1</em>1)/(2*4) = 1/8. Vous n&#x27;avez PAS besoin d&#x27;un dénominateur commun.
+
+4.  <strong>Multiplier les décimales:</strong> Multipliez-les comme si elles étaient des nombres entiers. Ensuite, comptez le nombre total de chiffres après la virgule dans tous les nombres que vous avez multipliés. Placez la virgule dans votre réponse finale en comptant ce même nombre de chiffres à partir de la droite. Par exemple, si vous achetez 2,5 livres de viande à 3,20 $ la livre: 2,5 x 3,2 = (25 x 32 = 800). Il y a un chiffre après la virgule dans 2,5 et un dans 3,2, soit 2 au total. Donc, 8,00 $. C&#x27;est votre budget!
+
+<span class="ph">[Parent Name]</span>, vous voyez, <span class="ph">[they]</span> avez déjà utilisé ces concepts sans le savoir. Avec ces étapes, <span class="ph">[they]</span> pourrez non seulement les comprendre mais aussi les enseigner à <span class="ph">[Student Name]</span> avec confiance!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjou, <span class="ph">[Parent Name]</span>! Semèn sa a, <span class="ph">[Student Name]</span> ap aprann yon gwo leson nan matematik pou klas 7yèm ane: Miltipliye Nonm Rasyonèl. Sa vle di <span class="ph">[they]</span> ap aprann kijan pou fè miltiplikasyon ak tout kalite nonm — fraksyon, desimal, ak nonm antye, menm lè yo pozitif (+) oswa negatif (-). Se yon ladrès fondamantal pou plis matematik pi devan!
+
+Yon aktivite amizan ou ka fè ak <span class="ph">[Student Name]</span> aswè a se kwit yon resèt ansanm. Si resèt la mande pou 1/2 tas farin, epi ou vle fè yon kantite ki 1.5 fwa plis, mande <span class="ph">[Student Name]</span> konbyen farin ou pral bezwen (1/2 * 1.5). 
+
+Pandan dine, ou ka mande <span class="ph">[Student Name]</span>: “Si yon jwè baskètbòl fè 0.75 pwen sou chak tire lib, epi <span class="ph">[they]</span> tire 8 fwa nan yon match, ki kantite pwen total <span class="ph">[they]</span> ta dwe fè nan tire lib?” Sa ap ede <span class="ph">[they]</span> aplike sa <span class="ph">[they]</span> aprann nan lavi reyèl.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjou <span class="ph">[Student Name]</span>! Jodi a nou pral plonje nan Miltipliye Nonm Rasyonèl. Se yon sijè enteresan ki pral ede ou konprann ki jan nonm travay lè yo fraksyon, desimal, oswa negatif. Mwen la pou ede ou, e mwen konnen ou kapab fè sa! Ann kòmanse ak yon egzanp senp: -2/3 miltipliye pa 3/4.&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;<span class="ph">[Student Name]</span>, anvan nou panse ak siy yo, ann miltipliye fraksyon yo tankou yo tout pozitif. Sonje byen, nou miltipliye nimeratè yo ansanm (nonm ki anlè yo) ak denominatè yo ansanm (nonm ki anba yo). Ki sa 2 miltipliye pa 3 bay? E ki sa 3 miltipliye pa 4 bay? Pa enkyete w pou siy negatif la kounye a, ann jwenn fraksyon an toudabò.&quot;
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Ou te jwenn fraksyon an kòrèkteman, <span class="ph">[Student Name]</span>! Koulye a, se tan pou nou panse ak siy lan. Nou te gen yon nonm negatif (-2/3) ak yon nonm pozitif (3/4). Sonje règ la: lè ou miltipliye yon nonm negatif ak yon nonm pozitif, rezilta a toujou yon nonm negatif. Epi, èske nou ka senplifye fraksyon sa a (6/12)? Ou prèske rive!&quot;
+
+SESSION CLOSING: &quot;Ou fè yon travay sipèb jodi a, <span class="ph">[Student Name]</span>! Ou byen aprann kijan pou miltipliye nonm rasyonèl, menm avèk siy pozitif ak negatif. Pa bliye pratike règ siy yo ak senplifye fraksyon yo. Mwen fyè de efò ou! Kenbe bon travay la!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, youn nan erè ki pi komen <span class="ph">[Student Name]</span> ap fè lè li miltipliye nonm rasyonèl se bliye oswa aplike règ siy yo mal. Pa egzanp, si <span class="ph">[they]</span> ap miltipliye (-1/2) * (-1/4), <span class="ph">[they]</span> ka bay repons lan -1/8 olye de 1/8. 
+
+Ou ka rekonèt sa si repons <span class="ph">[their]</span> gen bon kantite men li gen move siy. 
+
+Men sa ou ka di <span class="ph">[Student Name]</span>: &quot;<span class="ph">[Student Name]</span>, ou te miltipliye nonm yo kòrèkteman, men ann revize siy lan. Sonje: yon negatif miltipliye pa yon negatif bay yon pozitif. Menm jan ak yon pozitif miltipliye pa yon pozitif bay yon pozitif. Men, si ou gen yon negatif ak yon pozitif, rezilta a toujou negatif.&quot; 
+
+Sa ou PA DWE di: &quot;Sa se yon erè estipid! Ou ta dwe konnen règ siy yo!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;sign_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> souvan konfonn r\u00e8g siy yo, sitou l\u00e8 li gen de nonm negatif. Pa egzanp, li ka kw\u00e8 ke (-2.5) <em> (-0.4) egal a -1.0 olye de 1.0.&quot;, &quot;reassurance&quot;: &quot;Se yon er\u00e8 komen, <span class="ph">[Student Name]</span>! Menm pwofesyon\u00e8l yo ka bliye yon r\u00e8g siy detanzantan. Se yon bagay ki mande pratik pou vin paf\u00e8.&quot;, &quot;home_action&quot;: &quot;Ou menm ak <span class="ph">[Student Name]</span> ka jwe yon jw\u00e8t &#x27;kat siy&#x27;. Ekri nonm pozitif ak negatif sou kat epi miltipliye yo, apresa verifye siy lan.&quot;}, {&quot;tag&quot;: &quot;fraction_multiplication_error&quot;, &quot;parent_description&quot;: &quot;L\u00e8 li miltipliye fraksyon, <span class="ph">[Student Name]</span> pafwa f\u00e8 er\u00e8 l\u00e8 <span class="ph">[they]</span> eseye jwenn yon denominat\u00e8 komen, oswa li kwaze nimerat\u00e8 a ak denominat\u00e8 l\u00f2t fraksyon an. Pa egzanp, li ka konplike (1/3) </em> (1/2) olye pou l jis miltipliye nimerat\u00e8 ak denominat\u00e8.&quot;, &quot;reassurance&quot;: &quot;Li fasil pou konfonn miltiplikasyon ak adisyon fraksyon, <span class="ph">[Student Name]</span>. Ou sou bon chemen an, jis bezwen rafrechi memwa ou sou ki r\u00e8g ki aplike pou chak operasyon.&quot;, &quot;home_action&quot;: &quot;Itilize bl\u00f2k legos oswa ti w\u00f2ch pou mod\u00e8l fraksyon. Mete 1/3 nan youn ak 1/2 nan yon l\u00f2t, epi montre ki jan miltipliye yo se pran yon fraksyon nan yon l\u00f2t fraksyon.&quot;}, {&quot;tag&quot;: &quot;decimal_placement_errors&quot;, &quot;parent_description&quot;: &quot;L\u00e8 <span class="ph">[Student Name]</span> ap miltipliye desimal tankou 0.3 * 0.7, <span class="ph">[they]</span> ka bay repons lan 0.21, men pafwa <span class="ph">[they]</span> mal mete pwen desimal la, tankou 2.1 oswa 0.021.&quot;, &quot;reassurance&quot;: &quot;Mete pwen desimal la byen se yon bagay ki mande atansyon, <span class="ph">[Student Name]</span>. Li montre ou gen talan pou matematik, ou jis bezwen yon ti pratik anplis.&quot;, &quot;home_action&quot;: &quot;Kalkile depans nan boutik av\u00e8k <span class="ph">[Student Name]</span>. Si yon bagay koute 23.50 goud, epi ou achte 0.5 nan kantite sa a, mande <span class="ph">[Student Name]</span> konbyen lajan sa ap koute, epi tcheke plasman pwen desimal la.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Jodi a nou pral gade kijan pou miltipliye nonm rasyonèl, yon fason ki senp pou ou ka santi w alèz avèk sa. Pa enkyete w, <span class="ph">[they]</span> ka konprann sa fasil epi menm eksplike <span class="ph">[Student Name]</span>.
+
+Nonm rasyonèl se nonm tankou fraksyon (tankou 1/2), desimal (tankou 0.75), ak nonm antye (tankou -5 oswa 10). Miltipliye yo se jis yon fason pou konnen &#x27;konbyen fwa&#x27; yon bagay ye, menm lè bagay sa yo pa &#x27;tout antye&#x27; oswa yo negatif.
+
+Men kijan pou fè sa, etap pa etap:
+
+1.  <strong>Konprann nonm yo:</strong> Èske se yon fraksyon (tankou 2/3)? Yon desimal (tankou 1.5)? Yon nonm antye (tankou -4)? Lè nou miltipliye, pafwa nou bezwen fè yo menm fòm. Pa egzanp, 1.5 ka ekri kòm 3/2.
+2.  <strong>Miltipliye Fraksyon:</strong> Pou miltipliye fraksyon, se jis &#x27;anlè fwa anlè&#x27; (nimeratè) ak &#x27;anba fwa anba&#x27; (denominatè). Si ou gen 1/2 nan yon tas farin epi ou vle 3 fwa kantite sa a, ou fè (1<em>3) / (2</em>1) = 3/2 tas farin. Fasil!
+3.  <strong>Miltipliye Desimal:</strong> Imajine ou achte 2.5 kilogram diri nan mache Pòtoprens, epi chak kilogram koute 120.50 goud. Pou jwenn total la, miltipliye 25 fwa 12050 (san pwen desimal la). Apre sa, ou konte konbyen chif ki gen apre pwen desimal nan tou de nonm ou te miltipliye yo (isit la, youn nan 2.5 ak de nan 120.50, sa ki fè 3 chif total). Mete pwen desimal ou tounen nan repons lan apati dènye chif la, konte 3 chif. 
+4.  <strong>Règ Siy yo:</strong> Sa a enpòtan! Si ou miltipliye de nonm ki gen MENM siy (pozitif <em> pozitif, oswa negatif </em> negatif), repons lan ap TOUJOU pozitif. Si ou miltipliye de nonm ki gen SIY DIFERAN (pozitif <em> negatif, oswa negatif </em> pozitif), repons lan ap TOUJOU negatif. Panse ak sa kòm &#x27;bon nouvèl ak bon nouvèl se bon nouvèl&#x27;, &#x27;move nouvèl ak move nouvèl se bon nouvèl&#x27;, men &#x27;bon nouvèl ak move nouvèl se move nouvèl&#x27;.
+
+Avèk etap sa yo, <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> pral metrize konsèp sa a epi <span class="ph">[they]</span> ka ede <span class="ph">[Student Name]</span> avèk konfyans!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> está aprendendo sobre Multiplicação de Números Racionais em Matemática da 7ª série. Em termos simples, isso significa que <span class="ph">[they]</span> vai aprender a multiplicar frações e números decimais, incluindo aqueles que são negativos. É como descobrir uma parte de uma parte, ou escalar algo para mais ou para menos, mesmo quando estamos lidando com dívidas ou temperaturas abaixo de zero. É uma habilidade crucial para o dia a dia! 
+
+Para uma atividade prática em casa, que tal tentar redimensionar uma receita simples juntos? Se uma receita pede 3/4 de xícara de farinha e vocês querem fazer apenas metade dela, como <span class="ph">[Student Name]</span> calcularia a quantidade? Isso aplica diretamente a multiplicação de frações. 
+
+Na hora do jantar, você pode perguntar a <span class="ph">[Student Name]</span>: &quot;Se um time de futebol americano perdeu 2,5 jardas em cada uma das últimas 3 jogadas, quantas jardas <span class="ph">[they]</span> perdeu no total?&quot; Isso ajuda a conectar a matemática com situações do dia a dia e com números negativos.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Olá, <span class="ph">[Student Name]</span>! Que bom ver você. Hoje vamos mergulhar na Multiplicação de Números Racionais. É um tópico muito útil que <span class="ph">[they]</span> vai usar em muitas situações da vida real, <span class="ph">[Student Name]</span>! 
+
+<strong>SE <span class="ph">[Student Name]</span> FICAR EMPACADO NO PASSO 1:</strong>
+&quot;Tudo bem, <span class="ph">[Student Name]</span>. Vejo que você está com dificuldade nas regras dos sinais. Lembre-se, quando multiplicamos dois números negativos, o resultado é sempre positivo. Se multiplicamos um positivo por um negativo, ou vice-versa, o resultado é negativo. Por exemplo, se temos -2 vezes -3, qual seria o sinal? E -2 vezes 3? Pense nas regras com calma para <span class="ph">[Student Name]</span> não esquecer. 
+
+<strong>SE <span class="ph">[Student Name]</span> FICAR EMPACADO NO PASSO 2:</strong>
+&quot;Entendi, <span class="ph">[Student Name]</span>. Parece que a dificuldade está na parte da multiplicação das frações ou na colocação da vírgula nos decimais. Não se preocupe, <span class="ph">[they]</span> vai pegar o jeito. Para frações, lembre-se: multiplicamos numerador por numerador e denominador por denominador. Não some os denominadores, ok, <span class="ph">[Student Name]</span>? Para decimais, multiplique como se não houvesse vírgulas e só no final conte as casas decimais dos fatores para colocar a vírgula na resposta. 
+
+<strong>ENCERRAMENTO DA SESSÃO:</strong>
+&quot;Excelente trabalho hoje, <span class="ph">[Student Name]</span>! Você está fazendo um progresso incrível com a Multiplicação de Números Racionais. Continue praticando, e lembre-se que cada erro é uma chance de aprender algo novo. Tenho muito orgulho de você, <span class="ph">[Student Name]</span>!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! O erro mais comum que <span class="ph">[Student Name]</span> pode cometer ao multiplicar números racionais é esquecer as regras dos sinais, especialmente com números negativos, ou multiplicar frações de forma errada (somando denominadores, por exemplo). 
+
+Você pode reconhecer isso se <span class="ph">[they]</span> estiver calculando -0.5 vezes 10 e obtiver 5 (positivo) em vez de -5 (negativo), ou se <span class="ph">[they]</span> multiplicar 1/2 por 1/3 e disser 2/5 (somando numeradores e denominadores) em vez de 1/6. 
+
+<strong>O que dizer a <span class="ph">[Student Name]</span>:</strong>
+&quot;<span class="ph">[Student Name]</span>, vamos revisar a regra dos sinais juntos. Lembre-se: &#x27;Amigos dos meus amigos são meus amigos (positivo x positivo = positivo)&#x27;. &#x27;Inimigos dos meus inimigos são meus amigos (negativo x negativo = positivo)&#x27;. E &#x27;Amigos dos meus inimigos são meus inimigos (positivo x negativo = negativo)&#x27;. Para as frações, é multiplicar em cima com em cima e embaixo com embaixo, sem somar. Tente de novo com 3/4 multiplicado por 1/2.&quot; 
+
+<strong>O que NÃO dizer a <span class="ph">[Student Name]</span>:</strong>
+&quot;Você não deveria ter esquecido isso. É tão fácil!&quot; ou &quot;Isso é um erro bobo.&quot; Evite frases que possam fazer <span class="ph">[Student Name]</span> se sentir desmotivado ou incapaz.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;esquecendo_regras_sinais&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> muitas vezes esquece que, ao multiplicar dois n\u00fameros negativos, o resultado \u00e9 positivo, ou que um n\u00famero positivo por um negativo resulta em um negativo. Por exemplo, <span class="ph">[they]</span> pode calcular -2,50 d\u00f3lares por 4 meses de despesa como -10 d\u00f3lares, mas pode se confundir se for -2,50 multiplicado por -4 (o que resultaria em 10 d\u00f3lares).&quot;, &quot;reassurance&quot;: &quot;\u00c9 um erro muito comum e que a maioria dos estudantes comete no in\u00edcio. Com um pouco de pr\u00e1tica, <span class="ph">[Student Name]</span> vai memorizar essas regras rapidamente.&quot;, &quot;home_action&quot;: &quot;Joguem um jogo simples de cartas onde cada carta vermelha \u00e9 um n\u00famero negativo e cada carta preta \u00e9 um n\u00famero positivo. Peguem duas cartas e multipliquem os valores, prestando aten\u00e7\u00e3o aos sinais. Por exemplo, uma carta vermelha com 3 e uma preta com 2 seria (-3) * 2 = -6.&quot;}, {&quot;tag&quot;: &quot;somando_denominadores_fracoes&quot;, &quot;parent_description&quot;: &quot;Ao multiplicar fra\u00e7\u00f5es, <span class="ph">[Student Name]</span> pode, por engano, somar os denominadores em vez de multiplic\u00e1-los, assim como faria ao somar ou subtrair fra\u00e7\u00f5es. Por exemplo, <span class="ph">[they]</span> pode calcular 1/2 vezes 1/4 como 2/6, em vez do correto 1/8.&quot;, &quot;reassurance&quot;: &quot;Esta confus\u00e3o entre as opera\u00e7\u00f5es \u00e9 um sinal de que <span class="ph">[Student Name]</span> est\u00e1 tentando aplicar conhecimentos anteriores, o que \u00e9 \u00f3timo! Apenas precisa ajustar a regra para a multiplica\u00e7\u00e3o.&quot;, &quot;home_action&quot;: &quot;Fa\u00e7am um desenho visual de fra\u00e7\u00f5es, como cortar uma pizza ou um bolo. Se voc\u00ea tem 1/2 de uma pizza e come 1/4 dela, desenhe como 1/4 daquela metade se parece. \u00c9 uma parte menor, e isso ajuda a ver que os denominadores n\u00e3o se somam.&quot;}, {&quot;tag&quot;: &quot;posicionamento_virgula_decimais&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode ter dificuldade em posicionar corretamente a v\u00edrgula decimal no produto de dois n\u00fameros decimais. Por exemplo, ao multiplicar 2,5 por 0,3, <span class="ph">[they]</span> pode obter 0,750 ou 7,5 em vez do correto 0,75. O n\u00famero de casas decimais na resposta precisa ser a soma das casas decimais nos fatores.&quot;, &quot;reassurance&quot;: &quot;Essa \u00e9 uma etapa que exige aten\u00e7\u00e3o aos detalhes, e \u00e9 natural levar um tempo para domin\u00e1-la. A pr\u00e1tica com diferentes exemplos vai ajudar <span class="ph">[Student Name]</span> a construir essa precis\u00e3o.&quot;, &quot;home_action&quot;: &quot;Simulem uma compra no mercado. Se um item custa R$ 2,75 e voc\u00ea compra 0,5 (metade) dele (por exemplo, meio quilo de algo), calculem o custo. Usem notas de dinheiro fict\u00edcio ou moedas para ajudar a visualizar os valores.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos descomplicar a multiplicação de números racionais para que <span class="ph">[they]</span> possa ajudar <span class="ph">[Student Name]</span> e se sentir mais confiante com matemática. 
+
+Números Racionais são basicamente todos os números que podemos escrever como uma fração (um número em cima, outro embaixo), incluindo números inteiros (como 5, que é 5/1), frações (como 1/2) e decimais que terminam (como 0,75) ou se repetem (como 0,333...). 
+
+Aqui está como multiplicá-los: 
+
+1.  <strong>Multiplicando Frações:</strong>
+    <em>   Imagine que <span class="ph">[they]</span> tem 1/2 de uma torta e quer comer 1/3 dessa metade. Quanto de torta <span class="ph">[they]</span> comeu no total?
+    </em>   É simples: multiplique o número de cima (numerador) pelo número de cima, e o número de baixo (denominador) pelo número de baixo.
+    <em>   (1/2) </em> (1/3) = (1<em>1) / (2</em>3) = 1/6. <span class="ph">[they]</span> comeu 1/6 da torta original.
+
+2.  <strong>Multiplicando Decimais:</strong>
+    <em>   Suponha que <span class="ph">[they]</span> quer calcular um desconto de 20% (que é 0,20) em um item de 45,50 dólares.
+    </em>   Primeiro, ignore as vírgulas e multiplique os números normalmente: 20 <em> 4550 = 91000.
+    </em>   Agora, conte o total de casas decimais nos números originais (0,20 tem 2 casas; 45,50 tem 2 casas). O total é 4 casas.
+    <em>   Na sua resposta (91000), conte 4 casas da direita para a esquerda e coloque a vírgula: 9,1000.
+    </em>   Então, o desconto é de 9,10 dólares.
+
+3.  <strong>Multiplicando com Números Negativos:</strong>
+    <em>   Imagine que <span class="ph">[they]</span> tem uma dívida de 5 reais por semana (-R$ 5,00) por 3 semanas. Qual é a dívida total?
+    </em>   Multiplique os números: 5 <em> 3 = 15.
+    </em>   Agora, as regras dos sinais:
+        <em>   Positivo x Positivo = Positivo (ex: 2 </em> 3 = 6)
+        <em>   Negativo x Negativo = Positivo (ex: -2 </em> -3 = 6)
+        <em>   Positivo x Negativo = Negativo (ex: 2 </em> -3 = -6)
+        <em>   Negativo x Positivo = Negativo (ex: -2 </em> 3 = -6)
+    <em>   No exemplo da dívida: (-R$ 5,00) </em> 3 = -R$ 15,00. Sua dívida total é de R$ 15,00. 
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> vai dominar este conceito e será capaz de ensinar <span class="ph">[Student Name]</span> com confiança!</div></div></div></div>
+</body>
+</html>

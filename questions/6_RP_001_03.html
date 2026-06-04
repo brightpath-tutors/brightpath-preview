@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Ratio Concept</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | RP | Skill 6.RP.001.03<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Ratio Concept</h1>
+<p class="skill-subtitle">Skill ID: 6.RP.001.03</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cashier counted the following bills: 5 one-dollar bills and 3 five-dollar bills. What is the ratio of one-dollar bills to five-dollar bills, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 : 8</div><div class="option"><span class="opt-letter">B.</span> 8 : 5</div><div class="option"><span class="opt-letter">C.</span> 5 : 3</div><div class="option"><span class="opt-letter">D.</span> 3 : 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">One-dollar bills = 5, Five-dollar bills = 3</div>
+    <div class="step-exp">Identify the number of each type of bill.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of one-dollar bills to five-dollar bills = 5 : 3</div>
+    <div class="step-exp">Write the ratio in the requested order (part-to-part).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">GCD(5, 3) = 1</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) to check for simplification. Since the GCD is 1, the ratio is already in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 : 3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A local soccer team played 10 games, winning 6 of them and losing the rest. What is the ratio of games won to the total number of games played, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 : 10</div><div class="option"><span class="opt-letter">B.</span> 6 : 4</div><div class="option"><span class="opt-letter">C.</span> 5 : 3</div><div class="option"><span class="opt-letter">D.</span> 3 : 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Games won = 6, Total games played = 10</div>
+    <div class="step-exp">Identify the number of games won and the total number of games played.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of games won to total games = 6 : 10</div>
+    <div class="step-exp">Write the ratio in the requested order (part-to-whole).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">GCD(6, 10) = 2</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 6 and 10 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (6 ÷ 2) : (10 ÷ 2) = 3 : 5</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 : 5 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 2 cups of sugar and 4 cups of milk. What is the ratio of sugar to milk, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 : 1</div><div class="option"><span class="opt-letter">B.</span> 2 : 4</div><div class="option"><span class="opt-letter">C.</span> 1 : 2</div><div class="option"><span class="opt-letter">D.</span> 1 : 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sugar = 2 cups, Milk = 4 cups</div>
+    <div class="step-exp">Identify the quantities of sugar and milk from the recipe.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of sugar to milk = 2 : 4</div>
+    <div class="step-exp">Write the initial ratio in the order requested (part-to-part).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">GCD(2, 4) = 2</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 2 and 4 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (2 ÷ 2) : (4 ÷ 2) = 1 : 2</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 : 2 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">On a highway, a traffic count showed 12 trucks, 18 cars, and 6 motorcycles passed in one hour. What is the ratio of cars to trucks, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 : 12</div><div class="option"><span class="opt-letter">B.</span> 3 : 1</div><div class="option"><span class="opt-letter">C.</span> 2 : 3</div><div class="option"><span class="opt-letter">D.</span> 3 : 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of trucks = 12, Number of cars = 18</div>
+    <div class="step-exp">Identify the number of cars and trucks from the traffic count. The number of motorcycles is extra information not needed for this specific ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of cars to trucks = 18 : 12</div>
+    <div class="step-exp">Write the initial ratio in the order requested (part-to-part).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">GCD(18, 12) = 6</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 18 and 12 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (18 ÷ 6) : (12 ÷ 6) = 3 : 2</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 : 2 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a school, 25 students are in the art club, 30 are in the science club, and 45 are not in any club. What is the ratio of students in the science club to the total number of students in the school, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 : 3</div><div class="option"><span class="opt-letter">B.</span> 3 : 10</div><div class="option"><span class="opt-letter">C.</span> 3 : 7</div><div class="option"><span class="opt-letter">D.</span> 30 : 100</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Students in art club = 25, Students in science club = 30, Students not in any club = 45</div>
+    <div class="step-exp">Identify the number of students in each category.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total students in school = 25 + 30 + 45 = 100</div>
+    <div class="step-exp">Calculate the total number of students in the school by summing all categories.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Students in science club = 30</div>
+    <div class="step-exp">Identify the number of students in the science club.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of science club students to total students = 30 : 100</div>
+    <div class="step-exp">Write the initial ratio in the requested order (part-to-whole).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">GCD(30, 100) = 10</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 30 and 100 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (30 ÷ 10) : (100 ÷ 10) = 3 : 10</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 : 10 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A science experiment uses a liquid mixture containing 15 mL of water, 5 mL of alcohol, and 10 mL of glycerin. What is the ratio of alcohol to the total volume of the mixture, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 : 15</div><div class="option"><span class="opt-letter">B.</span> 1 : 5</div><div class="option"><span class="opt-letter">C.</span> 1 : 6</div><div class="option"><span class="opt-letter">D.</span> 6 : 1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Water = 15 mL, Alcohol = 5 mL, Glycerin = 10 mL</div>
+    <div class="step-exp">Identify the volume of each component in the mixture.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total volume of mixture = 15 mL + 5 mL + 10 mL = 30 mL</div>
+    <div class="step-exp">Calculate the total volume of the liquid mixture.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Alcohol = 5 mL</div>
+    <div class="step-exp">Identify the volume of alcohol.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of alcohol to total volume = 5 : 30</div>
+    <div class="step-exp">Write the initial ratio in the requested order (part-to-whole).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">GCD(5, 30) = 5</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 5 and 30 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (5 ÷ 5) : (30 ÷ 5) = 1 : 6</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 : 6 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction site uses 40 bags of cement, 60 bags of sand, and 20 bags of gravel. What is the ratio of sand to the total number of bags of materials, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 60 : 120</div><div class="option"><span class="opt-letter">B.</span> 1 : 2</div><div class="option"><span class="opt-letter">C.</span> 3 : 4</div><div class="option"><span class="opt-letter">D.</span> 2 : 1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cement = 40 bags, Sand = 60 bags, Gravel = 20 bags</div>
+    <div class="step-exp">Identify the number of bags for each material.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total bags of materials = 40 + 60 + 20 = 120 bags</div>
+    <div class="step-exp">Calculate the total number of bags of materials.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Sand = 60 bags</div>
+    <div class="step-exp">Identify the number of bags of sand.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of sand to total materials = 60 : 120</div>
+    <div class="step-exp">Write the initial ratio in the requested order (part-to-whole).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">GCD(60, 120) = 60</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 60 and 120 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (60 ÷ 60) : (120 ÷ 60) = 1 : 2</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 : 6 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student tracks their daily activities for 24 hours: 8 hours for sleeping, 6 hours for school, 4 hours for studying, and the rest for leisure. What is the ratio of leisure time to total time, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 : 3</div><div class="option"><span class="opt-letter">B.</span> 1 : 4</div><div class="option"><span class="opt-letter">C.</span> 6 : 24</div><div class="option"><span class="opt-letter">D.</span> 4 : 1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 24 hours</div>
+    <div class="step-exp">Identify the total time in a day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time for sleeping = 8 hours, Time for school = 6 hours, Time for studying = 4 hours</div>
+    <div class="step-exp">Identify the time spent on specific activities.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Time spent on other activities = 8 + 6 + 4 = 18 hours</div>
+    <div class="step-exp">Sum the time spent on known activities.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Leisure time = Total time - Time spent on other activities = 24 - 18 = 6 hours</div>
+    <div class="step-exp">Calculate the leisure time by subtracting the sum of other activities from the total time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of leisure time to total time = 6 : 24</div>
+    <div class="step-exp">Write the initial ratio in the requested order (part-to-whole).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">GCD(6, 24) = 6</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 6 and 24 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (6 ÷ 6) : (24 ÷ 6) = 1 : 4</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 : 6 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a small town, there are 1,200 adults, 800 children, and 500 seniors. What is the ratio of children to the total population of the town, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 : 17</div><div class="option"><span class="opt-letter">B.</span> 8 : 25</div><div class="option"><span class="opt-letter">C.</span> 800 : 2,500</div><div class="option"><span class="opt-letter">D.</span> 25 : 8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Adults = 1,200, Children = 800, Seniors = 500</div>
+    <div class="step-exp">Identify the number of individuals in each demographic group.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total population = 1,200 + 800 + 500 = 2,500</div>
+    <div class="step-exp">Calculate the total population of the town by summing all demographic groups.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Children = 800</div>
+    <div class="step-exp">Identify the number of children in the town.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of children to total population = 800 : 2,500</div>
+    <div class="step-exp">Write the initial ratio in the requested order (part-to-whole).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">GCD(800, 2,500) = 100</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 800 and 2,500 to simplify the ratio. Recognizing that both numbers end in two zeros indicates a GCD of at least 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (800 ÷ 100) : (2,500 ÷ 100) = 8 : 25</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 : 25 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer&#x27;s hard drive contains 300 GB of photos, 150 GB of videos, 250 GB of documents, and 100 GB of applications. What is the ratio of photos to videos, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 300 : 150</div><div class="option"><span class="opt-letter">B.</span> 1 : 2</div><div class="option"><span class="opt-letter">C.</span> 2 : 1</div><div class="option"><span class="opt-letter">D.</span> 2 : 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Photos = 300 GB, Videos = 150 GB</div>
+    <div class="step-exp">Identify the storage space used by photos and videos. The other categories (documents, applications) are not needed for this specific part-to-part ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of photos to videos = 300 : 150</div>
+    <div class="step-exp">Write the initial ratio in the requested order (part-to-part).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">GCD(300, 150) = 150</div>
+    <div class="step-exp">Determine the greatest common divisor (GCD) of 300 and 150 to simplify the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio = (300 ÷ 150) : (150 ÷ 150) = 2 : 1</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express it in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2 : 1 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

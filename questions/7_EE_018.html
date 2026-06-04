@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Scientific Notation</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.018<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Scientific Notation</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.018</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The current population of a small country is approximately 34,500,000 people. How is this number written in scientific notation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.45 x 10^7</div><div class="option"><span class="opt-letter">B.</span> 3.45 x 10^-7</div><div class="option"><span class="opt-letter">C.</span> 34.5 x 10^6</div><div class="option"><span class="opt-letter">D.</span> 3.45 x 10^6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The significant digits are 3, 4, and 5.</div>
+    <div class="step-exp">To write a number in scientific notation, identify the non-zero digits that form the base number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Move the decimal point to get 3.45.</div>
+    <div class="step-exp">The coefficient (the number before &#x27;x 10&#x27;) must be greater than or equal to 1 and less than 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Original number: 34,500,000.  New position: 3.45. The decimal moved 7 places to the left.</div>
+    <div class="step-exp">The number of places the decimal point moves determines the absolute value of the exponent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since the original number (34,500,000) is greater than 1, the exponent is positive.</div>
+    <div class="step-exp">If the original number is large (greater than 1), the exponent is positive. If it&#x27;s small (less than 1), the exponent is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">3.45 x 10^7</div>
+    <div class="step-exp">Combine the coefficient and the power of 10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3.45 x 10^7 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The diameter of a human red blood cell is approximately 0.0000078 meters. How is this number written in scientific notation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7.8 x 10^6</div><div class="option"><span class="opt-letter">B.</span> 7.8 x 10^-6</div><div class="option"><span class="opt-letter">C.</span> 0.78 x 10^-5</div><div class="option"><span class="opt-letter">D.</span> 78 x 10^-7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The significant digits are 7 and 8.</div>
+    <div class="step-exp">To write a number in scientific notation, identify the non-zero digits that form the base number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Move the decimal point to get 7.8.</div>
+    <div class="step-exp">The coefficient must be greater than or equal to 1 and less than 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Original number: 0.0000078. New position: 7.8. The decimal moved 6 places to the right.</div>
+    <div class="step-exp">The number of places the decimal point moves determines the absolute value of the exponent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since the original number (0.0000078) is less than 1, the exponent is negative.</div>
+    <div class="step-exp">If the original number is small (less than 1), the exponent is negative. If it&#x27;s large (greater than 1), the exponent is positive.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">7.8 x 10^-6</div>
+    <div class="step-exp">Combine the coefficient and the power of 10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7.8 x 10^-6 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new supercomputer has a storage capacity of 2.5 x 10^12 bytes. How is this number written in standard form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.000000000025</div><div class="option"><span class="opt-letter">B.</span> 25,000,000,000</div><div class="option"><span class="opt-letter">C.</span> 2,500,000,000,000</div><div class="option"><span class="opt-letter">D.</span> 25 x 10^11</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Coefficient: 2.5. Exponent: 12.</div>
+    <div class="step-exp">The coefficient is the numerical part, and the exponent tells you the power of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since the exponent (12) is positive, the standard form number will be a large number. Move the decimal point to the right.</div>
+    <div class="step-exp">A positive exponent means the original number was large, so you move the decimal right. A negative exponent means the original number was small, so you move the decimal left.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Starting with 2.5, move the decimal point 12 places to the right. Fill in with zeros as needed: 2.5 -&gt; 25 -&gt; 250 -&gt; ... -&gt; 2,500,000,000,000.</div>
+    <div class="step-exp">Each move of the decimal corresponds to a change in place value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2,500,000,000,000</div>
+    <div class="step-exp">The final number is the standard form representation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2,500,000,000,000 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The average size of a particular type of bacteria is 9.1 x 10^-7 meters. How is this number written in standard form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 91,000,000</div><div class="option"><span class="opt-letter">B.</span> 0.00000091</div><div class="option"><span class="opt-letter">C.</span> 0.0000091</div><div class="option"><span class="opt-letter">D.</span> 0.000000091</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Coefficient: 9.1. Exponent: -7.</div>
+    <div class="step-exp">The coefficient is the numerical part, and the exponent tells you the power of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since the exponent (-7) is negative, the standard form number will be a small number. Move the decimal point to the left.</div>
+    <div class="step-exp">A negative exponent means the original number was small, so you move the decimal left. A positive exponent means the original number was large, so you move the decimal right.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Starting with 9.1, move the decimal point 7 places to the left. Fill in with zeros as needed: 9.1 -&gt; 0.91 -&gt; 0.091 -&gt; ... -&gt; 0.00000091.</div>
+    <div class="step-exp">Each move of the decimal corresponds to a change in place value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.00000091</div>
+    <div class="step-exp">The final number is the standard form representation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.00000091 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store sells miniature electronic components. Each component costs $1.2 x 10^-2. If a customer buys 4 x 10^3 components, what is the total cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4.8 x 10^-6</div><div class="option"><span class="opt-letter">B.</span> 4.8 x 10^1</div><div class="option"><span class="opt-letter">C.</span> 48 x 10^1</div><div class="option"><span class="opt-letter">D.</span> 4.8 x 10^-1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">1.2 x 4 = 4.8</div>
+    <div class="step-exp">When multiplying numbers in scientific notation, multiply the non-exponent parts (coefficients) together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-2 + 3 = 1</div>
+    <div class="step-exp">When multiplying powers with the same base, you add their exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4.8 x 10^1</div>
+    <div class="step-exp">The product is the new coefficient multiplied by 10 raised to the new exponent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4.8 x 10^1 = 48</div>
+    <div class="step-exp">For context of money, standard form is often preferred.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4.8 x 10^1 or $48 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The distance from Earth to the Moon is approximately 3.84 x 10^8 meters. If a spaceship travels at an average speed of 1.6 x 10^4 meters per second, how many seconds will it take to reach the Moon?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.4 x 10^4</div><div class="option"><span class="opt-letter">B.</span> 2.4 x 10^12</div><div class="option"><span class="opt-letter">C.</span> 24 x 10^3</div><div class="option"><span class="opt-letter">D.</span> 2.4 x 10^2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3.84 / 1.6 = 2.4</div>
+    <div class="step-exp">When dividing numbers in scientific notation, divide the non-exponent parts (coefficients) together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 - 4 = 4</div>
+    <div class="step-exp">When dividing powers with the same base, you subtract the exponent of the divisor from the exponent of the dividend.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2.4 x 10^4</div>
+    <div class="step-exp">The quotient is the new coefficient multiplied by 10 raised to the new exponent.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.4 x 10^4 seconds (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The mass of a single dust particle on a football field is 5 x 10^-10 kilograms. If there are 3 x 10^12 such particles, what is their total combined mass in kilograms?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.5 x 10^3</div><div class="option"><span class="opt-letter">B.</span> 15 x 10^2</div><div class="option"><span class="opt-letter">C.</span> 1.5 x 10^2</div><div class="option"><span class="opt-letter">D.</span> 1.5 x 10^-2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5 x 3 = 15</div>
+    <div class="step-exp">Multiply the numerical parts of the scientific notation numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-10 + 12 = 2</div>
+    <div class="step-exp">Add the exponents when multiplying powers of the same base.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 x 10^2</div>
+    <div class="step-exp">This is the product before ensuring the coefficient is between 1 and 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15 is not between 1 and 10. Move the decimal point one place to the left to get 1.5.</div>
+    <div class="step-exp">The coefficient must be between 1 (inclusive) and 10 (exclusive) for proper scientific notation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since the decimal point in the coefficient was moved one place to the left (making 15 smaller to 1.5), we must add 1 to the exponent: 2 + 1 = 3.</div>
+    <div class="step-exp">To maintain the value of the number, if you decrease the coefficient by a factor of 10, you must increase the exponent by 1 (and vice versa).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">1.5 x 10^3</div>
+    <div class="step-exp">This is the correct scientific notation with the normalized coefficient and adjusted exponent.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5 x 10^3 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew needs to pour 7.2 x 10^6 cubic feet of concrete for a large foundation. If each construction vehicle can deliver 2.4 x 10^2 cubic feet of concrete per trip, how many trips are needed in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 x 10^8</div><div class="option"><span class="opt-letter">B.</span> 3 x 10^2</div><div class="option"><span class="opt-letter">C.</span> 30 x 10^3</div><div class="option"><span class="opt-letter">D.</span> 3 x 10^4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">7.2 / 2.4 = 3</div>
+    <div class="step-exp">Divide the numerical parts of the scientific notation numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6 - 2 = 4</div>
+    <div class="step-exp">Subtract the exponents when dividing powers of the same base.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 x 10^4</div>
+    <div class="step-exp">The quotient is the new coefficient multiplied by 10 raised to the new exponent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The coefficient 3 is already between 1 and 10. No further normalization is needed.</div>
+    <div class="step-exp">Ensure the coefficient is within the valid range for scientific notation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 x 10^4 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes two cosmic events. The first event lasted 4.5 x 10^6 seconds, and the second event lasted 2.1 x 10^5 seconds. What is the total duration of both events in scientific notation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6.6 x 10^6</div><div class="option"><span class="opt-letter">B.</span> 4.71 x 10^6</div><div class="option"><span class="opt-letter">C.</span> 6.6 x 10^11</div><div class="option"><span class="opt-letter">D.</span> 4.71 x 10^5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Choose the larger exponent: 10^6. Convert 2.1 x 10^5 to a number with 10^6. To increase the exponent by 1 (from 5 to 6), move the decimal point of the coefficient one place to the left: 2.1 -&gt; 0.21. So, 2.1 x 10^5 becomes 0.21 x 10^6.</div>
+    <div class="step-exp">For addition or subtraction, the exponents of the powers of 10 must be the same. Adjust one of the numbers to match the exponent of the other.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4.5 x 10^6 + 0.21 x 10^6 = (4.5 + 0.21) x 10^6 = 4.71 x 10^6.</div>
+    <div class="step-exp">Once exponents are aligned, simply add or subtract the coefficients and keep the common power of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The coefficient 4.71 is between 1 and 10. No further normalization is needed.</div>
+    <div class="step-exp">Ensure the final coefficient is within the valid range for scientific notation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4.71 x 10^6 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A large bakery recipe calls for 8.3 x 10^4 grams of sugar. Another recipe requires 5.2 x 10^3 grams of sugar. What is the difference in the amount of sugar needed for these two recipes, in scientific notation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.1 x 10^1</div><div class="option"><span class="opt-letter">B.</span> 7.78 x 10^4</div><div class="option"><span class="opt-letter">C.</span> 7.78 x 10^3</div><div class="option"><span class="opt-letter">D.</span> 3.1 x 10^4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Choose the larger exponent: 10^4. Convert 5.2 x 10^3 to a number with 10^4. To increase the exponent by 1 (from 3 to 4), move the decimal point of the coefficient one place to the left: 5.2 -&gt; 0.52. So, 5.2 x 10^3 becomes 0.52 x 10^4.</div>
+    <div class="step-exp">For addition or subtraction, the exponents of the powers of 10 must be the same. Adjust one of the numbers to match the exponent of the other.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8.3 x 10^4 - 0.52 x 10^4 = (8.3 - 0.52) x 10^4 = 7.78 x 10^4.</div>
+    <div class="step-exp">Once exponents are aligned, simply add or subtract the coefficients and keep the common power of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The coefficient 7.78 is between 1 and 10. No further normalization is needed.</div>
+    <div class="step-exp">Ensure the final coefficient is within the valid range for scientific notation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7.78 x 10^4 (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Subtracting Mixed Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 4 | NF | Skill 4.NF.011<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Subtracting Mixed Numbers</h1>
+<p class="skill-subtitle">Skill ID: 4.NF.011</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Maya had 5 7/8 meters of ribbon. She used 2 3/8 meters for a craft project. How much ribbon does she have left, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 1/2 meters</div><div class="option"><span class="opt-letter">B.</span> 3 4/0 meters</div><div class="option"><span class="opt-letter">C.</span> 3 4/8 meters</div><div class="option"><span class="opt-letter">D.</span> 8 2/8 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5 \frac{7}{8} - 2 \frac{3}{8</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{7}{8} - \frac{3}{8} = \frac{4}{8</div>
+    <div class="step-exp">Subtract the fractional parts of the mixed numbers. Since the denominators are the same, subtract the numerators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5 - 2 = 3</div>
+    <div class="step-exp">Subtract the whole number parts of the mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3 \frac{4}{8</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{4}{8} = \frac{1}{2</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">3 \frac{1}{2} \text{ meters</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 1/2 meters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner completed the first part of a race in 3 5/6 hours and the second part in 2 1/6 hours. What is the difference in time between the two parts of the race, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 4/0 hours</div><div class="option"><span class="opt-letter">B.</span> 1 4/6 hours</div><div class="option"><span class="opt-letter">C.</span> 1 2/3 hours</div><div class="option"><span class="opt-letter">D.</span> 5 6/6 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3 \frac{5}{6} - 2 \frac{1}{6</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{5}{6} - \frac{1}{6} = \frac{4}{6</div>
+    <div class="step-exp">Subtract the fractional parts of the mixed numbers. Since the denominators are the same, subtract the numerators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 - 2 = 1</div>
+    <div class="step-exp">Subtract the whole number parts of the mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 \frac{4}{6</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{4}{6} = \frac{2}{3</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">1 \frac{2}{3} \text{ hours</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 2/3 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 6 3/4 cups of broth. If you already have 2 1/4 cups, how much more broth do you need, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 2/8 cups</div><div class="option"><span class="opt-letter">B.</span> 4 2/4 cups</div><div class="option"><span class="opt-letter">C.</span> 4 1/2 cups</div><div class="option"><span class="opt-letter">D.</span> 8 4/4 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">6 \frac{3}{4} - 2 \frac{1}{4</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{3}{4} - \frac{1}{4} = \frac{2}{4</div>
+    <div class="step-exp">Subtract the fractional parts of the mixed numbers. Since the denominators are the same, subtract the numerators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6 - 2 = 4</div>
+    <div class="step-exp">Subtract the whole number parts of the mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4 \frac{2}{4</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{2}{4} = \frac{1}{2</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">4 \frac{1}{2} \text{ cups</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 1/2 cups (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 8 1/3 miles. Due to a detour, it had to backtrack 2 2/3 miles. How many miles forward from its starting point is the car now, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 2/3 miles</div><div class="option"><span class="opt-letter">B.</span> 7 miles</div><div class="option"><span class="opt-letter">C.</span> 5 miles</div><div class="option"><span class="opt-letter">D.</span> 6 1/3 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">8 \frac{1}{3} - 2 \frac{2}{3</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{1}{3} &lt; \frac{2}{3</div>
+    <div class="step-exp">Compare the fractional parts. Since 1/3 is less than 2/3, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8 \frac{1}{3} = 7 + \frac{3}{3} + \frac{1}{3} = 7 \frac{4}{3</div>
+    <div class="step-exp">Regroup 8 1/3 by taking 1 from the whole number (8 becomes 7) and adding it as 3/3 to the fraction (1/3 becomes 4/3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{4}{3} - \frac{2}{3} = \frac{2}{3</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">7 - 2 = 5</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">5 \frac{2}{3</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{2}{3} \text{ is in simplest form</div>
+    <div class="step-exp">Check if the fraction needs to be simplified. 2/3 is already in simplest form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">5 \frac{2}{3} \text{ miles</div>
+    <div class="step-exp">State the final answer with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 2/3 miles (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student spent 7 1/4 hours studying for an exam. They spent 3 3/4 hours reviewing flashcards. How much time was spent on other study methods, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 2/4 hours</div><div class="option"><span class="opt-letter">B.</span> 4 1/2 hours</div><div class="option"><span class="opt-letter">C.</span> 3 1/2 hours</div><div class="option"><span class="opt-letter">D.</span> 5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">7 \frac{1}{4} - 3 \frac{3}{4</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{1}{4} &lt; \frac{3}{4</div>
+    <div class="step-exp">Compare the fractional parts. Since 1/4 is less than 3/4, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">7 \frac{1}{4} = 6 + \frac{4}{4} + \frac{1}{4} = 6 \frac{5}{4</div>
+    <div class="step-exp">Regroup 7 1/4 by taking 1 from the whole number (7 becomes 6) and adding it as 4/4 to the fraction (1/4 becomes 5/4).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{5}{4} - \frac{3}{4} = \frac{2}{4</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">6 - 3 = 3</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">3 \frac{2}{4</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{2}{4} = \frac{1}{2</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">3 \frac{1}{2} \text{ hours</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 1/2 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist started an experiment with 10 1/5 liters of solution. After the first step, 4 3/5 liters were consumed. How much solution is remaining for the next steps, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 4/5 liters</div><div class="option"><span class="opt-letter">B.</span> 6 3/5 liters</div><div class="option"><span class="opt-letter">C.</span> 6 2/5 liters</div><div class="option"><span class="opt-letter">D.</span> 5 3/5 liters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">10 \frac{1}{5} - 4 \frac{3}{5</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{1}{5} &lt; \frac{3}{5</div>
+    <div class="step-exp">Compare the fractional parts. Since 1/5 is less than 3/5, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 \frac{1}{5} = 9 + \frac{5}{5} + \frac{1}{5} = 9 \frac{6}{5</div>
+    <div class="step-exp">Regroup 10 1/5 by taking 1 from the whole number (10 becomes 9) and adding it as 5/5 to the fraction (1/5 becomes 6/5).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{6}{5} - \frac{3}{5} = \frac{3}{5</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">9 - 4 = 5</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">5 \frac{3}{5</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{3}{5} \text{ is in simplest form</div>
+    <div class="step-exp">Check if the fraction needs to be simplified. 3/5 is already in simplest form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">5 \frac{3}{5} \text{ liters</div>
+    <div class="step-exp">State the final answer with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 3/5 liters (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker had a metal beam that was 12 1/8 feet long. He cut off a piece measuring 5 5/8 feet. How long is the remaining part of the beam, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 4/8 feet</div><div class="option"><span class="opt-letter">B.</span> 6 1/2 feet</div><div class="option"><span class="opt-letter">C.</span> 7 1/2 feet</div><div class="option"><span class="opt-letter">D.</span> 6 3/4 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">12 \frac{1}{8} - 5 \frac{5}{8</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{1}{8} &lt; \frac{5}{8</div>
+    <div class="step-exp">Compare the fractional parts. Since 1/8 is less than 5/8, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">12 \frac{1}{8} = 11 + \frac{8}{8} + \frac{1}{8} = 11 \frac{9}{8</div>
+    <div class="step-exp">Regroup 12 1/8 by taking 1 from the whole number (12 becomes 11) and adding it as 8/8 to the fraction (1/8 becomes 9/8).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{9}{8} - \frac{5}{8} = \frac{4}{8</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">11 - 5 = 6</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">6 \frac{4}{8</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{4}{8} = \frac{1}{2</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">6 \frac{1}{2} \text{ feet</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 1/2 feet (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An athlete trained for 15 3/10 hours in the first week. In the second week, they trained for 6 7/10 hours. How many more hours did they train in the first week compared to the second week, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 3/10 hours</div><div class="option"><span class="opt-letter">B.</span> 8 6/10 hours</div><div class="option"><span class="opt-letter">C.</span> 8 3/5 hours</div><div class="option"><span class="opt-letter">D.</span> 9 2/5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">15 \frac{3}{10} - 6 \frac{7}{10</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{3}{10} &lt; \frac{7}{10</div>
+    <div class="step-exp">Compare the fractional parts. Since 3/10 is less than 7/10, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 \frac{3}{10} = 14 + \frac{10}{10} + \frac{3}{10} = 14 \frac{13}{10</div>
+    <div class="step-exp">Regroup 15 3/10 by taking 1 from the whole number (15 becomes 14) and adding it as 10/10 to the fraction (3/10 becomes 13/10).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{13}{10} - \frac{7}{10} = \frac{6}{10</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">14 - 6 = 8</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">8 \frac{6}{10</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{6}{10} = \frac{3}{5</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">8 \frac{3}{5} \text{ hours</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 3/5 hours (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a small town, the population of adults is 23 1/6 thousand. The population of children is 9 5/6 thousand. What is the difference between the adult and child populations, in thousands, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 13 2/6 thousand</div><div class="option"><span class="opt-letter">B.</span> 14 thousand</div><div class="option"><span class="opt-letter">C.</span> 14 2/3 thousand</div><div class="option"><span class="opt-letter">D.</span> 13 1/3 thousand</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">23 \frac{1}{6} - 9 \frac{5}{6</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{1}{6} &lt; \frac{5}{6</div>
+    <div class="step-exp">Compare the fractional parts. Since 1/6 is less than 5/6, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">23 \frac{1}{6} = 22 + \frac{6}{6} + \frac{1}{6} = 22 \frac{7}{6</div>
+    <div class="step-exp">Regroup 23 1/6 by taking 1 from the whole number (23 becomes 22) and adding it as 6/6 to the fraction (1/6 becomes 7/6).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{7}{6} - \frac{5}{6} = \frac{2}{6</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">22 - 9 = 13</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">13 \frac{2}{6</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{2}{6} = \frac{1}{3</div>
+    <div class="step-exp">Simplify the fractional part. Divide both the numerator and the denominator by their greatest common divisor, which is 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">13 \frac{1}{3} \text{ thousand</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13 1/3 thousand (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 4 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new software update requires 18 3/7 gigabytes of storage space. If your computer currently has 7 5/7 gigabytes free, how much more storage space do you need to free up for the update, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 2/7 gigabytes</div><div class="option"><span class="opt-letter">B.</span> 11 2/7 gigabytes</div><div class="option"><span class="opt-letter">C.</span> 10 5/7 gigabytes</div><div class="option"><span class="opt-letter">D.</span> 12 1/7 gigabytes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">18 \frac{3}{7} - 7 \frac{5}{7</div>
+    <div class="step-exp">Set up the subtraction problem with the given mixed numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">\frac{3}{7} &lt; \frac{5}{7</div>
+    <div class="step-exp">Compare the fractional parts. Since 3/7 is less than 5/7, regrouping is needed for the first mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">18 \frac{3}{7} = 17 + \frac{7}{7} + \frac{3}{7} = 17 \frac{10}{7</div>
+    <div class="step-exp">Regroup 18 3/7 by taking 1 from the whole number (18 becomes 17) and adding it as 7/7 to the fraction (3/7 becomes 10/7).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\frac{10}{7} - \frac{5}{7} = \frac{5}{7</div>
+    <div class="step-exp">Subtract the fractional parts after regrouping.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">17 - 7 = 10</div>
+    <div class="step-exp">Subtract the whole number parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">10 \frac{5}{7</div>
+    <div class="step-exp">Combine the subtracted whole number and fractional parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\frac{5}{7} \text{ is in simplest form</div>
+    <div class="step-exp">Check if the fraction needs to be simplified. 5/7 is already in simplest form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">10 \frac{5}{7} \text{ gigabytes</div>
+    <div class="step-exp">State the final answer in simplest form with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 5/7 gigabytes (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Graph Linear Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.060<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Graph Linear Equations</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.060</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small business sells custom-printed t-shirts. They charge a one-time design fee of $20 and then $8 per t-shirt. Let <code>y</code> represent the total cost and <code>x</code> represent the number of t-shirts ordered. Which equation correctly represents the total cost, and how would you graph it?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 8x - 20. The graph has a y-intercept at (0, -20) and a slope of 8.</div><div class="option"><span class="opt-letter">B.</span> y = 20 - 8x. The graph has a y-intercept at (0, 20) and a slope of -8.</div><div class="option"><span class="opt-letter">C.</span> y = 20x + 8. The graph has a y-intercept at (0, 8) and a slope of 20.</div><div class="option"><span class="opt-letter">D.</span> y = 8x + 20. The graph has a y-intercept at (0, 20) and a slope of 8.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The one-time design fee is $20. This is the starting value, or the y-intercept (b).</div>
+    <div class="step-exp">The y-intercept is the value of y when x is 0, representing the initial cost before any t-shirts are made.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The cost per t-shirt is $8. This is the rate at which the total cost increases for each additional t-shirt, which is the slope (m).</div>
+    <div class="step-exp">The slope represents how much the dependent variable (total cost) changes for every unit increase in the independent variable (number of t-shirts).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 8 and b = 20 into the equation: y = 8x + 20.</div>
+    <div class="step-exp">The slope-intercept form is a standard way to represent linear equations, where m is the slope and b is the y-intercept.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Plot the y-intercept at (0, 20). From this point, use the slope (rise over run) to find another point. Since the slope is 8 (or 8/1), move up 8 units and right 1 unit to plot a second point. Then, draw a straight line through these two points.</div>
+    <div class="step-exp">To graph a linear equation, start by plotting the y-intercept. Then, use the slope to find additional points, which helps in drawing the line accurately.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 8x + 20. The graph has a y-intercept at (0, 20) and a slope of 8. (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car starts a road trip with 15 gallons of fuel in its tank. It consumes fuel at a rate of 0.5 gallons per 10 miles. Let <code>y</code> be the amount of fuel remaining (in gallons) and <code>x</code> be the distance traveled (in miles). Which equation represents this situation, and what would the graph look like?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 15x - 0.05. The graph has a y-intercept at (0, -0.05) and a slope of 15.</div><div class="option"><span class="opt-letter">B.</span> y = -0.5x + 15. The graph has a y-intercept at (0, 15) and a slope of -0.5.</div><div class="option"><span class="opt-letter">C.</span> y = 0.05x + 15. The graph has a y-intercept at (0, 15) and a slope of 0.05.</div><div class="option"><span class="opt-letter">D.</span> y = -0.05x + 15. The graph has a y-intercept at (0, 15) and a slope of -0.05.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The car starts with 15 gallons of fuel. This is the starting value, or the y-intercept (b).</div>
+    <div class="step-exp">The y-intercept represents the amount of fuel in the tank when the distance traveled (x) is 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The car consumes 0.5 gallons per 10 miles. To find the rate per mile, divide 0.5 by 10: 0.5 / 10 = 0.05 gallons per mile. Since fuel is consumed, the rate is negative. So, the slope (m) is -0.05.</div>
+    <div class="step-exp">The slope is the rate of change. Since the fuel is decreasing, the slope must be negative. It&#x27;s important to convert the rate to units per single mile for the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = -0.05 and b = 15 into the equation: y = -0.05x + 15.</div>
+    <div class="step-exp">Combining the calculated slope and identified y-intercept gives the complete linear equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Plot the y-intercept at (0, 15). From this point, use the slope to find another point. Since the slope is -0.05 (or -5/100), move down 5 units and right 100 units to plot a second point. Then, draw a straight line through these two points.</div>
+    <div class="step-exp">The graph starts at the initial fuel level and decreases at a constant rate, representing the car consuming fuel over distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = -0.05x + 15. The graph has a y-intercept at (0, 15) and a slope of -0.05. (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes a chemical reaction where the temperature of a solution starts at 5 degrees Celsius and increases by 2.5 degrees Celsius every minute. Let <code>T</code> be the temperature in degrees Celsius and <code>t</code> be the time in minutes. Write the linear equation that models this situation and describe its graph.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> T = -2.5t + 5. The graph has a T-intercept at (0, 5) and a slope of -2.5.</div><div class="option"><span class="opt-letter">B.</span> T = 2.5t + 5. The graph has a T-intercept at (0, 5) and a slope of 2.5.</div><div class="option"><span class="opt-letter">C.</span> T = 5t + 2.5. The graph has a T-intercept at (0, 2.5) and a slope of 5.</div><div class="option"><span class="opt-letter">D.</span> T = 2.5t - 5. The graph has a T-intercept at (0, -5) and a slope of 2.5.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The solution starts at 5 degrees Celsius. This is the initial value, or the T-intercept (b).</div>
+    <div class="step-exp">The T-intercept represents the temperature of the solution at time t=0, before the reaction has progressed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The temperature increases by 2.5 degrees Celsius every minute. This is the rate of change, or the slope (m).</div>
+    <div class="step-exp">The slope represents how much the temperature changes for every minute that passes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 2.5 and b = 5 into the equation: T = 2.5t + 5.</div>
+    <div class="step-exp">This equation models the linear relationship between time and temperature.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Plot the T-intercept at (0, 5). From this point, use the slope (rise over run) to find another point. Since the slope is 2.5 (or 5/2), move up 5 units and right 2 units to plot a second point. Then, draw a straight line through these two points.</div>
+    <div class="step-exp">The graph starts at the initial temperature and shows a steady increase over time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> T = 2.5t + 5. The graph has a T-intercept at (0, 5) and a slope of 2.5. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker is laying bricks. After 2 hours, they have laid 150 bricks. After 5 hours, they have laid 375 bricks. Assume a constant rate of bricklaying. Let <code>y</code> be the total number of bricks laid and <code>x</code> be the time in hours. Determine the linear equation that models this situation and interpret its graph.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 112.5x. The graph passes through the origin and has a slope of 112.5.</div><div class="option"><span class="opt-letter">B.</span> y = 75x. The graph passes through the origin (0,0) and has a slope of 75, indicating 75 bricks laid per hour.</div><div class="option"><span class="opt-letter">C.</span> y = 225x. The graph passes through the origin and has a slope of 225.</div><div class="option"><span class="opt-letter">D.</span> y = 75x + 150. The graph has a y-intercept at (0, 150) and a slope of 75.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (2 hours, 150 bricks) -&gt; (2, 150)
+Point 2: (5 hours, 375 bricks) -&gt; (5, 375)</div>
+    <div class="step-exp">Each pair of (time, bricks laid) represents a point on the linear graph.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (y2 - y1) / (x2 - x1)
+m = (375 - 150) / (5 - 2)
+m = 225 / 3
+m = 75</div>
+    <div class="step-exp">The slope represents the rate of bricklaying in bricks per hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using y = mx + b and point (2, 150):
+150 = 75(2) + b
+150 = 150 + b
+b = 0</div>
+    <div class="step-exp">The y-intercept represents the number of bricks laid at time x=0 (the start of the work).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 75 and b = 0 into y = mx + b: y = 75x + 0, which simplifies to y = 75x.</div>
+    <div class="step-exp">The equation shows the total bricks laid is directly proportional to the hours worked, with a proportionality constant of 75.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The graph passes through the origin (0,0) because the y-intercept is 0. From the origin, move up 75 units and right 1 unit (or up 225 units and right 3 units) to find another point, then draw a straight line through these points. The slope of 75 means 75 bricks are laid every hour.</div>
+    <div class="step-exp">A graph passing through the origin indicates no initial quantity, and the slope visually represents the rate of change.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 75x. The graph passes through the origin (0,0) and has a slope of 75, indicating 75 bricks laid per hour. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small town&#x27;s population was 1,200 in the year 2000 and has been increasing at a constant rate. In 2010, the population reached 1,450. Let <code>P</code> represent the population and <code>t</code> represent the number of years since 2000. Write the linear equation representing this growth and describe how to graph it.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> P = 25t + 1200. The graph has a P-intercept at (0, 1200) and a slope of 25, showing the initial population and its annual growth.</div><div class="option"><span class="opt-letter">B.</span> P = -25t + 1200. The graph has a P-intercept at (0, 1200) and a slope of -25.</div><div class="option"><span class="opt-letter">C.</span> P = 250t + 1200. The graph has a P-intercept at (0, 1200) and a slope of 250.</div><div class="option"><span class="opt-letter">D.</span> P = 1200t + 25. The graph has a P-intercept at (0, 25) and a slope of 1200.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Year 2000 is t=0, so Point 1: (0, 1200).
+Year 2010 is t=10 (2010 - 2000), so Point 2: (10, 1450).</div>
+    <div class="step-exp">Representing the years as time since a reference year (2000) simplifies calculations and directly gives the y-intercept.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (P2 - P1) / (t2 - t1)
+m = (1450 - 1200) / (10 - 0)
+m = 250 / 10
+m = 25</div>
+    <div class="step-exp">The slope represents the annual increase in population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since t=0 corresponds to the year 2000, the population in 2000 (1200) is the y-intercept (b).</div>
+    <div class="step-exp">The y-intercept is directly given by the population at t=0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 25 and b = 1200 into P = mt + b: P = 25t + 1200.</div>
+    <div class="step-exp">This equation models the population growth over time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Plot the P-intercept at (0, 1200). From this point, use the slope (rise over run) to find another point. Since the slope is 25 (or 25/1), move up 25 units and right 1 unit to plot a second point. Then, draw a straight line through these two points. The graph visually shows the starting population and its constant annual increase.</div>
+    <div class="step-exp">Graphing provides a visual representation of the population trend, starting from the baseline year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> P = 25t + 1200. The graph has a P-intercept at (0, 1200) and a slope of 25, showing the initial population and its annual growth. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company is tracking its new app downloads. On day 3, they had 8,000 downloads. On day 7, they had 14,000 downloads. Assuming a linear growth, let <code>D</code> be the number of downloads and <code>d</code> be the day. Find the linear equation and describe its graph.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> D = 6000d + 3500. The graph has a D-intercept at (0, 3500) and a slope of 6000.</div><div class="option"><span class="opt-letter">B.</span> D = 14000d - 8000. The graph has a D-intercept at (0, -8000) and a slope of 14000.</div><div class="option"><span class="opt-letter">C.</span> D = 1500d + 3500. The graph has a D-intercept at (0, 3500) and a slope of 1500, representing initial downloads and daily growth.</div><div class="option"><span class="opt-letter">D.</span> D = 1500d + 8000. The graph has a D-intercept at (0, 8000) and a slope of 1500.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (Day 3, 8000 downloads) -&gt; (3, 8000)
+Point 2: (Day 7, 14000 downloads) -&gt; (7, 14000)</div>
+    <div class="step-exp">Each data point provides an (x, y) coordinate pair for the linear function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (D2 - D1) / (d2 - d1)
+m = (14000 - 8000) / (7 - 3)
+m = 6000 / 4
+m = 1500</div>
+    <div class="step-exp">The slope represents the daily increase in app downloads.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using D = md + b and point (3, 8000):
+8000 = 1500(3) + b
+8000 = 4500 + b
+b = 8000 - 4500
+b = 3500</div>
+    <div class="step-exp">The y-intercept represents the estimated number of downloads on day 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 1500 and b = 3500 into D = md + b: D = 1500d + 3500.</div>
+    <div class="step-exp">This equation models the linear growth of app downloads over days.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The graph has a D-intercept at (0, 3500). From this point, use the slope (rise over run) to find another point. Since the slope is 1500 (or 1500/1), move up 1500 units and right 1 unit to plot a second point. Then, draw a straight line through these two points. The graph shows the initial downloads and the consistent daily increase.</div>
+    <div class="step-exp">The visual representation helps in understanding the starting point and the rate of increase of app downloads.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> D = 1500d + 3500. The graph has a D-intercept at (0, 3500) and a slope of 1500, representing initial downloads and daily growth. (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s weight is being monitored. On week 4, the patient weighed 188 pounds. On week 10, the patient weighed 176 pounds. Assuming a consistent linear change in weight, let <code>W</code> be the weight in pounds and <code>w</code> be the week number. Determine the linear equation that represents this data and describe its graph.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> W = -2w + 188. The graph has a W-intercept at (0, 188) and a slope of -2.</div><div class="option"><span class="opt-letter">B.</span> W = -12w + 188. The graph has a W-intercept at (0, 188) and a slope of -12.</div><div class="option"><span class="opt-letter">C.</span> W = -2w + 196. The graph has a W-intercept at (0, 196) and a slope of -2, showing the patient&#x27;s initial weight and weekly weight loss.</div><div class="option"><span class="opt-letter">D.</span> W = 2w + 180. The graph has a W-intercept at (0, 180) and a slope of 2.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (Week 4, 188 pounds) -&gt; (4, 188)
+Point 2: (Week 10, 176 pounds) -&gt; (10, 176)</div>
+    <div class="step-exp">Each (week, weight) pair forms a coordinate for the linear model.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (W2 - W1) / (w2 - w1)
+m = (176 - 188) / (10 - 4)
+m = -12 / 6
+m = -2</div>
+    <div class="step-exp">The negative slope indicates a decrease in weight over time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using W = mw + b and point (4, 188):
+188 = -2(4) + b
+188 = -8 + b
+b = 188 + 8
+b = 196</div>
+    <div class="step-exp">The y-intercept represents the patient&#x27;s estimated weight at week 0 (the start of monitoring).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = -2 and b = 196 into W = mw + b: W = -2w + 196.</div>
+    <div class="step-exp">This equation models the patient&#x27;s weight change over the weeks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The graph has a W-intercept at (0, 196). From this point, use the slope (rise over run) to find another point. Since the slope is -2 (or -2/1), move down 2 units and right 1 unit to plot a second point. Then, draw a straight line through these two points. The graph shows the initial weight and the consistent weekly decrease.</div>
+    <div class="step-exp">The descending line of the graph illustrates the patient&#x27;s weight loss trend.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> W = -2w + 196. The graph has a W-intercept at (0, 196) and a slope of -2, showing the patient&#x27;s initial weight and weekly weight loss. (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner&#x27;s distance from the finish line decreases linearly over time. At 30 minutes, they are 11.5 kilometers from the finish. At 90 minutes, they are 2.5 kilometers from the finish. Let <code>D</code> be the distance from the finish line (in km) and <code>t</code> be the time elapsed (in minutes). Write the linear equation representing their progress and describe the graph. What is the interpretation of the y-intercept in this context?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> D = -0.15t + 11.5. The y-intercept of 11.5 km represents the distance from the finish line at 30 minutes.</div><div class="option"><span class="opt-letter">B.</span> D = -0.15t + 16. The graph has a D-intercept at (0, 16) and a slope of -0.15. The y-intercept of 16 km represents the runner&#x27;s starting distance from the finish line at time t=0.</div><div class="option"><span class="opt-letter">C.</span> D = 0.15t + 7. The y-intercept of 7 km represents the runner&#x27;s initial distance from the finish line.</div><div class="option"><span class="opt-letter">D.</span> D = -9t + 16. The y-intercept of 16 km represents the runner&#x27;s initial distance from the finish line.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (30 minutes, 11.5 km) -&gt; (30, 11.5)
+Point 2: (90 minutes, 2.5 km) -&gt; (90, 2.5)</div>
+    <div class="step-exp">These coordinates represent (time, distance from finish) and are used to determine the linear relationship.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (D2 - D1) / (t2 - t1)
+m = (2.5 - 11.5) / (90 - 30)
+m = -9 / 60
+m = -0.15</div>
+    <div class="step-exp">The slope is negative because the distance from the finish line is decreasing. It represents the runner&#x27;s speed towards the finish line (km per minute).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using D = mt + b and point (30, 11.5):
+11.5 = -0.15(30) + b
+11.5 = -4.5 + b
+b = 11.5 + 4.5
+b = 16</div>
+    <div class="step-exp">The y-intercept represents the distance from the finish line at the start of the race (t=0).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = -0.15 and b = 16 into D = mt + b: D = -0.15t + 16.</div>
+    <div class="step-exp">This equation accurately models the runner&#x27;s distance from the finish line over time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The graph has a D-intercept at (0, 16). From this point, use the slope (-0.15) to find another point. For example, move down 15 units and right 100 units. Then, draw a straight line through these points. The y-intercept of 16 km signifies the runner&#x27;s starting distance from the finish line at the beginning of the race (t=0 minutes).</div>
+    <div class="step-exp">The graph visually represents the runner&#x27;s constant pace, starting from their initial position relative to the finish line.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> D = -0.15t + 16. The graph has a D-intercept at (0, 16) and a slope of -0.15. The y-intercept of 16 km represents the runner&#x27;s starting distance from the finish line at time t=0. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital clock battery&#x27;s charge level (in percent) decreases over time. At 4 hours, it&#x27;s at 85% charge. At 12 hours, it&#x27;s at 45% charge. If the battery discharges linearly, let <code>C</code> be the charge level (in percent) and <code>h</code> be the hours elapsed. Find the linear equation for the battery charge. When would the battery completely die (0% charge)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> C = -5h + 85. The battery would completely die at 17 hours.</div><div class="option"><span class="opt-letter">B.</span> C = -40h + 105. The battery would completely die at 2.625 hours.</div><div class="option"><span class="opt-letter">C.</span> C = 5h + 65. The battery would completely die at -13 hours (incorrect).</div><div class="option"><span class="opt-letter">D.</span> C = -5h + 105. The battery would completely die at 21 hours.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (4 hours, 85% charge) -&gt; (4, 85)
+Point 2: (12 hours, 45% charge) -&gt; (12, 45)</div>
+    <div class="step-exp">These coordinates represent (time, charge level) and are essential for defining the linear discharge.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (C2 - C1) / (h2 - h1)
+m = (45 - 85) / (12 - 4)
+m = -40 / 8
+m = -5</div>
+    <div class="step-exp">The negative slope indicates that the charge level is decreasing. The slope represents the percentage of charge lost per hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using C = mh + b and point (4, 85):
+85 = -5(4) + b
+85 = -20 + b
+b = 85 + 20
+b = 105</div>
+    <div class="step-exp">The y-intercept represents the estimated initial charge level (at h=0 hours).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = -5 and b = 105 into C = mh + b: C = -5h + 105.</div>
+    <div class="step-exp">This equation models the battery&#x27;s charge level over time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Set C = 0 in the equation:
+0 = -5h + 105
+5h = 105
+h = 105 / 5
+h = 21</div>
+    <div class="step-exp">Setting the charge to zero and solving for &#x27;h&#x27; finds the x-intercept, which is the time when the battery is fully discharged.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C = -5h + 105. The battery would completely die at 21 hours. (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student is tracking their cumulative grade in a class. After 5 assignments, their average grade is 78%. After 12 assignments, their average grade is 86%. Assuming the grade improves linearly, let <code>G</code> be the average grade (in percent) and <code>n</code> be the number of assignments. What is the linear equation that models their grade, and what would their average grade be after 20 assignments?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> G = 8n + 38. After 20 assignments, the average grade would be 198%.</div><div class="option"><span class="opt-letter">B.</span> G = (8/7)n + (506/7). After 20 assignments, the average grade would be approximately 95.14%.</div><div class="option"><span class="opt-letter">C.</span> G = (8/7)n + 78. After 20 assignments, the average grade would be approximately 100.86%.</div><div class="option"><span class="opt-letter">D.</span> G = (1/7)n + 77.29. After 20 assignments, the average grade would be approximately 80.15%.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Point 1: (5 assignments, 78% grade) -&gt; (5, 78)
+Point 2: (12 assignments, 86% grade) -&gt; (12, 86)</div>
+    <div class="step-exp">Each data point (number of assignments, average grade) helps to define the linear relationship.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = (G2 - G1) / (n2 - n1)
+m = (86 - 78) / (12 - 5)
+m = 8 / 7</div>
+    <div class="step-exp">The slope represents the increase in average grade per assignment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Using G = mn + b and point (5, 78):
+78 = (8/7)(5) + b
+78 = 40/7 + b
+b = 78 - 40/7
+b = (546/7) - (40/7)
+b = 506/7</div>
+    <div class="step-exp">The y-intercept represents the estimated average grade at 0 assignments, or the theoretical starting point for the linear progression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 8/7 and b = 506/7 into G = mn + b: G = (8/7)n + (506/7).</div>
+    <div class="step-exp">This equation models the student&#x27;s average grade as a function of the number of assignments.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Substitute n = 20 into the equation:
+G = (8/7)(20) + 506/7
+G = 160/7 + 506/7
+G = 666/7
+G ≈ 95.14%</div>
+    <div class="step-exp">Using the derived equation, we can predict the grade for any given number of assignments.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> G = (8/7)n + (506/7). After 20 assignments, the average grade would be approximately 95.14%. (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

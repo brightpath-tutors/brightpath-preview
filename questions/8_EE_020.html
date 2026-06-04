@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Square Roots</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.020<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Square Roots</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.020</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square display shelf has an area of 144 square inches. What is the length of one side of the shelf?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 72 inches</div><div class="option"><span class="opt-letter">B.</span> 288 inches</div><div class="option"><span class="opt-letter">C.</span> 12 inches</div><div class="option"><span class="opt-letter">D.</span> 20736 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For a square, Area = Side length × Side length, or Area = (Side length)².</div>
+    <div class="step-exp">The area of a square is found by squaring its side length. To find the side length from the area, we need to perform the inverse operation, which is taking the square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √144</div>
+    <div class="step-exp">Substitute the given area into the formula for finding the side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 12 × 12 = 144,
+√144 = 12.</div>
+    <div class="step-exp">The square root of 144 is 12, because 12 multiplied by itself equals 144.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 12 inches.</div>
+    <div class="step-exp">The length of one side of the display shelf is 12 inches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 inches (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square boxing ring has an area of 36 square meters. What is the length of one side of the ring?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 meters</div><div class="option"><span class="opt-letter">B.</span> 72 meters</div><div class="option"><span class="opt-letter">C.</span> 6 meters</div><div class="option"><span class="opt-letter">D.</span> 1296 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For a square, Area = Side length × Side length, or Area = (Side length)².</div>
+    <div class="step-exp">The area of a square is found by squaring its side length. To find the side length from the area, we need to perform the inverse operation, which is taking the square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √36</div>
+    <div class="step-exp">Substitute the given area into the formula for finding the side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 6 × 6 = 36,
+√36 = 6.</div>
+    <div class="step-exp">The square root of 36 is 6, because 6 multiplied by itself equals 36.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 6 meters.</div>
+    <div class="step-exp">The length of one side of the boxing ring is 6 meters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 meters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square baking pan has an area of 25 square inches. What is the length of one side of the pan?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 inches</div><div class="option"><span class="opt-letter">B.</span> 12.5 inches</div><div class="option"><span class="opt-letter">C.</span> 50 inches</div><div class="option"><span class="opt-letter">D.</span> 625 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For a square, Area = Side length × Side length, or Area = (Side length)².</div>
+    <div class="step-exp">The area of a square is found by squaring its side length. To find the side length from the area, we need to perform the inverse operation, which is taking the square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √25</div>
+    <div class="step-exp">Substitute the given area into the formula for finding the side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 5 × 5 = 25,
+√25 = 5.</div>
+    <div class="step-exp">The square root of 25 is 5, because 5 multiplied by itself equals 25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 5 inches.</div>
+    <div class="step-exp">The length of one side of the baking pan is 5 inches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 inches (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The required acceleration for a vehicle to stop safely is calculated as the square root of 196. What is this acceleration value?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 98 units</div><div class="option"><span class="opt-letter">B.</span> 392 units</div><div class="option"><span class="opt-letter">C.</span> 38416 units</div><div class="option"><span class="opt-letter">D.</span> 14 units</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem asks for &#x27;the square root of 196&#x27;.</div>
+    <div class="step-exp">We need to perform the square root operation on the number 196.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We are looking for a number &#x27;x&#x27; such that x * x = 196.</div>
+    <div class="step-exp">Recall the definition of a square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Test perfect squares: 10² = 100, 11² = 121, 12² = 144, 13² = 169, 14² = 196.
+So, √196 = 14.</div>
+    <div class="step-exp">By checking perfect squares, we find that 14 multiplied by 14 is 196.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The acceleration value is 14 units.</div>
+    <div class="step-exp">The acceleration value is 14. No specific units were given, so &#x27;units&#x27; is used as a placeholder.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 14 units (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher is arranging square-shaped student desks. Each desk has a top surface area of 400 square decimeters. What is the side length of one desk?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 200 decimeters</div><div class="option"><span class="opt-letter">B.</span> 20 decimeters</div><div class="option"><span class="opt-letter">C.</span> 160000 decimeters</div><div class="option"><span class="opt-letter">D.</span> 40 decimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area = 400 square decimeters. Goal: Find side length.</div>
+    <div class="step-exp">We know the area of a square desk and need to find its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √400</div>
+    <div class="step-exp">The side length of a square is the square root of its area.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We know that 20 × 20 = 400.
+So, √400 = 20.</div>
+    <div class="step-exp">The number that, when multiplied by itself, gives 400 is 20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 20 decimeters.</div>
+    <div class="step-exp">The side length of one desk is 20 decimeters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 decimeters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In an experiment, the area of a square petri dish is 625 square millimeters. Scientists need to know the length of one side to calculate the growth rate. What is the side length of the petri dish?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 millimeters</div><div class="option"><span class="opt-letter">B.</span> 312.5 millimeters</div><div class="option"><span class="opt-letter">C.</span> 1250 millimeters</div><div class="option"><span class="opt-letter">D.</span> 390625 millimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area = 625 square millimeters. Goal: Find side length.</div>
+    <div class="step-exp">We are given the area of a square petri dish and need to find the length of one of its sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √625</div>
+    <div class="step-exp">To find the side length of a square, we take the square root of its area.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We know that 25 × 25 = 625.
+So, √625 = 25.</div>
+    <div class="step-exp">The number that, when multiplied by itself, gives 625 is 25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 25 millimeters.</div>
+    <div class="step-exp">The side length of the petri dish is 25 millimeters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 millimeters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter needs to cut a square piece of plywood for a tabletop. The tabletop needs to have an area of 900 square inches. What is the side length of the plywood?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 810000 inches</div><div class="option"><span class="opt-letter">B.</span> 450 inches</div><div class="option"><span class="opt-letter">C.</span> 30 inches</div><div class="option"><span class="opt-letter">D.</span> 1800 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area = 900 square inches. Goal: Find side length.</div>
+    <div class="step-exp">We are given the area of a square tabletop and need to determine its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √900</div>
+    <div class="step-exp">The side length of a square is found by taking the square root of its area.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We know that 30 × 30 = 900.
+So, √900 = 30.</div>
+    <div class="step-exp">The number that, when multiplied by itself, equals 900 is 30.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 30 inches.</div>
+    <div class="step-exp">The side length of the plywood for the tabletop is 30 inches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30 inches (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new digital stopwatch measures time in units where one unit is equal to 4 times the square root of the number of milliseconds. If a race lasted 81 milliseconds, what is the time measured by the stopwatch in these units?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 36 units</div><div class="option"><span class="opt-letter">B.</span> 18 units</div><div class="option"><span class="opt-letter">C.</span> 4 units</div><div class="option"><span class="opt-letter">D.</span> 324 units</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Milliseconds = 81</div>
+    <div class="step-exp">The problem states the race lasted 81 milliseconds.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Square root of milliseconds = √81 = 9</div>
+    <div class="step-exp">We need to find the number that, when multiplied by itself, equals 81. That number is 9.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Time in units = 4 × 9 = 36</div>
+    <div class="step-exp">The problem states that one unit is equal to 4 times the square root of the number of milliseconds, so we multiply the square root (9) by 4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The time measured by the stopwatch is 36 units.</div>
+    <div class="step-exp">The final result is 36 units based on the calculation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 36 units (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A zoologist observes a square-shaped habitat for a rare insect species. The total area of the habitat is 1600 square meters. The zoologist wants to build a fence that outlines the boundary of a smaller square region within the habitat that has an area of 400 square meters. What is the side length of this smaller fenced region?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 meters</div><div class="option"><span class="opt-letter">B.</span> 40 meters</div><div class="option"><span class="opt-letter">C.</span> 200 meters</div><div class="option"><span class="opt-letter">D.</span> 160000 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area of the smaller fenced region = 400 square meters.</div>
+    <div class="step-exp">The question asks for the side length of the &#x27;smaller square region&#x27; which has an area of 400 square meters. The total habitat area of 1600 m² is extra information not directly needed for the final calculation of the smaller region&#x27;s side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √400</div>
+    <div class="step-exp">To find the side length of a square, we take the square root of its area.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We know that 20 × 20 = 400.
+So, √400 = 20.</div>
+    <div class="step-exp">The number that, when multiplied by itself, equals 400 is 20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 20 meters.</div>
+    <div class="step-exp">The side length of the smaller fenced region is 20 meters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 meters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company designs a square touchscreen for a new device. The total display area is 900 square millimeters. If the screen has 30 pixels per millimeter along each side, how many total pixels are there on one side of the screen?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 60 pixels</div><div class="option"><span class="opt-letter">B.</span> 900 pixels</div><div class="option"><span class="opt-letter">C.</span> 30 pixels</div><div class="option"><span class="opt-letter">D.</span> 27000 pixels</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Side length = √Area
+Side length = √900 = 30 millimeters</div>
+    <div class="step-exp">To find the side length of a square, we take the square root of its area. The square root of 900 is 30.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Pixels per millimeter = 30
+Side length = 30 millimeters
+Total pixels on one side = Side length × Pixels per millimeter
+Total pixels on one side = 30 mm × 30 pixels/mm = 900 pixels</div>
+    <div class="step-exp">Since there are 30 pixels for every millimeter of length, multiply the side length (30 mm) by the pixel density (30 pixels/mm) to find the total pixels along that side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total pixels on one side = 900 pixels.</div>
+    <div class="step-exp">The screen has 900 pixels along one side.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 900 pixels (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

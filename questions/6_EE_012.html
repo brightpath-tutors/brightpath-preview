@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: One-Step Inequalities</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.012<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">One-Step Inequalities</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.012</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah wants to buy a new book that costs $15. She currently has $8. How much more money (m) does she need to save to buy the book? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> m &gt; 7</div><div class="option"><span class="opt-letter">B.</span> m ≥ 7</div><div class="option"><span class="opt-letter">C.</span> m = 7</div><div class="option"><span class="opt-letter">D.</span> m ≤ 7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sarah needs $15. She has $8. She needs to save &#x27;m&#x27; more dollars. The total money she has must be at least $15. So, 8 + m ≥ 15.</div>
+    <div class="step-exp">The phrase &#x27;at least&#x27; indicates that the total amount of money must be greater than or equal to $15. We add her current money to the money she needs to save.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 + m ≥ 15
+8 + m - 8 ≥ 15 - 8</div>
+    <div class="step-exp">To solve for &#x27;m&#x27;, we need to undo the addition of 8. We do this by subtracting 8 from both sides of the inequality to keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">m ≥ 7</div>
+    <div class="step-exp">After subtracting, we find that Sarah needs to save at least $7.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> m ≥ 7 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team needs to score at least 80 points to win their game. They currently have 65 points. How many more points (p) do they need to score? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p = 15</div><div class="option"><span class="opt-letter">B.</span> p ≥ 15</div><div class="option"><span class="opt-letter">C.</span> p &lt; 15</div><div class="option"><span class="opt-letter">D.</span> p &gt; 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current points + additional points ≥ target points
+65 + p ≥ 80</div>
+    <div class="step-exp">The phrase &#x27;at least&#x27; means the total points must be greater than or equal to 80. We add the current points to the unknown additional points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">65 + p ≥ 80
+65 + p - 65 ≥ 80 - 65</div>
+    <div class="step-exp">To solve for &#x27;p&#x27;, subtract 65 from both sides of the inequality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p ≥ 15</div>
+    <div class="step-exp">The team needs to score at least 15 more points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> p ≥ 15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef uses 3 scoops of sugar for each batch of cookies. He wants to use no more than 15 scoops of sugar today. How many batches (b) of cookies can he make? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> b ≥ 5</div><div class="option"><span class="opt-letter">B.</span> b ≤ 5</div><div class="option"><span class="opt-letter">C.</span> b = 5</div><div class="option"><span class="opt-letter">D.</span> b &gt; 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scoops per batch × number of batches ≤ total scoops
+3b ≤ 15</div>
+    <div class="step-exp">The phrase &#x27;no more than&#x27; means the total number of scoops must be less than or equal to 15. We multiply the scoops per batch by the number of batches.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3b ≤ 15
+3b / 3 ≤ 15 / 3</div>
+    <div class="step-exp">To solve for &#x27;b&#x27;, we need to undo the multiplication by 3. We divide both sides of the inequality by 3 to keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">b ≤ 5</div>
+    <div class="step-exp">The chef can make at most 5 batches of cookies.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> b ≤ 5 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Mark wants to drive more than 180 miles. If he drives for 3 hours, what average speed (s) must he maintain? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> s &lt; 60</div><div class="option"><span class="opt-letter">B.</span> s ≥ 60</div><div class="option"><span class="opt-letter">C.</span> s = 60</div><div class="option"><span class="opt-letter">D.</span> s &gt; 60</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Speed × Time &gt; Distance
+s × 3 &gt; 180 (or 3s &gt; 180)</div>
+    <div class="step-exp">The phrase &#x27;more than&#x27; indicates that the product of speed and time must be strictly greater than 180 miles.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3s &gt; 180
+3s / 3 &gt; 180 / 3</div>
+    <div class="step-exp">To solve for &#x27;s&#x27;, we need to undo the multiplication by 3. We divide both sides of the inequality by 3 to keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s &gt; 60</div>
+    <div class="step-exp">Mark must maintain an average speed greater than 60 miles per hour.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> s &gt; 60 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">To pass a test, a student needs to answer at least 24 questions correctly. If they have already answered 18 questions correctly, how many more questions (q) do they need to answer correctly? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> q ≥ 6</div><div class="option"><span class="opt-letter">B.</span> q = 6</div><div class="option"><span class="opt-letter">C.</span> q ≤ 6</div><div class="option"><span class="opt-letter">D.</span> q &gt; 6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Correct answers so far + additional correct answers ≥ minimum correct answers
+18 + q ≥ 24</div>
+    <div class="step-exp">The phrase &#x27;at least&#x27; means the total correct answers must be greater than or equal to 24. We add the current correct answers to the unknown additional correct answers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">18 + q ≥ 24
+18 + q - 18 ≥ 24 - 18</div>
+    <div class="step-exp">To solve for &#x27;q&#x27;, subtract 18 from both sides of the inequality to keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">q ≥ 6</div>
+    <div class="step-exp">The student needs to answer at least 6 more questions correctly.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> q ≥ 6 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist needs to collect more than 50 milliliters of liquid for an experiment. She has already collected 35 milliliters. How many more milliliters (l) does she need to collect? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> l &lt; 15</div><div class="option"><span class="opt-letter">B.</span> l &gt; 15</div><div class="option"><span class="opt-letter">C.</span> l ≥ 15</div><div class="option"><span class="opt-letter">D.</span> l = 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Collected liquid + additional liquid &gt; target liquid
+35 + l &gt; 50</div>
+    <div class="step-exp">The phrase &#x27;more than&#x27; means the total liquid must be strictly greater than 50 milliliters. We add the already collected amount to the unknown additional amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">35 + l &gt; 50
+35 + l - 35 &gt; 50 - 35</div>
+    <div class="step-exp">To solve for &#x27;l&#x27;, subtract 35 from both sides of the inequality to keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">l &gt; 15</div>
+    <div class="step-exp">The scientist needs to collect more than 15 additional milliliters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> l &gt; 15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut pieces of wood that are 6 inches long. He has a total of 42 inches of wood. What is the maximum number of pieces (p) he can cut? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p &gt; 7</div><div class="option"><span class="opt-letter">B.</span> p = 7</div><div class="option"><span class="opt-letter">C.</span> p ≥ 7</div><div class="option"><span class="opt-letter">D.</span> p ≤ 7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Length per piece × number of pieces ≤ total length
+6p ≤ 42</div>
+    <div class="step-exp">The phrase &#x27;maximum number&#x27; means the total length used must be less than or equal to 42 inches. We multiply the length of each piece by the number of pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6p ≤ 42
+6p / 6 ≤ 42 / 6</div>
+    <div class="step-exp">To solve for &#x27;p&#x27;, divide both sides of the inequality by 6 to undo the multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p ≤ 7</div>
+    <div class="step-exp">The worker can cut at most 7 pieces of wood.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> p ≤ 7 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A movie theater wants to show a film that is 145 minutes long. They have a time slot of at most 160 minutes, including a 10-minute intermission. How much extra time (t) can they add to the intermission without exceeding the slot? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> t ≤ 5</div><div class="option"><span class="opt-letter">B.</span> t = 5</div><div class="option"><span class="opt-letter">C.</span> t &lt; 5</div><div class="option"><span class="opt-letter">D.</span> t ≥ 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Film length + initial intermission + extra time ≤ total slot time
+145 + 10 + t ≤ 160
+155 + t ≤ 160</div>
+    <div class="step-exp">The phrase &#x27;at most&#x27; means the total time must be less than or equal to 160 minutes. We sum the film length, the existing intermission, and the unknown extra time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">155 + t ≤ 160
+155 + t - 155 ≤ 160 - 155</div>
+    <div class="step-exp">To solve for &#x27;t&#x27;, subtract 155 from both sides of the inequality to keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">t ≤ 5</div>
+    <div class="step-exp">They can add at most 5 minutes of extra time to the intermission.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> t ≤ 5 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city council wants to ensure that each of its 8 parks has at least 500 visitors per month. What is the minimum total number of visitors (v) they should aim for across all parks in a month? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> v ≤ 4000</div><div class="option"><span class="opt-letter">B.</span> v ≥ 4000</div><div class="option"><span class="opt-letter">C.</span> v = 4000</div><div class="option"><span class="opt-letter">D.</span> v &gt; 4000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total visitors / number of parks ≥ visitors per park
+v / 8 ≥ 500</div>
+    <div class="step-exp">The phrase &#x27;at least&#x27; means the average visitors per park must be greater than or equal to 500. We divide the total visitors by the number of parks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">v / 8 ≥ 500
+(v / 8) × 8 ≥ 500 × 8</div>
+    <div class="step-exp">To solve for &#x27;v&#x27;, multiply both sides of the inequality by 8 to undo the division and keep it balanced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">v ≥ 4000</div>
+    <div class="step-exp">The city council should aim for at least 4000 total visitors across all parks.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> v ≥ 4000 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cell phone plan costs $0.15 per text message. If you want to keep your text message bill under $7.50 for the month, what is the maximum number of text messages (t) you can send? Write and solve an inequality.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> t = 50</div><div class="option"><span class="opt-letter">B.</span> t ≤ 50</div><div class="option"><span class="opt-letter">C.</span> t &lt; 50</div><div class="option"><span class="opt-letter">D.</span> t &gt; 50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost per text × number of texts &lt; total bill
+0.15t &lt; 7.50</div>
+    <div class="step-exp">The phrase &#x27;under $7.50&#x27; means the total cost must be strictly less than $7.50. We multiply the cost per text by the number of texts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.15t &lt; 7.50
+0.15t / 0.15 &lt; 7.50 / 0.15</div>
+    <div class="step-exp">To solve for &#x27;t&#x27;, divide both sides of the inequality by 0.15 to undo the multiplication. Since we are dividing by a positive number, the inequality sign does not flip.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">t &lt; 50</div>
+    <div class="step-exp">You can send a maximum of 49 text messages to keep the bill under $7.50 (since text messages must be whole numbers, and t must be less than 50).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> t &lt; 50 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

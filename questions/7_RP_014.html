@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Percent Increase</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | RP | Skill 7.RP.014<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Percent Increase</h1>
+<p class="skill-subtitle">Skill ID: 7.RP.014</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shirt originally cost $20. During a sale, its price increased to $25. What was the percent increase in the price of the shirt?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20%</div><div class="option"><span class="opt-letter">B.</span> 125%</div><div class="option"><span class="opt-letter">C.</span> 25%</div><div class="option"><span class="opt-letter">D.</span> 5%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">$25 - $20 = $5</div>
+    <div class="step-exp">Subtract the original price from the new price to find the absolute increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$5 / $20 = 0.25</div>
+    <div class="step-exp">Divide the amount of increase by the original price. The original price is the base for comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.25 × 100 = 25%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Last year, a basketball player scored 12 points per game. This year, he improved and scored 15 points per game. What is the percent increase in his average points per game?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25%</div><div class="option"><span class="opt-letter">B.</span> 125%</div><div class="option"><span class="opt-letter">C.</span> 3%</div><div class="option"><span class="opt-letter">D.</span> 20%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">15 points - 12 points = 3 points</div>
+    <div class="step-exp">Subtract last year&#x27;s average from this year&#x27;s average to find the absolute increase in points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3 points / 12 points = 0.25</div>
+    <div class="step-exp">Divide the amount of increase by the original average (last year&#x27;s average) to find the fractional increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.25 × 100 = 25%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25% (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe called for 4 ounces of chocolate. To make a larger batch, the amount of chocolate was increased to 5 ounces. What is the percent increase in the amount of chocolate?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20%</div><div class="option"><span class="opt-letter">B.</span> 25%</div><div class="option"><span class="opt-letter">C.</span> 125%</div><div class="option"><span class="opt-letter">D.</span> 1%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5 ounces - 4 ounces = 1 ounce</div>
+    <div class="step-exp">Subtract the original amount from the new amount to find the absolute increase in chocolate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1 ounce / 4 ounces = 0.25</div>
+    <div class="step-exp">Divide the amount of increase by the original amount of chocolate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.25 × 100 = 25%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car&#x27;s average speed on a highway was 60 miles per hour. Due to road construction, the speed limit was temporarily increased to 66 miles per hour. What was the percent increase in the speed limit?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10%</div><div class="option"><span class="opt-letter">B.</span> 9.09%</div><div class="option"><span class="opt-letter">C.</span> 6%</div><div class="option"><span class="opt-letter">D.</span> 110%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">66 mph - 60 mph = 6 mph</div>
+    <div class="step-exp">Subtract the original speed limit from the new speed limit to find the absolute increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6 mph / 60 mph = 0.1</div>
+    <div class="step-exp">Divide the amount of increase by the original speed limit.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.1 × 100 = 10%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10% (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a school, the number of students enrolled in the chess club increased from 30 to 39. What is the percent increase in chess club enrollment?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 130%</div><div class="option"><span class="opt-letter">B.</span> 30%</div><div class="option"><span class="opt-letter">C.</span> 23.08%</div><div class="option"><span class="opt-letter">D.</span> 9%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">39 students - 30 students = 9 students</div>
+    <div class="step-exp">Subtract the original enrollment from the new enrollment to find the absolute increase in students.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">9 students / 30 students = 0.3</div>
+    <div class="step-exp">Divide the amount of increase by the original enrollment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.3 × 100 = 30%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observed a bacteria colony grow from 200 cells to 230 cells in an hour. What was the percent increase in the number of bacteria cells?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 13.04%</div><div class="option"><span class="opt-letter">B.</span> 30%</div><div class="option"><span class="opt-letter">C.</span> 15%</div><div class="option"><span class="opt-letter">D.</span> 115%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">230 cells - 200 cells = 30 cells</div>
+    <div class="step-exp">Subtract the original number of cells from the new number of cells to find the absolute increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">30 cells / 200 cells = 0.15</div>
+    <div class="step-exp">Divide the amount of increase by the original number of bacteria cells.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.15 × 100 = 15%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The cost of lumber for a construction project rose from $400 to $480 per unit. What is the percent increase in the cost of lumber?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 80%</div><div class="option"><span class="opt-letter">B.</span> 120%</div><div class="option"><span class="opt-letter">C.</span> 20%</div><div class="option"><span class="opt-letter">D.</span> 16.67%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">$480 - $400 = $80</div>
+    <div class="step-exp">Subtract the original cost from the new cost to find the absolute increase in price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$80 / $400 = 0.2</div>
+    <div class="step-exp">Divide the amount of increase by the original cost of lumber.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.2 × 100 = 20%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A video game update took 50 minutes to download. After an internet speed upgrade, a similar update took 55 minutes. What was the percent increase in download time?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5%</div><div class="option"><span class="opt-letter">B.</span> 9.09%</div><div class="option"><span class="opt-letter">C.</span> 10%</div><div class="option"><span class="opt-letter">D.</span> 110%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">55 minutes - 50 minutes = 5 minutes</div>
+    <div class="step-exp">Subtract the original download time from the new download time to find the absolute increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5 minutes / 50 minutes = 0.1</div>
+    <div class="step-exp">Divide the amount of increase by the original download time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.1 × 100 = 10%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town grew from 1,200 residents to 1,500 residents over a decade. What was the percent increase in the town&#x27;s population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20%</div><div class="option"><span class="opt-letter">B.</span> 125%</div><div class="option"><span class="opt-letter">C.</span> 25%</div><div class="option"><span class="opt-letter">D.</span> 300%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">1,500 residents - 1,200 residents = 300 residents</div>
+    <div class="step-exp">Subtract the original population from the new population to find the absolute increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">300 residents / 1,200 residents = 0.25</div>
+    <div class="step-exp">Divide the amount of increase by the original population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.25 × 100 = 25%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The value of a rare painting increased from $80,000 to $96,000 in an auction. What was the percent increase in the painting&#x27;s value?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20%</div><div class="option"><span class="opt-letter">B.</span> 120%</div><div class="option"><span class="opt-letter">C.</span> 160%</div><div class="option"><span class="opt-letter">D.</span> 16%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">$96,000 - $80,000 = $16,000</div>
+    <div class="step-exp">Subtract the original value from the new value to find the absolute increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$16,000 / $80,000 = 0.2</div>
+    <div class="step-exp">Divide the amount of increase by the original value of the painting.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">0.2 × 100 = 20%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20% (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

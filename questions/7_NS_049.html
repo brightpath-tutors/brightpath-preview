@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Real Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.049<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Real Numbers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.049</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A unique handcrafted item at a market is priced at $17.\overline{33}$. Classify this number.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Whole number</div><div class="option"><span class="opt-letter">B.</span> Rational</div><div class="option"><span class="opt-letter">C.</span> Integer</div><div class="option"><span class="opt-letter">D.</span> Irrational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The number is $17.\overline{33}$.</div>
+    <div class="step-exp">We are given a number with a repeating decimal part.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The bar over &#x27;33&#x27; indicates that the digits &#x27;33&#x27; repeat infinitely ($17.3333...$).</div>
+    <div class="step-exp">Understanding the notation for repeating decimals is crucial for classification.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is any number that can be expressed as a fraction \(\frac{p}{q}\) where \(p\) and \(q\) are integers and $q 
+eq 0$. Terminating and repeating decimals are rational numbers.</div>
+    <div class="step-exp">Recalling the definition of rational numbers helps in classifying the given number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since $17.\overline{33}$ is a repeating decimal, it can be written as a fraction (e.g., $17 \frac{33}{99} = 17 \frac{1}{3} = \frac{52}{3}$). Therefore, it is a rational number.</div>
+    <div class="step-exp">Because it is a repeating decimal, it fits the definition of a rational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Rational (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a relay race, Athlete A ran their leg in $10 \frac{1}{3}$ seconds, and Athlete B ran their leg in $10.3$ seconds. Which athlete was faster?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> They ran at the same speed.</div><div class="option"><span class="opt-letter">B.</span> Athlete A</div><div class="option"><span class="opt-letter">C.</span> Not enough information to determine.</div><div class="option"><span class="opt-letter">D.</span> Athlete B</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">$10 \frac{1}{3} = 10 + \frac{1}{3} = 10 + 0.333... = 10.\overline{3}$ seconds.</div>
+    <div class="step-exp">To compare times, it&#x27;s easiest to have them in the same format, usually decimals.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Athlete B&#x27;s time is $10.3$ seconds.</div>
+    <div class="step-exp">This time is already in decimal format.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">To be faster, the time must be less. Comparing $10.\overline{3}$ and $10.3$:
+- $10.333...$
+- $10.300...$
+Since $10.3 &lt; 10.\overline{3}$, Athlete B was faster.</div>
+    <div class="step-exp">Compare the decimal digits from left to right. The &#x27;3&#x27; in the hundredths place for Athlete A&#x27;s time makes it larger than Athlete B&#x27;s time, which has a &#x27;0&#x27; in the hundredths place.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Athlete B was faster.</div>
+    <div class="step-exp">The athlete with the lower time is the faster one.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Athlete B (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for $1 \frac{5}{8}$ cups of sugar. Express this amount as a decimal.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.8</div><div class="option"><span class="opt-letter">B.</span> 1.58</div><div class="option"><span class="opt-letter">C.</span> 1.6</div><div class="option"><span class="opt-letter">D.</span> 1.625</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The mixed number is $1 + \frac{5}{8}$.</div>
+    <div class="step-exp">Breaking down the mixed number makes the conversion process simpler.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Divide the numerator (5) by the denominator (8).
+$5 \div 8 = 0.625$.</div>
+    <div class="step-exp">Performing the division converts the fractional part into its decimal equivalent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$1 + 0.625 = 1.625$.</div>
+    <div class="step-exp">Combine the whole number with the decimal fraction to get the final decimal representation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.625 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels \(\sqrt{121}\) miles in one hour, and another car travels \(\sqrt{144}\) miles in the same hour. Which car traveled a greater distance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> They traveled the same distance.</div><div class="option"><span class="opt-letter">B.</span> The second car</div><div class="option"><span class="opt-letter">C.</span> Not enough information to determine.</div><div class="option"><span class="opt-letter">D.</span> The first car</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The first car traveled \(\sqrt{121}\) miles. Since $11 \times 11 = 121$, \(\sqrt{121} = 11\) miles.</div>
+    <div class="step-exp">Calculate the exact value of the square root for the first car&#x27;s distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The second car traveled \(\sqrt{144}\) miles. Since $12 \times 12 = 144$, \(\sqrt{144} = 12\) miles.</div>
+    <div class="step-exp">Calculate the exact value of the square root for the second car&#x27;s distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare 11 miles (first car) vs. 12 miles (second car).</div>
+    <div class="step-exp">Once both distances are in a comparable format, perform the comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since 12 miles is greater than 11 miles, the second car traveled a greater distance.</div>
+    <div class="step-exp">The larger number represents the greater distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The second car (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Five students received the following scores on a math test: \(\frac{4}{5}\), $0.82$, $79\%$, \(\frac{17}{20}\), and $0.\overline{8}$. Order these scores from least to greatest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $79\%$, \(\frac{4}{5}\), $0.82$, \(\frac{17}{20}\), $0.\overline{8}$</div><div class="option"><span class="opt-letter">B.</span> \(\frac{4}{5}\), $0.82$, $79\%$, \(\frac{17}{20}\), $0.\overline{8}$</div><div class="option"><span class="opt-letter">C.</span> $79\%$, $0.82$, \(\frac{4}{5}\), $0.\overline{8}$, \(\frac{17}{20}\)</div><div class="option"><span class="opt-letter">D.</span> $0.\overline{8}$, \(\frac{17}{20}\), $0.82$, \(\frac{4}{5}\), $79\%$</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">- \(\frac{4}{5} = 0.8\)
+- $0.82$ (already decimal)
+- $79\% = 0.79$
+- \(\frac{17}{20} = 0.85\)
+- $0.\overline{8} = 0.888...$</div>
+    <div class="step-exp">Converting all numbers to the same format (decimals) makes comparison straightforward.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The scores in decimal form are: $0.8$, $0.82$, $0.79$, $0.85$, $0.888...$</div>
+    <div class="step-exp">Gathering the decimal values in one list helps with the next step of ordering.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing the decimal values: $0.79 &lt; 0.8 &lt; 0.82 &lt; 0.85 &lt; 0.888...$</div>
+    <div class="step-exp">Compare the digits in each place value from left to right to establish the correct order.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The ordered scores are: $79\%$, \(\frac{4}{5}\), $0.82$, \(\frac{17}{20}\), $0.\overline{8}$.</div>
+    <div class="step-exp">Present the final answer using the original forms of the scores as requested.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $79\%$, \(\frac{4}{5}\), $0.82$, \(\frac{17}{20}\), $0.\overline{8}$ (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist measures the length of a microscopic organism to be \(\sqrt{29}\) micrometers. Approximate this length to the nearest tenth of a micrometer.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.4</div><div class="option"><span class="opt-letter">B.</span> 5.0</div><div class="option"><span class="opt-letter">C.</span> 5.5</div><div class="option"><span class="opt-letter">D.</span> 5.3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">We know that $5^2 = 25$ and $6^2 = 36$. Therefore, \(\sqrt{29}\) is between 5 and 6.</div>
+    <div class="step-exp">Finding the nearest perfect squares helps to narrow down the range for the approximation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">- $5.1^2 = 26.01$
+- $5.2^2 = 27.04$
+- $5.3^2 = 28.09$
+- $5.4^2 = 29.16$</div>
+    <div class="step-exp">Systematically test decimal values in the range by squaring them to see which is closest to 29.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">- Distance from $5.3^2$: $|29 - 28.09| = 0.91$
+- Distance from $5.4^2$: $|29 - 29.16| = 0.16$</div>
+    <div class="step-exp">Calculate the absolute difference between 29 and the squares of the tested decimal values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since 0.16 is smaller than 0.91, $5.4^2$ is closer to 29 than $5.3^2$. Thus, \(\sqrt{29}\) approximated to the nearest tenth is 5.4.</div>
+    <div class="step-exp">The decimal whose square is closest to 29 is the best approximation to the nearest tenth.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5.4 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square tile has a side length of \(\sqrt{7}\) inches. What is the area of the tile in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> \(\sqrt{49}\) square inches</div><div class="option"><span class="opt-letter">B.</span> \(\sqrt{14}\) square inches</div><div class="option"><span class="opt-letter">C.</span> 7 square inches</div><div class="option"><span class="opt-letter">D.</span> $7\sqrt{7}$ square inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area = side \(\times\) side.</div>
+    <div class="step-exp">The area of a square is found by multiplying its side length by itself.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Area = \(\sqrt{7} \times \sqrt{7}\).</div>
+    <div class="step-exp">Replace &#x27;side&#x27; in the formula with the given value \(\sqrt{7}\).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">\(\sqrt{7} \times \sqrt{7} = \sqrt{7 \times 7} = \sqrt{49}\).</div>
+    <div class="step-exp">When multiplying two identical square roots, the result is the number inside the square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">\(\sqrt{49} = 7\).</div>
+    <div class="step-exp">Evaluate the perfect square root to get an integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The area is 7 square inches.</div>
+    <div class="step-exp">Always include appropriate units for the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 square inches (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Project A took $1 \frac{5}{6}$ hours. Project B took $1.8$ hours. Project C took \(\frac{\sqrt{36}}{3}\) hours. Order the projects from shortest to longest duration.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Project C, Project A, Project B</div><div class="option"><span class="opt-letter">B.</span> Project B, Project C, Project A</div><div class="option"><span class="opt-letter">C.</span> Project A, Project B, Project C</div><div class="option"><span class="opt-letter">D.</span> Project B, Project A, Project C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">- Project A: $1 \frac{5}{6}$ hours = $1 + \frac{5}{6} = 1 + 0.833... = 1.\overline{83}$ hours.
+- Project B: $1.8$ hours (already in decimal form).
+- Project C: \(\frac{\sqrt{36}}{3}\) hours. First, evaluate \(\sqrt{36} = 6\). So, \(\frac{6}{3} = 2\) hours.</div>
+    <div class="step-exp">To accurately compare different types of numbers, convert them all to a common format (decimals).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">- Project A: $1.833...$
+- Project B: $1.800...$
+- Project C: $2.000...$</div>
+    <div class="step-exp">Organize the decimal values to prepare for ordering.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing the decimal values: $1.8 &lt; 1.833... &lt; 2$.</div>
+    <div class="step-exp">Compare the digits in each place value from left to right to determine the correct order from smallest to largest.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The ordered projects are: Project B, Project A, Project C.</div>
+    <div class="step-exp">Present the final answer using the original labels of the projects.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Project B, Project A, Project C (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A charity event raised \(\frac{15}{22}\) of its fundraising goal. A similar event last year raised $68\%$ of its goal. Which event performed better in reaching its goal, and by what approximate percentage point difference (to the nearest tenth)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> They performed equally well, with no difference.</div><div class="option"><span class="opt-letter">B.</span> Last year&#x27;s event, by approximately 0.2 percentage points.</div><div class="option"><span class="opt-letter">C.</span> This year&#x27;s event, by approximately 0.1 percentage points.</div><div class="option"><span class="opt-letter">D.</span> This year&#x27;s event, by approximately 0.2 percentage points.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">\(\frac{15}{22} \approx 0.681818...\)
+As a percentage, this is approximately $68.18\%$.</div>
+    <div class="step-exp">Convert the fraction to a decimal by division, then express it as a percentage for comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Last year&#x27;s event achievement was $68\%$.</div>
+    <div class="step-exp">This value is already in percentage format.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing $68.18\%$ (this year) with $68\%$ (last year), we see that $68.18\% &gt; 68\%$. So, this year&#x27;s event performed better.</div>
+    <div class="step-exp">Directly compare the percentage values to determine which is greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Difference = $68.18\% - 68\% = 0.18\%$.</div>
+    <div class="step-exp">Subtract the smaller percentage from the larger one to find the difference.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">$0.18\%$ rounds to $0.2\%$.</div>
+    <div class="step-exp">Apply rounding rules to express the difference to the specified precision.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> This year&#x27;s event, by approximately 0.2 percentage points. (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A file downloads at a rate of $2 \times 10^3$ bytes per second. Another file downloads at a rate equivalent to \(\frac{1}{500}\) of a megabyte per second (where 1 megabyte = $10^6$ bytes). Which file downloads faster?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Not enough information to determine.</div><div class="option"><span class="opt-letter">B.</span> They download at the same rate.</div><div class="option"><span class="opt-letter">C.</span> The second file downloads faster.</div><div class="option"><span class="opt-letter">D.</span> The first file downloads faster.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rate 1 = $2 \times 10^3$ bytes/second = 2000 bytes/second.</div>
+    <div class="step-exp">Convert the scientific notation to a standard numerical value for easier comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Rate 2 = \(\frac{1}{500}\) megabytes/second.</div>
+    <div class="step-exp">Note the given rate for the second file.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Given 1 megabyte = $10^6$ bytes.
+Rate 2 = \(\frac{1}{500} \times 10^6\) bytes/second
+Rate 2 = \(\frac{1000000}{500}\) bytes/second
+Rate 2 = $2000$ bytes/second.</div>
+    <div class="step-exp">Use the provided conversion factor to express the second file&#x27;s download rate in bytes per second, matching the unit of the first file.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">- Rate 1 = 2000 bytes/second
+- Rate 2 = 2000 bytes/second</div>
+    <div class="step-exp">Now that both rates are in the same units, they can be directly compared.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Both files download at the same rate.</div>
+    <div class="step-exp">Since the numerical values are identical, the rates are the same.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> They download at the same rate. (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

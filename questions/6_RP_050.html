@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Ratio Language</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | RP | Skill 6.RP.050<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Ratio Language</h1>
+<p class="skill-subtitle">Skill ID: 6.RP.050</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a clothing store, for every 3 blue shirts sold, 5 red shirts are sold. What is the ratio of blue shirts sold to red shirts sold, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:5</div><div class="option"><span class="opt-letter">B.</span> 5/3</div><div class="option"><span class="opt-letter">C.</span> 5:3</div><div class="option"><span class="opt-letter">D.</span> 3/5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Blue shirts: 3, Red shirts: 5</div>
+    <div class="step-exp">The problem asks for the ratio of blue shirts to red shirts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of blue shirts to red shirts = 3:5</div>
+    <div class="step-exp">The order &#x27;blue shirts to red shirts&#x27; means the number of blue shirts comes first, followed by the number of red shirts. The numbers 3 and 5 are already in simplest form as they share no common factors other than 1.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:5 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">At a sporting event, 7 out of every 10 spectators are rooting for the home team. What is the ratio of spectators rooting for the home team to total spectators, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:10</div><div class="option"><span class="opt-letter">B.</span> 7:10</div><div class="option"><span class="opt-letter">C.</span> 10:7</div><div class="option"><span class="opt-letter">D.</span> 7/10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Spectators for home team: 7, Total spectators: 10</div>
+    <div class="step-exp">The problem asks for the ratio of spectators for the home team to total spectators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of home team supporters to total spectators = 7:10</div>
+    <div class="step-exp">The order &#x27;spectators for the home team to total spectators&#x27; means the number of home team supporters comes first, followed by the total number of spectators. The numbers 7 and 10 are already in simplest form as they share no common factors other than 1.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7:10 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a recipe, the amount of sugar is 2 units and the amount of flour is 3 units. What is the ratio of sugar to flour, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2/3</div><div class="option"><span class="opt-letter">B.</span> 3/2</div><div class="option"><span class="opt-letter">C.</span> 3:2</div><div class="option"><span class="opt-letter">D.</span> 2:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sugar: 2 units, Flour: 3 units</div>
+    <div class="step-exp">The problem asks for the ratio of sugar to flour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of sugar to flour = 2:3</div>
+    <div class="step-exp">The order &#x27;sugar to flour&#x27; means the amount of sugar comes first, followed by the amount of flour. The numbers 2 and 3 are already in simplest form as they share no common factors other than 1.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:3 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels 120 miles in 2 hours. What is the ratio of miles traveled to hours spent traveling, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 60:1</div><div class="option"><span class="opt-letter">B.</span> 2:120</div><div class="option"><span class="opt-letter">C.</span> 1:60</div><div class="option"><span class="opt-letter">D.</span> 120:2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Miles traveled: 120, Hours spent traveling: 2</div>
+    <div class="step-exp">The problem asks for the ratio of miles traveled to hours spent traveling.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 120:2
+Divide both sides by 2: 120/2 : 2/2 = 60:1</div>
+    <div class="step-exp">The order &#x27;miles traveled to hours spent traveling&#x27; means the number of miles comes first, followed by the number of hours. Both numbers are divisible by 2, so simplify the ratio by dividing both parts by 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60:1 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a classroom, there are 15 pencils and 10 erasers. What is the ratio of pencils to erasers, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:2</div><div class="option"><span class="opt-letter">B.</span> 2:3</div><div class="option"><span class="opt-letter">C.</span> 10:15</div><div class="option"><span class="opt-letter">D.</span> 15:10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Pencils: 15, Erasers: 10</div>
+    <div class="step-exp">The problem asks for the ratio of pencils to erasers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 15:10
+Divide both sides by 5: 15/5 : 10/5 = 3:2</div>
+    <div class="step-exp">The order &#x27;pencils to erasers&#x27; means the number of pencils comes first, followed by the number of erasers. Both numbers are divisible by 5, so simplify the ratio by dividing both parts by 5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:2 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes 18 bacteria colonies and 6 fungal colonies in a petri dish. What is the ratio of fungal colonies to bacteria colonies, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:1</div><div class="option"><span class="opt-letter">B.</span> 18:6</div><div class="option"><span class="opt-letter">C.</span> 1:3</div><div class="option"><span class="opt-letter">D.</span> 6:18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Bacteria colonies: 18, Fungal colonies: 6</div>
+    <div class="step-exp">The problem asks for the ratio of fungal colonies to bacteria colonies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 6:18
+Divide both sides by 6: 6/6 : 18/6 = 1:3</div>
+    <div class="step-exp">The order &#x27;fungal colonies to bacteria colonies&#x27; means the number of fungal colonies comes first, followed by the number of bacteria colonies. Both numbers are divisible by 6, so simplify the ratio by dividing both parts by 6.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">On a construction site, there are 24 workers and 8 supervisors. What is the ratio of supervisors to workers, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 24:8</div><div class="option"><span class="opt-letter">B.</span> 3:1</div><div class="option"><span class="opt-letter">C.</span> 8:24</div><div class="option"><span class="opt-letter">D.</span> 1:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Workers: 24, Supervisors: 8</div>
+    <div class="step-exp">The problem asks for the ratio of supervisors to workers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 8:24
+Divide both sides by 8: 8/8 : 24/8 = 1:3</div>
+    <div class="step-exp">The order &#x27;supervisors to workers&#x27; means the number of supervisors comes first, followed by the number of workers. Both numbers are divisible by 8, so simplify the ratio by dividing both parts by 8.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:3 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A local coffee shop sells 42 lattes and 14 cappuccinos in an hour. What is the ratio of cappuccinos sold to the total number of hot drinks sold, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:3</div><div class="option"><span class="opt-letter">B.</span> 14:42</div><div class="option"><span class="opt-letter">C.</span> 3:1</div><div class="option"><span class="opt-letter">D.</span> 1:4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Lattes: 42, Cappuccinos: 14</div>
+    <div class="step-exp">The problem provides the number of lattes and cappuccinos sold.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total hot drinks = Lattes + Cappuccinos = 42 + 14 = 56</div>
+    <div class="step-exp">To find the ratio of cappuccinos to total hot drinks, we first need to sum the lattes and cappuccinos.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of cappuccinos to total hot drinks = 14:56
+Divide both parts by their greatest common factor, 14: 14/14 : 56/14 = 1:4</div>
+    <div class="step-exp">Place the number of cappuccinos first, followed by the total hot drinks. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 14.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:4 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population consists of 35,000 adults and 15,000 children. What is the ratio of children to the total population, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7:3</div><div class="option"><span class="opt-letter">B.</span> 3:10</div><div class="option"><span class="opt-letter">C.</span> 15:35</div><div class="option"><span class="opt-letter">D.</span> 3:7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Adults: 35,000, Children: 15,000</div>
+    <div class="step-exp">The problem provides the number of adults and children in the city&#x27;s population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total population = Adults + Children = 35,000 + 15,000 = 50,000</div>
+    <div class="step-exp">To find the ratio of children to total population, we first need to sum the number of adults and children.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of children to total population = 15,000:50,000
+Divide both parts by their greatest common factor, 5,000: 15,000/5,000 : 50,000/5,000 = 3:10</div>
+    <div class="step-exp">Place the number of children first, followed by the total population. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 5,000.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:10 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company has 60 software engineers and 20 quality assurance testers. What is the ratio of software engineers to quality assurance testers, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:1</div><div class="option"><span class="opt-letter">B.</span> 60:20</div><div class="option"><span class="opt-letter">C.</span> 20:60</div><div class="option"><span class="opt-letter">D.</span> 1:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Software engineers: 60, Quality assurance testers: 20</div>
+    <div class="step-exp">The problem asks for the ratio of software engineers to quality assurance testers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 60:20
+Divide both sides by 20: 60/20 : 20/20 = 3:1</div>
+    <div class="step-exp">The order &#x27;software engineers to quality assurance testers&#x27; means the number of software engineers comes first, followed by the number of quality assurance testers. Both numbers are divisible by 20, so simplify the ratio by dividing both parts by 20.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:1 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An art studio has 36 paint brushes and 12 palettes. What is the ratio of paint brushes to palettes, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:3</div><div class="option"><span class="opt-letter">B.</span> 3:1</div><div class="option"><span class="opt-letter">C.</span> 36:12</div><div class="option"><span class="opt-letter">D.</span> 12:36</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Paint brushes: 36, Palettes: 12</div>
+    <div class="step-exp">The problem asks for the ratio of paint brushes to palettes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 36:12
+Divide both sides by 12: 36/12 : 12/12 = 3:1</div>
+    <div class="step-exp">The order &#x27;paint brushes to palettes&#x27; means the number of paint brushes comes first, followed by the number of palettes. Both numbers are divisible by 12, so simplify the ratio by dividing both parts by 12.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:1 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A health club has 80 members who prefer cardio and 20 members who prefer weightlifting. What is the ratio of members who prefer weightlifting to the total number of members, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4:1</div><div class="option"><span class="opt-letter">B.</span> 1:5</div><div class="option"><span class="opt-letter">C.</span> 20:80</div><div class="option"><span class="opt-letter">D.</span> 1:4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cardio members: 80, Weightlifting members: 20</div>
+    <div class="step-exp">The problem provides the number of members who prefer cardio and weightlifting.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total members = Cardio members + Weightlifting members = 80 + 20 = 100</div>
+    <div class="step-exp">To find the ratio of weightlifting members to total members, we first need to sum the cardio and weightlifting members.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of weightlifting members to total members = 20:100
+Divide both parts by their greatest common factor, 20: 20/20 : 100/20 = 1:5</div>
+    <div class="step-exp">Place the number of weightlifting members first, followed by the total number of members. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 20.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:5 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bakery bakes 54 chocolate chip cookies and 18 oatmeal cookies. What is the ratio of chocolate chip cookies to the total number of cookies, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4:3</div><div class="option"><span class="opt-letter">B.</span> 3:4</div><div class="option"><span class="opt-letter">C.</span> 54:18</div><div class="option"><span class="opt-letter">D.</span> 1:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Chocolate chip cookies: 54, Oatmeal cookies: 18</div>
+    <div class="step-exp">The problem provides the number of chocolate chip and oatmeal cookies baked.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total cookies = Chocolate chip cookies + Oatmeal cookies = 54 + 18 = 72</div>
+    <div class="step-exp">To find the ratio of chocolate chip cookies to total cookies, we first need to sum the number of each type of cookie.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of chocolate chip cookies to total cookies = 54:72
+Divide both parts by their greatest common factor, 18: 54/18 : 72/18 = 3:4</div>
+    <div class="step-exp">Place the number of chocolate chip cookies first, followed by the total number of cookies. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 18.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A photographer takes 75 landscape photos and 25 portrait photos. What is the ratio of portrait photos to total photos taken, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25:75</div><div class="option"><span class="opt-letter">B.</span> 3:1</div><div class="option"><span class="opt-letter">C.</span> 1:3</div><div class="option"><span class="opt-letter">D.</span> 1:4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Landscape photos: 75, Portrait photos: 25</div>
+    <div class="step-exp">The problem provides the number of landscape and portrait photos taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total photos = Landscape photos + Portrait photos = 75 + 25 = 100</div>
+    <div class="step-exp">To find the ratio of portrait photos to total photos, we first need to sum the number of each type of photo.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of portrait photos to total photos = 25:100
+Divide both parts by their greatest common factor, 25: 25/25 : 100/25 = 1:4</div>
+    <div class="step-exp">Place the number of portrait photos first, followed by the total number of photos. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 25.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:4 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A farmer plants 96 acres of corn and 48 acres of soybeans. What is the ratio of corn acres to soybean acres, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:2</div><div class="option"><span class="opt-letter">B.</span> 96:48</div><div class="option"><span class="opt-letter">C.</span> 2:1</div><div class="option"><span class="opt-letter">D.</span> 48:96</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Corn acres: 96, Soybean acres: 48</div>
+    <div class="step-exp">The problem asks for the ratio of corn acres to soybean acres.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Ratio = 96:48
+Divide both sides by 48: 96/48 : 48/48 = 2:1</div>
+    <div class="step-exp">The order &#x27;corn acres to soybean acres&#x27; means the number of corn acres comes first, followed by the number of soybean acres. Both numbers are divisible by 48, so simplify the ratio by dividing both parts by 48.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:1 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a movie theater, 108 seats are occupied and 36 seats are empty. What is the ratio of empty seats to the total number of seats, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:1</div><div class="option"><span class="opt-letter">B.</span> 1:4</div><div class="option"><span class="opt-letter">C.</span> 1:3</div><div class="option"><span class="opt-letter">D.</span> 36:108</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Occupied seats: 108, Empty seats: 36</div>
+    <div class="step-exp">The problem provides the number of occupied and empty seats.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total seats = Occupied seats + Empty seats = 108 + 36 = 144</div>
+    <div class="step-exp">To find the ratio of empty seats to total seats, we first need to sum the occupied and empty seats.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of empty seats to total seats = 36:144
+Divide both parts by their greatest common factor, 36: 36/36 : 144/36 = 1:4</div>
+    <div class="step-exp">Place the number of empty seats first, followed by the total number of seats. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 36.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A game developer has 150 hours dedicated to coding and 50 hours dedicated to debugging. What is the ratio of debugging hours to total development hours, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 50:150</div><div class="option"><span class="opt-letter">B.</span> 3:1</div><div class="option"><span class="opt-letter">C.</span> 1:3</div><div class="option"><span class="opt-letter">D.</span> 1:4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Coding hours: 150, Debugging hours: 50</div>
+    <div class="step-exp">The problem provides the number of hours dedicated to coding and debugging.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total development hours = Coding hours + Debugging hours = 150 + 50 = 200</div>
+    <div class="step-exp">To find the ratio of debugging hours to total development hours, we first need to sum the coding and debugging hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of debugging hours to total development hours = 50:200
+Divide both parts by their greatest common factor, 50: 50/50 : 200/50 = 1:4</div>
+    <div class="step-exp">Place the number of debugging hours first, followed by the total development hours. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 50.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:4 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A botanist counts 128 oak trees and 64 maple trees in a forest. What is the ratio of maple trees to the total number of trees, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2:1</div><div class="option"><span class="opt-letter">B.</span> 1:3</div><div class="option"><span class="opt-letter">C.</span> 1:2</div><div class="option"><span class="opt-letter">D.</span> 64:128</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Oak trees: 128, Maple trees: 64</div>
+    <div class="step-exp">The problem provides the number of oak and maple trees.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total trees = Oak trees + Maple trees = 128 + 64 = 192</div>
+    <div class="step-exp">To find the ratio of maple trees to total trees, we first need to sum the number of oak and maple trees.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of maple trees to total trees = 64:192
+Divide both parts by their greatest common factor, 64: 64/64 : 192/64 = 1:3</div>
+    <div class="step-exp">Place the number of maple trees first, followed by the total number of trees. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 64.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1:3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An architect designs a building with 180 windows on the north side and 60 windows on the south side. What is the ratio of north side windows to total windows, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3:4</div><div class="option"><span class="opt-letter">B.</span> 1:3</div><div class="option"><span class="opt-letter">C.</span> 4:3</div><div class="option"><span class="opt-letter">D.</span> 180:60</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">North side windows: 180, South side windows: 60</div>
+    <div class="step-exp">The problem provides the number of windows on the north and south sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total windows = North side windows + South side windows = 180 + 60 = 240</div>
+    <div class="step-exp">To find the ratio of north side windows to total windows, we first need to sum the number of windows on both sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of north side windows to total windows = 180:240
+Divide both parts by their greatest common factor, 60: 180/60 : 240/60 = 3:4</div>
+    <div class="step-exp">Place the number of north side windows first, followed by the total number of windows. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 60.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:4 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A researcher spends 210 minutes collecting data and 70 minutes analyzing data. What is the ratio of data collection time to total research time, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4:3</div><div class="option"><span class="opt-letter">B.</span> 210:70</div><div class="option"><span class="opt-letter">C.</span> 3:4</div><div class="option"><span class="opt-letter">D.</span> 1:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data collection time: 210 minutes, Data analysis time: 70 minutes</div>
+    <div class="step-exp">The problem provides the time spent on data collection and analysis.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total research time = Data collection time + Data analysis time = 210 + 70 = 280 minutes</div>
+    <div class="step-exp">To find the ratio of data collection time to total research time, we first need to sum the time spent on both activities.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Ratio of data collection time to total research time = 210:280
+Divide both parts by their greatest common factor, 70: 210/70 : 280/70 = 3:4</div>
+    <div class="step-exp">Place the data collection time first, followed by the total research time. Then, simplify the ratio by dividing both numbers by their greatest common factor, which is 70.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3:4 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

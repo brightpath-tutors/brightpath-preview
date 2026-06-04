@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Scale Drawings</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | RP | Skill 6.RP.017<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Scale Drawings</h1>
+<p class="skill-subtitle">Skill ID: 6.RP.017</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scale drawing of a classroom uses a scale of 1 cm : 2 meters. If a desk in the drawing is 3 cm long, what is the actual length of the desk?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 meters</div><div class="option"><span class="opt-letter">B.</span> 6 meters</div><div class="option"><span class="opt-letter">C.</span> 5 meters</div><div class="option"><span class="opt-letter">D.</span> 1.5 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scale: 1 cm (drawing) : 2 meters (actual)</div>
+    <div class="step-exp">The problem states the scale directly.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Drawing length = 3 cm</div>
+    <div class="step-exp">This is the measurement we need to convert to actual length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Actual length = Drawing length × (Actual meters / Drawing cm)
+Actual length = 3 cm × (2 meters / 1 cm)
+Actual length = 6 meters</div>
+    <div class="step-exp">Multiply the drawing length by the actual measurement represented by one unit on the drawing.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A blueprint for a house has a scale of 1 inch : 5 feet. If a wall on the blueprint is 10 inches long, what is the actual length of the wall?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 feet</div><div class="option"><span class="opt-letter">B.</span> 15 feet</div><div class="option"><span class="opt-letter">C.</span> 50 feet</div><div class="option"><span class="opt-letter">D.</span> 10 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scale: 1 inch (blueprint) : 5 feet (actual)</div>
+    <div class="step-exp">The problem provides the scale directly.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Blueprint length = 10 inches</div>
+    <div class="step-exp">This is the measurement on the drawing that needs to be converted.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Actual length = Blueprint length × (Actual feet / Blueprint inch)
+Actual length = 10 inches × (5 feet / 1 inch)
+Actual length = 50 feet</div>
+    <div class="step-exp">Multiply the blueprint length by the actual measurement represented by one unit on the blueprint.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 50 feet (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A map has a scale of 1 cm : 20 km. If the distance between two cities on the map is 7 cm, what is the actual distance between the cities?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35 km</div><div class="option"><span class="opt-letter">B.</span> 27 km</div><div class="option"><span class="opt-letter">C.</span> 13 km</div><div class="option"><span class="opt-letter">D.</span> 140 km</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scale: 1 cm (map) : 20 km (actual)</div>
+    <div class="step-exp">The problem provides the scale.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Map distance = 7 cm</div>
+    <div class="step-exp">This is the measurement on the map that needs to be converted.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Actual distance = Map distance × (Actual km / Map cm)
+Actual distance = 7 cm × (20 km / 1 cm)
+Actual distance = 140 km</div>
+    <div class="step-exp">Multiply the map distance by the actual distance represented by one unit on the map.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 140 km (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scaled drawing of a football field has a length of 15 cm. If the actual length of a football field is 100 meters, what is the scale of the drawing in simplest form? (Express as cm : meters)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 cm : 5 meters</div><div class="option"><span class="opt-letter">B.</span> 3 cm : 20 meters</div><div class="option"><span class="opt-letter">C.</span> 1 cm : 100/15 meters</div><div class="option"><span class="opt-letter">D.</span> 15 cm : 100 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Drawing length = 15 cm
+Actual length = 100 meters</div>
+    <div class="step-exp">These are the two values we need to form our scale ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Scale = Drawing length : Actual length = 15 cm : 100 meters</div>
+    <div class="step-exp">The scale is always expressed as (drawing measurement) : (actual measurement).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 15 and 100. The GCD is 5.
+Divide both sides by 5:
+15 ÷ 5 = 3
+100 ÷ 5 = 20
+Simplified scale = 3 cm : 20 meters</div>
+    <div class="step-exp">To simplify a ratio, divide both numbers by their GCD. This gives us the simplest representation of the relationship.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 cm : 20 meters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A kitchen floor plan has a scale of 0.5 inch : 1 foot. If the actual width of the kitchen is 12 feet, what is the width of the kitchen in the drawing?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.04 inches</div><div class="option"><span class="opt-letter">B.</span> 6 inches</div><div class="option"><span class="opt-letter">C.</span> 12.5 inches</div><div class="option"><span class="opt-letter">D.</span> 24 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scale: 0.5 inch (drawing) : 1 foot (actual)</div>
+    <div class="step-exp">The problem provides the scale.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Actual width = 12 feet</div>
+    <div class="step-exp">This is the actual size we need to convert to the drawing size.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the drawing width.
+0.5 inches / 1 foot = x inches / 12 feet</div>
+    <div class="step-exp">A proportion allows us to relate the scale to the actual and drawing measurements.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 <em> x = 0.5 </em> 12
+x = 6</div>
+    <div class="step-exp">Cross-multiply and solve for the unknown variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The width in the drawing is 6 inches.</div>
+    <div class="step-exp">Ensure the final answer includes the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 inches (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A biologist views a cell under a microscope. The cell&#x27;s actual diameter is 0.005 mm. If the drawing of the cell has a diameter of 2.5 cm, what is the scale of the drawing in simplest form? (Express as cm : mm)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 500 cm : 1 mm</div><div class="option"><span class="opt-letter">B.</span> 1 cm : 200 mm</div><div class="option"><span class="opt-letter">C.</span> 2.5 cm : 0.005 mm</div><div class="option"><span class="opt-letter">D.</span> 5 cm : 1 mm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Drawing diameter = 2.5 cm
+Actual diameter = 0.005 mm</div>
+    <div class="step-exp">These are the two values we need to form our scale ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1 cm = 10 mm
+2.5 cm = 2.5 × 10 mm = 25 mm</div>
+    <div class="step-exp">For easier comparison and simplification, it&#x27;s best to have both measurements in the same unit first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Scale = Drawing diameter : Actual diameter = 25 mm : 0.005 mm</div>
+    <div class="step-exp">The scale is always expressed as (drawing measurement) : (actual measurement).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Divide both sides by 0.005 mm:
+(25 / 0.005) mm : (0.005 / 0.005) mm
+5000 mm : 1 mm</div>
+    <div class="step-exp">To get the simplest form where the actual measurement is &#x27;1&#x27; unit, divide both parts of the ratio by the actual measurement value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10 mm = 1 cm
+5000 mm = 5000 / 10 cm = 500 cm
+Simplified scale = 500 cm : 1 mm</div>
+    <div class="step-exp">The question specifies the final format of the scale as cm : mm, so convert the drawing measurement back to centimeters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 500 cm : 1 mm (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store manager is looking at a scaled drawing of the store. The drawing shows the checkout counter as 8 cm long. If the actual checkout counter is 4 meters long, what is the scale of the drawing in simplest form? (Express as cm : meters)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 cm : 0.5 meters</div><div class="option"><span class="opt-letter">B.</span> 1 cm : 2 meters</div><div class="option"><span class="opt-letter">C.</span> 8 cm : 4 meters</div><div class="option"><span class="opt-letter">D.</span> 2 cm : 1 meter</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Drawing length = 8 cm
+Actual length = 4 meters</div>
+    <div class="step-exp">These are the two values needed to determine the scale.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Scale = Drawing length : Actual length = 8 cm : 4 meters</div>
+    <div class="step-exp">The scale is always written as the drawing measurement to the actual measurement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 8 and 4. The GCD is 4.
+Divide both sides by 4:
+8 ÷ 4 = 2
+4 ÷ 4 = 1
+Simplified scale = 2 cm : 1 meter</div>
+    <div class="step-exp">Divide both parts of the ratio by their GCD to express the scale in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2 cm : 1 meter (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist is creating a miniature sculpture based on a larger model. The model is 60 cm tall. The artist wants the miniature sculpture to be 12 mm tall. What is the scale factor of the miniature sculpture to the model, in simplest form? (Express as mm : cm)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 mm : 1 cm</div><div class="option"><span class="opt-letter">B.</span> 12 mm : 60 cm</div><div class="option"><span class="opt-letter">C.</span> 1 mm : 0.5 cm</div><div class="option"><span class="opt-letter">D.</span> 1 mm : 5 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Miniature sculpture height = 12 mm
+Model height = 60 cm</div>
+    <div class="step-exp">These are the two measurements that will form the scale factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Scale factor = Miniature sculpture height : Model height = 12 mm : 60 cm</div>
+    <div class="step-exp">The scale factor is the ratio of the miniature&#x27;s size to the model&#x27;s size.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 12 and 60. The GCD is 12.
+Divide both sides by 12:
+12 ÷ 12 = 1
+60 ÷ 12 = 5
+Simplified scale factor = 1 mm : 5 cm</div>
+    <div class="step-exp">To simplify the ratio, divide both numbers by their GCD. The units (mm and cm) remain distinct as requested.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 mm : 5 cm (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A diagram of a circuit board uses a scale of 1:20. If a component on the actual circuit board is 3 cm long, how long will it appear on the diagram in millimeters?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.15 mm</div><div class="option"><span class="opt-letter">B.</span> 15 mm</div><div class="option"><span class="opt-letter">C.</span> 1.5 mm</div><div class="option"><span class="opt-letter">D.</span> 60 mm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Scale: 1 (diagram) : 20 (actual)</div>
+    <div class="step-exp">This means 1 unit on the diagram represents 20 units in actual size.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Actual length = 3 cm
+Required diagram unit = millimeters</div>
+    <div class="step-exp">We need to convert the actual length and perform the scaling.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 cm = 10 mm
+3 cm = 3 × 10 mm = 30 mm</div>
+    <div class="step-exp">It&#x27;s important to work with consistent units for scaling. We convert to millimeters because the final answer needs to be in millimeters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Diagram length / Actual length = 1 / 20
+Diagram length / 30 mm = 1 / 20
+Diagram length = 30 mm / 20
+Diagram length = 1.5 mm</div>
+    <div class="step-exp">Since the scale is 1:20 (diagram:actual), divide the actual length by 20 to find the corresponding length on the diagram.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5 mm (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city map has a scale of 1 inch : 0.5 miles. A new park is being planned, and its actual area will be 4 square miles. What would be the area of the park on the map in square inches?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 square inches</div><div class="option"><span class="opt-letter">B.</span> 0.125 square inches</div><div class="option"><span class="opt-letter">C.</span> 16 square inches</div><div class="option"><span class="opt-letter">D.</span> 2 square inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Linear scale: 1 inch (map) : 0.5 miles (actual)</div>
+    <div class="step-exp">This tells us the relationship between linear measurements on the map and in reality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">If 1 inch represents 0.5 miles, then 1 square inch represents (0.5 miles) × (0.5 miles).
+Area represented by 1 square inch = 0.25 square miles.</div>
+    <div class="step-exp">To convert area, you must square the linear scale factor. So, 1 square inch on the map corresponds to (0.5)^2 square miles in reality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Actual area = 4 square miles</div>
+    <div class="step-exp">This is the actual area of the park.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Map area / Actual area = 1 sq inch / 0.25 sq miles
+Map area / 4 sq miles = 1 sq inch / 0.25 sq miles
+Map area = 4 sq miles / 0.25 sq miles
+Map area = 16</div>
+    <div class="step-exp">Divide the actual area by the actual area represented by 1 square inch on the map.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The area of the park on the map is 16 square inches.</div>
+    <div class="step-exp">Ensure the final answer includes the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 square inches (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

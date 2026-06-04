@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Real Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.024<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Real Numbers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.024</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new video game costs $59.99. What type of number best describes the cost of the video game?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Rational Number</div><div class="option"><span class="opt-letter">B.</span> Irrational Number</div><div class="option"><span class="opt-letter">C.</span> Whole Number</div><div class="option"><span class="opt-letter">D.</span> Integer</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The cost of the video game is $59.99.</div>
+    <div class="step-exp">Identify the given number from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$59.99 can be written as the fraction 5999/100.</div>
+    <div class="step-exp">A decimal number that terminates can always be expressed as a fraction where the numerator is an integer and the denominator is a power of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 5999 and 100 are integers and 100 is not zero, 59.99 is a rational number.</div>
+    <div class="step-exp">By definition, a rational number is any number that can be expressed as a fraction p/q, where p and q are integers and q ≠ 0.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Rational Number (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a swimming competition, Sarah finished her race in 28.35 seconds, and Emily finished in 28.5 seconds. Who was faster?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> The data is insufficient to determine.</div><div class="option"><span class="opt-letter">B.</span> Sarah</div><div class="option"><span class="opt-letter">C.</span> They finished at the same time.</div><div class="option"><span class="opt-letter">D.</span> Emily</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sarah&#x27;s time: 28.35 seconds
+Emily&#x27;s time: 28.5 seconds</div>
+    <div class="step-exp">Identify the times for each swimmer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To compare accurately, ensure both numbers have the same number of decimal places: 28.5 = 28.50.</div>
+    <div class="step-exp">Adding a zero at the end of a decimal does not change its value but helps in place-value comparison.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare 28.35 and 28.50:
+Whole number parts: 28 (equal)
+Tenths place: 3 for Sarah, 5 for Emily
+Hundredths place: 5 for Sarah, 0 for Emily</div>
+    <div class="step-exp">Start comparing digits from the leftmost place value. If the whole number parts are the same, move to the tenths place, then hundredths, and so on.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Since 3 (in 28.35) is less than 5 (in 28.50) in the tenths place, 28.35 is less than 28.50. A smaller time means a faster speed.</div>
+    <div class="step-exp">The smaller the time, the faster the swimmer. Therefore, Sarah is faster.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Sarah (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires 5/8 of a cup of milk. What is this amount expressed as a decimal?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.6</div><div class="option"><span class="opt-letter">B.</span> 0.625</div><div class="option"><span class="opt-letter">C.</span> 0.85</div><div class="option"><span class="opt-letter">D.</span> 0.58</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The fraction is 5/8.</div>
+    <div class="step-exp">Identify the given fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To convert a fraction to a decimal, divide the numerator by the denominator: 5 ÷ 8.</div>
+    <div class="step-exp">The fraction bar represents division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5 ÷ 8 = 0.625</div>
+    <div class="step-exp">Perform the division to get the decimal equivalent.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.625 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A group of hikers recorded their elevations relative to sea level at different points during their trip: -75 feet, 110 feet, 0 feet, and -30 feet. Order these elevations from lowest to highest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -75 feet, -30 feet, 0 feet, 110 feet</div><div class="option"><span class="opt-letter">B.</span> 110 feet, 0 feet, -30 feet, -75 feet</div><div class="option"><span class="opt-letter">C.</span> 0 feet, -30 feet, -75 feet, 110 feet</div><div class="option"><span class="opt-letter">D.</span> -30 feet, -75 feet, 0 feet, 110 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Elevations: -75, 110, 0, -30.</div>
+    <div class="step-exp">List all the given elevations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Recall that negative numbers are less than zero and positive numbers. The further a negative number is from zero, the smaller its value.</div>
+    <div class="step-exp">Understand the ordering of negative and positive numbers on a number line.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare the negative numbers: -75 is further from zero than -30, so -75 &lt; -30.</div>
+    <div class="step-exp">Determine the order of the negative elevations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place zero: 0 is greater than all negative numbers and less than all positive numbers.</div>
+    <div class="step-exp">Position zero correctly in the sequence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Compare the positive numbers: 110 is the only positive number, so it is the largest.</div>
+    <div class="step-exp">Determine the order of the positive elevations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Combine and order from lowest to highest: -75, -30, 0, 110.</div>
+    <div class="step-exp">Assemble all numbers in ascending order.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -75 feet, -30 feet, 0 feet, 110 feet (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student received the following scores on their math assignments: 95 (for a quiz), 88.5 (for a project), and 4/5 (for homework). Which of these scores are rational numbers?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Only 88.5 and 4/5 are rational numbers.</div><div class="option"><span class="opt-letter">B.</span> All scores (95, 88.5, and 4/5) are rational numbers.</div><div class="option"><span class="opt-letter">C.</span> Only 95 is a rational number.</div><div class="option"><span class="opt-letter">D.</span> Only 95 and 4/5 are rational numbers.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Quiz score: 95
+Project score: 88.5
+Homework score: 4/5</div>
+    <div class="step-exp">List all the given scores.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">For 95: This is an integer. All integers can be written as a fraction (e.g., 95/1). Therefore, 95 is a rational number.</div>
+    <div class="step-exp">Classify the integer score based on the definition of rational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">For 88.5: This is a terminating decimal. It can be written as a fraction (e.g., 885/10 or 177/2). Therefore, 88.5 is a rational number.</div>
+    <div class="step-exp">Classify the terminating decimal score based on the definition of rational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">For 4/5: This is a fraction. By definition, any number expressed as a fraction p/q (where q ≠ 0) is a rational number.</div>
+    <div class="step-exp">Classify the fraction score based on the definition of rational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Conclusion: All three scores (95, 88.5, and 4/5) are rational numbers.</div>
+    <div class="step-exp">Summarize the classification for all scores.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> All scores (95, 88.5, and 4/5) are rational numbers. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Scientists recorded the average temperatures in four different regions during winter: -3.7°C, 1.2°C, -0.5°C, and 2.8°C. Which region experienced the coldest average temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.8°C</div><div class="option"><span class="opt-letter">B.</span> -3.7°C</div><div class="option"><span class="opt-letter">C.</span> 1.2°C</div><div class="option"><span class="opt-letter">D.</span> -0.5°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Temperatures: -3.7°C, 1.2°C, -0.5°C, 2.8°C.</div>
+    <div class="step-exp">List all the given temperatures.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The coldest temperature corresponds to the smallest numerical value. On a number line, smaller values are to the left.</div>
+    <div class="step-exp">Understand that &#x27;coldest&#x27; means the lowest temperature, which is the smallest number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare the negative temperatures: -3.7 is less than -0.5 because it is further to the left on the number line.</div>
+    <div class="step-exp">When comparing negative numbers, the number with the greater absolute value is smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Compare all temperatures: -3.7 &lt; -0.5 &lt; 1.2 &lt; 2.8.</div>
+    <div class="step-exp">Order all the numbers from smallest to largest.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The smallest temperature is -3.7°C.</div>
+    <div class="step-exp">Identify the lowest temperature from the ordered list.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -3.7°C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter needs to cut three pieces of wood with lengths: 4 1/4 inches, 4.3 inches, and 4 7/10 inches. To ensure they are cut correctly, he wants to order them from shortest to longest. What is the correct order?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4.3 inches, 4 1/4 inches, 4 7/10 inches</div><div class="option"><span class="opt-letter">B.</span> 4 1/4 inches, 4.3 inches, 4 7/10 inches</div><div class="option"><span class="opt-letter">C.</span> 4 1/4 inches, 4 7/10 inches, 4.3 inches</div><div class="option"><span class="opt-letter">D.</span> 4 7/10 inches, 4.3 inches, 4 1/4 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Lengths: 4 1/4 inches, 4.3 inches, 4 7/10 inches.</div>
+    <div class="step-exp">List all the given lengths.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all mixed numbers and fractions to decimals for easier comparison:
+4 1/4 = 4 + 1/4 = 4 + 0.25 = 4.25 inches.
+4.3 inches (already decimal).
+4 7/10 = 4 + 7/10 = 4 + 0.7 = 4.7 inches.</div>
+    <div class="step-exp">Converting to a common format (decimals) simplifies the comparison process.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Compare the decimal values: 4.25, 4.3, 4.7.
+- The whole number part (4) is the same for all.
+- Compare the tenths place: 2 (from 4.25), 3 (from 4.3), 7 (from 4.7).</div>
+    <div class="step-exp">Compare the numbers digit by digit from left to right.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Order from shortest to longest:
+4.25 (which is 4 1/4)
+4.3
+4.7 (which is 4 7/10)</div>
+    <div class="step-exp">Arrange the original lengths according to their decimal equivalents in ascending order.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 1/4 inches, 4.3 inches, 4 7/10 inches (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A painter tracked the time spent on a mural over three days: 6.5 hours on Monday, 7 3/4 hours on Tuesday, and 5 hours and 45 minutes on Wednesday. What was the average time (in hours, rounded to the nearest hundredth) the painter spent on the mural each day?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6.67 hours</div><div class="option"><span class="opt-letter">B.</span> 6.75 hours</div><div class="option"><span class="opt-letter">C.</span> 6.66 hours</div><div class="option"><span class="opt-letter">D.</span> 6.58 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Monday: 6.5 hours
+Tuesday: 7 3/4 hours
+Wednesday: 5 hours and 45 minutes</div>
+    <div class="step-exp">List the time spent each day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert all times to decimal hours:
+Monday: 6.5 hours
+Tuesday: 7 3/4 hours = 7 + (3 ÷ 4) = 7 + 0.75 = 7.75 hours.
+Wednesday: 5 hours and 45 minutes = 5 + (45 ÷ 60) hours = 5 + 0.75 = 5.75 hours.</div>
+    <div class="step-exp">Convert all measurements to a consistent unit (decimal hours) for easier calculation. There are 60 minutes in an hour, so 45 minutes is 45/60 of an hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 6.5 + 7.75 + 5.75 = 20 hours.</div>
+    <div class="step-exp">Add the decimal hours for each day to find the total time spent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Average time = Total time / Number of days = 20 hours / 3 days = 6.666...</div>
+    <div class="step-exp">Calculate the average by dividing the total time by the number of days (3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Round 6.666... to the nearest hundredth. The digit in the thousandths place (6) is 5 or greater, so round up the digit in the hundredths place. Result: 6.67 hours.</div>
+    <div class="step-exp">Follow rounding rules to express the average time to the specified precision.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6.67 hours (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small town has a population of 450 people spread across 3.5 square miles. What is the population density of the town, in people per square mile, expressed as a decimal rounded to the nearest tenth?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12.86 people per square mile</div><div class="option"><span class="opt-letter">B.</span> 1285.7 people per square mile</div><div class="option"><span class="opt-letter">C.</span> 128.5 people per square mile</div><div class="option"><span class="opt-letter">D.</span> 128.6 people per square mile</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Population = 450 people
+Area = 3.5 square miles</div>
+    <div class="step-exp">Identify the given population and area.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Population density = Population ÷ Area</div>
+    <div class="step-exp">Understand that population density is calculated by dividing the total population by the total land area.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Density = 450 ÷ 3.5</div>
+    <div class="step-exp">Set up the division problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">To divide by a decimal, move the decimal point in the divisor (3.5) to the right until it is a whole number (35). Do the same for the dividend (450), adding a zero: 4500 ÷ 35.
+4500 ÷ 35 ≈ 128.5714...</div>
+    <div class="step-exp">Perform the division. It is often easier to divide by a whole number, so adjust both numbers by multiplying by a power of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Round 128.5714... to the nearest tenth. The digit in the hundredths place (7) is 5 or greater, so round up the digit in the tenths place. Result: 128.6.</div>
+    <div class="step-exp">Apply rounding rules to express the density to the nearest tenth.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 128.6 people per square mile (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient needs to take a medication dosage of 1/4 milligram (mg) for every kilogram (kg) of their body weight. If the patient weighs 75.5 kg, what is the total dosage they should receive, expressed as a decimal?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18.875 mg</div><div class="option"><span class="opt-letter">B.</span> 18.25 mg</div><div class="option"><span class="opt-letter">C.</span> 302 mg</div><div class="option"><span class="opt-letter">D.</span> 75.75 mg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Dosage per kg = 1/4 mg
+Patient&#x27;s weight = 75.5 kg</div>
+    <div class="step-exp">Identify the given dosage rate and the patient&#x27;s weight.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total dosage = Dosage per kg × Patient&#x27;s weight.</div>
+    <div class="step-exp">To find the total dosage, multiply the dosage per kilogram by the patient&#x27;s weight.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the fraction to a decimal: 1/4 = 0.25.</div>
+    <div class="step-exp">Convert the fraction to a decimal for easier multiplication with the patient&#x27;s weight, which is already a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total dosage = 0.25 × 75.5 = 18.875.</div>
+    <div class="step-exp">Perform the multiplication of the decimal dosage rate by the patient&#x27;s decimal weight.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The total dosage is 18.875 mg.</div>
+    <div class="step-exp">State the final calculated dosage with the correct unit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 18.875 mg (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

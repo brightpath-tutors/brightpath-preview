@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Point-Slope Form</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.058<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Point-Slope Form</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.058</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A plumber charges a flat fee of $50 for a service call plus $30 per hour for labor. If the total cost of a service call was $140, write an equation in point-slope form that represents the cost of the service, given a point (x1, y1) as (3, 140).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 140 = 30(x - 3)</div><div class="option"><span class="opt-letter">B.</span> y - 140 = 50(x - 3)</div><div class="option"><span class="opt-letter">C.</span> y + 140 = 30(x + 3)</div><div class="option"><span class="opt-letter">D.</span> y - 3 = 30(x - 140)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The rate per hour is the slope, so m = 30. The given point is (3, 140).</div>
+    <div class="step-exp">The problem states the plumber charges $30 per hour, which is a rate of change, representing the slope. A point (3, 140) means 3 hours of labor costs $140.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+y - 140 = 30(x - 3)</div>
+    <div class="step-exp">Substitute m = 30, x1 = 3, and y1 = 140 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 140 = 30(x - 3) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A swimmer&#x27;s distance from the starting block changes at a rate of 2 meters per second. If the swimmer is 20 meters from the block after 5 seconds, write an equation in point-slope form to represent the swimmer&#x27;s distance (y) over time (x).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 2 = 20(x - 5)</div><div class="option"><span class="opt-letter">B.</span> y + 20 = 2(x + 5)</div><div class="option"><span class="opt-letter">C.</span> y - 20 = 2(x - 5)</div><div class="option"><span class="opt-letter">D.</span> y - 5 = 2(x - 20)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The rate of change is 2 meters per second, so m = 2. The point is (5 seconds, 20 meters), so (x1, y1) = (5, 20).</div>
+    <div class="step-exp">The rate given is the slope, and the time and distance form the point.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+y - 20 = 2(x - 5)</div>
+    <div class="step-exp">Substitute m = 2, x1 = 5, and y1 = 20 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 20 = 2(x - 5) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker uses a recipe that calls for 3 teaspoons of vanilla for every 2 cakes. If the baker made 8 cakes, write an equation in point-slope form showing the relationship between vanilla (y) and cakes (x), given the point (2, 3).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 3 = (3/2)(x - 2)</div><div class="option"><span class="opt-letter">B.</span> y - 2 = (3/2)(x - 3)</div><div class="option"><span class="opt-letter">C.</span> y + 3 = (3/2)(x + 2)</div><div class="option"><span class="opt-letter">D.</span> y - 3 = (2/3)(x - 2)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The ratio of vanilla to cakes is 3 teaspoons / 2 cakes, so m = 3/2. The given point is (2, 3).</div>
+    <div class="step-exp">The ratio &#x27;for every&#x27; indicates the slope. The point (2, 3) represents 2 cakes using 3 teaspoons of vanilla.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+y - 3 = (3/2)(x - 2)</div>
+    <div class="step-exp">Substitute m = 3/2, x1 = 2, and y1 = 3 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 3 = (3/2)(x - 2) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a constant speed. After 2 hours, it has traveled 130 miles. After 4 hours, it has traveled 260 miles. Write an equation in point-slope form that describes the car&#x27;s distance (y) over time (x). Use the point (2, 130).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 2 = 65(x - 130)</div><div class="option"><span class="opt-letter">B.</span> y - 260 = 65(x - 4)</div><div class="option"><span class="opt-letter">C.</span> y - 130 = 65(x - 2)</div><div class="option"><span class="opt-letter">D.</span> y - 130 = 130(x - 2)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (2, 130) and (4, 260)
+m = (y2 - y1) / (x2 - x1) = (260 - 130) / (4 - 2) = 130 / 2 = 65</div>
+    <div class="step-exp">The slope represents the speed (miles per hour), calculated by the change in distance over the change in time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (2, 130) and m = 65:
+y - 130 = 65(x - 2)</div>
+    <div class="step-exp">Substitute m = 65, x1 = 2, and y1 = 130 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 130 = 65(x - 2) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student&#x27;s test scores improve linearly. If their score was 75 on the 3rd test and 83 on the 5th test, write an equation in point-slope form to model their score (y) on test number (x). Use the point (3, 75).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 3 = 4(x - 75)</div><div class="option"><span class="opt-letter">B.</span> y - 83 = 4(x - 5)</div><div class="option"><span class="opt-letter">C.</span> y - 75 = 4(x - 3)</div><div class="option"><span class="opt-letter">D.</span> y - 75 = 8(x - 3)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (3, 75) and (5, 83)
+m = (y2 - y1) / (x2 - x1) = (83 - 75) / (5 - 3) = 8 / 2 = 4</div>
+    <div class="step-exp">The slope represents the rate of score improvement per test.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (3, 75) and m = 4:
+y - 75 = 4(x - 3)</div>
+    <div class="step-exp">Substitute m = 4, x1 = 3, and y1 = 75 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 75 = 4(x - 3) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes a chemical reaction. At 10 minutes, the temperature is 25 degrees Celsius. At 30 minutes, the temperature is 35 degrees Celsius. Write an equation in point-slope form to represent the temperature (y) over time (x). Use the point (10, 25).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 25 = 10(x - 10)</div><div class="option"><span class="opt-letter">B.</span> y - 25 = 0.5(x - 10)</div><div class="option"><span class="opt-letter">C.</span> y - 10 = 0.5(x - 25)</div><div class="option"><span class="opt-letter">D.</span> y - 35 = 0.5(x - 30)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (10, 25) and (30, 35)
+m = (y2 - y1) / (x2 - x1) = (35 - 25) / (30 - 10) = 10 / 20 = 0.5</div>
+    <div class="step-exp">The slope represents the rate of temperature change per minute.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (10, 25) and m = 0.5:
+y - 25 = 0.5(x - 10)</div>
+    <div class="step-exp">Substitute m = 0.5, x1 = 10, and y1 = 25 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 25 = 0.5(x - 10) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A contractor measures the cost of building a fence. A 15-foot fence costs $300, and a 25-foot fence costs $450. Write an equation in point-slope form for the cost (y) of a fence of length (x). Use the point (15, 300).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 15 = 15(x - 300)</div><div class="option"><span class="opt-letter">B.</span> y - 300 = 15(x - 15)</div><div class="option"><span class="opt-letter">C.</span> y - 300 = 150(x - 15)</div><div class="option"><span class="opt-letter">D.</span> y - 450 = 15(x - 25)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (15, 300) and (25, 450)
+m = (y2 - y1) / (x2 - x1) = (450 - 300) / (25 - 15) = 150 / 10 = 15</div>
+    <div class="step-exp">The slope represents the cost per foot of the fence.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (15, 300) and m = 15:
+y - 300 = 15(x - 15)</div>
+    <div class="step-exp">Substitute m = 15, x1 = 15, and y1 = 300 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 300 = 15(x - 15) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The number of active users on a new social media platform grew linearly. On day 7, there were 1200 users. On day 14, there were 2600 users. Write an equation in point-slope form representing the number of users (y) on day (x). Use the point (7, 1200).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 7 = 200(x - 1200)</div><div class="option"><span class="opt-letter">B.</span> y - 1200 = 200(x - 7)</div><div class="option"><span class="opt-letter">C.</span> y - 2600 = 200(x - 14)</div><div class="option"><span class="opt-letter">D.</span> y - 1200 = 1400(x - 7)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (7, 1200) and (14, 2600)
+m = (y2 - y1) / (x2 - x1) = (2600 - 1200) / (14 - 7) = 1400 / 7 = 200</div>
+    <div class="step-exp">The slope represents the daily increase in the number of users.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (7, 1200) and m = 200:
+y - 1200 = 200(x - 7)</div>
+    <div class="step-exp">Substitute m = 200, x1 = 7, and y1 = 1200 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 1200 = 200(x - 7) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist sells custom paintings. If they sold 5 paintings for a total of $750 and 8 paintings for $1200, write an equation in point-slope form representing the revenue (y) from selling (x) paintings. Use the point (5, 750).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 5 = 150(x - 750)</div><div class="option"><span class="opt-letter">B.</span> y - 750 = 150(x - 5)</div><div class="option"><span class="opt-letter">C.</span> y - 1200 = 150(x - 8)</div><div class="option"><span class="opt-letter">D.</span> y - 750 = 450(x - 5)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (5, 750) and (8, 1200)
+m = (y2 - y1) / (x2 - x1) = (1200 - 750) / (8 - 5) = 450 / 3 = 150</div>
+    <div class="step-exp">The slope represents the price per painting.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (5, 750) and m = 150:
+y - 750 = 150(x - 5)</div>
+    <div class="step-exp">Substitute m = 150, x1 = 5, and y1 = 750 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 750 = 150(x - 5) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s blood pressure decreases linearly after medication. After 3 hours, their systolic pressure was 135 mmHg. After 6 hours, it was 120 mmHg. Write an equation in point-slope form to describe the systolic pressure (y) over time (x). Use the point (3, 135).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 3 = -5(x - 135)</div><div class="option"><span class="opt-letter">B.</span> y - 120 = -5(x - 6)</div><div class="option"><span class="opt-letter">C.</span> y - 135 = 15(x - 3)</div><div class="option"><span class="opt-letter">D.</span> y - 135 = -5(x - 3)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (3, 135) and (6, 120)
+m = (y2 - y1) / (x2 - x1) = (120 - 135) / (6 - 3) = -15 / 3 = -5</div>
+    <div class="step-exp">The slope represents the rate of blood pressure decrease per hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (3, 135) and m = -5:
+y - 135 = -5(x - 3)</div>
+    <div class="step-exp">Substitute m = -5, x1 = 3, and y1 = 135 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 135 = -5(x - 3) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital photographer charges a session fee plus a per-edited-photo rate. For 20 edited photos, the total cost was $270. For 35 edited photos, the total cost was $390. Write an equation in point-slope form to model the total cost (y) for (x) edited photos. Use the point (20, 270).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 270 = 8(x - 20)</div><div class="option"><span class="opt-letter">B.</span> y - 270 = 120(x - 20)</div><div class="option"><span class="opt-letter">C.</span> y - 20 = 8(x - 270)</div><div class="option"><span class="opt-letter">D.</span> y - 390 = 8(x - 35)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (20, 270) and (35, 390)
+m = (y2 - y1) / (x2 - x1) = (390 - 270) / (35 - 20) = 120 / 15 = 8</div>
+    <div class="step-exp">The slope represents the cost per edited photo.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (20, 270) and m = 8:
+y - 270 = 8(x - 20)</div>
+    <div class="step-exp">Substitute m = 8, x1 = 20, and y1 = 270 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 270 = 8(x - 20) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock&#x27;s hands move at a constant rate. If the minute hand is at 12 at 0 minutes past the hour, and at 3 at 15 minutes past the hour, write an equation in point-slope form for the position of the minute hand (y, in degrees from 12 o&#x27;clock) over time (x, in minutes). Use the point (0, 0). (Note: A full circle is 360 degrees, and there are 60 minutes in an hour.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 0 = 90(x - 0)</div><div class="option"><span class="opt-letter">B.</span> y - 90 = 6(x - 15)</div><div class="option"><span class="opt-letter">C.</span> y - 0 = 6(x - 0)</div><div class="option"><span class="opt-letter">D.</span> y - 0 = 15(x - 0)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">From 12 to 3 on a clock face represents 1/4 of a circle. (1/4) * 360 degrees = 90 degrees.</div>
+    <div class="step-exp">The minute hand moves 360 degrees in 60 minutes. From 12 to 3 is 15 minutes, which is 1/4 of the hour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Points: (0 minutes, 0 degrees) and (15 minutes, 90 degrees)
+m = (y2 - y1) / (x2 - x1) = (90 - 0) / (15 - 0) = 90 / 15 = 6</div>
+    <div class="step-exp">The slope represents the rate of change in degrees per minute.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (0, 0) and m = 6:
+y - 0 = 6(x - 0)</div>
+    <div class="step-exp">Substitute m = 6, x1 = 0, and y1 = 0 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 0 = 6(x - 0) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town grew consistently over a decade. In 2010 (year 0), the population was 4000. In 2018 (year 8), it was 5200. Write an equation in point-slope form to model the population (y) in year (x). Use the point (0, 4000).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 5200 = 150(x - 8)</div><div class="option"><span class="opt-letter">B.</span> y - 4000 = 1200(x - 0)</div><div class="option"><span class="opt-letter">C.</span> y - 4000 = 150(x - 0)</div><div class="option"><span class="opt-letter">D.</span> y - 0 = 150(x - 4000)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (0, 4000) and (8, 5200)
+m = (y2 - y1) / (x2 - x1) = (5200 - 4000) / (8 - 0) = 1200 / 8 = 150</div>
+    <div class="step-exp">The slope represents the annual increase in population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (0, 4000) and m = 150:
+y - 4000 = 150(x - 0)</div>
+    <div class="step-exp">Substitute m = 150, x1 = 0, and y1 = 4000 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 4000 = 150(x - 0) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A researcher tracks the number of downloads for a new app. On day 5, the app had 1500 downloads. On day 10, it had 3000 downloads. Write an equation in point-slope form representing the number of downloads (y) on day (x). Use the point (5, 1500).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 5 = 300(x - 1500)</div><div class="option"><span class="opt-letter">B.</span> y - 3000 = 300(x - 10)</div><div class="option"><span class="opt-letter">C.</span> y - 1500 = 300(x - 5)</div><div class="option"><span class="opt-letter">D.</span> y - 1500 = 1500(x - 5)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (5, 1500) and (10, 3000)
+m = (y2 - y1) / (x2 - x1) = (3000 - 1500) / (10 - 5) = 1500 / 5 = 300</div>
+    <div class="step-exp">The slope represents the daily increase in downloads.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (5, 1500) and m = 300:
+y - 1500 = 300(x - 5)</div>
+    <div class="step-exp">Substitute m = 300, x1 = 5, and y1 = 1500 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 1500 = 300(x - 5) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s annual rainfall trend is linear. In 2005 (year 0), the rainfall was 45 inches. In 2015 (year 10), it was 38 inches. Write an equation in point-slope form to model the rainfall (y) in year (x). Use the point (0, 45). Express the slope in simplest fractional form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 38 = (-7/10)(x - 10)</div><div class="option"><span class="opt-letter">B.</span> y - 0 = (-7/10)(x - 45)</div><div class="option"><span class="opt-letter">C.</span> y - 45 = (-7/10)(x - 0)</div><div class="option"><span class="opt-letter">D.</span> y - 45 = (7/10)(x - 0)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (0, 45) and (10, 38)
+m = (y2 - y1) / (x2 - x1) = (38 - 45) / (10 - 0) = -7 / 10</div>
+    <div class="step-exp">The slope represents the annual change in rainfall. Since rainfall decreased, the slope is negative. The fraction is already in simplest form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (0, 45) and m = -7/10:
+y - 45 = (-7/10)(x - 0)</div>
+    <div class="step-exp">Substitute m = -7/10, x1 = 0, and y1 = 45 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 45 = (-7/10)(x - 0) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The height of a specific plant changes linearly over time. At 4 weeks, the plant was 18 cm tall. At 9 weeks, it was 28 cm tall. Write an equation in point-slope form for the plant&#x27;s height (y) in cm over time (x) in weeks. Use the point (4, 18). Express the slope in simplest fractional form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 18 = 2(x - 4)</div><div class="option"><span class="opt-letter">B.</span> y - 4 = 2(x - 18)</div><div class="option"><span class="opt-letter">C.</span> y - 28 = 2(x - 9)</div><div class="option"><span class="opt-letter">D.</span> y - 18 = 10(x - 4)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (4, 18) and (9, 28)
+m = (y2 - y1) / (x2 - x1) = (28 - 18) / (9 - 4) = 10 / 5 = 2</div>
+    <div class="step-exp">The slope represents the growth rate of the plant in cm per week.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (4, 18) and m = 2:
+y - 18 = 2(x - 4)</div>
+    <div class="step-exp">Substitute m = 2, x1 = 4, and y1 = 18 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 18 = 2(x - 4) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company&#x27;s production cost increases linearly. Producing 100 units costs $1200, and producing 250 units costs $2700. Write an equation in point-slope form for the total cost (y) of producing (x) units. Use the point (100, 1200). Express the slope as a mixed number in simplest form if applicable.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 1200 = 10(x - 100)</div><div class="option"><span class="opt-letter">B.</span> y - 2700 = 10(x - 250)</div><div class="option"><span class="opt-letter">C.</span> y - 100 = 10(x - 1200)</div><div class="option"><span class="opt-letter">D.</span> y - 1200 = 1500(x - 100)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (100, 1200) and (250, 2700)
+m = (y2 - y1) / (x2 - x1) = (2700 - 1200) / (250 - 100) = 1500 / 150 = 10</div>
+    <div class="step-exp">The slope represents the cost per unit produced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (100, 1200) and m = 10:
+y - 1200 = 10(x - 100)</div>
+    <div class="step-exp">Substitute m = 10, x1 = 100, and y1 = 1200 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 1200 = 10(x - 100) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A researcher studies the effectiveness of a new fertilizer. After 2 days, a plant&#x27;s height increased by 0.5 inches. After 7 days, its height increased by 1.75 inches. Assume the growth is linear. Write an equation in point-slope form for the total height increase (y) in inches over time (x) in days. Use the point (2, 0.5). Express the slope in simplest fractional form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 2 = (1/4)(x - 0.5)</div><div class="option"><span class="opt-letter">B.</span> y - 0.5 = (1/4)(x - 2)</div><div class="option"><span class="opt-letter">C.</span> y - 0.5 = 1.25(x - 2)</div><div class="option"><span class="opt-letter">D.</span> y - 1.75 = (1/4)(x - 7)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (2, 0.5) and (7, 1.75)
+m = (y2 - y1) / (x2 - x1) = (1.75 - 0.5) / (7 - 2) = 1.25 / 5 = 0.25</div>
+    <div class="step-exp">The slope represents the daily growth rate of the plant in inches per day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.25 = 25/100 = 1/4</div>
+    <div class="step-exp">Simplifying the fraction 25/100 gives 1/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (2, 0.5) and m = 1/4:
+y - 0.5 = (1/4)(x - 2)</div>
+    <div class="step-exp">Substitute m = 1/4, x1 = 2, and y1 = 0.5 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 0.5 = (1/4)(x - 2) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A thermal camera measures temperature changes. At 15 seconds, the temperature was 150 degrees Fahrenheit. At 45 seconds, it was 90 degrees Fahrenheit. Write an equation in point-slope form to model the temperature (y) over time (x) in seconds. Use the point (15, 150). Express the slope in simplest fractional form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 150 = 2(x - 15)</div><div class="option"><span class="opt-letter">B.</span> y - 15 = -2(x - 150)</div><div class="option"><span class="opt-letter">C.</span> y - 150 = -2(x - 15)</div><div class="option"><span class="opt-letter">D.</span> y - 90 = -2(x - 45)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (15, 150) and (45, 90)
+m = (y2 - y1) / (x2 - x1) = (90 - 150) / (45 - 15) = -60 / 30 = -2</div>
+    <div class="step-exp">The slope represents the rate of temperature change per second. Since temperature decreased, the slope is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (15, 150) and m = -2:
+y - 150 = -2(x - 15)</div>
+    <div class="step-exp">Substitute m = -2, x1 = 15, and y1 = 150 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 150 = -2(x - 15) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is monitoring the temperature of a dish in an oven. At 10 minutes, the internal temperature was 120 degrees Fahrenheit. At 25 minutes, it was 180 degrees Fahrenheit. Write an equation in point-slope form for the temperature (y) over time (x) in minutes. Use the point (10, 120). Express the slope in simplest fractional form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y - 10 = 4(x - 120)</div><div class="option"><span class="opt-letter">B.</span> y - 180 = 4(x - 25)</div><div class="option"><span class="opt-letter">C.</span> y - 120 = 4(x - 10)</div><div class="option"><span class="opt-letter">D.</span> y - 120 = 60(x - 10)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points: (10, 120) and (25, 180)
+m = (y2 - y1) / (x2 - x1) = (180 - 120) / (25 - 10) = 60 / 15 = 4</div>
+    <div class="step-exp">The slope represents the rate of temperature increase per minute.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Point-slope form: y - y1 = m(x - x1)
+Using point (10, 120) and m = 4:
+y - 120 = 4(x - 10)</div>
+    <div class="step-exp">Substitute m = 4, x1 = 10, and y1 = 120 into the point-slope form equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y - 120 = 4(x - 10) (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

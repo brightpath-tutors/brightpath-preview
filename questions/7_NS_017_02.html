@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Rational Number Word Problems</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.017.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Rational Number Word Problems</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.017.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah bought 3 notebooks for $1.75 each and a pen for $0.85. She paid with a $10 bill. How much change did she receive?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $6.10</div><div class="option"><span class="opt-letter">B.</span> $4.70</div><div class="option"><span class="opt-letter">C.</span> $5.25</div><div class="option"><span class="opt-letter">D.</span> $3.90</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost of notebooks = 3 * $1.75 = $5.25</div>
+    <div class="step-exp">First, calculate the total cost of the notebooks by multiplying the number of notebooks by the price per notebook.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total cost of items = $5.25 + $0.85 = $6.10</div>
+    <div class="step-exp">Next, add the cost of the notebooks and the pen to find the total amount Sarah spent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Change received = $10.00 - $6.10 = $3.90</div>
+    <div class="step-exp">Finally, subtract the total cost of the items from the amount Sarah paid to determine the change she received.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $3.90 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completes 4 laps around a track. Each lap is 1/4 mile. After completing the laps, the runner sprints an additional 1/8 mile. What is the total distance covered by the runner?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 1/8 miles</div><div class="option"><span class="opt-letter">B.</span> 4 1/8 miles</div><div class="option"><span class="opt-letter">C.</span> 4/32 miles</div><div class="option"><span class="opt-letter">D.</span> 3/8 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance from laps = 4 * 1/4 = 4/4 = 1 mile</div>
+    <div class="step-exp">First, calculate the total distance covered during the laps by multiplying the number of laps by the length of each lap.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 1 + 1/8 = 1 1/8 miles</div>
+    <div class="step-exp">Next, add the distance from the laps to the additional sprint distance to find the total distance covered.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 1/8 miles (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 2 1/2 cups of sugar. If you want to make 3/4 of the recipe, how much sugar do you need?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6/8 cups</div><div class="option"><span class="opt-letter">B.</span> 1 7/8 cups</div><div class="option"><span class="opt-letter">C.</span> 2 3/8 cups</div><div class="option"><span class="opt-letter">D.</span> 15/2 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert mixed number to improper fraction: 2 1/2 = 5/2</div>
+    <div class="step-exp">First, convert the mixed number amount of sugar to an improper fraction for easier multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiply fractions: 5/2 * 3/4 = 15/8</div>
+    <div class="step-exp">Next, multiply the improper fraction by the fraction representing the portion of the recipe to find the total sugar needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert improper fraction to mixed number: 15/8 = 1 7/8 cups</div>
+    <div class="step-exp">Finally, convert the resulting improper fraction back to a mixed number for the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 7/8 cups (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at an average speed of 60.5 miles per hour for 2.5 hours. It then reduces its speed by 10 miles per hour and travels for another 1.5 hours. What is the total distance covered?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 227 miles</div><div class="option"><span class="opt-letter">B.</span> 201.75 miles</div><div class="option"><span class="opt-letter">C.</span> 235.5 miles</div><div class="option"><span class="opt-letter">D.</span> 191.75 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance in first part = 60.5 * 2.5 = 151.25 miles</div>
+    <div class="step-exp">First, calculate the distance covered during the first part of the journey by multiplying the initial speed by the time traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Speed in second part = 60.5 - 10 = 50.5 miles per hour</div>
+    <div class="step-exp">Next, calculate the new speed for the second part of the journey by subtracting the reduction from the initial speed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distance in second part = 50.5 * 1.5 = 75.75 miles</div>
+    <div class="step-exp">Then, calculate the distance covered during the second part of the journey by multiplying the new speed by the time traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 151.25 + 75.75 = 227 miles</div>
+    <div class="step-exp">Finally, add the distances from both parts of the journey to find the total distance covered.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 227 miles (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Emily scored 78.5, 92.0, and 85.5 on her first three math tests. Her final grade is calculated as the average of all four tests. If she wants an average of exactly 85 for all four tests, what score does she need on the fourth test?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 78.0</div><div class="option"><span class="opt-letter">B.</span> 84</div><div class="option"><span class="opt-letter">C.</span> 86.5</div><div class="option"><span class="opt-letter">D.</span> 94.0</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Desired total score for 4 tests = 85 * 4 = 340</div>
+    <div class="step-exp">First, calculate the total score Emily needs across all four tests to achieve her desired average.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Sum of first three test scores = 78.5 + 92.0 + 85.5 = 256</div>
+    <div class="step-exp">Next, sum the scores Emily received on her first three tests.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Score needed on fourth test = 340 - 256 = 84</div>
+    <div class="step-exp">Finally, subtract the sum of her first three test scores from the desired total score to find the score she needs on the fourth test.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 84 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist has a solution of 3 1/4 liters. She uses 1/3 of the solution for an experiment. Then, she adds 0.75 liters of water to the remaining solution. How much solution does she have now? (Express your answer as a mixed number in simplest form.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 5/12 liters</div><div class="option"><span class="opt-letter">B.</span> 3 1/2 liters</div><div class="option"><span class="opt-letter">C.</span> 2 11/12 liters</div><div class="option"><span class="opt-letter">D.</span> 1 11/12 liters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert initial solution to improper fraction: 3 1/4 = 13/4 liters</div>
+    <div class="step-exp">Convert the initial mixed number to an improper fraction for easier calculations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Amount used = 13/4 * 1/3 = 13/12 liters</div>
+    <div class="step-exp">Calculate the amount of solution used by multiplying the initial amount by the fraction used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Remaining solution = 13/4 - 13/12 = 39/12 - 13/12 = 26/12 = 13/6 liters</div>
+    <div class="step-exp">Subtract the amount used from the initial amount to find the remaining solution. Simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Convert added water to fraction: 0.75 = 3/4 liters</div>
+    <div class="step-exp">Convert the decimal amount of added water to a fraction to maintain consistency with other values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total solution now = 13/6 + 3/4 = 26/12 + 9/12 = 35/12 liters</div>
+    <div class="step-exp">Add the remaining solution to the added water, finding a common denominator for addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Convert to mixed number: 35/12 = 2 11/12 liters</div>
+    <div class="step-exp">Convert the final improper fraction to a mixed number in simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2 11/12 liters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a metal rod that is 15 1/2 feet long into pieces that are 2 1/4 feet each. How many full pieces can be cut, and what length of rod will be left over? (Express the leftover length as a fraction in simplest form.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 full pieces with 2 feet left over</div><div class="option"><span class="opt-letter">B.</span> 7 full pieces with 1/2 foot left over</div><div class="option"><span class="opt-letter">C.</span> 6 full pieces with 1/2 foot left over</div><div class="option"><span class="opt-letter">D.</span> 10 full pieces with 0 feet left over</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert mixed numbers to improper fractions: 15 1/2 = 31/2, 2 1/4 = 9/4</div>
+    <div class="step-exp">Convert both mixed numbers to improper fractions to facilitate division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Divide total length by piece length: 31/2 ÷ 9/4 = 31/2 * 4/9 = 124/18 = 62/9</div>
+    <div class="step-exp">Divide the total length of the rod by the length of each piece to find out how many pieces can be cut. Simplify the resulting fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Number of full pieces = 6 (from 62/9 = 6 and 8/9)</div>
+    <div class="step-exp">The whole number part of the mixed number (6) represents the number of full pieces that can be cut.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Length of 6 pieces = 6 <em> 2 1/4 = 6 </em> 9/4 = 54/4 = 27/2 = 13 1/2 feet</div>
+    <div class="step-exp">Calculate the total length used for the 6 full pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Length left over = 15 1/2 - 13 1/2 = 2 feet</div>
+    <div class="step-exp">Subtract the total length of the cut pieces from the original rod length to find the leftover length.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 full pieces with 2 feet left over (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A train departs at 8:15 AM and travels for 3 3/4 hours. After a 1/2 hour stop, it resumes its journey for another 2.3 hours. What time does the train arrive at its final destination? (Express your answer in AM/PM format.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2:33 PM</div><div class="option"><span class="opt-letter">B.</span> 2:48 PM</div><div class="option"><span class="opt-letter">C.</span> 3:48 PM</div><div class="option"><span class="opt-letter">D.</span> 1:48 PM</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert all time durations to decimals: 3 3/4 hours = 3.75 hours, 1/2 hour = 0.5 hours</div>
+    <div class="step-exp">Convert all fractional and mixed number durations to decimals for consistent addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total duration in hours = 3.75 + 0.5 + 2.3 = 6.55 hours</div>
+    <div class="step-exp">Add all the decimal durations (travel time + stop time + second travel time) to get the total time in hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert 0.55 hours to minutes = 0.55 * 60 = 33 minutes</div>
+    <div class="step-exp">Convert the decimal part of the total hours into minutes by multiplying by 60.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total duration = 6 hours and 33 minutes</div>
+    <div class="step-exp">Combine the whole hours and the calculated minutes for the total duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Add 6 hours to departure time: 8:15 AM + 6 hours = 2:15 PM</div>
+    <div class="step-exp">Add the whole hours to the departure time, adjusting for AM/PM transition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Add 33 minutes: 2:15 PM + 33 minutes = 2:48 PM</div>
+    <div class="step-exp">Finally, add the remaining minutes to the adjusted time to find the arrival time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2:48 PM (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population was 12,500 at the beginning of the year. In the first quarter, it increased by 1/5. In the second quarter, it decreased by 0.1 of the <em>new</em> population. What was the population at the end of the second quarter?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 13,750</div><div class="option"><span class="opt-letter">B.</span> 12,250</div><div class="option"><span class="opt-letter">C.</span> 13,500</div><div class="option"><span class="opt-letter">D.</span> 15,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert fraction to decimal for consistency: 1/5 = 0.2</div>
+    <div class="step-exp">Convert the fractional increase to a decimal to work uniformly with percentages/decimals.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Population increase in Q1 = 12,500 * 0.2 = 2,500</div>
+    <div class="step-exp">Calculate the number of people added to the population in the first quarter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Population after Q1 = 12,500 + 2,500 = 15,000</div>
+    <div class="step-exp">Add the increase to the initial population to find the population after the first quarter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Population decrease in Q2 = 15,000 * 0.1 = 1,500</div>
+    <div class="step-exp">Calculate the number of people by which the population decreased in the second quarter, based on the <em>new</em> population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Population after Q2 = 15,000 - 1,500 = 13,500</div>
+    <div class="step-exp">Subtract the decrease from the population after the first quarter to find the final population.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13,500 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A data server has a total storage capacity of 5 1/4 terabytes. It is currently 2/3 full. If a user uploads a file that is 0.75 terabytes and then deletes another file that is 1/8 terabytes, how much storage space is left on the server? (Express your answer as a mixed number in simplest form.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 1/8 terabytes</div><div class="option"><span class="opt-letter">B.</span> 3 1/2 terabytes</div><div class="option"><span class="opt-letter">C.</span> 1 3/8 terabytes</div><div class="option"><span class="opt-letter">D.</span> 2 1/4 terabytes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert all values to improper fractions: 5 1/4 = 21/4, 0.75 = 3/4</div>
+    <div class="step-exp">Convert all mixed numbers and decimals to improper fractions for consistent calculations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Current used space = 21/4 * 2/3 = 42/12 = 7/2 terabytes</div>
+    <div class="step-exp">Calculate the amount of space currently used by multiplying the total capacity by the fraction it is full.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Space after upload = 7/2 + 3/4 = 14/4 + 3/4 = 17/4 terabytes</div>
+    <div class="step-exp">Add the uploaded file&#x27;s size to the currently used space, finding a common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Space after deletion = 17/4 - 1/8 = 34/8 - 1/8 = 33/8 terabytes</div>
+    <div class="step-exp">Subtract the deleted file&#x27;s size from the updated used space, finding a common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total capacity in improper fraction = 21/4 = 42/8 terabytes</div>
+    <div class="step-exp">Express the total server capacity with a common denominator for the final subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Remaining free space = 42/8 - 33/8 = 9/8 terabytes</div>
+    <div class="step-exp">Subtract the final used space from the total capacity to find the remaining free space.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Convert to mixed number = 9/8 = 1 1/8 terabytes</div>
+    <div class="step-exp">Convert the improper fraction to a mixed number for the final answer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 1/8 terabytes (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Subtract Rational Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.016<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Subtract Rational Numbers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.016</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah bought a toy car for $5.75. She paid with a $10 bill. How much change did she receive?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $4.35</div><div class="option"><span class="opt-letter">B.</span> $15.75</div><div class="option"><span class="opt-letter">C.</span> $5.25</div><div class="option"><span class="opt-letter">D.</span> $4.25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Change = Amount Paid - Cost</div>
+    <div class="step-exp">To find the change, subtract the cost of the toy from the amount paid.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$10.00 - $5.75</div>
+    <div class="step-exp">Align the decimal points. Add zeros to $10 to match decimal places for easier subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">9 9 10
+$10.00
+- $5.75
+-------
+$4.25</div>
+    <div class="step-exp">Start from the rightmost digit. Borrow from the tens place, making it 9, and the hundredths place 10. 10 - 5 = 5. Then, 9 - 7 = 2. Then, 9 - 5 = 4. The 1 in 10 becomes 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$4.25</div>
+    <div class="step-exp">Sarah received $4.25 in change.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $4.25 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completed the first lap of a race in 13.5 seconds. He completed the second lap in 12.8 seconds. How much faster was his second lap than his first lap?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.7 seconds</div><div class="option"><span class="opt-letter">B.</span> 1.7 seconds</div><div class="option"><span class="opt-letter">C.</span> 1.3 seconds</div><div class="option"><span class="opt-letter">D.</span> 26.3 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Difference = First Lap Time - Second Lap Time</div>
+    <div class="step-exp">To find out how much faster the second lap was, subtract the second lap time from the first lap time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">13.5 - 12.8</div>
+    <div class="step-exp">Align the decimal points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 15
+13.5
+-12.8
+-----
+ 0.7</div>
+    <div class="step-exp">Start from the rightmost digit. 5 - 8 requires borrowing. Borrow from the units place (making it 2), making the tenths place 15. 15 - 8 = 7. Then, 2 - 2 = 0. And 1 - 1 = 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.7 seconds</div>
+    <div class="step-exp">His second lap was 0.7 seconds faster.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.7 seconds (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 3/4 cup of sugar. Emily only has 1/4 cup of sugar left. How much more sugar does Emily need? (in simplest form)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2/0 cups</div><div class="option"><span class="opt-letter">B.</span> 4/8 cups</div><div class="option"><span class="opt-letter">C.</span> 1/2 cup</div><div class="option"><span class="opt-letter">D.</span> 4/4 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Needed = Total - Had</div>
+    <div class="step-exp">To find out how much more sugar is needed, subtract the amount Emily has from the amount the recipe calls for.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3/4 - 1/4</div>
+    <div class="step-exp">The fractions already have a common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(3 - 1) / 4 = 2/4</div>
+    <div class="step-exp">Subtract the numerators (3 - 1) and keep the common denominator (4).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2/4 = 1/2</div>
+    <div class="step-exp">Both the numerator and denominator are divisible by 2. Divide both by 2 to simplify.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1/2 cup</div>
+    <div class="step-exp">Emily needs 1/2 cup more sugar.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/2 cup (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 150.5 miles on Monday. On Tuesday, it traveled 87.25 miles. How much farther did the car travel on Monday than on Tuesday?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 63.35 miles</div><div class="option"><span class="opt-letter">B.</span> 63.25 miles</div><div class="option"><span class="opt-letter">C.</span> 142.75 miles</div><div class="option"><span class="opt-letter">D.</span> 237.75 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Difference = Monday&#x27;s Distance - Tuesday&#x27;s Distance</div>
+    <div class="step-exp">To find the difference in distance, subtract Tuesday&#x27;s distance from Monday&#x27;s distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">150.50 - 87.25</div>
+    <div class="step-exp">Align the decimal points and add a zero to 150.5 to match the number of decimal places in 87.25.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 10
+150.50
+- 87.25
+-------
+ 63.25</div>
+    <div class="step-exp">Start from the rightmost digit. 0 - 5 requires borrowing from the tenths place (making it 4), making the hundredths place 10. 10 - 5 = 5. Then, 4 - 2 = 2. Then, 0 - 7 requires borrowing from the tens place (making it 4), making the units place 10. 10 - 7 = 3. Then, 4 - 8 requires borrowing from the hundreds place (making it 0), making the tens place 14. 14 - 8 = 6. The hundreds place is 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">63.25 miles</div>
+    <div class="step-exp">The car traveled 63.25 miles farther on Monday.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 63.25 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student spent 1 1/2 hours on math homework and 3/4 hour on science homework. How much more time did the student spend on math than on science? (in simplest form)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2/2 hours</div><div class="option"><span class="opt-letter">B.</span> 2 1/4 hours</div><div class="option"><span class="opt-letter">C.</span> 3/4 hour</div><div class="option"><span class="opt-letter">D.</span> 1 1/4 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Difference = Math Time - Science Time</div>
+    <div class="step-exp">To find the difference in time, subtract the science homework time from the math homework time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1/2 = 2/4. So, 1 1/2 = 1 2/4.</div>
+    <div class="step-exp">The least common denominator for 1/2 and 3/4 is 4. Convert 1/2 to 2/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 2/4 - 3/4</div>
+    <div class="step-exp">Now both fractions have the same denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 2/4 = (4/4 + 2/4) = 6/4</div>
+    <div class="step-exp">Since 2/4 is less than 3/4, borrow 1 (which is 4/4) from the whole number 1, and add it to 2/4 to get 6/4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">6/4 - 3/4 = (6 - 3) / 4 = 3/4</div>
+    <div class="step-exp">Subtract the numerators and keep the common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">3/4 hour</div>
+    <div class="step-exp">The student spent 3/4 hour more on math.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3/4 hour (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature on Monday morning was -2.3 degrees Celsius. By the afternoon, it had dropped by 1.7 degrees Celsius. What was the temperature in the afternoon?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -4.0 degrees Celsius</div><div class="option"><span class="opt-letter">B.</span> 4.0 degrees Celsius</div><div class="option"><span class="opt-letter">C.</span> 0.6 degrees Celsius</div><div class="option"><span class="opt-letter">D.</span> -0.6 degrees Celsius</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Afternoon Temp = Morning Temp - Temperature Drop</div>
+    <div class="step-exp">A drop in temperature means subtracting a positive value. So, we are subtracting 1.7 from -2.3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-2.3 - 1.7 = -(2.3 + 1.7)</div>
+    <div class="step-exp">Subtracting a positive number from a negative number moves it further left on the number line. This is equivalent to adding their absolute values and keeping the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2.3
++ 1.7
+-----
+  4.0</div>
+    <div class="step-exp">Add 2.3 and 1.7. (3 + 7 = 10, carry 1. 2 + 1 + 1 = 4).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">-4.0</div>
+    <div class="step-exp">Since we are moving further into negative temperatures, the result is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-4.0 degrees Celsius</div>
+    <div class="step-exp">The temperature in the afternoon was -4.0 degrees Celsius.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -4.0 degrees Celsius (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker cut 7/8 of a foot from a metal rod that was 1 1/4 feet long. What is the remaining length of the rod? (in simplest form)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 1/8 feet</div><div class="option"><span class="opt-letter">B.</span> 3/8 foot</div><div class="option"><span class="opt-letter">C.</span> 1 5/8 feet</div><div class="option"><span class="opt-letter">D.</span> 1 9/12 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Remaining Length = Original Length - Cut Length</div>
+    <div class="step-exp">To find the remaining length, subtract the cut piece&#x27;s length from the original length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1/4 = 2/8. So, 1 1/4 = 1 2/8.</div>
+    <div class="step-exp">The least common denominator for 1/4 and 7/8 is 8. Convert 1/4 to 2/8.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 2/8 - 7/8</div>
+    <div class="step-exp">Now both fractions have the same denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 2/8 = (8/8 + 2/8) = 10/8</div>
+    <div class="step-exp">Since 2/8 is less than 7/8, borrow 1 (which is 8/8) from the whole number 1, and add it to 2/8 to get 10/8.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10/8 - 7/8 = (10 - 7) / 8 = 3/8</div>
+    <div class="step-exp">Subtract the numerators and keep the common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">3/8 foot</div>
+    <div class="step-exp">The remaining length of the rod is 3/8 foot.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3/8 foot (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital clock shows 10:15 PM. If time moves backward by 2 3/5 hours, what time will the clock show?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12:51 PM</div><div class="option"><span class="opt-letter">B.</span> 8:49 PM</div><div class="option"><span class="opt-letter">C.</span> 7:39 PM</div><div class="option"><span class="opt-letter">D.</span> 7:15 PM</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">New Time = 10:15 PM - 2 3/5 hours</div>
+    <div class="step-exp">To find the new time, subtract 2 3/5 hours from 10:15 PM.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3/5 hours <em> 60 minutes/hour = (3 </em> 60) / 5 = 180 / 5 = 36 minutes.
+So, 2 3/5 hours = 2 hours and 36 minutes.</div>
+    <div class="step-exp">Multiply the fraction by 60 to convert it into minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10:15 PM - 2 hours = 8:15 PM</div>
+    <div class="step-exp">First, subtract the whole hours from the current time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">8:15 PM - 36 minutes
+Since 15 minutes is less than 36 minutes, borrow 1 hour (60 minutes) from 8:00 PM.
+8:15 PM = 7 hours + (60 + 15) minutes = 7 hours 75 minutes.
+7 hours 75 minutes - 36 minutes = 7 hours 39 minutes.</div>
+    <div class="step-exp">Since 15 is less than 36, regroup one hour from the 8 hours, converting it to 60 minutes and adding it to 15 minutes. Then subtract 36 minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">7:39 PM</div>
+    <div class="step-exp">The clock will show 7:39 PM.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7:39 PM (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of Town A is 12,500.25. The population of Town B is 9,876 1/2. What is the difference in population between Town A and Town B?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3624.75</div><div class="option"><span class="opt-letter">B.</span> 2623.25</div><div class="option"><span class="opt-letter">C.</span> 2623.75</div><div class="option"><span class="opt-letter">D.</span> 22376.75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Difference = Population A - Population B</div>
+    <div class="step-exp">To find the difference, subtract the smaller population from the larger population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1/2 = 0.5. So, 9,876 1/2 = 9876.5.</div>
+    <div class="step-exp">Convert the fraction 1/2 to its decimal equivalent, 0.5, to work with decimals for both populations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">12500.25 - 9876.50</div>
+    <div class="step-exp">Align the decimal points and add a zero to 9876.5 to match the number of decimal places in 12500.25 for easier subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1 11 14 9 10 12
+12500.25
+- 9876.50
+---------
+ 2623.75</div>
+    <div class="step-exp">Perform subtraction with borrowing across multiple place values as needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">2623.75</div>
+    <div class="step-exp">The difference in population is 2623.75.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2623.75 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s weight decreased from 185 3/8 pounds to 179 1/3 pounds. How much weight did the patient lose? (in simplest form)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 1/24 pounds</div><div class="option"><span class="opt-letter">B.</span> 364 17/24 pounds</div><div class="option"><span class="opt-letter">C.</span> 6 17/24 pounds</div><div class="option"><span class="opt-letter">D.</span> 6 5/24 pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Weight Loss = Original Weight - New Weight</div>
+    <div class="step-exp">To find the weight loss, subtract the new weight from the original weight.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">LCD of 8 and 3 is 24.
+3/8 = (3 <em> 3) / (8 </em> 3) = 9/24
+1/3 = (1 <em> 8) / (3 </em> 8) = 8/24</div>
+    <div class="step-exp">The least common denominator (LCD) for 8 and 3 is 24. Convert both fractions to equivalent fractions with a denominator of 24.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">185 9/24 - 179 8/24</div>
+    <div class="step-exp">Replace the original fractions in the mixed numbers with their equivalent forms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">9/24 - 8/24 = 1/24</div>
+    <div class="step-exp">Subtract the numerators and keep the common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">185 - 179 = 6</div>
+    <div class="step-exp">Subtract the whole numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">6 1/24</div>
+    <div class="step-exp">Combine the results from subtracting the whole numbers and the fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">6 1/24 pounds</div>
+    <div class="step-exp">The patient lost 6 1/24 pounds.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 1/24 pounds (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

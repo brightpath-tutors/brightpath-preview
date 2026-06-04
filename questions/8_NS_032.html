@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Compare Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | NS | Skill 8.NS.032<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Compare Integers</h1>
+<p class="skill-subtitle">Skill ID: 8.NS.032</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah has a bank balance of -$25, indicating a debt of $25. Emily has a bank balance of -$18, indicating a debt of $18. Whose financial situation is better?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Their situations are equal</div><div class="option"><span class="opt-letter">B.</span> Emily</div><div class="option"><span class="opt-letter">C.</span> Sarah</div><div class="option"><span class="opt-letter">D.</span> None of the above</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A bank balance of -$25 means Sarah owes $25. A bank balance of -$18 means Emily owes $18.</div>
+    <div class="step-exp">Negative balances represent debt. The absolute value of the negative balance is the amount of debt.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A better financial situation means owing less money, or having a higher (less negative) bank balance.</div>
+    <div class="step-exp">In financial terms, having less debt or more assets translates to a better situation. On the number line, a higher value indicates a better financial position.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -25 and -18.</div>
+    <div class="step-exp">The comparison is between the two integer bank balances.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -18 is to the right of -25. Therefore, -18 &gt; -25.</div>
+    <div class="step-exp">Numbers to the right on a number line are greater. Since -18 is to the right of -25, -18 is greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since Emily&#x27;s balance (-$18) is greater than Sarah&#x27;s balance (-$25), Emily&#x27;s financial situation is better.</div>
+    <div class="step-exp">The person with the higher (less negative) bank balance has the better financial situation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Emily (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">On a cold winter day, the temperature in city A was -7°C, and in city B it was -12°C. Which city experienced the warmer temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> The temperatures were equal</div><div class="option"><span class="opt-letter">B.</span> City A</div><div class="option"><span class="opt-letter">C.</span> City B</div><div class="option"><span class="opt-letter">D.</span> None of the above</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Temperature in City A: -7°C
+Temperature in City B: -12°C</div>
+    <div class="step-exp">These are the given integer values representing the temperatures.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A warmer temperature corresponds to a higher (less negative) numerical value.</div>
+    <div class="step-exp">On the Celsius scale, higher numbers mean warmer temperatures, and lower numbers mean colder temperatures. This applies to negative values as well.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -7 and -12.</div>
+    <div class="step-exp">The task is to determine which of the two given temperatures is numerically greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -7 is to the right of -12. Therefore, -7 &gt; -12.</div>
+    <div class="step-exp">Numbers further to the right on the number line have greater values. -7 is closer to zero than -12, making it greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -7°C is greater than -12°C, City A experienced the warmer temperature.</div>
+    <div class="step-exp">As -7°C is numerically higher than -12°C, City A had the warmer temperature.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> City A (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a mini-golf tournament, Player X scored -3 (3 strokes under par) and Player Y scored -1 (1 stroke under par). Which player had a better score? (Lower score is better in golf)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Player X</div><div class="option"><span class="opt-letter">B.</span> Their scores were equal</div><div class="option"><span class="opt-letter">C.</span> Player Y</div><div class="option"><span class="opt-letter">D.</span> None of the above</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Player X&#x27;s score: -3
+Player Y&#x27;s score: -1</div>
+    <div class="step-exp">The scores are given as integers, representing strokes relative to par.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">In golf, a lower score is considered better. This means we are looking for the smaller integer.</div>
+    <div class="step-exp">A score further below par (more negative) is better in golf, meaning a numerically smaller integer is the desired outcome.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -3 and -1.</div>
+    <div class="step-exp">The task is to determine which of the two given scores is numerically smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -3 is to the left of -1. Therefore, -3 &lt; -1.</div>
+    <div class="step-exp">Numbers further to the left on the number line have smaller values. -3 is further from zero in the negative direction than -1, making it smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -3 is less than -1, Player X had a better score.</div>
+    <div class="step-exp">Player X&#x27;s score of -3 is lower than Player Y&#x27;s score of -1, so Player X performed better.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Player X (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A submarine is at an altitude of -150 meters relative to sea level. A bird is flying at an altitude of 30 meters. Which is further from sea level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> They are at the same distance</div><div class="option"><span class="opt-letter">B.</span> The bird</div><div class="option"><span class="opt-letter">C.</span> None of the above</div><div class="option"><span class="opt-letter">D.</span> The submarine</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Submarine altitude: -150 meters
+Bird altitude: 30 meters</div>
+    <div class="step-exp">Altitudes are given as integers; negative indicates below sea level, positive indicates above.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find which is further from sea level, we need to compare the absolute values of their altitudes, as distance is always a positive measure.</div>
+    <div class="step-exp">Distance is a magnitude, regardless of direction (above or below sea level). Thus, we use the absolute value of the altitude to represent the distance from sea level.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Submarine&#x27;s distance from sea level: |-150| = 150 meters
+Bird&#x27;s distance from sea level: |30| = 30 meters</div>
+    <div class="step-exp">The absolute value of -150 is 150, and the absolute value of 30 is 30.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">We compare 150 meters and 30 meters.</div>
+    <div class="step-exp">The task is now to compare these two positive distances.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">150 &gt; 30.</div>
+    <div class="step-exp">150 is numerically greater than 30.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Since 150 meters is greater than 30 meters, the submarine is further from sea level.</div>
+    <div class="step-exp">The submarine&#x27;s distance of 150 meters is greater than the bird&#x27;s distance of 30 meters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The submarine (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An archaeological dig uncovered artifacts from 350 BC, while another site revealed artifacts from 100 AD. Which artifacts are older?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 350 BC artifacts</div><div class="option"><span class="opt-letter">B.</span> They are of the same age</div><div class="option"><span class="opt-letter">C.</span> None of the above</div><div class="option"><span class="opt-letter">D.</span> 100 AD artifacts</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">350 BC can be represented as -350.
+100 AD can be represented as 100.</div>
+    <div class="step-exp">Dates before Christ (BC) are negative integers on a timeline, while dates Anno Domini (AD) are positive integers. The year 0 typically separates them.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">In a timeline, an older event or artifact corresponds to a smaller (more negative) numerical year.</div>
+    <div class="step-exp">Events that occurred further in the past have smaller numerical values on the integer timeline.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -350 and 100.</div>
+    <div class="step-exp">The task is to determine which of the two integer dates is numerically smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, any negative number is to the left of any positive number. Therefore, -350 &lt; 100.</div>
+    <div class="step-exp">All negative numbers are smaller than all positive numbers. -350 is significantly to the left of 100 on the number line.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -350 is less than 100, the 350 BC artifacts are older.</div>
+    <div class="step-exp">The 350 BC artifacts correspond to the numerically smaller (older) date.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 350 BC artifacts (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Town M experienced a population change of -1200 residents. Town N experienced a population change of -800 residents. Which town experienced a greater decrease in population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> None of the above</div><div class="option"><span class="opt-letter">B.</span> Town N</div><div class="option"><span class="opt-letter">C.</span> Both towns experienced the same decrease</div><div class="option"><span class="opt-letter">D.</span> Town M</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Town M&#x27;s change: -1200 residents
+Town N&#x27;s change: -800 residents</div>
+    <div class="step-exp">Negative numbers indicate a decrease in population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A greater decrease means a larger loss of residents. When represented by negative numbers, a greater decrease corresponds to a numerically smaller (more negative) integer.</div>
+    <div class="step-exp">For negative values, a &#x27;greater decrease&#x27; means the value is further from zero in the negative direction, i.e., a smaller integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -1200 and -800.</div>
+    <div class="step-exp">The task is to determine which of the two population changes is numerically smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -1200 is to the left of -800. Therefore, -1200 &lt; -800.</div>
+    <div class="step-exp">Numbers further to the left on the number line have smaller values. -1200 is further from zero in the negative direction than -800.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -1200 is less than -800, Town M experienced a greater decrease in population.</div>
+    <div class="step-exp">A loss of 1200 residents is a greater decrease than a loss of 800 residents.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Town M (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Building A&#x27;s foundation is at -18 meters relative to ground level. Building B&#x27;s foundation is at -25 meters. Which foundation goes deeper?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Building A</div><div class="option"><span class="opt-letter">B.</span> Building B</div><div class="option"><span class="opt-letter">C.</span> Both foundations are at the same depth</div><div class="option"><span class="opt-letter">D.</span> None of the above</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Building A&#x27;s depth: -18 meters
+Building B&#x27;s depth: -25 meters</div>
+    <div class="step-exp">Negative numbers represent depths below ground level.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A foundation that goes deeper corresponds to a numerically smaller (more negative) integer.</div>
+    <div class="step-exp">The further below ground level, the &#x27;deeper&#x27; the foundation, which translates to a smaller integer on a vertical number line.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -18 and -25.</div>
+    <div class="step-exp">The task is to determine which of the two given depths is numerically smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -25 is to the left of -18. Therefore, -25 &lt; -18.</div>
+    <div class="step-exp">Numbers further to the left on the number line have smaller values. -25 is further from zero in the negative direction than -18, making it smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -25 meters is less than -18 meters, Building B&#x27;s foundation goes deeper.</div>
+    <div class="step-exp">Building B&#x27;s foundation is at a lower (more negative) elevation, so it is deeper.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Building B (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s systolic blood pressure change over a month was recorded as -8 mmHg. The doctor considers any change greater than or equal to -10 mmHg to be acceptable. Is the patient&#x27;s change acceptable?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> None of the above</div><div class="option"><span class="opt-letter">B.</span> Yes, because -8 &gt;= -10.</div><div class="option"><span class="opt-letter">C.</span> No, because the absolute value of -8 is less than the absolute value of -10.</div><div class="option"><span class="opt-letter">D.</span> No, because -8 is a larger number than -10, so it&#x27;s worse.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Patient&#x27;s change: -8 mmHg</div>
+    <div class="step-exp">This is the integer value representing the change in blood pressure.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Acceptable if change &gt;= -10 mmHg</div>
+    <div class="step-exp">The criteria state that the change must be greater than or equal to -10 mmHg.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to check if -8 &gt;= -10.</div>
+    <div class="step-exp">Substitute the patient&#x27;s change into the doctor&#x27;s criteria.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -8 is to the right of -10. Therefore, -8 is greater than -10.</div>
+    <div class="step-exp">Numbers to the right on a number line are greater. Since -8 is closer to zero (and to the right of) -10, it is greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -8 is greater than -10, the condition -8 &gt;= -10 is true. The patient&#x27;s change is acceptable.</div>
+    <div class="step-exp">The patient&#x27;s blood pressure change meets the doctor&#x27;s criteria.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Yes, because -8 &gt;= -10. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An efficiency rating for System Alpha is -150 units. System Beta has a rating of -120 units. A rating greater than -130 units is considered &#x27;high performance&#x27;. Which system, if any, is high performance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Neither system</div><div class="option"><span class="opt-letter">B.</span> Only System Beta</div><div class="option"><span class="opt-letter">C.</span> Both systems</div><div class="option"><span class="opt-letter">D.</span> Only System Alpha</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">System Alpha: -150 units
+System Beta: -120 units</div>
+    <div class="step-exp">These are the given integer values for the efficiency ratings.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A system is high performance if its rating is &gt; -130 units.</div>
+    <div class="step-exp">The criteria specify a &#x27;greater than&#x27; comparison with -130.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Is -150 &gt; -130? On a number line, -150 is to the left of -130. So, -150 &lt; -130. 
+Therefore, System Alpha is NOT high performance.</div>
+    <div class="step-exp">Since -150 is numerically smaller than -130, System Alpha does not meet the high performance criteria.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Is -120 &gt; -130? On a number line, -120 is to the right of -130. So, -120 &gt; -130. 
+Therefore, System Beta IS high performance.</div>
+    <div class="step-exp">Since -120 is numerically greater than -130, System Beta meets the high performance criteria.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Only System Beta has a rating greater than -130 units.</div>
+    <div class="step-exp">System Beta satisfies the condition for high performance, while System Alpha does not.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Only System Beta (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A painting&#x27;s market value changed by -$750 in a month. Another sculpture&#x27;s value changed by -$500. Which art piece had a less significant loss in value?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> The painting</div><div class="option"><span class="opt-letter">B.</span> Both had the same loss</div><div class="option"><span class="opt-letter">C.</span> The sculpture</div><div class="option"><span class="opt-letter">D.</span> None of the above</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Painting&#x27;s change: -$750
+Sculpture&#x27;s change: -$500</div>
+    <div class="step-exp">Negative numbers indicate a loss in value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A less significant loss means the value decreased by a smaller amount. When represented by negative numbers, this corresponds to a numerically larger (less negative) integer.</div>
+    <div class="step-exp">The closer the negative change is to zero, the smaller the loss. Therefore, we are looking for the greater integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">We need to compare -750 and -500.</div>
+    <div class="step-exp">The task is to determine which of the two value changes is numerically greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, -500 is to the right of -750. Therefore, -500 &gt; -750.</div>
+    <div class="step-exp">Numbers further to the right on the number line have greater values. -500 is closer to zero than -750, making it greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Since -$500 is greater than -$750, the sculpture had a less significant loss in value.</div>
+    <div class="step-exp">A loss of $500 is less significant than a loss of $750.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The sculpture (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

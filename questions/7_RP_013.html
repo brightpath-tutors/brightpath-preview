@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Percent Problems</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | RP | Skill 7.RP.013<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Percent Problems</h1>
+<p class="skill-subtitle">Skill ID: 7.RP.013</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store is having a sale where all items are 25% off. If a shirt originally costs $20, what is the discount amount in dollars?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $15.00</div><div class="option"><span class="opt-letter">B.</span> $2.50</div><div class="option"><span class="opt-letter">C.</span> $4.00</div><div class="option"><span class="opt-letter">D.</span> $5.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original Price = $20
+Discount Percentage = 25%</div>
+    <div class="step-exp">The problem states the original price of the shirt and the percentage off.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">25% = 0.25</div>
+    <div class="step-exp">To calculate a percentage of a number, convert the percentage to its decimal form by dividing by 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Discount Amount = Original Price × Discount Percentage (as a decimal)
+Discount Amount = $20 × 0.25
+Discount Amount = $5.00</div>
+    <div class="step-exp">Multiply the original price by the decimal form of the discount percentage to find the discount amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $5.00 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, Alex made 80% of his free throws. If he attempted 15 free throws, how many did he make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12</div><div class="option"><span class="opt-letter">B.</span> 13</div><div class="option"><span class="opt-letter">C.</span> 8</div><div class="option"><span class="opt-letter">D.</span> 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Attempts = 15
+Percentage Made = 80%</div>
+    <div class="step-exp">The problem provides the total number of free throws attempted and the success rate as a percentage.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">80% = 0.80</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Free Throws Made = Total Attempts × Percentage Made (as a decimal)
+Free Throws Made = 15 × 0.80
+Free Throws Made = 12</div>
+    <div class="step-exp">Multiply the total number of attempts by the decimal form of the percentage made to find the actual number of successful free throws.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 2 cups of sugar, but you only want to make 75% of the recipe. How much sugar should you use?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.5 cups</div><div class="option"><span class="opt-letter">B.</span> 0.75 cups</div><div class="option"><span class="opt-letter">C.</span> 2.75 cups</div><div class="option"><span class="opt-letter">D.</span> 1 cup</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Sugar = 2 cups
+Percentage of Recipe = 75%</div>
+    <div class="step-exp">The problem specifies the original amount of sugar and the desired percentage of the recipe.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">75% = 0.75</div>
+    <div class="step-exp">To perform calculations with a percentage, it must first be converted to its decimal equivalent by dividing by 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Sugar Needed = Total Sugar × Percentage of Recipe (as a decimal)
+Sugar Needed = 2 cups × 0.75
+Sugar Needed = 1.5 cups</div>
+    <div class="step-exp">Multiply the original amount of sugar by the decimal form of the desired percentage to find the adjusted amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5 cups (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 300 miles, and 60% of the journey was on the highway. How many miles were traveled on the highway?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 240 miles</div><div class="option"><span class="opt-letter">B.</span> 180 miles</div><div class="option"><span class="opt-letter">C.</span> 150 miles</div><div class="option"><span class="opt-letter">D.</span> 60 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Distance = 300 miles
+Percentage on Highway = 60%</div>
+    <div class="step-exp">The problem gives the total distance of the trip and the percentage of that distance covered on the highway.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">60% = 0.60</div>
+    <div class="step-exp">To use a percentage in a calculation, convert it to its decimal form by dividing by 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distance on Highway = Total Distance × Percentage on Highway (as a decimal)
+Distance on Highway = 300 miles × 0.60
+Distance on Highway = 180 miles</div>
+    <div class="step-exp">Multiply the total distance by the decimal form of the percentage to find the specific distance traveled on the highway.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 180 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student answered 21 questions correctly on a test with 25 questions. What percentage of the questions did the student answer correctly?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 84%</div><div class="option"><span class="opt-letter">B.</span> 75%</div><div class="option"><span class="opt-letter">C.</span> 21%</div><div class="option"><span class="opt-letter">D.</span> 90%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Correct Answers = 21
+Total Questions = 25</div>
+    <div class="step-exp">The problem provides the number of correct answers and the total number of questions on the test.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction Correct = 21/25</div>
+    <div class="step-exp">The percentage is found by expressing the number of correct answers as a fraction of the total questions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Decimal = 21 ÷ 25 = 0.84</div>
+    <div class="step-exp">Divide the numerator by the denominator to convert the fraction into a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Percentage = 0.84 × 100% = 84%</div>
+    <div class="step-exp">Multiply the decimal by 100 and add the percent symbol to express it as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 84% (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observed that 30% of the cells in a petri dish divided. If there were initially 400 cells, how many cells divided?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 40 cells</div><div class="option"><span class="opt-letter">B.</span> 120 cells</div><div class="option"><span class="opt-letter">C.</span> 280 cells</div><div class="option"><span class="opt-letter">D.</span> 30 cells</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Cells = 400
+Percentage Divided = 30%</div>
+    <div class="step-exp">The problem provides the total count of cells and the percentage of those cells that underwent division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">30% = 0.30</div>
+    <div class="step-exp">To perform mathematical operations with a percentage, it must first be converted into its decimal form by dividing by 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Cells Divided = Total Cells × Percentage Divided (as a decimal)
+Cells Divided = 400 × 0.30
+Cells Divided = 120 cells</div>
+    <div class="step-exp">Multiply the total number of cells by the decimal form of the percentage that divided to find the exact count of divided cells.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 120 cells (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew completed 45% of a building project. If the project consists of 20 tasks, how many tasks have they completed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 tasks</div><div class="option"><span class="opt-letter">B.</span> 11 tasks</div><div class="option"><span class="opt-letter">C.</span> 4.5 tasks</div><div class="option"><span class="opt-letter">D.</span> 9 tasks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Tasks = 20
+Percentage Completed = 45%</div>
+    <div class="step-exp">The problem provides the overall number of tasks in the project and the percentage that has been finished.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">45% = 0.45</div>
+    <div class="step-exp">To perform calculations involving percentages, convert the percentage into its decimal equivalent by dividing by 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Tasks Completed = Total Tasks × Percentage Completed (as a decimal)
+Tasks Completed = 20 × 0.45
+Tasks Completed = 9 tasks</div>
+    <div class="step-exp">Multiply the total number of tasks by the decimal form of the percentage completed to find the actual count of completed tasks.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9 tasks (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist created 12 paintings this year, which is 150% of the number of paintings created last year. How many paintings did the artist create last year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 paintings</div><div class="option"><span class="opt-letter">B.</span> 6 paintings</div><div class="option"><span class="opt-letter">C.</span> 8 paintings</div><div class="option"><span class="opt-letter">D.</span> 18 paintings</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current Paintings = 12
+Percentage of Last Year = 150%</div>
+    <div class="step-exp">The problem states the number of paintings created this year and expresses this as a percentage of last year&#x27;s total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">150% = 1.50</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for easier calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Current Paintings = Last Year&#x27;s Paintings × Percentage (as a decimal)
+12 = Last Year&#x27;s Paintings × 1.50</div>
+    <div class="step-exp">Let &#x27;x&#x27; be the number of paintings created last year. The equation is 12 = x * 1.50.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Last Year&#x27;s Paintings = 12 / 1.50
+Last Year&#x27;s Paintings = 8</div>
+    <div class="step-exp">Divide the current number of paintings by the decimal form of the percentage to find the number of paintings from last year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 paintings (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a town increased by 10% this year. If the current population is 11,000, what was the population last year?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10,000</div><div class="option"><span class="opt-letter">B.</span> 12,100</div><div class="option"><span class="opt-letter">C.</span> 9,900</div><div class="option"><span class="opt-letter">D.</span> 1,100</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current Population = 11,000
+Percentage Increase = 10%</div>
+    <div class="step-exp">The problem gives the current population and the rate of increase from the previous year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% + Percentage Increase
+Multiplier = 100% + 10% = 110%</div>
+    <div class="step-exp">An increase means the new value is 100% of the original plus the percentage increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">110% = 1.10</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Current Population = Last Year&#x27;s Population × Multiplier (as a decimal)
+11,000 = Last Year&#x27;s Population × 1.10</div>
+    <div class="step-exp">Let &#x27;P&#x27; be last year&#x27;s population. The equation is 11,000 = P * 1.10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Last Year&#x27;s Population = 11,000 / 1.10
+Last Year&#x27;s Population = 10,000</div>
+    <div class="step-exp">Divide the current population by the decimal multiplier to find the population from last year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10,000 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new smartphone model is priced at $750. Due to high demand, the price increased by 8%. What is the new price of the smartphone?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $690.00</div><div class="option"><span class="opt-letter">B.</span> $758.00</div><div class="option"><span class="opt-letter">C.</span> $795.00</div><div class="option"><span class="opt-letter">D.</span> $810.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original Price = $750
+Percentage Increase = 8%</div>
+    <div class="step-exp">The problem provides the initial price of the smartphone and the rate at which its price increased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% + Percentage Increase
+Multiplier = 100% + 8% = 108%</div>
+    <div class="step-exp">An increase means the new value is 100% of the original plus the percentage increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">108% = 1.08</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">New Price = Original Price × Multiplier (as a decimal)
+New Price = $750 × 1.08
+New Price = $810.00</div>
+    <div class="step-exp">Multiply the original price by the decimal multiplier to find the new, increased price.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $810.00 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The average daily temperature decreased from 20°C to 16°C. What is the percentage decrease in temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25%</div><div class="option"><span class="opt-letter">B.</span> 16%</div><div class="option"><span class="opt-letter">C.</span> 4%</div><div class="option"><span class="opt-letter">D.</span> 20%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original Temperature = 20°C
+New Temperature = 16°C</div>
+    <div class="step-exp">The problem provides both the starting and ending temperatures.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Decrease = Original Temperature - New Temperature
+Decrease = 20°C - 16°C = 4°C</div>
+    <div class="step-exp">Subtract the new temperature from the original temperature to find the change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Percentage Decrease = (Decrease / Original Temperature) × 100%
+Percentage Decrease = (4 / 20) × 100%
+Percentage Decrease = 0.20 × 100% = 20%</div>
+    <div class="step-exp">Divide the decrease amount by the original temperature and then multiply by 100% to get the percentage decrease.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20% (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An ancient artifact was discovered to be 2,500 years old. Due to new dating methods, it was determined to be actually 2,750 years old. What is the percentage increase in its estimated age?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 250%</div><div class="option"><span class="opt-letter">B.</span> 10%</div><div class="option"><span class="opt-letter">C.</span> 2.5%</div><div class="option"><span class="opt-letter">D.</span> 110%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original Age = 2,500 years
+New Age = 2,750 years</div>
+    <div class="step-exp">The problem provides both the initial and revised estimated ages of the artifact.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Increase = New Age - Original Age
+Increase = 2,750 - 2,500 = 250 years</div>
+    <div class="step-exp">Subtract the original age from the new age to find the change in estimation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Percentage Increase = (Increase / Original Age) × 100%
+Percentage Increase = (250 / 2,500) × 100%
+Percentage Increase = 0.10 × 100% = 10%</div>
+    <div class="step-exp">Divide the increase amount by the original age and then multiply by 100% to determine the percentage increase.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company&#x27;s quarterly earnings were $120,000. This represents a 20% increase from the previous quarter. What were the earnings in the previous quarter?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $96,000</div><div class="option"><span class="opt-letter">B.</span> $12,000</div><div class="option"><span class="opt-letter">C.</span> $144,000</div><div class="option"><span class="opt-letter">D.</span> $100,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current Earnings = $120,000
+Percentage Increase = 20%</div>
+    <div class="step-exp">The problem provides the current quarterly earnings and the rate of increase from the prior quarter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% + Percentage Increase
+Multiplier = 100% + 20% = 120%</div>
+    <div class="step-exp">An increase means the new value is 100% of the original plus the percentage increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">120% = 1.20</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Current Earnings = Previous Quarter&#x27;s Earnings × Multiplier (as a decimal)
+$120,000 = Previous Quarter&#x27;s Earnings × 1.20</div>
+    <div class="step-exp">Let &#x27;E&#x27; be the previous quarter&#x27;s earnings. The equation is $120,000 = E * 1.20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Previous Quarter&#x27;s Earnings = $120,000 / 1.20
+Previous Quarter&#x27;s Earnings = $100,000</div>
+    <div class="step-exp">Divide the current earnings by the decimal multiplier to find the earnings from the previous quarter.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $100,000 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A digital camera originally cost $400. It is now on sale for $320. What is the percentage discount?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25%</div><div class="option"><span class="opt-letter">B.</span> 20%</div><div class="option"><span class="opt-letter">C.</span> 8%</div><div class="option"><span class="opt-letter">D.</span> 80%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original Price = $400
+Sale Price = $320</div>
+    <div class="step-exp">The problem provides both the starting and discounted prices of the camera.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Discount Amount = Original Price - Sale Price
+Discount Amount = $400 - $320 = $80</div>
+    <div class="step-exp">Subtract the sale price from the original price to find the absolute value of the discount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Percentage Discount = (Discount Amount / Original Price) × 100%
+Percentage Discount = ($80 / $400) × 100%
+Percentage Discount = 0.20 × 100% = 20%</div>
+    <div class="step-exp">Divide the discount amount by the original price and then multiply by 100% to express the discount as a percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s medication dosage was 50 mg, but it was increased by 15%. A week later, it was decreased by 10% of the new dosage. What is the final dosage?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 50 mg</div><div class="option"><span class="opt-letter">B.</span> 51.75 mg</div><div class="option"><span class="opt-letter">C.</span> 52.5 mg</div><div class="option"><span class="opt-letter">D.</span> 49.5 mg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial Dosage = 50 mg
+First Increase = 15%</div>
+    <div class="step-exp">The problem provides the starting dosage and the first adjustment to it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier for Increase = 100% + 15% = 115% = 1.15
+Dosage after Increase = 50 mg × 1.15 = 57.5 mg</div>
+    <div class="step-exp">Multiply the initial dosage by 1 plus the percentage increase (as a decimal) to find the dosage after the first change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Dosage after Increase = 57.5 mg
+Second Decrease = 10%</div>
+    <div class="step-exp">Now we have the intermediate dosage and the second adjustment, which is a decrease from this new amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier for Decrease = 100% - 10% = 90% = 0.90
+Final Dosage = 57.5 mg × 0.90 = 51.75 mg</div>
+    <div class="step-exp">Multiply the dosage after the increase by 1 minus the percentage decrease (as a decimal) to find the final dosage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 51.75 mg (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city planning department reported that 40% of the houses in the city were built before 1980. Of those built before 1980, 25% have been renovated. If there are 8,000 houses in the city, how many houses were built before 1980 and have been renovated?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 320 houses</div><div class="option"><span class="opt-letter">B.</span> 800 houses</div><div class="option"><span class="opt-letter">C.</span> 80 houses</div><div class="option"><span class="opt-letter">D.</span> 2,000 houses</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Houses = 8,000
+Percentage Built Before 1980 = 40%</div>
+    <div class="step-exp">The problem provides the total number of houses and the proportion built before a certain year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Houses Before 1980 = 8,000 × 0.40 = 3,200 houses</div>
+    <div class="step-exp">Multiply the total number of houses by 40% (as a decimal) to find the count of older houses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Houses Before 1980 = 3,200
+Percentage Renovated (of older houses) = 25%</div>
+    <div class="step-exp">Now we focus on the subset of older houses and the percentage of them that have been renovated.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Renovated Older Houses = 3,200 × 0.25 = 800 houses</div>
+    <div class="step-exp">Multiply the number of houses built before 1980 by 25% (as a decimal) to find the final count of renovated older houses.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 800 houses (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A farmer harvested 3,000 pounds of crops this season. This is 20% less than what he harvested last season. How many pounds of crops did he harvest last season?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3,750 pounds</div><div class="option"><span class="opt-letter">B.</span> 2,400 pounds</div><div class="option"><span class="opt-letter">C.</span> 3,600 pounds</div><div class="option"><span class="opt-letter">D.</span> 600 pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current Harvest = 3,000 pounds
+Percentage Decrease = 20%</div>
+    <div class="step-exp">The problem provides the current harvest and states it is a certain percentage less than the previous season&#x27;s harvest.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% - Percentage Decrease
+Multiplier = 100% - 20% = 80%</div>
+    <div class="step-exp">A decrease means the new value is 100% of the original minus the percentage decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">80% = 0.80</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Current Harvest = Last Season&#x27;s Harvest × Multiplier (as a decimal)
+3,000 = Last Season&#x27;s Harvest × 0.80</div>
+    <div class="step-exp">Let &#x27;H&#x27; be last season&#x27;s harvest. The equation is 3,000 = H * 0.80.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Last Season&#x27;s Harvest = 3,000 / 0.80
+Last Season&#x27;s Harvest = 3,750 pounds</div>
+    <div class="step-exp">Divide the current harvest by the decimal multiplier to find the harvest from last season.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3,750 pounds (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A vintage clock gained 15% in value last year. If its current value is $1,150, what was its value before the increase?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $977.50</div><div class="option"><span class="opt-letter">B.</span> $172.50</div><div class="option"><span class="opt-letter">C.</span> $1,000</div><div class="option"><span class="opt-letter">D.</span> $1,322.50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current Value = $1,150
+Percentage Increase = 15%</div>
+    <div class="step-exp">The problem gives the current value of the clock and the rate of value increase from the previous year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% + Percentage Increase
+Multiplier = 100% + 15% = 115%</div>
+    <div class="step-exp">An increase means the new value is 100% of the original plus the percentage increase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">115% = 1.15</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Current Value = Value Before Increase × Multiplier (as a decimal)
+$1,150 = Value Before Increase × 1.15</div>
+    <div class="step-exp">Let &#x27;V&#x27; be the value before the increase. The equation is $1,150 = V * 1.15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Value Before Increase = $1,150 / 1.15
+Value Before Increase = $1,000</div>
+    <div class="step-exp">Divide the current value by the decimal multiplier to find the value before the increase.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $1,000 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new software update reduced processing time by 30%. If the original processing time was 50 seconds, what is the new processing time? What is the percentage of the original time that the new processing time represents?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35 seconds, 70%</div><div class="option"><span class="opt-letter">B.</span> 40 seconds, 80%</div><div class="option"><span class="opt-letter">C.</span> 30 seconds, 60%</div><div class="option"><span class="opt-letter">D.</span> 15 seconds, 30%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Original Processing Time = 50 seconds
+Percentage Reduction = 30%</div>
+    <div class="step-exp">The problem provides the initial processing time and the percentage by which it was reduced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% - Percentage Reduction
+Multiplier = 100% - 30% = 70%</div>
+    <div class="step-exp">A reduction means the new value is 100% of the original minus the percentage reduction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">70% = 0.70</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">New Processing Time = Original Processing Time × Multiplier (as a decimal)
+New Processing Time = 50 seconds × 0.70 = 35 seconds</div>
+    <div class="step-exp">Multiply the original processing time by the decimal multiplier to find the new, reduced time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">New Processing Time = 35 seconds
+Percentage of Original Time = 70%</div>
+    <div class="step-exp">The new processing time is 35 seconds, and this represents 70% of the original time (since it was reduced by 30%).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 35 seconds, 70% (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A gallery sold a painting for $2,400, which includes a 20% commission for the gallery. What was the original price of the painting before the commission was added?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $2,000</div><div class="option"><span class="opt-letter">B.</span> $1,920</div><div class="option"><span class="opt-letter">C.</span> $480</div><div class="option"><span class="opt-letter">D.</span> $2,880</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total Sale Price = $2,400
+Commission Percentage = 20%</div>
+    <div class="step-exp">The problem provides the final sale price of the painting and the percentage that represents the gallery&#x27;s commission.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Multiplier = 100% + Commission Percentage
+Multiplier = 100% + 20% = 120%</div>
+    <div class="step-exp">The total sale price includes the original price (100%) plus the commission percentage.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">120% = 1.20</div>
+    <div class="step-exp">Divide the percentage by 100 to convert it into a decimal for calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total Sale Price = Original Price × Multiplier (as a decimal)
+$2,400 = Original Price × 1.20</div>
+    <div class="step-exp">Let &#x27;P&#x27; be the original price. The equation is $2,400 = P * 1.20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Original Price = $2,400 / 1.20
+Original Price = $2,000</div>
+    <div class="step-exp">Divide the total sale price by the decimal multiplier to find the original price of the painting before commission.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $2,000 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

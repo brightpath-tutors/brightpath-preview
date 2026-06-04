@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Evaluating Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.007.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Evaluating Expressions</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.007.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">For her birthday, Chloe received $20 from her grandma. She spent $8 on a new book and then her dad gave her $5 for chores. Write and evaluate an expression to find out how much money Chloe has now.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $7</div><div class="option"><span class="opt-letter">B.</span> $13</div><div class="option"><span class="opt-letter">C.</span> $17</div><div class="option"><span class="opt-letter">D.</span> $23</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial money: $20. Spent: $8. Earned: $5.</div>
+    <div class="step-exp">Identify the initial amount, money spent, and money earned.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 20 - 8 + 5</div>
+    <div class="step-exp">Write the expression by subtracting the amount spent and adding the amount earned.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">20 - 8 = 12</div>
+    <div class="step-exp">Perform the subtraction first, as it appears first from left to right.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">12 + 5 = 17</div>
+    <div class="step-exp">Perform the addition with the result.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total money: $17</div>
+    <div class="step-exp">State the final amount of money Chloe has.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $17 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, Sarah scored 3 two-point shots and 2 three-point shots. Write and evaluate an expression to find her total points.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 11 points</div><div class="option"><span class="opt-letter">B.</span> 10 points</div><div class="option"><span class="opt-letter">C.</span> 12 points</div><div class="option"><span class="opt-letter">D.</span> 15 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Two-point shots: 3. Three-point shots: 2.</div>
+    <div class="step-exp">Identify the number of each type of shot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: (3 <em> 2) + (2 </em> 3)</div>
+    <div class="step-exp">Write the expression using multiplication for points per shot and addition for total points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 * 2 = 6</div>
+    <div class="step-exp">Calculate points from two-point shots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">2 * 3 = 6</div>
+    <div class="step-exp">Calculate points from three-point shots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">6 + 6 = 12</div>
+    <div class="step-exp">Add the results to find the total points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Total points: 12</div>
+    <div class="step-exp">State the final total points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 points (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preparing a recipe that calls for 4 cups of broth. He already has 1 cup and then pours in 2 more cups. Write and evaluate an expression to find how many more cups of broth he still needs.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0 cups</div><div class="option"><span class="opt-letter">B.</span> 3 cups</div><div class="option"><span class="opt-letter">C.</span> 1 cup</div><div class="option"><span class="opt-letter">D.</span> 5 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total needed: 4 cups. Already has: 1 cup. Poured in: 2 cups.</div>
+    <div class="step-exp">Identify the total amount needed, the amount already available, and the amount added.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 4 - (1 + 2)</div>
+    <div class="step-exp">Write the expression to subtract the total amount he has from the total needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1 + 2 = 3</div>
+    <div class="step-exp">Perform the addition inside the parentheses first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4 - 3 = 1</div>
+    <div class="step-exp">Subtract the result from the total needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Cups still needed: 1</div>
+    <div class="step-exp">State the final number of cups still needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1 cup (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a speed of 60 miles per hour for 3 hours. Then, it slows down to 40 miles per hour for 2 more hours. Write and evaluate an expression to find the total distance traveled.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 100 miles</div><div class="option"><span class="opt-letter">B.</span> 220 miles</div><div class="option"><span class="opt-letter">C.</span> 260 miles</div><div class="option"><span class="opt-letter">D.</span> 300 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">First leg: speed = 60 mph, time = 3 hours. Second leg: speed = 40 mph, time = 2 hours.</div>
+    <div class="step-exp">Identify speed and time for each part of the journey.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: (60 <em> 3) + (40 </em> 2)</div>
+    <div class="step-exp">Write the expression using multiplication (speed * time) for distance in each leg and addition for total distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">60 * 3 = 180</div>
+    <div class="step-exp">Calculate the distance for the first leg of the trip.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">40 * 2 = 80</div>
+    <div class="step-exp">Calculate the distance for the second leg of the trip.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">180 + 80 = 260</div>
+    <div class="step-exp">Add the distances from both legs to find the total distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Total distance: 260 miles</div>
+    <div class="step-exp">State the final total distance traveled.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 260 miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student has 5 classes. Each class requires 3 notebooks. He already has 7 notebooks. Write and evaluate an expression to find how many more notebooks he needs.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 notebooks</div><div class="option"><span class="opt-letter">B.</span> 12 notebooks</div><div class="option"><span class="opt-letter">C.</span> 8 notebooks</div><div class="option"><span class="opt-letter">D.</span> 22 notebooks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of classes: 5. Notebooks per class: 3. Notebooks already owned: 7.</div>
+    <div class="step-exp">Identify the number of classes, notebooks needed per class, and current notebooks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: (5 * 3) - 7</div>
+    <div class="step-exp">Write the expression to calculate total notebooks needed and subtract the ones he has.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5 * 3 = 15</div>
+    <div class="step-exp">Calculate the total number of notebooks required for all classes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15 - 7 = 8</div>
+    <div class="step-exp">Subtract the notebooks he already has from the total needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Notebooks still needed: 8</div>
+    <div class="step-exp">State the final number of notebooks still needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 notebooks (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes a bacteria culture. It starts with 50 bacteria. Every hour, the population triples for 2 hours, then 10 bacteria are removed. Write and evaluate an expression to find the final number of bacteria.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 140 bacteria</div><div class="option"><span class="opt-letter">B.</span> 290 bacteria</div><div class="option"><span class="opt-letter">C.</span> 440 bacteria</div><div class="option"><span class="opt-letter">D.</span> 490 bacteria</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial bacteria: 50. Multiplier: 3. Hours: 2. Removed: 10.</div>
+    <div class="step-exp">Identify the initial population, growth factor, duration, and amount removed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 50 * 3^2 - 10</div>
+    <div class="step-exp">Write the expression using exponents for repeated multiplication and subtraction for removal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3^2 = 9</div>
+    <div class="step-exp">Evaluate the exponent first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">50 * 9 = 450</div>
+    <div class="step-exp">Perform the multiplication next.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">450 - 10 = 440</div>
+    <div class="step-exp">Finally, perform the subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final bacteria count: 440</div>
+    <div class="step-exp">State the final number of bacteria.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 440 bacteria (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew built 4 walls, each requiring 15 bricks. They had a total of 70 bricks. After building the walls, they used 8 more bricks for a small archway. Write and evaluate an expression to find how many bricks are left.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 bricks</div><div class="option"><span class="opt-letter">B.</span> 10 bricks</div><div class="option"><span class="opt-letter">C.</span> 2 bricks</div><div class="option"><span class="opt-letter">D.</span> 26 bricks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total bricks: 70. Walls built: 4. Bricks per wall: 15. Archway bricks: 8.</div>
+    <div class="step-exp">Identify the total initial bricks, number of walls, bricks per wall, and additional bricks used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 70 - (4 * 15) - 8</div>
+    <div class="step-exp">Write the expression to subtract bricks for walls and archway from the total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 * 15 = 60</div>
+    <div class="step-exp">Calculate the number of bricks used for the walls.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">70 - 60 = 10</div>
+    <div class="step-exp">Subtract the bricks for walls from the total initial bricks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10 - 8 = 2</div>
+    <div class="step-exp">Subtract the bricks for the archway from the remaining bricks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Remaining bricks: 2</div>
+    <div class="step-exp">State the final number of bricks left.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2 bricks (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population starts at 1,000,000. It increases by 50,000 each year for 3 years, then decreases by 20,000 due to emigration. Write and evaluate an expression to find the final population.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1,030,000</div><div class="option"><span class="opt-letter">B.</span> 1,170,000</div><div class="option"><span class="opt-letter">C.</span> 1,130,000</div><div class="option"><span class="opt-letter">D.</span> 1,100,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population: 1,000,000. Annual increase: 50,000. Years: 3. Decrease: 20,000.</div>
+    <div class="step-exp">Identify the initial population, annual increase, number of years, and total decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 1,000,000 + (50,000 * 3) - 20,000</div>
+    <div class="step-exp">Write the expression to add the total increase over 3 years and then subtract the emigration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">50,000 * 3 = 150,000</div>
+    <div class="step-exp">Calculate the total population increase over 3 years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1,000,000 + 150,000 = 1,150,000</div>
+    <div class="step-exp">Add the total increase to the initial population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1,150,000 - 20,000 = 1,130,000</div>
+    <div class="step-exp">Subtract the emigration amount from the new total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final population: 1,130,000</div>
+    <div class="step-exp">State the final population count.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1,130,000 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company produces 120 gadgets per day. For 5 days, they operated at full capacity. On 2 of those days, 15 defective gadgets were found and discarded each day. Write and evaluate an expression to find the total number of non-defective gadgets produced.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 105 gadgets</div><div class="option"><span class="opt-letter">B.</span> 585 gadgets</div><div class="option"><span class="opt-letter">C.</span> 570 gadgets</div><div class="option"><span class="opt-letter">D.</span> 540 gadgets</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Gadgets per day: 120. Operating days: 5. Defective days: 2. Defective gadgets per day: 15.</div>
+    <div class="step-exp">Identify the daily production, total operating days, days with defects, and daily defective amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: (120 <em> 5) - (15 </em> 2)</div>
+    <div class="step-exp">Write the expression to calculate total produced and subtract total defective gadgets.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">120 * 5 = 600</div>
+    <div class="step-exp">Calculate the total number of gadgets produced over 5 days.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15 * 2 = 30</div>
+    <div class="step-exp">Calculate the total number of defective gadgets over 2 days.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">600 - 30 = 570</div>
+    <div class="step-exp">Subtract the total defective gadgets from the total produced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Non-defective gadgets: 570</div>
+    <div class="step-exp">State the final number of non-defective gadgets.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 570 gadgets (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A programmer is writing a complex code. She completes 25 lines of code per hour for 4 hours. Then, she takes a break for 1 hour, during which 5 lines of code are automatically generated. In the final 3 hours, she completes 30 lines of code per hour. Write and evaluate an expression to find the total number of lines of code.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 130 lines</div><div class="option"><span class="opt-letter">B.</span> 225 lines</div><div class="option"><span class="opt-letter">C.</span> 195 lines</div><div class="option"><span class="opt-letter">D.</span> 205 lines</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Phase 1: 25 lines/hr for 4 hrs. Break: 1 hr, 5 lines generated. Phase 2: 30 lines/hr for 3 hrs.</div>
+    <div class="step-exp">Identify lines per hour and duration for each phase, and lines generated during break.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Expression: (25 <em> 4) + 5 + (30 </em> 3)</div>
+    <div class="step-exp">Write the expression to sum the lines from each active coding phase and the lines generated during the break.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">25 * 4 = 100</div>
+    <div class="step-exp">Calculate lines of code from the first coding phase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">30 * 3 = 90</div>
+    <div class="step-exp">Calculate lines of code from the second coding phase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">100 + 5 = 105</div>
+    <div class="step-exp">Add the lines from the first phase and the generated lines.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">105 + 90 = 195</div>
+    <div class="step-exp">Add the result to the lines from the second phase.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Final total lines: 195</div>
+    <div class="step-exp">State the final total number of lines of code.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 225 lines (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

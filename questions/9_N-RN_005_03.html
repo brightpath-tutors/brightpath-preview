@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Closure of Rationals</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 9 | N-RN | Skill 9.N-RN.005.03<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Closure of Rationals</h1>
+<p class="skill-subtitle">Skill ID: 9.N-RN.005.03</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shop offers a discount where an item costs 1/2 of its original price. If the original price was $4/5 of a dollar, what is the discounted price as a single fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4/5</div><div class="option"><span class="opt-letter">B.</span> 5/7</div><div class="option"><span class="opt-letter">C.</span> 2/5</div><div class="option"><span class="opt-letter">D.</span> 8/5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of original price = 1/2</div>
+    <div class="step-exp">Identify the first rational number representing the discount factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Original price = 4/5</div>
+    <div class="step-exp">Identify the second rational number representing the original price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Discounted price = (1/2) * (4/5)</div>
+    <div class="step-exp">Multiply the two rational numbers to find the discounted price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Discounted price = (1 <em> 4) / (2 </em> 5) = 4/10</div>
+    <div class="step-exp">Multiply the numerators together and the denominators together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Simplify 4/10: Divide numerator and denominator by their greatest common divisor, which is 2. (4 ÷ 2) / (10 ÷ 2) = 2/5</div>
+    <div class="step-exp">Simplify the resulting fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2/5 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completed 3/4 of a track. If each lap is 2/3 of a kilometer, how many kilometers did the runner cover as a single fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5/7</div><div class="option"><span class="opt-letter">B.</span> 6/12</div><div class="option"><span class="opt-letter">C.</span> 9/8</div><div class="option"><span class="opt-letter">D.</span> 1/2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of track completed = 3/4</div>
+    <div class="step-exp">Identify the first rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Length of each lap = 2/3 km</div>
+    <div class="step-exp">Identify the second rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = (3/4) * (2/3)</div>
+    <div class="step-exp">Multiply the fraction of the track completed by the length of each lap.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = (3 <em> 2) / (4 </em> 3) = 6/12</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Simplify 6/12: Divide numerator and denominator by their greatest common divisor, which is 6. (6 ÷ 6) / (12 ÷ 6) = 1/2</div>
+    <div class="step-exp">Simplify the resulting fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/2 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef needs 2/5 of a block of cheese. If the block weighs 1/3 of a kilogram, how much cheese does he need as a single fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3/8</div><div class="option"><span class="opt-letter">B.</span> 2/15</div><div class="option"><span class="opt-letter">C.</span> 5/2</div><div class="option"><span class="opt-letter">D.</span> 1/5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of cheese needed = 2/5</div>
+    <div class="step-exp">Identify the first rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Weight of the block = 1/3 kg</div>
+    <div class="step-exp">Identify the second rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Amount of cheese = (2/5) * (1/3)</div>
+    <div class="step-exp">Multiply the fraction of cheese needed by the total weight of the block.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Amount of cheese = (2 <em> 1) / (5 </em> 3) = 2/15</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The fraction 2/15 is already in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction can be simplified. In this case, it cannot.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2/15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled for 2 1/4 hours at a constant speed. If the speed was 40 2/3 kilometers per hour, what is the total distance traveled as a single improper fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 80 1/6</div><div class="option"><span class="opt-letter">B.</span> 249/4</div><div class="option"><span class="opt-letter">C.</span> 183/2</div><div class="option"><span class="opt-letter">D.</span> 1098/12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Convert mixed numbers to improper fractions: 2 1/4 = (2*4 + 1)/4 = 9/4</div>
+    <div class="step-exp">Convert the first mixed number (hours) into an improper fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Convert mixed numbers to improper fractions: 40 2/3 = (40*3 + 2)/3 = 122/3</div>
+    <div class="step-exp">Convert the second mixed number (speed) into an improper fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = (9/4) * (122/3)</div>
+    <div class="step-exp">Multiply the two improper fractions to find the total distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = (9 <em> 122) / (4 </em> 3) = 1098/12</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Simplify 1098/12: Divide numerator and denominator by their greatest common divisor, which is 6. (1098 ÷ 6) / (12 ÷ 6) = 183/2</div>
+    <div class="step-exp">Simplify the resulting improper fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 183/2 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Of the students in a class, 5/8 passed an exam. Of those who passed, 2/5 scored above 90%. What fraction of the total class scored above 90% as a single fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1/4</div><div class="option"><span class="opt-letter">B.</span> 7/13</div><div class="option"><span class="opt-letter">C.</span> 10/40</div><div class="option"><span class="opt-letter">D.</span> 2/5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of students who passed = 5/8</div>
+    <div class="step-exp">Identify the first rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of those who passed and scored above 90% = 2/5</div>
+    <div class="step-exp">Identify the second rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of total class scoring above 90% = (5/8) * (2/5)</div>
+    <div class="step-exp">Multiply the two rational numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of total class scoring above 90% = (5 <em> 2) / (8 </em> 5) = 10/40</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Simplify 10/40: Divide numerator and denominator by their greatest common divisor, which is 10. (10 ÷ 10) / (40 ÷ 10) = 1/4</div>
+    <div class="step-exp">Simplify the resulting fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/4 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemical reaction uses 1/3 of a liter of solution per trial. If an experiment requires 2 1/2 trials, how much solution is needed in total, as a single fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7/2</div><div class="option"><span class="opt-letter">B.</span> 5/6</div><div class="option"><span class="opt-letter">C.</span> 17/6</div><div class="option"><span class="opt-letter">D.</span> 2/3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Amount of solution per trial = 1/3 liter</div>
+    <div class="step-exp">Identify the first rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of trials = 2 1/2</div>
+    <div class="step-exp">Identify the mixed number for the number of trials.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert 2 1/2 to an improper fraction: (2*2 + 1)/2 = 5/2</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction before multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total solution needed = (1/3) * (5/2)</div>
+    <div class="step-exp">Multiply the amount of solution per trial by the total number of trials.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total solution needed = (1 <em> 5) / (3 </em> 2) = 5/6</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The fraction 5/6 is already in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction can be simplified. In this case, it cannot.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5/6 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder has a piece of wood that is 3 1/3 meters long. If he needs to use 3/4 of this piece for a project, what is the length of the wood he uses as a single improper fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 1/2</div><div class="option"><span class="opt-letter">B.</span> 5/2</div><div class="option"><span class="opt-letter">C.</span> 10/4</div><div class="option"><span class="opt-letter">D.</span> 31/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Length of wood = 3 1/3 meters</div>
+    <div class="step-exp">Identify the mixed number representing the total length of the wood.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of wood to use = 3/4</div>
+    <div class="step-exp">Identify the rational number representing the portion of wood to be used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert 3 1/3 to an improper fraction: (3*3 + 1)/3 = 10/3</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Length of wood used = (10/3) * (3/4)</div>
+    <div class="step-exp">Multiply the improper fraction by the rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Length of wood used = (10 <em> 3) / (3 </em> 4) = 30/12</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplify 30/12: Divide numerator and denominator by their greatest common divisor, which is 6. (30 ÷ 6) / (12 ÷ 6) = 5/2</div>
+    <div class="step-exp">Simplify the resulting improper fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5/2 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock loses 1/10 of a minute every hour. If it runs for 3 1/2 hours, what is the total loss in minutes, expressed as a single improper fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7/20</div><div class="option"><span class="opt-letter">B.</span> -1/5</div><div class="option"><span class="opt-letter">C.</span> 17/5</div><div class="option"><span class="opt-letter">D.</span> -7/20</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rate of loss = -1/10 minute per hour</div>
+    <div class="step-exp">Represent the loss as a negative rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time duration = 3 1/2 hours</div>
+    <div class="step-exp">Identify the mixed number for the time duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert 3 1/2 to an improper fraction: (3*2 + 1)/2 = 7/2</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total loss = (-1/10) * (7/2)</div>
+    <div class="step-exp">Multiply the rate of loss by the time duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total loss = (-1 <em> 7) / (10 </em> 2) = -7/20</div>
+    <div class="step-exp">Multiply the numerators and the denominators. Remember that a negative times a positive is a negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The fraction -7/20 is already in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction can be simplified. In this case, it cannot.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -7/20 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Due to a natural disaster, a town&#x27;s population decreased by 1/5. Later, 3/4 of the remaining population moved away. What fraction of the original population remains as a single fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1/4</div><div class="option"><span class="opt-letter">B.</span> 1/5</div><div class="option"><span class="opt-letter">C.</span> 4/5</div><div class="option"><span class="opt-letter">D.</span> 1/20</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population remaining after decrease = 1 - 1/5 = 4/5</div>
+    <div class="step-exp">Calculate the fraction of the population that remained after the initial decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of remaining population that moved away = 3/4</div>
+    <div class="step-exp">Identify the fraction of the <em>remaining</em> population that moved away.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of remaining population <em>still</em> remaining = 1 - 3/4 = 1/4</div>
+    <div class="step-exp">Calculate the fraction of the <em>remaining</em> population that did <em>not</em> move away.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of original population remaining = (4/5) * (1/4)</div>
+    <div class="step-exp">Multiply the two fractions that represent the portions of the population that remained after each event.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of original population remaining = (4 <em> 1) / (5 </em> 4) = 4/20</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplify 4/20: Divide numerator and denominator by their greatest common divisor, which is 4. (4 ÷ 4) / (20 ÷ 4) = 1/5</div>
+    <div class="step-exp">Simplify the resulting fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/5 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 9 &bull; N-RN</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer&#x27;s battery drains at a rate of 1/8 per hour when idle. If a specific program increases this drain rate by 2 1/2 times, what is the new hourly drain rate as a single improper fraction in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 21/8</div><div class="option"><span class="opt-letter">B.</span> 5/16</div><div class="option"><span class="opt-letter">C.</span> 21/16</div><div class="option"><span class="opt-letter">D.</span> 1/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Idle drain rate = 1/8 per hour</div>
+    <div class="step-exp">Identify the initial rational number for the drain rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Increase factor = 2 1/2 times</div>
+    <div class="step-exp">Identify the mixed number representing the multiplication factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert 2 1/2 to an improper fraction: (2*2 + 1)/2 = 5/2</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">New hourly drain rate = (1/8) * (5/2)</div>
+    <div class="step-exp">Multiply the initial drain rate by the increase factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">New hourly drain rate = (1 <em> 5) / (8 </em> 2) = 5/16</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The fraction 5/16 is already in simplest form.</div>
+    <div class="step-exp">Check if the resulting fraction can be simplified. In this case, it cannot.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5/16 (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

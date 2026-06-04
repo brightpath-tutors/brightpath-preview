@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Square Roots</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.052<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Square Roots</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.052</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square rug has an area of 144 square feet. What is the length of one side of the rug?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 72 feet</div><div class="option"><span class="opt-letter">B.</span> 14.4 feet</div><div class="option"><span class="opt-letter">C.</span> 12 feet</div><div class="option"><span class="opt-letter">D.</span> 144 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The area of a square is calculated by squaring the length of one of its sides.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 144</div>
+    <div class="step-exp">Substitute the given area, 144 square feet, into the area formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √144</div>
+    <div class="step-exp">To find &#x27;s&#x27;, perform the inverse operation of squaring, which is taking the square root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√144 = 12</div>
+    <div class="step-exp">The square root of 144 is 12 because 12 * 12 = 144. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = 12 feet</div>
+    <div class="step-exp">The length of one side of the rug is 12 feet.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 feet (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baseball diamond is a square with an area of 8100 square feet. What is the distance between two consecutive bases?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 81 feet</div><div class="option"><span class="opt-letter">B.</span> 4050 feet</div><div class="option"><span class="opt-letter">C.</span> 900 feet</div><div class="option"><span class="opt-letter">D.</span> 90 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">A baseball diamond is a square, so its area is the square of its side length. The side length represents the distance between consecutive bases.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 8100</div>
+    <div class="step-exp">The area is given as 8100 square feet.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √8100</div>
+    <div class="step-exp">To find the side length, take the square root of the area. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√8100 = 90</div>
+    <div class="step-exp">Since 90 * 90 = 8100, the square root of 8100 is 90.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = 90 feet</div>
+    <div class="step-exp">The distance between two consecutive bases is 90 feet.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 90 feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square brownie pan has a bottom surface area of 225 square inches. What is the length of one side of the pan?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 112.5 inches</div><div class="option"><span class="opt-letter">B.</span> 15 inches</div><div class="option"><span class="opt-letter">C.</span> 22.5 inches</div><div class="option"><span class="opt-letter">D.</span> 25 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The brownie pan is square, so its area is the square of its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 225</div>
+    <div class="step-exp">Substitute the given area, 225 square inches, into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √225</div>
+    <div class="step-exp">To find &#x27;s&#x27;, take the square root of 225. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√225 = 15</div>
+    <div class="step-exp">The square root of 225 is 15 because 15 * 15 = 225.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = 15 inches</div>
+    <div class="step-exp">The length of one side of the brownie pan is 15 inches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 inches (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels on a square track. If the area enclosed by the track is 200 square miles, what is the length of one side of the track, in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> √200 miles</div><div class="option"><span class="opt-letter">B.</span> 100√2 miles</div><div class="option"><span class="opt-letter">C.</span> 10√2 miles</div><div class="option"><span class="opt-letter">D.</span> 10√20 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The track is square, so its area is the square of its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 200</div>
+    <div class="step-exp">Substitute the given area, 200 square miles, into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √200</div>
+    <div class="step-exp">Take the square root of 200. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">200 = 100 <em> 2
+s = √(100 </em> 2)</div>
+    <div class="step-exp">The largest perfect square factor of 200 is 100.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = √100 * √2</div>
+    <div class="step-exp">The square root of a product is the product of the square roots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 10√2</div>
+    <div class="step-exp">The square root of 100 is 10. The √2 cannot be simplified further.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">s = 10√2 miles</div>
+    <div class="step-exp">The length of one side of the track is 10√2 miles.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10√2 miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square whiteboard in a classroom has an area of 108 square feet. What is the length of one side of the whiteboard, in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9√3 feet</div><div class="option"><span class="opt-letter">B.</span> 3√12 feet</div><div class="option"><span class="opt-letter">C.</span> √108 feet</div><div class="option"><span class="opt-letter">D.</span> 6√3 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The whiteboard is square, so its area is the square of its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 108</div>
+    <div class="step-exp">Substitute the given area, 108 square feet, into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √108</div>
+    <div class="step-exp">To find the side length, take the square root of the area. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">108 = 36 <em> 3
+s = √(36 </em> 3)</div>
+    <div class="step-exp">The largest perfect square factor of 108 is 36.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = √36 * √3</div>
+    <div class="step-exp">Separate the square root of the product into the product of the square roots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 6√3</div>
+    <div class="step-exp">The square root of 36 is 6. The √3 cannot be simplified further.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">s = 6√3 feet</div>
+    <div class="step-exp">The length of one side of the whiteboard is 6√3 feet.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6√3 feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Scientists are studying a square petri dish with a surface area of 98 square millimeters. What is the length of one side of the petri dish, in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7√2 millimeters</div><div class="option"><span class="opt-letter">B.</span> 2√49 millimeters</div><div class="option"><span class="opt-letter">C.</span> 4.9√2 millimeters</div><div class="option"><span class="opt-letter">D.</span> √98 millimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The petri dish is square, so its surface area is the square of its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 98</div>
+    <div class="step-exp">Substitute the given area, 98 square millimeters, into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √98</div>
+    <div class="step-exp">To find the side length, take the square root of the area. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">98 = 49 <em> 2
+s = √(49 </em> 2)</div>
+    <div class="step-exp">The largest perfect square factor of 98 is 49.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = √49 * √2</div>
+    <div class="step-exp">Separate the square root of the product into the product of the square roots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 7√2</div>
+    <div class="step-exp">The square root of 49 is 7. The √2 cannot be simplified further.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">s = 7√2 millimeters</div>
+    <div class="step-exp">The length of one side of the petri dish is 7√2 millimeters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7√2 millimeters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a square piece of metal with an area of 192 square centimeters. What is the length of one side of the metal piece, in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 16√3 centimeters</div><div class="option"><span class="opt-letter">B.</span> 4√12 centimeters</div><div class="option"><span class="opt-letter">C.</span> 8√3 centimeters</div><div class="option"><span class="opt-letter">D.</span> √192 centimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The metal piece is square, so its area is found by squaring its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 192</div>
+    <div class="step-exp">The area is given as 192 square centimeters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √192</div>
+    <div class="step-exp">To find the side length, take the square root of the area. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">192 = 64 <em> 3
+s = √(64 </em> 3)</div>
+    <div class="step-exp">The largest perfect square factor of 192 is 64.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = √64 * √3</div>
+    <div class="step-exp">Separate the square root of the product into the product of the square roots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 8√3</div>
+    <div class="step-exp">The square root of 64 is 8. The √3 cannot be simplified further.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">s = 8√3 centimeters</div>
+    <div class="step-exp">The length of one side of the metal piece is 8√3 centimeters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8√3 centimeters (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The square of the number of minutes it takes for a certain chemical reaction to complete is 324. How many minutes does the reaction take?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 17 minutes</div><div class="option"><span class="opt-letter">B.</span> -18 minutes</div><div class="option"><span class="opt-letter">C.</span> 18 minutes</div><div class="option"><span class="opt-letter">D.</span> 162 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;m&#x27; be the number of minutes the reaction takes.</div>
+    <div class="step-exp">Represent the unknown number of minutes with a variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m² = 324</div>
+    <div class="step-exp">The phrase &#x27;the square of the number of minutes&#x27; means m², and &#x27;is 324&#x27; means it equals 324.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">m = √324</div>
+    <div class="step-exp">To isolate &#x27;m&#x27;, perform the inverse operation of squaring, which is taking the square root. We only consider the positive root since time cannot be negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">√324 = 18</div>
+    <div class="step-exp">The square root of 324 is 18 because 18 * 18 = 324.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">m = 18 minutes</div>
+    <div class="step-exp">The chemical reaction takes 18 minutes to complete.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 18 minutes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population density can be modeled by a square region. If the area of this region is 243 square miles, what is the length of one side of the region, in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 81√3 miles</div><div class="option"><span class="opt-letter">B.</span> 9√3 miles</div><div class="option"><span class="opt-letter">C.</span> √243 miles</div><div class="option"><span class="opt-letter">D.</span> 3√27 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The region is square, so its area is the square of its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 243</div>
+    <div class="step-exp">Substitute the given area, 243 square miles, into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √243</div>
+    <div class="step-exp">To find the side length, take the square root of the area. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">243 = 81 <em> 3
+s = √(81 </em> 3)</div>
+    <div class="step-exp">The largest perfect square factor of 243 is 81.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = √81 * √3</div>
+    <div class="step-exp">Separate the square root of the product into the product of the square roots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 9√3</div>
+    <div class="step-exp">The square root of 81 is 9. The √3 cannot be simplified further.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">s = 9√3 miles</div>
+    <div class="step-exp">The length of one side of the region is 9√3 miles.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9√3 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A square computer chip has an area of 128 square nanometers. What is the length of one side of the chip, in simplest radical form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8√2 nanometers</div><div class="option"><span class="opt-letter">B.</span> √128 nanometers</div><div class="option"><span class="opt-letter">C.</span> 64√2 nanometers</div><div class="option"><span class="opt-letter">D.</span> 4√8 nanometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Area (A) = side² (s²)</div>
+    <div class="step-exp">The computer chip is square, so its area is the square of its side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s² = 128</div>
+    <div class="step-exp">Substitute the given area, 128 square nanometers, into the formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">s = √128</div>
+    <div class="step-exp">To find the side length, take the square root of the area. Since length must be positive, we take the positive root.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">128 = 64 <em> 2
+s = √(64 </em> 2)</div>
+    <div class="step-exp">The largest perfect square factor of 128 is 64.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = √64 * √2</div>
+    <div class="step-exp">Separate the square root of the product into the product of the square roots.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 8√2</div>
+    <div class="step-exp">The square root of 64 is 8. The √2 cannot be simplified further.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">s = 8√2 nanometers</div>
+    <div class="step-exp">The length of one side of the chip is 8√2 nanometers.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8√2 nanometers (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

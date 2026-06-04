@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: One-Step Division Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.018.01<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">One-Step Division Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.018.01</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah divided her total shopping bill equally among 4 friends. Each friend paid $15. What was Sarah&#x27;s total shopping bill?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $60</div><div class="option"><span class="opt-letter">B.</span> $3.75</div><div class="option"><span class="opt-letter">C.</span> $11</div><div class="option"><span class="opt-letter">D.</span> $19</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;b&#x27; represent Sarah&#x27;s total shopping bill. The problem states that the total bill divided among 4 friends resulted in each friend paying $15. This can be written as the equation: b / 4 = 15</div>
+    <div class="step-exp">Translate the word problem into a mathematical equation where &#x27;b&#x27; is the unknown total bill.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the value of &#x27;b&#x27;, we need to isolate it. Currently, &#x27;b&#x27; is being divided by 4. The inverse operation of division is multiplication. Therefore, multiply both sides of the equation by 4: (b / 4) <em> 4 = 15 </em> 4</div>
+    <div class="step-exp">Apply the multiplication property of equality to both sides of the equation to undo the division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">b = 15 * 4 = 60</div>
+    <div class="step-exp">Perform the multiplication to calculate the total bill.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Sarah&#x27;s total shopping bill was $60.</div>
+    <div class="step-exp">State the final answer with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $60 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A track team divides its total practice time into 5 equal segments. Each segment lasts 20 minutes. What is the total practice time in minutes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 minutes</div><div class="option"><span class="opt-letter">B.</span> 4 minutes</div><div class="option"><span class="opt-letter">C.</span> 100 minutes</div><div class="option"><span class="opt-letter">D.</span> 25 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;t&#x27; represent the total practice time. The problem states that the total time divided into 5 segments results in each segment being 20 minutes. This forms the equation: t / 5 = 20</div>
+    <div class="step-exp">Formulate an equation to represent the problem, with &#x27;t&#x27; as the unknown total practice time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;t&#x27;, multiply both sides of the equation by 5: (t / 5) <em> 5 = 20 </em> 5</div>
+    <div class="step-exp">Use the multiplication property of equality to isolate &#x27;t&#x27; by performing the inverse operation of division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">t = 100</div>
+    <div class="step-exp">Calculate the product to find the total practice time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total practice time is 100 minutes.</div>
+    <div class="step-exp">State the final answer with appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 100 minutes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Grandma shared her secret cookie dough recipe among her 3 grandchildren. Each grandchild received enough dough to make 12 cookies. How many cookies does the full recipe make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9 cookies</div><div class="option"><span class="opt-letter">B.</span> 4 cookies</div><div class="option"><span class="opt-letter">C.</span> 36 cookies</div><div class="option"><span class="opt-letter">D.</span> 15 cookies</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;c&#x27; represent the total number of cookies the recipe makes. The problem states that when the total cookies are divided among 3 grandchildren, each gets 12 cookies. The equation is: c / 3 = 12</div>
+    <div class="step-exp">Translate the given information into an algebraic equation, defining &#x27;c&#x27; as the unknown total number of cookies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;c&#x27;, perform the inverse operation of division by multiplying both sides of the equation by 3: (c / 3) <em> 3 = 12 </em> 3</div>
+    <div class="step-exp">Apply the multiplication property of equality to isolate the variable &#x27;c&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">c = 36</div>
+    <div class="step-exp">Multiply the numbers to find the total number of cookies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The full recipe makes 36 cookies.</div>
+    <div class="step-exp">State the final answer with appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 36 cookies (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled a certain distance. If the trip was divided into 6 equal segments, and each segment was 45 miles long, what was the total distance traveled?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 270 miles</div><div class="option"><span class="opt-letter">B.</span> 51 miles</div><div class="option"><span class="opt-letter">C.</span> 39 miles</div><div class="option"><span class="opt-letter">D.</span> 7.5 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;d&#x27; represent the total distance traveled. The problem states that the total distance divided into 6 segments results in each segment being 45 miles. The equation is: d / 6 = 45</div>
+    <div class="step-exp">Set up an equation to model the problem, with &#x27;d&#x27; as the unknown total distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;d&#x27;, apply the multiplication property of equality by multiplying both sides of the equation by 6: (d / 6) <em> 6 = 45 </em> 6</div>
+    <div class="step-exp">Perform the inverse operation of division to isolate &#x27;d&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">d = 45 * 6</div>
+    <div class="step-exp">Simplify the left side and set up the multiplication for the right side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">d = (40 <em> 6) + (5 </em> 6) = 240 + 30 = 270</div>
+    <div class="step-exp">Break down the multiplication into easier parts (distributive property) and calculate the product.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The total distance traveled was 270 miles.</div>
+    <div class="step-exp">State the final answer with the appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 270 miles (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher divided a box of pencils among 8 students. Each student received 24 pencils. How many pencils were originally in the box?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 16 pencils</div><div class="option"><span class="opt-letter">B.</span> 192 pencils</div><div class="option"><span class="opt-letter">C.</span> 3 pencils</div><div class="option"><span class="opt-letter">D.</span> 32 pencils</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; represent the total number of pencils in the box. The problem states that &#x27;p&#x27; divided among 8 students results in each student receiving 24 pencils. This gives the equation: p / 8 = 24</div>
+    <div class="step-exp">Formulate an equation based on the problem description, with &#x27;p&#x27; as the unknown total number of pencils.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;p&#x27;, multiply both sides of the equation by 8: (p / 8) <em> 8 = 24 </em> 8</div>
+    <div class="step-exp">Apply the multiplication property of equality to undo the division and isolate &#x27;p&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 24 * 8</div>
+    <div class="step-exp">Simplify the left side and prepare for multiplication on the right side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">p = (20 <em> 8) + (4 </em> 8) = 160 + 32 = 192</div>
+    <div class="step-exp">Use the distributive property to multiply 24 by 8, then sum the partial products.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">There were originally 192 pencils in the box.</div>
+    <div class="step-exp">State the final answer including the unit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 192 pencils (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist measured a chemical solution. If the total volume was divided into 7 equal samples, and each sample contained 35 milliliters, what was the total volume of the chemical solution?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 245 milliliters</div><div class="option"><span class="opt-letter">B.</span> 5 milliliters</div><div class="option"><span class="opt-letter">C.</span> 42 milliliters</div><div class="option"><span class="opt-letter">D.</span> 28 milliliters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;v&#x27; represent the total volume of the chemical solution. The problem states that &#x27;v&#x27; divided into 7 equal samples results in each sample having 35 milliliters. This translates to the equation: v / 7 = 35</div>
+    <div class="step-exp">Define the variable &#x27;v&#x27; for the unknown total volume and set up the equation based on the problem statement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find &#x27;v&#x27;, we need to perform the inverse operation of division. Multiply both sides of the equation by 7: (v / 7) <em> 7 = 35 </em> 7</div>
+    <div class="step-exp">Apply the multiplication property of equality to cancel out the division and isolate &#x27;v&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">v = 35 * 7</div>
+    <div class="step-exp">Simplify the left side and prepare to multiply on the right side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">v = (30 <em> 7) + (5 </em> 7) = 210 + 35 = 245</div>
+    <div class="step-exp">Use the distributive property to multiply 35 by 7 and sum the partial products.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The total volume of the chemical solution was 245 milliliters.</div>
+    <div class="step-exp">State the final answer with the correct units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 245 milliliters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a long beam into 9 equal sections. If each section needs to be 18 feet long, what is the total length of the beam required?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 162 feet</div><div class="option"><span class="opt-letter">B.</span> 27 feet</div><div class="option"><span class="opt-letter">C.</span> 2 feet</div><div class="option"><span class="opt-letter">D.</span> 9 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;l&#x27; represent the total length of the beam. The problem states that the total length divided into 9 sections results in each section being 18 feet. This forms the equation: l / 9 = 18</div>
+    <div class="step-exp">Represent the unknown total length with &#x27;l&#x27; and set up the equation based on the given information.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;l&#x27;, multiply both sides of the equation by 9: (l / 9) <em> 9 = 18 </em> 9</div>
+    <div class="step-exp">Apply the multiplication property of equality to isolate &#x27;l&#x27; by performing the inverse operation of division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">l = 18 * 9</div>
+    <div class="step-exp">Simplify the left side and set up the multiplication for the right side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">l = (10 <em> 9) + (8 </em> 9) = 90 + 72 = 162</div>
+    <div class="step-exp">Break down the multiplication using the distributive property and calculate the total length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The total length of the beam required is 162 feet.</div>
+    <div class="step-exp">State the final answer with appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 162 feet (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A historian is studying an ancient civilization. She found that the total lifespan of the civilization was divided into 15 equal eras, and each era lasted 80 years. How many years did the civilization last in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 95 years</div><div class="option"><span class="opt-letter">B.</span> 1200 years</div><div class="option"><span class="opt-letter">C.</span> 65 years</div><div class="option"><span class="opt-letter">D.</span> 5.33 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;y&#x27; represent the total lifespan of the civilization. The problem states that the total lifespan divided into 15 eras results in each era lasting 80 years. This can be written as the equation: y / 15 = 80</div>
+    <div class="step-exp">Formulate the equation by assigning &#x27;y&#x27; to the unknown total lifespan and translating the problem statement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;y&#x27;, we need to undo the division by 15. Multiply both sides of the equation by 15: (y / 15) <em> 15 = 80 </em> 15</div>
+    <div class="step-exp">Apply the multiplication property of equality to isolate the variable &#x27;y&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">y = 80 * 15</div>
+    <div class="step-exp">Simplify the left side of the equation and prepare to calculate the product on the right.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">y = 80 <em> (10 + 5) = (80 </em> 10) + (80 * 5)</div>
+    <div class="step-exp">Break down the multiplication using the distributive property to simplify the calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">y = 800 + 400 = 1200</div>
+    <div class="step-exp">Perform the multiplications and sum the results to find the total lifespan.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The civilization lasted a total of 1200 years.</div>
+    <div class="step-exp">State the final answer with appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1200 years (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population is divided into 25 districts. If each district has an average population of 3200 people, what is the total population of the city?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3175 people</div><div class="option"><span class="opt-letter">B.</span> 3225 people</div><div class="option"><span class="opt-letter">C.</span> 128 people</div><div class="option"><span class="opt-letter">D.</span> 80,000 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;p&#x27; represent the total population of the city. The problem states that the total population divided into 25 districts results in each district having 3200 people. This gives the equation: p / 25 = 3200</div>
+    <div class="step-exp">Set up an equation with &#x27;p&#x27; as the unknown total population based on the problem description.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;p&#x27;, multiply both sides of the equation by 25: (p / 25) <em> 25 = 3200 </em> 25</div>
+    <div class="step-exp">Apply the multiplication property of equality to isolate &#x27;p&#x27; by performing the inverse operation of division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 3200 * 25</div>
+    <div class="step-exp">Simplify the left side and prepare for the multiplication on the right.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">p = (32 <em> 100) </em> 25 = 32 <em> (100 </em> 25) = 32 * 2500</div>
+    <div class="step-exp">Rearrange factors to simplify multiplication, or use a mental math strategy like (3200 * 100) / 4.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">p = 80000</div>
+    <div class="step-exp">Perform the multiplication to calculate the total population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The total population of the city is 80,000 people.</div>
+    <div class="step-exp">State the final answer with appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 80,000 people (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer company ships its laptops in crates. If a shipment contains a total number of laptops divided into 12 crates, and each crate holds 125 laptops, how many laptops are in the entire shipment?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10.41... laptops</div><div class="option"><span class="opt-letter">B.</span> 113 laptops</div><div class="option"><span class="opt-letter">C.</span> 1500 laptops</div><div class="option"><span class="opt-letter">D.</span> 137 laptops</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;l&#x27; represent the total number of laptops in the shipment. The problem states that the total number of laptops divided into 12 crates results in 125 laptops per crate. This forms the equation: l / 12 = 125</div>
+    <div class="step-exp">Define the variable &#x27;l&#x27; for the unknown total number of laptops and set up the equation based on the problem statement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To solve for &#x27;l&#x27;, apply the multiplication property of equality by multiplying both sides of the equation by 12: (l / 12) <em> 12 = 125 </em> 12</div>
+    <div class="step-exp">Perform the inverse operation of division to isolate &#x27;l&#x27; on one side of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">l = 125 * 12</div>
+    <div class="step-exp">Simplify the left side and set up the multiplication for the right side.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">l = 125 <em> (10 + 2) = (125 </em> 10) + (125 * 2)</div>
+    <div class="step-exp">Use the distributive property to break down the multiplication into simpler parts.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">l = 1250 + 250 = 1500</div>
+    <div class="step-exp">Perform the individual multiplications and then add the products to find the total number of laptops.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">There are 1500 laptops in the entire shipment.</div>
+    <div class="step-exp">State the final answer including the appropriate units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1500 laptops (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

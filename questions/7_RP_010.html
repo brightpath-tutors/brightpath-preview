@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Proportional Graphs</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | RP | Skill 7.RP.010<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Proportional Graphs</h1>
+<p class="skill-subtitle">Skill ID: 7.RP.010</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A graph shows the total cost (y-axis) in dollars for buying different numbers of t-shirts (x-axis). Which of the following graphs represents a proportional relationship between the number of t-shirts and the total cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> A straight line that passes through (0, 5).</div><div class="option"><span class="opt-letter">B.</span> A straight line that passes through the origin (0,0).</div><div class="option"><span class="opt-letter">C.</span> A straight line that passes through (5,0).</div><div class="option"><span class="opt-letter">D.</span> A curved line that starts at (0,0).</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A proportional relationship is characterized by two key features: it must be represented by a straight line, and this line must pass through the origin (0,0).</div>
+    <div class="step-exp">To identify a proportional relationship from a graph, look for a straight line that starts at the origin (0,0).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A: A straight line that passes through (0, 5). (Not proportional as it doesn&#x27;t pass through (0,0))
+B: A curved line that starts at (0,0). (Not proportional as it&#x27;s not a straight line)
+C: A straight line that passes through the origin (0,0). (This fits the criteria)
+D: A straight line that passes through (5,0). (Not proportional as it doesn&#x27;t pass through (0,0))</div>
+    <div class="step-exp">Evaluate each option against the definition of a proportional graph.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Only option C describes a graph that is a straight line and passes through the origin (0,0).</div>
+    <div class="step-exp">Based on the analysis, option C is the only one that correctly describes a proportional relationship.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: A straight line that passes through the origin (0,0). (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The graph shows the distance a runner covers over time. The x-axis represents time in minutes, and the y-axis represents distance in meters. The graph is a straight line passing through the origin and the point (2, 800). What is the constant of proportionality (unit rate) of the runner&#x27;s speed in meters per minute?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 meters per minute</div><div class="option"><span class="opt-letter">B.</span> 800 meters per minute</div><div class="option"><span class="opt-letter">C.</span> 1600 meters per minute</div><div class="option"><span class="opt-letter">D.</span> 400 meters per minute</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The graph passes through the origin (0,0) and the point (2, 800). Here, x = 2 minutes and y = 800 meters.</div>
+    <div class="step-exp">Extract the x and y values from the given point on the graph.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">For a proportional relationship, the constant of proportionality (k) is found by dividing the y-coordinate by the x-coordinate (k = y/x).</div>
+    <div class="step-exp">The constant of proportionality is the unit rate, calculated as the ratio of the dependent variable (y) to the independent variable (x).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">k = 800 meters / 2 minutes = 400 meters/minute.</div>
+    <div class="step-exp">Divide the distance by the time to find the speed per minute.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The constant of proportionality is 400 meters per minute.</div>
+    <div class="step-exp">The unit rate, or constant of proportionality, is 400 meters per minute.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 400 meters per minute (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A proportional graph shows the relationship between the amount of sugar (x-axis) in grams and the number of cookies (y-axis) that can be made. The line passes through the point (50, 20). What does the point (50, 20) represent in this context?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 grams of sugar can make 50 cookies.</div><div class="option"><span class="opt-letter">B.</span> 50 cookies can be made per gram of sugar.</div><div class="option"><span class="opt-letter">C.</span> The ratio of cookies to sugar is 50:20.</div><div class="option"><span class="opt-letter">D.</span> 50 grams of sugar can make 20 cookies.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The x-axis represents the amount of sugar in grams. The y-axis represents the number of cookies.</div>
+    <div class="step-exp">Identify what each axis represents from the problem description.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">For any point (x, y) on the graph, x corresponds to the value on the x-axis, and y corresponds to the value on the y-axis.</div>
+    <div class="step-exp">Recall that the first value in an ordered pair (x, y) refers to the horizontal axis, and the second value refers to the vertical axis.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">This means that when the amount of sugar is 50 grams (x-value), the number of cookies that can be made is 20 (y-value).</div>
+    <div class="step-exp">Substitute the specific values from the point into the context of the axes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The point (50, 20) means 50 grams of sugar can make 20 cookies.</div>
+    <div class="step-exp">Formulate a sentence that clearly explains the meaning of the coordinates in the given scenario.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 50 grams of sugar can make 20 cookies. (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A train travels at a constant speed. A graph shows the distance traveled (y-axis) in kilometers versus time (x-axis) in hours. The graph passes through the origin and points (1, 65) and (3, 195). What is the constant of proportionality (speed) of the train in kilometers per hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 65 kilometers per hour</div><div class="option"><span class="opt-letter">B.</span> 130 kilometers per hour</div><div class="option"><span class="opt-letter">C.</span> 3 kilometers per hour</div><div class="option"><span class="opt-letter">D.</span> 195 kilometers per hour</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem states the train travels at a constant speed, and the graph passes through the origin, indicating a proportional relationship. The constant of proportionality (k) represents the speed in km/hr.</div>
+    <div class="step-exp">A constant speed implies a proportional relationship when distance is plotted against time starting from zero. The constant of proportionality is the unit rate (speed).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Choose any point (x, y) on the line (other than the origin) and use the formula k = y/x.</div>
+    <div class="step-exp">For any point (x,y) on a proportional graph, the ratio y/x gives the constant of proportionality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">k = 65 km / 1 hour = 65 km/hr.</div>
+    <div class="step-exp">Using the point (1, 65), divide the distance (65) by the time (1) to find the speed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">k = 195 km / 3 hours = 65 km/hr. Both points yield the same constant.</div>
+    <div class="step-exp">Using a second point helps confirm the constant of proportionality and ensures accuracy.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The constant of proportionality is 65 kilometers per hour.</div>
+    <div class="step-exp">The train&#x27;s constant speed, or constant of proportionality, is 65 km/hr.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 65 kilometers per hour (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A graph represents the number of pages a student reads (y-axis) over time (x-axis) in minutes. The graph is a straight line passing through the origin and the point (10, 25). Write an equation that represents this proportional relationship, where &#x27;p&#x27; is the number of pages and &#x27;m&#x27; is the time in minutes.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p = 0.4m</div><div class="option"><span class="opt-letter">B.</span> p = 2.5m</div><div class="option"><span class="opt-letter">C.</span> m = 2.5p</div><div class="option"><span class="opt-letter">D.</span> p = 10m + 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The graph passes through the origin and (10, 25), indicating a proportional relationship. x = minutes (m) and y = pages (p).</div>
+    <div class="step-exp">A straight line through the origin signifies a proportional relationship, and the variables are assigned to the axes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">k = y/x = p/m.</div>
+    <div class="step-exp">The constant of proportionality is the ratio of the dependent variable (pages) to the independent variable (minutes).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">k = 25 pages / 10 minutes = 2.5 pages/minute.</div>
+    <div class="step-exp">Divide the number of pages by the time to find the reading rate per minute.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">For a proportional relationship, the equation is in the form y = kx. Substituting p for y, m for x, and 2.5 for k, the equation is p = 2.5m.</div>
+    <div class="step-exp">The general form of a proportional equation is y = kx. Substitute the identified variables and the calculated constant of proportionality.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: p = 2.5m (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is observing the growth of a plant. A proportional graph shows the plant&#x27;s height (y-axis) in centimeters over time (x-axis) in weeks. The graph includes the point (4, 12). Based on this relationship, what will be the plant&#x27;s height after 7 weeks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 21 centimeters</div><div class="option"><span class="opt-letter">B.</span> 19 centimeters</div><div class="option"><span class="opt-letter">C.</span> 15 centimeters</div><div class="option"><span class="opt-letter">D.</span> 28 centimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The graph is proportional and includes the point (4, 12). This means after 4 weeks, the plant is 12 cm tall.</div>
+    <div class="step-exp">A proportional graph passing through the origin and a given point indicates a constant rate of growth.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">k = y/x = 12 cm / 4 weeks = 3 cm/week.</div>
+    <div class="step-exp">The constant of proportionality represents the growth rate of the plant per week.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The equation for this relationship is y = 3x (where y is height and x is weeks).</div>
+    <div class="step-exp">Use the general form y = kx and substitute the calculated k value and the variables.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute x = 7 into the equation: y = 3 * 7 = 21 cm.</div>
+    <div class="step-exp">To find the height after 7 weeks, substitute 7 for x (weeks) into the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The plant&#x27;s height after 7 weeks will be 21 centimeters.</div>
+    <div class="step-exp">The calculated height of the plant after 7 weeks is 21 cm.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 21 centimeters (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Two construction teams, Team A and Team B, are laying bricks. A proportional graph shows the number of bricks laid (y-axis) versus time (x-axis) in hours for each team. Team A&#x27;s line passes through (2, 500) and Team B&#x27;s line passes through (3, 600). Which team lays bricks at a faster rate, and what is that rate in bricks per hour?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Team A, 250 bricks per hour</div><div class="option"><span class="opt-letter">B.</span> Team B, 200 bricks per hour</div><div class="option"><span class="opt-letter">C.</span> Team B, 1800 bricks per hour</div><div class="option"><span class="opt-letter">D.</span> Team A, 1000 bricks per hour</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For Team A, k_A = y/x = 500 bricks / 2 hours = 250 bricks/hour.</div>
+    <div class="step-exp">Calculate the unit rate for Team A by dividing the number of bricks laid by the time taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">For Team B, k_B = y/x = 600 bricks / 3 hours = 200 bricks/hour.</div>
+    <div class="step-exp">Calculate the unit rate for Team B similarly.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Team A&#x27;s rate (250 bricks/hour) is greater than Team B&#x27;s rate (200 bricks/hour).</div>
+    <div class="step-exp">Compare the two calculated unit rates to determine which team is faster.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Team A lays bricks at a faster rate, which is 250 bricks per hour.</div>
+    <div class="step-exp">The faster team is Team A, and its rate is 250 bricks per hour.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: Team A, 250 bricks per hour (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock manufacturer&#x27;s machine produces springs at a constant rate. A proportional graph shows the number of springs produced (y-axis) versus time (x-axis) in minutes. The point (15, 750) is on the graph, but the y-value for x = 20 minutes is missing. What is the number of springs produced in 20 minutes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 937.5 springs</div><div class="option"><span class="opt-letter">B.</span> 15000 springs</div><div class="option"><span class="opt-letter">C.</span> 1000 springs</div><div class="option"><span class="opt-letter">D.</span> 800 springs</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The graph is proportional, and the machine produces 750 springs in 15 minutes.</div>
+    <div class="step-exp">A proportional relationship means the production rate is constant, and we can determine this rate from the given point.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">k = y/x = 750 springs / 15 minutes = 50 springs/minute.</div>
+    <div class="step-exp">The constant of proportionality is the unit rate of spring production per minute.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The equation for the number of springs (s) produced in &#x27;m&#x27; minutes is s = 50m.</div>
+    <div class="step-exp">Formulate an equation using the general proportional form y = kx, substituting the variables and the calculated constant.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute m = 20 minutes into the equation: s = 50 * 20 = 1000 springs.</div>
+    <div class="step-exp">Substitute the desired time (20 minutes) into the established equation to find the corresponding number of springs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">In 20 minutes, 1000 springs are produced.</div>
+    <div class="step-exp">The machine will produce 1000 springs in 20 minutes based on the constant rate.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 1000 springs (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A biologist is studying a rapidly growing bacteria colony. A proportional graph shows the area (y-axis) in square millimeters covered by the bacteria versus the number of bacteria (x-axis). The line passes through the origin and the point (5,000,000, 15). What is the average area covered by <em>one</em> bacterium, in square millimeters, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.0000015 square millimeters</div><div class="option"><span class="opt-letter">B.</span> 0.000003 square millimeters</div><div class="option"><span class="opt-letter">C.</span> 5,000,000 square millimeters</div><div class="option"><span class="opt-letter">D.</span> 333,333.33 square millimeters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The graph is proportional. The point (5,000,000, 15) means 5,000,000 bacteria cover an area of 15 square millimeters. The x-axis is number of bacteria, y-axis is area.</div>
+    <div class="step-exp">Identify the independent and dependent variables and interpret the given data point in the context of the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">We need the area covered per <em>one</em> bacterium. This is the constant of proportionality, k = y/x.</div>
+    <div class="step-exp">The &#x27;average area covered by one bacterium&#x27; is the unit rate, which is equivalent to the constant of proportionality (y/x).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">k = Area / Number of bacteria = 15 sq mm / 5,000,000 bacteria.</div>
+    <div class="step-exp">Set up the division to find the constant of proportionality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">k = 15 / 5,000,000.
+Divide both numerator and denominator by 5: 3 / 1,000,000.
+Convert to decimal: 0.000003.</div>
+    <div class="step-exp">Perform the division and express the result as a decimal to find the area per bacterium.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The average area per bacterium is 0.000003 square millimeters.</div>
+    <div class="step-exp">The unit area covered by one bacterium is 0.000003 square millimeters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 0.000003 square millimeters (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company manufactures microchips. Two different machines, Machine P and Machine Q, produce chips at constant rates. Proportional graphs show the number of chips produced (y-axis) versus time (x-axis) in minutes. Machine P&#x27;s line passes through (5, 1200) and Machine Q&#x27;s line passes through (8, 1600). How many more chips will the faster machine produce than the slower machine in 10 minutes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 chips</div><div class="option"><span class="opt-letter">B.</span> 40 chips</div><div class="option"><span class="opt-letter">C.</span> 400 chips</div><div class="option"><span class="opt-letter">D.</span> 200 chips</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">k_P = 1200 chips / 5 minutes = 240 chips/minute.</div>
+    <div class="step-exp">Determine the production rate for Machine P by dividing the number of chips by the time taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">k_Q = 1600 chips / 8 minutes = 200 chips/minute.</div>
+    <div class="step-exp">Determine the production rate for Machine Q by dividing the number of chips by the time taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Machine P (240 chips/min) is faster than Machine Q (200 chips/min).</div>
+    <div class="step-exp">Compare the two rates to identify which machine is faster.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Chips_P = 240 chips/min * 10 minutes = 2400 chips.</div>
+    <div class="step-exp">Multiply Machine P&#x27;s rate by 10 minutes to find its total production in that time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Chips_Q = 200 chips/min * 10 minutes = 2000 chips.</div>
+    <div class="step-exp">Multiply Machine Q&#x27;s rate by 10 minutes to find its total production in that time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Difference = Chips_P - Chips_Q = 2400 - 2000 = 400 chips.</div>
+    <div class="step-exp">Subtract the slower machine&#x27;s total production from the faster machine&#x27;s total production.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">The faster machine will produce 400 more chips than the slower machine in 10 minutes.</div>
+    <div class="step-exp">The final difference in chips produced after 10 minutes is 400.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> C: 400 chips (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

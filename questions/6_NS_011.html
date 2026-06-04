@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Multiply Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.011<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Multiply Integers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.011</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Alex spent $7 on snacks each day for 4 days. If we represent spending as a negative integer, what is the total change in his money over these 4 days?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 28</div><div class="option"><span class="opt-letter">B.</span> -28</div><div class="option"><span class="opt-letter">C.</span> -24</div><div class="option"><span class="opt-letter">D.</span> -3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Spending $7 is represented as -7. The number of days is 4.</div>
+    <div class="step-exp">We translate the real-world scenario into integers. Spending money is a decrease, hence negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the daily spending by the number of days: 4 * (-7).</div>
+    <div class="step-exp">Since Alex spent the same amount each day for multiple days, multiplication is the correct operation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying a positive integer by a negative integer, the product is negative. 4 <em> 7 = 28, so 4 </em> (-7) = -28.</div>
+    <div class="step-exp">The product of a positive and a negative integer is always negative. The total change in Alex&#x27;s money is a decrease of $28.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -28 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a game, a team loses 5 points for each penalty. If they incur 3 penalties, what is the total change in their score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15</div><div class="option"><span class="opt-letter">B.</span> -8</div><div class="option"><span class="opt-letter">C.</span> 8</div><div class="option"><span class="opt-letter">D.</span> -15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Losing 5 points is represented as -5. The number of penalties is 3.</div>
+    <div class="step-exp">Points lost are a decrease, so they are represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change in score, multiply the points lost per penalty by the number of penalties: 3 * (-5).</div>
+    <div class="step-exp">Since the same number of points is lost for each penalty, multiplication is used to find the total loss.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying a positive integer by a negative integer, the product is negative. 3 <em> 5 = 15, so 3 </em> (-5) = -15.</div>
+    <div class="step-exp">The product of a positive and a negative integer is always negative. The team&#x27;s score decreases by a total of 15 points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew is digging a trench. They dig down 2 feet per hour. If they work for 6 hours, what is the total change in depth from the starting ground level? Represent depth below ground as a negative integer.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4</div><div class="option"><span class="opt-letter">B.</span> -12</div><div class="option"><span class="opt-letter">C.</span> 12</div><div class="option"><span class="opt-letter">D.</span> -8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Digging down 2 feet is represented as -2. The number of hours is 6.</div>
+    <div class="step-exp">Depth below ground is a decrease, so it is represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change in depth, multiply the depth change per hour by the number of hours: 6 * (-2).</div>
+    <div class="step-exp">Since the crew digs at a constant rate for several hours, multiplication is used to find the total depth change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying a positive integer by a negative integer, the product is negative. 6 <em> 2 = 12, so 6 </em> (-2) = -12.</div>
+    <div class="step-exp">The product of a positive and a negative integer is always negative. The total change in depth is 12 feet below the starting level.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a lab decreased by 3 degrees Celsius per hour for 6 consecutive hours. What was the total change in temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18</div><div class="option"><span class="opt-letter">B.</span> 3</div><div class="option"><span class="opt-letter">C.</span> -12</div><div class="option"><span class="opt-letter">D.</span> -18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A decrease of 3 degrees is represented as -3. The number of hours is 6.</div>
+    <div class="step-exp">A decrease in temperature is represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the hourly temperature change by the number of hours: 6 * (-3).</div>
+    <div class="step-exp">Since the temperature decreased by the same amount each hour, multiplication is used to find the total change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying a positive integer by a negative integer, the product is negative. 6 <em> 3 = 18, so 6 </em> (-3) = -18.</div>
+    <div class="step-exp">The product of a positive and a negative integer is always negative. The total temperature change is a decrease of 18 degrees Celsius.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -18 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A drone&#x27;s system <em>reverses</em> the effect of 3 altitude drops of 5 feet each (represented as -5 per drop). What is the total change in altitude achieved by these reversals?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -8</div><div class="option"><span class="opt-letter">B.</span> 8</div><div class="option"><span class="opt-letter">C.</span> 15</div><div class="option"><span class="opt-letter">D.</span> -15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">An altitude drop of 5 feet is -5. Reversing the effect of 3 drops means multiplying by -3.</div>
+    <div class="step-exp">An altitude drop is negative. &#x27;Reversing the effect&#x27; implies a change in the opposite direction, which can be represented by multiplying by a negative number of instances.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the &#x27;reversal&#x27; factor by the altitude change per drop: (-3) * (-5).</div>
+    <div class="step-exp">Since the drone reverses multiple drops, multiplication is used to find the cumulative effect.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying two negative integers, the product is positive. 3 <em> 5 = 15, so (-3) </em> (-5) = 15.</div>
+    <div class="step-exp">The product of two negative integers is always positive. The total change in altitude is an increase of 15 feet.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a school fundraiser, points were deducted for incorrect guesses in a trivia game. Each incorrect guess resulted in a loss of 6 points (represented as -6). The organizers realized they had made a mistake and decided to <em>cancel</em> the deduction for 4 students, effectively removing 4 instances of -6 points. What is the total change in points due to canceling these deductions?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 24</div><div class="option"><span class="opt-letter">B.</span> -10</div><div class="option"><span class="opt-letter">C.</span> -24</div><div class="option"><span class="opt-letter">D.</span> 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A loss of 6 points is -6. Canceling the deduction for 4 students means multiplying by -4.</div>
+    <div class="step-exp">A loss is negative. &#x27;Canceling a deduction&#x27; is equivalent to reversing a negative change, which is represented by multiplying by a negative number of instances.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the &#x27;cancellation&#x27; factor by the points lost per guess: (-4) * (-6).</div>
+    <div class="step-exp">Since multiple deductions are canceled, multiplication is used to find the total change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying two negative integers, the product is positive. 4 <em> 6 = 24, so (-4) </em> (-6) = 24.</div>
+    <div class="step-exp">The product of two negative integers is always positive. Canceling the deductions results in a total increase of 24 points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 24 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A calendar app marks appointments in the past with a negative number of days. If an overdue task was originally set for 5 days ago (represented as -5), but then it was decided to <em>remove</em> the &#x27;overdue&#x27; status for 7 similar tasks (effectively canceling the -5 days for each), what is the total change in &quot;days past due&quot; that results from removing these 7 tasks from the overdue list?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 35</div><div class="option"><span class="opt-letter">B.</span> -35</div><div class="option"><span class="opt-letter">C.</span> 12</div><div class="option"><span class="opt-letter">D.</span> -12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">An overdue task is 5 days ago, represented as -5. Removing the &#x27;overdue&#x27; status for 7 tasks means multiplying by -7.</div>
+    <div class="step-exp">Days in the past are negative. &#x27;Removing&#x27; or &#x27;canceling&#x27; a negative status is a reversal, represented by a negative multiplier.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the &#x27;removal&#x27; factor by the days past due per task: (-7) * (-5).</div>
+    <div class="step-exp">Since multiple tasks have their overdue status removed, multiplication is used to find the total change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying two negative integers, the product is positive. 7 <em> 5 = 35, so (-7) </em> (-5) = 35.</div>
+    <div class="step-exp">The product of two negative integers is always positive. Removing the overdue status for these tasks results in a positive change to the &#x27;days past due&#x27; count, indicating they are less overdue.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 35 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cryptocurrency&#x27;s value decreased by 12 points overnight (represented as -12). An investor, using a specific trading strategy, decided to <em>reverse</em> the financial impact of 2 such decreases on his portfolio. What is the total change in his portfolio&#x27;s value due to these reversals?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -14</div><div class="option"><span class="opt-letter">B.</span> -24</div><div class="option"><span class="opt-letter">C.</span> 14</div><div class="option"><span class="opt-letter">D.</span> 24</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A decrease of 12 points is -12. Reversing the impact of 2 decreases means multiplying by -2.</div>
+    <div class="step-exp">A decrease in value is negative. &#x27;Reversing the impact&#x27; means undoing a negative change, represented by a negative multiplier for the number of instances.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the &#x27;reversal&#x27; factor by the value change per decrease: (-2) * (-12).</div>
+    <div class="step-exp">Since multiple decreases are reversed, multiplication is used to find the cumulative effect.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">When multiplying two negative integers, the product is positive. 2 <em> 12 = 24, so (-2) </em> (-12) = 24.</div>
+    <div class="step-exp">The product of two negative integers is always positive. Reversing these decreases results in a total increase of 24 points to the portfolio&#x27;s value.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 24 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An art gallery uses a scoring system where each critical negative review lowers a piece&#x27;s public appeal by 3 points (represented as -3). An influential art blogger published 5 such negative reviews. However, the gallery&#x27;s website had a bug that <em>reversed</em> the effect of each negative review on the score. What is the total change to the public appeal score due to the blogger&#x27;s reviews and the website bug?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15</div><div class="option"><span class="opt-letter">B.</span> 7</div><div class="option"><span class="opt-letter">C.</span> -7</div><div class="option"><span class="opt-letter">D.</span> -15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Each negative review lowers appeal by -3 points. The blogger published 5 reviews. The website bug <em>reversed</em> the effect, which is equivalent to multiplying by -1.</div>
+    <div class="step-exp">A decrease is negative. &#x27;Reversing the effect&#x27; of a negative change is another negative, so we have three factors: -1 (reversal), -3 (per review), and 5 (number of reviews).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the total change, multiply the &#x27;reversal&#x27; factor, the score change per review, and the number of reviews: (-1) <em> (-3) </em> 5.</div>
+    <div class="step-exp">We combine all factors through multiplication to find the final score change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">First, multiply the two negative integers: (-1) <em> (-3) = 3. (The product of two negatives is positive).
+Next, multiply the result by the remaining positive integer: 3 </em> 5 = 15.</div>
+    <div class="step-exp">Multiplying two negative numbers yields a positive result. Then, multiplying that positive result by another positive number yields a positive result. The total change is an increase of 15 points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s blood sugar level decreases by 2 units (represented as -2) for every missed therapy session. A specific medication for this patient <em>reverses</em> the effect of 3 such decreases (represented as -3 instances of reversal). However, a measurement error caused the final reading to be <em>inverted</em> (multiplied by -1). What is the patient&#x27;s final adjusted blood sugar level change?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -6</div><div class="option"><span class="opt-letter">B.</span> 5</div><div class="option"><span class="opt-letter">C.</span> 6</div><div class="option"><span class="opt-letter">D.</span> -5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A decrease of 2 units is -2. Reversing the effect of 3 decreases means multiplying by -3. The final reading is <em>inverted</em>, meaning multiplying by -1.</div>
+    <div class="step-exp">A decrease is negative. &#x27;Reversing the effect&#x27; of a negative change is another negative. &#x27;Inverting&#x27; the final reading also means multiplying by -1. So we have three negative factors.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the final adjusted change, multiply all three factors: (-2) <em> (-3) </em> (-1).</div>
+    <div class="step-exp">We combine all factors through multiplication to find the final adjusted change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">First, multiply the first two negative integers: (-2) <em> (-3) = 6. (The product of two negatives is positive).
+Next, multiply the result by the remaining negative integer: 6 </em> (-1) = -6. (The product of a positive and a negative is negative).</div>
+    <div class="step-exp">Multiplying two negative numbers yields a positive result. Then, multiplying that positive result by a negative number yields a negative result. The final adjusted change is a decrease of 6 units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -6 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

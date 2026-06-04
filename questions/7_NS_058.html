@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Order Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.058<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Order Integers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.058</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a particularly tight month, a student tracked their daily bank account balance. The balances recorded were: -$15, $30, -$5, $0, -$20. Order these balances from least to greatest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -$5, -$15, -$20, $0, $30</div><div class="option"><span class="opt-letter">B.</span> $30, $0, -$5, -$15, -$20</div><div class="option"><span class="opt-letter">C.</span> -$20, -$15, -$5, $0, $30</div><div class="option"><span class="opt-letter">D.</span> $0, -$5, -$15, -$20, $30</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">When ordering integers, especially negative numbers, think of their position on a number line. Numbers further to the left are smaller (lesser value), and numbers further to the right are larger (greater value).</div>
+    <div class="step-exp">Negative numbers are less than zero and positive numbers. A larger absolute value for a negative number means it is a smaller actual value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Numbers: -15 (negative), 30 (positive), -5 (negative), 0 (zero), -20 (negative).</div>
+    <div class="step-exp">Separating numbers by their sign helps in preliminary ordering. All negative numbers are less than 0, and 0 is less than all positive numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -15, -5, -20:
+-20 is furthest to the left on the number line.
+-15 is to the right of -20.
+-5 is to the right of -15.
+So, the order of negative numbers from least to greatest is: -20, -15, -5.</div>
+    <div class="step-exp">For negative numbers, the one with the larger absolute value is actually smaller. |-20| = 20, |-15| = 15, |-5| = 5. Since 20 &gt; 15 &gt; 5, then -20 &lt; -15 &lt; -5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The ordered negative numbers are: -20, -15, -5.
+Zero comes next: 0.
+The positive number is: 30.
+Combining them: -20, -15, -5, 0, 30.</div>
+    <div class="step-exp">The final order from least to greatest is all negative numbers, then zero, then all positive numbers.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -$20, -$15, -$5, $0, $30 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a hockey league, team performance is measured by goal differential. The differentials for five teams at mid-season were: -8, +5, -12, +2, 0. Order these differentials from greatest to least.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> +5, +2, 0, -8, -12</div><div class="option"><span class="opt-letter">B.</span> +5, +2, -8, -12, 0</div><div class="option"><span class="opt-letter">C.</span> -12, -8, 0, +2, +5</div><div class="option"><span class="opt-letter">D.</span> 0, +2, +5, -8, -12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">When ordering integers from greatest to least, think of their position on a number line. Numbers further to the right are larger (greater value), and numbers further to the left are smaller (lesser value).</div>
+    <div class="step-exp">Positive numbers are greater than zero and negative numbers. A smaller absolute value for a negative number means it is a larger actual value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Numbers: -8 (negative), +5 (positive), -12 (negative), +2 (positive), 0 (zero).</div>
+    <div class="step-exp">Separating numbers by their sign helps in preliminary ordering. All positive numbers are greater than 0, and 0 is greater than all negative numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +5, +2:
++5 is greater than +2.
+So, the order of positive numbers from greatest to least is: +5, +2.</div>
+    <div class="step-exp">For positive numbers, the one with the larger value is greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -8, -12:
+-8 is closer to zero than -12, so -8 is greater than -12.
+So, the order of negative numbers from greatest to least is: -8, -12.</div>
+    <div class="step-exp">For negative numbers, the one with the smaller absolute value is actually larger. |-8| = 8, |-12| = 12. Since 8 &lt; 12, then -8 &gt; -12.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The ordered positive numbers are: +5, +2.
+Zero comes next: 0.
+The ordered negative numbers are: -8, -12.
+Combining them: +5, +2, 0, -8, -12.</div>
+    <div class="step-exp">The final order from greatest to least is all positive numbers, then zero, then all negative numbers.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> +5, +2, 0, -8, -12 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef noted the temperature changes (in degrees Celsius) in a freezer throughout the day: -10°C, -2°C, -15°C, -7°C. Order these temperatures from coldest (least) to warmest (greatest).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -2°C, -7°C, -10°C, -15°C</div><div class="option"><span class="opt-letter">B.</span> -15°C, -10°C, -7°C, -2°C</div><div class="option"><span class="opt-letter">C.</span> -10°C, -15°C, -2°C, -7°C</div><div class="option"><span class="opt-letter">D.</span> -7°C, -2°C, -10°C, -15°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Coldest means the least value, warmest means the greatest value. For negative numbers, the number with the larger absolute value represents a colder temperature (lesser value).</div>
+    <div class="step-exp">Temperatures work like a number line: lower numbers are colder, higher numbers are warmer. All given temperatures are negative, so we are ordering negative integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Numbers: -10, -2, -15, -7.</div>
+    <div class="step-exp">All numbers are negative, which simplifies the comparison as they are all on the left side of zero on the number line.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -10, -2, -15, -7:
+-15 is the smallest (coldest).
+-10 is next smallest.
+-7 is next.
+-2 is the largest (warmest).
+So, the order from least to greatest is: -15, -10, -7, -2.</div>
+    <div class="step-exp">When comparing negative numbers, the number with the largest absolute value is the smallest. |-15| = 15, |-10| = 10, |-7| = 7, |-2| = 2. Since 15 &gt; 10 &gt; 7 &gt; 2, then -15 &lt; -10 &lt; -7 &lt; -2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15°C, -10°C, -7°C, -2°C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A group of friends charted their elevation changes (in meters) during a hiking trip relative to their starting point: +120, -50, +200, -10, -150. Order these elevation changes from highest (greatest) to lowest (least).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -10, -50, -150, +120, +200</div><div class="option"><span class="opt-letter">B.</span> +200, +120, -10, -50, -150</div><div class="option"><span class="opt-letter">C.</span> -150, -50, -10, +120, +200</div><div class="option"><span class="opt-letter">D.</span> +200, +120, -150, -50, -10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Highest elevation means the greatest value, lowest elevation means the least value. We need to order the numbers from greatest to least.</div>
+    <div class="step-exp">Positive numbers indicate an increase in elevation (above starting point), negative numbers indicate a decrease (below starting point). Zero would be at the starting point.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Positive numbers: +120, +200
+Negative numbers: -50, -10, -150
+(There is no zero in this set)</div>
+    <div class="step-exp">This separation helps to organize the numbers before ordering, as positive numbers are always greater than negative numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +120, +200:
++200 is greater than +120.
+Order: +200, +120.</div>
+    <div class="step-exp">For positive numbers, the larger the number, the greater its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -50, -10, -150:
+-10 is closest to zero, so it is the greatest negative number.
+-50 is next.
+-150 is furthest from zero, so it is the least negative number.
+Order: -10, -50, -150.</div>
+    <div class="step-exp">For negative numbers, the smaller the absolute value, the greater the number. |-10|=10, |-50|=50, |-150|=150. Since 10 &lt; 50 &lt; 150, then -10 &gt; -50 &gt; -150.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered positive numbers and ordered negative numbers:
++200, +120, -10, -50, -150.</div>
+    <div class="step-exp">The final order should flow from the largest positive to the smallest positive (or zero if present) to the largest negative to the smallest negative.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> +200, +120, -10, -50, -150 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Five students competed in a math challenge where points could be positive or negative for correct or incorrect answers. Their scores were: -30, 25, -10, 0, 15. Order the students&#x27; scores from lowest to highest.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25, 15, 0, -10, -30</div><div class="option"><span class="opt-letter">B.</span> -30, -10, 0, 15, 25</div><div class="option"><span class="opt-letter">C.</span> 0, -10, -30, 15, 25</div><div class="option"><span class="opt-letter">D.</span> -10, -30, 0, 15, 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Lowest score means the least value, highest score means the greatest value. We need to order the numbers from least to greatest.</div>
+    <div class="step-exp">Negative scores are lower than zero, and positive scores are higher than zero. A larger absolute value for a negative score means it&#x27;s a worse (lower) score.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -30, -10
+Zero: 0
+Positive numbers: 25, 15</div>
+    <div class="step-exp">This helps to structure the ordering. All negative numbers will come before zero, and all positive numbers will come after zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -30, -10:
+-30 is smaller (furthest left on the number line) than -10.
+Order: -30, -10.</div>
+    <div class="step-exp">For negative numbers, the one with the larger absolute value is smaller. |-30|=30, |-10|=10. Since 30 &gt; 10, then -30 &lt; -10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing 25, 15:
+15 is smaller than 25.
+Order: 15, 25.</div>
+    <div class="step-exp">For positive numbers, the smaller the number, the less its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered negative numbers, then zero, then the ordered positive numbers:
+-30, -10, 0, 15, 25.</div>
+    <div class="step-exp">The final ordered list should start with the smallest (most negative) and end with the largest (most positive).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -30, -10, 0, 15, 25 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A science experiment recorded temperature deviations (in degrees Fahrenheit) from the ideal: -6, +3, -1, -12, +8. Order these deviations from smallest (most negative) to largest (most positive).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -6, -12, -1, +3, +8</div><div class="option"><span class="opt-letter">B.</span> -1, -6, -12, +3, +8</div><div class="option"><span class="opt-letter">C.</span> +8, +3, -1, -6, -12</div><div class="option"><span class="opt-letter">D.</span> -12, -6, -1, +3, +8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Smallest deviation means the most negative value, largest deviation means the most positive value. We need to order the numbers from least to greatest.</div>
+    <div class="step-exp">Think of a thermometer; numbers further down are smaller, numbers further up are larger. Negative values are below zero, positive values are above zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -6, -1, -12
+Positive numbers: +3, +8
+(There is no zero in this set)</div>
+    <div class="step-exp">This initial separation helps ensure that negative numbers are placed before positive numbers in the final ordered list.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -6, -1, -12:
+-12 is the smallest (furthest from zero in the negative direction).
+-6 is next.
+-1 is the largest negative (closest to zero).
+Order: -12, -6, -1.</div>
+    <div class="step-exp">For negative numbers, the one with the largest absolute value is the smallest. |-12|=12, |-6|=6, |-1|=1. Since 12 &gt; 6 &gt; 1, then -12 &lt; -6 &lt; -1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +3, +8:
++3 is smaller than +8.
+Order: +3, +8.</div>
+    <div class="step-exp">For positive numbers, the smaller the number, the less its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered negative numbers, then the ordered positive numbers:
+-12, -6, -1, +3, +8.</div>
+    <div class="step-exp">The final order should progress from the most negative value to the most positive value.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12, -6, -1, +3, +8 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A civil engineer is inspecting ground stability. They record several depth measurements relative to a reference point (in feet): -25, +10, -5, -30, +15. Order these measurements from deepest (most negative) to shallowest (most positive).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> +15, +10, -5, -25, -30</div><div class="option"><span class="opt-letter">B.</span> -30, -25, -5, +10, +15</div><div class="option"><span class="opt-letter">C.</span> -5, -25, -30, +10, +15</div><div class="option"><span class="opt-letter">D.</span> -25, -30, -5, +10, +15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Deepest means the most negative value, shallowest means the most positive value. We need to order the numbers from least to greatest.</div>
+    <div class="step-exp">Negative values represent depths below the reference point, while positive values represent heights above it. The further a negative number is from zero, the deeper it is.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -25, -5, -30
+Positive numbers: +10, +15
+(There is no zero in this set)</div>
+    <div class="step-exp">This separation is crucial for correct ordering as negative values are always less than positive values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -25, -5, -30:
+-30 is the smallest (deepest).
+-25 is next smallest.
+-5 is the largest negative (shallowest negative).
+Order: -30, -25, -5.</div>
+    <div class="step-exp">For negative numbers, the one with the largest absolute value is the smallest. |-30|=30, |-25|=25, |-5|=5. Since 30 &gt; 25 &gt; 5, then -30 &lt; -25 &lt; -5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +10, +15:
++10 is smaller than +15.
+Order: +10, +15.</div>
+    <div class="step-exp">For positive numbers, the smaller the number, the less its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered negative numbers, then the ordered positive numbers:
+-30, -25, -5, +10, +15.</div>
+    <div class="step-exp">The final order should go from the deepest point to the highest point.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -30, -25, -5, +10, +15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A time traveler recorded several temporal displacements (in years relative to 2023): -1200, +50, -300, -2500, +150. Order these displacements from earliest past (least) to furthest future (greatest).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -1200, -2500, -300, +50, +150</div><div class="option"><span class="opt-letter">B.</span> -2500, -1200, -300, +50, +150</div><div class="option"><span class="opt-letter">C.</span> -300, -1200, -2500, +50, +150</div><div class="option"><span class="opt-letter">D.</span> +150, +50, -300, -1200, -2500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Earliest past means the most negative value (least), furthest future means the most positive value (greatest). We need to order the numbers from least to greatest.</div>
+    <div class="step-exp">Negative years represent time before 2023, positive years represent time after 2023. The larger the absolute value of a negative year, the further back in time it is (and thus a smaller value).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -1200, -300, -2500
+Positive numbers: +50, +150
+(There is no zero in this set)</div>
+    <div class="step-exp">This step helps categorize the displacements into past and future, making the ordering process clearer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -1200, -300, -2500:
+-2500 is the smallest (furthest past).
+-1200 is next.
+-300 is the largest negative (closest to 2023 in the past).
+Order: -2500, -1200, -300.</div>
+    <div class="step-exp">For negative integers, the larger the absolute value, the smaller the number. |-2500|=2500, |-1200|=1200, |-300|=300. Since 2500 &gt; 1200 &gt; 300, then -2500 &lt; -1200 &lt; -300.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +50, +150:
++50 is smaller than +150.
+Order: +50, +150.</div>
+    <div class="step-exp">For positive numbers, the smaller the number, the less its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered negative numbers, then the ordered positive numbers:
+-2500, -1200, -300, +50, +150.</div>
+    <div class="step-exp">The final order should span from the furthest point in the past to the furthest point in the future.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -2500, -1200, -300, +50, +150 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Population changes in several cities over a decade (in thousands of people) were recorded as: -75, +12, -180, +5, -20. Order these population changes from greatest increase (greatest) to greatest decrease (least).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> +5, +12, -20, -75, -180</div><div class="option"><span class="opt-letter">B.</span> +12, +5, -20, -75, -180</div><div class="option"><span class="opt-letter">C.</span> -180, -75, -20, +5, +12</div><div class="option"><span class="opt-letter">D.</span> +12, +5, -180, -75, -20</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Greatest increase means the most positive value (greatest), greatest decrease means the most negative value (least). We need to order the numbers from greatest to least.</div>
+    <div class="step-exp">Positive numbers represent population growth, negative numbers represent population decline. The ordering reflects the impact from a positive change to a negative change.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Positive numbers: +12, +5
+Negative numbers: -75, -180, -20
+(There is no zero in this set)</div>
+    <div class="step-exp">Grouping by sign helps to establish the overall structure of the ordered list: positive values first, then negative values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +12, +5:
++12 is greater than +5.
+Order: +12, +5.</div>
+    <div class="step-exp">For positive numbers, the larger the number, the greater its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -75, -180, -20:
+-20 is closest to zero, so it is the greatest negative number.
+-75 is next.
+-180 is furthest from zero, so it is the least negative number.
+Order: -20, -75, -180.</div>
+    <div class="step-exp">For negative numbers, the smaller the absolute value, the greater the number. |-20|=20, |-75|=75, |-180|=180. Since 20 &lt; 75 &lt; 180, then -20 &gt; -75 &gt; -180.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered positive numbers, then the ordered negative numbers:
++12, +5, -20, -75, -180.</div>
+    <div class="step-exp">The final list shows the progression from the largest increase to the largest decrease in population.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> +12, +5, -20, -75, -180 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A health tracker recorded changes in a patient&#x27;s vital signs relative to their baseline over a week: -9, +1, -14, +7, -2. Order these changes from most concerning (least) to least concerning (greatest).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -9, -14, -2, +1, +7</div><div class="option"><span class="opt-letter">B.</span> -14, -9, -2, +1, +7</div><div class="option"><span class="opt-letter">C.</span> +7, +1, -2, -9, -14</div><div class="option"><span class="opt-letter">D.</span> -2, -9, -14, +1, +7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Most concerning means the most extreme negative change (least value), least concerning means the most extreme positive change (greatest value, or closest to zero if all are negative). We need to order the numbers from least to greatest.</div>
+    <div class="step-exp">Significant deviations, whether positive or negative, can be concerning. However, typically &#x27;most concerning&#x27; implies the largest negative deviation from a healthy baseline, while &#x27;least concerning&#x27; could be the smallest deviation overall, or the largest positive deviation if that&#x27;s considered less problematic.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Negative numbers: -9, -14, -2
+Positive numbers: +1, +7
+(There is no zero in this set)</div>
+    <div class="step-exp">Separating numbers into negative and positive groups is the first step, as negative numbers are always smaller than positive numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing -9, -14, -2:
+-14 is the smallest (most concerning negative change).
+-9 is next.
+-2 is the largest negative (least concerning negative change).
+Order: -14, -9, -2.</div>
+    <div class="step-exp">For negative numbers, the larger the absolute value, the smaller the number. |-14|=14, |-9|=9, |-2|=2. Since 14 &gt; 9 &gt; 2, then -14 &lt; -9 &lt; -2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Comparing +1, +7:
++1 is smaller than +7.
+Order: +1, +7.</div>
+    <div class="step-exp">For positive numbers, the smaller the number, the less its value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Combine the ordered negative numbers, then the ordered positive numbers:
+-14, -9, -2, +1, +7.</div>
+    <div class="step-exp">The final list arranges the vital sign changes from the most extreme negative deviation to the most extreme positive deviation, representing a scale from most concerning to least concerning.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -14, -9, -2, +1, +7 (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

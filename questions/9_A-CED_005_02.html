@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Modeling Constraints</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 9 | A-CED | Skill 9.A-CED.005.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Modeling Constraints</h1>
+<p class="skill-subtitle">Skill ID: 9.A-CED.005.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bakery sells cupcakes for $3.50 each. They want to make at least $250 in cupcake sales today. Write an inequality to represent the number of cupcakes (<code>c</code>) the bakery needs to sell.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.50 + c &gt;= 250</div><div class="option"><span class="opt-letter">B.</span> 3.50c &gt; 250</div><div class="option"><span class="opt-letter">C.</span> 3.50c &gt;= 250</div><div class="option"><span class="opt-letter">D.</span> c / 3.50 &gt;= 250</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost per cupcake = $3.50; Number of cupcakes = c</div>
+    <div class="step-exp">Identify the cost per cupcake and the variable representing the number of cupcakes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total sales = 3.50 * c</div>
+    <div class="step-exp">Formulate the algebraic expression for the total sales by multiplying the cost per cupcake by the number of cupcakes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Condition: Total sales must be &#x27;at least&#x27; $250. &#x27;At least&#x27; translates to &gt;=.</div>
+    <div class="step-exp">Interpret the phrase &#x27;at least $250&#x27; as greater than or equal to.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3.50c &gt;= 250</div>
+    <div class="step-exp">Combine the total sales expression and the inequality condition to form the final inequality.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3.50c &gt;= 250 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball player scores 2 points for each regular basket and 3 points for each three-pointer. In a game, the player scored a total of 25 points. Let &#x27;x&#x27; be the number of regular baskets and &#x27;y&#x27; be the number of three-pointers. Write an equation to represent the total points scored.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2x + 3y = 25</div><div class="option"><span class="opt-letter">B.</span> 3x + 2y = 25</div><div class="option"><span class="opt-letter">C.</span> 2x + 3y &gt;= 25</div><div class="option"><span class="opt-letter">D.</span> 2x * 3y = 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Regular basket points = 2; Three-pointer points = 3</div>
+    <div class="step-exp">Identify the points awarded for each type of basket.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of regular baskets = x; Number of three-pointers = y</div>
+    <div class="step-exp">Define the variables for the number of each type of basket.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Points from regular baskets = 2x; Points from three-pointers = 3y</div>
+    <div class="step-exp">Formulate expressions for the total points obtained from each type of basket.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total points = 2x + 3y = 25</div>
+    <div class="step-exp">Add the expressions for points from each type of basket and set the sum equal to the given total points scored in the game to form the equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2x + 3y = 25 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires at most 180 grams of sugar. If &#x27;s&#x27; represents the amount of sugar in grams, write an inequality for this constraint.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> s &gt;= 180</div><div class="option"><span class="opt-letter">B.</span> s = 180</div><div class="option"><span class="opt-letter">C.</span> s &lt; 180</div><div class="option"><span class="opt-letter">D.</span> s &lt;= 180</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Amount of sugar = s grams</div>
+    <div class="step-exp">Identify the variable representing the amount of sugar.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Maximum allowed sugar = 180 grams</div>
+    <div class="step-exp">Identify the maximum limit for the amount of sugar.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Condition: &#x27;at most&#x27; 180 grams. &#x27;At most&#x27; translates to &lt;=.</div>
+    <div class="step-exp">Interpret the phrase &#x27;at most 180 grams&#x27; as less than or equal to.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">s &lt;= 180</div>
+    <div class="step-exp">Combine the variable and the inequality condition to form the final inequality.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> s &lt;= 180 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a speed of &#x27;s&#x27; kilometers per hour for 4 hours and then at a speed of &#x27;s + 20&#x27; kilometers per hour for 3 hours. The total distance traveled is less than 400 kilometers. Write an inequality representing this situation.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4s + 3(s + 20) &lt;= 400</div><div class="option"><span class="opt-letter">B.</span> 4s + 3(s + 20) &lt; 400</div><div class="option"><span class="opt-letter">C.</span> 4s + 3s + 20 &lt; 400</div><div class="option"><span class="opt-letter">D.</span> 4(s + 3) + 3(s + 20) &lt; 400</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Segment 1: Speed = s, Time = 4 hours; Segment 2: Speed = s + 20, Time = 3 hours; Total distance limit = 400 km</div>
+    <div class="step-exp">Identify variables and given values for speed, time, and the total distance limit.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Distance for segment 1 = speed * time = 4s</div>
+    <div class="step-exp">Calculate the distance covered in the first segment using the formula distance = speed × time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distance for segment 2 = speed * time = 3(s + 20)</div>
+    <div class="step-exp">Calculate the distance covered in the second segment, remembering to use parentheses for the speed expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 4s + 3(s + 20)</div>
+    <div class="step-exp">Add the distances from both segments to find the total distance traveled.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Condition: Total distance is &#x27;less than&#x27; 400 km. &#x27;Less than&#x27; translates to &lt;.</div>
+    <div class="step-exp">Interpret the phrase &#x27;less than 400 kilometers&#x27; as a strict inequality.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">4s + 3(s + 20) &lt; 400</div>
+    <div class="step-exp">Combine the total distance expression and the inequality condition to form the final inequality.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4s + 3(s + 20) &lt; 400 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student needs to earn a total average of at least 88% on three tests to pass a course. The first test score was 79%, the second was 94%. Let &#x27;x&#x27; be the score on the third test. Write an inequality to find the minimum score needed on the third test. (Assume scores are out of 100).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 79 + 94 + x &gt;= 88</div><div class="option"><span class="opt-letter">B.</span> (79 + 94 + x) / 3 &gt; 88</div><div class="option"><span class="opt-letter">C.</span> (79 + 94 + x) / 3 &gt;= 88</div><div class="option"><span class="opt-letter">D.</span> (79 + 94 + x) &gt;= 3 * 88</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Test 1 score = 79%; Test 2 score = 94%; Target average = 88%</div>
+    <div class="step-exp">Identify the known test scores and the desired target average.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Test 3 score = x</div>
+    <div class="step-exp">Define the variable for the unknown third test score.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Sum of three test scores = 79 + 94 + x</div>
+    <div class="step-exp">Calculate the sum of all three test scores.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Average score = (79 + 94 + x) / 3</div>
+    <div class="step-exp">Calculate the average of the three test scores by dividing their sum by 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Condition: Average score must be &#x27;at least&#x27; 88%. &#x27;At least&#x27; translates to &gt;=.</div>
+    <div class="step-exp">Interpret the phrase &#x27;at least 88%&#x27; as greater than or equal to.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">(79 + 94 + x) / 3 &gt;= 88</div>
+    <div class="step-exp">Combine the average score expression and the inequality condition to form the final inequality.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (79 + 94 + x) / 3 &gt;= 88 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist is mixing two solutions. Solution A contains 30% acid, and Solution B contains 70% acid. She needs to make a mixture of &#x27;A&#x27; liters of Solution A and &#x27;B&#x27; liters of Solution B such that the total amount of acid is exactly 25 liters. Write an equation for this constraint.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.30A + 0.70B = 25</div><div class="option"><span class="opt-letter">B.</span> 30A + 70B = 25</div><div class="option"><span class="opt-letter">C.</span> A + B = 25</div><div class="option"><span class="opt-letter">D.</span> 0.30A + 0.70B &gt;= 25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Solution A acid concentration = 30% = 0.30; Solution B acid concentration = 70% = 0.70</div>
+    <div class="step-exp">Identify the acid concentrations for each solution and convert percentages to decimals.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Volume of Solution A = A liters; Volume of Solution B = B liters</div>
+    <div class="step-exp">Identify the variables representing the volumes of each solution.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Amount of acid from Solution A = 0.30A; Amount of acid from Solution B = 0.70B</div>
+    <div class="step-exp">Calculate the amount of acid contributed by each solution by multiplying its volume by its acid concentration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total amount of acid = 0.30A + 0.70B = 25</div>
+    <div class="step-exp">Add the amounts of acid from both solutions and set the sum equal to the target total amount of acid (25 liters) to form the equation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.30A + 0.70B = 25 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to cut a wooden plank into two pieces. Let the length of the first piece be <code>x</code> meters and the second piece be <code>y</code> meters. The second piece must be at least 3 meters longer than the first piece. Write an inequality for this constraint.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> x &gt;= y + 3</div><div class="option"><span class="opt-letter">B.</span> y = x + 3</div><div class="option"><span class="opt-letter">C.</span> y &gt; x + 3</div><div class="option"><span class="opt-letter">D.</span> y &gt;= x + 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Length of first piece = x meters; Length of second piece = y meters</div>
+    <div class="step-exp">Identify the variables representing the lengths of the two pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Condition: Second piece is &#x27;at least 3 meters longer than&#x27; the first piece.</div>
+    <div class="step-exp">Interpret the phrase &#x27;at least 3 meters longer than&#x27;. This means the length of the second piece (y) must be greater than or equal to the length of the first piece (x) plus 3 meters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">y &gt;= x + 3</div>
+    <div class="step-exp">Write the inequality based on this interpretation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y &gt;= x + 3 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project requires a minimum of 50 hours of work per week. Sarah works &#x27;h&#x27; hours on weekdays, and 1.5 times that amount on weekends. She cannot work more than 75 hours total in a week. Write a system of inequalities to represent these constraints.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> h + 1.5 &gt;= 50 and h + 1.5 &lt;= 75</div><div class="option"><span class="opt-letter">B.</span> 2.5h &gt;= 50 and 2.5h &lt;= 75</div><div class="option"><span class="opt-letter">C.</span> 2.5h = 50 and 2.5h = 75</div><div class="option"><span class="opt-letter">D.</span> 2.5h &gt; 50 and 2.5h &lt; 75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Weekday hours = h; Weekend hours = 1.5h</div>
+    <div class="step-exp">Define the variable for weekday hours and express weekend hours based on it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total hours = h + 1.5h = 2.5h</div>
+    <div class="step-exp">Calculate the total hours worked by summing weekday and weekend hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 1: Minimum of 50 hours. Total hours &gt;= 50 =&gt; 2.5h &gt;= 50.</div>
+    <div class="step-exp">Translate the &#x27;minimum hours&#x27; constraint into an inequality using the total hours expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 2: Cannot work more than 75 hours. Total hours &lt;= 75 =&gt; 2.5h &lt;= 75.</div>
+    <div class="step-exp">Translate the &#x27;maximum hours&#x27; constraint into an inequality using the total hours expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">System of inequalities: 2.5h &gt;= 50 and 2.5h &lt;= 75</div>
+    <div class="step-exp">State both inequalities as a system representing all constraints.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.5h &gt;= 50 and 2.5h &lt;= 75 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A wildlife reserve has a population of deer (<code>d</code>) and rabbits (<code>r</code>). The total number of animals must be between 1200 and 2000, inclusive. Additionally, the number of deer must be no more than one-third the number of rabbits. Write a system of inequalities to represent these population constraints.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> d + r &gt;= 1200 and d + r &lt;= 2000 and d &gt;= (1/3)r</div><div class="option"><span class="opt-letter">B.</span> 1200 &lt; d + r &lt; 2000 and d &lt;= (1/3)r</div><div class="option"><span class="opt-letter">C.</span> 1200 &lt;= d + r &lt;= 2000 and d &lt;= (1/3)r</div><div class="option"><span class="opt-letter">D.</span> 1200 &lt;= d + r &lt;= 2000 and d &lt;= 3r</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of deer = d; Number of rabbits = r</div>
+    <div class="step-exp">Identify the variables representing the populations of deer and rabbits.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 1: Total animals between 1200 and 2000, inclusive. This means 1200 &lt;= d + r &lt;= 2000.</div>
+    <div class="step-exp">Translate the constraint about the total number of animals, noting &#x27;inclusive&#x27; means using less than or equal to signs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 2: Number of deer (d) must be &#x27;no more than&#x27; one-third (1/3) the number of rabbits (r). &#x27;No more than&#x27; translates to &lt;=. So, d &lt;= (1/3)r.</div>
+    <div class="step-exp">Translate the constraint about the relationship between deer and rabbit populations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">System of inequalities: 1200 &lt;= d + r &lt;= 2000 and d &lt;= (1/3)r</div>
+    <div class="step-exp">State both inequalities as a system representing all population constraints.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1200 &lt;= d + r &lt;= 2000 and d &lt;= (1/3)r (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 9 &bull; A-CED</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company is designing a new smartwatch. The screen size (<code>s</code>, in inches) must be at least 1.5 inches but no more than 2.1 inches. The battery life (<code>b</code>, in hours) must be directly proportional to the screen size, with a constant of proportionality of 4.2, and the battery life must be at least 10 hours. Write a system of inequalities representing these design constraints.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.5 &lt;= s &lt;= 2.1, b = 4.2s, b &gt;= 10</div><div class="option"><span class="opt-letter">B.</span> 1.5 &lt; s &lt; 2.1, b = 4.2s, b &gt;= 10</div><div class="option"><span class="opt-letter">C.</span> 1.5 &lt;= s &lt;= 2.1, b = 4.2 + s, b &gt;= 10</div><div class="option"><span class="opt-letter">D.</span> 1.5 &lt;= s &lt;= 2.1, b = 4.2s, b &gt; 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Screen size = s (inches); Battery life = b (hours)</div>
+    <div class="step-exp">Identify the variables for screen size and battery life.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 1: Screen size &#x27;at least 1.5 inches but no more than 2.1 inches&#x27;. This means 1.5 &lt;= s &lt;= 2.1.</div>
+    <div class="step-exp">Translate the range constraint for the screen size, noting &#x27;at least&#x27; and &#x27;no more than&#x27; imply inclusive bounds.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 2: Battery life (b) is &#x27;directly proportional&#x27; to screen size (s) with constant 4.2. This means b = 4.2s.</div>
+    <div class="step-exp">Translate the direct proportionality constraint between battery life and screen size.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Constraint 3: Battery life (b) must be &#x27;at least 10 hours&#x27;. This means b &gt;= 10.</div>
+    <div class="step-exp">Translate the minimum battery life constraint.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">System of constraints: 1.5 &lt;= s &lt;= 2.1, b = 4.2s, b &gt;= 10</div>
+    <div class="step-exp">State all identified equations and inequalities as a system of constraints.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.5 &lt;= s &lt;= 2.1, b = 4.2s, b &gt;= 10 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

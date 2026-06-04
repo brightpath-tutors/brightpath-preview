@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Properties of Operations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.003<br>20 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Properties of Operations</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.003</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah bought 5 notebooks for $2.50 each and 5 pens for $1.00 each. Which expression uses the Distributive Property to represent the total cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 + $2.50 + $1.00</div><div class="option"><span class="opt-letter">B.</span> 5 <em> $2.50 </em> $1.00</div><div class="option"><span class="opt-letter">C.</span> $2.50 + $1.00</div><div class="option"><span class="opt-letter">D.</span> 5 * ($2.50 + $1.00)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Notebooks: 5, Price per notebook: $2.50. Pens: 5, Price per pen: $1.00.</div>
+    <div class="step-exp">Sarah bought 5 of each item.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = (5 <em> $2.50) + (5 </em> $1.00)</div>
+    <div class="step-exp">This represents the cost of notebooks plus the cost of pens.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 5 is a common factor, we can rewrite the expression as 5 * ($2.50 + $1.00).</div>
+    <div class="step-exp">The Distributive Property states a(b + c) = ab + ac. Here, a=5, b=$2.50, and c=$1.00.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 * ($2.50 + $1.00) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a football game, a player ran 12 yards, then 8 yards, and finally 5 yards. Which property allows you to add the distances in any order?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Distributive Property</div><div class="option"><span class="opt-letter">D.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem asks about changing the order of addition without affecting the sum.</div>
+    <div class="step-exp">The player ran three different distances.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The Commutative Property of Addition states that a + b = b + a. This means the order of addends does not change the sum.</div>
+    <div class="step-exp">This property directly addresses the ability to add numbers in any order.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Commutative Property of Addition (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef used 3 bags of carrots, with each bag containing 7 carrots. He also used 2 bags of onions, with each bag containing 7 onions. Which expression demonstrates the Distributive Property for the total number of vegetables?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (3 * 7) + 2</div><div class="option"><span class="opt-letter">B.</span> 3 + 2 + 7</div><div class="option"><span class="opt-letter">C.</span> 3 <em> 2 </em> 7</div><div class="option"><span class="opt-letter">D.</span> 7 * (3 + 2)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Carrots: 3 bags <em> 7 carrots/bag. Onions: 2 bags </em> 7 onions/bag.</div>
+    <div class="step-exp">Both types of vegetables came in bags of 7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total vegetables = (3 <em> 7) + (2 </em> 7)</div>
+    <div class="step-exp">This represents the total carrots plus total onions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 7 is a common factor, we can rewrite the expression as 7 * (3 + 2).</div>
+    <div class="step-exp">The Distributive Property allows us to factor out the common number of vegetables per bag.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 * (3 + 2) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled for 3 hours at 60 mph, then stopped for a break, and then traveled for another 2 hours at 60 mph. Which expression uses the Distributive Property to find the total distance traveled?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 60 <em> 3 </em> 2</div><div class="option"><span class="opt-letter">B.</span> (60 * 3) + 2</div><div class="option"><span class="opt-letter">C.</span> 60 + 3 + 2</div><div class="option"><span class="opt-letter">D.</span> 60 * (3 + 2)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rate: 60 mph. First time segment: 3 hours. Second time segment: 2 hours.</div>
+    <div class="step-exp">The speed was constant for both travel segments.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = (60 <em> 3) + (60 </em> 2)</div>
+    <div class="step-exp">Distance = Rate * Time. Sum the distances for each segment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 60 is a common factor, we can rewrite the expression as 60 * (3 + 2).</div>
+    <div class="step-exp">The Distributive Property allows us to factor out the common speed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 * (3 + 2) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher wants to arrange 4 rows of 6 desks and then add 3 more rows of 6 desks. Which property states that the total number of desks can be found by adding (4 + 3) rows and then multiplying by 6?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Distributive Property</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem describes two groups of desks, both with 6 desks per row, and asks which property allows combining the number of rows first.</div>
+    <div class="step-exp">The structure of the problem suggests factoring out the common number of desks per row.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Initial desks: 4 <em> 6. Added desks: 3 </em> 6. Total: (4 <em> 6) + (3 </em> 6).</div>
+    <div class="step-exp">This shows the individual calculations before combining.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The expression (4 <em> 6) + (3 </em> 6) can be rewritten as (4 + 3) * 6 using the Distributive Property.</div>
+    <div class="step-exp">This is a direct application of the Distributive Property in reverse (factoring out the common multiplier).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is mixing two solutions. Solution A has 7 grams of solute in 100 mL, and Solution B has 5 grams of solute in 100 mL. To find the total grams of solute, which property allows combining the amounts of solute first, then multiplying by the common volume (if expressed as a fraction of total volume)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Distributive Property</div><div class="option"><span class="opt-letter">B.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem asks which property justifies combining the solute amounts (7 + 5) before associating them with the common &#x27;factor&#x27; (which here implies a common measurement unit or multiplier if we were to scale up or down).</div>
+    <div class="step-exp">This structure (A<em>C + B</em>C) implies the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">If we consider the grams per 100 mL, the total grams would be 7 + 5. If we were to scale this, say, to &#x27;x&#x27; hundred milliliters, it would be x <em> 7 + x </em> 5. Factoring out x gives x * (7 + 5). This is the Distributive Property.</div>
+    <div class="step-exp">The phrasing &#x27;combining the amounts of solute first, then multiplying by the common volume&#x27; directly points to the distributive property if the &#x27;common volume&#x27; acts as a multiplier.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker needs to calculate the total length of 3 wooden planks that are each 2.5 meters long and 3 metal beams that are each 4 meters long. Which expression uses the Distributive Property to represent the total length?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 + 2.5 + 4</div><div class="option"><span class="opt-letter">B.</span> 3 * (2.5 + 4)</div><div class="option"><span class="opt-letter">C.</span> 3 <em> 2.5 </em> 4</div><div class="option"><span class="opt-letter">D.</span> 2.5 + 4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Wooden planks: 3, Length per plank: 2.5 meters. Metal beams: 3, Length per beam: 4 meters.</div>
+    <div class="step-exp">There are 3 of each type of material.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total length = (3 <em> 2.5) + (3 </em> 4)</div>
+    <div class="step-exp">This represents the total length of planks plus the total length of beams.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 3 is a common factor, we can rewrite the expression as 3 * (2.5 + 4).</div>
+    <div class="step-exp">The Distributive Property states a(b + c) = ab + ac. Here, a=3, b=2.5, and c=4.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 * (2.5 + 4) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A software developer spent 1.5 hours coding, then took a 0.5-hour break, and then spent 2.25 hours debugging. To calculate the total time spent, she can group the times as (1.5 + 0.5) + 2.25 or 1.5 + (0.5 + 2.25). Which property justifies this rearrangement of grouping?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Distributive Property</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem is about changing the grouping of numbers in an addition operation.</div>
+    <div class="step-exp">The quantities are 1.5, 0.5, and 2.25 hours, all being added.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The Associative Property of Addition states that (a + b) + c = a + (b + c). This property allows for changing the grouping of addends without altering the sum.</div>
+    <div class="step-exp">This directly matches the description of rearranging the grouping of the times spent.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Associative Property of Addition (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A librarian is counting books. There are 2 shelves with 25 fiction books each and 2 shelves with 18 non-fiction books each. Which expression correctly uses the Distributive Property to represent the total number of books?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 * (25 + 18)</div><div class="option"><span class="opt-letter">B.</span> 2 + 25 + 18</div><div class="option"><span class="opt-letter">C.</span> 2 <em> 25 </em> 18</div><div class="option"><span class="opt-letter">D.</span> (2 * 25) + 18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fiction books: 2 shelves <em> 25 books/shelf. Non-fiction books: 2 shelves </em> 18 books/shelf.</div>
+    <div class="step-exp">There are 2 shelves of each type of book.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total books = (2 <em> 25) + (2 </em> 18)</div>
+    <div class="step-exp">This sums the number of fiction and non-fiction books.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 2 is a common factor, we can rewrite the expression as 2 * (25 + 18).</div>
+    <div class="step-exp">The Distributive Property states a(b + c) = ab + ac. Here, a=2, b=25, and c=18.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2 * (25 + 18) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bakery produces 15 dozen cookies in the morning and 10 dozen cookies in the afternoon. If each dozen contains 12 cookies, which expression uses the Distributive Property to represent the total number of cookies produced?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 + 15 + 10</div><div class="option"><span class="opt-letter">B.</span> (12 * 15) + 10</div><div class="option"><span class="opt-letter">C.</span> 12 * (15 + 10)</div><div class="option"><span class="opt-letter">D.</span> 12 <em> 15 </em> 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Morning production: 15 dozen. Afternoon production: 10 dozen. Cookies per dozen: 12.</div>
+    <div class="step-exp">We need to find the total number of individual cookies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total cookies = (12 <em> 15) + (12 </em> 10)</div>
+    <div class="step-exp">This sums the cookies from morning and afternoon production.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 12 is a common factor, we can rewrite the expression as 12 * (15 + 10).</div>
+    <div class="step-exp">The Distributive Property states a(b + c) = ab + ac. Here, a=12, b=15, and c=10.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 * (15 + 10) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 11</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A painter is buying 1.5 liters of red paint at $8.00 per liter and 3.5 liters of blue paint at $8.00 per liter. He wants to find the total cost. Which property can be used to simplify the calculation by adding the quantities of paint first, then multiplying by the price per liter?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Distributive Property</div><div class="option"><span class="opt-letter">B.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Price per liter ($8.00) is common. The operation is multiplication with addition.</div>
+    <div class="step-exp">The problem structure is a<em>b + a</em>c, where &#x27;a&#x27; is the price per liter.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The Distributive Property states that a <em> b + a </em> c = a * (b + c). This allows factoring out the common price per liter.</div>
+    <div class="step-exp">Adding quantities first (1.5 + 3.5) and then multiplying by $8.00 directly applies the Distributive Property.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 12</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A group of 10 dancers are practicing for a show. Each dancer needs 2 meters of ribbon for their costume and 3 meters of ribbon for props. Which property allows you to calculate the total ribbon needed by adding the ribbon for costume and props first, then multiplying by the number of dancers?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Multiplication</div><div class="option"><span class="opt-letter">B.</span> Associative Property of Addition</div><div class="option"><span class="opt-letter">C.</span> Distributive Property</div><div class="option"><span class="opt-letter">D.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of dancers (10) is the common multiplier. Ribbon for costume (2 meters) and ribbon for props (3 meters) are the parts being added for each dancer.</div>
+    <div class="step-exp">The problem structure is (b<em>a) + (c</em>a) or a*(b+c).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The action of adding the ribbon per dancer (2+3) and then multiplying by the number of dancers (10) is a direct application of the Distributive Property, a <em> (b + c) = a </em> b + a * c.</div>
+    <div class="step-exp">This simplifies the calculation by combining quantities before multiplying by the common factor.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 13</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A farmer has 18 rows of corn and 24 rows of wheat. He uses 0.5 kg of fertilizer per row for both crops. To find the total fertilizer needed, he wants to add the number of rows (18 + 24) and then multiply by 0.5. Which property allows this calculation method?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Distributive Property</div><div class="option"><span class="opt-letter">D.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of corn rows: 18. Number of wheat rows: 24. Fertilizer per row: 0.5 kg (common factor).</div>
+    <div class="step-exp">The problem asks to combine quantities (rows) before multiplying by a common rate (fertilizer per row).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The total fertilizer needed can be expressed as (0.5 <em> 18) + (0.5 </em> 24). Applying the Distributive Property in reverse allows us to write this as 0.5 * (18 + 24).</div>
+    <div class="step-exp">This demonstrates that multiplying the sum of rows by the fertilizer rate per row yields the same result as summing the individual fertilizer needs.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 14</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A photographer is printing pictures. He prints 20 photos that are 4x6 inches and 15 photos that are 4x6 inches. To calculate the total number of prints, he can group them as (20 + 15) * 1. Which property allows him to add the number of prints first and then consider each as 1 unit?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Distributive Property</div><div class="option"><span class="opt-letter">C.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Prints of one size: 20. Prints of another size: 15. The &#x27;1&#x27; unit can represent one photo regardless of specific dimensions (as they are all 4x6 for this context).</div>
+    <div class="step-exp">The problem implies a common factor of 1 unit per photo.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total prints can be thought of as (20 <em> 1) + (15 </em> 1). Applying the Distributive Property, this becomes (20 + 15) * 1.</div>
+    <div class="step-exp">The property allows combining the counts of prints before multiplying by the implicit &#x27;unit&#x27; of one photo.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 15</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A farmer sells 25 kilograms of apples and 15 kilograms of pears. Both are sold at $3.25 per kilogram. The total revenue is calculated as (25 <em> 3.25) + (15 </em> 3.25). Which expression, using the Distributive Property, simplifies this calculation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 <em> 15 </em> 3.25</div><div class="option"><span class="opt-letter">B.</span> (25 + 3.25) * (15 + 3.25)</div><div class="option"><span class="opt-letter">C.</span> 25 + 15 + 3.25</div><div class="option"><span class="opt-letter">D.</span> 3.25 * (25 + 15)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Apples: 25 kg. Pears: 15 kg. Price per kg: $3.25.</div>
+    <div class="step-exp">The price per kilogram is the common factor in this scenario.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total revenue = (25 <em> 3.25) + (15 </em> 3.25)</div>
+    <div class="step-exp">This represents the revenue from apples plus the revenue from pears.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since $3.25 is a common factor, we can rewrite the expression as 3.25 * (25 + 15).</div>
+    <div class="step-exp">The Distributive Property allows us to factor out the common price, simplifying the calculation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3.25 * (25 + 15) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 16</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker is preparing an order for 12 blueberry muffins and 12 chocolate chip muffins. If each muffin requires 0.25 cups of sugar, which property allows the baker to add the number of blueberry and chocolate chip muffins first, then multiply by the sugar needed per muffin?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">B.</span> Distributive Property</div><div class="option"><span class="opt-letter">C.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Blueberry muffins: 12. Chocolate chip muffins: 12. Sugar per muffin: 0.25 cups.</div>
+    <div class="step-exp">The sugar per muffin is the common factor for both types of muffins.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Original: (12 <em> 0.25) + (12 </em> 0.25). Simplified: (12 + 12) * 0.25.</div>
+    <div class="step-exp">This transformation from summing individual products to multiplying a sum is the essence of the Distributive Property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The action described is to factor out the common multiplier (sugar per muffin) from the sum of two products.</div>
+    <div class="step-exp">This is a direct application of the Distributive Property.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 17</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A telemarketer makes 7 calls per hour for 3 hours in the morning and 7 calls per hour for 4 hours in the afternoon. Which expression using the Distributive Property correctly models the total calls made?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (7 + 3) * (7 + 4)</div><div class="option"><span class="opt-letter">B.</span> 7 * (3 + 4)</div><div class="option"><span class="opt-letter">C.</span> 7 + 3 + 4</div><div class="option"><span class="opt-letter">D.</span> 7 <em> 3 </em> 4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Common factor: 7 calls per hour. Variable quantities: 3 hours and 4 hours.</div>
+    <div class="step-exp">The rate of calls is constant, while the duration changes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total calls = (7 <em> 3) + (7 </em> 4)</div>
+    <div class="step-exp">This sums the calls made in the morning and afternoon.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 7 is a common factor, we can rewrite the expression as 7 * (3 + 4).</div>
+    <div class="step-exp">This property allows us to sum the hours first and then multiply by the constant call rate.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 * (3 + 4) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 18</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A healthcare worker is tracking patient visits. On Monday, she saw 5 patients for 15 minutes each. On Tuesday, she saw 8 patients for 15 minutes each. Which expression, using the Distributive Property, represents the total time spent with patients?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 * (5 + 8)</div><div class="option"><span class="opt-letter">B.</span> (15 + 5) * (15 + 8)</div><div class="option"><span class="opt-letter">C.</span> 15 + 5 + 8</div><div class="option"><span class="opt-letter">D.</span> 15 <em> 5 </em> 8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Constant: 15 minutes per patient. Variable: 5 patients (Monday), 8 patients (Tuesday).</div>
+    <div class="step-exp">The time spent per patient is the common factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total time = (15 <em> 5) + (15 </em> 8)</div>
+    <div class="step-exp">This sums the total time spent on Monday and Tuesday.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 15 is a common factor, the expression can be rewritten as 15 * (5 + 8).</div>
+    <div class="step-exp">This allows adding the number of patients first, then multiplying by the constant time per patient.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 * (5 + 8) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 19</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A gardener plants 3 rows of roses with 14 bushes per row and 3 rows of lilies with 11 bushes per row. To calculate the total number of bushes, which property allows him to add the number of rose and lily bushes per row first, then multiply by the number of rows?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Distributive Property</div><div class="option"><span class="opt-letter">B.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Identity Property of Addition</div><div class="option"><span class="opt-letter">D.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Common factor: 3 rows. Distinct quantities: 14 bushes (roses), 11 bushes (lilies).</div>
+    <div class="step-exp">The number of rows is consistent for both types of plants.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total bushes = (3 <em> 14) + (3 </em> 11)</div>
+    <div class="step-exp">This sums the rose bushes and lily bushes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 3 is a common factor, the expression can be rewritten as 3 * (14 + 11).</div>
+    <div class="step-exp">This property enables adding the number of bushes per row first, then multiplying by the total number of rows.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 20</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A factory produces 20 units of product X and 20 units of product Y per hour. If product X costs $12.50 per unit and product Y costs $8.75 per unit, which property can be used to add the costs per unit first, then multiply by the number of units produced per hour to find the total hourly cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Commutative Property of Addition</div><div class="option"><span class="opt-letter">B.</span> Associative Property of Multiplication</div><div class="option"><span class="opt-letter">C.</span> Identity Property of Multiplication</div><div class="option"><span class="opt-letter">D.</span> Distributive Property</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Common factor: 20 units produced per hour. Quantities to be summed: $12.50 (cost of X), $8.75 (cost of Y).</div>
+    <div class="step-exp">The number of units produced (20) is the common multiplier for the costs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Original expression for total hourly cost: (20 <em> 12.50) + (20 </em> 8.75). The property allows transforming this to 20 * (12.50 + 8.75).</div>
+    <div class="step-exp">This demonstrates factoring out the common number of units from the sum of the individual product costs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The principle of factoring out a common multiplier from a sum of products is the Distributive Property.</div>
+    <div class="step-exp">This property allows combining the costs per unit before multiplying by the common production quantity.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Distributive Property (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

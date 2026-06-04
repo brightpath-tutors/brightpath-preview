@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Fraction Division Word Problems</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | NS | Skill 8.NS.003<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Fraction Division Word Problems</h1>
+<p class="skill-subtitle">Skill ID: 8.NS.003</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah has $12. She wants to buy small gifts that each cost $3/4. How many gifts can Sarah buy?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 gifts</div><div class="option"><span class="opt-letter">B.</span> 9 gifts</div><div class="option"><span class="opt-letter">C.</span> 4 gifts</div><div class="option"><span class="opt-letter">D.</span> 16 gifts</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total money = $12</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cost per gift = $3/4</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$12 \div \frac{3}{4</div>
+    <div class="step-exp">To find out how many gifts can be bought, divide the total money by the cost of each gift.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$12 \times \frac{4}{3</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 3/4 is 4/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{12}{1} \times \frac{4}{3} = \frac{48}{3</div>
+    <div class="step-exp">Multiply the numerators (12 × 4) and the denominators (1 × 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{48}{3} = 16</div>
+    <div class="step-exp">Divide 48 by 3 to get the final number of gifts.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 gifts (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner plans to run a total distance of 10 miles. If each lap around the track is 5/6 of a mile, how many laps will the runner complete?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 laps</div><div class="option"><span class="opt-letter">B.</span> 10 laps</div><div class="option"><span class="opt-letter">C.</span> 15 laps</div><div class="option"><span class="opt-letter">D.</span> 8 laps</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 10 miles</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Length of each lap = 5/6 mile</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$10 \div \frac{5}{6</div>
+    <div class="step-exp">To find out how many laps the runner will complete, divide the total distance by the length of each lap.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$10 \times \frac{6}{5</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 5/6 is 6/5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{10}{1} \times \frac{6}{5} = \frac{60}{5</div>
+    <div class="step-exp">Multiply the numerators (10 × 6) and the denominators (1 × 5).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{60}{5} = 12</div>
+    <div class="step-exp">Divide 60 by 5 to get the final number of laps.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 laps (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef has 9 cups of vegetable broth. If each serving of soup requires 3/5 cup of broth, how many servings of soup can the chef make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 servings</div><div class="option"><span class="opt-letter">B.</span> 5 servings</div><div class="option"><span class="opt-letter">C.</span> 12 servings</div><div class="option"><span class="opt-letter">D.</span> 15 servings</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total broth = 9 cups</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Broth per serving = 3/5 cup</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$9 \div \frac{3}{5</div>
+    <div class="step-exp">To find out how many servings the chef can make, divide the total broth by the amount needed per serving.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$9 \times \frac{5}{3</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 3/5 is 5/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{9}{1} \times \frac{5}{3} = \frac{45}{3</div>
+    <div class="step-exp">Multiply the numerators (9 × 5) and the denominators (1 × 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{45}{3} = 15</div>
+    <div class="step-exp">Divide 45 by 3 to get the final number of servings.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 servings (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker has a metal beam that is 14 feet long. He needs to cut it into pieces that are each 7/8 of a foot long. How many pieces can he cut from the beam?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14 pieces</div><div class="option"><span class="opt-letter">B.</span> 16 pieces</div><div class="option"><span class="opt-letter">C.</span> 10 pieces</div><div class="option"><span class="opt-letter">D.</span> 12 pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total length = 14 feet</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Length of each piece = 7/8 foot</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$14 \div \frac{7}{8</div>
+    <div class="step-exp">To find out how many pieces can be cut, divide the total length by the length of each piece.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$14 \times \frac{8}{7</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 7/8 is 8/7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{14}{1} \times \frac{8}{7} = \frac{112}{7</div>
+    <div class="step-exp">Multiply the numerators (14 × 8) and the denominators (1 × 7).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{112}{7} = 16</div>
+    <div class="step-exp">Divide 112 by 7 to get the final number of pieces.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 pieces (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student has 5 hours available to work on a project. If each section of the project takes 2/3 of an hour to complete, how many sections can the student complete? Express your answer in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 and 1/3 sections</div><div class="option"><span class="opt-letter">B.</span> 7 and 1/2 sections</div><div class="option"><span class="opt-letter">C.</span> 6 sections</div><div class="option"><span class="opt-letter">D.</span> 8 sections</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 5 hours</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time per section = 2/3 hour</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$5 \div \frac{2}{3</div>
+    <div class="step-exp">To find out how many sections the student can complete, divide the total time by the time per section.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$5 \times \frac{3}{2</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 2/3 is 3/2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{5}{1} \times \frac{3}{2} = \frac{15}{2</div>
+    <div class="step-exp">Multiply the numerators (5 × 3) and the denominators (1 × 2).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{15}{2} = 7 \frac{1}{2</div>
+    <div class="step-exp">Divide 15 by 2. The quotient is 7 with a remainder of 1, so the mixed number is 7 and 1/2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 and 1/2 sections (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist has 11 milliliters of a solution. If each experiment requires 3/7 milliliters of the solution, how many experiments can the chemist perform? Express your answer in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 and 5/7 experiments</div><div class="option"><span class="opt-letter">B.</span> 25 and 2/3 experiments</div><div class="option"><span class="opt-letter">C.</span> 33 experiments</div><div class="option"><span class="opt-letter">D.</span> 21 experiments</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total solution = 11 milliliters</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Amount per experiment = 3/7 milliliters</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$11 \div \frac{3}{7</div>
+    <div class="step-exp">To find out how many experiments can be performed, divide the total solution by the amount needed per experiment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$11 \times \frac{7}{3</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 3/7 is 7/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{11}{1} \times \frac{7}{3} = \frac{77}{3</div>
+    <div class="step-exp">Multiply the numerators (11 × 7) and the denominators (1 × 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{77}{3} = 25 \frac{2}{3</div>
+    <div class="step-exp">Divide 77 by 3. The quotient is 25 with a remainder of 2, so the mixed number is 25 and 2/3.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 and 2/3 experiments (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A hiker is walking a trail that is 18 miles long. If she covers 3/4 of a mile every 15 minutes, how many 15-minute intervals will it take her to complete the entire trail?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 intervals</div><div class="option"><span class="opt-letter">B.</span> 24 intervals</div><div class="option"><span class="opt-letter">C.</span> 20 intervals</div><div class="option"><span class="opt-letter">D.</span> 13 and 1/2 intervals</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 18 miles</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Distance per interval = 3/4 mile</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$18 \div \frac{3}{4</div>
+    <div class="step-exp">To find out how many intervals it will take, divide the total distance by the distance covered in each interval.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$18 \times \frac{4}{3</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 3/4 is 4/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">\frac{18}{1} \times \frac{4}{3} = \frac{72}{3</div>
+    <div class="step-exp">Multiply the numerators (18 × 4) and the denominators (1 × 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">\frac{72}{3} = 24</div>
+    <div class="step-exp">Divide 72 by 3 to get the final number of intervals.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 24 intervals (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A nurse has 7 and 1/2 liters of a cough syrup solution. Each patient receives a dose of 3/8 of a liter. How many patients can the nurse provide with a full dose of cough syrup?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 patients</div><div class="option"><span class="opt-letter">B.</span> 22 patients</div><div class="option"><span class="opt-letter">C.</span> 18 patients</div><div class="option"><span class="opt-letter">D.</span> 20 patients</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total solution = 7 and 1/2 liters</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$7 \frac{1}{2} = \frac{(7 \times 2) + 1}{2} = \frac{15}{2}$ liters</div>
+    <div class="step-exp">To perform division with mixed numbers, convert them to improper fractions first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Dose per patient = 3/8 liter</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{15}{2} \div \frac{3}{8</div>
+    <div class="step-exp">To find out how many patients can receive a full dose, divide the total solution by the dose per patient.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{15}{2} \times \frac{8}{3</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 3/8 is 8/3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{15 \times 8}{2 \times 3} = \frac{120}{6</div>
+    <div class="step-exp">Multiply the numerators (15 × 8) and the denominators (2 × 3).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">\(\frac{120}{6} = 20\)</div>
+    <div class="step-exp">Divide 120 by 6 to get the final number of patients. Since the question asks for &#x27;full dose&#x27;, ignore any remainder.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 patients (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist has a large canvas with an area of 22 and 3/4 square feet. She wants to divide it into smaller rectangular sections, each with an area of 1 and 1/8 square feet, for a mosaic project. How many sections can she create? Express your answer in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 20 and 1/2 sections</div><div class="option"><span class="opt-letter">B.</span> 23 sections</div><div class="option"><span class="opt-letter">C.</span> 25 and 1/2 sections</div><div class="option"><span class="opt-letter">D.</span> 20 and 2/9 sections</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total area = 22 and 3/4 square feet</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$22 \frac{3}{4} = \frac{(22 \times 4) + 3}{4} = \frac{88 + 3}{4} = \frac{91}{4}$ square feet</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction for easier calculation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Area per section = 1 and 1/8 square feet</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$1 \frac{1}{8} = \frac{(1 \times 8) + 1}{8} = \frac{8 + 1}{8} = \frac{9}{8}$ square feet</div>
+    <div class="step-exp">Convert the mixed number to an improper fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{91}{4} \div \frac{9}{8</div>
+    <div class="step-exp">To find out how many sections can be created, divide the total area by the area of each section.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{91}{4} \times \frac{8}{9</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 9/8 is 8/9.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{91 \times 8}{4 \times 9} = \frac{728}{36</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">Divide both numerator and denominator by their greatest common divisor, which is 4: \(\frac{728 \div 4}{36 \div 4} = \frac{182}{9}\)</div>
+    <div class="step-exp">Simplify the fraction before converting to a mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">9</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{182}{9} = 20 \frac{2}{9</div>
+    <div class="step-exp">Divide 182 by 9. The quotient is 20 with a remainder of 2, so the mixed number is 20 and 2/9.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 and 2/9 sections (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s park has a total area of 25 and 1/4 acres. The town council decides to allocate sections for community gardens, with each garden plot being 7/16 of an acre. How many full garden plots can be created in the park?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 44 plots</div><div class="option"><span class="opt-letter">B.</span> 50 plots</div><div class="option"><span class="opt-letter">C.</span> 62 plots</div><div class="option"><span class="opt-letter">D.</span> 57 plots</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total area = 25 and 1/4 acres</div>
+    <div class="step-exp">This is the total quantity to be divided.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$25 \frac{1}{4} = \frac{(25 \times 4) + 1}{4} = \frac{100 + 1}{4} = \frac{101}{4}$ acres</div>
+    <div class="step-exp">To perform division with mixed numbers, convert them to improper fractions first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Area per plot = 7/16 acre</div>
+    <div class="step-exp">This is the size of each part we are dividing by.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{101}{4} \div \frac{7}{16</div>
+    <div class="step-exp">To find out how many garden plots can be created, divide the total area by the area of each plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{101}{4} \times \frac{16}{7</div>
+    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal of 7/16 is 16/7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">$\frac{101 \times 16}{4 \times 7} = \frac{1616}{28</div>
+    <div class="step-exp">Multiply the numerators and the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Divide both numerator and denominator by their greatest common divisor, which is 4: \(\frac{1616 \div 4}{28 \div 4} = \frac{404}{7}\)</div>
+    <div class="step-exp">Simplify the fraction before converting to a mixed number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-content">
+    <div class="step-work">\(\frac{404}{7} = 57 \frac{5}{7}\). Since the question asks for &#x27;full garden plots&#x27;, we take the whole number part, which is 57.</div>
+    <div class="step-exp">Divide 404 by 7 to get the number of full plots and any remaining fraction.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 57 plots (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Evaluate Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.002<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Evaluate Expressions</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.002</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store sells a shirt for $15 and a pair of pants for $22. If a customer buys <code>s</code> shirts and <code>p</code> pairs of pants, the total cost is given by the expression <code>15s + 22p</code>. Calculate the total cost if a customer buys 2 shirts and 1 pair of pants.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $40</div><div class="option"><span class="opt-letter">B.</span> $52</div><div class="option"><span class="opt-letter">C.</span> $59</div><div class="option"><span class="opt-letter">D.</span> $37</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 15s + 22p
+Given values: s = 2, p = 1
+Substitute: 15(2) + 22(1)</div>
+    <div class="step-exp">Replace &#x27;s&#x27; with 2 and &#x27;p&#x27; with 1 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">15 <em> 2 = 30
+22 </em> 1 = 22
+So, the expression becomes: 30 + 22</div>
+    <div class="step-exp">Multiplication takes precedence over addition. Calculate the product of each term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">30 + 22 = 52</div>
+    <div class="step-exp">Add the results of the multiplication to find the total cost.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $52 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball player scores <code>t</code> two-point shots and <code>h</code> three-point shots. The total points are given by the expression <code>2t + 3h</code>. If the player makes 4 two-point shots and 3 three-point shots, what is the total number of points scored?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 points</div><div class="option"><span class="opt-letter">B.</span> 12 points</div><div class="option"><span class="opt-letter">C.</span> 17 points</div><div class="option"><span class="opt-letter">D.</span> 15 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 2t + 3h
+Given values: t = 4, h = 3
+Substitute: 2(4) + 3(3)</div>
+    <div class="step-exp">Replace &#x27;t&#x27; with 4 and &#x27;h&#x27; with 3 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2 <em> 4 = 8
+3 </em> 3 = 9
+So, the expression becomes: 8 + 9</div>
+    <div class="step-exp">Multiplication takes precedence over addition. Calculate the product of each term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8 + 9 = 17</div>
+    <div class="step-exp">Add the results of the multiplication to find the total points scored.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 17 points (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires <code>c</code> cups of sugar and <code>e</code> teaspoons of vanilla. The amount of sugar needed for <code>x</code> batches is <code>c <em> x</code> and vanilla is <code>e </em> x</code>. If the recipe calls for 2 cups of sugar and 1 teaspoon of vanilla, and you want to make <code>x</code> batches, the total units of these ingredients can be expressed as <code>2x + 1x</code>. Evaluate the expression for <code>x = 3</code>.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 units</div><div class="option"><span class="opt-letter">B.</span> 7 units</div><div class="option"><span class="opt-letter">C.</span> 6 units</div><div class="option"><span class="opt-letter">D.</span> 9 units</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 2x + 1x
+Given value: x = 3
+Substitute: 2(3) + 1(3)</div>
+    <div class="step-exp">Replace &#x27;x&#x27; with 3 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2 <em> 3 = 6
+1 </em> 3 = 3
+So, the expression becomes: 6 + 3</div>
+    <div class="step-exp">Multiplication takes precedence over addition. Calculate the product of each term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6 + 3 = 9</div>
+    <div class="step-exp">Add the results of the multiplication to find the total units of ingredients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9 units (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The distance traveled by a car is given by the expression <code>speed <em> time</code>. If a car travels at a speed of <code>v</code> miles per hour for <code>t</code> hours, and then increases its speed by 10 mph for another 2 hours, the total distance is <code>vt + (v + 10) </em> 2</code>. Calculate the total distance if <code>v = 50</code> mph and <code>t = 3</code> hours.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 220 miles</div><div class="option"><span class="opt-letter">B.</span> 210 miles</div><div class="option"><span class="opt-letter">C.</span> 270 miles</div><div class="option"><span class="opt-letter">D.</span> 170 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: vt + (v + 10) <em> 2
+Given values: v = 50, t = 3
+Substitute: 50(3) + (50 + 10) </em> 2</div>
+    <div class="step-exp">Replace &#x27;v&#x27; with 50 and &#x27;t&#x27; with 3 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">50 + 10 = 60
+So, the expression becomes: 50(3) + (60) * 2</div>
+    <div class="step-exp">According to the order of operations, operations inside parentheses are performed first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">50 <em> 3 = 150
+60 </em> 2 = 120
+So, the expression becomes: 150 + 120</div>
+    <div class="step-exp">Perform all multiplication operations before addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">150 + 120 = 270</div>
+    <div class="step-exp">Add the results to find the total distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 270 miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a science class, a student&#x27;s project score is calculated using the expression <code>2(q + b) - 5</code>, where <code>q</code> is the quiz score and <code>b</code> is the lab book score. If a student scored <code>q = 8</code> on the quiz and <code>b = 10</code> on the lab book, calculate their project score.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 21</div><div class="option"><span class="opt-letter">B.</span> 26</div><div class="option"><span class="opt-letter">C.</span> 31</div><div class="option"><span class="opt-letter">D.</span> 36</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 2(q + b) - 5
+Given values: q = 8, b = 10
+Substitute: 2(8 + 10) - 5</div>
+    <div class="step-exp">Replace &#x27;q&#x27; with 8 and &#x27;b&#x27; with 10 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 + 10 = 18
+So, the expression becomes: 2(18) - 5</div>
+    <div class="step-exp">According to the order of operations, operations inside parentheses are performed first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 * 18 = 36
+So, the expression becomes: 36 - 5</div>
+    <div class="step-exp">Perform multiplication before subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">36 - 5 = 31</div>
+    <div class="step-exp">Subtract to find the final project score.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 31 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in Celsius (<code>C</code>) can be converted to Fahrenheit (<code>F</code>) using the expression <code>(9/5)C + 32</code>. Calculate the temperature in Fahrenheit if <code>C = 20</code> degrees Celsius.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 68 degrees Fahrenheit</div><div class="option"><span class="opt-letter">B.</span> 53.8 degrees Fahrenheit</div><div class="option"><span class="opt-letter">C.</span> 212 degrees Fahrenheit</div><div class="option"><span class="opt-letter">D.</span> 32.09 degrees Fahrenheit</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: (9/5)C + 32
+Given value: C = 20
+Substitute: (9/5)*20 + 32</div>
+    <div class="step-exp">Replace &#x27;C&#x27; with 20 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(9/5) <em> 20 = 1.8 </em> 20 = 36
+So, the expression becomes: 36 + 32</div>
+    <div class="step-exp">Multiplication takes precedence over addition. Calculate the product of 9/5 and 20.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">36 + 32 = 68</div>
+    <div class="step-exp">Add the result to 32 to find the temperature in Fahrenheit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 68 degrees Fahrenheit (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The cost to pour concrete for a rectangular slab is given by <code>12(lw) + 5h</code>, where <code>l</code> is the length, <code>w</code> is the width, and <code>h</code> is the thickness (all in feet). Calculate the cost for a slab that is <code>l = 10</code> feet long, <code>w = 5</code> feet wide, and <code>h = 0.5</code> feet thick.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $182.50</div><div class="option"><span class="opt-letter">B.</span> $602.50</div><div class="option"><span class="opt-letter">C.</span> $605.50</div><div class="option"><span class="opt-letter">D.</span> $64.50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 12(lw) + 5h
+Given values: l = 10, w = 5, h = 0.5
+Substitute: 12(10*5) + 5(0.5)</div>
+    <div class="step-exp">Replace &#x27;l&#x27; with 10, &#x27;w&#x27; with 5, and &#x27;h&#x27; with 0.5 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">10 * 5 = 50
+So, the expression becomes: 12(50) + 5(0.5)</div>
+    <div class="step-exp">According to the order of operations, multiplication inside parentheses is performed first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">12 <em> 50 = 600
+5 </em> 0.5 = 2.5
+So, the expression becomes: 600 + 2.5</div>
+    <div class="step-exp">Perform all multiplication operations before addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">600 + 2.5 = 602.5</div>
+    <div class="step-exp">Add the results to find the total cost.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $602.50 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The total hours worked in a week, including overtime, can be represented by the expression <code>40 + 1.5o</code> where <code>o</code> is the number of overtime hours. If an employee works <code>o = 8</code> overtime hours and also has a bonus of <code>b = 20</code> for every full <code>4</code> hours of overtime (represented as <code>b <em> floor(o/4)</code>), calculate their total adjusted hours worked using the expression <code>40 + 1.5o + b </em> floor(o/4)</code>. Use <code>b = 20</code>.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 92 adjusted hours</div><div class="option"><span class="opt-letter">B.</span> 132 adjusted hours</div><div class="option"><span class="opt-letter">C.</span> 71.5 adjusted hours</div><div class="option"><span class="opt-letter">D.</span> 212 adjusted hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 40 + 1.5o + b <em> floor(o/4)
+Given values: o = 8, b = 20
+Substitute: 40 + 1.5(8) + 20 </em> floor(8/4)</div>
+    <div class="step-exp">Replace &#x27;o&#x27; with 8 and &#x27;b&#x27; with 20 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 / 4 = 2
+floor(2) = 2
+So, the expression becomes: 40 + 1.5(8) + 20 * 2</div>
+    <div class="step-exp">Evaluate the division inside the floor function, then apply the floor function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1.5 <em> 8 = 12
+20 </em> 2 = 40
+So, the expression becomes: 40 + 12 + 40</div>
+    <div class="step-exp">Multiplication takes precedence over addition. Calculate the product of each term.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">40 + 12 = 52
+52 + 40 = 92</div>
+    <div class="step-exp">Add the remaining terms to find the total adjusted hours.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 92 adjusted hours (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The projected population <code>P</code> of a town after <code>y</code> years can be estimated using the expression <code>5000 * (1 + 0.02)^y + 100y</code>. Calculate the projected population after <code>y = 5</code> years. Round to the nearest whole number.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6020</div><div class="option"><span class="opt-letter">B.</span> 5600</div><div class="option"><span class="opt-letter">C.</span> 26000</div><div class="option"><span class="opt-letter">D.</span> 5625</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 5000 <em> (1 + 0.02)^y + 100y
+Given value: y = 5
+Substitute: 5000 </em> (1 + 0.02)^5 + 100 * 5</div>
+    <div class="step-exp">Replace &#x27;y&#x27; with 5 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1 + 0.02 = 1.02
+(1.02)^5 ≈ 1.1040808032
+So, the expression becomes: 5000 <em> 1.1040808032 + 100 </em> 5</div>
+    <div class="step-exp">According to the order of operations, operations inside parentheses are performed first, followed by exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5000 <em> 1.1040808032 = 5520.404016
+100 </em> 5 = 500
+So, the expression becomes: 5520.404016 + 500</div>
+    <div class="step-exp">Perform all multiplication operations before addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">5520.404016 + 500 = 6020.404016
+Rounded to the nearest whole number: 6020</div>
+    <div class="step-exp">Add the terms and round the final result as instructed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6020 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The battery life (in hours) of a new smartphone is modeled by the expression <code>B(t) = 50 - 2t^2 / (t + 1)</code> where <code>t</code> is the age of the phone in years. Calculate the battery life for a phone that is <code>t = 2</code> years old. Round to two decimal places.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 44.67 hours</div><div class="option"><span class="opt-letter">B.</span> 48.67 hours</div><div class="option"><span class="opt-letter">C.</span> 47 hours</div><div class="option"><span class="opt-letter">D.</span> 47.33 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expression: 50 - 2t^2 / (t + 1)
+Given value: t = 2
+Substitute: 50 - 2(2)^2 / (2 + 1)</div>
+    <div class="step-exp">Replace &#x27;t&#x27; with 2 in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(2 + 1) = 3
+2^2 = 4
+So, the expression becomes: 50 - 2(4) / 3</div>
+    <div class="step-exp">According to the order of operations, parentheses are evaluated first, then exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 * 4 = 8
+So, the expression becomes: 50 - 8 / 3</div>
+    <div class="step-exp">Perform multiplication before division or subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">8 / 3 ≈ 2.6666...
+So, the expression becomes: 50 - 2.6666...</div>
+    <div class="step-exp">Perform division before subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">50 - 2.6666... = 47.3333...
+Rounded to two decimal places: 47.33</div>
+    <div class="step-exp">Subtract the values and round the final result as instructed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 47.33 hours (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

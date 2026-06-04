@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Multiply Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | NS | Skill 8.NS.011<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Multiply Integers</h1>
+<p class="skill-subtitle">Skill ID: 8.NS.011</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store decreases the price of a certain item by $3 each week. What is the total change in price after 4 weeks?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12</div><div class="option"><span class="opt-letter">B.</span> -12</div><div class="option"><span class="opt-letter">C.</span> -1</div><div class="option"><span class="opt-letter">D.</span> -7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Price decrease per week = -$3
+Number of weeks = 4</div>
+    <div class="step-exp">A decrease in price is represented by a negative integer. The number of weeks is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total change = (-3) * 4</div>
+    <div class="step-exp">To find the total change, multiply the weekly price change by the number of weeks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-3) * 4 = -12</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (3 * 4 = 12) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in price is -$12.</div>
+    <div class="step-exp">The negative sign indicates a decrease in price.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a game, a player loses 5 points for each foul committed. If a player commits 3 fouls, what is the total change in their score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2</div><div class="option"><span class="opt-letter">B.</span> 15</div><div class="option"><span class="opt-letter">C.</span> -15</div><div class="option"><span class="opt-letter">D.</span> -2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points lost per foul = -5
+Number of fouls = 3</div>
+    <div class="step-exp">Losing points is represented by a negative integer. The number of fouls is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total change = (-5) * 3</div>
+    <div class="step-exp">To find the total change in score, multiply the points lost per foul by the number of fouls.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-5) * 3 = -15</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (5 * 3 = 15) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in the player&#x27;s score is -15 points.</div>
+    <div class="step-exp">The negative sign indicates a loss of points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a freezer drops by 2 degrees Celsius every hour. What is the total change in temperature after 6 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4</div><div class="option"><span class="opt-letter">B.</span> 12</div><div class="option"><span class="opt-letter">C.</span> -12</div><div class="option"><span class="opt-letter">D.</span> -4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Temperature drop per hour = -2 degrees Celsius
+Number of hours = 6</div>
+    <div class="step-exp">A temperature drop is represented by a negative integer. The number of hours is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total change = (-2) * 6</div>
+    <div class="step-exp">To find the total change in temperature, multiply the hourly temperature change by the number of hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-2) * 6 = -12</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (2 * 6 = 12) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in temperature is -12 degrees Celsius.</div>
+    <div class="step-exp">The negative sign indicates a drop in temperature.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock loses 1 minute every hour. How many minutes has it lost after 11 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -11</div><div class="option"><span class="opt-letter">B.</span> 10</div><div class="option"><span class="opt-letter">C.</span> -10</div><div class="option"><span class="opt-letter">D.</span> 11</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Minutes lost per hour = -1
+Number of hours = 11</div>
+    <div class="step-exp">Losing time is represented by a negative integer. The number of hours is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total minutes lost = (-1) * 11</div>
+    <div class="step-exp">To find the total minutes lost, multiply the minutes lost per hour by the number of hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-1) * 11 = -11</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (1 * 11 = 11) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The clock has lost a total of -11 minutes.</div>
+    <div class="step-exp">The negative sign indicates minutes lost.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -11 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">For every wrong answer on a test, 2 points are deducted. If a student gets 7 questions wrong, what is the total change in their score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14</div><div class="option"><span class="opt-letter">B.</span> -5</div><div class="option"><span class="opt-letter">C.</span> -14</div><div class="option"><span class="opt-letter">D.</span> 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points deducted per wrong answer = -2
+Number of wrong answers = 7</div>
+    <div class="step-exp">Points deducted are represented by a negative integer. The number of wrong answers is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total score change = (-2) * 7</div>
+    <div class="step-exp">To find the total score change, multiply the points deducted per answer by the number of wrong answers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-2) * 7 = -14</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (2 * 7 = 14) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in the student&#x27;s score is -14 points.</div>
+    <div class="step-exp">The negative sign indicates a deduction of points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -14 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer program decreases a counter by 8 units every time a specific action occurs. If the action occurs 5 times, what is the total change in the counter&#x27;s value?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3</div><div class="option"><span class="opt-letter">B.</span> -3</div><div class="option"><span class="opt-letter">C.</span> 40</div><div class="option"><span class="opt-letter">D.</span> -40</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Decrease per action = -8 units
+Number of actions = 5</div>
+    <div class="step-exp">A decrease in units is represented by a negative integer. The number of actions is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total change = (-8) * 5</div>
+    <div class="step-exp">To find the total change in the counter&#x27;s value, multiply the decrease per action by the number of actions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-8) * 5 = -40</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (8 * 5 = 40) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in the counter&#x27;s value is -40 units.</div>
+    <div class="step-exp">The negative sign indicates a decrease in value.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -40 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew needs to dig a trench that goes 6 feet deeper into the ground each day. What is the total depth change after 3 days? (Represent depth as a negative value)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -18</div><div class="option"><span class="opt-letter">B.</span> 9</div><div class="option"><span class="opt-letter">C.</span> 18</div><div class="option"><span class="opt-letter">D.</span> -9</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Depth change per day = -6 feet
+Number of days = 3</div>
+    <div class="step-exp">Going deeper is represented by a negative integer. The number of days is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total depth change = (-6) * 3</div>
+    <div class="step-exp">To find the total depth change, multiply the daily depth change by the number of days.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-6) * 3 = -18</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (6 * 3 = 18) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total depth change is -18 feet.</div>
+    <div class="step-exp">The negative sign indicates going deeper into the ground.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -18 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient&#x27;s weight changed by -4 pounds per month for 3 consecutive months. What was the total change in the patient&#x27;s weight?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -7</div><div class="option"><span class="opt-letter">B.</span> -12</div><div class="option"><span class="opt-letter">C.</span> 12</div><div class="option"><span class="opt-letter">D.</span> 7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Monthly weight change = -4 pounds
+Number of months = 3</div>
+    <div class="step-exp">The problem directly states a change of -4 pounds. The number of months is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total weight change = (-4) * 3</div>
+    <div class="step-exp">To find the total weight change, multiply the monthly change by the number of months.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-4) * 3 = -12</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (4 * 3 = 12) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in the patient&#x27;s weight was -12 pounds.</div>
+    <div class="step-exp">The negative sign indicates a decrease in weight.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A submarine descends at a rate of 10 feet per minute. What is its depth relative to sea level after 9 minutes? (Represent descent as a negative value)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1</div><div class="option"><span class="opt-letter">B.</span> -90</div><div class="option"><span class="opt-letter">C.</span> -19</div><div class="option"><span class="opt-letter">D.</span> 90</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Descent rate = -10 feet per minute
+Time = 9 minutes</div>
+    <div class="step-exp">Descent is represented by a negative integer. The time is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total depth = (-10) * 9</div>
+    <div class="step-exp">To find the total depth, multiply the descent rate by the time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-10) * 9 = -90</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (10 * 9 = 90) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The submarine&#x27;s depth is -90 feet relative to sea level.</div>
+    <div class="step-exp">The negative sign indicates depth below sea level.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -90 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small town&#x27;s population decreased by 20 residents each year for the past 5 years. What was the total change in the town&#x27;s population over this period?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -100</div><div class="option"><span class="opt-letter">B.</span> 25</div><div class="option"><span class="opt-letter">C.</span> 100</div><div class="option"><span class="opt-letter">D.</span> -15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Yearly population change = -20 residents
+Number of years = 5</div>
+    <div class="step-exp">A decrease in population is represented by a negative integer. The number of years is a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total population change = (-20) * 5</div>
+    <div class="step-exp">To find the total population change, multiply the yearly change by the number of years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">(-20) * 5 = -100</div>
+    <div class="step-exp">When multiplying a negative integer by a positive integer, the product is negative. Multiply the absolute values (20 * 5 = 100) and then apply the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The total change in the town&#x27;s population was -100 residents.</div>
+    <div class="step-exp">The negative sign indicates a decrease in population.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -100 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

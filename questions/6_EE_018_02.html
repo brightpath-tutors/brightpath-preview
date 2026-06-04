@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: One-Step Division Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.018.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">One-Step Division Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.018.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah spent $24.00 on 6 identical notebooks. If &#x27;c&#x27; represents the cost of one notebook, which equation represents this situation and what is the cost of one notebook?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $30.00</div><div class="option"><span class="opt-letter">B.</span> $18.00</div><div class="option"><span class="opt-letter">C.</span> $144.00</div><div class="option"><span class="opt-letter">D.</span> $4.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = $24.00, Number of notebooks = 6, Cost of one notebook = c</div>
+    <div class="step-exp">Understand the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">c = 24.00 / 6</div>
+    <div class="step-exp">Formulate the division equation where the total cost is divided by the number of notebooks to find the cost of one notebook.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">c = 4.00</div>
+    <div class="step-exp">Perform the division to solve for &#x27;c&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $4.00 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A soccer team scored a total of 30 goals over 5 games. If &#x27;g&#x27; represents the average number of goals scored per game, which equation represents this situation and what is the average number of goals per game?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 150 goals</div><div class="option"><span class="opt-letter">B.</span> 35 goals</div><div class="option"><span class="opt-letter">C.</span> 25 goals</div><div class="option"><span class="opt-letter">D.</span> 6 goals</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total goals = 30, Number of games = 5, Average goals per game = g</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">g = 30 / 5</div>
+    <div class="step-exp">Formulate the division equation where the total goals are divided by the number of games to find the average goals per game.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">g = 6</div>
+    <div class="step-exp">Perform the division to solve for &#x27;g&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 goals (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker used 45 ounces of chocolate to make &#x27;b&#x27; batches of brownies. If each batch required 9 ounces of chocolate, which equation represents this situation and how many batches of brownies did the baker make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 batches</div><div class="option"><span class="opt-letter">B.</span> 405 batches</div><div class="option"><span class="opt-letter">C.</span> 36 batches</div><div class="option"><span class="opt-letter">D.</span> 54 batches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total chocolate = 45 ounces, Chocolate per batch = 9 ounces, Number of batches = b</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">b = 45 / 9</div>
+    <div class="step-exp">Formulate the division equation where the total chocolate is divided by the chocolate per batch to find the number of batches.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">b = 5</div>
+    <div class="step-exp">Perform the division to solve for &#x27;b&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 batches (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled a total of 288 miles at a constant speed for &#x27;t&#x27; hours. If the average speed was 48 miles per hour, which equation represents this situation and what was the travel time?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 hours</div><div class="option"><span class="opt-letter">B.</span> 13,824 hours</div><div class="option"><span class="opt-letter">C.</span> 240 hours</div><div class="option"><span class="opt-letter">D.</span> 7 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 288 miles, Average speed = 48 mph, Travel time = t hours</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">t = 288 / 48</div>
+    <div class="step-exp">Formulate the division equation where the total distance is divided by the average speed to find the travel time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">288 / 48 = 6</div>
+    <div class="step-exp">Perform the division using long division or estimation (e.g., 48 × 5 = 240, 48 × 6 = 288).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">t = 6</div>
+    <div class="step-exp">State the value of &#x27;t&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 hours (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school distributed 625 pencils equally among &#x27;s&#x27; classrooms. If each classroom received 25 pencils, which equation represents this situation and how many classrooms received pencils?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 600 classrooms</div><div class="option"><span class="opt-letter">B.</span> 15,625 classrooms</div><div class="option"><span class="opt-letter">C.</span> 2.5 classrooms</div><div class="option"><span class="opt-letter">D.</span> 25 classrooms</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total pencils = 625, Pencils per classroom = 25, Number of classrooms = s</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s = 625 / 25</div>
+    <div class="step-exp">Formulate the division equation where the total pencils are divided by the pencils per classroom to find the number of classrooms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">625 / 25 = 25</div>
+    <div class="step-exp">Perform the division. You can use long division or recognize that 25 × 25 = 625.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">s = 25</div>
+    <div class="step-exp">State the value of &#x27;s&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 classrooms (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist divided a 144.9-gram sample of a chemical into &#x27;x&#x27; equal portions. If each portion weighed 16.1 grams, which equation represents this situation and how many portions were there?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.61 portions</div><div class="option"><span class="opt-letter">B.</span> 9 portions</div><div class="option"><span class="opt-letter">C.</span> 8 portions</div><div class="option"><span class="opt-letter">D.</span> 2334.09 portions</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total weight = 144.9 grams, Weight per portion = 16.1 grams, Number of portions = x</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x = 144.9 / 16.1</div>
+    <div class="step-exp">Formulate the division equation where the total weight is divided by the weight per portion to find the number of portions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">144.9 / 16.1 = 1449 / 161</div>
+    <div class="step-exp">Multiply both the dividend and the divisor by 10 to convert them into whole numbers, making the division easier.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1449 / 161 = 9</div>
+    <div class="step-exp">Perform the division. You can estimate that 160 x 9 = 1440, so 161 x 9 = 1449.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">x = 9</div>
+    <div class="step-exp">State the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9 portions (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker has a roll of wire measuring 374.4 feet long. He needs to cut it into &#x27;p&#x27; equal pieces, each 7.2 feet long. Which equation represents this situation and how many pieces of wire can he cut?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2695.68 pieces</div><div class="option"><span class="opt-letter">B.</span> 5.2 pieces</div><div class="option"><span class="opt-letter">C.</span> 52 pieces</div><div class="option"><span class="opt-letter">D.</span> 51 pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total wire length = 374.4 feet, Length per piece = 7.2 feet, Number of pieces = p</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">p = 374.4 / 7.2</div>
+    <div class="step-exp">Formulate the division equation where the total wire length is divided by the length per piece to find the number of pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">374.4 / 7.2 = 3744 / 72</div>
+    <div class="step-exp">Multiply both the dividend and the divisor by 10 to convert them into whole numbers, making the division easier.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3744 ÷ 72: (374 ÷ 72 = 5 with remainder 14), (144 ÷ 72 = 2)</div>
+    <div class="step-exp">Perform the long division step by step.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">3744 / 72 = 52</div>
+    <div class="step-exp">Complete the division to find the quotient.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">p = 52</div>
+    <div class="step-exp">State the value of &#x27;p&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 52 pieces (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner completed a race in 3.75 hours. If &#x27;m&#x27; represents the average time it took to run each of the 15 miles, which equation represents this situation and what was the average time per mile, in hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.25 hours</div><div class="option"><span class="opt-letter">B.</span> 2.5 hours</div><div class="option"><span class="opt-letter">C.</span> 4 hours</div><div class="option"><span class="opt-letter">D.</span> 56.25 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 3.75 hours, Total miles = 15, Average time per mile = m hours</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">m = 3.75 / 15</div>
+    <div class="step-exp">Formulate the division equation where the total time is divided by the total miles to find the average time per mile.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3.75 ÷ 15: Place decimal point in quotient above dividend&#x27;s decimal point.</div>
+    <div class="step-exp">Set up the division, aligning the decimal point in the quotient.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">37 ÷ 15 = 2 (remainder 7); 75 ÷ 15 = 5</div>
+    <div class="step-exp">Perform the long division. Divide 37 by 15, then bring down the 5 and divide 75 by 15.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">3.75 / 15 = 0.25</div>
+    <div class="step-exp">Complete the division to find the quotient.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">m = 0.25</div>
+    <div class="step-exp">State the value of &#x27;m&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 0.25 hours (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A wildlife biologist counted 1,848 migrating birds passing over a period of &#x27;d&#x27; days. If the average number of birds counted per day was 231, which equation represents this situation and over how many days did the birds migrate?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 days</div><div class="option"><span class="opt-letter">B.</span> 211 days</div><div class="option"><span class="opt-letter">C.</span> 7 days</div><div class="option"><span class="opt-letter">D.</span> 426,888 days</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total birds = 1,848, Average birds per day = 231, Number of days = d</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">d = 1848 / 231</div>
+    <div class="step-exp">Formulate the division equation where the total number of birds is divided by the average birds per day to find the number of days.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Estimate: 231 is close to 200. 1848 is close to 1800. 1800 / 200 = 9. Try multiplying 231 by 8 or 9.</div>
+    <div class="step-exp">Use estimation to help with the division.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">231 × 8 = 1848</div>
+    <div class="step-exp">Perform the multiplication to check the estimate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1848 / 231 = 8</div>
+    <div class="step-exp">Complete the division to find the quotient.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">d = 8</div>
+    <div class="step-exp">State the value of &#x27;d&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 days (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A data transfer of 1,080 megabytes was completed in &#x27;s&#x27; seconds. If the data transfer rate was 4.5 megabytes per second, which equation represents this situation and how many seconds did the transfer take?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 240 seconds</div><div class="option"><span class="opt-letter">B.</span> 24 seconds</div><div class="option"><span class="opt-letter">C.</span> 2.4 seconds</div><div class="option"><span class="opt-letter">D.</span> 4860 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total data = 1,080 megabytes, Transfer rate = 4.5 MB/s, Time taken = s seconds</div>
+    <div class="step-exp">Identify the given values in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s = 1080 / 4.5</div>
+    <div class="step-exp">Formulate the division equation where the total data is divided by the transfer rate to find the time taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1080 / 4.5 = 10800 / 45</div>
+    <div class="step-exp">Multiply both the dividend and the divisor by 10 to convert them into whole numbers, making the division easier.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">10800 ÷ 45: (108 ÷ 45 = 2 with remainder 18), (180 ÷ 45 = 4), (0 ÷ 45 = 0)</div>
+    <div class="step-exp">Perform the long division step by step.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10800 / 45 = 240</div>
+    <div class="step-exp">Complete the division to find the quotient.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">s = 240</div>
+    <div class="step-exp">State the value of &#x27;s&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 240 seconds (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

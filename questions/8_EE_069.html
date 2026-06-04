@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Combine Like Terms</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.069<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Combine Like Terms</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.069</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef is preparing a large meal. He has <code>5x</code> pounds of chicken, <code>3y</code> pounds of beef, <code>2x</code> pounds of fish, and <code>4y</code> pounds of pork. Write an expression in simplest form for the total pounds of meat the chef has.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7x + 3y + 2x + 4y pounds</div><div class="option"><span class="opt-letter">B.</span> 7x + 7y pounds</div><div class="option"><span class="opt-letter">C.</span> 14xy pounds</div><div class="option"><span class="opt-letter">D.</span> 14x + y pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Chicken: 5x
+Beef: 3y
+Fish: 2x
+Pork: 4y
+Like terms are those with the same variable part. In this case, &#x27;x&#x27; terms and &#x27;y&#x27; terms are like terms.</div>
+    <div class="step-exp">The terms with &#x27;x&#x27; are like terms, and the terms with &#x27;y&#x27; are like terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(5x + 2x) + (3y + 4y)</div>
+    <div class="step-exp">Place terms with &#x27;x&#x27; together and terms with &#x27;y&#x27; together to make addition easier.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5x + 2x = (5 + 2)x = 7x</div>
+    <div class="step-exp">Add the coefficients of the &#x27;x&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3y + 4y = (3 + 4)y = 7y</div>
+    <div class="step-exp">Add the coefficients of the &#x27;y&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">7x + 7y</div>
+    <div class="step-exp">Since &#x27;x&#x27; and &#x27;y&#x27; terms are not like terms, they cannot be combined further. The expression is 7x + 7y pounds.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7x + 7y pounds (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a technology project, a student writes <code>6s + 8t + 3s - 2t</code> lines of code. Write an expression in simplest form for the total number of lines of code.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15st lines</div><div class="option"><span class="opt-letter">B.</span> 9s + 10t lines</div><div class="option"><span class="opt-letter">C.</span> 6s + 8t + 3s - 2t lines</div><div class="option"><span class="opt-letter">D.</span> 9s + 6t lines</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">6s, 3s are like terms.
+8t, -2t are like terms.</div>
+    <div class="step-exp">Terms with the same variable are like terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(6s + 3s) + (8t - 2t)</div>
+    <div class="step-exp">Rearrange the expression to place like terms next to each other.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6s + 3s = (6 + 3)s = 9s</div>
+    <div class="step-exp">Add the coefficients of the &#x27;s&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">8t - 2t = (8 - 2)t = 6t</div>
+    <div class="step-exp">Subtract the coefficients of the &#x27;t&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">9s + 6t</div>
+    <div class="step-exp">The simplified expression is the sum of the combined like terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9s + 6t lines (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An athlete trains by running <code>4k</code> miles and cycling <code>7j</code> miles in the morning. In the afternoon, they run <code>2k</code> miles and cycle <code>3j</code> miles. Write an expression in simplest form for the total distance covered.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4k + 7j + 2k + 3j miles</div><div class="option"><span class="opt-letter">B.</span> 16k + j miles</div><div class="option"><span class="opt-letter">C.</span> 6k + 10j miles</div><div class="option"><span class="opt-letter">D.</span> 16kj miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Running distances: 4k, 2k
+Cycling distances: 7j, 3j</div>
+    <div class="step-exp">Terms with the same variable (k for running, j for cycling) are like terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(4k + 2k) + (7j + 3j)</div>
+    <div class="step-exp">Collect terms with &#x27;k&#x27; together and terms with &#x27;j&#x27; together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4k + 2k = (4 + 2)k = 6k</div>
+    <div class="step-exp">Add the coefficients of the &#x27;k&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">7j + 3j = (7 + 3)j = 10j</div>
+    <div class="step-exp">Add the coefficients of the &#x27;j&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">6k + 10j</div>
+    <div class="step-exp">The final expression is the sum of the combined running and cycling distances.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6k + 10j miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker uses <code>10p</code> feet of electrical wire, <code>6q</code> feet of plumbing pipe, <code>3p</code> feet of ethernet cable, and <code>9q</code> feet of ventilation duct. Write an expression in simplest form for the total length of materials used.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 13p + 15q feet</div><div class="option"><span class="opt-letter">B.</span> 28pq feet</div><div class="option"><span class="opt-letter">C.</span> 10p + 6q + 3p + 9q feet</div><div class="option"><span class="opt-letter">D.</span> 13p + 9q + 6q feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Electrical wire: 10p
+Plumbing pipe: 6q
+Ethernet cable: 3p
+Ventilation duct: 9q
+Like terms are 10p and 3p (for &#x27;p&#x27; variable) and 6q and 9q (for &#x27;q&#x27; variable).</div>
+    <div class="step-exp">Terms with the same variable are considered like terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(10p + 3p) + (6q + 9q)</div>
+    <div class="step-exp">Rearrange the expression to group terms with &#x27;p&#x27; together and terms with &#x27;q&#x27; together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10p + 3p = (10 + 3)p = 13p</div>
+    <div class="step-exp">Add the coefficients of the &#x27;p&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">6q + 9q = (6 + 9)q = 15q</div>
+    <div class="step-exp">Add the coefficients of the &#x27;q&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">13p + 15q</div>
+    <div class="step-exp">Since &#x27;p&#x27; and &#x27;q&#x27; terms are unlike, they cannot be combined further. The simplified expression is 13p + 15q feet.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13p + 15q feet (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store manager tracks inventory. This week, they received <code>8h</code> boxes of cereal, sold <code>5k</code> boxes of pasta, received <code>2h</code> boxes of crackers, and sold <code>3k</code> boxes of cookies. Write an expression in simplest form for the net change in boxes of food products.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10h - 8k boxes</div><div class="option"><span class="opt-letter">B.</span> 10h + 8k boxes</div><div class="option"><span class="opt-letter">C.</span> 10h - 2k boxes</div><div class="option"><span class="opt-letter">D.</span> 2h + 2k boxes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Received cereal: +8h
+Sold pasta: -5k
+Received crackers: +2h
+Sold cookies: -3k
+Like terms are 8h, 2h (for &#x27;h&#x27; variable) and -5k, -3k (for &#x27;k&#x27; variable).</div>
+    <div class="step-exp">Positive terms represent items received, negative terms represent items sold. Group terms with the same variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(8h + 2h) + (-5k - 3k)</div>
+    <div class="step-exp">Collect terms with &#x27;h&#x27; and terms with &#x27;k&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8h + 2h = (8 + 2)h = 10h</div>
+    <div class="step-exp">Add the coefficients of the &#x27;h&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">-5k - 3k = (-5 - 3)k = -8k</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;k&#x27; terms, remembering the signs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">10h - 8k</div>
+    <div class="step-exp">The simplified expression is 10h - 8k boxes, representing the net change.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10h - 8k boxes (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A financial analyst is tracking investments. Stock A gained <code>12a</code> dollars, Stock B lost <code>7b</code> dollars, Stock C gained <code>4a</code> dollars, and Stock D lost <code>5b</code> dollars. Write an expression in simplest form for the total change in investment value.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 16a - 12b dollars</div><div class="option"><span class="opt-letter">B.</span> 16a + 12b dollars</div><div class="option"><span class="opt-letter">C.</span> 8ab dollars</div><div class="option"><span class="opt-letter">D.</span> 16a - 2b dollars</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Stock A gain: +12a
+Stock B loss: -7b
+Stock C gain: +4a
+Stock D loss: -5b
+Like terms are 12a, 4a (for &#x27;a&#x27; variable) and -7b, -5b (for &#x27;b&#x27; variable).</div>
+    <div class="step-exp">Gains are positive, losses are negative. Group terms with the same variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(12a + 4a) + (-7b - 5b)</div>
+    <div class="step-exp">Collect terms with &#x27;a&#x27; and terms with &#x27;b&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">12a + 4a = (12 + 4)a = 16a</div>
+    <div class="step-exp">Add the coefficients of the &#x27;a&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">-7b - 5b = (-7 - 5)b = -12b</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;b&#x27; terms, remembering the negative signs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">16a - 12b</div>
+    <div class="step-exp">The simplified expression represents the total change in investment value.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16a - 12b dollars (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is tracking bacterial growth. Culture A has <code>7m</code> colonies, Culture B has <code>9n</code> colonies, Culture C loses <code>3m</code> colonies, and Culture D loses <code>2n</code> colonies. Write an expression in simplest form for the total net change in bacterial colonies.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10m + 11n colonies</div><div class="option"><span class="opt-letter">B.</span> 4m + 11n colonies</div><div class="option"><span class="opt-letter">C.</span> 17mn colonies</div><div class="option"><span class="opt-letter">D.</span> 4m + 7n colonies</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Culture A: +7m
+Culture B: +9n
+Culture C loss: -3m
+Culture D loss: -2n
+Like terms are 7m, -3m (for &#x27;m&#x27; variable) and 9n, -2n (for &#x27;n&#x27; variable).</div>
+    <div class="step-exp">Gains are positive, losses are negative. Group terms with the same variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(7m - 3m) + (9n - 2n)</div>
+    <div class="step-exp">Collect terms with &#x27;m&#x27; and terms with &#x27;n&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">7m - 3m = (7 - 3)m = 4m</div>
+    <div class="step-exp">Subtract the coefficients of the &#x27;m&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">9n - 2n = (9 - 2)n = 7n</div>
+    <div class="step-exp">Subtract the coefficients of the &#x27;n&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">4m + 7n</div>
+    <div class="step-exp">The simplified expression is the sum of the combined net changes for &#x27;m&#x27; and &#x27;n&#x27; colonies.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4m + 7n colonies (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school collects <code>15x^2</code> pencils, <code>8y</code> erasers, <code>4x^2</code> notebooks, <code>3x</code> pens, and <code>10y</code> rulers. Write an expression in simplest form for the total number of school supplies.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 19x^2 + 18y items</div><div class="option"><span class="opt-letter">B.</span> 19x^2 + 21xy items</div><div class="option"><span class="opt-letter">C.</span> 19x^2 + 3x + 18y items</div><div class="option"><span class="opt-letter">D.</span> 35x^3y^2 items</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Pencils: 15x^2
+Erasers: 8y
+Notebooks: 4x^2
+Pens: 3x
+Rulers: 10y
+Like terms are terms with the same variable and the same exponent: 15x^2 and 4x^2; 8y and 10y. The term 3x is unique.</div>
+    <div class="step-exp">Like terms must have identical variable parts, including exponents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(15x^2 + 4x^2) + 3x + (8y + 10y)</div>
+    <div class="step-exp">Collect terms with x^2, x, and y separately.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15x^2 + 4x^2 = (15 + 4)x^2 = 19x^2</div>
+    <div class="step-exp">Add the coefficients of the x^2 terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">8y + 10y = (8 + 10)y = 18y</div>
+    <div class="step-exp">Add the coefficients of the y terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">19x^2 + 3x + 18y</div>
+    <div class="step-exp">The term 3x remains as it has no like terms. The final simplified expression is 19x^2 + 3x + 18y items.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 19x^2 + 3x + 18y items (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population changes over time. In one decade, the population increased by <code>20c</code> thousand people, decreased by <code>12d</code> thousand, then increased by <code>8c</code> thousand, and finally decreased by <code>5d</code> thousand. Write an expression in simplest form for the net change in population in thousands.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 28c - 7d thousand people</div><div class="option"><span class="opt-letter">B.</span> 11cd thousand people</div><div class="option"><span class="opt-letter">C.</span> 28c + 17d thousand people</div><div class="option"><span class="opt-letter">D.</span> 28c - 17d thousand people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Increased: +20c
+Decreased: -12d
+Increased: +8c
+Decreased: -5d
+Like terms are 20c, 8c (for &#x27;c&#x27; variable) and -12d, -5d (for &#x27;d&#x27; variable).</div>
+    <div class="step-exp">Increases are positive, decreases are negative. Group terms with the same variable.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(20c + 8c) + (-12d - 5d)</div>
+    <div class="step-exp">Collect terms with &#x27;c&#x27; and terms with &#x27;d&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">20c + 8c = (20 + 8)c = 28c</div>
+    <div class="step-exp">Add the coefficients of the &#x27;c&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">-12d - 5d = (-12 - 5)d = -17d</div>
+    <div class="step-exp">Combine the coefficients of the &#x27;d&#x27; terms, remembering that two negatives sum to a larger negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">28c - 17d</div>
+    <div class="step-exp">The simplified expression is 28c - 17d thousand people, representing the net change.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 28c - 17d thousand people (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A farmer tracks animal feed. They have <code>25w^3</code> pounds of chicken feed, <code>18z^2</code> pounds of pig feed, <code>7w^3</code> pounds of cattle feed, <code>10z</code> pounds of goat feed, and <code>4z^2</code> pounds of sheep feed. Write an expression in simplest form for the total pounds of animal feed.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 72w^3z^3 pounds</div><div class="option"><span class="opt-letter">B.</span> 32w^3 + 22z^2 + 10z pounds</div><div class="option"><span class="opt-letter">C.</span> 32w^3 + 32z^2 pounds</div><div class="option"><span class="opt-letter">D.</span> 32w^3 + 32z^3 pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Chicken feed: 25w^3
+Pig feed: 18z^2
+Cattle feed: 7w^3
+Goat feed: 10z
+Sheep feed: 4z^2
+Like terms are 25w^3 and 7w^3; 18z^2 and 4z^2. The term 10z is unique.</div>
+    <div class="step-exp">Like terms must have the same variable and the same exponent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(25w^3 + 7w^3) + (18z^2 + 4z^2) + 10z</div>
+    <div class="step-exp">Collect terms with w^3, z^2, and z separately.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">25w^3 + 7w^3 = (25 + 7)w^3 = 32w^3</div>
+    <div class="step-exp">Add the coefficients of the w^3 terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">18z^2 + 4z^2 = (18 + 4)z^2 = 22z^2</div>
+    <div class="step-exp">Add the coefficients of the z^2 terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">32w^3 + 22z^2 + 10z</div>
+    <div class="step-exp">The term 10z remains as it has no like terms. The final simplified expression is 32w^3 + 22z^2 + 10z pounds.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 32w^3 + 22z^2 + 10z pounds (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Divide Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | NS | Skill 8.NS.012<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Divide Integers</h1>
+<p class="skill-subtitle">Skill ID: 8.NS.012</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Four friends equally share a restaurant bill that has a total debt of $120. If each friend pays an equal share, what integer represents the amount, in dollars, each friend owes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -116</div><div class="option"><span class="opt-letter">B.</span> 30</div><div class="option"><span class="opt-letter">C.</span> -30</div><div class="option"><span class="opt-letter">D.</span> -124</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total debt = -$120 (since it&#x27;s a debt)
+Number of friends = 4</div>
+    <div class="step-exp">A debt is represented by a negative integer. The problem states that the total debt is $120, so we represent it as -120. There are 4 friends sharing the debt.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-$120 / 4</div>
+    <div class="step-exp">To find each friend&#x27;s equal share, we divide the total debt by the number of friends.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-120 / 4 = -30</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Therefore, each friend owes -$30.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -30 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A football team received a total of -45 penalty yards over 3 equally penalized plays. What integer represents the average penalty yards per play?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15</div><div class="option"><span class="opt-letter">B.</span> -42</div><div class="option"><span class="opt-letter">C.</span> -15</div><div class="option"><span class="opt-letter">D.</span> -48</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total penalty yards = -45
+Number of plays = 3</div>
+    <div class="step-exp">The problem states the total penalty yards as -45 and the number of plays as 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-45 / 3</div>
+    <div class="step-exp">To find the average penalty yards per play, we divide the total penalty yards by the number of plays.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-45 / 3 = -15</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Thus, the average penalty yards per play is -15.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef divided a large block of butter, weighing -54 ounces (representing butter used from stock), into 9 equal portions for individual recipes. What integer represents the weight, in ounces, of each portion?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -6</div><div class="option"><span class="opt-letter">B.</span> 6</div><div class="option"><span class="opt-letter">C.</span> -45</div><div class="option"><span class="opt-letter">D.</span> -63</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total butter used = -54 ounces
+Number of portions = 9</div>
+    <div class="step-exp">The problem states the total butter used from stock is -54 ounces and it is divided into 9 portions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-54 / 9</div>
+    <div class="step-exp">To find the weight of each equal portion, we divide the total butter used by the number of portions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-54 / 9 = -6</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Therefore, each portion weighs -6 ounces.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -6 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A submarine descended a total of 108 meters in 6 equal stages. What integer represents the change in depth, in meters, for each stage? (A descent is represented by a negative value.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -114</div><div class="option"><span class="opt-letter">B.</span> -18</div><div class="option"><span class="opt-letter">C.</span> -102</div><div class="option"><span class="opt-letter">D.</span> 18</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total descent = -108 meters
+Number of stages = 6</div>
+    <div class="step-exp">A descent of 108 meters is represented by -108. This descent occurred in 6 equal stages.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-108 / 6</div>
+    <div class="step-exp">To find the change in depth per stage, divide the total descent by the number of stages.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-108 / 6 = -18</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. So, the change in depth per stage is -18 meters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -18 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Over 7 math quizzes, a student&#x27;s total deviation from the target score was -91 points. If the deviation was consistent across all quizzes, what integer represents the average deviation per quiz?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -84</div><div class="option"><span class="opt-letter">B.</span> -98</div><div class="option"><span class="opt-letter">C.</span> -13</div><div class="option"><span class="opt-letter">D.</span> 13</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total deviation = -91 points
+Number of quizzes = 7</div>
+    <div class="step-exp">The problem states the total deviation as -91 points and the number of quizzes as 7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-91 / 7</div>
+    <div class="step-exp">To find the average deviation per quiz, divide the total deviation by the number of quizzes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-91 / 7 = -13</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Therefore, the average deviation per quiz is -13 points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -13 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a science experiment, the temperature of a chemical solution dropped by a total of 144 degrees Celsius over 12 minutes. What integer represents the average temperature change per minute? (A drop in temperature is represented by a negative value.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12</div><div class="option"><span class="opt-letter">B.</span> -156</div><div class="option"><span class="opt-letter">C.</span> -12</div><div class="option"><span class="opt-letter">D.</span> -132</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total temperature drop = -144 degrees Celsius
+Duration = 12 minutes</div>
+    <div class="step-exp">A drop in temperature of 144 degrees is represented by -144. This change occurred over 12 minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-144 / 12</div>
+    <div class="step-exp">To find the average temperature change per minute, divide the total temperature drop by the duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-144 / 12 = -12</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. So, the average temperature change per minute is -12 degrees Celsius.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction team removed 165 cubic feet of soil from a trench in 11 equally sized segments. What integer represents the average change in volume, in cubic feet, for each segment? (Soil removal is represented by a negative value.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -15</div><div class="option"><span class="opt-letter">B.</span> -176</div><div class="option"><span class="opt-letter">C.</span> 15</div><div class="option"><span class="opt-letter">D.</span> -154</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total soil removed = -165 cubic feet
+Number of segments = 11</div>
+    <div class="step-exp">Soil removal of 165 cubic feet is represented by -165. This was done in 11 equal segments.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-165 / 11</div>
+    <div class="step-exp">To find the average change in volume per segment, divide the total soil removed by the number of segments.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-165 / 11 = -15</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Thus, the average change in volume per segment is -15 cubic feet.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Over a period of 28 hours, the water level in a storage tank decreased by 392 gallons. What integer represents the average hourly change in water level, in gallons? (A decrease is represented by a negative value.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14</div><div class="option"><span class="opt-letter">B.</span> -364</div><div class="option"><span class="opt-letter">C.</span> -14</div><div class="option"><span class="opt-letter">D.</span> -420</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total decrease = -392 gallons
+Duration = 28 hours</div>
+    <div class="step-exp">A decrease of 392 gallons is represented by -392. This occurred over a period of 28 hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-392 / 28</div>
+    <div class="step-exp">To find the average hourly change in water level, divide the total decrease by the duration.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-392 / 28 = -14</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Therefore, the average hourly change in water level is -14 gallons.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -14 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A specific endangered animal population experienced a net decrease of 675 individuals over 15 years. What integer represents the average annual change in the animal population? (A decrease is represented by a negative value.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -660</div><div class="option"><span class="opt-letter">B.</span> -690</div><div class="option"><span class="opt-letter">C.</span> 45</div><div class="option"><span class="opt-letter">D.</span> -45</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total population decrease = -675 individuals
+Number of years = 15</div>
+    <div class="step-exp">A net decrease of 675 individuals is represented by -675. This occurred over 15 years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-675 / 15</div>
+    <div class="step-exp">To find the average annual change in population, divide the total decrease by the number of years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-675 / 15 = -45</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Therefore, the average annual change in the animal population is -45 individuals.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -45 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer&#x27;s hard drive lost 1024 megabytes (MB) of temporary data equally over 32 system crashes. What integer represents the average data loss, in MB, per system crash? (Data loss is represented by a negative value.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -32</div><div class="option"><span class="opt-letter">B.</span> -992</div><div class="option"><span class="opt-letter">C.</span> 32</div><div class="option"><span class="opt-letter">D.</span> -1056</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total data loss = -1024 MB
+Number of system crashes = 32</div>
+    <div class="step-exp">A data loss of 1024 MB is represented by -1024. This loss occurred equally over 32 system crashes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-1024 / 32</div>
+    <div class="step-exp">To find the average data loss per system crash, divide the total data loss by the number of crashes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-1024 / 32 = -32</div>
+    <div class="step-exp">When dividing a negative number by a positive number, the result is always negative. Therefore, the average data loss per system crash is -32 MB.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -32 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

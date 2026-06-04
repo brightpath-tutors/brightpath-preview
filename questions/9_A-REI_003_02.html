@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Solving Rational Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 9 | A-REI | Skill 9.A-REI.003.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Solving Rational Equations</h1>
+<p class="skill-subtitle">Skill ID: 9.A-REI.003.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker is using a recipe that calls for 1/3 cup of sugar for every 1/2 cup of flour. If the baker wants to scale the recipe, what is a common denominator for the rational expressions representing the sugar and flour amounts in the equation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3</div><div class="option"><span class="opt-letter">B.</span> 5</div><div class="option"><span class="opt-letter">C.</span> 6</div><div class="option"><span class="opt-letter">D.</span> 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions given are 1/3 and 1/2.</div>
+    <div class="step-exp">Identify the rational expressions in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Denominators are 3 and 2.</div>
+    <div class="step-exp">Extract the denominators from the rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">LCM(3, 2) = 6.</div>
+    <div class="step-exp">Find the Least Common Multiple (LCM) of the denominators to determine the common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Common denominator is 6.</div>
+    <div class="step-exp">State the common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew is pouring concrete for two sections. One section requires 1/4 cubic yard of concrete, and another section requires 1/5 cubic yard. To calculate the total volume easily, what is the least common denominator for the rational expressions 1/4 and 1/5?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9</div><div class="option"><span class="opt-letter">B.</span> 10</div><div class="option"><span class="opt-letter">C.</span> 20</div><div class="option"><span class="opt-letter">D.</span> 40</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions given are 1/4 and 1/5.</div>
+    <div class="step-exp">Identify the rational expressions in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Denominators are 4 and 5.</div>
+    <div class="step-exp">Extract the denominators from the rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">LCM(4, 5) = 20.</div>
+    <div class="step-exp">Find the Least Common Multiple (LCM) of the denominators to determine the common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Least common denominator is 20.</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student is solving an equation involving fractions of time spent on homework: x/6 + x/8 = 1. What is the least common denominator for the terms in this equation?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 14</div><div class="option"><span class="opt-letter">B.</span> 24</div><div class="option"><span class="opt-letter">C.</span> 48</div><div class="option"><span class="opt-letter">D.</span> 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions are x/6 and x/8.</div>
+    <div class="step-exp">Identify the rational expressions in the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Denominators are 6 and 8.</div>
+    <div class="step-exp">Extract the denominators from the rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">LCM(6, 8). Multiples of 6: 6, 12, 18, 24, 30... Multiples of 8: 8, 16, 24, 32...</div>
+    <div class="step-exp">List multiples of each denominator to find the LCM.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">LCM(6, 8) = 24.</div>
+    <div class="step-exp">Identify the smallest common multiple.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is 24.</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 24 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A biologist is studying bacterial growth rates. One culture doubles in 1/2 hour, and another triples in 2/5 hour. To compare these rates by combining the rational expressions (1/(1/2) and 1/(2/5)), what is the least common denominator of their equivalent forms?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10</div><div class="option"><span class="opt-letter">B.</span> 7</div><div class="option"><span class="opt-letter">C.</span> 2</div><div class="option"><span class="opt-letter">D.</span> 5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions for growth rates are 1/(1/2) and 1/(2/5).</div>
+    <div class="step-exp">Identify the rational expressions given in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the rational expressions: 1/(1/2) = 2, and 1/(2/5) = 5/2.</div>
+    <div class="step-exp">Simplify the complex fractions to simpler rational or integer forms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The simplified expressions are 2/1 and 5/2. The denominators are 1 and 2.</div>
+    <div class="step-exp">Identify the denominators of the simplified expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">LCM(1, 2) = 2.</div>
+    <div class="step-exp">Find the Least Common Multiple (LCM) of the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is 2.</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A travel agent is planning routes for two vehicles. The first vehicle travels 1/3 of the distance in &#x27;t&#x27; hours, and the second vehicle travels 1/4 of the distance in &#x27;t-1&#x27; hours. To combine the rates (1/(t/3) and 1/((t-1)/4)) in an equation, what is a common denominator for the simplified rational expressions?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> t^2 - t</div><div class="option"><span class="opt-letter">B.</span> t + (t-1)</div><div class="option"><span class="opt-letter">C.</span> 3(t-1) + 4t</div><div class="option"><span class="opt-letter">D.</span> t-1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Given expressions are 1/(t/3) and 1/((t-1)/4).</div>
+    <div class="step-exp">Identify the complex rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the expressions: 1/(t/3) = 3/t and 1/((t-1)/4) = 4/(t-1).</div>
+    <div class="step-exp">Simplify each complex fraction by multiplying by the reciprocal of the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The denominators are t and (t-1).</div>
+    <div class="step-exp">Identify the denominators of the simplified rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator (LCD) is the product of the distinct factors, which are t and (t-1).</div>
+    <div class="step-exp">Since t and (t-1) are distinct polynomial factors, their product forms the LCD.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Common denominator is t(t-1).</div>
+    <div class="step-exp">State the common denominator for the variables. (Note: The question asks for &#x27;a common denominator&#x27; which can be more general than LCD, but since the numerical part is 1, the variable part is the main focus.)</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An electronics company is analyzing the impedance in two circuits. The impedances are given by 1/(x+2) ohms and 1/(x-3) ohms. To find the total impedance, what is the least common denominator for these expressions?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> x^2 - x - 6</div><div class="option"><span class="opt-letter">B.</span> 2x - 1</div><div class="option"><span class="opt-letter">C.</span> x+2</div><div class="option"><span class="opt-letter">D.</span> x-3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions are 1/(x+2) and 1/(x-3).</div>
+    <div class="step-exp">Identify the rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Denominators are (x+2) and (x-3).</div>
+    <div class="step-exp">Extract the denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Factors are (x+2) and (x-3).</div>
+    <div class="step-exp">Recognize that the denominators are already in factored form and are distinct.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">LCM((x+2), (x-3)) = (x+2)(x-3).</div>
+    <div class="step-exp">The LCM of distinct polynomial factors is their product.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is (x+2)(x-3).</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (x+2)(x-3) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city planner is comparing population growth models. Model A describes growth as 1/(p+1) and Model B as 1/(p^2 - 1). To effectively compare these models in an equation, what is the least common denominator for these rational expressions?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> p+1</div><div class="option"><span class="opt-letter">B.</span> p^2 + 2p + 1</div><div class="option"><span class="opt-letter">C.</span> p^2 - 1</div><div class="option"><span class="opt-letter">D.</span> p-1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions are 1/(p+1) and 1/(p^2 - 1).</div>
+    <div class="step-exp">Identify the rational expressions from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factor the denominators: (p+1) and (p-1)(p+1).</div>
+    <div class="step-exp">Factor each denominator completely to find all prime factors.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distinct factors are (p+1) and (p-1).</div>
+    <div class="step-exp">Identify all unique factors from the factored denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">LCM((p+1), (p-1)(p+1)) = (p+1)(p-1) = p^2 - 1.</div>
+    <div class="step-exp">The LCM is formed by taking the highest power of each distinct factor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is p^2 - 1.</div>
+    <div class="step-exp">State the least common denominator in its simplified form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> p^2 - 1 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a money management simulation, two investments yield returns represented by the rational expressions (x-1)/(x^2 - 4x + 4) and (x+1)/(x^2 - 4). To find a common basis for comparing these returns, what is the least common denominator?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (x-2)(x+2)</div><div class="option"><span class="opt-letter">B.</span> (x-2)^2(x+2)</div><div class="option"><span class="opt-letter">C.</span> x^2 - 4x + 4</div><div class="option"><span class="opt-letter">D.</span> x^2 - 4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions are (x-1)/(x^2 - 4x + 4) and (x+1)/(x^2 - 4).</div>
+    <div class="step-exp">Identify the rational expressions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factor denominators: x^2 - 4x + 4 = (x-2)^2 and x^2 - 4 = (x-2)(x+2).</div>
+    <div class="step-exp">Factor each denominator completely. Recognize a perfect square trinomial and a difference of squares.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distinct factors are (x-2), (x+2).</div>
+    <div class="step-exp">Identify all unique factors from the factored denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Highest powers of factors: (x-2)^2 and (x+2)^1.</div>
+    <div class="step-exp">For each distinct factor, determine the highest power that appears in any of the factored denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">LCM = (x-2)^2(x+2).</div>
+    <div class="step-exp">The LCM is the product of these highest powers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is (x-2)^2(x+2).</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (x-2)^2(x+2) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An athlete is evaluating two different training programs. The effectiveness of program A is modeled by x/(x^2 + 5x + 6) and program B by 2/(x^2 + 4x + 4). To combine these expressions in an analysis, what is the least common denominator?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (x+2)(x+3)</div><div class="option"><span class="opt-letter">B.</span> (x+2)^2(x+3)</div><div class="option"><span class="opt-letter">C.</span> (x+2)^2</div><div class="option"><span class="opt-letter">D.</span> (x+3)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions are x/(x^2 + 5x + 6) and 2/(x^2 + 4x + 4).</div>
+    <div class="step-exp">Identify the rational expressions given in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factor denominators: x^2 + 5x + 6 = (x+2)(x+3) and x^2 + 4x + 4 = (x+2)^2.</div>
+    <div class="step-exp">Factor each quadratic denominator completely. The first is a trinomial, the second is a perfect square trinomial.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distinct factors are (x+2) and (x+3).</div>
+    <div class="step-exp">Identify all unique factors from the factored denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Highest powers of factors: (x+2)^2 and (x+3)^1.</div>
+    <div class="step-exp">For each distinct factor, determine the highest power that appears in any of the factored denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">LCM = (x+2)^2(x+3).</div>
+    <div class="step-exp">The LCM is the product of these highest powers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is (x+2)^2(x+3).</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (x+2)^2(x+3) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 9 &bull; A-REI</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is modeling the flow of two different solutions through a pipe system. The flow rates are given by the expressions (t+1)/(t^2 - 3t - 10) and (t-2)/(t^2 - 25). To combine these rates in a single equation, what is the least common denominator?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (t-5)(t+2)</div><div class="option"><span class="opt-letter">B.</span> (t^2 - 3t - 10)(t^2 - 25)</div><div class="option"><span class="opt-letter">C.</span> (t-5)(t+2)(t+5)</div><div class="option"><span class="opt-letter">D.</span> (t-5)(t+5)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Rational expressions are (t+1)/(t^2 - 3t - 10) and (t-2)/(t^2 - 25).</div>
+    <div class="step-exp">Identify the rational expressions given in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Factor denominators: t^2 - 3t - 10 = (t-5)(t+2) and t^2 - 25 = (t-5)(t+5).</div>
+    <div class="step-exp">Factor each quadratic denominator completely. The first is a trinomial, the second is a difference of squares.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distinct factors are (t-5), (t+2), and (t+5).</div>
+    <div class="step-exp">Identify all unique factors from the factored denominators.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Highest powers of factors: (t-5)^1, (t+2)^1, (t+5)^1.</div>
+    <div class="step-exp">For each distinct factor, determine the highest power that appears in any of the factored denominators. In this case, all powers are 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">LCM = (t-5)(t+2)(t+5).</div>
+    <div class="step-exp">The LCM is the product of these highest powers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">The least common denominator is (t-5)(t+2)(t+5).</div>
+    <div class="step-exp">State the least common denominator.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (t-5)(t+2)(t+5) (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

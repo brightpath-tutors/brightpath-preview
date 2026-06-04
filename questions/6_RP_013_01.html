@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Finding the Whole from Percent</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | RP | Skill 6.RP.013.01<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Finding the Whole from Percent</h1>
+<p class="skill-subtitle">Skill ID: 6.RP.013.01</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">After a discount, a video game costs $27. If the discount was 10%, what was the original price of the video game?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $29.70</div><div class="option"><span class="opt-letter">B.</span> $24.30</div><div class="option"><span class="opt-letter">C.</span> $30.00</div><div class="option"><span class="opt-letter">D.</span> $37.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">100% - 10% = 90%</div>
+    <div class="step-exp">Calculate the percentage of the original price that remains after the discount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Let P be the original price. 0.90 * P = $27</div>
+    <div class="step-exp">Set up an equation where the remaining percentage (as a decimal) multiplied by the original price equals the discounted price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">P = $27 / 0.90 = $30</div>
+    <div class="step-exp">Solve for P by dividing the discounted price by the remaining percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $30.00 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a baseball game, a player successfully hit the ball 45 times, which was 75% of his total at-bats. How many total at-bats did the player have?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 33.75</div><div class="option"><span class="opt-letter">B.</span> 75</div><div class="option"><span class="opt-letter">C.</span> 60</div><div class="option"><span class="opt-letter">D.</span> 120</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let T be the total at-bats. 75% of T = 45</div>
+    <div class="step-exp">Identify the given part (45 hits) and the percentage it represents (75%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.75 * T = 45</div>
+    <div class="step-exp">Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">T = 45 / 0.75 = 60</div>
+    <div class="step-exp">Solve for T by dividing the number of hits by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 1.5 cups of sugar, which is 25% of the total dry ingredients by volume. What is the total volume of dry ingredients in the recipe?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.375 cups</div><div class="option"><span class="opt-letter">B.</span> 4 cups</div><div class="option"><span class="opt-letter">C.</span> 6 cups</div><div class="option"><span class="opt-letter">D.</span> 7.5 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let D be the total volume of dry ingredients. 25% of D = 1.5 cups</div>
+    <div class="step-exp">Identify the given part (1.5 cups of sugar) and the percentage it represents (25%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.25 * D = 1.5</div>
+    <div class="step-exp">Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">D = 1.5 / 0.25 = 6</div>
+    <div class="step-exp">Solve for D by dividing the volume of sugar by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 cups (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 180 miles, which accounted for 60% of the total distance of a road trip. What was the total distance of the road trip?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 108 miles</div><div class="option"><span class="opt-letter">B.</span> 240 miles</div><div class="option"><span class="opt-letter">C.</span> 300 miles</div><div class="option"><span class="opt-letter">D.</span> 360 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let D be the total distance. 60% of D = 180 miles</div>
+    <div class="step-exp">Identify the given part (180 miles traveled) and the percentage it represents (60%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.60 * D = 180</div>
+    <div class="step-exp">Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">D = 180 / 0.60 = 300</div>
+    <div class="step-exp">Solve for D by dividing the distance traveled by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 300 miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student scored 85 points on a test, which represented 68% of the total possible points. What was the total possible score for the test?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 57.8 points</div><div class="option"><span class="opt-letter">B.</span> 117 points</div><div class="option"><span class="opt-letter">C.</span> 125 points</div><div class="option"><span class="opt-letter">D.</span> 153 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let T be the total possible score. 68% of T = 85 points</div>
+    <div class="step-exp">Identify the given part (85 points scored) and the percentage it represents (68%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.68 * T = 85</div>
+    <div class="step-exp">Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">T = 85 / 0.68 = 125</div>
+    <div class="step-exp">Solve for T by dividing the score by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 125 points (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observed 12 blue whales, which constituted 4% of the total whale population in a protected area. What is the total whale population in that area?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.48 whales</div><div class="option"><span class="opt-letter">B.</span> 48 whales</div><div class="option"><span class="opt-letter">C.</span> 300 whales</div><div class="option"><span class="opt-letter">D.</span> 1200 whales</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let P be the total whale population. 4% of P = 12 whales</div>
+    <div class="step-exp">Identify the given part (12 blue whales) and the percentage it represents (4%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.04 * P = 12</div>
+    <div class="step-exp">Convert the percentage to a decimal. Remember to use 0.04 for 4%.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">P = 12 / 0.04 = 300</div>
+    <div class="step-exp">Solve for P by dividing the number of blue whales by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 300 whales (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew completed 35% of a building project in 105 days. How many total days are estimated for the entire project?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 36.75 days</div><div class="option"><span class="opt-letter">B.</span> 140 days</div><div class="option"><span class="opt-letter">C.</span> 300 days</div><div class="option"><span class="opt-letter">D.</span> 367.5 days</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let T be the total days for the project. 35% of T = 105 days</div>
+    <div class="step-exp">Identify the given part (105 days completed) and the percentage it represents (35%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.35 * T = 105</div>
+    <div class="step-exp">Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">T = 105 / 0.35 = 300</div>
+    <div class="step-exp">Solve for T by dividing the number of days by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 300 days (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company reported 3,840 product sales in the first quarter, which was 120% of their target sales for that quarter. What was the company&#x27;s target sales for the first quarter?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4,608 sales</div><div class="option"><span class="opt-letter">B.</span> 32 sales</div><div class="option"><span class="opt-letter">C.</span> 3,200 sales</div><div class="option"><span class="opt-letter">D.</span> 3,840 sales</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let T be the target sales. 120% of T = 3,840 sales</div>
+    <div class="step-exp">Identify the given part (3,840 sales) and the percentage it represents (120%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1.20 * T = 3,840</div>
+    <div class="step-exp">Convert the percentage to a decimal. For percentages over 100%, the decimal will be greater than 1.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">T = 3,840 / 1.20 = 3,200</div>
+    <div class="step-exp">Solve for T by dividing the actual sales by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3,200 sales (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A city&#x27;s population increased by 15% over a decade. If the increase was 22,500 people, what was the original population of the city?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3,375 people</div><div class="option"><span class="opt-letter">B.</span> 191,250 people</div><div class="option"><span class="opt-letter">C.</span> 150,000 people</div><div class="option"><span class="opt-letter">D.</span> 1,500,000 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let P be the original population. 15% of P = 22,500 people</div>
+    <div class="step-exp">Identify the given part (22,500 people, which is the increase) and the percentage it represents (15%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.15 * P = 22,500</div>
+    <div class="step-exp">Convert the percentage to a decimal.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">P = 22,500 / 0.15 = 150,000</div>
+    <div class="step-exp">Solve for P by dividing the increase in population by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 150,000 people (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new software update downloaded 75 MB in 15 seconds. If this was 2.5% of the total update size, what is the total size of the software update in MB?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.875 MB</div><div class="option"><span class="opt-letter">B.</span> 30 MB</div><div class="option"><span class="opt-letter">C.</span> 3,000 MB</div><div class="option"><span class="opt-letter">D.</span> 750 MB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let S be the total update size. 2.5% of S = 75 MB</div>
+    <div class="step-exp">Identify the given part (75 MB downloaded) and the percentage it represents (2.5%). Set up an equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.025 * S = 75</div>
+    <div class="step-exp">Convert the percentage to a decimal. Remember to move the decimal point two places to the left, so 2.5% becomes 0.025.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">S = 75 / 0.025 = 3,000</div>
+    <div class="step-exp">Solve for S by dividing the downloaded amount by the decimal percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3,000 MB (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

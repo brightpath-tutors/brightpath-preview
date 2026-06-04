@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: One-Step Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.008<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">One-Step Equations</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.008</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah had $25.50. After buying a new book, she had $13.25 left. How much did the book cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $38.75</div><div class="option"><span class="opt-letter">B.</span> $12.25</div><div class="option"><span class="opt-letter">C.</span> $12.75</div><div class="option"><span class="opt-letter">D.</span> $11.25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the cost of the book. The initial amount minus the cost of the book equals the remaining amount: $25.50 - x = $13.25.</div>
+    <div class="step-exp">We start with the total money Sarah had, subtract the unknown cost of the book, and set it equal to the money she had left.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">$25.50 - x = $13.25
+Subtract $13.25 from both sides: $25.50 - $13.25 = x</div>
+    <div class="step-exp">To find &#x27;x&#x27;, we rearrange the equation so that &#x27;x&#x27; is by itself on one side. We can do this by adding &#x27;x&#x27; to both sides, and then subtracting $13.25 from both sides, or by simply realizing that the cost of the book is the difference between the starting amount and the remaining amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">$25.50 - $13.25 = $12.25</div>
+    <div class="step-exp">Perform the subtraction to find the cost of the book.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $12.25 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team scored 87 points in a game. If they scored 45 points in the first half, how many points did they score in the second half?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 32</div><div class="option"><span class="opt-letter">B.</span> 132</div><div class="option"><span class="opt-letter">C.</span> 45</div><div class="option"><span class="opt-letter">D.</span> 42</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the points scored in the second half. Points from first half + points from second half = total points: 45 + x = 87.</div>
+    <div class="step-exp">We know the points from the first half and the total points. The unknown is the points in the second half.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">45 + x = 87
+Subtract 45 from both sides: x = 87 - 45</div>
+    <div class="step-exp">To solve for &#x27;x&#x27;, we perform the inverse operation of addition, which is subtraction, on both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">87 - 45 = 42</div>
+    <div class="step-exp">Perform the subtraction to find the points scored in the second half.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 42 points (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 3 cups of sugar. If this amount is one-fourth of the total sugar needed for a large batch, how much total sugar (in cups) is needed for the large batch?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1</div><div class="option"><span class="opt-letter">B.</span> 0.75</div><div class="option"><span class="opt-letter">C.</span> 7</div><div class="option"><span class="opt-letter">D.</span> 12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the total sugar needed. One-fourth of the total sugar is 3 cups: (1/4) * x = 3.</div>
+    <div class="step-exp">We are given a fraction of the total amount and its value, so we set up a multiplication equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">(1/4) <em> x = 3
+Multiply both sides by 4: x = 3 </em> 4</div>
+    <div class="step-exp">To solve for &#x27;x&#x27;, we perform the inverse operation of multiplying by a fraction, which is multiplying by its reciprocal (or just multiplying by the denominator).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 * 4 = 12</div>
+    <div class="step-exp">Perform the multiplication to find the total sugar needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 cups (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled a distance of 180 miles at a constant speed for 3.5 hours. What was the car&#x27;s average speed in miles per hour? (Round to the nearest hundredth if necessary)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 630 mph</div><div class="option"><span class="opt-letter">B.</span> 51.42 mph</div><div class="option"><span class="opt-letter">C.</span> 183.5 mph</div><div class="option"><span class="opt-letter">D.</span> 51.43 mph</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;s&#x27; be the average speed. s × 3.5 = 180.</div>
+    <div class="step-exp">We know the total distance and the time taken. We need to find the speed using the distance formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">s × 3.5 = 180
+Divide both sides by 3.5: s = 180 / 3.5</div>
+    <div class="step-exp">To solve for &#x27;s&#x27;, we perform the inverse operation of multiplication, which is division, on both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">180 / 3.5 ≈ 51.42857...
+Rounded to the nearest hundredth, s = 51.43.</div>
+    <div class="step-exp">Perform the division and then round the result to two decimal places as requested.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 51.43 mph (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A class has 28 students. If 4/7 of the students are girls, how many girls are in the class?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7</div><div class="option"><span class="opt-letter">B.</span> 28</div><div class="option"><span class="opt-letter">C.</span> 16</div><div class="option"><span class="opt-letter">D.</span> 12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the number of girls. The number of girls is 4/7 of the total students: x = (4/7) * 28.</div>
+    <div class="step-exp">To find a fraction of a whole number, we multiply the fraction by the whole number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x = (4 * 28) / 7
+x = 112 / 7
+x = 16</div>
+    <div class="step-exp">Multiply the numerator of the fraction by the total number of students, then divide by the denominator to get the number of girls.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 girls (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in a freezer was -15°C. After a power outage, the temperature rose by 8°C. What is the new temperature in the freezer?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 23°C</div><div class="option"><span class="opt-letter">B.</span> 7°C</div><div class="option"><span class="opt-letter">C.</span> -7°C</div><div class="option"><span class="opt-letter">D.</span> -23°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the new temperature. Initial temperature + temperature rise = new temperature: -15 + 8 = x.</div>
+    <div class="step-exp">When the temperature rises, it means we add the change to the initial temperature. We are working with integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-15 + 8 = -7</div>
+    <div class="step-exp">When adding integers with different signs, subtract their absolute values and keep the sign of the integer with the larger absolute value. | -15 | = 15, | 8 | = 8. 15 - 8 = 7. Since -15 has a larger absolute value, the result is negative.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -7°C (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A carpenter needs to cut a wooden plank into 6 equal pieces. If the original plank is 14.4 feet long, what is the length of each piece in feet?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.4 feet</div><div class="option"><span class="opt-letter">B.</span> 86.4 feet</div><div class="option"><span class="opt-letter">C.</span> 2.2 feet</div><div class="option"><span class="opt-letter">D.</span> 6 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;x&#x27; be the length of each piece. 6 pieces of length &#x27;x&#x27; make up the total length: 6x = 14.4.</div>
+    <div class="step-exp">The total length of the plank is divided equally among 6 pieces.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6x = 14.4
+Divide both sides by 6: x = 14.4 / 6</div>
+    <div class="step-exp">To solve for &#x27;x&#x27;, we perform the inverse operation of multiplication, which is division, on both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">14.4 / 6 = 2.4</div>
+    <div class="step-exp">Perform the division to find the length of each piece.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2.4 feet (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A flight from New York to London takes 7 hours and 30 minutes. If the flight arrived at 5:15 PM, what time did it depart from New York?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9:45 PM</div><div class="option"><span class="opt-letter">B.</span> 10:45 AM</div><div class="option"><span class="opt-letter">C.</span> 9:45 AM</div><div class="option"><span class="opt-letter">D.</span> 12:45 PM</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5:15 PM = 17:15</div>
+    <div class="step-exp">Converting to 24-hour format simplifies time calculations, especially when crossing midnight or dealing with AM/PM.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Departure Time + Flight Duration = Arrival Time
+Departure Time + 7 hours 30 minutes = 17 hours 15 minutes
+Departure Time = 17 hours 15 minutes - 7 hours 30 minutes</div>
+    <div class="step-exp">To find the departure time, we subtract the flight duration from the arrival time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since 15 minutes is less than 30 minutes, borrow 1 hour (60 minutes) from 17 hours:
+17 hours 15 minutes becomes 16 hours (15 + 60) minutes = 16 hours 75 minutes.
+Now, subtract:
+16 hours 75 minutes - 7 hours 30 minutes = 9 hours 45 minutes.</div>
+    <div class="step-exp">We need to borrow from the hours column because we cannot subtract 30 minutes from 15 minutes directly.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">9 hours 45 minutes is 9:45 AM.</div>
+    <div class="step-exp">Since the result is less than 12:00, it is AM.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9:45 AM (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town increased by 15% last year. If the current population is 18,400, what was the population before the increase? (Round to the nearest whole number)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 21,160 people</div><div class="option"><span class="opt-letter">B.</span> 15,640 people</div><div class="option"><span class="opt-letter">C.</span> 16,000 people</div><div class="option"><span class="opt-letter">D.</span> 18,415 people</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;P&#x27; be the population before the increase. 15% as a decimal is 0.15. An increase of 15% means the new population is 100% + 15% = 115% of the original population, or 1.15P.</div>
+    <div class="step-exp">To account for the increase, we multiply the original population by (1 + the decimal form of the percentage increase).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">P × 1.15 = 18,400</div>
+    <div class="step-exp">The original population multiplied by 1.15 equals the current population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">P = 18,400 / 1.15</div>
+    <div class="step-exp">To solve for &#x27;P&#x27;, we divide the current population by the growth factor (1.15).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">P = 18,400 / 1.15 = 16,000</div>
+    <div class="step-exp">Perform the division. The result is a whole number, so no rounding is needed.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16,000 people (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new smartphone was on sale for $720, which was 80% of its original price. What was the original price of the smartphone?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $800</div><div class="option"><span class="opt-letter">B.</span> $900</div><div class="option"><span class="opt-letter">C.</span> $1000</div><div class="option"><span class="opt-letter">D.</span> $576</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Let &#x27;P&#x27; be the original price of the smartphone. 80% as a decimal is 0.80.</div>
+    <div class="step-exp">To work with percentages in an equation, we convert them to their decimal form.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Original Price × Percentage = Sale Price
+P × 0.80 = 720</div>
+    <div class="step-exp">The sale price is a fraction (80%) of the original price.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">P = 720 / 0.80</div>
+    <div class="step-exp">To solve for &#x27;P&#x27;, we divide the sale price by the decimal equivalent of the percentage.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">P = 900</div>
+    <div class="step-exp">Perform the division to find the original price.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $900 (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Factor Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | EE | Skill 8.EE.070<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Factor Expressions</h1>
+<p class="skill-subtitle">Skill ID: 8.EE.070</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A cashier is tallying the cost of &#x27;x&#x27; identical souvenir keychains and a fixed service charge. The total cost is represented by the expression <code>7x + 21</code>. Factor this expression to show the price per keychain and the quantity related to the service charge.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7(x + 3)</div><div class="option"><span class="opt-letter">B.</span> 7(x + 7)</div><div class="option"><span class="opt-letter">C.</span> 7x(1 + 3)</div><div class="option"><span class="opt-letter">D.</span> x(7 + 21)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is <code>7x + 21</code>. The terms are <code>7x</code> and <code>21</code>.</div>
+    <div class="step-exp">Break down the expression into its individual terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The GCF of <code>7x</code> and <code>21</code> is <code>7</code>.</div>
+    <div class="step-exp">The GCF is the largest factor that divides all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide each term by the GCF:
+<code>7x / 7 = x</code>
+<code>21 / 7 = 3</code></div>
+    <div class="step-exp">Divide each term by the GCF to find the remaining terms inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+<code>7(x + 3)</code></div>
+    <div class="step-exp">The factored form is the product of the GCF and the sum/difference of the divided terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7(x + 3) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A sports team is ordering &#x27;p&#x27; jerseys. The total number of patches needed for logos is given by <code>4p + 12</code>. Factor this expression to find the number of patches per jersey and any extra patches.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4p(1 + 3)</div><div class="option"><span class="opt-letter">B.</span> 4(p + 3)</div><div class="option"><span class="opt-letter">C.</span> p(4 + 12)</div><div class="option"><span class="opt-letter">D.</span> 4(p + 4)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is <code>4p + 12</code>. The terms are <code>4p</code> and <code>12</code>.</div>
+    <div class="step-exp">Break down the expression into its individual terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The GCF of <code>4p</code> and <code>12</code> is <code>4</code>.</div>
+    <div class="step-exp">The GCF is the largest factor that divides all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide each term by the GCF:
+<code>4p / 4 = p</code>
+<code>12 / 4 = 3</code></div>
+    <div class="step-exp">Divide each term by the GCF to find the remaining terms inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+<code>4(p + 3)</code></div>
+    <div class="step-exp">The factored form is the product of the GCF and the sum/difference of the divided terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4(p + 3) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school is distributing &#x27;s&#x27; tablets to students. The total number of protective cases needed is <code>6s - 18</code>. Factor this expression to determine the number of cases per tablet and any cases removed or surplus.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6(s - 3)</div><div class="option"><span class="opt-letter">B.</span> 6(s - 6)</div><div class="option"><span class="opt-letter">C.</span> 6s(1 - 3)</div><div class="option"><span class="opt-letter">D.</span> s(6 - 18)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is <code>6s - 18</code>. The terms are <code>6s</code> and <code>-18</code>.</div>
+    <div class="step-exp">Break down the expression into its individual terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The GCF of <code>6s</code> and <code>18</code> is <code>6</code>.</div>
+    <div class="step-exp">The GCF is the largest factor that divides all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide each term by the GCF:
+<code>6s / 6 = s</code>
+<code>-18 / 6 = -3</code></div>
+    <div class="step-exp">Divide each term by the GCF to find the remaining terms inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+<code>6(s - 3)</code></div>
+    <div class="step-exp">The factored form is the product of the GCF and the sum/difference of the divided terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6(s - 3) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction manager is calculating the area of a rectangular plot of land. The expression for the area is <code>3y^2 + 9y</code> square meters. Factor this expression to find possible dimensions (length and width) of the plot.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3(y^2 + 3y)</div><div class="option"><span class="opt-letter">B.</span> 3y(y + 9y)</div><div class="option"><span class="opt-letter">C.</span> 3y(y + 3)</div><div class="option"><span class="opt-letter">D.</span> y(3y + 9)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is <code>3y^2 + 9y</code>.</div>
+    <div class="step-exp">Break down the expression into its individual terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The GCF of <code>3y^2</code> and <code>9y</code> is <code>3y</code>.</div>
+    <div class="step-exp">The GCF is the largest factor that divides all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide each term by the GCF:
+<code>3y^2 / 3y = y</code>
+<code>9y / 3y = 3</code></div>
+    <div class="step-exp">Divide each term by the GCF to find the remaining terms inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+<code>3y(y + 3)</code></div>
+    <div class="step-exp">The factored form is the product of the GCF and the sum/difference of the divided terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3y(y + 3) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A biologist is modeling the population of a certain species, &#x27;n&#x27;, over time. The expression <code>5n^2 - 20n</code> represents a phase of their growth. Factor this expression completely.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5n(n - 4)</div><div class="option"><span class="opt-letter">B.</span> 5n(n + 4)</div><div class="option"><span class="opt-letter">C.</span> n(5n - 20)</div><div class="option"><span class="opt-letter">D.</span> 5(n^2 - 4n)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is <code>5n^2 - 20n</code>.</div>
+    <div class="step-exp">Break down the expression into its individual terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The GCF of <code>5n^2</code> and <code>20n</code> is <code>5n</code>.</div>
+    <div class="step-exp">The GCF is the largest factor that divides all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide each term by the GCF:
+<code>5n^2 / 5n = n</code>
+<code>-20n / 5n = -4</code></div>
+    <div class="step-exp">Divide each term by the GCF to find the remaining terms inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+<code>5n(n - 4)</code></div>
+    <div class="step-exp">The factored form is the product of the GCF and the sum/difference of the divided terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5n(n - 4) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The change in a vehicle&#x27;s kinetic energy is given by <code>11v^2 + 22v</code>, where &#x27;v&#x27; is the velocity. Factor this expression completely to analyze the energy components.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 11v(v + 2)</div><div class="option"><span class="opt-letter">B.</span> v(11v + 22)</div><div class="option"><span class="opt-letter">C.</span> 11(v^2 + 2v)</div><div class="option"><span class="opt-letter">D.</span> 11v(v + 11)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is <code>11v^2 + 22v</code>.</div>
+    <div class="step-exp">Break down the expression into its individual terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The GCF of <code>11v^2</code> and <code>22v</code> is <code>11v</code>.</div>
+    <div class="step-exp">The GCF is the largest factor that divides all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Divide each term by the GCF:
+<code>11v^2 / 11v = v</code>
+<code>22v / 11v = 2</code></div>
+    <div class="step-exp">Divide each term by the GCF to find the remaining terms inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+<code>11v(v + 2)</code></div>
+    <div class="step-exp">The factored form is the product of the GCF and the sum/difference of the divided terms.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 11v(v + 2) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A network&#x27;s data transfer rate, in megabytes per second, is given by the polynomial expression <code>4t^3 - 16t^2 + 12t</code>, where &#x27;t&#x27; is time in seconds. Factor this expression completely to analyze its components.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4t(t^2 - 4t + 3)</div><div class="option"><span class="opt-letter">B.</span> t(4t^2 - 16t + 12)</div><div class="option"><span class="opt-letter">C.</span> 4t(t + 1)(t + 3)</div><div class="option"><span class="opt-letter">D.</span> 4t(t - 1)(t - 3)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>4t^3</code>, <code>-16t^2</code>, and <code>12t</code>. The GCF is <code>4t</code>.</div>
+    <div class="step-exp">Find the greatest common factor for all terms in the polynomial.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code>4t(4t^3/4t - 16t^2/4t + 12t/4t)</code>
+<code>4t(t^2 - 4t + 3)</code></div>
+    <div class="step-exp">Divide each term by the GCF and write the remaining expression inside parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">For <code>t^2 - 4t + 3</code>, find two numbers that multiply to <code>3</code> and add to <code>-4</code>. These numbers are <code>-1</code> and <code>-3</code>.
+So, <code>t^2 - 4t + 3 = (t - 1)(t - 3)</code>.</div>
+    <div class="step-exp">Factor the trinomial by finding two binomials whose product is the trinomial.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work"><code>4t(t - 1)(t - 3)</code></div>
+    <div class="step-exp">Combine the GCF with the factored trinomial to get the final completely factored expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4t(t - 1)(t - 3) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A medical researcher is analyzing the concentration of a drug in a patient&#x27;s bloodstream over time. An initial model for the concentration, C, is given by the expression <code>20h^2 - 45</code>, where &#x27;h&#x27; is the number of hours. Factor this expression completely.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5(2h - 3)(2h + 3)</div><div class="option"><span class="opt-letter">B.</span> 5(2h - 3)^2</div><div class="option"><span class="opt-letter">C.</span> (10h - 9)(2h + 5)</div><div class="option"><span class="opt-letter">D.</span> 20(h^2 - 2.25)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>20h^2</code> and <code>45</code>. The GCF is <code>5</code>.</div>
+    <div class="step-exp">Find the greatest common factor for all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code>5(20h^2/5 - 45/5)</code>
+<code>5(4h^2 - 9)</code></div>
+    <div class="step-exp">Divide each term by the GCF and write the remaining expression inside parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The expression <code>4h^2 - 9</code> is a difference of squares: <code>(2h)^2 - 3^2</code>.
+Using the formula <code>a^2 - b^2 = (a - b)(a + b)</code>:
+<code>(2h - 3)(2h + 3)</code></div>
+    <div class="step-exp">Recognize that the remaining binomial is in the form of a difference of squares and apply the corresponding factorization formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work"><code>5(2h - 3)(2h + 3)</code></div>
+    <div class="step-exp">Combine the GCF with the factored difference of squares to get the final completely factored expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5(2h - 3)(2h + 3) (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The projected change in a city&#x27;s population, in thousands, over &#x27;y&#x27; years is given by <code>3y^3 + 21y^2 + 36y</code>. Factor this expression completely to better understand the growth dynamics.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3y(y^2 + 7y + 12)</div><div class="option"><span class="opt-letter">B.</span> y(3y^2 + 21y + 36)</div><div class="option"><span class="opt-letter">C.</span> 3y(y + 3)(y + 4)</div><div class="option"><span class="opt-letter">D.</span> 3y(y + 2)(y + 6)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The expression is already ordered: <code>3y^3 + 21y^2 + 36y</code>.</div>
+    <div class="step-exp">Arranging terms in descending order of their exponents can simplify the factoring process.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>3y^3</code>, <code>21y^2</code>, and <code>36y</code>. The GCF is <code>3y</code>.</div>
+    <div class="step-exp">Find the greatest common factor for all terms in the polynomial.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work"><code>3y(3y^3/3y + 21y^2/3y + 36y/3y)</code>
+<code>3y(y^2 + 7y + 12)</code></div>
+    <div class="step-exp">Divide each term by the GCF and write the remaining expression inside parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">For <code>y^2 + 7y + 12</code>, find two numbers that multiply to <code>12</code> and add to <code>7</code>. These numbers are <code>3</code> and <code>4</code>.
+So, <code>y^2 + 7y + 12 = (y + 3)(y + 4)</code>.</div>
+    <div class="step-exp">Factor the trinomial by finding two binomials whose product is the trinomial.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work"><code>3y(y + 3)(y + 4)</code></div>
+    <div class="step-exp">Combine the GCF with the factored trinomial to get the final completely factored expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3y(y + 3)(y + 4) (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An architect is designing a decorative panel. The area of the panel is represented by the expression <code>75w^3 - 48w</code> square units. Factor this expression completely to find the dimensions.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> w(75w^2 - 48)</div><div class="option"><span class="opt-letter">B.</span> 3w(5w - 4)(5w + 4)</div><div class="option"><span class="opt-letter">C.</span> 3w(25w^2 - 16)</div><div class="option"><span class="opt-letter">D.</span> 3w(5w - 4)^2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The terms are <code>75w^3</code> and <code>48w</code>. The GCF is <code>3w</code>.</div>
+    <div class="step-exp">Find the greatest common factor for all terms in the expression.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work"><code>3w(75w^3/3w - 48w/3w)</code>
+<code>3w(25w^2 - 16)</code></div>
+    <div class="step-exp">Divide each term by the GCF and write the remaining expression inside parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The expression <code>25w^2 - 16</code> is a difference of squares: <code>(5w)^2 - 4^2</code>.
+Using the formula <code>a^2 - b^2 = (a - b)(a + b)</code>:
+<code>(5w - 4)(5w + 4)</code></div>
+    <div class="step-exp">Recognize that the remaining binomial is in the form of a difference of squares and apply the corresponding factorization formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work"><code>3w(5w - 4)(5w + 4)</code></div>
+    <div class="step-exp">Combine the GCF with the factored difference of squares to get the final completely factored expression.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3w(5w - 4)(5w + 4) (Option B)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

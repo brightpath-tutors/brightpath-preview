@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Writing Algebraic Expressions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | Expressions and Equations<br>81 atoms | Skill 6.EE.003.02<br></div>
+</div>
+<h1 class="skill-title">Writing Algebraic Expressions</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.003.02 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can translate verbal phrases into algebraic expressions using variables, numbers, and operation symbols.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">Writing algebraic expressions is the crucial skill of translating real-world scenarios or verbal descriptions into the concise language of mathematics. It involves representing unknown quantities with variables—usually letters like &#x27;x&#x27; or &#x27;y&#x27;—and combining them with known numbers (constants) using operation symbols for addition (+), subtraction (-), multiplication (*), and division (/). For example, if you want to express &quot;the total cost of three items, each costing an unknown amount &#x27;c&#x27; plus a fixed shipping fee of $4.99,&quot; you would write 3c + 4.99. The &#x27;3c&#x27; represents the cost of the items (3 multiplied by c), and &#x27;+ 4.99&#x27; adds the shipping. This process helps us model situations mathematically. Think of it like being a culinary translator, <span class="ph">[Student Name]</span>. If a recipe calls for &quot;twice the amount of sugar plus one cup,&quot; you&#x27;re translating that into 2s + 1, where &#x27;s&#x27; is the initial amount of sugar. This mathematical translation provides a universal, unambiguous way to represent relationships, allowing us to solve problems efficiently. <span class="ph">[they]</span> will find this skill incredibly useful, <span class="ph">[Student Name]</span>.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content"><span class="ph">[Student Name]</span>, you’ve already developed some amazing mathematical skills, especially with 6.EE.003.01! You&#x27;re already comfortable with applying properties of operations to create equivalent expressions, like knowing that 5 <em> (x + 2) is the same as 5x + 10. That means you&#x27;re already thinking in terms of variables, numbers, and operations. You know how to take an expression and change its form. Well, writing algebraic expressions is simply the exciting next step! Instead of just </em>rearranging<em> expressions, you&#x27;ll now be </em>creating* them from scratch, turning everyday words into powerful mathematical statements. Think of it as learning to build with LEGOs. You already know how to connect the blocks (that&#x27;s 6.EE.003.01); now we’re just giving you the instructions to build a specific model (writing the expression). <span class="ph">[they]</span> already understands the building blocks of math, so translating a phrase like &quot;eight dollars less than twice your savings&quot; into 2s - 8 will feel very natural. You&#x27;ve got this, <span class="ph">[Student Name]</span>!</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that algebraic expressions are the secret language behind some of your favorite things, <span class="ph">[Student Name]</span>? It&#x27;s true! Consider your favorite video game: every time a character gains points, moves across the screen, or interacts with an object, an algebraic expression is likely at work behind the scenes. For example, a game developer might use &#x27;score + 50&#x27; to add points or &#x27;position_x - speed&#x27; to move a character left. Even in US sports, coaches use expressions to predict outcomes. A basketball coach might estimate points for a player as &#x27;2P + 3T&#x27; (two-pointers plus three-pointers). When you shop at Target and see a &quot;Buy two, get one 50% off&quot; deal, the store&#x27;s system uses an algebraic expression, perhaps something like &#x27;2c + 0.5c&#x27;, where &#x27;c&#x27; is the item&#x27;s cost, to calculate your total! It’s not just abstract math; it’s the code that makes our modern world run. Once <span class="ph">[they]</span> learns to write these expressions, <span class="ph">[they]</span> will start seeing them everywhere, unlocking a whole new level of understanding how things work around us, <span class="ph">[Student Name]</span>.</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Let&#x27;s establish a clear and steady understanding of writing algebraic expressions. At its core, writing an algebraic expression means translating words or descriptions into a compact mathematical form using numbers, variables (letters representing unknown values), and operation symbols. For instance, if a problem describes &quot;a number increased by seven,&quot; you are being asked to write an expression. You identify &quot;a number&quot; as an unknown, so you can represent it with a variable, let&#x27;s say &#x27;x&#x27;. The phrase &quot;increased by seven&quot; tells you to add 7. Therefore, the algebraic expression is x + 7. It&#x27;s a systematic process, <span class="ph">[Student Name]</span>. To apply this, imagine you have &quot;five fewer candies than your friend, <span class="ph">[Student Name]</span>.&quot; If your friend has &#x27;f&#x27; candies, &quot;five fewer&quot; means you subtract 5 from their amount, resulting in the expression f - 5. This structured approach ensures that <span class="ph">[they]</span> can consistently convert verbal statements into accurate algebraic expressions, providing a solid foundation for more complex problems. <span class="ph">[they]</span> will build confidence with each step, <span class="ph">[Student Name]</span>.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Remember in 6th grade math when you learned to apply the properties of operations to generate equivalent expressions, like changing 4(y + 2) into 4y + 8 using the distributive property? That skill, 6.EE.003.01, showed you how to work with expressions that already contained variables and numbers. You practiced manipulating expressions, understanding that different forms could represent the same value. This foundational knowledge is incredibly important because it means you&#x27;re already familiar with variables as placeholders for unknown numbers and how operations function within mathematical statements.
+
+Now, <span class="ph">[Student Name]</span>, we&#x27;re taking that existing comfort with variables and operations and using it to <em>build</em> expressions from the ground up. Think of it: you&#x27;ve already proven you can understand and use the &quot;grammar&quot; of algebraic sentences. The bridge to writing algebraic expressions is simply learning how to translate the &quot;words&quot; of a real-world problem into that grammar. Your prior work taught <span class="ph">[them]</span> what an expression <em>is</em> and how it <em>behaves</em>; now, <span class="ph">[they]</span> will learn how to <em>construct</em> one based on a description.
+
+So, the new skill, writing algebraic expressions, involves transforming a verbal phrase like &quot;the total cost of three movie tickets if each ticket costs &#x27;t&#x27; dollars&quot; into its mathematical equivalent: 3t. You identify the unknown (ticket cost &#x27;t&#x27;), the number of tickets (3), and the implied operation (multiplication). This direct translation is what we&#x27;ll master, building directly on your strong foundation from 6.EE.003.01, <span class="ph">[Student Name]</span>.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hello <span class="ph">[Student Name]</span>! Let&#x27;s break down how to write an algebraic expression for a real-world problem. Imagine you&#x27;re at a concession stand at a high school basketball game. A large soda costs $4, and a hot dog costs $5. You want to buy some hot dogs, but you&#x27;re not sure how many yet, and you definitely want one large soda. Let&#x27;s write an expression for your total cost.
+
+1.  <strong><span class="hint-tag">&#128161; Hint: What part of the cost will change?</span></strong> First, identify what quantity you don&#x27;t know yet and give it a letter. In this problem, you don&#x27;t know how many hot dogs you&#x27;ll buy. Let&#x27;s use the letter &#x27;h&#x27; to represent the number of hot dogs.
+
+2.  <strong><span class="hint-tag">&#128161; Hint: How does the cost of hot dogs relate to the number you buy?</span></strong> Next, think about the cost associated with the changing quantity. Each hot dog costs $5. So, if you buy &#x27;h&#x27; hot dogs, the total cost for the hot dogs would be 5 multiplied by &#x27;h&#x27;, which we write as 5h.
+
+3.  <strong><span class="hint-tag">&#128161; Hint: What&#x27;s the fixed cost that doesn&#x27;t change?</span></strong> Now, consider any costs that are fixed, meaning they don&#x27;t change no matter how many hot dogs you buy. You&#x27;re definitely buying one large soda, which costs $4. This is a fixed amount we need to add to the cost of the hot dogs.
+
+4.  <strong><span class="hint-tag">&#128161; Hint: How do you combine the changing and fixed costs?</span></strong> Finally, combine the variable part (cost of hot dogs) and the fixed part (cost of soda) with an addition sign. So, your total cost expression is 5h + 4.
+
+<strong>Check:</strong> If <span class="ph">[they]</span> decides to buy 3 hot dogs, you would substitute 3 for &#x27;h&#x27;: 5(3) + 4 = 15 + 4 = $19. This makes sense: 3 hot dogs at $5 each is $15, plus the $4 soda, totals $19.</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Let&#x27;s work through writing an algebraic expression for a situation <span class="ph">[Student Name]</span> might encounter at a theme park. Imagine tickets to the &#x27;Wild Waves&#x27; water park cost $45 each. If you also rent a locker for your belongings for a flat fee of $12 for the day, how would you write an expression for the total cost for your group?
+
+1.  <strong>Identify the variable:</strong> The cost of tickets depends on how many people are in your group. Since we don&#x27;t know the exact number of people, we&#x27;ll use a variable to represent it. Let&#x27;s use &#x27;p&#x27; for the number of people in your group.
+
+2.  <strong>Express the variable cost:</strong> Each person&#x27;s ticket costs $45. To find the total cost for tickets, you multiply the cost per ticket by the number of people. So, the cost for &#x27;p&#x27; people would be 45 * p, which we write as 45p.
+
+3.  <strong>Identify the fixed cost:</strong> In addition to the tickets, there&#x27;s a one-time locker rental fee of $12. This amount doesn&#x27;t change, regardless of how many people are in your group. It&#x27;s a constant amount that needs to be added to the total cost.
+
+4.  <strong>Combine the terms:</strong> To get the total cost, you add the variable cost (for the tickets) and the fixed cost (for the locker rental). The algebraic expression for the total cost is 45p + 12.
+
+<strong>Check:</strong> If there are 4 people in the group, we substitute &#x27;4&#x27; for &#x27;p&#x27; in the expression: 45(4) + 12 = 180 + 12 = $192. This means four tickets would be $180, plus the $12 locker rental, totaling $192.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body">Let&#x27;s tackle a trickier problem, <span class="ph">[Student Name]</span>. Your school is organizing a fundraising car wash. They charge $10 for each small car and $15 for each large truck. They also received a $50 donation before the event started. If &#x27;s&#x27; represents the number of small cars and &#x27;t&#x27; represents the number of large trucks washed, write an expression for the total money raised.
+
+1.  <strong>Cost for Small Cars:</strong> We know each small car costs $10. So, for &#x27;s&#x27; small cars, the money earned is 10 <em> s, or 10s. <strong>Common Error to Avoid:</strong> Don&#x27;t accidentally use &#x27;s&#x27; to represent the </em>cost<em> of a small car. It represents the </em>number<em> of small cars, and we multiply that number by the fixed cost per car.
+
+2.  <strong>Cost for Large Trucks:</strong> Similarly, each large truck costs $15. For &#x27;t&#x27; large trucks, the money earned is 15 </em> t, or 15t. <strong>Common Error to Avoid:</strong> Make sure you use a different variable for different unknown quantities. Using &#x27;s&#x27; for both small cars and large trucks would mix up your earnings.
+
+3.  <strong>The Fixed Donation:</strong> The school already received a $50 donation. This is a constant amount that doesn&#x27;t depend on how many cars are washed. <strong>Common Error to Avoid:</strong> Don&#x27;t forget to include fixed amounts that are part of the total. Sometimes students only focus on the variable parts.
+
+4.  <strong>Combine All Parts:</strong> To find the total money raised, we add the earnings from small cars, the earnings from large trucks, and the initial donation. The expression is 10s + 15t + 50.
+
+<strong>Check:</strong> If they wash 8 small cars and 5 large trucks, the total would be 10(8) + 15(5) + 50 = 80 + 75 + 50 = $205. This makes sense for the combined earnings and the donation.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Imagine you have a mystery box of awesome stickers. We don&#x27;t know exactly how many stickers are inside, right? That&#x27;s our secret number! But you also have 5 shiny baseball cards in your hand. If I ask, &#x27;How many cool things do you have in all?&#x27;, we can say, &#x27;Your mystery stickers and your 5 baseball cards!&#x27; We just use a special secret word for the stickers because we don&#x27;t know the exact count yet. It&#x27;s like &#x27;mystery stickers plus 5 cards!&#x27;</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Writing algebraic expressions is just like ordering a combo meal at your favorite burger joint, <span class="ph">[Student Name]</span>! Let&#x27;s say the &#x27;Big Byte Burger&#x27; combo costs $8 per person, and you always add a side of cheese fries for $3, no matter how many people are eating. 
+
+<em>   <strong>The unknown number of people:</strong> This is like our variable. We don&#x27;t know how many friends are joining, so we use a letter, maybe &#x27;f&#x27; for friends, just like we&#x27;d use &#x27;x&#x27; in math.
+</em>   <strong>Cost per person ($8):</strong> This is the number that gets multiplied by our variable. For &#x27;f&#x27; friends, the burger cost is 8 times &#x27;f&#x27;, or 8f.
+*   <strong>Fixed cost of cheese fries ($3):</strong> This is the constant number we add. It&#x27;s always $3, regardless of &#x27;f&#x27;.
+
+So, your total combo meal expression for the group would be 8f + 3. It&#x27;s a math &#x27;order form&#x27; that works for any number of friends!</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content"><span class="ph">[Student Name]</span>, imagine you have a stack of identical building blocks, like LEGO bricks, but you don&#x27;t know how many are in each stack. Let&#x27;s say each stack represents &#x27;x&#x27; blocks. If you picture 3 of these stacks standing side-by-side, you&#x27;re visually seeing &#x27;x&#x27; plus &#x27;x&#x27; plus &#x27;x&#x27;, which is 3x. Now, what if you also have 5 loose, single LEGO bricks scattered around next to those stacks? You can literally see the three organized stacks of unknown height, and then those 5 individual bricks. When you&#x27;re asked to write an expression for the total number of blocks, you&#x27;re just describing what you see: the three groups of &#x27;x&#x27; blocks, visually combined with the 5 single blocks. So, you&#x27;d picture it as 3x + 5.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! So, writing algebraic expressions might sound like super high-level math, but it&#x27;s actually pretty cool and useful. Think about it this way: you&#x27;re trying to figure out how much something costs, but you don&#x27;t know one part of the numbers yet. Like, if you&#x27;re buying snacks at a football game. Say, popcorn is $7 a bag, and you&#x27;re gonna buy a bunch of those. You also grab a souvenir foam finger for $10. To write an expression for your total bill, you&#x27;d just say &#x27;7 times the number of popcorn bags&#x27; (let&#x27;s use &#x27;p&#x27; for popcorn bags) plus &#x27;10 dollars for the foam finger&#x27;. So it&#x27;s 7p + 10. You&#x27;re just setting up a math sentence with letters so you can fill in the &#x27;p&#x27; later!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine you&#x27;re a <strong>Logistics Coordinator</strong> for a major US shipping company like FedEx or UPS. Your job is to efficiently move packages across the country. One critical task involves calculating shipping costs based on weight, distance, and package type. Writing algebraic expressions is essential for this! For example, a basic shipping cost model might involve a flat handling fee plus a per-pound charge. Let&#x27;s say the flat fee for a certain service is $8.50, and the cost per pound is $0.75. If &#x27;w&#x27; represents the weight of a package in pounds, the algebraic expression for the total shipping cost, &#x27;C&#x27;, would be: C = 0.75w + 8.50. You would use this expression every day to quickly determine costs without manually calculating each time. So, <span class="ph">[Student Name]</span>, understanding how to write these expressions can open doors to careers that keep our economy moving!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Think about your weekly trip to the local grocery store with your family, maybe to a Walmart or Kroger. You often need to estimate how much things will cost. Let&#x27;s say your mom asks you to pick up some apples and bananas. Apples cost $1.99 per pound, and bananas cost $0.79 per pound. If you buy &#x27;a&#x27; pounds of apples and &#x27;b&#x27; pounds of bananas, the total cost &#x27;T&#x27; would be represented by the algebraic expression: T = 1.99a + 0.79b. If you grabbed 3 pounds of apples and 4 pounds of bananas, the calculation would be T = 1.99(3) + 0.79(4) = 5.97 + 3.16 = $9.13. This allows you, <span class="ph">[Student Name]</span>, to quickly figure out how much money is needed for different amounts of fruit without doing long calculations for each scenario, making your shopping trips much smoother!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering algebraic expressions now, <span class="ph">[Student Name]</span>, is like building a super-strong foundation for your academic and professional future. On the SAT and ACT college entrance exams, a significant portion of the math section tests your ability to translate word problems into algebraic expressions and then solve them. A higher score on these tests can make a big difference in getting into your desired college, whether it’s a big state university or a private liberal arts school. Furthermore, colleges often look for students with strong quantitative reasoning skills, which are directly tied to algebra. Ultimately, a college degree, especially in fields that rely heavily on math like engineering, finance, or technology, often leads to higher earning potential. Understanding how to write and manipulate expressions is a direct link to those high-demand, high-paying careers, boosting <span class="ph">[their]</span> financial success down the road.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">A farmer planted 350 corn stalks. Due to a harsh summer, <span class="ph">[they]</span> lost some of them. Write an algebraic expression to represent the number of corn stalks that survived.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">Each ticket to a high school football game costs $7.50. If &#x27;t&#x27; represents the number of tickets purchased, write an algebraic expression for the total cost.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">A pizza restaurant received an order for a large party. They made &#x27;P&#x27; pizzas and need to divide them equally among 8 tables. Write an algebraic expression for the number of pizzas each table will receive.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">An amusement park charges an entrance fee of $30.00, plus $2.25 for each ride. If &#x27;r&#x27; represents the number of rides <span class="ph">[Student Name]</span> goes on, write an algebraic expression for <span class="ph">[their]</span> total cost.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">A store sells t-shirts for $15.00 each and hats for $10.00 each. If a customer buys &#x27;T&#x27; t-shirts and &#x27;H&#x27; hats, write an algebraic expression for the total amount the customer spends.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">Write an algebraic expression for &#x27;five less than double a number &#x27;x&#x27;&#x27;.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">A car rental company charges a daily rate of $45.00 plus a one-time cleaning fee of $25.00. If <span class="ph">[Student Name]</span> rents a car for &#x27;d&#x27; days, write an algebraic expression for the total cost.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">A baker makes &#x27;C&#x27; cupcakes and 2 dozen cookies. <span class="ph">[they]</span> wants to package all the treats into boxes, with 8 treats in each box. Write an algebraic expression for the total number of boxes needed.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Write an algebraic expression for &#x27;the sum of a number and 12&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">Write an algebraic expression for &#x27;7 less than a number&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Write an algebraic expression for &#x27;the product of 5 and a number, increased by 3&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">Write an algebraic expression for &#x27;a number divided by 4, then subtract 1&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Maria has $25 in her savings account. She adds some money to the account. Write an expression for the new total in her account.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content">Write an algebraic expression for &#x27;6 times the sum of a number and 10&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">A t-shirt costs $15. There is a $2 discount for each t-shirt purchased. Write an expression for the total cost if <span class="ph">[Student Name]</span> buys &#x27;t&#x27; t-shirts.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A bus ride costs $2.50. If <span class="ph">[Student Name]</span> has &#x27;d&#x27; dollars, write an expression for how many bus rides <span class="ph">[they]</span> can take.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Write an algebraic expression for &#x27;the difference between 20 and three times a number&#x27;.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">A movie ticket costs $10. A large popcorn costs $6. Write an expression for the total cost for 2 people to go to the movies and buy &#x27;p&#x27; large popcorns.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Reversing Subtraction/Division Order&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> often translates phrases like &#x27;5 less than a number&#x27; as 5 - x instead of x - 5. Similarly, &#x27;a number divided by 7&#x27; can be mistakenly written as 7 \u00f7 x.&quot;, &quot;WHY TEMPTING&quot;: &quot;The numbers appear in the phrase in that specific order, making it seem natural to write them left-to-right as read.&quot;, &quot;SOLUTION&quot;: &quot;For &#x27;less than&#x27; and &#x27;subtracted from&#x27;, think of the number being removed from the unknown quantity, so the unknown comes first. For &#x27;divided by&#x27;, the first mentioned quantity is the dividend.&quot;, &quot;EXAMPLE&quot;: &quot;Phrase: &#x27;6 less than a number&#x27;. Wrong: 6 - y. Right: y - 6.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Ignoring Implied Grouping&quot;, &quot;MISTAKE&quot;: &quot;When a phrase states &#x27;three times the sum of a number and eight&#x27;, <span class="ph">[Student Name]</span> might write 3x + 8. This correctly translates &#x27;three times a number plus eight&#x27; but not the intended &#x27;three times the sum&#x27;.&quot;, &quot;WHY TEMPTING&quot;: &quot;It&#x27;s easy to overlook &#x27;the sum of&#x27; as an operation that needs to be performed <em>before</em> multiplication, leading to a direct left-to-right translation without parentheses.&quot;, &quot;SOLUTION&quot;: &quot;Look for keywords like &#x27;sum of&#x27;, &#x27;difference of&#x27;, &#x27;product of&#x27;, or &#x27;quotient of&#x27; when they are followed by &#x27;and&#x27;. These often indicate that the operation between the two numbers or variables should be grouped in parentheses before another operation is applied.&quot;, &quot;EXAMPLE&quot;: &quot;Phrase: &#x27;4 times the difference of a number and 10&#x27;. Wrong: 4x - 10. Right: 4(x - 10).</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Misinterpreting &#x27;Times&#x27; or &#x27;Product&#x27;&quot;, &quot;MISTAKE&quot;: &quot;<span class="ph">[Student Name]</span> might write &#x27;4 and x&#x27; as 4x + x or 4 + x. Or &#x27;the product of 5 and a number&#x27; as 5 + x.&quot;, &quot;WHY TEMPTING&quot;: &quot;Students are very familiar with addition as a &#x27;putting together&#x27; operation. When they see &#x27;and&#x27;, they instinctively think addition, even in the context of multiplication phrases.&quot;, &quot;SOLUTION&quot;: &quot;Remember that &#x27;times&#x27; and &#x27;product of&#x27; specifically refer to multiplication. When writing algebraic expressions, multiplication is often shown by placing a number next to a variable (e.g., 5x) or using a dot (e.g., 5 \u22c5 x) or parentheses (e.g., 5(x)).&quot;, &quot;EXAMPLE&quot;: &quot;Phrase: &#x27;The product of 9 and a number&#x27;. Wrong: 9 + p. Right: 9p.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Including an Equal Sign in Expressions&quot;, &quot;MISTAKE&quot;: &quot;When asked to write an expression for &#x27;a number increased by seven&#x27;, <span class="ph">[Student Name]</span> might incorrectly write x + 7 =. An expression does not contain an equal sign.&quot;, &quot;WHY TEMPTING&quot;: &quot;Students are often accustomed to solving equations, where an equal sign is always present. They may confuse writing an expression with setting up an equation.&quot;, &quot;SOLUTION&quot;: &quot;An expression is a mathematical phrase that can contain numbers, variables, and operations, but it does not have an equal sign. Only equations have equal signs, showing that two expressions are equivalent.&quot;, &quot;EXAMPLE&quot;: &quot;Phrase: &#x27;Twice a number decreased by 5&#x27;. Wrong: 2y - 5 =. Right: 2y - 5.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">{&quot;TRAP&quot;: &quot;Not Recognizing Implied Operations for Exponents&quot;, &quot;MISTAKE&quot;: &quot;When asked for &#x27;a number squared&#x27; or &#x27;the cube of a number&#x27;, <span class="ph">[Student Name]</span> might write 2n or 3n instead of n\u00b2 or n\u00b3.&quot;, &quot;WHY TEMPTING&quot;: &quot;The words &#x27;squared&#x27; and &#x27;cubed&#x27; might be less familiar as mathematical operations than addition, subtraction, multiplication, and division, and can be confused with multiplying by 2 or 3.&quot;, &quot;SOLUTION&quot;: &quot;Remember that &#x27;squared&#x27; means raising to the power of 2, and &#x27;cubed&#x27; means raising to the power of 3. These are specific mathematical terms for exponents.&quot;, &quot;EXAMPLE&quot;: &quot;Phrase: &#x27;A number cubed&#x27;. Wrong: 3m. Right: m\u00b3.</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>Write an algebraic expression for &#x27;the sum of a number and 12&#x27;.</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div>What is the algebraic expression for &#x27;9 less than a number&#x27;?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div>An ice cream shop sells scoops for $3 each. If <span class="ph">[Student Name]</span> buys &#x27;s&#x27; scoops, write an expression for <span class="ph">[their]</span> total cost.</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div><span class="ph">[Student Name]</span> is sharing a bag of 24 candies equally among &#x27;f&#x27; friends. Write an expression for the number of candies each friend receives.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div>A school bus ticket costs $2.50. If <span class="ph">[Student Name]</span> buys &#x27;t&#x27; tickets and also pays a $5 annual bus pass fee, write an expression for <span class="ph">[their]</span> total cost.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div>The football team scored &#x27;p&#x27; points in the first half. In the second half, they scored 7 fewer points than twice their first-half score. Write an expression for the points scored in the second half.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>At a carnival, a game costs $3 to play. If <span class="ph">[Student Name]</span> plays &#x27;g&#x27; games and also spends $10 on snacks, write an expression for <span class="ph">[their]</span> total spending.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>Write an algebraic expression for &#x27;15 multiplied by the sum of a number and 4&#x27;.</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div>Imagine <span class="ph">[Student Name]</span> has 20 stickers. <span class="ph">[they]</span> gives some away, represented by &#x27;s&#x27;, and then divides the remaining stickers among 3 friends. Write an expression for the number of stickers each friend receives.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div>A restaurant charges $12 for a pizza and an additional $1.50 for each topping. If <span class="ph">[Student Name]</span> orders a pizza with &#x27;t&#x27; toppings and then adds a $5 tip, write an expression for the total cost.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hi <span class="ph">[Parent Name]</span>, this week, <span class="ph">[Student Name]</span> is diving into Writing Algebraic Expressions! This is a fancy way of saying <span class="ph">[they]</span> is learning to turn everyday phrases, like &#x27;five dollars more than the price of a game,&#x27; into a math problem using letters and numbers. For example, if a game costs &#x27;g&#x27; dollars, &#x27;five dollars more than the price of a game&#x27; becomes g + 5. Tonight, you can grab a few apples and oranges. Ask <span class="ph">[Student Name]</span> to represent the number of apples as &#x27;a&#x27; and oranges as &#x27;o&#x27;. Then, ask <span class="ph">[them]</span> to write an expression for &#x27;the total number of fruits&#x27; (a + o) or &#x27;three fewer apples than oranges&#x27; (o - 3). At dinner, ask <span class="ph">[Student Name]</span>, &#x27;If you earned $10 for doing chores, and you spent some money at the school book fair, how would you write an expression for how much money you have left?&#x27; (10 - m, where &#x27;m&#x27; is money spent). This helps build a strong foundation for future math!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content"><strong>SESSION OPENING:</strong> &#x27;Hey <span class="ph">[Student Name]</span>! Welcome to our math session today. We&#x27;re going to tackle something super cool and useful: Writing Algebraic Expressions. It&#x27;s like learning a secret code to turn everyday sentences into mathematical puzzles! Are you ready to become a math detective, <span class="ph">[Student Name]</span>?&#x27;
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1 (Identifying keywords/operations):</strong> &#x27;No worries, <span class="ph">[Student Name]</span>, this is a common spot to get a little tangled. Let&#x27;s look at the phrase &#x27;three increased by a number.&#x27; What words in that phrase tell us what kind of math operation we&#x27;re doing? Think about &#x27;increased by.&#x27; Does that sound like adding, subtracting, multiplying, or dividing? You&#x27;ve got this, <span class="ph">[Student Name]</span>!&#x27;
+
+<strong>IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2 (Assigning a variable and constructing the expression):</strong> &#x27;It&#x27;s okay, <span class="ph">[Student Name]</span>, you&#x27;re almost there! We&#x27;ve identified the operation as addition for &#x27;three increased by a number.&#x27; Now, what symbol do we usually use to represent an unknown &#x27;number&#x27;? We can pick any letter, like &#x27;x&#x27; or &#x27;n.&#x27; So, if we have &#x27;three&#x27; and we&#x27;re &#x27;increased by&#x27; an unknown &#x27;number,&#x27; how would we put those pieces together with an addition sign? Remember, we need a letter for the &#x27;number.&#x27; You can do it, <span class="ph">[Student Name]</span>!&#x27;
+
+<strong>SESSION CLOSING:</strong> &#x27;Fantastic work today, <span class="ph">[Student Name]</span>! You did an amazing job translating words into math expressions. Keep practicing spotting those keywords and assigning your variables. Your brain is getting stronger with every problem, <span class="ph">[Student Name]</span>! I&#x27;m so proud of your effort!&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">The single most common mistake <span class="ph">[Student Name]</span> will make with Writing Algebraic Expressions is incorrectly handling the order of operations, especially with phrases like &#x27;less than&#x27; or &#x27;subtracted from.&#x27; For instance, when <span class="ph">[Student Name]</span> sees &#x27;5 less than a number,&#x27; they might incorrectly write &#x27;5 - n&#x27; instead of &#x27;n - 5&#x27;. You can recognize this if the variable comes after the number in their subtraction or division expressions when the phrase implies the variable should come first.
+
+Exact words to say to <span class="ph">[Student Name]</span>: &#x27;<span class="ph">[Student Name]</span>, for phrases like &#x27;less than&#x27; or &#x27;subtracted from,&#x27; think about what&#x27;s <em>being taken away from</em> something else. If I say &#x27;5 less than your age,&#x27; it means I&#x27;m taking 5 <em>from</em> your age, not your age <em>from</em> 5. So, if your age is &#x27;a,&#x27; it&#x27;s &#x27;a - 5.&#x27;
+
+What NOT to say to <span class="ph">[Student Name]</span>: &#x27;You got the subtraction backward again. This is easy, just read it from right to left.&#x27; This can be confusing and discouraging.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;subtraction_order_reversal&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> often reverses the order when translating phrases like &#x27;less than&#x27; or &#x27;subtracted from.&#x27; For example, for &#x27;8 less than a number n,&#x27; <span class="ph">[Student Name]</span> might write &#x27;8 - n&#x27; instead of the correct &#x27;n - 8&#x27;.&quot;, &quot;reassurance&quot;: &quot;This is a very common mix-up that many students encounter when first learning algebraic expressions, and <span class="ph">[Student Name]</span> is making great progress in recognizing it.&quot;, &quot;home_action&quot;: &quot;Tonight, play a &#x27;word problem&#x27; game with everyday objects. For example, &#x27;If you have &#x27;x&#x27; cookies and I eat 2, how many are left?&#x27; (x - 2). Emphasize what is being taken <em>from</em> what.&quot;}, {&quot;tag&quot;: &quot;misinterpreting_multiplication_keywords&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might struggle to identify keywords for multiplication, sometimes thinking &#x27;of&#x27; or &#x27;per&#x27; implies addition or division instead of multiplication. For &#x27;twice a number,&#x27; <span class="ph">[Student Name]</span> might write &#x27;2 + n&#x27; instead of &#x27;2n&#x27;.&quot;, &quot;reassurance&quot;: &quot;Understanding keywords for multiplication can be tricky because they aren&#x27;t always as obvious as &#x27;times.&#x27; <span class="ph">[Student Name]</span> will master these with practice.&quot;, &quot;home_action&quot;: &quot;At the grocery store, ask <span class="ph">[Student Name]</span> to think about &#x27;the cost of 3 apples at &#x27;a&#x27; dollars each&#x27; (3a) or &#x27;the price of 2 tickets at &#x27;t&#x27; dollars per ticket&#x27; (2t).&quot;}, {&quot;tag&quot;: &quot;confusing_variable_and_constant&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might use a variable when a specific number is given, or vice-versa. For instance, in &#x27;a number increased by 7,&#x27; <span class="ph">[Student Name]</span> might write &#x27;n + x&#x27; instead of &#x27;n + 7&#x27;.&quot;, &quot;reassurance&quot;: &quot;Distinguishing between a &#x27;number&#x27; (unknown, needs a variable) and a &#x27;specific number&#x27; (known, uses the digit) is a key skill <span class="ph">[Student Name]</span> is developing.&quot;, &quot;home_action&quot;: &quot;Write down a few phrases. Ask <span class="ph">[Student Name]</span> to circle the words that mean a specific number and underline words that mean an unknown number. Then, write the expression together.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, let&#x27;s break down &#x27;Writing Algebraic Expressions&#x27; so <span class="ph">[they]</span> can help <span class="ph">[Student Name]</span> confidently. Think of it as translating from plain English into a math shorthand.
+
+1.  <strong>Identify the Unknown:</strong> First, <span class="ph">[Parent Name]</span>, look for an unknown quantity. If you&#x27;re budgeting, you might not know how much you&#x27;ll spend on groceries this week. That unknown amount is what we call a &#x27;variable.&#x27; We use a letter, like &#x27;g&#x27; for groceries or &#x27;x&#x27; for an unspecified &#x27;number,&#x27; to represent it.
+2.  <strong>Spot the Action Words:</strong> Next, <span class="ph">[Parent Name]</span>, look for words that tell you what math operation is happening.
+    <em>   &#x27;More than,&#x27; &#x27;increased by,&#x27; &#x27;sum&#x27;: These usually mean <strong>addition (+)</strong>. (Example: &#x27;My rent increased by $50.&#x27; If rent is &#x27;r,&#x27; new rent is <code>r + 50</code>.)
+    </em>   &#x27;Less than,&#x27; &#x27;decreased by,&#x27; &#x27;difference&#x27;: These usually mean <strong>subtraction (-)</strong>. (Example: &#x27;I had $20, then spent some money.&#x27; If money spent is &#x27;s,&#x27; I have <code>20 - s</code> left. Note: &#x27;5 less than x&#x27; means <code>x - 5</code>.)
+    <em>   &#x27;Times,&#x27; &#x27;product,&#x27; &#x27;of&#x27; (with fractions), &#x27;per&#x27;: These mean <strong>multiplication (× or just placing numbers next to variables)</strong>. (Example: &#x27;I bought 3 coffees at $4 each.&#x27; Total cost is <code>3 × 4</code>. If the price was unknown &#x27;p,&#x27; it would be <code>3p</code>.)
+    </em>   &#x27;Divided by,&#x27; &#x27;quotient,&#x27; &#x27;per&#x27; (for ratios): These mean <strong>division (÷ or a fraction bar)</strong>. (Example: &#x27;My $100 bonus shared among 4 people.&#x27; Each gets <code>100 ÷ 4</code> or <code>100/4</code>.)
+3.  <strong>Assemble the Expression:</strong> Finally, <span class="ph">[Parent Name]</span>, combine your numbers, variables, and operation symbols. For example, if &#x27;you have $15 and then earned &#x27;e&#x27; dollars from a side gig,&#x27; your total money is <code>15 + e</code>. If &#x27;your team scored 7 points less than the other team&#x27;s score &#x27;s&#x27;,&#x27; your team&#x27;s score is <code>s - 7</code>.
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hola <span class="ph">[Parent Name]</span>, esta semana, <span class="ph">[Student Name]</span> está aprendiendo un concepto muy útil en matemáticas: &#x27;Escribir Expresiones Algebraicas&#x27; para Grado 6. En pocas palabras, <span class="ph">[they]</span> aprenderá a convertir frases cotidianas en lenguaje matemático usando letras para representar cantidades desconocidas. Es como resolver acertijos de palabras con números y símbolos. Por ejemplo, si decimos &#x27;5 pesos más que la cantidad que tienes&#x27;, <span class="ph">[Student Name]</span> aprenderá a escribir &#x27;cantidad_que_tienes + 5&#x27;.&lt;br&gt;&lt;br&gt;Una actividad práctica para hacer esta noche es usar objetos de la casa. Cuenten algunos objetos (como 3 manzanas) y luego pregunten: &#x27;Si tu amigo trae una cantidad &#x27;x&#x27; de manzanas más, ¿cómo representarías el total de manzanas?&#x27; La respuesta sería &#x27;3 + x&#x27;.&lt;br&gt;&lt;br&gt;En la cena, pueden preguntar a <span class="ph">[Student Name]</span>: &#x27;Si en el mercado gastamos 150 pesos y tú me ayudas a empacar por una cantidad &#x27;y&#x27; de pesos, ¿cómo escribiríamos el gasto total?&#x27;</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: ¡Hola <span class="ph">[Student Name]</span>, qué alegría tenerte aquí! Hoy vamos a hacer algo súper interesante: vamos a aprender a escribir expresiones algebraicas. Es como convertir frases que decimos todos los días en un idioma matemático secreto. ¡Verás que es muy divertido!&lt;br&gt;&lt;br&gt;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: No te preocupes, <span class="ph">[Student Name]</span>. Tomemos un respiro y pensemos. A veces, las palabras pueden ser un poco tramposas. Recuerda que las palabras como &#x27;más que&#x27;, &#x27;sumado a&#x27;, &#x27;en total&#x27; usualmente significan suma (+). ¿Y &#x27;menos que&#x27;, &#x27;diferencia&#x27;, &#x27;quitado de&#x27;? ¡Exacto, significan resta (-)! Si decimos &#x27;el doble&#x27;, ¿qué operación crees que es? Pista: como si tuvieras dos de algo.&lt;br&gt;&lt;br&gt;IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: Está bien, <span class="ph">[Student Name]</span>, vamos a desglosarlo. ¿Cuál es la parte de la frase que no sabemos y que necesitamos representar con una letra, como &#x27;x&#x27; o &#x27;n&#x27;? Una vez que identifiques eso, mira las otras palabras clave para ver cómo se relaciona esa cantidad desconocida con los números que sí tenemos. Por ejemplo, si dice &#x27;el doble del dinero que tienes en tu alcancía&#x27;, sabemos que es 2 multiplicado por &#x27;dinero que tienes&#x27;.&lt;br&gt;&lt;br&gt;SESSION CLOSING: ¡Increíble trabajo hoy, <span class="ph">[Student Name]</span>! Has aprendido a traducir frases complejas en el lenguaje de las matemáticas. ¡Eres un campeón en esto de las expresiones algebraicas! Sigue practicando y verás cómo cada vez lo haces más rápido. ¡Estoy muy orgulloso/a de ti! ¡Nos vemos en la próxima sesión!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La confusión más común que <span class="ph">[Student Name]</span> podría tener es la inversión de términos en expresiones de resta, especialmente con frases como &#x27;menos que&#x27;. Por ejemplo, si la frase es &#x27;5 menos que un número&#x27;, <span class="ph">[Student Name]</span> podría escribir incorrectamente &#x27;5 - x&#x27; en lugar de la expresión correcta &#x27;x - 5&#x27;. Para reconocerlo, pida a <span class="ph">[Student Name]</span> que lea la expresión que escribió y luego la compare con la frase original, usando un número simple. Si &#x27;5 menos que 10&#x27; es 5, ¿su expresión 5 - x da 5 cuando x es 10?&lt;br&gt;&lt;br&gt;Exacto para decir a <span class="ph">[Student Name]</span>: &#x27;<span class="ph">[Student Name]</span>, entiendo que la frase &#x27;5 menos que un número&#x27; puede ser confusa. Piensa en esto: si yo te dijera &#x27;5 pesos menos que los 10 pesos que tienes&#x27;, ¿cuánto tendrías? Tendrías 5 pesos, ¿verdad? Para obtener 5, restaste 5 de 10. Entonces, cuando decimos &#x27;5 menos que un número&#x27;, el número (la variable) debe ir primero, y luego restamos 5 de él.&#x27;&lt;br&gt;&lt;br&gt;Lo que NO debe decir a <span class="ph">[Student Name]</span>: &#x27;Eso es al revés&#x27;, o &#x27;Siempre te equivocas con esto&#x27;.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;order_of_subtraction_reversal&quot;, &quot;parent_description&quot;: &quot;Cuando la frase usa &#x27;menos que&#x27;, <span class="ph">[Student Name]</span> invierte el orden. Por ejemplo, para &#x27;7 menos que un n\u00famero&#x27;, escribe 7 - x en lugar de x - 7.&quot;, &quot;reassurance&quot;: &quot;Esta es una de las trampas m\u00e1s comunes en las expresiones algebraicas, y es totalmente normal que <span class="ph">[Student Name]</span> se confunda. \u00a1Es un peque\u00f1o detalle que con pr\u00e1ctica se vuelve intuitivo!&quot;, &quot;home_action&quot;: &quot;Jueguen a &#x27;las compras en el mercado&#x27;. Pida a <span class="ph">[Student Name]</span> que imagine: &#x27;Si ten\u00edamos 20 pesos y gastamos una cantidad desconocida &#x27;x&#x27; de pesos, y nos quedan 7 pesos <em>menos que</em> lo que ten\u00edamos al inicio, \u00bfc\u00f3mo lo representar\u00edas?&#x27; (20 - 7 = 13, pero la confusi\u00f3n es cuando se plantea como 7 menos que el dinero inicial &#x27;x&#x27;, por ejemplo: x - 7).&quot;}, {&quot;tag&quot;: &quot;misinterpreting_multiplication_division_keywords&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> confunde t\u00e9rminos como &#x27;el doble&#x27; con &#x27;la mitad&#x27; o &#x27;el triple&#x27; con &#x27;un tercio&#x27;. Por ejemplo, para &#x27;la mitad de un n\u00famero&#x27;, <span class="ph">[they]</span> podr\u00eda escribir &#x27;2x&#x27; en lugar de &#x27;x/2&#x27;.&quot;, &quot;reassurance&quot;: &quot;\u00a1Es excelente que <span class="ph">[Student Name]</span> ya est\u00e9 identificando las operaciones! A veces, las palabras clave de multiplicaci\u00f3n y divisi\u00f3n pueden sonar parecidas, pero con un poco de enfoque, <span class="ph">[they]</span> las dominar\u00e1.&quot;, &quot;home_action&quot;: &quot;Utilicen una receta de cocina. Si una receta pide &#x27;el doble de una taza de leche&#x27;, preg\u00fantale a <span class="ph">[Student Name]</span> c\u00f3mo lo escribir\u00eda si &#x27;t&#x27; es la cantidad de tazas. \u00bfY si pide &#x27;la tercera parte de una taza de az\u00facar&#x27;? Esto ayuda a visualizar la cantidad real.&quot;}, {&quot;tag&quot;: &quot;ignoring_implied_grouping_with_parentheses&quot;, &quot;parent_description&quot;: &quot;Cuando hay m\u00faltiples operaciones y una de ellas debe realizarse primero (como &#x27;el doble de la suma de un n\u00famero y 3&#x27;), <span class="ph">[Student Name]</span> puede olvidar los par\u00e9ntesis y escribir &#x27;2x + 3&#x27; en lugar de &#x27;2(x + 3)&#x27;.&quot;, &quot;reassurance&quot;: &quot;Es un gran paso que <span class="ph">[Student Name]</span> reconozca todas las operaciones involucradas. El uso de par\u00e9ntesis es el toque final para asegurarse de que las matem\u00e1ticas se hagan en el orden correcto. \u00a1Es un detalle que viene con la pr\u00e1ctica!&quot;, &quot;home_action&quot;: &quot;Inventen escenarios con dinero. Por ejemplo: &#x27;Si tu equipo de f\u00fatbol gana 2 pesos por cada gol que anota, <em>m\u00e1s</em> 5 pesos extra por partido, \u00bfc\u00f3mo escribir\u00edas la ganancia total?&#x27; Si &#x27;g&#x27; es el n\u00famero de goles, \u00bfser\u00eda 2g + 5 o 2(g + 5)? Expliquen que &#x27;5 extra por partido&#x27; se suma una vez, no por cada gol, pero si fuera &#x27;el doble de la suma de los goles y un bono de 5 pesos&#x27;, los par\u00e9ntesis ser\u00edan clave.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hola <span class="ph">[Parent Name]</span>, hoy vamos a entender cómo funcionan las expresiones algebraicas, para que <span class="ph">[they]</span> pueda ayudar a <span class="ph">[Student Name]</span> con confianza. Piense en esto como aprender un nuevo idioma matemático.&lt;br&gt;&lt;br&gt;1. <strong>¿Qué es una Expresión Algebraica?</strong> Imagínese que está en el mercado. Si compra 3 kilos de tomates y luego se da cuenta de que necesita &#x27;otra cantidad&#x27; de manzanas, esa &#x27;otra cantidad&#x27; es lo que representamos con una letra, como &#x27;x&#x27;. Una expresión algebraica es una frase matemática que usa números, letras (variables) y símbolos de operación (+, -, <em>, /), pero NO tiene un signo de igual. No estamos resolviendo nada, solo estamos &#x27;escribiendo&#x27; la situación. Por ejemplo, &#x27;3 + x&#x27; es una expresión.&lt;br&gt;&lt;br&gt;2. <strong>Las &#x27;Palabras Clave&#x27; son Clave:</strong> Las palabras nos dicen qué operación usar. Si <span class="ph">[they]</span> piensa en el presupuesto: &#x27;más dinero&#x27;, &#x27;añadir&#x27;, &#x27;total&#x27; significan suma (+). &#x27;Menos dinero&#x27;, &#x27;diferencia&#x27;, &#x27;restar&#x27; significan resta (-). &#x27;El doble&#x27;, &#x27;triple&#x27;, &#x27;multiplicar por&#x27; significan multiplicación (</em>). &#x27;La mitad&#x27;, &#x27;un tercio&#x27;, &#x27;dividir&#x27; significan división (/).&lt;br&gt;&lt;br&gt;3. <strong>La Variable (la Letra):</strong> Es el valor desconocido. Si <span class="ph">[they]</span> está cocinando y la receta dice &#x27;use el doble de la cantidad de sal de lo que usó ayer&#x27;, la cantidad de sal de ayer es su &#x27;x&#x27;. Así, escribiría &#x27;2x&#x27;.&lt;br&gt;&lt;br&gt;4. <strong>Cuidado con el Orden:</strong> Aquí es donde muchos se confunden. Si <span class="ph">[they]</span> gana su salario y le dicen &#x27;500 pesos menos que su salario&#x27;, no es &#x27;500 - salario&#x27;. Es &#x27;salario - 500 pesos&#x27;. La &#x27;cantidad&#x27; que está siendo reducida debe ir primero. Siempre imagine la situación: ¿qué se le quita a qué? <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> dominará este concepto y podrá guiar a <span class="ph">[Student Name]</span> con toda seguridad.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span> ! Cette semaine, <span class="ph">[Student Name]</span> se plonge dans un sujet fascinant des mathématiques de 6e année : l&#x27;écriture d&#x27;expressions algébriques. En termes simples, <span class="ph">[they]</span> apprend à transformer des phrases en problèmes mathématiques, en utilisant des nombres et des symboles pour les opérations, ainsi que des lettres pour les quantités inconnues. C&#x27;est comme apprendre une nouvelle langue pour décrire des situations réelles!
+
+Pour une activité pratique ce soir, demandez à <span class="ph">[Student Name]</span> de vous aider à organiser une recette. Si une recette demande &#x27;le double de la quantité de farine qu&#x27;il y a de sucre&#x27;, et que vous ne savez pas encore combien de sucre vous utiliserez (disons &#x27;s&#x27;), comment écrirait-on la quantité de farine ? (Réponse : 2s). C&#x27;est une façon amusante de voir les variables en action. Au dîner, demandez à <span class="ph">[Student Name]</span> : « Si j&#x27;ai acheté trois boîtes de gâteaux, et qu&#x27;il y avait un nombre inconnu de gâteaux dans chaque boîte, comment décrirais-tu le nombre total de gâteaux que j&#x27;ai avec un calcul simple ? »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">OUVERTURE DE SESSION: « Bonjour <span class="ph">[Student Name]</span> ! Je suis ravi(e) de travailler avec toi aujourd&#x27;hui. Nous allons nous amuser à transformer des mots en mathématiques. C&#x27;est comme être un détective qui découvre des codes secrets ! Aujourd&#x27;hui, nous allons nous concentrer sur l&#x27;écriture d&#x27;expressions algébriques. Es-tu prêt(e) à commencer ? »
+
+SI <span class="ph">[Student Name]</span> EST BLOQUÉ(E) À L&#x27;ÉTAPE 1 (identifier les opérations): « Hmm, pas de souci, <span class="ph">[Student Name]</span>. Regardons cette phrase ensemble : &#x27;cinq de plus qu&#x27;un nombre&#x27;. Quels mots dans cette phrase te donnent un indice sur l&#x27;opération mathématique que nous devrions utiliser ? &#x27;De plus&#x27; est un mot clé très important ici. À quelle opération cela te fait penser ? »
+
+SI <span class="ph">[Student Name]</span> EST BLOQUÉ(E) À L&#x27;ÉTAPE 2 (assigner une variable à l&#x27;inconnu): « Tu as bien identifié l&#x27;opération, super travail, <span class="ph">[Student Name]</span> ! Maintenant, relisons la phrase : &#x27;cinq de plus qu&#x27;un nombre&#x27;. Est-ce que nous connaissons la valeur exacte de ce &#x27;nombre&#x27; ? Non, n&#x27;est-ce pas ? Puisque nous ne le connaissons pas, quelle lettre pourrions-nous utiliser pour le représenter dans notre expression ? N&#x27;importe quelle lettre fera l&#x27;affaire, comme &#x27;n&#x27; pour &#x27;nombre&#x27; ou &#x27;x&#x27;. »
+
+CLÔTURE DE SESSION: « Fantastique, <span class="ph">[Student Name]</span> ! Tu as fait un travail incroyable aujourd&#x27;hui en transformant des phrases en expressions algébriques. Tu as montré une excellente compréhension de la façon dont les mots se traduisent en symboles mathématiques. Continue de t&#x27;entraîner et bientôt, tu écriras ces expressions comme un(e) pro ! Je suis très fier(ère) de tes efforts. »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">La plus grande erreur que <span class="ph">[Student Name]</span> pourrait commettre en écrivant des expressions algébriques est d&#x27;inverser l&#x27;ordre des termes pour la soustraction ou la division. Par exemple, si la phrase est « cinq de moins qu&#x27;un nombre », <span class="ph">[Student Name]</span> pourrait écrire <code>5 - x</code> au lieu de l&#x27;expression correcte <code>x - 5</code>. De même, pour « un nombre divisé par 4 », <span class="ph">[they]</span> pourrait écrire <code>4 / x</code> au lieu de <code>x / 4</code>.
+
+Pour reconnaître cela, cherchez les expressions comme « de moins que », « soustrait de », ou « divisé par ». Quand vous voyez « cinq de moins qu&#x27;un nombre », dites à <span class="ph">[Student Name]</span> : « Rappelle-toi <span class="ph">[Student Name]</span>, quand on dit &#x27;de moins que&#x27; ou &#x27;soustrait de&#x27;, cela signifie que le nombre ou la variable &#x27;à soustraire de&#x27; vient en premier. Donc, nous commençons par le &#x27;nombre&#x27; que nous ne connaissons pas, puis nous enlevons 5. » Ne dites PAS : « Tu as encore fait une erreur de soustraction ! »</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;ordre_invers\u00e9_soustraction_division&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> inverse l&#x27;ordre pour la soustraction ou la division. Par exemple, pour \u00ab 7 de moins qu&#x27;un nombre \u00bb, <span class="ph">[they]</span> \u00e9crit <code>7 - x</code> au lieu de <code>x - 7</code>. Ou pour \u00ab 10 divis\u00e9 par un nombre \u00bb, <span class="ph">[they]</span> \u00e9crit <code>x / 10</code> au lieu de <code>10 / x</code>.&quot;, &quot;reassurance&quot;: &quot;C&#x27;est une erreur tr\u00e8s courante, <span class="ph">[Student Name]</span> ! Beaucoup de gens s&#x27;y trompent au d\u00e9but. C&#x27;est juste une question de se rappeler comment les mots &#x27;de moins que&#x27; ou &#x27;divis\u00e9 par&#x27; changent l&#x27;ordre.&quot;, &quot;home_action&quot;: &quot;Utilisez des sc\u00e9narios avec des objets : \u00ab Si tu as un certain nombre de bonbons et que je t&#x27;en enl\u00e8ve 3, tu commencerais par tes bonbons, n&#x27;est-ce pas ? \u00bb&quot;}, {&quot;tag&quot;: &quot;confondre_multiplication_addition&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> confond les mots-cl\u00e9s de la multiplication avec l&#x27;addition. Par exemple, pour \u00ab trois fois un nombre \u00bb, <span class="ph">[they]</span> pourrait \u00e9crire <code>3 + x</code> au lieu de <code>3x</code>.&quot;, &quot;reassurance&quot;: &quot;Excellent effort, <span class="ph">[Student Name]</span> ! Les mots peuvent parfois \u00eatre un peu pi\u00e9geux. Mais avec un peu de pratique, tu sauras distinguer &#x27;fois&#x27; de &#x27;plus&#x27;.&quot;, &quot;home_action&quot;: &quot;Discutez des &#x27;multiplicateurs&#x27; dans la vie r\u00e9elle : \u00ab Si je dis que tu as deux fois plus de billes que ton ami, cela signifie-t-il que tu as ses billes plus deux, ou ses billes doubl\u00e9es ? \u00bb&quot;}, {&quot;tag&quot;: &quot;omission_variable&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> oublie parfois d&#x27;inclure la variable pour repr\u00e9senter une quantit\u00e9 inconnue. Par exemple, pour \u00ab un nombre augment\u00e9 de six \u00bb, <span class="ph">[they]</span> pourrait \u00e9crire <code>+ 6</code> ou simplement <code>6</code>, au lieu de <code>x + 6</code>.&quot;, &quot;reassurance&quot;: &quot;Tu es sur la bonne voie, <span class="ph">[Student Name]</span> ! C&#x27;est juste un petit d\u00e9tail qui nous manque. N&#x27;oublie jamais que s&#x27;il y a quelque chose d&#x27;inconnu, il lui faut sa propre lettre !&quot;, &quot;home_action&quot;: &quot;Jouez \u00e0 un jeu : \u00ab J&#x27;ai un certain nombre de jetons dans cette main (cachez-en). J&#x27;en ajoute 4. Comment on \u00e9crirait \u00e7a si on ne sait pas combien il y en a au d\u00e9but ? \u00bb&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjour <span class="ph">[Parent Name]</span> ! Plongeons dans l&#x27;écriture d&#x27;expressions algébriques. Ne vous inquiétez pas, <span class="ph">[they]</span> allez maîtriser ce concept et pouvoir aider <span class="ph">[Student Name]</span> en toute confiance. C&#x27;est simplement l&#x27;art de traduire des phrases en langage mathématique.
+
+Voici comment cela fonctionne, étape par étape, avec des exemples concrets :
+
+1.  <strong>Identifier l&#x27;inconnu (la variable)</strong> : Imaginez que vous faites les courses et que vous ne connaissez pas le prix d&#x27;un article. Par exemple, &#x27;le coût d&#x27;une livre de pommes&#x27;. Puisque ce prix est inconnu, nous lui donnons une lettre, disons &#x27;p&#x27; pour prix. Donc, &#x27;p&#x27; représente le prix des pommes.
+2.  <strong>Identifier l&#x27;opération</strong> : Cherchez les mots-clés qui indiquent une addition, soustraction, multiplication ou division. Par exemple, &#x27;plus&#x27;, &#x27;moins&#x27;, &#x27;fois&#x27;, &#x27;divisé par&#x27;.
+    <em>   <strong>Addition</strong> : « Je gagne 50 $ de plus que mon salaire habituel. » Si &#x27;s&#x27; est votre salaire habituel, l&#x27;expression est <code>s + 50</code>.
+    </em>   <strong>Soustraction</strong> : « J&#x27;ai dépensé 15 $ de moins que le montant de mon budget. » Si &#x27;b&#x27; est votre budget, l&#x27;expression est <code>b - 15</code>.
+    <em>   <strong>Multiplication</strong> : « Mon loyer coûte le double du prix de mes factures mensuelles. » Si &#x27;f&#x27; est le prix de vos factures, l&#x27;expression est <code>2f</code> (ou <code>2 </em> f</code>).
+    *   <strong>Division</strong> : « Le montant de pourboire a été partagé également entre 4 serveurs. » Si &#x27;t&#x27; est le montant total des pourboires, l&#x27;expression est <code>t / 4</code>.
+3.  <strong>Combiner pour former l&#x27;expression</strong> : Mettez les éléments ensemble. Si vous avez « trois de plus que le nombre de clients (c) », vous écrivez <code>c + 3</code>. Si c&#x27;est « la moitié du nombre total de plats (p) dans une recette », vous écrivez <code>p / 2</code>.
+
+Avec ces étapes, <span class="ph">[they]</span> verrez que c&#x27;est une compétence très pratique pour décrire des situations réelles avec des nombres et des symboles.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">{&quot;content&quot;: &quot;Bonjou, <span class="ph">[Parent Name]</span>! Sem\u00e8n sa a, <span class="ph">[Student Name]</span> ap aprann yon konpetans matematik tr\u00e8 enp\u00f2tan: Ekri Ekspresyon Aljebrik. Sa vle di <span class="ph">[they]</span> pral aprann kijan pou transf\u00f2me fraz ak mo yo an langaj matematik, l\u00e8 l s\u00e8vi av\u00e8k nimewo, varyab (l\u00e8t ki reprezante yon kantite enkoni), ak senb\u00f2l operasyon (tankou +, -, x, \u00f7).  Se tankou aprann pale yon k\u00f2d sekr\u00e8! Pou ede <span class="ph">[Student Name]</span> lakay ou, nou gen yon ti aktivite: Nan asw\u00e8 a, l\u00e8 n ap prepare manje oswa konte lajan, mande <span class="ph">[them]</span> pou l ekri yon ekspresyon. Pa egzanp, si nou gen 500 goud epi <span class="ph">[they]</span> depanse yon kantite enkoni pou achte yon bagay nan magazen, ki jan <span class="ph">[they]</span> ta ekri kantite lajan ki rete a? Pou kesyon tab: \&quot;Si ou te gen k\u00e8k bonbon nan yon bwat, epi ou te manje 3 ladan yo, ki jan ou ta ka ekri sa nan yon f\u00f2m matematik pou reprezante kantite bonbon ki rete a?\</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">{&quot;content&quot;: &quot;SESSION OPENING: Alo, <span class="ph">[Student Name]</span>! Mwen t\u00e8lman kontan w\u00e8 <span class="ph">[them]</span> jodi a. Jodi a, nou pral plonje nan yon bagay vr\u00e8man enteresan: aprann kijan pou nou transf\u00f2me mo ak fraz nou itilize chak jou yo an yon langaj matematik espesyal ki rele \&quot;ekspresyon aljebrik.\&quot; Se tankou w ap aprann pale k\u00f2d! Mwen konnen ou kapab, <span class="ph">[Student Name]</span>, ann k\u00f2manse!
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: Oke, <span class="ph">[Student Name]</span>, pa enkyete w. Ann pran l dousman. L\u00e8 w ap gade fraz tankou &#x27;senk plis yon nimewo,&#x27; ki pati nan fraz sa a ki pale de yon kantite nou pa konnen val\u00e8 <span class="ph">[their]</span>? \u00c8ske se &#x27;senk&#x27; la, oubyen &#x27;yon nimewo&#x27; a? E ki sa ki ta yon bon l\u00e8t pou nou itilize pou reprezante &#x27;yon nimewo&#x27; a, tankou pwen yon jw\u00e8 genyen nan yon match bask\u00e8tb\u00f2l nou pa konnen?
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: Tr\u00e8 byen, ou w\u00e8 &#x27;yon nimewo&#x27; a k\u00f2m yon varyab &#x27;x&#x27;, e nimewo 5 la. Kounye a, mo &#x27;plis&#x27; la, ki operasyon matematik <span class="ph">[they]</span> panse <span class="ph">[they]</span> ta dwe itilize pou reprezante li? Si w gen 10 dola nan bwat k\u00e8s ou epi yon zanmi ba ou 5 dola &#x27;plis&#x27;, ki operasyon ou f\u00e8 pou jwenn total la?
+SESSION CLOSING: Magnifik travay, <span class="ph">[Student Name]</span>! Ou te aprann kijan pou w pran mo \u00f2din\u00e8 epi transf\u00f2me yo an ekspresyon aljebrik. Sa se yon konpetans f\u00f2midab! Pran fy\u00e8te nan sa ou te akonpli jodi a. Mwen gen konfyans nan kapasite <span class="ph">[their]</span> pou w kontinye aprann ak grandi. N ap w\u00e8 nan pwochen sesyon nou an!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">{&quot;content&quot;: &quot;Bonjou, <span class="ph">[Parent Name]</span>. Youn nan er\u00e8 ki pi komen <span class="ph">[Student Name]</span> ka f\u00e8 l\u00e8 l ap ekri ekspresyon aljebrik se ranv\u00e8se l\u00f2d soustraksyon oswa divizyon. Pa egzanp, pou fraz \&quot;5 mwens pase yon nimewo\&quot;, <span class="ph">[they]</span> ka ekri \&quot;5 - x\&quot; olye de \&quot;x - 5\&quot;. Pou rekon\u00e8t sa, gade si kantite yo ap \&quot;retire nan\&quot; oswa \&quot;divize an\&quot; yon l\u00f2t kantite.  Men sa pou di <span class="ph">[Student Name]</span>: \&quot;L\u00e8 ou w\u00e8 mo tankou &#x27;mwens pase&#x27; oswa &#x27;divize an&#x27;, eseye imajine aksyon an: si w retire 5 nan yon nimewo, ki sa ki te la anvan 5 la te retire? Li dwe te la dab\u00f2.\&quot; Pa janm di: \&quot;Ou toujou f\u00e8 er\u00e8 sa a! Sa fasil pou w w\u00e8 l!\&quot; Olye de sa, gide <span class="ph">[them]</span> ak pasyans.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;reversal_subtraction_division&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> souvan ranv\u00e8se l\u00f2d nan ekspresyon soustraksyon ak divizyon. Pa egzanp, <span class="ph">[they]</span> ka ekri &#x27;7 mwens pase yon nimewo&#x27; k\u00f2m &#x27;7 - x&#x27; olye de &#x27;x - 7&#x27;.&quot;, &quot;reassurance&quot;: &quot;Sa a se yon er\u00e8 tr\u00e8 komen, <span class="ph">[Student Name]</span>! Li montre ke <span class="ph">[they]</span> ap eseye konprann nuans langaj la. Av\u00e8k pratik, <span class="ph">[they]</span> ap metrize sa.&quot;, &quot;home_action&quot;: &quot;L\u00e8 n ap kalkile res\u00e8t lakay, mande <span class="ph">[Student Name]</span> kijan l ap ekri &#x27;kantite ze ki rete apre nou fin itilize 2&#x27; si nou te gen yon kantite enkoni ok\u00f2mansman. Eksplike &#x27;rete&#x27; vle di &#x27;sa ou te genyen \u2013 sa ou te retire&#x27;.&quot;}, {&quot;tag&quot;: &quot;confusing_multiplication_addition&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ka konfonn &#x27;fwa&#x27; ak &#x27;plis&#x27;. Pa egzanp, <span class="ph">[they]</span> ka ekri &#x27;twa fwa yon nimewo&#x27; k\u00f2m &#x27;3 + x&#x27; olye de &#x27;3x&#x27;.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span>, <span class="ph">[they]</span> ap f\u00e8 pwogr\u00e8! Distenge &#x27;fwa&#x27; ak &#x27;plis&#x27; ka difisil, men <span class="ph">[they]</span> ap vin pi f\u00f2 nan sa chak jou.&quot;, &quot;home_action&quot;: &quot;Pandan n ap ranje tab pou manje nan P\u00f2toprens, si chak moun bezwen 2 fouch\u00e8t, epi ou pa konn konbyen moun k ap vin manje, mande <span class="ph">[Student Name]</span> kijan pou l ekri total fouch\u00e8t yo. &#x27;2 fwa kantite moun&#x27; vle di 2 miltipliye pa kantite moun.&quot;}, {&quot;tag&quot;: &quot;neglecting_implied_multiplication&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pa toujou rekon\u00e8t miltiplikasyon implicite, tankou nan &#x27;pri total 4 p\u00f2m&#x27; kote li ta dwe &#x27;4p&#x27; men <span class="ph">[they]</span> ka ekri &#x27;4 + p&#x27;.&quot;, &quot;reassurance&quot;: &quot;Li bon pou <span class="ph">[Student Name]</span> ap aprann nuans sa yo. Konprann miltiplikasyon ki kache a ap vin pi fasil ak plis pratik, <span class="ph">[Student Name]</span>.&quot;, &quot;home_action&quot;: &quot;L\u00e8 n ap achte bagay nan mache a, si chak zoranj koute menm pri (enkoni), epi nou achte 6 zoranj, mande <span class="ph">[Student Name]</span> kijan pou l reprezante pri total la (pa egzanp, 6 fwa pri yon zoranj, ki vle di 6z).&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">{&quot;content&quot;: &quot;Bonjou, <span class="ph">[Parent Name]</span>! Ann kraze &#x27;Ekri Ekspresyon Aljebrik&#x27; an ti moso pou ou ka konprann li byen epi ede <span class="ph">[Student Name]</span> ak konfyans. 
+
+1.  <strong>Ki sa yon Ekspresyon Aljebrik ye?</strong> Imagine ou nan P\u00f2toprens, w ap f\u00e8 acha nan yon magazen. Ou konnen ou achte yon bout\u00e8y dlo pou 25 goud, men ou achte tou k\u00e8k biskwit, men ou pa konn konbyen chak pake koute. Ou achte 3 pake. Yon ekspresyon aljebrik se yon fason pou ekri sitiyasyon sa a nan yon f\u00f2m matematik: 3x + 25 (kote &#x27;x&#x27; se pri yon pake biskwit). 
+
+2.  <strong>Idantifye Varyab yo:</strong> Nan egzanp biskwit la, &#x27;pri yon pake biskwit&#x27; la se yon bagay nou pa konnen. Nou itilize yon l\u00e8t (tankou &#x27;x&#x27; oswa &#x27;b&#x27; pou biskwit) pou reprezante kantite enkoni sa a. L\u00e8t sa a rele yon &#x27;varyab&#x27;. 
+
+3.  <strong>Idantifye Nimewo Konnen yo:</strong> Nan egzanp lan, 25 goud pou dlo a se yon &#x27;nimewo konnen&#x27;, li pa chanje. Kantite pake biskwit ou achte a (3) se tou yon nimewo konnen. 
+
+4.  <strong>Idantifye Operasyon yo:</strong> Mo tankou &#x27;plis&#x27;, &#x27;mwens&#x27;, &#x27;fwa&#x27;, &#x27;pataje an&#x27; di ou ki operasyon matematik pou w itilize (+, -, \u00d7, \u00f7). Nan egzanp biskwit la, &#x27;3 pake biskwit&#x27; vle di &#x27;3 fwa pri biskwit la&#x27; (3x), epi &#x27;pri dlo ak biskwit&#x27; vle di w ap &#x27;plis&#x27; yo ansanm ( + 25).
+
+5.  <strong>Mete Tout Bagay Ansanm:</strong> L\u00e8 ou jwenn tout eleman sa yo, ou ekri yo ansanm. Soti nan &#x27;3 pake biskwit ak yon bout\u00e8y dlo 25 goud&#x27;, ou jwenn ekspresyon aljebrik la: 3x + 25. 
+
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> pral w\u00e8 jan sa fasil pou aplike sa nan lavi chak jou, kit se pou f\u00e8 bidj\u00e8 fanmi an an goud, pou w ap kalkile depans pou yon pwoj\u00e8 nan travay ou, oubyen menm pou w ap swiv depans manje nan kominote w. <span class="ph">[they]</span> gen konpetans pou w metrize kons\u00e8p sa a epi w ap kapab ede <span class="ph">[Student Name]</span> av\u00e8k konfyans!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, seu/sua filho(a), <span class="ph">[Student Name]</span>, estará explorando o tópico de Escrita de Expressões Algébricas na matemática do 6º ano. Em termos simples, <span class="ph">[Student Name]</span> vai aprender a transformar frases e situações do dia a dia em uma linguagem matemática, usando letras para representar números que não conhecemos ou que podem variar. É como decifrar um código secreto da matemática! Para uma atividade prática esta noite, você pode pedir a <span class="ph">[Student Name]</span> para contar moedas ou pequenos objetos em grupos, e então pensar em como representar o total se você tivesse &#x27;um número desconhecido&#x27; de grupos. Por exemplo, se <span class="ph">[they]</span> tem 4 grupos de 3 moedas, <span class="ph">[they]</span> tem 12. Mas se <span class="ph">[they]</span> tem &#x27;x&#x27; grupos de 3 moedas, como <span class="ph">[they]</span> representaria o total? À mesa de jantar, você pode perguntar: &#x27;Se eu te dou 7 reais e depois mais algumas moedas que estão no meu bolso, como você representaria o total de dinheiro que você tem?&#x27; Isso ajuda <span class="ph">[Student Name]</span> a ver a álgebra no mundo real. <span class="ph">[Student Name]</span> está desenvolvendo uma habilidade fundamental que será usada em muitos anos de matemática.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">Olá, <span class="ph">[Student Name]</span>! Que bom ver você. Hoje vamos começar a aprender algo muito legal e útil: como escrever expressões algébricas. É como aprender a &#x27;falar&#x27; matemática de um jeito novo, usando letras! Você vai ver como é divertido transformar frases em pequenas equações. Vamos lá, <span class="ph">[Student Name]</span>! 
+
+SE <span class="ph">[Student Name]</span> TRAVAR NA ETAPA 1: Não se preocupe, <span class="ph">[Student Name]</span>, isso é supernormal! Vamos pensar juntos. Qual é a ação principal nesta frase? Estamos adicionando, subtraindo, multiplicando ou dividindo? E qual parte da informação não sabemos, que precisaríamos representar com uma letra? Pense bem, <span class="ph">[Student Name]</span>.
+
+SE <span class="ph">[Student Name]</span> TRAVAR NA ETAPA 2: Ótimo esforço, <span class="ph">[Student Name]</span>! Agora que identificamos a operação, vamos pensar em como juntar tudo. Que letra poderíamos usar para o número que não conhecemos? E onde essa letra vai na nossa expressão em relação aos números que já temos? Por exemplo, se a frase é &#x27;o dobro de um número&#x27;, como você representaria &#x27;o dobro&#x27; e o &#x27;número&#x27; juntos, <span class="ph">[Student Name]</span>? 
+
+SESSION CLOSING: Incrível, <span class="ph">[Student Name]</span>! Você está fazendo um trabalho fantástico e está aprendendo a &#x27;traduzir&#x27; o português para a matemática de um jeito muito inteligente. Escrever expressões algébricas pode ser um pouco desafiador no começo, mas você está pegando o jeito rapidinho. Continue praticando, e você vai dominar isso! Estou muito orgulhoso(a) do seu esforço hoje, <span class="ph">[Student Name]</span>!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Um dos erros mais comuns que <span class="ph">[Student Name]</span> pode cometer ao escrever expressões algébricas é a ordem das operações, especialmente com a subtração. Por exemplo, se a frase for &#x27;5 a menos que um número&#x27;, <span class="ph">[Student Name]</span> pode escrever <code>5 - n</code> em vez da forma correta <code>n - 5</code>. 
+
+Para reconhecer isso, peça a <span class="ph">[Student Name]</span> para testar a expressão com um número real. Se a expressão for &#x27;5 a menos que um número&#x27; e <span class="ph">[Student Name]</span> escrever <code>5 - n</code>, você pode dizer: &#x27;Vamos tentar substituir o &#x27;número&#x27; por 10. Quanto é &#x27;5 a menos que 10&#x27;? E quanto dá <code>5 - 10</code>? As respostas são diferentes, não é? Isso nos mostra que precisamos ajustar a ordem.&#x27; 
+
+O QUE NÃO DIZER: &#x27;Você está fazendo isso errado de novo.&#x27; ou &#x27;Isso é fácil, por que você não consegue entender?&#x27; Evite qualquer frase que possa diminuir a confiança de <span class="ph">[Student Name]</span>.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;misinterpreting_subtraction_order&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> frequentemente troca a ordem em express\u00f5es de subtra\u00e7\u00e3o. Por exemplo, para &#x27;10 a menos que um n\u00famero&#x27;, <span class="ph">[they]</span> pode escrever <code>10 - n</code> em vez de <code>n - 10</code>.&quot;, &quot;reassurance&quot;: &quot;N\u00e3o se preocupe, <span class="ph">[Student Name]</span>! A linguagem pode ser um pouco complicada, e esse \u00e9 um erro muito comum ao come\u00e7ar. <span class="ph">[they]</span> est\u00e1 aprendendo a &#x27;traduzir&#x27; o texto, e com mais pr\u00e1tica, <span class="ph">[they]</span> vai dominar as invers\u00f5es necess\u00e1rias.&quot;, &quot;home_action&quot;: &quot;Pe\u00e7a a <span class="ph">[Student Name]</span> para escrever uma express\u00e3o para &#x27;5 anos a menos que a minha idade&#x27; (a idade de <span class="ph">[Parent Name]</span>) e depois use a sua idade real para testar a express\u00e3o. Ex: Minha idade - 5. Compare com 5 - Minha idade. Isso ajuda a entender a ordem correta.&quot;, &quot;_worksheet&quot;: &quot;error_analysis&quot;}, {&quot;tag&quot;: &quot;incorrect_multiplication_representation&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode escrever &#x27;tr\u00eas vezes um n\u00famero&#x27; como <code>3 x n</code> ou <code>n + n + n</code>, em vez da forma padr\u00e3o e mais concisa da \u00e1lgebra, que \u00e9 <code>3n</code>.&quot;, &quot;reassurance&quot;: &quot;Isso mostra que <span class="ph">[Student Name]</span> entende perfeitamente o conceito de multiplica\u00e7\u00e3o! Agora, <span class="ph">[they]</span> s\u00f3 precisa aprender a forma mais &#x27;curta&#x27; e aceita pelos matem\u00e1ticos. \u00c9 como uma abrevia\u00e7\u00e3o que facilita a leitura.&quot;, &quot;home_action&quot;: &quot;Ao preparar uma receita ou separar algo em grupos, pe\u00e7a a <span class="ph">[Student Name]</span> para escrever a quantidade total se <span class="ph">[they]</span> fizesse &#x27;x&#x27; vezes a receita. Ex: Se a receita pede 2 ovos, e <span class="ph">[they]</span> faz &#x27;x&#x27; vezes a receita, quantos ovos ser\u00e3o? (2x ovos).&quot;, &quot;_worksheet&quot;: &quot;scaffolded_practice&quot;}, {&quot;tag&quot;: &quot;mixing_operations&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode confundir frases que indicam adi\u00e7\u00e3o/subtra\u00e7\u00e3o com aquelas que indicam multiplica\u00e7\u00e3o/divis\u00e3o, como trocar &#x27;o dobro de um n\u00famero&#x27; por &#x27;um n\u00famero mais dois&#x27;.&quot;, &quot;reassurance&quot;: &quot;Essa \u00e9 uma etapa crucial na compreens\u00e3o da \u00e1lgebra, e <span class="ph">[Student Name]</span> est\u00e1 desenvolvendo uma habilidade de interpreta\u00e7\u00e3o muito importante! Muitos estudantes enfrentam esse desafio no in\u00edcio, e \u00e9 um sinal de que <span class="ph">[they]</span> est\u00e1 pensando profundamente.&quot;, &quot;home_action&quot;: &quot;Criem um &#x27;jogo de palavras de opera\u00e7\u00e3o&#x27;. Escrevam palavras como &#x27;soma&#x27;, &#x27;produto&#x27;, &#x27;diferen\u00e7a&#x27;, &#x27;quociente&#x27;, &#x27;mais que&#x27;, &#x27;menos que&#x27;, &#x27;vezes&#x27;, &#x27;dividido por&#x27; em peda\u00e7os de papel. <span class="ph">[they]</span> pega um cart\u00e3o e diz qual opera\u00e7\u00e3o ele representa. Isso ajuda a fixar o vocabul\u00e1rio.&quot;, &quot;_worksheet&quot;: &quot;word_problems&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos descomplicar o que é &#x27;Escrita de Expressões Algébricas&#x27; para que <span class="ph">[they]</span> se sinta superconfiante ao ajudar <span class="ph">[Student Name]</span>. Imagine que é como escrever uma receita ou uma lista de compras, mas com um toque de mistério!
+
+1.  <strong>O que é?</strong> Uma expressão algébrica é uma forma de escrever uma situação da vida real usando números, símbolos de operações (+, -, ×, ÷) e letras (chamadas &#x27;variáveis&#x27;) para representar coisas que não sabemos o valor exato, ou que podem mudar. Por exemplo, você vai ao supermercado e compra uma garrafa de leite por R$7 e alguns pães. Você não sabe quantos pães comprará, então cada pão custa R$2 e você compra &#x27;P&#x27; pães. Sua conta total será: <code>7 + 2P</code>. Veja, <code>P</code> é o mistério que podemos descobrir depois!
+
+2.  <strong>Por que usamos?</strong> Elas nos ajudam a planejar e a descrever situações de forma matemática, mesmo sem ter todos os valores. Pense em seu orçamento: se <span class="ph">[they]</span> tem R$1000 e gasta R$500 em aluguel e &#x27;X&#x27; reais em despesas variáveis por mês, o que sobra é <code>1000 - 500 - X</code>. Isso é super útil para organizar suas finanças!
+
+3.  <strong>Como &#x27;traduzir&#x27; frases em matemática?</strong>
+    <em>   <strong>Adição (+):</strong> &#x27;soma&#x27;, &#x27;total&#x27;, &#x27;mais que&#x27;, &#x27;aumentado por&#x27;. Ex: &#x27;O salário de <span class="ph">[Parent Name]</span> mais R$200 de bônus&#x27; -&gt; <code>Salário + 200</code>.
+    </em>   <strong>Subtração (-):</strong> &#x27;diferença&#x27;, &#x27;menos que&#x27;, &#x27;diminuído por&#x27;. Ex: &#x27;15 reais a menos do que o preço da pizza&#x27; -&gt; <code>Preço da pizza - 15</code>.
+    <em>   <strong>Multiplicação (× ou sem sinal):</strong> &#x27;vezes&#x27;, &#x27;produto&#x27;, &#x27;o dobro&#x27;, &#x27;o triplo&#x27;. Ex: &#x27;Três vezes o número de clientes&#x27; -&gt; <code>3 × Clientes</code> ou <code>3C</code>.
+    </em>   <strong>Divisão (÷ ou /):</strong> &#x27;quociente&#x27;, &#x27;dividido por&#x27;, &#x27;a metade&#x27;, &#x27;a terça parte&#x27;. Ex: &#x27;A metade dos biscoitos&#x27; -&gt; <code>Biscoitos / 2</code> ou <code>B/2</code>.
+
+4.  <strong>A letra (variável):</strong> É só um &#x27;espaço reservado&#x27; para um número que não sabemos ainda. Não precisamos calcular o valor da letra agora, apenas escrevê-la na expressão. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> vai dominar este conceito e será capaz de ensinar <span class="ph">[Student Name]</span> com confiança!</div></div></div></div>
+</body>
+</html>

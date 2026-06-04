@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Scaling Ratios Down</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | RP | Skill 7.RP.045<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Scaling Ratios Down</h1>
+<p class="skill-subtitle">Skill ID: 7.RP.045</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A grocery store sells 24 oranges for $6.00. What is the ratio of oranges to cost, in simplest form, if the price is scaled down to represent the cost per orange?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 orange per $4.00</div><div class="option"><span class="opt-letter">B.</span> 4 oranges per $1.00</div><div class="option"><span class="opt-letter">C.</span> 12 oranges per $3.00</div><div class="option"><span class="opt-letter">D.</span> 6 oranges per $1.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 24 oranges : $6.00</div>
+    <div class="step-exp">The problem provides the quantity of oranges and the total cost, forming the initial ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the ratio in simplest form (or per $1.00), we divide both parts of the ratio by the dollar amount, which is 6.</div>
+    <div class="step-exp">To scale down the ratio to a unit cost of $1.00, we need to divide both parts of the ratio by the current dollar amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Oranges: 24 ÷ 6 = 4
+Cost: $6.00 ÷ 6 = $1.00</div>
+    <div class="step-exp">Perform the division on both quantities to find the equivalent ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 4 oranges : $1.00</div>
+    <div class="step-exp">The resulting numbers form the ratio in its simplest form, representing 4 oranges per $1.00.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 oranges per $1.00 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team scored 75 points in 3 quarters. What is the ratio of points per quarter, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 point per 25 quarters</div><div class="option"><span class="opt-letter">B.</span> 50 points per 2 quarters</div><div class="option"><span class="opt-letter">C.</span> 25 points per 1 quarter</div><div class="option"><span class="opt-letter">D.</span> 3 points per 75 quarters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 75 points : 3 quarters</div>
+    <div class="step-exp">The problem states the total points scored and the number of quarters, establishing the ratio.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find points per quarter, we need to divide both parts of the ratio by the number of quarters, which is 3.</div>
+    <div class="step-exp">To scale down the ratio to a unit rate (points per 1 quarter), divide both quantities by the number of quarters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Points: 75 ÷ 3 = 25
+Quarters: 3 ÷ 3 = 1</div>
+    <div class="step-exp">Perform the division on both the points and the quarters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 25 points : 1 quarter</div>
+    <div class="step-exp">The result gives the ratio in simplest form, representing 25 points per 1 quarter.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 points per 1 quarter (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires 18 teaspoons of sugar for 6 servings. What is the ratio of teaspoons of sugar per serving, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9 teaspoons per 3 servings</div><div class="option"><span class="opt-letter">B.</span> 3 teaspoons per 1 serving</div><div class="option"><span class="opt-letter">C.</span> 6 teaspoons per 1 serving</div><div class="option"><span class="opt-letter">D.</span> 1 serving per 3 teaspoons</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 18 teaspoons : 6 servings</div>
+    <div class="step-exp">The initial ratio is formed by the amount of sugar and the number of servings.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find teaspoons per serving, we need to divide both parts of the ratio by the number of servings, which is 6.</div>
+    <div class="step-exp">To find the unit rate of teaspoons per 1 serving, divide both parts of the ratio by the number of servings.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Teaspoons: 18 ÷ 6 = 3
+Servings: 6 ÷ 6 = 1</div>
+    <div class="step-exp">Perform the division on both quantities.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 3 teaspoons : 1 serving</div>
+    <div class="step-exp">The resulting numbers form the ratio in its simplest form, showing 3 teaspoons per 1 serving.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 teaspoons per 1 serving (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 280 miles in 4 hours. What is the ratio of miles per hour, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 70 miles per 1 hour</div><div class="option"><span class="opt-letter">B.</span> 1 mile per 70 hours</div><div class="option"><span class="opt-letter">C.</span> 140 miles per 2 hours</div><div class="option"><span class="opt-letter">D.</span> 276 miles per 1 hour</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 280 miles : 4 hours</div>
+    <div class="step-exp">The problem gives the total distance and the time taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find miles per hour, we need to divide both parts of the ratio by the number of hours, which is 4.</div>
+    <div class="step-exp">To express the ratio as a unit rate (miles per 1 hour), divide both quantities by the number of hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Miles: 280 ÷ 4 = 70
+Hours: 4 ÷ 4 = 1</div>
+    <div class="step-exp">Perform the division on both the miles and the hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 70 miles : 1 hour</div>
+    <div class="step-exp">The resulting ratio is in simplest form, showing 70 miles per 1 hour.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 70 miles per 1 hour (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a classroom, there are 45 students and 9 computers. What is the ratio of students per computer, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 student per 5 computers</div><div class="option"><span class="opt-letter">B.</span> 5 students per 1 computer</div><div class="option"><span class="opt-letter">C.</span> 9 students per 1 computer</div><div class="option"><span class="opt-letter">D.</span> 36 students per 1 computer</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 45 students : 9 computers</div>
+    <div class="step-exp">The problem gives the number of students and the number of computers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find students per computer, we need to divide both parts of the ratio by the number of computers, which is 9.</div>
+    <div class="step-exp">To get the unit rate of students per 1 computer, divide both quantities by the number of computers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Students: 45 ÷ 9 = 5
+Computers: 9 ÷ 9 = 1</div>
+    <div class="step-exp">Perform the division on both the students and the computers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 5 students : 1 computer</div>
+    <div class="step-exp">The resulting ratio is in simplest form, showing 5 students per 1 computer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 students per 1 computer (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemical solution contains 60 milliliters of acid mixed with 15 milliliters of water. What is the ratio of acid to water, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 mL water per 4 mL acid</div><div class="option"><span class="opt-letter">B.</span> 45 mL acid per 1 mL water</div><div class="option"><span class="opt-letter">C.</span> 12 mL acid per 3 mL water</div><div class="option"><span class="opt-letter">D.</span> 4 mL acid per 1 mL water</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 60 mL acid : 15 mL water</div>
+    <div class="step-exp">The initial ratio is given by the amounts of acid and water.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To simplify the ratio, find the greatest common divisor (GCD) of 60 and 15, which is 15.</div>
+    <div class="step-exp">To reduce the ratio to its simplest form, divide both parts by their greatest common divisor.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Acid: 60 ÷ 15 = 4
+Water: 15 ÷ 15 = 1</div>
+    <div class="step-exp">Perform the division on both the acid and water quantities.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 4 mL acid : 1 mL water</div>
+    <div class="step-exp">The resulting ratio is in simplest form, showing 4 mL of acid per 1 mL of water.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 mL acid per 1 mL water (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction crew laid 108 bricks in 12 minutes. What is the ratio of bricks laid per minute, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 54 bricks per 6 minutes</div><div class="option"><span class="opt-letter">B.</span> 1 minute per 9 bricks</div><div class="option"><span class="opt-letter">C.</span> 9 bricks per 1 minute</div><div class="option"><span class="opt-letter">D.</span> 108 bricks per 1 minute</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 108 bricks : 12 minutes</div>
+    <div class="step-exp">The initial ratio is formed by the number of bricks and the time taken.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find bricks per minute, we need to divide both parts of the ratio by the number of minutes, which is 12.</div>
+    <div class="step-exp">To get the unit rate of bricks per 1 minute, divide both quantities by the number of minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Bricks: 108 ÷ 12 = 9
+Minutes: 12 ÷ 12 = 1</div>
+    <div class="step-exp">Perform the division on both the bricks and the minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 9 bricks : 1 minute</div>
+    <div class="step-exp">The resulting ratio is in simplest form, showing 9 bricks per 1 minute.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 9 bricks per 1 minute (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A factory machine produces 360 widgets in 1.5 hours. What is the ratio of widgets per minute, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 widgets per 1 minute</div><div class="option"><span class="opt-letter">B.</span> 1 widget per 4 minutes</div><div class="option"><span class="opt-letter">C.</span> 240 widgets per 1 minute</div><div class="option"><span class="opt-letter">D.</span> 4 widgets per 1 minute</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 360 widgets : 1.5 hours</div>
+    <div class="step-exp">The problem provides the total number of widgets produced and the time in hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">1.5 hours × 60 minutes/hour = 90 minutes</div>
+    <div class="step-exp">To find the rate per minute, the time unit must be consistent. Convert hours to minutes by multiplying by 60.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">New ratio: 360 widgets : 90 minutes</div>
+    <div class="step-exp">Now the ratio has compatible units (widgets to minutes).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">To find widgets per minute, divide both parts of the ratio by the number of minutes, which is 90.</div>
+    <div class="step-exp">Divide both quantities by the number of minutes to find the unit rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Widgets: 360 ÷ 90 = 4
+Minutes: 90 ÷ 90 = 1</div>
+    <div class="step-exp">Perform the division on both the widgets and the minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 4 widgets : 1 minute</div>
+    <div class="step-exp">The final ratio is in simplest form, representing 4 widgets per 1 minute.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4 widgets per 1 minute (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small town had a population increase of 12,300 over 15 years. What is the average annual population increase, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 820 people per 1 year</div><div class="option"><span class="opt-letter">B.</span> 1 person per 820 years</div><div class="option"><span class="opt-letter">C.</span> 12,300 people per 1 year</div><div class="option"><span class="opt-letter">D.</span> 82 people per 1 year</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 12,300 people : 15 years</div>
+    <div class="step-exp">The problem gives the total population increase and the number of years over which it occurred.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">To find the average annual increase, divide both parts of the ratio by the number of years, which is 15.</div>
+    <div class="step-exp">To scale down the ratio to a unit rate (people per 1 year), divide both quantities by the number of years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">People: 12,300 ÷ 15 = 820
+Years: 15 ÷ 15 = 1</div>
+    <div class="step-exp">Perform the division on both the population increase and the years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 820 people : 1 year</div>
+    <div class="step-exp">The resulting ratio is in simplest form, showing an average increase of 820 people per 1 year.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 820 people per 1 year (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A certain computer can process 7,200 megabytes of data in 0.25 hours. What is the data processing rate in megabytes per minute, in simplest form?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 megabyte per 480 minutes</div><div class="option"><span class="opt-letter">B.</span> 1800 megabytes per 1 minute</div><div class="option"><span class="opt-letter">C.</span> 480 megabytes per 1 minute</div><div class="option"><span class="opt-letter">D.</span> 28,800 megabytes per 1 minute</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial ratio: 7,200 megabytes : 0.25 hours</div>
+    <div class="step-exp">The problem provides the amount of data processed and the time in hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.25 hours × 60 minutes/hour = 15 minutes</div>
+    <div class="step-exp">To find the rate per minute, the time unit must be consistent. Convert hours to minutes by multiplying by 60.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">New ratio: 7,200 megabytes : 15 minutes</div>
+    <div class="step-exp">Now the ratio has compatible units (megabytes to minutes).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">To find megabytes per minute, divide both parts of the ratio by the number of minutes, which is 15.</div>
+    <div class="step-exp">Divide both quantities by the number of minutes to find the unit rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Megabytes: 7,200 ÷ 15 = 480
+Minutes: 15 ÷ 15 = 1</div>
+    <div class="step-exp">Perform the division on both the megabytes and the minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Simplified ratio: 480 megabytes : 1 minute</div>
+    <div class="step-exp">The final ratio is in simplest form, representing 480 megabytes per 1 minute.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 480 megabytes per 1 minute (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

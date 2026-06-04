@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Distributive Property</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.036<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Distributive Property</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.036</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store is having a sale. All shirts cost $15 and all pants cost $20. Sarah buys 2 shirts and 2 pairs of pants. Use the distributive property to write an expression and calculate the total cost.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $37</div><div class="option"><span class="opt-letter">B.</span> $70</div><div class="option"><span class="opt-letter">C.</span> $35</div><div class="option"><span class="opt-letter">D.</span> $50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 2 (since Sarah buys 2 of each item). The costs are $15 for shirts and $20 for pants.</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2(15 + 20)</div>
+    <div class="step-exp">This expression represents the total cost: 2 times the sum of the cost of one shirt and one pair of pants.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2 <em> 15 + 2 </em> 20</div>
+    <div class="step-exp">Multiply the outside number (2) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">30 + 40</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">70</div>
+    <div class="step-exp">Add the results to find the total cost.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $70 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team scores 3-point shots and 2-point shots. In a game, they made 5 three-point shots and 5 two-point shots. Use the distributive property to find the total points scored from these shots.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 points</div><div class="option"><span class="opt-letter">B.</span> 5 points</div><div class="option"><span class="opt-letter">C.</span> 25 points</div><div class="option"><span class="opt-letter">D.</span> 17 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 5 (since they made 5 of each shot). The point values are 3 and 2.</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5(3 + 2)</div>
+    <div class="step-exp">This expression represents the total points: 5 times the sum of the point values of a three-point and a two-point shot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5 <em> 3 + 5 </em> 2</div>
+    <div class="step-exp">Multiply the outside number (5) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">15 + 10</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">25</div>
+    <div class="step-exp">Add the results to find the total points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 points (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 4 cups of sugar and 3 cups of flour for one batch. If you want to make 3 batches, use the distributive property to find the total amount of sugar and flour needed.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 cups</div><div class="option"><span class="opt-letter">B.</span> 21 cups</div><div class="option"><span class="opt-letter">C.</span> 7 cups</div><div class="option"><span class="opt-letter">D.</span> 10 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 3 (for 3 batches). The amounts are 4 cups of sugar and 3 cups of flour.</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3(4 + 3)</div>
+    <div class="step-exp">This expression represents the total ingredients: 3 times the sum of sugar and flour for one batch.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3 <em> 4 + 3 </em> 3</div>
+    <div class="step-exp">Multiply the outside number (3) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">12 + 9</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">21</div>
+    <div class="step-exp">Add the results to find the total amount of ingredients.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 21 cups (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A train usually travels at an average speed of 80 miles per hour. However, for a 5-hour journey, it had to travel 10 miles per hour slower than its usual speed due to maintenance. The total distance traveled can be represented by the expression 5(80 - 10). Calculate the total distance.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 350 miles</div><div class="option"><span class="opt-letter">B.</span> 70 miles</div><div class="option"><span class="opt-letter">C.</span> 75 miles</div><div class="option"><span class="opt-letter">D.</span> 390 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 5 (for a 5-hour journey). The speeds are 80 mph (usual) and 10 mph (reduction).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5(80 - 10)</div>
+    <div class="step-exp">This expression represents the total distance: 5 times the difference between the usual speed and the speed reduction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5 <em> 80 - 5 </em> 10</div>
+    <div class="step-exp">Multiply the outside number (5) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">400 - 50</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">350</div>
+    <div class="step-exp">Subtract the results to find the total distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 350 miles (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a classroom, there are 4 groups of students. Each group has 6 students who chose math as their favorite subject and 5 students who chose science. Use the distributive property to find the total number of students who chose math or science.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 29 students</div><div class="option"><span class="opt-letter">B.</span> 44 students</div><div class="option"><span class="opt-letter">C.</span> 11 students</div><div class="option"><span class="opt-letter">D.</span> 15 students</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 4 (for 4 groups). The numbers of students are 6 (math) and 5 (science).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4(6 + 5)</div>
+    <div class="step-exp">This expression represents the total students: 4 times the sum of students who chose math and science in one group.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 <em> 6 + 4 </em> 5</div>
+    <div class="step-exp">Multiply the outside number (4) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">24 + 20</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">44</div>
+    <div class="step-exp">Add the results to find the total number of students.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 44 students (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is observing bacteria. In each of 7 petri dishes, there are 12 bacteria of type A and 8 bacteria of type B. Use the distributive property to find the total number of bacteria observed.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 27 bacteria</div><div class="option"><span class="opt-letter">B.</span> 20 bacteria</div><div class="option"><span class="opt-letter">C.</span> 140 bacteria</div><div class="option"><span class="opt-letter">D.</span> 92 bacteria</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 7 (for 7 petri dishes). The numbers of bacteria are 12 (type A) and 8 (type B).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">7(12 + 8)</div>
+    <div class="step-exp">This expression represents the total bacteria: 7 times the sum of type A and type B bacteria in one dish.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">7 <em> 12 + 7 </em> 8</div>
+    <div class="step-exp">Multiply the outside number (7) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">84 + 56</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">140</div>
+    <div class="step-exp">Add the results to find the total number of bacteria.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 140 bacteria (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder is ordering materials for 6 identical houses. Each house requires 15 windows and 10 doors. Use the distributive property to find the total number of windows and doors needed.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 31 items</div><div class="option"><span class="opt-letter">B.</span> 150 items</div><div class="option"><span class="opt-letter">C.</span> 100 items</div><div class="option"><span class="opt-letter">D.</span> 25 items</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 6 (for 6 houses). The numbers are 15 (windows) and 10 (doors).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6(15 + 10)</div>
+    <div class="step-exp">This expression represents the total items: 6 times the sum of windows and doors for one house.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6 <em> 15 + 6 </em> 10</div>
+    <div class="step-exp">Multiply the outside number (6) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">90 + 60</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">150</div>
+    <div class="step-exp">Add the results to find the total number of items.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 150 items (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker spends 90 minutes each morning preparing ingredients and 70 minutes baking. If he works 6 mornings a week, use the distributive property to find the total time (in minutes) he spends on these tasks weekly.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 166 minutes</div><div class="option"><span class="opt-letter">B.</span> 610 minutes</div><div class="option"><span class="opt-letter">C.</span> 960 minutes</div><div class="option"><span class="opt-letter">D.</span> 160 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 6 (for 6 mornings). The times are 90 minutes (preparing) and 70 minutes (baking).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">6(90 + 70)</div>
+    <div class="step-exp">This expression represents the total time: 6 times the sum of preparation and baking time for one morning.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">6 <em> 90 + 6 </em> 70</div>
+    <div class="step-exp">Multiply the outside number (6) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">540 + 420</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">960</div>
+    <div class="step-exp">Add the results to find the total time in minutes.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 960 minutes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population is changing. Every year, 150 new families move in, and 20 families move out. Over 4 years, use the distributive property to calculate the net change in the number of families.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 134 families</div><div class="option"><span class="opt-letter">B.</span> 580 families</div><div class="option"><span class="opt-letter">C.</span> 130 families</div><div class="option"><span class="opt-letter">D.</span> 520 families</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 4 (for 4 years). The changes are 150 (moving in) and 20 (moving out).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4(150 - 20)</div>
+    <div class="step-exp">This expression represents the net change: 4 times the difference between families moving in and moving out each year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 <em> 150 - 4 </em> 20</div>
+    <div class="step-exp">Multiply the outside number (4) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">600 - 80</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">520</div>
+    <div class="step-exp">Subtract the results to find the total net change.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 520 families (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company offers a software package. Each package includes a basic license for $75 and an add-on module for $30. If 15 clients purchased the package last month, use the distributive property to find the total revenue from these sales.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $1575</div><div class="option"><span class="opt-letter">B.</span> $120</div><div class="option"><span class="opt-letter">C.</span> $105</div><div class="option"><span class="opt-letter">D.</span> $1155</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The common multiplier is 15 (for 15 clients). The costs are $75 (basic license) and $30 (add-on module).</div>
+    <div class="step-exp">This sets up the expression for the distributive property.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">15(75 + 30)</div>
+    <div class="step-exp">This expression represents the total revenue: 15 times the sum of the basic license and add-on module costs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 <em> 75 + 15 </em> 30</div>
+    <div class="step-exp">Multiply the outside number (15) by each term inside the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1125 + 450</div>
+    <div class="step-exp">Calculate the product of each multiplication.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">1575</div>
+    <div class="step-exp">Add the results to find the total revenue.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $1575 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Percent Concept</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | RP | Skill 6.RP.035<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Percent Concept</h1>
+<p class="skill-subtitle">Skill ID: 6.RP.035</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shop offers a discount on a shirt. The original price of the shirt is $50, and the discount is $10. What percentage of the original price is the discount?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 500%</div><div class="option"><span class="opt-letter">B.</span> 0.2%</div><div class="option"><span class="opt-letter">C.</span> 20%</div><div class="option"><span class="opt-letter">D.</span> 2%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = $10 (discount), Whole = $50 (original price)</div>
+    <div class="step-exp">To find the percentage, we need to determine what part of the whole the discount represents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 10/50</div>
+    <div class="step-exp">The discount is the part, and the original price is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 ÷ 50 = 0.20</div>
+    <div class="step-exp">Divide the numerator by the denominator to get the decimal equivalent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.20 × 100 = 20%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage. Alternatively, move the decimal point two places to the right and add the percent symbol.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, a player attempted 25 shots and made 15 of them. What percentage of the shots did the player make?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6%</div><div class="option"><span class="opt-letter">B.</span> 60%</div><div class="option"><span class="opt-letter">C.</span> 15%</div><div class="option"><span class="opt-letter">D.</span> 166.7%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 15 (shots made), Whole = 25 (total shots attempted)</div>
+    <div class="step-exp">To find the percentage, we need to determine what part of the total shots the successful shots represent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 15/25</div>
+    <div class="step-exp">The number of shots made is the part, and the total shots attempted is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 ÷ 25 = 0.60</div>
+    <div class="step-exp">Divide the numerator by the denominator to get the decimal equivalent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.60 × 100 = 60%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage. Alternatively, move the decimal point two places to the right and add the percent symbol.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 60% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 400 grams of flour. If you have already used 120 grams, what percentage of the flour has been used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3%</div><div class="option"><span class="opt-letter">B.</span> 70%</div><div class="option"><span class="opt-letter">C.</span> 0.3%</div><div class="option"><span class="opt-letter">D.</span> 30%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 120 grams (flour used), Whole = 400 grams (total flour)</div>
+    <div class="step-exp">To find the percentage, we need to determine what part of the total flour has been used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 120/400</div>
+    <div class="step-exp">The amount of flour used is the part, and the total amount of flour is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">120 ÷ 400 = 0.30</div>
+    <div class="step-exp">Divide the numerator by the denominator to get the decimal equivalent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.30 × 100 = 30%</div>
+    <div class="step-exp">Multiply the decimal by 100 to express it as a percentage. Alternatively, move the decimal point two places to the right and add the percent symbol.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30% (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a class of 30 students, 18 students received an A on their math test. What percentage of the students did NOT receive an A?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.4%</div><div class="option"><span class="opt-letter">B.</span> 40%</div><div class="option"><span class="opt-letter">C.</span> 4%</div><div class="option"><span class="opt-letter">D.</span> 60%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total students = 30, Students with A = 18. Students NOT with A = 30 - 18 = 12.</div>
+    <div class="step-exp">First, find the specific part of the group that fits the criteria of the question.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Part = 12 (students without A), Whole = 30 (total students)</div>
+    <div class="step-exp">The number of students who did not receive an A is the part, and the total number of students in the class is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 12/30</div>
+    <div class="step-exp">Set up the ratio of the part to the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">12 ÷ 30 = 0.40</div>
+    <div class="step-exp">Divide the numerator by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">0.40 × 100 = 40%</div>
+    <div class="step-exp">Multiply by 100 to get the percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 40% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car&#x27;s gas tank holds 15 gallons. For a recent trip, the car used 12 gallons of gas. What percentage of the gas in the tank was used for the trip?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8%</div><div class="option"><span class="opt-letter">B.</span> 80%</div><div class="option"><span class="opt-letter">C.</span> 125%</div><div class="option"><span class="opt-letter">D.</span> 12%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Part = 12 gallons (gas used), Whole = 15 gallons (total tank capacity)</div>
+    <div class="step-exp">The amount of gas used is the part, and the total capacity of the tank is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 12/15</div>
+    <div class="step-exp">Set up the ratio of the gas used to the total tank capacity.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">12 ÷ 15 = 0.80</div>
+    <div class="step-exp">Divide the numerator by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.80 × 100 = 80%</div>
+    <div class="step-exp">Multiply by 100 to get the percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 80% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chemist has a solution that contains 75 mL of water and 25 mL of acid. What percentage of the solution is acid?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 75%</div><div class="option"><span class="opt-letter">B.</span> 25%</div><div class="option"><span class="opt-letter">C.</span> 33.3%</div><div class="option"><span class="opt-letter">D.</span> 2.5%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total volume = 75 mL (water) + 25 mL (acid) = 100 mL</div>
+    <div class="step-exp">The &#x27;whole&#x27; in this problem is the total volume of the mixture.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Part = 25 mL (acid), Whole = 100 mL (total solution)</div>
+    <div class="step-exp">The amount of acid is the part we are interested in, and the total volume is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 25/100</div>
+    <div class="step-exp">Set up the ratio of the volume of acid to the total volume of the solution.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">25 ÷ 100 = 0.25</div>
+    <div class="step-exp">Divide the numerator by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">0.25 × 100 = 25%</div>
+    <div class="step-exp">Multiply by 100 to get the percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A builder needs to lay 120 bricks for a wall. If they have already laid 84 bricks, what percentage of the bricks still need to be laid?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 70%</div><div class="option"><span class="opt-letter">B.</span> 30%</div><div class="option"><span class="opt-letter">C.</span> 0.3%</div><div class="option"><span class="opt-letter">D.</span> 3%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total bricks = 120, Bricks laid = 84. Bricks remaining = 120 - 84 = 36.</div>
+    <div class="step-exp">First, find the specific part of the total that fits the criteria of the question.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Part = 36 (bricks remaining), Whole = 120 (total bricks)</div>
+    <div class="step-exp">The number of bricks remaining is the part, and the total number of bricks needed is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 36/120</div>
+    <div class="step-exp">Set up the ratio of the remaining bricks to the total bricks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">36 ÷ 120 = 0.30</div>
+    <div class="step-exp">Divide the numerator by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">0.30 × 100 = 30%</div>
+    <div class="step-exp">Multiply by 100 to get the percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 30% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project was estimated to take 80 hours to complete. After 64 hours of work have been completed, what percentage of the total estimated time for the project has NOT been completed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2%</div><div class="option"><span class="opt-letter">B.</span> 20%</div><div class="option"><span class="opt-letter">C.</span> 16%</div><div class="option"><span class="opt-letter">D.</span> 80%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total estimated hours = 80, Hours completed = 64. Hours NOT completed = 80 - 64 = 16 hours.</div>
+    <div class="step-exp">First, find the specific part of the total time that fits the criteria of the question (time not completed).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Part = 16 hours (NOT completed), Whole = 80 hours (total estimated time)</div>
+    <div class="step-exp">The hours not completed is the part, and the total estimated project time is the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 16/80</div>
+    <div class="step-exp">Set up the ratio of the uncompleted hours to the total estimated hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">16 ÷ 80 = 0.20</div>
+    <div class="step-exp">Divide the numerator by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">0.20 × 100 = 20%</div>
+    <div class="step-exp">Multiply by 100 to get the percentage.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 20% (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population was 12,000 last year. This year, the population increased by 1,800 people. What is the percentage increase in the town&#x27;s population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18%</div><div class="option"><span class="opt-letter">B.</span> 1.5%</div><div class="option"><span class="opt-letter">C.</span> 15%</div><div class="option"><span class="opt-letter">D.</span> 13.04%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Amount of change = 1,800 people (increase), Original amount = 12,000 people (last year&#x27;s population)</div>
+    <div class="step-exp">To calculate percentage increase, we use the amount of increase as the part and the original population as the whole.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction = 1,800/12,000</div>
+    <div class="step-exp">Set up the ratio of the increase to the starting population.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1,800 ÷ 12,000 = 0.15</div>
+    <div class="step-exp">Divide the numerator by the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">0.15 × 100 = 15%</div>
+    <div class="step-exp">Multiply by 100 to get the percentage increase.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15% (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; RP</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new smartphone costs $800. If the sales tax is 6.5%, what is the total price of the smartphone, rounded to the nearest cent?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $52.00</div><div class="option"><span class="opt-letter">B.</span> $806.50</div><div class="option"><span class="opt-letter">C.</span> $1320.00</div><div class="option"><span class="opt-letter">D.</span> $852.00</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">6.5% = 6.5 ÷ 100 = 0.065</div>
+    <div class="step-exp">To use a percentage in calculations, it must first be converted to a decimal by dividing by 100 or moving the decimal point two places to the left.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Sales tax amount = $800 × 0.065 = $52.00</div>
+    <div class="step-exp">Multiply the original price by the decimal form of the sales tax rate.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total price = Original price + Sales tax amount = $800 + $52.00 = $852.00</div>
+    <div class="step-exp">Add the calculated sales tax to the original price of the smartphone to get the final total.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $852.00 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

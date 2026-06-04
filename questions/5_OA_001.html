@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Parentheses</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 5 | OA | Skill 5.OA.001<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Parentheses</h1>
+<p class="skill-subtitle">Skill ID: 5.OA.001</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah went shopping and bought 3 notebooks for $2 each and 5 pens for $1 each. Her mom gave her $20. How much money does Sarah have left after her purchases?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $9</div><div class="option"><span class="opt-letter">B.</span> $15</div><div class="option"><span class="opt-letter">C.</span> $14</div><div class="option"><span class="opt-letter">D.</span> $13</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost of notebooks = 3 * 2 = $6</div>
+    <div class="step-exp">Calculate the total cost of the notebooks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cost of pens = 5 * 1 = $5</div>
+    <div class="step-exp">Calculate the total cost of the pens.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = 6 + 5 = $11</div>
+    <div class="step-exp">Add the cost of notebooks and pens to find the total spending.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Money left = 20 - 11 = $9</div>
+    <div class="step-exp">Subtract the total cost from the initial amount of money to find the remaining balance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $9 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A soccer team played 8 games. They scored 3 goals in each of the first 5 games and 2 goals in each of the remaining games. How many total goals did the team score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 17 goals</div><div class="option"><span class="opt-letter">B.</span> 13 goals</div><div class="option"><span class="opt-letter">C.</span> 21 goals</div><div class="option"><span class="opt-letter">D.</span> 24 goals</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Goals in first 5 games = 3 * 5 = 15</div>
+    <div class="step-exp">Calculate the total goals scored in the first 5 games.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Remaining games = 8 - 5 = 3</div>
+    <div class="step-exp">Calculate the number of remaining games.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Goals in remaining games = 2 * 3 = 6</div>
+    <div class="step-exp">Calculate the total goals scored in the remaining games.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total goals = 15 + 6 = 21</div>
+    <div class="step-exp">Add the goals from both sets of games to find the grand total.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 19 goals (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker made 4 batches of cookies. Each batch had 12 cookies. He sold 30 cookies and ate 2. How many cookies are left?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 cookies</div><div class="option"><span class="opt-letter">B.</span> 16 cookies</div><div class="option"><span class="opt-letter">C.</span> 20 cookies</div><div class="option"><span class="opt-letter">D.</span> 14 cookies</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total cookies made = 4 * 12 = 48</div>
+    <div class="step-exp">Calculate the total number of cookies the baker made.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cookies sold and eaten = 30 + 2 = 32</div>
+    <div class="step-exp">Calculate the total number of cookies that were sold or eaten.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Cookies left = 48 - 32 = 16</div>
+    <div class="step-exp">Subtract the cookies sold and eaten from the total cookies made to find the remaining cookies.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 cookies (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled for 3 hours at a speed of 65 miles per hour and then for 2 hours at a speed of 50 miles per hour. What is the total distance the car traveled?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 115 miles</div><div class="option"><span class="opt-letter">B.</span> 315 miles</div><div class="option"><span class="opt-letter">C.</span> 295 miles</div><div class="option"><span class="opt-letter">D.</span> 275 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance in first part = 3 * 65 = 195</div>
+    <div class="step-exp">Calculate the distance traveled in the first part of the journey.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Distance in second part = 2 * 50 = 100</div>
+    <div class="step-exp">Calculate the distance traveled in the second part of the journey.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 195 + 100 = 295</div>
+    <div class="step-exp">Add the distances from both parts to find the total distance traveled.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 295 miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school bought 15 boxes of pencils. Each box contained 12 pencils. They distributed 100 pencils to students and kept the rest. How many pencils did the school keep?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 17 pencils</div><div class="option"><span class="opt-letter">B.</span> 80 pencils</div><div class="option"><span class="opt-letter">C.</span> 90 pencils</div><div class="option"><span class="opt-letter">D.</span> 102 pencils</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total pencils bought = 15 * 12 = 180</div>
+    <div class="step-exp">Calculate the total number of pencils the school bought.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Pencils kept = 180 - 100 = 80</div>
+    <div class="step-exp">Subtract the distributed pencils from the total to find the number of pencils kept.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 80 pencils (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist conducted an experiment. She prepared 6 samples, each with 25 milliliters of solution. She used 10 milliliters from each of 4 samples for a specific test. How much solution is remaining in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 100 milliliters</div><div class="option"><span class="opt-letter">B.</span> 140 milliliters</div><div class="option"><span class="opt-letter">C.</span> 130 milliliters</div><div class="option"><span class="opt-letter">D.</span> 110 milliliters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total solution prepared = 6 * 25 = 150</div>
+    <div class="step-exp">Calculate the total amount of solution the scientist prepared.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Solution used from 4 samples = 4 * 10 = 40</div>
+    <div class="step-exp">Calculate the total amount of solution used for the specific test.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Solution remaining = 150 - 40 = 110</div>
+    <div class="step-exp">Subtract the used solution from the total prepared solution to find the remaining amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 110 milliliters (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker ordered 10 bags of cement, each weighing 50 pounds. He used 3 bags for the foundation and half of the remaining bags for the walls. How many pounds of cement are left?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 100 pounds</div><div class="option"><span class="opt-letter">B.</span> 175 pounds</div><div class="option"><span class="opt-letter">C.</span> 250 pounds</div><div class="option"><span class="opt-letter">D.</span> 200 pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total bags of cement = 10 * 50 = 500</div>
+    <div class="step-exp">Calculate the total weight of cement ordered.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Bags used for foundation = 3 * 50 = 150</div>
+    <div class="step-exp">Calculate the weight of cement used for the foundation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Remaining bags after foundation = 10 - 3 = 7</div>
+    <div class="step-exp">Calculate the number of bags remaining after the foundation work.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Bags used for walls = 7 / 2 = 3.5 bags (or 3 full bags and half of another)</div>
+    <div class="step-exp">Calculate the number of bags used for the walls (half of the remaining bags).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Weight of cement used for walls = 3.5 * 50 = 175</div>
+    <div class="step-exp">Calculate the weight of cement used for the walls.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Total cement used = 150 + 175 = 325</div>
+    <div class="step-exp">Add the cement used for the foundation and walls.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-content">
+    <div class="step-work">Cement left = 500 - 325 = 175</div>
+    <div class="step-exp">Subtract the total used cement from the initial total to find the remaining amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 175 pounds (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A local charity distributed 25 care packages. Each package contained 3 blankets, 4 toothbrushes, and 2 bars of soap. If they started with 100 blankets, 150 toothbrushes, and 75 bars of soap, how many items of each type are left?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 75 blankets, 100 toothbrushes, 50 bars of soap</div><div class="option"><span class="opt-letter">B.</span> 25 blankets, 50 toothbrushes, 25 bars of soap</div><div class="option"><span class="opt-letter">C.</span> 25 blankets, 100 toothbrushes, 50 bars of soap</div><div class="option"><span class="opt-letter">D.</span> 50 blankets, 50 toothbrushes, 25 bars of soap</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Blankets used = 25 * 3 = 75</div>
+    <div class="step-exp">Calculate the total number of blankets used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Toothbrushes used = 25 * 4 = 100</div>
+    <div class="step-exp">Calculate the total number of toothbrushes used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Soap bars used = 25 * 2 = 50</div>
+    <div class="step-exp">Calculate the total number of soap bars used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Blankets left = 100 - 75 = 25</div>
+    <div class="step-exp">Subtract used blankets from the initial amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Toothbrushes left = 150 - 100 = 50</div>
+    <div class="step-exp">Subtract used toothbrushes from the initial amount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Soap bars left = 75 - 50 = 25</div>
+    <div class="step-exp">Subtract used soap bars from the initial amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 25 blankets, 50 toothbrushes, 25 bars of soap (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A group of 3 friends and 4 family members went to an amusement park. Each friend bought 2 tickets for rides, and each family member bought 3 tickets for rides. If each ride ticket costs $5, how much did they spend on ride tickets in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $105</div><div class="option"><span class="opt-letter">B.</span> $85</div><div class="option"><span class="opt-letter">C.</span> $90</div><div class="option"><span class="opt-letter">D.</span> $65</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Tickets bought by friends = 3 * 2 = 6</div>
+    <div class="step-exp">Calculate the total number of ride tickets bought by the friends.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Tickets bought by family members = 4 * 3 = 12</div>
+    <div class="step-exp">Calculate the total number of ride tickets bought by the family members.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total tickets = 6 + 12 = 18</div>
+    <div class="step-exp">Add the tickets from friends and family members to find the grand total of tickets.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = 18 * 5 = 90</div>
+    <div class="step-exp">Multiply the total number of tickets by the cost per ticket to find the total spending.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $90 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 5 &bull; OA</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company produces 2 types of microchips. Type A costs $15 to make and Type B costs $20 to make. In a month, they produced 100 Type A microchips and 75 Type B microchips. If they sold all the microchips for $30 each, what was their total profit?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $2500</div><div class="option"><span class="opt-letter">B.</span> $2000</div><div class="option"><span class="opt-letter">C.</span> $1750</div><div class="option"><span class="opt-letter">D.</span> $2250</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost of Type A microchips = 100 * 15 = 1500</div>
+    <div class="step-exp">Calculate the total manufacturing cost for Type A microchips.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Cost of Type B microchips = 75 * 20 = 1500</div>
+    <div class="step-exp">Calculate the total manufacturing cost for Type B microchips.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total manufacturing cost = 1500 + 1500 = 3000</div>
+    <div class="step-exp">Add the costs of both types of microchips to find the total manufacturing cost.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total microchips produced = 100 + 75 = 175</div>
+    <div class="step-exp">Calculate the total number of microchips produced.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Total revenue = 175 * 30 = 5250</div>
+    <div class="step-exp">Multiply the total microchips by the selling price per microchip to find the total revenue.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Total profit = 5250 - 3000 = 2250</div>
+    <div class="step-exp">Subtract the total manufacturing cost from the total revenue to find the total profit.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $2000 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

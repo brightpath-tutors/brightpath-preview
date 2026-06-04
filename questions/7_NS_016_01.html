@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Terminating vs Repeating</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.016.01<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Terminating vs Repeating</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.016.01</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker uses 1/4 cup of sugar for a recipe. Express this amount as a rational number.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.25</div><div class="option"><span class="opt-letter">B.</span> 1/4</div><div class="option"><span class="opt-letter">C.</span> 1.4</div><div class="option"><span class="opt-letter">D.</span> 25%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is a number that can be expressed as a fraction p/q, where p and q are integers and q is not zero.</div>
+    <div class="step-exp">Recall the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given amount is 1/4 cup of sugar.</div>
+    <div class="step-exp">Identify the given number from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">1/4 is already in the form p/q, where p=1 and q=4. Both 1 and 4 are integers, and 4 is not zero.</div>
+    <div class="step-exp">Confirm that the number fits the definition of a rational number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1/4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a basketball game, a player scored 12 points. Express the number of points as a rational number.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12.0</div><div class="option"><span class="opt-letter">B.</span> 1/12</div><div class="option"><span class="opt-letter">C.</span> 12/1</div><div class="option"><span class="opt-letter">D.</span> 0.12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is a number that can be expressed as a fraction p/q, where p and q are integers and q is not zero.</div>
+    <div class="step-exp">Understand the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given number is 12.</div>
+    <div class="step-exp">Identify the integer from the problem statement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Any integer can be written as a fraction by placing it over 1. So, 12 can be written as 12/1.</div>
+    <div class="step-exp">Express the integer as a fraction.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12/1 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A science experiment recorded a temperature change of -3.5 degrees Celsius. Represent this temperature change as a rational number.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -3.5</div><div class="option"><span class="opt-letter">B.</span> -35/1</div><div class="option"><span class="opt-letter">C.</span> -7/2</div><div class="option"><span class="opt-letter">D.</span> -3/5</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number can be written as p/q, where p and q are integers and q ≠ 0.</div>
+    <div class="step-exp">Recall the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given temperature change is -3.5.</div>
+    <div class="step-exp">Identify the number to be converted.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the decimal to a fraction: -3.5 = -35/10.</div>
+    <div class="step-exp">Write the decimal as a fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the fraction: -35/10 = -(35 ÷ 5) / (10 ÷ 5) = -7/2.</div>
+    <div class="step-exp">Reduce the fraction to its simplest form by dividing the numerator and denominator by their greatest common divisor (GCD).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -7/2 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A marathon runner completed 2/3 of the race. Express this distance as a rational number.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 0.66</div><div class="option"><span class="opt-letter">B.</span> 0.666...</div><div class="option"><span class="opt-letter">C.</span> 2/3</div><div class="option"><span class="opt-letter">D.</span> 3/2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is any number that can be expressed as a fraction p/q, where p and q are integers and q is not equal to zero.</div>
+    <div class="step-exp">Define what a rational number is.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given distance is 2/3 of the race.</div>
+    <div class="step-exp">Identify the number provided in the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The number 2/3 is already in the form p/q, where p=2 and q=3. Both 2 and 3 are integers, and 3 is not zero.</div>
+    <div class="step-exp">Verify that the number fits the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The fraction 2/3 is already in simplest form, as 2 and 3 share no common factors other than 1.</div>
+    <div class="step-exp">Check if the fraction needs to be simplified.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2/3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 1.75 cups of water. Express this quantity as a rational number in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 17/5</div><div class="option"><span class="opt-letter">B.</span> 7/4</div><div class="option"><span class="opt-letter">C.</span> 175/100</div><div class="option"><span class="opt-letter">D.</span> 175/10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is a number that can be written as p/q, where p and q are integers and q ≠ 0.</div>
+    <div class="step-exp">Recall the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given quantity is 1.75 cups of water.</div>
+    <div class="step-exp">Identify the number from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the decimal to a fraction: 1.75 = 175/100.</div>
+    <div class="step-exp">Write the decimal as a fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Simplify the fraction by finding the greatest common divisor (GCD) of 175 and 100. The GCD is 25.</div>
+    <div class="step-exp">Prepare to simplify the fraction by finding its GCD.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both the numerator and the denominator by the GCD: 175 ÷ 25 = 7; 100 ÷ 25 = 4. So, 175/100 = 7/4.</div>
+    <div class="step-exp">Simplify the fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7/4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An athlete ran 4.25 kilometers. Express this distance as a rational number in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 425/10</div><div class="option"><span class="opt-letter">B.</span> 17/4</div><div class="option"><span class="opt-letter">C.</span> 4.25</div><div class="option"><span class="opt-letter">D.</span> 4 and 1/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number can be expressed as p/q, where p and q are integers and q ≠ 0.</div>
+    <div class="step-exp">Define a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given distance is 4.25 kilometers.</div>
+    <div class="step-exp">Identify the numerical value from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the decimal to a fraction: 4.25 = 425/100.</div>
+    <div class="step-exp">Express the decimal as a fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 425 and 100. The GCD is 25.</div>
+    <div class="step-exp">Determine the GCD to simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both the numerator and denominator by the GCD: 425 ÷ 25 = 17; 100 ÷ 25 = 4. So, 425/100 = 17/4.</div>
+    <div class="step-exp">Simplify the fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 17/4 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker measures a beam to be 8.5 feet long. Express this length as a rational number in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 85/10</div><div class="option"><span class="opt-letter">B.</span> 8 and 1/2</div><div class="option"><span class="opt-letter">C.</span> 17/2</div><div class="option"><span class="opt-letter">D.</span> 8.50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is any number that can be written as a fraction p/q, where p and q are integers and q is not zero.</div>
+    <div class="step-exp">Define a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The length of the beam is 8.5 feet.</div>
+    <div class="step-exp">Identify the given decimal number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the decimal to a fraction: 8.5 = 85/10.</div>
+    <div class="step-exp">Write the decimal as a fraction with a power of 10 in the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 85 and 10. The GCD is 5.</div>
+    <div class="step-exp">Determine the GCD to simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both the numerator and denominator by the GCD: 85 ÷ 5 = 17; 10 ÷ 5 = 2. So, 85/10 = 17/2.</div>
+    <div class="step-exp">Simplify the fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 17/2 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A software update downloaded 75% of its files. Express this percentage as a rational number in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7.5</div><div class="option"><span class="opt-letter">B.</span> 75/100</div><div class="option"><span class="opt-letter">C.</span> 3/4</div><div class="option"><span class="opt-letter">D.</span> 4/3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number can be expressed as a fraction p/q, where p and q are integers and q ≠ 0.</div>
+    <div class="step-exp">Recall the definition of a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given percentage is 75%.</div>
+    <div class="step-exp">Identify the percentage from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the percentage to a fraction by dividing by 100: 75% = 75/100.</div>
+    <div class="step-exp">Express the percentage as a fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 75 and 100. The GCD is 25.</div>
+    <div class="step-exp">Determine the GCD to simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both the numerator and denominator by the GCD: 75 ÷ 25 = 3; 100 ÷ 25 = 4. So, 75/100 = 3/4.</div>
+    <div class="step-exp">Simplify the fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3/4 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A country&#x27;s population grew by 0.012 in the last year. Express this growth rate as a rational number in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12/100</div><div class="option"><span class="opt-letter">B.</span> 0.012</div><div class="option"><span class="opt-letter">C.</span> 3/250</div><div class="option"><span class="opt-letter">D.</span> 1/25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is a number that can be expressed as p/q, where p and q are integers and q ≠ 0.</div>
+    <div class="step-exp">Define a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The given growth rate is 0.012.</div>
+    <div class="step-exp">Identify the decimal number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert the decimal to a fraction: 0.012 = 12/1000.</div>
+    <div class="step-exp">Write the decimal as a fraction with a power of 10 in the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 12 and 1000. The GCD is 4.</div>
+    <div class="step-exp">Determine the GCD to simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Divide both the numerator and denominator by the GCD: 12 ÷ 4 = 3; 1000 ÷ 4 = 250. So, 12/1000 = 3/250.</div>
+    <div class="step-exp">Simplify the fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3/250 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A timestamp in a video is displayed as 1 minute and 45 seconds. Express the seconds portion as a rational number representing a fraction of a minute, in simplest form.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 45/1</div><div class="option"><span class="opt-letter">B.</span> 1/45</div><div class="option"><span class="opt-letter">C.</span> 3/4</div><div class="option"><span class="opt-letter">D.</span> 0.75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">A rational number is a number that can be expressed as p/q, where p and q are integers and q ≠ 0.</div>
+    <div class="step-exp">Define a rational number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The seconds portion is 45 seconds.</div>
+    <div class="step-exp">Identify the relevant part of the given time.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">There are 60 seconds in 1 minute.</div>
+    <div class="step-exp">Recall the conversion factor between seconds and minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Form a fraction representing the seconds portion of a minute: 45 seconds / 60 seconds = 45/60.</div>
+    <div class="step-exp">Create a fraction with seconds as the numerator and total seconds in a minute as the denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Find the greatest common divisor (GCD) of 45 and 60. The GCD is 15.</div>
+    <div class="step-exp">Determine the GCD to simplify the fraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Divide both the numerator and denominator by the GCD: 45 ÷ 15 = 3; 60 ÷ 15 = 4. So, 45/60 = 3/4.</div>
+    <div class="step-exp">Simplify the fraction to its simplest form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3/4 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

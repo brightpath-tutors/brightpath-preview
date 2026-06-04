@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Positive and Negative Numbers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.004<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Positive and Negative Numbers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.004</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">You borrowed $12 from a friend to buy a new book. Which integer represents the amount of money you owe?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -12</div><div class="option"><span class="opt-letter">B.</span> 24</div><div class="option"><span class="opt-letter">C.</span> 12</div><div class="option"><span class="opt-letter">D.</span> 0</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem states that you &#x27;borrowed $12&#x27; and asks to represent the &#x27;amount of money you owe&#x27;.</div>
+    <div class="step-exp">Borrowing money means you have a debt, which is represented by a negative value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since you owe money, the amount should be negative.</div>
+    <div class="step-exp">Amounts owed or debts are typically represented by negative integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The amount is $12, and it is a debt, so the integer is -12.</div>
+    <div class="step-exp">Combine the magnitude and the sign to get the final integer representation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -12 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a football game, a team lost 7 yards on a penalty. Which integer represents this change in yardage?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -7</div><div class="option"><span class="opt-letter">B.</span> 0</div><div class="option"><span class="opt-letter">C.</span> 7</div><div class="option"><span class="opt-letter">D.</span> -14</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The problem states the team &#x27;lost 7 yards&#x27;.</div>
+    <div class="step-exp">Losing yardage in sports indicates a decrease or a movement backward, which is represented by a negative value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since the team lost yards, the change in yardage should be negative.</div>
+    <div class="step-exp">A loss is represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The amount is 7 yards, and it is a loss, so the integer is -7.</div>
+    <div class="step-exp">Combine the magnitude and the sign to get the final integer representation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -7 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The deep-sea submersible descended 25 meters below sea level. Which integer describes the submersible&#x27;s position relative to sea level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25</div><div class="option"><span class="opt-letter">B.</span> 0</div><div class="option"><span class="opt-letter">C.</span> 50</div><div class="option"><span class="opt-letter">D.</span> -25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The submersible &#x27;descended 25 meters below sea level&#x27;. Sea level is the reference point (0).</div>
+    <div class="step-exp">Movement &#x27;below&#x27; a reference point implies a negative direction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since the submersible is &#x27;below sea level&#x27;, its position is negative.</div>
+    <div class="step-exp">Positions below a zero reference point are represented by negative integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The distance is 25 meters, and it&#x27;s below sea level, so the integer is -25.</div>
+    <div class="step-exp">Combine the magnitude and the sign to represent the position.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -25 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small business reported a profit of $800 in January and a loss of $500 in February. Which integer represents the loss in February?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 800</div><div class="option"><span class="opt-letter">B.</span> -500</div><div class="option"><span class="opt-letter">C.</span> 300</div><div class="option"><span class="opt-letter">D.</span> 500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The question asks for the integer representing the &#x27;loss of $500 in February&#x27;. The profit in January is extra information for this specific question.</div>
+    <div class="step-exp">Focus on the specific part of the problem that directly answers the question. &#x27;Loss&#x27; is the key term here.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since it&#x27;s a &#x27;loss&#x27;, the amount should be negative.</div>
+    <div class="step-exp">A financial loss is represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The amount is $500, and it is a loss, so the integer is -500.</div>
+    <div class="step-exp">Combine the magnitude and the sign to form the integer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -500 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The highest recorded temperature in a science lab was 18°C. The lowest recorded temperature was -3°C. Which statement correctly compares these two temperatures?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -3°C &gt; 18°C</div><div class="option"><span class="opt-letter">B.</span> 18°C &gt; -3°C</div><div class="option"><span class="opt-letter">C.</span> 18°C &lt; -3°C</div><div class="option"><span class="opt-letter">D.</span> 18°C = -3°C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Temperatures are 18°C and -3°C.</div>
+    <div class="step-exp">Extract the numerical values from the problem statement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Positive numbers are always greater than negative numbers.</div>
+    <div class="step-exp">On a number line, numbers to the right are greater. All positive numbers are to the right of all negative numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">18 is a positive number, and -3 is a negative number. Therefore, 18 &gt; -3.</div>
+    <div class="step-exp">Apply the rule that a positive number is greater than a negative number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 18°C &gt; -3°C (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A diver starts at a depth of -4 meters relative to the surface. He then rises 2 meters. What is his new position?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6 meters</div><div class="option"><span class="opt-letter">B.</span> -6 meters</div><div class="option"><span class="opt-letter">C.</span> 2 meters</div><div class="option"><span class="opt-letter">D.</span> -2 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The diver starts at a depth of -4 meters.</div>
+    <div class="step-exp">Initial depth is given as a negative integer, indicating below the surface.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">He &#x27;rises 2 meters&#x27;. Rising implies a positive change.</div>
+    <div class="step-exp">Movement upwards is represented by a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-4 + 2 = -2</div>
+    <div class="step-exp">When adding integers with different signs, subtract the smaller absolute value from the larger absolute value and keep the sign of the number with the larger absolute value. | -4 | = 4, | 2 | = 2. 4 - 2 = 2. Since 4 is larger and negative, the result is -2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -2 meters (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker is drilling a hole. The drill starts at 0 feet (ground level). It drills down 9 feet, then pulls up 3 feet. What is the final depth of the hole relative to ground level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 feet</div><div class="option"><span class="opt-letter">B.</span> -12 feet</div><div class="option"><span class="opt-letter">C.</span> -6 feet</div><div class="option"><span class="opt-letter">D.</span> 6 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Drilling &#x27;down 9 feet&#x27; is represented as -9.</div>
+    <div class="step-exp">Movement downwards from ground level (0) is represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Pulling &#x27;up 3 feet&#x27; is represented as +3.</div>
+    <div class="step-exp">Movement upwards is represented by a positive integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-9 + 3 = -6</div>
+    <div class="step-exp">Add the integers. When adding integers with different signs, subtract the smaller absolute value from the larger absolute value and keep the sign of the number with the larger absolute value. | -9 | = 9, | 3 | = 3. 9 - 3 = 6. Since 9 is larger and negative, the result is -6.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -6 feet (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town decreased by 20 residents in one year and then decreased by another 15 residents the next year. What is the total change in population over the two years?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 residents</div><div class="option"><span class="opt-letter">B.</span> -5 residents</div><div class="option"><span class="opt-letter">C.</span> -35 residents</div><div class="option"><span class="opt-letter">D.</span> 35 residents</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Decreased by 20 residents: -20. Decreased by 15 residents: -15.</div>
+    <div class="step-exp">A decrease in population is represented by a negative integer.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-20 + (-15) = -35</div>
+    <div class="step-exp">When adding two negative integers, add their absolute values and keep the negative sign. 20 + 15 = 35, so the sum is -35.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -35 residents (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A computer&#x27;s hard drive has three files. File A uses -15 MB of space (meaning 15 MB below the baseline for available space), File B uses -20 MB, and File C uses -10 MB. Order these files from the least amount of space used (closest to 0) to the most amount of space used (farthest from 0).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> File B, File A, File C</div><div class="option"><span class="opt-letter">B.</span> File C, File B, File A</div><div class="option"><span class="opt-letter">C.</span> File C, File A, File B</div><div class="option"><span class="opt-letter">D.</span> File A, File B, File C</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">File A: -15 MB, File B: -20 MB, File C: -10 MB.</div>
+    <div class="step-exp">Extract the numerical values associated with each file.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">In terms of negative numbers, &#x27;least amount of space used&#x27; means the value closest to zero (which would be a smaller magnitude of negative space). &#x27;Most amount of space used&#x27; means the value farthest from zero (larger magnitude of negative space).</div>
+    <div class="step-exp">For negative numbers, the number closer to zero is greater. The question asks for &#x27;least amount of space used&#x27; (closest to 0) to &#x27;most amount of space used&#x27; (farthest from 0). This means ordering from greatest to least in standard integer comparison, or from smallest magnitude to largest magnitude when ignoring the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Comparing magnitudes: |-10| = 10, |-15| = 15, |-20| = 20. So, -10 is closest to 0, then -15, then -20. The order is C, A, B.</div>
+    <div class="step-exp">Numbers closer to 0 represent less &#x27;usage&#x27; in this negative context. So, -10 is &#x27;less&#x27; used than -15, and -15 is &#x27;less&#x27; used than -20. The order is -10, -15, -20.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> File C, File A, File B (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A painter tracks the height of their brush relative to the center of a large canvas. The brush starts at 0 cm. It moves down 8 cm, then up 5 cm, and finally down another 2 cm. What is the final vertical position of the brush?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 cm</div><div class="option"><span class="opt-letter">B.</span> 15 cm</div><div class="option"><span class="opt-letter">C.</span> -15 cm</div><div class="option"><span class="opt-letter">D.</span> -5 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Starts at 0. Moves down 8 cm: -8. Moves up 5 cm: +5. Moves down another 2 cm: -2.</div>
+    <div class="step-exp">Down movements are negative, up movements are positive relative to the starting point.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0 + (-8) + 5 + (-2) = -8 + 5 - 2 = -3 - 2 = -5</div>
+    <div class="step-exp">Combine the changes. Start with -8, add 5 to get -3, then subtract 2 to get -5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -5 cm (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

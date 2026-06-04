@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Graph Quadratic Functions</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 8 | F | Skill 8.F.017<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Graph Quadratic Functions</h1>
+<p class="skill-subtitle">Skill ID: 8.F.017</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A store&#x27;s daily profit (in hundreds of dollars) can be modeled by the quadratic function P(x) = -x^2 + 8x - 12, where x is the number of hours the store is open. What is the vertex of the parabola represented by this function, and does it open upwards or downwards?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Vertex (4, 4), opens upwards</div><div class="option"><span class="opt-letter">B.</span> Vertex (4, 4), opens downwards</div><div class="option"><span class="opt-letter">C.</span> Vertex (4, -4), opens downwards</div><div class="option"><span class="opt-letter">D.</span> Vertex (-4, 4), opens downwards</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For P(x) = -x^2 + 8x - 12, a = -1, b = 8, c = -12.</div>
+    <div class="step-exp">The coefficients a, b, and c are identified from the standard quadratic form P(x) = ax^2 + bx + c.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Since a = -1 (which is negative), the parabola opens downwards.</div>
+    <div class="step-exp">If the leading coefficient &#x27;a&#x27; is negative, the parabola opens downwards. If &#x27;a&#x27; is positive, it opens upwards.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The x-coordinate of the vertex is given by the formula x = -b / (2a).
+x = -8 / (2 * -1) = -8 / -2 = 4.</div>
+    <div class="step-exp">This formula provides the x-coordinate (or axis of symmetry) of the parabola&#x27;s vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Substitute the x-coordinate (x = 4) back into the function:
+P(4) = -(4)^2 + 8(4) - 12 = -16 + 32 - 12 = 16 - 12 = 4.</div>
+    <div class="step-exp">Substituting the x-coordinate into the original function gives the corresponding y-coordinate of the vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (4, 4) and the parabola opens downwards.</div>
+    <div class="step-exp">Combine the calculated vertex coordinates with the determined direction of opening.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Vertex (4, 4), opens downwards. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The path of a soccer ball kicked into the air can be modeled by the function h(t) = -2t^2 + 10t + 3, where h(t) is the height in meters and t is the time in seconds. Which statement correctly describes the shape of the graph of this function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> It is a parabola opening downwards.</div><div class="option"><span class="opt-letter">B.</span> It is an exponential curve.</div><div class="option"><span class="opt-letter">C.</span> It is a parabola opening upwards.</div><div class="option"><span class="opt-letter">D.</span> It is a straight line.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The function h(t) = -2t^2 + 10t + 3 is a quadratic function because the highest power of the variable &#x27;t&#x27; is 2.</div>
+    <div class="step-exp">A quadratic function always produces a parabolic graph.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The leading coefficient (a) is -2. Since &#x27;a&#x27; is negative, the parabola opens downwards.</div>
+    <div class="step-exp">The sign of the leading coefficient &#x27;a&#x27; determines the direction of opening for a parabola. Negative &#x27;a&#x27; means it opens downwards, positive &#x27;a&#x27; means it opens upwards.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The graph is a parabola opening downwards.</div>
+    <div class="step-exp">State the complete description of the graph based on the function type and leading coefficient.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> It is a parabola opening downwards. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature inside an oven during preheating can be approximated by the function T(m) = 0.5m^2 - 4m + 75, where T(m) is the temperature in degrees Fahrenheit and m is the number of minutes. What is the y-intercept of the graph of this function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> (0, 0.5)</div><div class="option"><span class="opt-letter">B.</span> (0, -4)</div><div class="option"><span class="opt-letter">C.</span> (75, 0)</div><div class="option"><span class="opt-letter">D.</span> (0, 75)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">The y-intercept is the point where the graph crosses the y-axis. This occurs when the independent variable (m in this case) is 0.</div>
+    <div class="step-exp">The y-intercept represents the initial value of the dependent variable when the independent variable is zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">T(0) = 0.5(0)^2 - 4(0) + 75
+T(0) = 0 - 0 + 75
+T(0) = 75</div>
+    <div class="step-exp">Perform the calculation to find the value of T(m) when m is 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The y-intercept is (0, 75).</div>
+    <div class="step-exp">The y-intercept is always expressed as an ordered pair (0, y-value).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> (0, 75) (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car&#x27;s braking distance (in meters) can be approximated by the function D(s) = 0.05s^2 + 0.5s, where s is the speed in km/h. Graph the function D(s) by plotting points for s = 0, 5, 10, 15, and 20. Which graph correctly displays these points? (Assume options are visual graphs.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Graph with points (0,0), (5,3.75), (10,10), (15,18.75), (20,30) correctly plotted.</div><div class="option"><span class="opt-letter">B.</span> Graph with incorrect direction (opens downwards from the origin)</div><div class="option"><span class="opt-letter">C.</span> Graph with calculation errors in y-values (e.g., D(5)=5, D(10)=15)</div><div class="option"><span class="opt-letter">D.</span> Graph with correct y-values but incorrect x-spacing</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work"><em>   D(0) = 0.05(0)^2 + 0.5(0) = 0 + 0 = 0
+</em>   D(5) = 0.05(5)^2 + 0.5(5) = 0.05(25) + 2.5 = 1.25 + 2.5 = 3.75
+<em>   D(10) = 0.05(10)^2 + 0.5(10) = 0.05(100) + 5 = 5 + 5 = 10
+</em>   D(15) = 0.05(15)^2 + 0.5(15) = 0.05(225) + 7.5 = 11.25 + 7.5 = 18.75
+*   D(20) = 0.05(20)^2 + 0.5(20) = 0.05(400) + 10 = 20 + 10 = 30</div>
+    <div class="step-exp">Substitute each given speed value (s) into the function to find the corresponding braking distance (D(s)).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The points are (0,0), (5,3.75), (10,10), (15,18.75), (20,30).</div>
+    <div class="step-exp">Each (s, D(s)) pair forms a coordinate point to be plotted on the graph.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The correct graph will have these specific points accurately marked and connected to form a parabola opening upwards (since a = 0.05 is positive).</div>
+    <div class="step-exp">Visually compare the calculated points to the provided graph options to find the correct representation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The graph showing points (0,0), (5,3.75), (10,10), (15,18.75), (20,30). (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The number of students attending a school concert over several years can be modeled by the function N(y) = -0.1y^2 + 2y + 100, where N(y) is the number of students and y is the number of years since the school opened. What is the axis of symmetry for the graph of this function?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> y = 10</div><div class="option"><span class="opt-letter">B.</span> y = -10</div><div class="option"><span class="opt-letter">C.</span> x = 10</div><div class="option"><span class="opt-letter">D.</span> y = 2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For N(y) = -0.1y^2 + 2y + 100, a = -0.1, b = 2, c = 100.</div>
+    <div class="step-exp">Extract the values for a, b, and c from the quadratic function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The axis of symmetry for a quadratic function in the form f(x) = ax^2 + bx + c is given by x = -b / (2a). In this case, the independent variable is &#x27;y&#x27;, so the formula is y = -b / (2a).
+y = -2 / (2 * -0.1) = -2 / -0.2 = 10.</div>
+    <div class="step-exp">The axis of symmetry is a vertical line that passes through the vertex of the parabola. Its equation is derived from the quadratic formula.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The axis of symmetry is y = 10.</div>
+    <div class="step-exp">Clearly state the equation for the axis of symmetry.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> y = 10 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The concentration of a chemical in a solution over time can be described by the function C(t) = -0.25t^2 + 5t + 10, where C(t) is the concentration in mg/L and t is time in hours. Identify the vertex of the parabola and explain its meaning in this context.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Vertex (10, 35). This means the maximum concentration of the chemical is 35 mg/L after 10 hours.</div><div class="option"><span class="opt-letter">B.</span> Vertex (5, 10). This means the concentration is 10 mg/L after 5 hours.</div><div class="option"><span class="opt-letter">C.</span> Vertex (-10, 35). This means the maximum concentration of the chemical is 35 mg/L after -10 hours.</div><div class="option"><span class="opt-letter">D.</span> Vertex (10, 35). This means the minimum concentration of the chemical is 35 mg/L after 10 hours.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For C(t) = -0.25t^2 + 5t + 10, a = -0.25, b = 5, c = 10.</div>
+    <div class="step-exp">Extract the coefficients from the given quadratic function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">t = -b / (2a) = -5 / (2 * -0.25) = -5 / -0.5 = 10.</div>
+    <div class="step-exp">The t-coordinate of the vertex represents the time at which the maximum or minimum concentration occurs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute t = 10 into the function:
+C(10) = -0.25(10)^2 + 5(10) + 10
+C(10) = -0.25(100) + 50 + 10
+C(10) = -25 + 50 + 10
+C(10) = 25 + 10 = 35.</div>
+    <div class="step-exp">This calculation gives the actual concentration at the time found in the previous step.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The vertex is (10, 35). Since a = -0.25 (negative), the parabola opens downwards, so the vertex is a maximum point. This means the maximum concentration of the chemical is 35 mg/L, occurring after 10 hours.</div>
+    <div class="step-exp">A negative &#x27;a&#x27; value indicates a maximum point, while a positive &#x27;a&#x27; value indicates a minimum point. The coordinates of the vertex represent the optimal time and corresponding concentration.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Vertex (10, 35). This means the maximum concentration of the chemical is 35 mg/L after 10 hours. (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An architect designs a parabolic arch for a building entrance. The height of the arch can be described by the function h(x) = -0.5x^2 + 12x, where h(x) is the height in feet and x is the horizontal distance from one end of the arch in feet. What is the maximum height of the arch?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -72 feet</div><div class="option"><span class="opt-letter">B.</span> 0 feet</div><div class="option"><span class="opt-letter">C.</span> 12 feet</div><div class="option"><span class="opt-letter">D.</span> 72 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For h(x) = -0.5x^2 + 12x, a = -0.5, b = 12, c = 0.</div>
+    <div class="step-exp">The maximum height of a parabolic arch corresponds to the y-coordinate of its vertex. Identify the coefficients a, b, and c.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x = -b / (2a) = -12 / (2 * -0.5) = -12 / -1 = 12.</div>
+    <div class="step-exp">This x-coordinate represents the horizontal distance at which the arch reaches its maximum height.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Substitute x = 12 into the function:
+h(12) = -0.5(12)^2 + 12(12)
+h(12) = -0.5(144) + 144
+h(12) = -72 + 144 = 72.</div>
+    <div class="step-exp">Substituting the x-coordinate of the vertex into the function yields the maximum height.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The maximum height of the arch is 72 feet.</div>
+    <div class="step-exp">Confirm the final answer based on the calculation of the vertex&#x27;s y-coordinate.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 72 feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The number of unique visitors to a new website per day can be modeled by the function V(d) = -d^2 + 14d - 24, where V(d) is the number of visitors (in thousands) and d is the number of days since launch. Which of the following graphs best represents the function V(d)? (Assume options are visual graphs with key features labeled.)</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Parabola opening downwards, with incorrect vertex (e.g., (7, -25)).</div><div class="option"><span class="opt-letter">B.</span> Parabola opening downwards, with incorrect x-intercepts (e.g., (4,0) and (6,0)).</div><div class="option"><span class="opt-letter">C.</span> Parabola opening downwards, with vertex (7, 25) and x-intercepts (2,0) and (12,0).</div><div class="option"><span class="opt-letter">D.</span> Parabola opening upwards.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For V(d) = -d^2 + 14d - 24, a = -1, b = 14, c = -24. Since a = -1 (negative), the parabola opens downwards.</div>
+    <div class="step-exp">The sign of &#x27;a&#x27; determines if the parabola opens upwards or downwards.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">d-coordinate of vertex: d = -b / (2a) = -14 / (2 * -1) = -14 / -2 = 7.
+V(7) = -(7)^2 + 14(7) - 24 = -49 + 98 - 24 = 49 - 24 = 25.
+Vertex is (7, 25).</div>
+    <div class="step-exp">The vertex is a key feature that indicates the maximum or minimum point of the parabola.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-d^2 + 14d - 24 = 0
+d^2 - 14d + 24 = 0  (multiply by -1)
+Factor the quadratic: (d - 2)(d - 12) = 0
+So, d = 2 or d = 12.
+The x-intercepts are (2,0) and (12,0).</div>
+    <div class="step-exp">The x-intercepts are the points where the graph crosses the horizontal axis (V(d)=0). Factoring is one method to find these.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">V(0) = -(0)^2 + 14(0) - 24 = -24.
+The y-intercept is (0, -24).</div>
+    <div class="step-exp">The y-intercept indicates the value of V(d) when d is zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">The graph must be a parabola opening downwards, with its vertex at (7, 25) and crossing the x-axis at (2,0) and (12,0), and the y-axis at (0, -24).</div>
+    <div class="step-exp">Combine all determined features to correctly identify the graph. Knowing the vertex and x-intercepts are often sufficient to distinguish graphs.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A parabola opening downwards, with vertex (7, 25) and x-intercepts (2,0) and (12,0). (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small insect colony (in hundreds) over several weeks can be modeled by the function P(w) = -0.5w^2 + 8w + 10, where w is the number of weeks. Which equation represents the axis of symmetry for the graph of this function, and what does it signify?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> w = -8. It signifies the week at which the population begins to decline.</div><div class="option"><span class="opt-letter">B.</span> w = 8. It signifies the week at which the population reaches its maximum.</div><div class="option"><span class="opt-letter">C.</span> w = 8. It signifies the week at which the population is at its minimum.</div><div class="option"><span class="opt-letter">D.</span> P(w) = 10. It signifies the initial population.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For P(w) = -0.5w^2 + 8w + 10, a = -0.5, b = 8, c = 10.</div>
+    <div class="step-exp">Identify the values for a, b, and c from the quadratic function.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">The axis of symmetry is given by the formula w = -b / (2a).
+w = -8 / (2 * -0.5) = -8 / -1 = 8.</div>
+    <div class="step-exp">This formula gives the independent variable&#x27;s value at the parabola&#x27;s vertex.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Since a = -0.5 (negative), the parabola opens downwards, meaning its vertex is a maximum point. The axis of symmetry passes through this vertex. Therefore, w = 8 signifies the week at which the population reaches its maximum.</div>
+    <div class="step-exp">The axis of symmetry indicates the time (or input value) when the dependent variable (population) reaches its peak or lowest point, depending on the parabola&#x27;s direction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The axis of symmetry is w = 8. It signifies the week at which the population reaches its maximum.</div>
+    <div class="step-exp">Combine the calculated axis of symmetry with its contextual interpretation.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> w = 8. It signifies the week at which the population reaches its maximum. (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 8 &bull; F</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A tech company models the performance of a new app with the function F(u) = -0.02u^2 + 0.8u + 5, where F(u) is the app&#x27;s performance score and u is the number of users (in thousands). Which graph correctly represents this function, highlighting its key features? (Assume options are visual graphs with key features labeled).</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Parabola opening upwards, with vertex (20, 13).</div><div class="option"><span class="opt-letter">B.</span> Parabola opening downwards, with incorrect vertex (e.g., (40, 5)).</div><div class="option"><span class="opt-letter">C.</span> Parabola opening downwards, with vertex (20, 13) and y-intercept (0, 5).</div><div class="option"><span class="opt-letter">D.</span> Parabola opening downwards, with vertex (20, 13) but incorrect y-intercept (e.g., (0, 0)).</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">For F(u) = -0.02u^2 + 0.8u + 5, a = -0.02, b = 0.8, c = 5. Since a = -0.02 (negative), the parabola opens downwards.</div>
+    <div class="step-exp">The sign of &#x27;a&#x27; determines the direction of the parabola. Negative &#x27;a&#x27; means it opens downwards.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">u-coordinate of vertex: u = -b / (2a) = -0.8 / (2 * -0.02) = -0.8 / -0.04 = 20.
+F(20) = -0.02(20)^2 + 0.8(20) + 5 = -0.02(400) + 16 + 5 = -8 + 16 + 5 = 8 + 5 = 13.
+Vertex is (20, 13).</div>
+    <div class="step-exp">The vertex is the maximum or minimum point of the parabola, crucial for its overall shape and position.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The y-intercept occurs when u = 0.
+F(0) = -0.02(0)^2 + 0.8(0) + 5 = 5.
+The y-intercept is (0, 5).</div>
+    <div class="step-exp">The y-intercept provides the starting value of the function when the independent variable is zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">The graph must be a parabola opening downwards, with its vertex at (20, 13) and crossing the y-axis at (0, 5).</div>
+    <div class="step-exp">Use the determined direction, vertex, and y-intercept to identify the correct graph among the options.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> A parabola opening downwards, with vertex (20, 13) and y-intercept (0, 5). (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

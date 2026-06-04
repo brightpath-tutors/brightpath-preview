@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Exponents</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.016<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Exponents</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.016</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new online store projects that its daily sales will triple every month for the first 2 months. If the store&#x27;s sales started at $10 per day, what will be its daily sales after 2 months?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $30</div><div class="option"><span class="opt-letter">B.</span> $90</div><div class="option"><span class="opt-letter">C.</span> $50</div><div class="option"><span class="opt-letter">D.</span> $60</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial sales = $10. Growth factor = 3 (triples). Number of months = 2.</div>
+    <div class="step-exp">The problem describes exponential growth. The initial value is $10, the base for the exponent is 3 (tripling), and the exponent is 2 (for 2 months).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Sales = Initial sales × (Growth factor)^Number of months = $10 × 3^2</div>
+    <div class="step-exp">To find the sales after 2 months, we multiply the initial sales by the growth factor raised to the power of the number of months.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3^2 = 3 × 3 = 9</div>
+    <div class="step-exp">The exponent 2 means we multiply the base (3) by itself 2 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">$10 × 9 = $90</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial sales amount.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $90 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball coach designs a drill where players run 5 laps, then do 5 sets of exercises, with each set consisting of 5 repetitions. What is the total number of repetitions performed in this drill?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 repetitions</div><div class="option"><span class="opt-letter">B.</span> 25 repetitions</div><div class="option"><span class="opt-letter">C.</span> 125 repetitions</div><div class="option"><span class="opt-letter">D.</span> 50 repetitions</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Laps = 5, Sets = 5, Repetitions per set = 5. This forms 5 multiplied by itself 3 times.</div>
+    <div class="step-exp">The problem asks for the total number of repetitions. We have 5 laps, 5 sets per lap, and 5 repetitions per set, so we multiply these values together.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total repetitions = 5 × 5 × 5 = 5^3</div>
+    <div class="step-exp">Since the number of laps, sets, and repetitions per set are all 5, this can be written as 5 raised to the power of 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5^3 = 5 × 5 × 5 = 25 × 5 = 125</div>
+    <div class="step-exp">Multiply the base (5) by itself three times to find the total.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 125 repetitions (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker is making a cake recipe. The recipe calls for 4 teaspoons of vanilla extract. If she decides to double the recipe, and then double the doubled recipe again for a party, how many teaspoons of vanilla extract will she need?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 teaspoons</div><div class="option"><span class="opt-letter">B.</span> 10 teaspoons</div><div class="option"><span class="opt-letter">C.</span> 16 teaspoons</div><div class="option"><span class="opt-letter">D.</span> 8 teaspoons</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial vanilla = 4 teaspoons. Doubling factor = 2. Doubled twice means 2 periods of doubling.</div>
+    <div class="step-exp">The original recipe uses 4 teaspoons. The recipe is doubled, and then doubled again, meaning the factor of 2 is applied twice.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total vanilla = Initial vanilla × (Doubling factor)^Number of doublings = 4 × 2^2</div>
+    <div class="step-exp">To find the total amount, we multiply the initial amount by 2 raised to the power of 2.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">2^2 = 2 × 2 = 4</div>
+    <div class="step-exp">The exponent 2 means we multiply the base (2) by itself 2 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4 × 4 = 16</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial amount of vanilla.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 16 teaspoons (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A small airplane&#x27;s fuel efficiency improves by a factor of 1.25 every 3 hours of flight due to less drag at higher altitudes. If its initial fuel efficiency is 20 miles per gallon, what will its fuel efficiency be after 6 hours of flight?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 miles per gallon</div><div class="option"><span class="opt-letter">B.</span> 50 miles per gallon</div><div class="option"><span class="opt-letter">C.</span> 31.25 miles per gallon</div><div class="option"><span class="opt-letter">D.</span> 30 miles per gallon</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total flight time = 6 hours. Improvement period = 3 hours. Number of periods = 6 / 3 = 2.</div>
+    <div class="step-exp">The fuel efficiency improves every 3 hours, so over 6 hours, there are 2 periods of improvement.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Initial fuel efficiency = 20 mpg. Improvement factor = 1.25.</div>
+    <div class="step-exp">The problem states the initial fuel efficiency and the factor by which it improves.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Final efficiency = Initial efficiency × (Improvement factor)^Number of periods = 20 × 1.25^2</div>
+    <div class="step-exp">We multiply the initial efficiency by the improvement factor raised to the power of the number of periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.25^2 = 1.25 × 1.25 = 1.5625</div>
+    <div class="step-exp">Multiply the base (1.25) by itself 2 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">20 × 1.5625 = 31.25</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial fuel efficiency.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 31.25 miles per gallon (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A school organizes students into reading groups. There are 4 grades, each grade has 4 classes, and each class forms 4 reading groups. How many reading groups are there in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 reading groups</div><div class="option"><span class="opt-letter">B.</span> 48 reading groups</div><div class="option"><span class="opt-letter">C.</span> 64 reading groups</div><div class="option"><span class="opt-letter">D.</span> 16 reading groups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Number of grades = 4, Number of classes per grade = 4, Number of groups per class = 4. This forms 4 multiplied by itself 3 times.</div>
+    <div class="step-exp">The problem asks for the total number of reading groups. We multiply the number of grades by the number of classes per grade, and then by the number of groups per class.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Total reading groups = 4 × 4 × 4 = 4^3</div>
+    <div class="step-exp">Since all factors are 4, this can be written as 4 raised to the power of 3.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4^3 = 4 × 4 × 4 = 16 × 4 = 64</div>
+    <div class="step-exp">Multiply the base (4) by itself three times to find the total.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 64 reading groups (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a lab experiment, a chemical reaction produces 3 times the amount of product every 30 minutes. If you start with 50 grams of product, how many grams will you have after 90 minutes?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1350 grams</div><div class="option"><span class="opt-letter">B.</span> 1250 grams</div><div class="option"><span class="opt-letter">C.</span> 450 grams</div><div class="option"><span class="opt-letter">D.</span> 150 grams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total time = 90 minutes. Period for tripling = 30 minutes. Number of periods = 90 / 30 = 3.</div>
+    <div class="step-exp">The reaction triples every 30 minutes, so over 90 minutes, there are 3 periods of tripling.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Initial product = 50 grams. Tripling factor = 3.</div>
+    <div class="step-exp">The problem states the initial amount of product and the factor by which it increases.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Final product = Initial product × (Tripling factor)^Number of periods = 50 × 3^3</div>
+    <div class="step-exp">We multiply the initial product by the tripling factor raised to the power of the number of periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3^3 = 3 × 3 × 3 = 9 × 3 = 27</div>
+    <div class="step-exp">The exponent 3 means we multiply the base (3) by itself 3 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">50 × 27 = 1350</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial amount of product.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1350 grams (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker is building a retaining wall with square sections. Each section has a side length of 7 feet. If the entire wall is composed of 7 such sections placed end-to-end, what is the total area of the face of the wall if it&#x27;s 7 feet high?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 343 square feet</div><div class="option"><span class="opt-letter">B.</span> 147 square feet</div><div class="option"><span class="opt-letter">C.</span> 21 square feet</div><div class="option"><span class="opt-letter">D.</span> 49 square feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Side length = 7 feet. Height = 7 feet. Number of sections = 7.</div>
+    <div class="step-exp">Each section is a square with side length 7 feet, and there are 7 such sections.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Area of one section = side × side = 7 × 7 = 49 square feet.</div>
+    <div class="step-exp">The area of a square is side length squared.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total area = Area of one section × Number of sections = 49 × 7</div>
+    <div class="step-exp">Since there are 7 sections, we multiply the area of one section by 7.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total area = 7 × 7 × 7 = 7^3</div>
+    <div class="step-exp">The total area can be seen as multiplying 7 by itself three times (7 feet length of a section, 7 feet high, 7 sections). This is 7 cubed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">7^3 = 7 × 7 × 7 = 49 × 7 = 343</div>
+    <div class="step-exp">Multiply 7 by itself three times.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 343 square feet (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The duration of a daily online meeting is 2 minutes on the first day. This duration triples each subsequent day. What is the duration of the meeting on the 4th day?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 minutes</div><div class="option"><span class="opt-letter">B.</span> 162 minutes</div><div class="option"><span class="opt-letter">C.</span> 216 minutes</div><div class="option"><span class="opt-letter">D.</span> 54 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Day 1 is the starting point. Day 2 is 1 tripling period. Day 3 is 2 tripling periods. Day 4 is 3 tripling periods. So, the exponent is (4-1) = 3.</div>
+    <div class="step-exp">If the duration triples each subsequent day, for the 4th day, it has tripled 3 times since the first day.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Initial duration = 2 minutes. Tripling factor = 3.</div>
+    <div class="step-exp">The problem states the initial duration and the factor by which it increases.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Duration on 4th day = Initial duration × (Tripling factor)^Number of tripling periods = 2 × 3^3</div>
+    <div class="step-exp">We multiply the initial duration by the tripling factor raised to the power of the number of tripling periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">3^3 = 3 × 3 × 3 = 9 × 3 = 27</div>
+    <div class="step-exp">The exponent 3 means we multiply the base (3) by itself 3 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">2 × 27 = 54</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial duration.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 54 minutes (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population grew by a factor of 1.05 each decade. If its population was 60,000 in 1990, what was its population in 2020?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 69457.5</div><div class="option"><span class="opt-letter">B.</span> 66150</div><div class="option"><span class="opt-letter">C.</span> 63000</div><div class="option"><span class="opt-letter">D.</span> 189000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">End year = 2020. Start year = 1990. Number of years = 2020 - 1990 = 30 years. Each decade is 10 years. Number of decades = 30 / 10 = 3.</div>
+    <div class="step-exp">The population growth is measured in decades. Calculate the total number of decades between 1990 and 2020.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Initial population = 60,000. Growth factor = 1.05.</div>
+    <div class="step-exp">The problem states the initial population and the factor by which it grows each decade.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Final population = Initial population × (Growth factor)^Number of decades = 60,000 × 1.05^3</div>
+    <div class="step-exp">Multiply the initial population by the growth factor raised to the power of the number of decades.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">1.05^3 = 1.05 × 1.05 × 1.05 = 1.1025 × 1.05 = 1.157625</div>
+    <div class="step-exp">Multiply the base (1.05) by itself 3 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">60,000 × 1.157625 = 69457.5</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial population.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 69457.5 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A new data storage device has a capacity of 4 terabytes. Its capacity quadruples every 2 years. If the device was released in 2012, what would its capacity be in 2018?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 64 terabytes</div><div class="option"><span class="opt-letter">B.</span> 48 terabytes</div><div class="option"><span class="opt-letter">C.</span> 16 terabytes</div><div class="option"><span class="opt-letter">D.</span> 256 terabytes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">End year = 2018. Start year = 2012. Number of years = 2018 - 2012 = 6 years. Quadrupling period = 2 years. Number of periods = 6 / 2 = 3.</div>
+    <div class="step-exp">The capacity quadruples every 2 years. Calculate how many 2-year periods occur between 2012 and 2018.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Initial capacity = 4 terabytes. Quadrupling factor = 4.</div>
+    <div class="step-exp">The problem states the initial capacity and the factor by which it increases.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Final capacity = Initial capacity × (Quadrupling factor)^Number of periods = 4 × 4^3</div>
+    <div class="step-exp">Multiply the initial capacity by the quadrupling factor raised to the power of the number of periods.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">4^3 = 4 × 4 × 4 = 16 × 4 = 64</div>
+    <div class="step-exp">The exponent 3 means we multiply the base (4) by itself 3 times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">4 × 64 = 256</div>
+    <div class="step-exp">Multiply the result of the exponentiation by the initial capacity.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 256 terabytes (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

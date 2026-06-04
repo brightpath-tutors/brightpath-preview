@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Compare Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | NS | Skill 7.NS.007<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Compare Integers</h1>
+<p class="skill-subtitle">Skill ID: 7.NS.007</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The temperature in Anchorage is -5 degrees Celsius, and the temperature in Fairbanks is -10 degrees Celsius. Which city has a colder temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Anchorage</div><div class="option"><span class="opt-letter">B.</span> Both are the same</div><div class="option"><span class="opt-letter">C.</span> It depends on the time of day</div><div class="option"><span class="opt-letter">D.</span> Fairbanks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">On a number line, numbers to the left are colder (smaller).</div>
+    <div class="step-exp">Colder temperatures are represented by smaller numbers. On a number line, -10 is to the left of -5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-5 degrees C vs -10 degrees C</div>
+    <div class="step-exp">We need to determine which of these two negative numbers is smaller.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-10 &lt; -5</div>
+    <div class="step-exp">Since -10 is less than -5, Fairbanks has a colder temperature.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Fairbanks (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a game, a football team gained 15 yards on one play and lost 8 yards on another play. Which play resulted in a greater change in field position (magnitude)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> The gain of 15 yards</div><div class="option"><span class="opt-letter">B.</span> It depends on the starting position</div><div class="option"><span class="opt-letter">C.</span> The loss of 8 yards</div><div class="option"><span class="opt-letter">D.</span> Both are the same</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Gain: +15 yards; Loss: -8 yards</div>
+    <div class="step-exp">A gain is positive, a loss is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Magnitude of +15 is |+15| = 15; Magnitude of -8 is |-8| = 8</div>
+    <div class="step-exp">Magnitude refers to the absolute value, or the distance from zero, regardless of direction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">15 &gt; 8</div>
+    <div class="step-exp">Since 15 is greater than 8, the gain of 15 yards resulted in a greater change in field position.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The gain of 15 yards (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A diver is at an elevation of -20 feet relative to the surface of the water, and a fish is at an elevation of -35 feet. Which creature is deeper?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> It depends on the water level</div><div class="option"><span class="opt-letter">B.</span> The fish</div><div class="option"><span class="opt-letter">C.</span> Both are at the same depth</div><div class="option"><span class="opt-letter">D.</span> The diver</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Diver: -20 feet; Fish: -35 feet</div>
+    <div class="step-exp">Elevations below the surface are represented by negative numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Deeper means a smaller (more negative) number.</div>
+    <div class="step-exp">The further below zero, the deeper the object is. On a number line, this means a number further to the left.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-35 &lt; -20</div>
+    <div class="step-exp">Since -35 is less than -20, the fish is deeper.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The fish (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company reported a profit of $25,000 in January and a loss of $18,000 in February. Which month had the better financial outcome?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> It depends on the previous year&#x27;s performance</div><div class="option"><span class="opt-letter">B.</span> February</div><div class="option"><span class="opt-letter">C.</span> Both are equally bad</div><div class="option"><span class="opt-letter">D.</span> January</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">January: +$25,000; February: -$18,000</div>
+    <div class="step-exp">Profit is positive, loss is negative.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">+25,000 vs -18,000</div>
+    <div class="step-exp">We need to determine which of these numbers is greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">25,000 &gt; -18,000</div>
+    <div class="step-exp">Positive numbers are always greater than negative numbers, so January had the better financial outcome.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> January (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A submarine dives to -100 meters, and a deep-sea robot is exploring at -125 meters. Which object is closer to the surface?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> The robot</div><div class="option"><span class="opt-letter">B.</span> The submarine</div><div class="option"><span class="opt-letter">C.</span> It depends on the ocean floor</div><div class="option"><span class="opt-letter">D.</span> Both are at the same distance from the surface</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Submarine: -100 meters; Robot: -125 meters</div>
+    <div class="step-exp">Depths below the surface are negative numbers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Closer to the surface means a larger (less negative) number.</div>
+    <div class="step-exp">The closer to zero (the surface), the larger the negative number will be.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-100 &gt; -125</div>
+    <div class="step-exp">Since -100 is greater than -125, the submarine is closer to the surface.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> The submarine (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef stores ingredients in two freezers. Freezer A is at -12 degrees Fahrenheit and Freezer B is at -18 degrees Fahrenheit. Which freezer is colder?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Freezer A</div><div class="option"><span class="opt-letter">B.</span> Both are the same temperature</div><div class="option"><span class="opt-letter">C.</span> Freezer B</div><div class="option"><span class="opt-letter">D.</span> It depends on the size of the freezers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Freezer A: -12 degrees F; Freezer B: -18 degrees F</div>
+    <div class="step-exp">These are both negative temperatures, indicating temperatures below zero Fahrenheit.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Colder means a smaller (more negative) number.</div>
+    <div class="step-exp">On a thermometer or number line, colder temperatures are represented by numbers further to the left.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-18 &lt; -12</div>
+    <div class="step-exp">Since -18 is less than -12, Freezer B is colder.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Freezer B (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">In a card game, Player 1 has a score of -50 points, and Player 2 has a score of -25 points. Who has the better (higher) score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Player 2</div><div class="option"><span class="opt-letter">B.</span> It depends on the total number of players</div><div class="option"><span class="opt-letter">C.</span> Player 1</div><div class="option"><span class="opt-letter">D.</span> Both have equally bad scores</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Player 1: -50 points; Player 2: -25 points</div>
+    <div class="step-exp">These are negative scores, meaning points below zero.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">A better score means a larger number.</div>
+    <div class="step-exp">We are looking for the score that is numerically greater.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-25 &gt; -50</div>
+    <div class="step-exp">Since -25 is greater than -50, Player 2 has the better score.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Player 2 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The balance of Sarah&#x27;s bank account is -$45, and John&#x27;s bank account balance is -$30. Whose account has less debt (is closer to zero)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> John&#x27;s account</div><div class="option"><span class="opt-letter">B.</span> It depends on their income</div><div class="option"><span class="opt-letter">C.</span> Both have the same amount of debt</div><div class="option"><span class="opt-letter">D.</span> Sarah&#x27;s account</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sarah: -$45; John: -$30</div>
+    <div class="step-exp">A negative balance indicates debt.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Less debt means a larger (less negative) number, closer to zero.</div>
+    <div class="step-exp">The closer the negative balance is to zero, the less money is owed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-30 &gt; -45</div>
+    <div class="step-exp">Since -30 is greater than -45, John&#x27;s account has less debt.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> John&#x27;s account (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An astronaut is observing two celestial bodies. Body A has a surface temperature of -200 degrees Celsius, and Body B has a surface temperature of -215 degrees Celsius. Which body is warmer?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Both are equally cold</div><div class="option"><span class="opt-letter">B.</span> It depends on their distance from the sun</div><div class="option"><span class="opt-letter">C.</span> Body B</div><div class="option"><span class="opt-letter">D.</span> Body A</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Body A: -200 degrees C; Body B: -215 degrees C</div>
+    <div class="step-exp">These are very low negative temperatures.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Warmer means a larger (less negative) number.</div>
+    <div class="step-exp">A warmer temperature is represented by a number further to the right on a number line.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-200 &gt; -215</div>
+    <div class="step-exp">Since -200 is greater than -215, Body A is warmer.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Body A (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A historian is analyzing two ancient dates. Event A occurred in -300 BC, and Event B occurred in -450 BC. Which event happened more recently (closer to 0 BC/AD)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> It depends on the calendar system used</div><div class="option"><span class="opt-letter">B.</span> Both events happened at the same time relative to 0 BC/AD</div><div class="option"><span class="opt-letter">C.</span> Event B</div><div class="option"><span class="opt-letter">D.</span> Event A</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Years are counted backward from 0. -300 BC is 300 years before 0, and -450 BC is 450 years before 0.</div>
+    <div class="step-exp">In BC years, smaller numbers (closer to zero) represent more recent dates.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Event A: -300; Event B: -450</div>
+    <div class="step-exp">These numbers represent years before the common era (BC).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">More recently means a larger (less negative) number, closer to 0.</div>
+    <div class="step-exp">On a number line, a more recent BC date is closer to 0.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">-300 &gt; -450</div>
+    <div class="step-exp">Since -300 is greater than -450, Event A happened more recently.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> Event A (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

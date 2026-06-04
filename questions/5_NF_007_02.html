@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Fraction Add/Sub Word Problems</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 5 | NF | Skill 5.NF.007.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Fraction Add/Sub Word Problems</h1>
+<p class="skill-subtitle">Skill ID: 5.NF.007.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Maria bought a piece of fabric that was 3/4 yard long and another piece that was 1/2 yard long. Which equation represents the total length of fabric, T, that Maria bought?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> T = 3/4 + 2/4</div><div class="option"><span class="opt-letter">B.</span> T = 3/4 + 1/2</div><div class="option"><span class="opt-letter">C.</span> T = 3/4 - 1/2</div><div class="option"><span class="opt-letter">D.</span> T = 3/4 * 1/2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Length of first fabric piece = 3/4 yard</div>
+    <div class="step-exp">Identify the length of the first piece of fabric from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Length of second fabric piece = 1/2 yard</div>
+    <div class="step-exp">Identify the length of the second piece of fabric from the problem.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total length (T) = Length of first piece + Length of second piece</div>
+    <div class="step-exp">To find the total length, the operation needed is addition. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">T = 3/4 + 1/2</div>
+    <div class="step-exp">Substitute the given fraction values into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> T = 3/4 + 1/2 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completed 5/6 of a race. Another runner completed 1/3 of the same race. Which equation represents the difference, D, in the fraction of the race completed by the two runners?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> D = 5/6 - 1/3</div><div class="option"><span class="opt-letter">B.</span> D = 5/6 + 1/3</div><div class="option"><span class="opt-letter">C.</span> D = 5/6 * 1/3</div><div class="option"><span class="opt-letter">D.</span> D = 5/6 - 2/6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of race by first runner = 5/6</div>
+    <div class="step-exp">Identify the fraction of the race completed by the first runner.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Fraction of race by second runner = 1/3</div>
+    <div class="step-exp">Identify the fraction of the race completed by the second runner.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Difference (D) = Fraction by first runner - Fraction by second runner</div>
+    <div class="step-exp">To find the difference, the operation needed is subtraction. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">D = 5/6 - 1/3</div>
+    <div class="step-exp">Substitute the given fraction values into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> D = 5/6 - 1/3 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef used 1 1/4 cups of sugar for a cake and 1/3 cup of sugar for cookies. Which equation represents the total amount of sugar, S, the chef used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> S = 1 + 1/4 + 1/3</div><div class="option"><span class="opt-letter">B.</span> S = 5/4 + 1/3</div><div class="option"><span class="opt-letter">C.</span> S = 1 1/4 + 1/3</div><div class="option"><span class="opt-letter">D.</span> S = 1 1/4 - 1/3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Sugar for cake = 1 1/4 cups</div>
+    <div class="step-exp">Identify the amount of sugar used for the cake.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Sugar for cookies = 1/3 cup</div>
+    <div class="step-exp">Identify the amount of sugar used for the cookies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total sugar (S) = Sugar for cake + Sugar for cookies</div>
+    <div class="step-exp">To find the total amount of sugar, the operation needed is addition. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">S = 1 1/4 + 1/3</div>
+    <div class="step-exp">Substitute the given mixed number and fraction into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> S = 1 1/4 + 1/3 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car traveled 2 1/2 miles. A bicycle traveled 3/4 mile less than the car. Which equation represents the distance, D, traveled by the bicycle?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> D = 5/2 - 3/4</div><div class="option"><span class="opt-letter">B.</span> D = 2 1/2 + 3/4</div><div class="option"><span class="opt-letter">C.</span> D = 3/4 - 2 1/2</div><div class="option"><span class="opt-letter">D.</span> D = 2 1/2 - 3/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Distance traveled by car = 2 1/2 miles</div>
+    <div class="step-exp">Identify the distance traveled by the car.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Bicycle traveled 3/4 mile LESS than the car</div>
+    <div class="step-exp">Note that the bicycle traveled less, indicating subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Distance traveled by bicycle (D) = Distance by car - 3/4</div>
+    <div class="step-exp">To find the distance traveled by the bicycle, subtract 3/4 from the car&#x27;s distance. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">D = 2 1/2 - 3/4</div>
+    <div class="step-exp">Substitute the given mixed number and fraction into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> D = 2 1/2 - 3/4 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student spent 1 1/6 hours on math homework and 1 3/4 hours on reading homework. Which equation represents the total time, T, the student spent on homework?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> T = 2 + 1/6 + 3/4</div><div class="option"><span class="opt-letter">B.</span> T = 1 1/6 - 1 3/4</div><div class="option"><span class="opt-letter">C.</span> T = 1 1/6 + 1 3/4</div><div class="option"><span class="opt-letter">D.</span> T = 7/6 + 7/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Time on math homework = 1 1/6 hours</div>
+    <div class="step-exp">Identify the time spent on math homework.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time on reading homework = 1 3/4 hours</div>
+    <div class="step-exp">Identify the time spent on reading homework.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total time (T) = Time on math + Time on reading</div>
+    <div class="step-exp">To find the total time, the operation needed is addition. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">T = 1 1/6 + 1 3/4</div>
+    <div class="step-exp">Substitute the given mixed numbers into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> T = 1 1/6 + 1 3/4 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist had 3 1/5 liters of solution. She used 1 3/4 liters for an experiment. Which equation represents the amount of solution, L, remaining?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> L = 16/5 - 7/4</div><div class="option"><span class="opt-letter">B.</span> L = 3 1/5 + 1 3/4</div><div class="option"><span class="opt-letter">C.</span> L = 3 1/5 - 1 3/4</div><div class="option"><span class="opt-letter">D.</span> L = 3 - 1 - 1/5 - 3/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial amount of solution = 3 1/5 liters</div>
+    <div class="step-exp">Identify the starting amount of solution.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Amount of solution used = 1 3/4 liters</div>
+    <div class="step-exp">Identify the amount of solution used for the experiment.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Remaining solution (L) = Initial amount - Amount used</div>
+    <div class="step-exp">To find the remaining amount, the operation needed is subtraction. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">L = 3 1/5 - 1 3/4</div>
+    <div class="step-exp">Substitute the given mixed numbers into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> L = 3 1/5 - 1 3/4 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker used 2 1/3 bags of cement, 1 1/2 bags of sand, and 3/4 bag of gravel for a project. Which equation represents the total number of bags, B, of materials used?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> B = 2 1/3 + 1 1/2 - 3/4</div><div class="option"><span class="opt-letter">B.</span> B = 7/3 + 3/2 + 3/4</div><div class="option"><span class="opt-letter">C.</span> B = 2 1/3 + 1 1/2 + 3/4</div><div class="option"><span class="opt-letter">D.</span> B = 2 + 1 + 1/3 + 1/2 + 3/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cement used = 2 1/3 bags</div>
+    <div class="step-exp">Identify the amount of cement used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Sand used = 1 1/2 bags</div>
+    <div class="step-exp">Identify the amount of sand used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Gravel used = 3/4 bag</div>
+    <div class="step-exp">Identify the amount of gravel used.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total bags (B) = Cement + Sand + Gravel</div>
+    <div class="step-exp">To find the total number of bags of materials, the operation needed is addition. Set up the equation using the identified values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">B = 2 1/3 + 1 1/2 + 3/4</div>
+    <div class="step-exp">Substitute the given mixed numbers and fraction into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> B = 2 1/3 + 1 1/2 + 3/4 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A project is due in 3 1/4 days. John has already spent 1 1/2 days working on it, and plans to spend another 5/6 of a day. Which equation represents the remaining time, R, John has before the project is due?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> R = 3 1/4 - 1 1/2 + 5/6</div><div class="option"><span class="opt-letter">B.</span> R = 3 1/4 - (1 1/2 + 5/6)</div><div class="option"><span class="opt-letter">C.</span> R = 3 1/4 + 1 1/2 + 5/6</div><div class="option"><span class="opt-letter">D.</span> R = (3 1/4 - 1 1/2) + 5/6</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Total time before due = 3 1/4 days</div>
+    <div class="step-exp">Identify the total duration for the project.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Time already spent = 1 1/2 days</div>
+    <div class="step-exp">Identify the time John has already worked.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Time planned to spend = 5/6 of a day</div>
+    <div class="step-exp">Identify the additional time John plans to work.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total time worked/planned = Time already spent + Time planned to spend</div>
+    <div class="step-exp">First, calculate the total time John will have put into the project, which involves addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Remaining time (R) = Total time before due - (Total time worked/planned)</div>
+    <div class="step-exp">To find the remaining time, subtract the total time worked/planned from the total time available. This is a multi-step problem, so parentheses are needed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">R = 3 1/4 - (1 1/2 + 5/6)</div>
+    <div class="step-exp">Substitute the given mixed numbers and fraction into the equation, ensuring the sum of time worked is grouped.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> R = 3 1/4 - (1 1/2 + 5/6) (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A town&#x27;s population was 8 1/2 thousand people. After a new factory opened, the population increased by 1 3/5 thousand. A few years later, 3/10 thousand people moved away. Which equation represents the current population, P, in thousands?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> P = (8 1/2 + 1 3/5) - 3/10</div><div class="option"><span class="opt-letter">B.</span> P = 8 1/2 - 1 3/5 + 3/10</div><div class="option"><span class="opt-letter">C.</span> P = 8 1/2 + 1 3/5 - 3/10</div><div class="option"><span class="opt-letter">D.</span> P = 8 1/2 + 1 3/5 + 3/10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population = 8 1/2 thousand</div>
+    <div class="step-exp">Identify the starting population of the town.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Population increase = 1 3/5 thousand</div>
+    <div class="step-exp">Identify the amount the population increased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Population decrease = 3/10 thousand</div>
+    <div class="step-exp">Identify the amount the population decreased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Current population (P) = Initial population + Increase - Decrease</div>
+    <div class="step-exp">To find the current population, add the increase to the initial population and then subtract the decrease.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">P = 8 1/2 + 1 3/5 - 3/10</div>
+    <div class="step-exp">Substitute the given mixed numbers and fraction into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> P = 8 1/2 + 1 3/5 - 3/10 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 5 &bull; NF</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A phone&#x27;s memory initially had 12 1/8 GB free. A user downloaded a game that took up 3 1/2 GB and then uploaded photos totaling 1 3/4 GB to cloud storage, freeing up that space. Which equation represents the new amount of free space, F, on the phone?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> F = 12 1/8 + 3 1/2 - 1 3/4</div><div class="option"><span class="opt-letter">B.</span> F = 12 1/8 - (3 1/2 + 1 3/4)</div><div class="option"><span class="opt-letter">C.</span> F = 12 1/8 - 3 1/2 + 1 3/4</div><div class="option"><span class="opt-letter">D.</span> F = 12 1/8 + 3 1/2 + 1 3/4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial free space = 12 1/8 GB</div>
+    <div class="step-exp">Identify the starting amount of free space on the phone.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Space used by game = 3 1/2 GB</div>
+    <div class="step-exp">Identify the space taken up by the downloaded game (this will decrease free space).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Space freed by uploading photos = 1 3/4 GB</div>
+    <div class="step-exp">Identify the space made free by uploading photos (this will increase free space).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">New free space (F) = Initial free space - Space used + Space freed</div>
+    <div class="step-exp">To find the new free space, start with the initial amount, subtract the space used, and then add the space freed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">F = 12 1/8 - 3 1/2 + 1 3/4</div>
+    <div class="step-exp">Substitute the given mixed numbers into the equation to represent the problem.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> F = 12 1/8 - 3 1/2 + 1 3/4 (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: One-Step Addition Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.015.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">One-Step Addition Equations</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.015.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Emily had some money in her wallet. Her friend paid her $15 back, and now Emily has $40 in total. How much money did Emily have initially?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $35</div><div class="option"><span class="opt-letter">B.</span> $15</div><div class="option"><span class="opt-letter">C.</span> $55</div><div class="option"><span class="opt-letter">D.</span> $25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 15 = 40</div>
+    <div class="step-exp">Represent the unknown initial amount as &#x27;x&#x27;. Emily&#x27;s initial money plus the $15 her friend paid her equals the total $40 she has now.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 15 - 15 = 40 - 15</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 15 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 25</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $25 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A basketball team scored some points in the first half. They scored 7 points in the second half, bringing their total score to 20 points. How many points did they score in the first half?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 27 points</div><div class="option"><span class="opt-letter">B.</span> 13 points</div><div class="option"><span class="opt-letter">C.</span> 7 points</div><div class="option"><span class="opt-letter">D.</span> 10 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 7 = 20</div>
+    <div class="step-exp">Represent the unknown points in the first half as &#x27;x&#x27;. The points from the first half plus the 7 points from the second half equal the total of 20 points.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 7 - 7 = 20 - 7</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 7 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 13</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13 points (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe requires a certain amount of sugar. If you add 2 more cups of sugar, you will have a total of 10 cups of sugar. How many cups of sugar did the recipe initially require?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 cups</div><div class="option"><span class="opt-letter">B.</span> 2 cups</div><div class="option"><span class="opt-letter">C.</span> 9 cups</div><div class="option"><span class="opt-letter">D.</span> 8 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 2 = 10</div>
+    <div class="step-exp">Represent the unknown initial amount of sugar as &#x27;x&#x27;. The initial amount plus the 2 cups added equals the total of 10 cups.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 2 - 2 = 10 - 2</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 2 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 8</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 8 cups (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car has already traveled 120 miles. It needs to travel a total of 500 miles to reach its destination. How many more miles does the car need to travel?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 480 miles</div><div class="option"><span class="opt-letter">B.</span> 380 miles</div><div class="option"><span class="opt-letter">C.</span> 320 miles</div><div class="option"><span class="opt-letter">D.</span> 620 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 120 = 500</div>
+    <div class="step-exp">Represent the unknown remaining distance as &#x27;x&#x27;. The miles already traveled plus the remaining miles equal the total destination distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 120 - 120 = 500 - 120</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 120 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 380</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 380 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">There are 35 students in the first grade. When the kindergarten students join them for an assembly, there are a total of 90 students. How many kindergarten students joined the assembly?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 65 students</div><div class="option"><span class="opt-letter">B.</span> 125 students</div><div class="option"><span class="opt-letter">C.</span> 55 students</div><div class="option"><span class="opt-letter">D.</span> 45 students</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 35 = 90</div>
+    <div class="step-exp">Represent the unknown number of kindergarten students as &#x27;x&#x27;. The number of first-grade students plus the number of kindergarten students equals the total of 90 students.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 35 - 35 = 90 - 35</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 35 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 55</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 55 students (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The initial temperature of a chemical solution was unknown. After heating it, the temperature increased by 18 degrees Celsius, reaching a final temperature of 75 degrees Celsius. What was the initial temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 93 degrees Celsius</div><div class="option"><span class="opt-letter">B.</span> 47 degrees Celsius</div><div class="option"><span class="opt-letter">C.</span> 57 degrees Celsius</div><div class="option"><span class="opt-letter">D.</span> 67 degrees Celsius</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 18 = 75</div>
+    <div class="step-exp">Represent the unknown initial temperature as &#x27;x&#x27;. The initial temperature plus the 18-degree increase equals the final temperature of 75 degrees Celsius.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 18 - 18 = 75 - 18</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 18 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 57</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 57 degrees Celsius (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker used a piece of wood that was initially an unknown length. He added a 2.5-foot extension, and the total length became 8.7 feet. What was the initial length of the wood?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.2 feet</div><div class="option"><span class="opt-letter">B.</span> 11.2 feet</div><div class="option"><span class="opt-letter">C.</span> 6.3 feet</div><div class="option"><span class="opt-letter">D.</span> 6.2 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 2.5 = 8.7</div>
+    <div class="step-exp">Represent the unknown initial length of the wood as &#x27;x&#x27;. The initial length plus the 2.5-foot extension equals the total length of 8.7 feet.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 2.5 - 2.5 = 8.7 - 2.5</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 2.5 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 6.2</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6.2 feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student spent an unknown amount of time studying for a test. They then spent 45 minutes reviewing notes, bringing their total study time to 3 hours. How much time did the student initially spend studying (in minutes)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 225 minutes</div><div class="option"><span class="opt-letter">B.</span> 135 minutes</div><div class="option"><span class="opt-letter">C.</span> 145 minutes</div><div class="option"><span class="opt-letter">D.</span> 105 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3 hours = 3 * 60 minutes = 180 minutes</div>
+    <div class="step-exp">First, convert the total study time from hours to minutes to ensure all time units are consistent.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 45 = 180</div>
+    <div class="step-exp">Represent the unknown initial study time in minutes as &#x27;x&#x27;. The initial study time plus the 45 minutes of review equals the total of 180 minutes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x + 45 - 45 = 180 - 45</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 45 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x = 135</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 135 minutes (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small town increased by 1,250 residents last year. If the current population is 7,800 residents, what was the population before the increase?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 6,650 residents</div><div class="option"><span class="opt-letter">B.</span> 6,550 residents</div><div class="option"><span class="opt-letter">C.</span> 9,050 residents</div><div class="option"><span class="opt-letter">D.</span> 6,750 residents</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 1250 = 7800</div>
+    <div class="step-exp">Represent the unknown initial population as &#x27;x&#x27;. The initial population plus the increase of 1,250 residents equals the current population of 7,800 residents.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 1250 - 1250 = 7800 - 1250</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 1250 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 6550</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6,550 residents (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A USB drive has an unknown amount of free space. After downloading a 0.75 GB file, there is now 2.5 GB of free space left. What was the initial amount of free space on the USB drive?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.75 GB</div><div class="option"><span class="opt-letter">B.</span> 3.25 GB</div><div class="option"><span class="opt-letter">C.</span> 1.25 GB</div><div class="option"><span class="opt-letter">D.</span> 1.85 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">x + 0.75 = 2.5</div>
+    <div class="step-exp">Represent the unknown initial free space as &#x27;x&#x27;. The initial free space plus the 0.75 GB downloaded equals the current free space of 2.5 GB.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">x + 0.75 - 0.75 = 2.5 - 0.75</div>
+    <div class="step-exp">To isolate the variable &#x27;x&#x27;, apply the subtraction property of equality by subtracting 0.75 from both sides of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 1.75</div>
+    <div class="step-exp">Perform the subtraction on both sides to find the value of &#x27;x&#x27;.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 1.75 GB (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Variables in Context</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | EE | Skill 6.EE.014.03<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Variables in Context</h1>
+<p class="skill-subtitle">Skill ID: 6.EE.014.03</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A pet shop sells dog treats for $7 each. Write an expression to represent the total cost of buying <code>t</code> dog treats.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 7 / t</div><div class="option"><span class="opt-letter">B.</span> 7t</div><div class="option"><span class="opt-letter">C.</span> t - 7</div><div class="option"><span class="opt-letter">D.</span> t + 7</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Cost of one dog treat = $7</div>
+    <div class="step-exp">Identify the cost of a single item.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of dog treats = t</div>
+    <div class="step-exp">Identify the variable representing the quantity of items purchased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total cost = 7 × t</div>
+    <div class="step-exp">To find the total cost, multiply the cost per treat by the number of treats.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 7t</div>
+    <div class="step-exp">Write the expression in its simplified algebraic form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7t (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A swimmer completes <code>l</code> laps in the morning and 15 laps in the afternoon. Write an expression for the total number of laps completed in the day.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> l / 15</div><div class="option"><span class="opt-letter">B.</span> l + 15</div><div class="option"><span class="opt-letter">C.</span> l - 15</div><div class="option"><span class="opt-letter">D.</span> 15l</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Laps in the morning = l</div>
+    <div class="step-exp">Identify the variable representing the number of laps completed in the morning.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Laps in the afternoon = 15</div>
+    <div class="step-exp">Identify the numerical value for the number of laps completed in the afternoon.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total laps = l + 15</div>
+    <div class="step-exp">To find the total number of laps, add the laps from the morning and the afternoon.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> l + 15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef uses 2 avocados for each bowl of guacamole. Write an expression for the total number of avocados needed for <code>b</code> bowls.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> b + 2</div><div class="option"><span class="opt-letter">B.</span> b - 2</div><div class="option"><span class="opt-letter">C.</span> 2b</div><div class="option"><span class="opt-letter">D.</span> 2 / b</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Avocados per bowl = 2</div>
+    <div class="step-exp">Identify the number of avocados required for one bowl.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Number of bowls = b</div>
+    <div class="step-exp">Identify the variable representing the number of bowls to be made.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total avocados = 2 × b</div>
+    <div class="step-exp">To find the total number of avocados, multiply the avocados per bowl by the number of bowls.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 2b</div>
+    <div class="step-exp">Write the expression in its simplified algebraic form.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 2b (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A delivery driver travels 55 miles per hour for <code>h</code> hours, and then makes a detour of 10 miles. Write an expression for the total distance traveled.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 55h - 10</div><div class="option"><span class="opt-letter">B.</span> 55h + 10</div><div class="option"><span class="opt-letter">C.</span> 10h + 55</div><div class="option"><span class="opt-letter">D.</span> 55 + h + 10</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Speed = 55 mph, Hours = h</div>
+    <div class="step-exp">Identify the speed and the variable representing the time for the main part of the journey.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Distance for main journey = 55h</div>
+    <div class="step-exp">Calculate the distance covered during the main journey by multiplying speed by hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Detour distance = 10 miles</div>
+    <div class="step-exp">Identify the additional distance covered due to the detour.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total distance = 55h + 10</div>
+    <div class="step-exp">Add the distance from the main journey and the detour distance to find the total distance traveled.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 55h + 10 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student receives <code>q</code> correct answers on a quiz, with each correct answer worth 5 points. If there&#x27;s a 15-point penalty for late submission, write an expression for the student&#x27;s final score.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> q + 5 - 15</div><div class="option"><span class="opt-letter">B.</span> 5q - 15</div><div class="option"><span class="opt-letter">C.</span> 15q - 5</div><div class="option"><span class="opt-letter">D.</span> 5q + 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Points per correct answer = 5, Number of correct answers = q</div>
+    <div class="step-exp">Identify the value of each correct answer and the variable for the count of correct answers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Score from correct answers = 5q</div>
+    <div class="step-exp">Calculate the total points from correct answers by multiplying points per answer by the number of correct answers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Penalty for late submission = 15 points</div>
+    <div class="step-exp">Identify the fixed number of points deducted for late submission.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Final score = 5q - 15</div>
+    <div class="step-exp">Subtract the penalty from the score earned from correct answers to find the final score.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5q - 15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A biologist observes a bacteria culture initially containing 500 cells. The culture grows by <code>g</code> cells every hour. After 4 hours, write an expression for the total number of cells in the culture.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 4g - 500</div><div class="option"><span class="opt-letter">B.</span> 500g + 4</div><div class="option"><span class="opt-letter">C.</span> 4g + 500</div><div class="option"><span class="opt-letter">D.</span> g + 4 + 500</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial number of cells = 500</div>
+    <div class="step-exp">Identify the starting number of cells in the bacteria culture.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Growth per hour = g cells, Number of hours = 4</div>
+    <div class="step-exp">Identify the variable for hourly growth and the duration in hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total growth = 4g</div>
+    <div class="step-exp">Calculate the total increase in cells over 4 hours by multiplying hourly growth by the number of hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total cells = 500 + 4g</div>
+    <div class="step-exp">Add the total growth to the initial number of cells to find the current total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Expression: 4g + 500</div>
+    <div class="step-exp">Rewrite the expression in standard algebraic form, with the variable term first.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 4g + 500 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A plumber charges a service fee of $75 for a visit, plus $45 per hour for <code>h</code> hours of labor. Write an equation to find the total cost <code>T</code> of the plumbing service.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> T = 75h + 45</div><div class="option"><span class="opt-letter">B.</span> T = 75 + h + 45</div><div class="option"><span class="opt-letter">C.</span> T = 75 + 45h</div><div class="option"><span class="opt-letter">D.</span> T = 45h - 75</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Service fee = $75</div>
+    <div class="step-exp">Identify the fixed cost for the plumbing service.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Hourly rate = $45, Hours of labor = h</div>
+    <div class="step-exp">Identify the cost per hour and the variable representing the hours worked.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Labor cost = 45h</div>
+    <div class="step-exp">Calculate the total cost for labor by multiplying the hourly rate by the number of hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total cost T = 75 + 45h</div>
+    <div class="step-exp">Add the service fee and the labor cost, and set this sum equal to T to form the equation for the total cost.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> T = 75 + 45h (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker spends 30 minutes kneading dough for a bread recipe and then bakes <code>l</code> loaves. Each loaf takes 40 minutes to bake. Write an equation to find the total time <code>M</code> (in minutes) spent on making the bread.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> M = 40 + 30l</div><div class="option"><span class="opt-letter">B.</span> M = 30 + 40l</div><div class="option"><span class="opt-letter">C.</span> M = 30 - 40l</div><div class="option"><span class="opt-letter">D.</span> M = 30l + 40</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Kneading time = 30 minutes</div>
+    <div class="step-exp">Identify the fixed amount of time spent on kneading dough.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Baking time per loaf = 40 minutes, Number of loaves = l</div>
+    <div class="step-exp">Identify the time needed to bake one loaf and the variable representing the number of loaves.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total baking time = 40l</div>
+    <div class="step-exp">Calculate the total time spent baking by multiplying the time per loaf by the number of loaves.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Total time M = 30 + 40l</div>
+    <div class="step-exp">Add the kneading time and the total baking time, and set this sum equal to M to form the equation for the total time.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> M = 30 + 40l (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a small village is currently 12,000. It increases by 150 people each year for <code>y</code> years. Write an expression for the village&#x27;s population after <code>y</code> years.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12000y + 150</div><div class="option"><span class="opt-letter">B.</span> 150y - 12000</div><div class="option"><span class="opt-letter">C.</span> 12000 - 150y</div><div class="option"><span class="opt-letter">D.</span> 12000 + 150y</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Current population = 12,000</div>
+    <div class="step-exp">Identify the starting population of the village.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Annual increase = 150 people, Number of years = y</div>
+    <div class="step-exp">Identify the number of people the population increases by each year and the variable for the number of years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total increase = 150y</div>
+    <div class="step-exp">Calculate the total population increase over &#x27;y&#x27; years by multiplying the annual increase by &#x27;y&#x27;.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Population after y years = 12000 + 150y</div>
+    <div class="step-exp">Add the total increase to the current population to find the population after &#x27;y&#x27; years.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12000 + 150y (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A video game subscription costs $10 per month. Additionally, there&#x27;s a charge of $4 for each expansion pack purchased. If a user buys <code>p</code> expansion packs and receives a $3 discount on their total bill, write an equation for the final bill <code>F</code>.</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> F = 10 - 4p + 3</div><div class="option"><span class="opt-letter">B.</span> F = (10 + 4)p - 3</div><div class="option"><span class="opt-letter">C.</span> F = 10 + 4p + 3</div><div class="option"><span class="opt-letter">D.</span> F = 10 + 4p - 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Monthly subscription fee = $10</div>
+    <div class="step-exp">Identify the fixed monthly cost for the subscription.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Charge per expansion pack = $4, Number of expansion packs = p</div>
+    <div class="step-exp">Identify the cost for each expansion pack and the variable representing the number of packs purchased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Total expansion pack charges = 4p</div>
+    <div class="step-exp">Calculate the total cost for expansion packs by multiplying the charge per pack by the number of packs.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Subtotal before discount = 10 + 4p</div>
+    <div class="step-exp">Add the monthly subscription fee and the total expansion pack charges to get the bill before any discount.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Discount = $3</div>
+    <div class="step-exp">Identify the amount of the discount applied to the total bill.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-content">
+    <div class="step-work">Final bill F = 10 + 4p - 3</div>
+    <div class="step-exp">Subtract the discount from the subtotal and set this equal to F to form the equation for the final bill.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> F = 10 + 4p - 3 (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

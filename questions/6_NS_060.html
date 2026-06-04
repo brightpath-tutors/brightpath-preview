@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Subtract Integers</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | NS | Skill 6.NS.060<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Subtract Integers</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.060</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A shopper&#x27;s bank account had a balance of $ -25. They then made a withdrawal of $10. What is the new balance?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -35</div><div class="option"><span class="opt-letter">B.</span> 15</div><div class="option"><span class="opt-letter">C.</span> -15</div><div class="option"><span class="opt-letter">D.</span> 35</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial balance = -25. Withdrawal = 10. Withdrawal means taking money out, which is a subtraction.</div>
+    <div class="step-exp">Start by identifying the initial state and the action taking place. A withdrawal reduces the balance, so it&#x27;s a subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-25 - 10</div>
+    <div class="step-exp">The initial balance is -25, and we subtract the withdrawal amount of 10.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-25 + (-10)</div>
+    <div class="step-exp">Subtracting a positive number is the same as adding a negative number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-25| = 25, |-10| = 10
+25 + 10 = 35
+Since both numbers are negative, the sum is negative.</div>
+    <div class="step-exp">When adding two negative integers, add their absolute values and keep the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-35</div>
+    <div class="step-exp">The new balance in the shopper&#x27;s account is -35 dollars.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -35 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">During a golf game, a player&#x27;s score was -3 relative to par. They then had a penalty of 2 strokes. What is their new score relative to par?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -5</div><div class="option"><span class="opt-letter">B.</span> 1</div><div class="option"><span class="opt-letter">C.</span> 5</div><div class="option"><span class="opt-letter">D.</span> -1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial score = -3. Penalty = 2 strokes. A penalty means an increase in strokes, which makes the score more negative in golf, so it&#x27;s a subtraction of a positive value.</div>
+    <div class="step-exp">Identify the initial score and the effect of the penalty. A penalty adds strokes, making the score higher (less desirable, more negative if already negative).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-3 - 2</div>
+    <div class="step-exp">The initial score is -3, and we subtract the 2 penalty strokes.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-3 + (-2)</div>
+    <div class="step-exp">Subtracting a positive number is equivalent to adding a negative number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-3| = 3, |-2| = 2
+3 + 2 = 5
+Since both numbers are negative, the sum is negative.</div>
+    <div class="step-exp">When adding two negative integers, add their absolute values and keep the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-5</div>
+    <div class="step-exp">The player&#x27;s new score relative to par is -5.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -5 (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A chef adjusted the temperature of a dish in a special oven. The initial temperature was -8 degrees Celsius. They increased the temperature by reducing the negative value by 5 degrees. What is the final temperature?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 13</div><div class="option"><span class="opt-letter">B.</span> 3</div><div class="option"><span class="opt-letter">C.</span> -13</div><div class="option"><span class="opt-letter">D.</span> -3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial temperature = -8°C. &#x27;Reducing the negative value by 5 degrees&#x27; means subtracting a negative number.</div>
+    <div class="step-exp">Identify the initial temperature. The phrase &#x27;reducing the negative value by 5 degrees&#x27; implies moving 5 units towards zero from the negative side, which is equivalent to subtracting a negative 5 or adding a positive 5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-8 - (-5)</div>
+    <div class="step-exp">The initial temperature is -8. We are &#x27;reducing the negative value by 5&#x27;, so we subtract -5.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-8 + 5</div>
+    <div class="step-exp">Subtracting a negative number is the same as adding its positive counterpart. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-8| = 8, |5| = 5
+Difference = 8 - 5 = 3
+Since -8 has a larger absolute value, the sum is negative.</div>
+    <div class="step-exp">When adding integers with different signs, find the difference between their absolute values and use the sign of the number with the larger absolute value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-3</div>
+    <div class="step-exp">The final temperature in the oven is -3 degrees Celsius.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -3 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is tracking the energy level of a particle, starting at -18 units. Due to an interaction, the particle loses another 7 units of energy. What is the particle&#x27;s new energy level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 11</div><div class="option"><span class="opt-letter">B.</span> 25</div><div class="option"><span class="opt-letter">C.</span> -25</div><div class="option"><span class="opt-letter">D.</span> -11</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial energy level = -18 units. Loss of energy = 7 units. Losing energy means a decrease, which is subtraction.</div>
+    <div class="step-exp">Identify the initial energy level and the change. A loss of energy is represented by subtracting a positive value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-18 - 7</div>
+    <div class="step-exp">The initial energy level is -18, and we subtract the 7 units of lost energy.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-18 + (-7)</div>
+    <div class="step-exp">Subtracting a positive number is the same as adding a negative number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-18| = 18, |-7| = 7
+18 + 7 = 25
+Since both numbers are negative, the sum is negative.</div>
+    <div class="step-exp">When adding two negative integers, add their absolute values and keep the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-25</div>
+    <div class="step-exp">The particle&#x27;s new energy level is -25 units.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -25 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A surveyor marked a point on a blueprint as 10 meters above sea level. Another point, representing a deep excavation, is marked 25 meters below the first point. What is the elevation of the excavation point relative to sea level?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> -35</div><div class="option"><span class="opt-letter">B.</span> -15</div><div class="option"><span class="opt-letter">C.</span> 35</div><div class="option"><span class="opt-letter">D.</span> 15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial point elevation = 10 meters. Second point is 25 meters &#x27;below&#x27; the first point. &#x27;Below&#x27; indicates subtraction.</div>
+    <div class="step-exp">Identify the starting elevation and the change. &#x27;Below&#x27; means a decrease in elevation, so we subtract.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">10 - 25</div>
+    <div class="step-exp">The initial elevation is 10, and we subtract 25 meters.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">10 + (-25)</div>
+    <div class="step-exp">Subtracting a positive number is the same as adding a negative number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|10| = 10, |-25| = 25
+Difference = 25 - 10 = 15
+Since -25 has a larger absolute value, the sum is negative.</div>
+    <div class="step-exp">When adding integers with different signs, find the difference between their absolute values and use the sign of the number with the larger absolute value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-15</div>
+    <div class="step-exp">The elevation of the excavation point relative to sea level is -15 meters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -15 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A hot air balloon&#x27;s initial altitude was recorded as -100 meters (below a reference point). It then ascended, and its altitude increased by effectively subtracting a negative 30 meters from its current position. What is its new altitude?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 130</div><div class="option"><span class="opt-letter">B.</span> 70</div><div class="option"><span class="opt-letter">C.</span> -70</div><div class="option"><span class="opt-letter">D.</span> -130</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial altitude = -100 meters. &#x27;Increased by effectively subtracting a negative 30 meters&#x27; means -(-30).</div>
+    <div class="step-exp">Identify the initial altitude. The phrase &#x27;subtracting a negative&#x27; indicates a double negative, which results in addition. This represents an increase in altitude.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-100 - (-30)</div>
+    <div class="step-exp">The initial altitude is -100. We subtract -30 from it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-100 + 30</div>
+    <div class="step-exp">Subtracting a negative number is the same as adding a positive number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-100| = 100, |30| = 30
+Difference = 100 - 30 = 70
+Since -100 has a larger absolute value, the sum is negative.</div>
+    <div class="step-exp">When adding integers with different signs, find the difference between their absolute values and use the sign of the number with the larger absolute value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-70</div>
+    <div class="step-exp">The hot air balloon&#x27;s new altitude is -70 meters.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -70 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student earned 95 points on a project. However, the teacher decided to apply a retroactive penalty for late submission, effectively deducting -10 points from their score (meaning adding 10 points). What is the student&#x27;s final score?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 85</div><div class="option"><span class="opt-letter">B.</span> -85</div><div class="option"><span class="opt-letter">C.</span> -105</div><div class="option"><span class="opt-letter">D.</span> 105</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial score = 95 points. &#x27;Deducting -10 points&#x27; means subtracting a negative 10 points.</div>
+    <div class="step-exp">Identify the starting score and the change. &#x27;Deducting a negative&#x27; is a double negative, which results in addition. This means the score actually increased.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">95 - (-10)</div>
+    <div class="step-exp">The initial score is 95. We subtract -10 from it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">95 + 10</div>
+    <div class="step-exp">Subtracting a negative number is the same as adding a positive number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">95 + 10 = 105</div>
+    <div class="step-exp">Add the two positive integers.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">105</div>
+    <div class="step-exp">The student&#x27;s final score is 105 points.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 105 (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The year an ancient civilization began its decline was -620 (620 BCE). Historians estimate a major climate shift occurred 180 years prior to this decline. What year marks the climate shift?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 440</div><div class="option"><span class="opt-letter">B.</span> 800</div><div class="option"><span class="opt-letter">C.</span> -800</div><div class="option"><span class="opt-letter">D.</span> -440</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Decline year = -620. Climate shift occurred 180 years &#x27;prior&#x27; to this. &#x27;Prior&#x27; means further back in time, which is subtraction from a negative year.</div>
+    <div class="step-exp">Identify the reference year and the timing of the earlier event. &#x27;Prior to&#x27; indicates moving further into the past, which means subtracting a positive value from the current negative year.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-620 - 180</div>
+    <div class="step-exp">The decline year is -620, and we subtract 180 years.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-620 + (-180)</div>
+    <div class="step-exp">Subtracting a positive number is the same as adding a negative number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-620| = 620, |-180| = 180
+620 + 180 = 800
+Since both numbers are negative, the sum is negative.</div>
+    <div class="step-exp">When adding two negative integers, add their absolute values and keep the negative sign.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-800</div>
+    <div class="step-exp">The climate shift occurred in the year -800 (800 BCE).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -800 (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A wildlife conservation project noted a decline in a particular species, marking the population change as -150 individuals. Efforts were made, and the next year, the decline was &#x27;reduced&#x27; by -50 individuals (meaning the population actually increased by 50 relative to the expected decline). What is the new population change overall?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 100</div><div class="option"><span class="opt-letter">B.</span> -100</div><div class="option"><span class="opt-letter">C.</span> 200</div><div class="option"><span class="opt-letter">D.</span> -200</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial population change = -150. &#x27;Decline was reduced by -50 individuals&#x27; means subtracting a negative 50.</div>
+    <div class="step-exp">Identify the initial population change. The phrase &#x27;reduced by -50&#x27; implies a double negative, which means adding 50. This is an improvement from the initial decline.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-150 - (-50)</div>
+    <div class="step-exp">The initial change is -150. We subtract -50 from it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-150 + 50</div>
+    <div class="step-exp">Subtracting a negative number is the same as adding a positive number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-150| = 150, |50| = 50
+Difference = 150 - 50 = 100
+Since -150 has a larger absolute value, the sum is negative.</div>
+    <div class="step-exp">When adding integers with different signs, find the difference between their absolute values and use the sign of the number with the larger absolute value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">-100</div>
+    <div class="step-exp">The new overall population change is -100 individuals.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> -100 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 6 &bull; NS</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The initial debug status of a system was -5 issues (meaning it had 5 critical issues). After a major update, the number of issues changed by subtracting -10 issues. What is the new debug status?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 5</div><div class="option"><span class="opt-letter">B.</span> -5</div><div class="option"><span class="opt-letter">C.</span> 15</div><div class="option"><span class="opt-letter">D.</span> -15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Initial debug status = -5 issues. &#x27;Changed by subtracting -10 issues&#x27; means -(-10).</div>
+    <div class="step-exp">Identify the starting debug status. The phrase &#x27;subtracting -10 issues&#x27; indicates a double negative, which means adding 10. This implies an improvement in the debug status.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-5 - (-10)</div>
+    <div class="step-exp">The initial status is -5. We subtract -10 from it.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">-5 + 10</div>
+    <div class="step-exp">Subtracting a negative number is the same as adding a positive number. Keep the first number, change the subtraction to addition, and change the sign of the second number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">|-5| = 5, |10| = 10
+Difference = 10 - 5 = 5
+Since 10 has a larger absolute value, the sum is positive.</div>
+    <div class="step-exp">When adding integers with different signs, find the difference between their absolute values and use the sign of the number with the larger absolute value.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">5</div>
+    <div class="step-exp">The new debug status is 5 issues (meaning 5 fewer critical issues, or 5 positive points in a system where 0 is ideal).</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 5 (Option A)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

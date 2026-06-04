@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Line Plot Fraction Operations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 5 | MD | Skill 5.MD.004.02<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Line Plot Fraction Operations</h1>
+<p class="skill-subtitle">Skill ID: 5.MD.004.02</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the lengths of ribbon, in yards, bought by different customers. The data points on the line plot are: 1/4, 1/2, 3/4, 1/4, 1/2, 1/4, 3/4, 1/2. Which of the following questions can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> How many different colors of ribbon were available?</div><div class="option"><span class="opt-letter">B.</span> What was the average cost per yard of ribbon?</div><div class="option"><span class="opt-letter">C.</span> Why did some customers buy more ribbon than others?</div><div class="option"><span class="opt-letter">D.</span> What is the total length of ribbon, in yards, bought by customers who purchased 1/4 yard?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1/4, 1/2, 3/4, 1/4, 1/2, 1/4, 3/4, 1/2</div>
+    <div class="step-exp">Identify the data provided by the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Question asks for total length of ribbon bought by customers who purchased 1/4 yard. This can be found by adding all 1/4 yard measurements.</div>
+    <div class="step-exp">Determine if the question can be answered using the provided data and basic operations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Count of 1/4 yard purchases: 3. Calculation: 1/4 + 1/4 + 1/4 = 3/4 yards. This is a solvable question.</div>
+    <div class="step-exp">Verify the calculation is possible from the line plot data.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the total length of ribbon, in yards, bought by customers who purchased 1/4 yard? (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A coach recorded the distances, in miles, run by students during a fitness test on a line plot. The distances measured were: 1/2, 1/4, 3/4, 1/2, 1/4, 1/2. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> What was the longest distance any student has ever run?</div><div class="option"><span class="opt-letter">B.</span> How many students participated in the test during the previous year?</div><div class="option"><span class="opt-letter">C.</span> What distance, in miles, was run by the most students?</div><div class="option"><span class="opt-letter">D.</span> How can students improve their running distances?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1/2, 1/4, 3/4, 1/2, 1/4, 1/2</div>
+    <div class="step-exp">Identify the given data points from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Count frequency for each distance: 1/4 (2 times), 1/2 (3 times), 3/4 (1 time).</div>
+    <div class="step-exp">To find the most frequent distance, count how many times each unique distance appears in the data.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">The distance 1/2 mile appears 3 times, which is more than any other distance. Therefore, the question can be answered.</div>
+    <div class="step-exp">Compare the frequencies to determine the most common distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What distance, in miles, was run by the most students? (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the amounts of sugar, in cups, used in different cookie recipes. The amounts are: 1/3, 2/3, 1/3, 1/3, 2/3, 1 cup, 1/3. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> What is the total amount of sugar, in cups, used in all recipes that required 1/3 cup of sugar?</div><div class="option"><span class="opt-letter">B.</span> How many different types of cookies were made?</div><div class="option"><span class="opt-letter">C.</span> What is the optimal amount of sugar for a healthy cookie?</div><div class="option"><span class="opt-letter">D.</span> Which recipe is the most delicious?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1/3, 2/3, 1/3, 1/3, 2/3, 1 cup, 1/3</div>
+    <div class="step-exp">Identify the amounts of sugar used in the cookie recipes from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Identify all instances where 1/3 cup of sugar was used. There are four such instances.</div>
+    <div class="step-exp">Locate the specific data points relevant to the question.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Add the identified amounts: 1/3 + 1/3 + 1/3 + 1/3 = 4/3 cups. This question can be answered.</div>
+    <div class="step-exp">Perform the required calculation (addition of fractions with the same denominator) to confirm the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the total amount of sugar, in cups, used in all recipes that required 1/3 cup of sugar? (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot represents the time, in hours, that several buses were delayed. The delay times recorded are: 1/4, 1/2, 3/4, 1/4, 1 hour, 1/2, 3/4, 1/4. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> How many passengers were on each delayed bus?</div><div class="option"><span class="opt-letter">B.</span> Which bus route experiences the most delays?</div><div class="option"><span class="opt-letter">C.</span> What is the total delay time, in hours, for all buses delayed for less than 1 hour?</div><div class="option"><span class="opt-letter">D.</span> What caused the buses to be delayed?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1/4, 1/2, 3/4, 1/4, 1 hour, 1/2, 3/4, 1/4</div>
+    <div class="step-exp">List all the recorded bus delay times from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Identify delay times less than 1 hour: 1/4, 1/2, 3/4, 1/4, 1/2, 3/4, 1/4.</div>
+    <div class="step-exp">Filter the data to include only the delays that are less than 1 hour, as specified by the question.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the sum of these times: 1/4 + 1/2 + 3/4 + 1/4 + 1/2 + 3/4 + 1/4.</div>
+    <div class="step-exp">Add the selected fractional delay times to find their total.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">(1/4 + 1/4 + 1/4) + (1/2 + 1/2) + (3/4 + 3/4) = 3/4 + 1 + 6/4 = 3/4 + 4/4 + 6/4 = 13/4 hours. This question can be answered.</div>
+    <div class="step-exp">Perform the addition, grouping like denominators for easier calculation, and confirm the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the total delay time, in hours, for all buses delayed for less than 1 hour? (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the lengths, in inches, of pencils used by students in a class. The lengths are: 3 1/2, 3 1/4, 3 3/4, 3 1/2, 3 1/4, 3 1/2, 3 3/4. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> What is the difference, in inches, between the longest and shortest pencil lengths recorded?</div><div class="option"><span class="opt-letter">B.</span> What is the total length of all pencils combined?</div><div class="option"><span class="opt-letter">C.</span> How often do students sharpen their pencils?</div><div class="option"><span class="opt-letter">D.</span> What brand of pencils did the students use?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 3 1/2, 3 1/4, 3 3/4, 3 1/2, 3 1/4, 3 1/2, 3 3/4</div>
+    <div class="step-exp">List all the pencil lengths from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Identify the distinct lengths: 3 1/4, 3 1/2, 3 3/4.</div>
+    <div class="step-exp">Determine the unique pencil lengths present in the data set.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Identify the longest length: 3 3/4 inches. Identify the shortest length: 3 1/4 inches.</div>
+    <div class="step-exp">Find the maximum and minimum values from the distinct lengths.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the difference: 3 3/4 - 3 1/4 = (3 - 3) + (3/4 - 1/4) = 0 + 2/4 = 1/2 inch. The question can be answered.</div>
+    <div class="step-exp">Subtract the shortest length from the longest length to find the difference, confirming the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the difference, in inches, between the longest and shortest pencil lengths recorded? (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the growth, in inches, of several plants over one week. The growth measurements are: 1/8, 3/8, 1/2, 1/8, 5/8, 1/2, 3/8, 1/8. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> What type of fertilizer was used for each plant?</div><div class="option"><span class="opt-letter">B.</span> What is the average growth of all plants?</div><div class="option"><span class="opt-letter">C.</span> How many plants were watered daily?</div><div class="option"><span class="opt-letter">D.</span> What is the combined growth, in inches, of all plants that grew exactly 1/2 inch or more?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1/8, 3/8, 1/2, 1/8, 5/8, 1/2, 3/8, 1/8</div>
+    <div class="step-exp">Identify all the plant growth measurements from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Identify plants that grew 1/2 inch or more: 1/2, 5/8, 1/2.</div>
+    <div class="step-exp">Filter the data to include only the growth measurements that are equal to or greater than 1/2 inch.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Convert all fractions to a common denominator if necessary: 1/2 = 4/8.</div>
+    <div class="step-exp">Prepare the fractions for addition by ensuring they have a common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Add the selected growth measurements: 4/8 + 5/8 + 4/8 = 13/8 inches. This question can be answered.</div>
+    <div class="step-exp">Sum the filtered measurements and express the answer as an improper fraction, confirming the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the combined growth, in inches, of all plants that grew exactly 1/2 inch or more? (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the widths, in feet, of different planks of wood. The widths are: 2 1/4, 2 1/2, 2 1/4, 2 3/4, 2 1/2, 2 1/4. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> How much did each plank of wood cost?</div><div class="option"><span class="opt-letter">B.</span> What is the weight of the longest plank?</div><div class="option"><span class="opt-letter">C.</span> What type of wood were the planks made from?</div><div class="option"><span class="opt-letter">D.</span> If all planks with a width of 2 1/4 feet were laid end-to-end, what would be their total length, in feet?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 2 1/4, 2 1/2, 2 1/4, 2 3/4, 2 1/2, 2 1/4</div>
+    <div class="step-exp">List all the plank widths from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Identify planks with a width of 2 1/4 feet: There are three such planks.</div>
+    <div class="step-exp">Locate the specific data points relevant to the question (planks with a width of 2 1/4 feet).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the total length: 2 1/4 + 2 1/4 + 2 1/4.</div>
+    <div class="step-exp">Set up the addition problem to find the total length of these planks.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Convert mixed numbers to improper fractions: 2 1/4 = 9/4. So, 9/4 + 9/4 + 9/4 = 27/4.</div>
+    <div class="step-exp">Add the improper fractions.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Convert back to a mixed number: 27/4 = 6 3/4 feet. This question can be answered.</div>
+    <div class="step-exp">Convert the improper fraction back to a mixed number to provide a more understandable answer, confirming the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> If all planks with a width of 2 1/4 feet were laid end-to-end, what would be their total length, in feet? (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot displays the time, in hours, students spent on homework each night. The times recorded are: 1/2, 3/4, 1 hour, 1/2, 1 1/4, 3/4, 1/2, 1 hour, 1 1/4. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> How many students prefer doing homework in the morning?</div><div class="option"><span class="opt-letter">B.</span> Which teacher assigned the most homework?</div><div class="option"><span class="opt-letter">C.</span> What is the difference, in hours, between the total time spent by students who did 1 hour or more of homework and the total time spent by students who did less than 1 hour?</div><div class="option"><span class="opt-letter">D.</span> What is the average amount of time students spend on other subjects?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1/2, 3/4, 1, 1/2, 1 1/4, 3/4, 1/2, 1, 1 1/4</div>
+    <div class="step-exp">List all the homework times from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Group 1 (1 hour or more): 1, 1 1/4, 1, 1 1/4. Group 2 (less than 1 hour): 1/2, 3/4, 1/2, 3/4, 1/2.</div>
+    <div class="step-exp">Categorize the data points according to the two groups defined in the question.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Calculate total for Group 1: 1 + 1 1/4 + 1 + 1 1/4 = 1 + 1 + 1 + 1 + 1/4 + 1/4 = 4 2/4 = 4 1/2 hours.</div>
+    <div class="step-exp">Sum the times for students who spent 1 hour or more on homework.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Calculate total for Group 2: 1/2 + 3/4 + 1/2 + 3/4 + 1/2. Common denominator is 4: 2/4 + 3/4 + 2/4 + 3/4 + 2/4 = 12/4 = 3 hours.</div>
+    <div class="step-exp">Sum the times for students who spent less than 1 hour on homework, using a common denominator.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the difference between the two totals: 4 1/2 - 3 = 1 1/2 hours. This question can be answered.</div>
+    <div class="step-exp">Subtract the total of Group 2 from the total of Group 1 to find the final difference, confirming the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the difference, in hours, between the total time spent by students who did 1 hour or more of homework and the total time spent by students who did less than 1 hour? (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the average wing spans, in inches, of different species of butterflies observed in a nature preserve. The spans are: 1 1/2, 1 3/4, 2, 1 1/2, 1 1/4, 1 3/4, 2, 1 1/2. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> Which nature preserve has the most diverse butterfly population?</div><div class="option"><span class="opt-letter">B.</span> What is the average lifespan of each butterfly species?</div><div class="option"><span class="opt-letter">C.</span> How many individual butterflies were observed in total?</div><div class="option"><span class="opt-letter">D.</span> If a new butterfly species has a wingspan exactly halfway between the smallest and largest recorded spans, what would that wingspan be?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 1 1/2, 1 3/4, 2, 1 1/2, 1 1/4, 1 3/4, 2, 1 1/2</div>
+    <div class="step-exp">List all the butterfly wingspan measurements from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Identify the smallest span: 1 1/4 inches. Identify the largest span: 2 inches.</div>
+    <div class="step-exp">Determine the minimum and maximum values from the data set.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Find the difference between largest and smallest: 2 - 1 1/4 = 3/4 inches.</div>
+    <div class="step-exp">Calculate the range of the wingspans.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Half of the difference: 3/4 ÷ 2 = 3/8 inches.</div>
+    <div class="step-exp">Find half of the range, which represents the distance from the smallest span to the midpoint.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Add half the difference to the smallest span: 1 1/4 + 3/8. Convert 1 1/4 = 10/8. So, 10/8 + 3/8 = 13/8 = 1 5/8 inches. This question can be answered.</div>
+    <div class="step-exp">Add this value to the smallest span to find the wingspan exactly halfway, confirming the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> If a new butterfly species has a wingspan exactly halfway between the smallest and largest recorded spans, what would that wingspan be? (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 5 &bull; MD</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A line plot shows the download speeds, in Mbps, measured at different times of day on a specific internet connection. The speeds are: 5 1/2, 5 3/4, 6, 5 1/4, 5 1/2, 5 3/4, 6, 5 1/2. Which question can be answered by analyzing this line plot?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> What is the fastest internet speed available in the market?</div><div class="option"><span class="opt-letter">B.</span> Which internet provider offers the most reliable connection?</div><div class="option"><span class="opt-letter">C.</span> How many devices were connected to the internet at each time of day?</div><div class="option"><span class="opt-letter">D.</span> What is the average download speed, in Mbps, across all recorded times?</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">Data: 5 1/2, 5 3/4, 6, 5 1/4, 5 1/2, 5 3/4, 6, 5 1/2</div>
+    <div class="step-exp">List all the download speeds from the line plot.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Count the number of data points: There are 8 data points.</div>
+    <div class="step-exp">Determine the total count of measurements, which is needed for calculating the average.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the sum of all speeds: 5 1/2 + 5 3/4 + 6 + 5 1/4 + 5 1/2 + 5 3/4 + 6 + 5 1/2.</div>
+    <div class="step-exp">Set up the addition to find the total of all recorded speeds.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">Convert to common denominator (4): 5 2/4 + 5 3/4 + 6 + 5 1/4 + 5 2/4 + 5 3/4 + 6 + 5 2/4. Sum of whole numbers: 5+5+6+5+5+5+6+5 = 42. Sum of fractions: 2/4 + 3/4 + 1/4 + 2/4 + 3/4 + 2/4 = 13/4 = 3 1/4. Total sum: 42 + 3 1/4 = 45 1/4 Mbps.</div>
+    <div class="step-exp">Add the mixed numbers by summing whole parts and fractional parts separately, then combine and simplify.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">Calculate the average: 45 1/4 ÷ 8. Convert to improper fraction: 45 1/4 = 181/4. So, 181/4 ÷ 8 = 181/4 × 1/8 = 181/32 Mbps. This question can be answered.</div>
+    <div class="step-exp">Divide the total sum by the number of data points to find the average, confirming the question is answerable.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> What is the average download speed, in Mbps, across all recorded times? (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

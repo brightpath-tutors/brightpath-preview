@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Laws of Exponents</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.017<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Laws of Exponents</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.017</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A baker uses 3 batches of dough. Each batch requires 2² cups of flour. How many cups of flour are needed in total?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 9 cups</div><div class="option"><span class="opt-letter">B.</span> 12 cups</div><div class="option"><span class="opt-letter">C.</span> 18 cups</div><div class="option"><span class="opt-letter">D.</span> 6 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2² = 2 * 2 = 4 cups</div>
+    <div class="step-exp">The exponent indicates repeated multiplication of the base number.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">4 cups/batch * 3 batches = 12 cups</div>
+    <div class="step-exp">Multiply the flour needed per batch by the total number of batches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12 cups (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist observes a bacterial culture that doubles in size every hour. If she starts with 5 bacteria, how many bacteria will there be after 3 hours?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 40 bacteria</div><div class="option"><span class="opt-letter">B.</span> 60 bacteria</div><div class="option"><span class="opt-letter">C.</span> 30 bacteria</div><div class="option"><span class="opt-letter">D.</span> 15 bacteria</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2³ = 2 <em> 2 </em> 2 = 8</div>
+    <div class="step-exp">The base (2) is the doubling factor, and the exponent (3) is the number of hours.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">5 bacteria * 8 = 40 bacteria</div>
+    <div class="step-exp">Multiply the starting amount by the total growth factor.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 40 bacteria (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An athlete trains for a race. On Monday, he runs 2² miles. On Tuesday, he runs 3² miles. What is the total distance he runs in two days?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 36 miles</div><div class="option"><span class="opt-letter">B.</span> 5 miles</div><div class="option"><span class="opt-letter">C.</span> 13 miles</div><div class="option"><span class="opt-letter">D.</span> 7 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2² = 2 * 2 = 4 miles</div>
+    <div class="step-exp">Evaluate the exponential expression for Monday&#x27;s distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3² = 3 * 3 = 9 miles</div>
+    <div class="step-exp">Evaluate the exponential expression for Tuesday&#x27;s distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">4 miles + 9 miles = 13 miles</div>
+    <div class="step-exp">Sum the distances run on Monday and Tuesday.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 13 miles (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student organizing their textbooks creates a display with 2 stacks. Each stack has 3³ books. How many books are in the display?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 54 books</div><div class="option"><span class="opt-letter">B.</span> 18 books</div><div class="option"><span class="opt-letter">C.</span> 9 books</div><div class="option"><span class="opt-letter">D.</span> 81 books</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3³ = 3 <em> 3 </em> 3 = 27 books</div>
+    <div class="step-exp">The exponent (3) indicates that the base (3) is multiplied by itself three times.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">27 books/stack * 2 stacks = 54 books</div>
+    <div class="step-exp">Multiply the number of books per stack by the total number of stacks.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 54 books (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A company sells a unique gadget. The number of gadgets sold doubles every month. If they sold 10 gadgets in the first month, how many will they sell in the fourth month?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 80 gadgets</div><div class="option"><span class="opt-letter">B.</span> 30 gadgets</div><div class="option"><span class="opt-letter">C.</span> 40 gadgets</div><div class="option"><span class="opt-letter">D.</span> 160 gadgets</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2³ = 2 <em> 2 </em> 2 = 8</div>
+    <div class="step-exp">The number of doubling periods is 3 (month 2, 3, 4).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">10 gadgets * 8 = 80 gadgets</div>
+    <div class="step-exp">Multiply the sales from the first month by the total growth factor.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 80 gadgets (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A contractor is building a square patio with sides of length 5² feet. What is the area of the patio in square feet?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 125 square feet</div><div class="option"><span class="opt-letter">B.</span> 25 square feet</div><div class="option"><span class="opt-letter">C.</span> 650 square feet</div><div class="option"><span class="opt-letter">D.</span> 625 square feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5² = 5 * 5 = 25 feet</div>
+    <div class="step-exp">Evaluate the exponential expression to find the side length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">Area = side <em> side = 25 feet </em> 25 feet = 625 square feet</div>
+    <div class="step-exp">The area of a square is the side length multiplied by itself.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 625 square feet (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A clock tower chimes every hour. The number of chimes is equal to the hour. If the tower chimes 2³ times at 2 PM, and 3² times at 3 PM, what is the total number of chimes between 2 PM and 3 PM (inclusive)?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 36 chimes</div><div class="option"><span class="opt-letter">B.</span> 15 chimes</div><div class="option"><span class="opt-letter">C.</span> 17 chimes</div><div class="option"><span class="opt-letter">D.</span> 13 chimes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2³ = 2 <em> 2 </em> 2 = 8 chimes</div>
+    <div class="step-exp">Evaluate the exponential expression for 2 PM.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3² = 3 * 3 = 9 chimes</div>
+    <div class="step-exp">Evaluate the exponential expression for 3 PM.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">8 chimes + 9 chimes = 17 chimes</div>
+    <div class="step-exp">Sum the chimes from 2 PM and 3 PM.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 17 chimes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A librarian is cataloging a new collection. They arrange 4² large books and 3³ small books on a shelf. If each large book takes up 2 units of space and each small book takes up 1 unit of space, what is the total number of units of space occupied?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 units</div><div class="option"><span class="opt-letter">B.</span> 64 units</div><div class="option"><span class="opt-letter">C.</span> 43 units</div><div class="option"><span class="opt-letter">D.</span> 59 units</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">4² = 4 * 4 = 16 large books</div>
+    <div class="step-exp">Evaluate the exponential expression for large books.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">16 books * 2 units/book = 32 units</div>
+    <div class="step-exp">Multiply the number of large books by the space each occupies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3³ = 3 <em> 3 </em> 3 = 27 small books</div>
+    <div class="step-exp">Evaluate the exponential expression for small books.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">27 books * 1 unit/book = 27 units</div>
+    <div class="step-exp">Multiply the number of small books by the space each occupies.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">32 units + 27 units = 59 units</div>
+    <div class="step-exp">Sum the space for large and small books.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 59 units (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A car travels at a constant speed of 2³ miles per hour for 3 hours. Another car travels at a constant speed of 3² miles per hour for 2 hours. What is the total distance traveled by both cars?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 miles</div><div class="option"><span class="opt-letter">B.</span> 42 miles</div><div class="option"><span class="opt-letter">C.</span> 34 miles</div><div class="option"><span class="opt-letter">D.</span> 50 miles</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2³ = 2 <em> 2 </em> 2 = 8 mph</div>
+    <div class="step-exp">Evaluate the exponential expression for the first car&#x27;s speed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">8 mph * 3 hours = 24 miles</div>
+    <div class="step-exp">Multiply speed by time to find the distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">3² = 3 * 3 = 9 mph</div>
+    <div class="step-exp">Evaluate the exponential expression for the second car&#x27;s speed.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">9 mph * 2 hours = 18 miles</div>
+    <div class="step-exp">Multiply speed by time to find the distance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">24 miles + 18 miles = 42 miles</div>
+    <div class="step-exp">Sum the distances of both cars to find the total distance.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 42 miles (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">An artist creates a sculpture using building blocks. The base is 3² blocks wide and 2³ blocks long. If each block is 1 cubic inch, what is the area of the base of the sculpture in square inches?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 18 square inches</div><div class="option"><span class="opt-letter">B.</span> 17 square inches</div><div class="option"><span class="opt-letter">C.</span> 72 square inches</div><div class="option"><span class="opt-letter">D.</span> 81 square inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3² = 3 * 3 = 9 blocks</div>
+    <div class="step-exp">Evaluate the exponential expression for the width.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2³ = 2 <em> 2 </em> 2 = 8 blocks</div>
+    <div class="step-exp">Evaluate the exponential expression for the length.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">Area = width <em> length = 9 blocks </em> 8 blocks = 72 square inches</div>
+    <div class="step-exp">Multiply the width by the length to find the area of the rectangular base. Since each block is 1 cubic inch, the area in blocks is also the area in square inches.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 72 square inches (Option C)</p></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Lesson: Rational Number on Number Line</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 6 | The Number System<br>76 atoms | Skill 6.NS.014.02<br></div>
+</div>
+<h1 class="skill-title">Rational Number on Number Line</h1>
+<p class="skill-subtitle">Skill ID: 6.NS.014.02 &nbsp;&bull;&nbsp; <span class="ph">[Student Name]</span> placeholders shown in blue</p><div class="lo-box"><div class="lo-label">Learning Objective</div>I can locate and plot rational numbers, including positive and negative fractions and decimals, on a number line.</div><div class="section-title">Core Explanations <span style="font-size:11px;font-weight:400;color:var(--muted)">(5 teaching variants — expand to review)</span></div>
+<details class="ce-variant">
+  <summary>Academic — Concept-Forward</summary>
+  <div class="ce-content">Rational numbers are numbers that can be expressed as a fraction p/q, where p and q are integers and q is not zero. This means fractions like 3/4, decimals like -0.5 (which is -1/2), and even whole numbers like 2 (which is 2/1) are all rational numbers. When we place these numbers on a number line, we&#x27;re extending our understanding beyond just whole numbers. Think of a number line as an infinite ruler, <span class="ph">[Student Name]</span>. Every tick mark, every space between the whole numbers, can hold a rational number. To locate a rational number like 1.75, which is 7/4, you&#x27;d first find 1 and 2. Since 1.75 is three-quarters of the way between 1 and 2, you&#x27;d mark that exact spot. For a negative rational number, like -2/3, you&#x27;d go left from zero, dividing the space between 0 and -1 into three equal parts and marking the second one. This precision allows us to compare and order numbers, just as an architect uses a scale to precisely place elements on a blueprint. <span class="ph">[they]</span> will see that mastering this skill is fundamental.</div>
+</details>
+<details class="ce-variant">
+  <summary>Confidence — Encouraging Tone</summary>
+  <div class="ce-content">You&#x27;re already a pro at understanding fractions and whole numbers, <span class="ph">[Student Name]</span>, which is a fantastic foundation for placing rational numbers on a number line! In Grade 5, you tackled problems like adding 1/4 cup of sugar to a recipe, learning to visualize fractions (5.NF.002). You know that 1/4 is a part of a whole, and you&#x27;ve seen how fractions fit between whole numbers. Now, we&#x27;re just building on that knowledge. You also recently explored how numbers, even negative ones, can live on a number line (6.NS.014.01). Think about seeing 3/4 of a mile on a map – it’s a specific point. What if you were 1/2 mile <em>behind</em> your starting point? That&#x27;s just -1/2 on the number line! We&#x27;re simply combining your strong understanding of fractions with your familiarity with the number line, including negative numbers. It’s like adding a new level to a game you already know how to play. You’ve got this, <span class="ph">[Student Name]</span>.</div>
+</details>
+<details class="ce-variant">
+  <summary>Engagement — Real-World Hook</summary>
+  <div class="ce-content">Did you know that rational numbers are absolutely everywhere, even in professional sports? Imagine a star baseball player, <span class="ph">[Student Name]</span>. If <span class="ph">[they]</span> has a batting average of 0.325, that&#x27;s a rational number! It can be written as 325/1000. This number isn&#x27;t just a random statistic; it represents a precise point in their performance. When sports analysts track a player&#x27;s average over the season, they are essentially visualizing changes on a number line. A player’s average going from 0.300 to 0.325 means moving to the right on a numerical scale, showing improvement. Or consider a quarterback&#x27;s completion percentage like 68.5% (which is 0.685 or 685/1000). These precise rational numbers help teams make decisions and fans understand the game. Placing these values on a number line makes it easy to compare players or track progress over time. It’s a crucial skill for understanding so much of the world around us, from sports scores to stock market charts.</div>
+</details>
+<details class="ce-variant">
+  <summary>Stability — Clear &amp; Structured</summary>
+  <div class="ce-content">Let&#x27;s clearly define what we mean by placing rational numbers on a number line. A rational number is any number that can be expressed as a fraction, p/q, where p and q are integers and q is not zero. This includes fractions, decimals that terminate or repeat, and all integers. When you place a rational number on a number line, you are identifying its exact position relative to other numbers, especially zero. For example, to place the rational number -1.25 on a number line, you first recognize that -1.25 is equivalent to -5/4. You would find -1, and then move an additional 0.25 (or 1/4) unit to the left, precisely marking the point. This skill is vital for understanding quantities and measurements. Think of a financial report: a stock might go down by $0.75, which is -3/4 of a dollar. Knowing where -0.75 is on a number line helps <span class="ph">[Student Name]</span> visualize that loss relative to breaking even (zero). This structured approach helps <span class="ph">[they]</span> confidently handle any rational number.</div>
+</details>
+<details class="ce-variant">
+  <summary>Bridge — Connects Prior Knowledge</summary>
+  <div class="ce-content">Remember how you mastered working with fractions in Grade 5? You used visual models, like fraction bars or pie charts, to understand that 1/2 + 1/4 equals 3/4 (5.NF.002). This built a strong understanding of parts of a whole and how they combine. Then, in Grade 6, you started to explore the number line beyond just positive whole numbers, discovering that negative numbers exist and have their own place on the line (6.NS.014.01). You learned that -3 is to the left of zero, just as 3 is to the right.
+
+Now, we’re bringing these ideas together. We’re taking your understanding of fractions, both positive and negative, and your knowledge of the number line, and combining them. For example, if you know 1/2 is halfway between 0 and 1, you can also understand that -1/2 is halfway between 0 and -1. The number line becomes a complete map for all rational numbers.
+
+Today, <span class="ph">[Student Name]</span>, we&#x27;ll precisely locate and plot any rational number, whether it&#x27;s 2.5, -3/4, or -0.8, on the number line. This new skill will help <span class="ph">[them]</span> visualize where these numbers live and how they compare to each other.</div>
+</details><div class="section-title">Worked Examples</div><div class="we-card"><div class="we-header">Scaffolded (Step-by-Step)</div><div class="we-body">Hey <span class="ph">[Student Name]</span>, let&#x27;s tackle placing -1 3/4 on a number line. It might look a bit tricky at first, but by breaking it down, <span class="ph">[they]</span>&#x27;ll see it&#x27;s totally manageable. We&#x27;ll find the exact spot for this number together!
+
+1.  <strong><span class="hint-tag">&#128161; Hint: Think about the whole number and the direction.</span></strong> First, look at the whole number part and the sign. We have -1. This tells us our number is to the left of 0, specifically past -1. Since it&#x27;s -1 and then a fraction, we know it&#x27;s going to be somewhere between -1 and -2.
+2.  <strong><span class="hint-tag">&#128161; Hint: Divide the space between the whole numbers carefully.</span></strong> Now, let&#x27;s look at the fraction, 3/4. This means we need to divide the space <em>between</em> -1 and -2 into 4 equal parts. Mark these divisions clearly. To do this, you&#x27;d make three smaller tick marks between -1 and -2.
+3.  <strong><span class="hint-tag">&#128161; Hint: Count the fractional parts from the whole number.</span></strong> Next, count 3 of those 4 parts, moving to the left from -1. So, starting at -1, move left one tick mark to get to -1 1/4, then another to -1 2/4 (which is -1 1/2), and finally one more to -1 3/4. This is where your point should be!
+4.  <strong><span class="hint-tag">&#128161; Hint: Double-check your location.</span></strong> To check, does -1 3/4 make sense to be almost at -2? Yes, because 3/4 is close to a whole, so -1 3/4 is close to -2. You&#x27;ve successfully located -1 3/4 on the number line!</div></div><div class="we-card"><div class="we-header">Standard</div><div class="we-body">Locating 1.75 on a number line is a skill <span class="ph">[Student Name]</span> will use frequently. It&#x27;s essentially about finding a precise spot that isn&#x27;t a whole number. Let&#x27;s break down the process step-by-step to accurately place this decimal.
+
+1.  <strong>Identify the whole number and direction:</strong> The number is positive 1.75, so we know it will be to the right of 0. The &#x27;1&#x27; tells us it&#x27;s past 1, so our point will lie somewhere between 1 and 2.
+2.  <strong>Convert the decimal part to a fraction (optional but helpful):</strong> The decimal part is 0.75. We know that 0.75 is equivalent to 75/100, which simplifies to 3/4. This means we need to find the spot that is 3/4 of the way between 1 and 2.
+3.  <strong>Divide the segment and count:</strong> Divide the segment between 1 and 2 into four equal parts. You can do this by marking three smaller tick marks between 1 and 2. Then, starting from 1, count three of these equal parts to the right. The third mark represents 1 3/4, which is 1.75.
+4.  <strong>Plot the point and verify:</strong> Place a clear dot at this location. To verify, consider if 1.75 is closer to 1 or 2. Since 0.75 is more than half (0.50), it should be closer to 2. Our plotted point for 1.75 correctly reflects this position, closer to 2 than to 1.</div></div><div class="we-card"><div class="we-header">Challenge</div><div class="we-body"><span class="ph">[Student Name]</span>, plotting negative mixed numbers like -1 2/3 can sometimes lead to common errors, especially with direction and fractional parts. Let&#x27;s work through this one carefully to make sure <span class="ph">[they]</span> get<span class="ph">[they]</span> it right.
+
+1.  <strong>Determine the whole number and direction:</strong> The number is -1 2/3. The negative sign tells us to move left from zero. The &#x27;1&#x27; means it&#x27;s past -1.
+    <em>   <strong>Common error:</strong> Forgetting the negative sign and plotting to the right, or counting from 0 instead of -1.
+    </em>   <strong>How to avoid:</strong> Always check the sign first. For -1 2/3, the whole part is -1, so the number will be <em>between</em> -1 and -2.
+2.  <strong>Divide the segment into the correct number of parts:</strong> The fraction is 2/3. This means we need to divide the space <em>between</em> -1 and -2 into 3 equal parts.
+    <em>   <strong>Common error:</strong> Dividing the segment between 0 and 1 into 3 parts, or dividing between -1 and 0. Also, dividing into 2 parts instead of 3.
+    </em>   <strong>How to avoid:</strong> The denominator of the fraction (3) tells you how many equal parts the <em>next</em> whole unit needs to be divided into. Since we&#x27;re past -1, we divide the unit from -1 to -2.
+3.  <strong>Count the fractional parts from the whole number:</strong> Starting at -1, move two of those three equal parts to the left. The first mark left of -1 is -1 1/3, and the second mark is -1 2/3.
+    <em>   <strong>Common error:</strong> Counting 2/3 from 0, or counting 1/3, 2/3, 3/3 from the right towards the left.
+    </em>   <strong>How to avoid:</strong> Always start counting your fractional parts <em>from</em> the whole number you&#x27;ve identified (in this case, -1) and move in the correct direction (left for negative).
+4.  <strong>Verify your plot:</strong> The point should be closer to -2 than to -1, as 2/3 is more than 1/2. Our point at -1 2/3 correctly reflects this.</div></div><div class="section-title">Practice & Error Correction</div><div class="practice-card "><div class="practice-label">Analogical Thinking — Eli5</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>! Imagine you&#x27;re walking on a long, straight sidewalk. Your front door is the &#x27;start line.&#x27; If you walk forward one big step, that&#x27;s like the number 1. Two big steps is 2. But what if you take a step, and then just a <em>little hop</em>? Like half a step? Or maybe you owe your friend a dollar and fifty cents? That&#x27;s not a whole number of dollars, right? It&#x27;s between one dollar and two dollars. Or, if you walk <em>backward</em> from your door, you&#x27;re on the other side. You can still take a big step backward, and then a little hop backward, too! It&#x27;s all about finding every tiny spot on that sidewalk.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Analogy</div><div class="practice-content">Think of a number line like a football field, <span class="ph">[Student Name]</span>. The 50-yard line is our &#x27;zero&#x27; point. Moving towards one end zone is like moving to the positive numbers: 10 yards, 20 yards. These are our whole numbers. But what if the quarterback throws for 7.5 yards? That&#x27;s not a full 7 yards or 8 yards, it&#x27;s exactly halfway between them! You&#x27;d mark that spot on the field. If a team gets a penalty and <em>loses</em> 5 yards, that&#x27;s like moving to -5 yards from the 50. What if they lose 2.5 yards? That puts them precisely halfway between -2 and -3 yards from the 50. Every single spot on that field, whether it&#x27;s a whole yard line or a fraction of a yard, represents a rational number.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Visual</div><div class="practice-content">Imagine a perfectly straight, unending tightrope stretching out in front of you, <span class="ph">[Student Name]</span>. One specific spot is &#x27;zero.&#x27; To your right, evenly spaced knots are marked &#x27;1,&#x27; &#x27;2,&#x27; &#x27;3&#x27; – your positive whole numbers. To your left, similar knots are &#x27;-1,&#x27; &#x27;-2,&#x27; &#x27;-3,&#x27; for negative whole numbers. Now, visualize the space <em>between</em> any two knots. That space isn&#x27;t empty! It can be divided into smaller, equally sized sections. For example, between &#x27;0&#x27; and &#x27;1,&#x27; you could have a knot exactly halfway, representing 1/2 or 0.5. Or between &#x27;-2&#x27; and &#x27;-3,&#x27; a knot dividing that space into thirds, marking -2 1/3. Every single point on that tightrope, no matter how small the division, has an exact spot.</div></div><div class="practice-card "><div class="practice-label">Analogical Thinking — Peer</div><div class="practice-content">Hey <span class="ph">[Student Name]</span>, so, you know how number lines usually just have 0, 1, 2, and then -1, -2, right? Well, &#x27;rational numbers&#x27; on a number line just means we&#x27;re getting real specific. Like, if you&#x27;re talking about money, you don&#x27;t just have $1 or $2, you can have $1.50 or owe someone $0.75. Those in-between numbers? They totally have a spot on the number line too! Think about a recipe: you might need 1/2 cup of sugar or 2 1/4 cups of flour. Each of those amounts has its own exact place, whether it&#x27;s positive like ingredients, or negative if you, like, &quot;lose&quot; a quarter of a pie. It&#x27;s just about finding those precise points, even if they&#x27;re not perfect whole numbers.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Career</div><div class="practice-content">Imagine you&#x27;re a Financial Advisor helping clients in New York City. You constantly track stock prices, which are often rational numbers like $45.75 or $12.50. If a client&#x27;s stock, &#x27;Tech Growth Inc.&#x27;, opened at $60.50 and later in the day moved to $59.75, you&#x27;d calculate a change of -$0.75. Or, if another stock, &#x27;Pharma Innovations&#x27;, changed by +$1.25, you&#x27;d place both changes on a mental number line to understand their performance. Say one stock gained 1/2 point and another lost 1/4 point. You need to know that a gain of 1/2 ($0.50) is greater than a loss of 1/4 (-$0.25) to properly advise your client, <span class="ph">[Student Name]</span>, on the best moves for their investment portfolio.</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Everyday</div><div class="practice-content">Cooking and baking often rely on rational numbers! Imagine <span class="ph">[Student Name]</span> is helping to bake a delicious apple pie for the school bake sale. The recipe calls for 1 and 3/4 cups of flour. If <span class="ph">[they]</span> has already added 1 and 1/2 cups, how much more flour is needed? To figure this out, you can visualize it on a number line. You need to reach 1 and 3/4. You are currently at 1 and 1/2. The calculation is 1 and 3/4 - 1 and 1/2. Converting to a common denominator: 1 and 3/4 - 1 and 2/4 = 1/4 cup. You&#x27;re simply finding the distance between two points on the number line, which helps you understand exactly how much more ingredient to add. This prevents running out of ingredients or ruining the recipe!</div></div><div class="practice-card "><div class="practice-label">Working Memory Support — Future</div><div class="practice-content">Mastering rational numbers on a number line now will significantly impact <span class="ph">[Student Name]</span>&#x27;s future academic and career success. When <span class="ph">[they]</span> takes the SAT or ACT college entrance exams, questions involving ordering fractions, comparing decimals, and understanding inequalities on a number line are common. These tests determine college admissions and scholarship opportunities. In college, fields like engineering, computer science, and economics rely heavily on advanced math concepts that build directly from understanding rational numbers. For example, budgeting for college expenses or managing project timelines often involves fractions of time or money. People with strong mathematical foundations, including a solid grasp of rational numbers, statistically earn higher salaries over their careers, opening doors to more fulfilling and higher-paying jobs.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q1</div><div class="practice-content">Place the rational number 3/5 on the number line shown below, which is marked from 0 to 1.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q2</div><div class="practice-content">Locate the rational number -1/4 on the number line shown below, which is marked from -1 to 0.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q3</div><div class="practice-content">Identify the decimal that corresponds to the point marked &#x27;A&#x27; on the number line below. The number line is marked in tenths from 0 to 1.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q4</div><div class="practice-content">Which rational number is greater: 0.8 or 3/4? Use a number line to help you visualize.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q5</div><div class="practice-content">Find a rational number that lies exactly halfway between 1/2 and 3/4 on a number line.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q6</div><div class="practice-content">A submarine is at a depth of -15.5 feet relative to sea level (0 feet). It then rises 5.25 feet. What is its new depth? Represent this movement on a number line.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q7</div><div class="practice-content">The temperature dropped from 0°F to -7.3°F. What is the absolute value of this temperature drop? Explain using a number line.</div></div><div class="practice-card "><div class="practice-label">Guided Practice — Q8</div><div class="practice-content">Order the following rational numbers from least to greatest: 1/2, -0.75, 0, 1/4, -1.2.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 1</div><div class="practice-content">Plot the rational number <code>2/5</code> on the number line below. The number line is marked in fifths between 0 and 1.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Easy 2</div><div class="practice-content">Which decimal number is represented by point Z on the number line below? The number line is marked in tenths between 0 and 1, with a point Z exactly halfway between 0.7 and 0.8.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 1</div><div class="practice-content">Plot the rational number <code>-1/4</code> on the number line below. The number line is marked in fourths between -1 and 0.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 2</div><div class="practice-content">A temperature in Anchorage, Alaska, is recorded at -0.5 degrees Fahrenheit. Which of these temperatures would be shown to the right of -0.5 on a number line?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Medium 3</div><div class="practice-content">Identify the point on the number line below that represents the mixed number <code>1 3/4</code>. The number line goes from 0 to 2 and is marked in fourths.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 1</div><div class="practice-content"><span class="ph">[Student Name]</span> needs to order the following rational numbers from least to greatest: <code>-1/2</code>, <code>0.3</code>, <code>1.2</code>, <code>-0.75</code>. Where would <span class="ph">[they]</span> place these numbers on a number line?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 2</div><div class="practice-content">Name a rational number that is located between <code>1/3</code> and <code>2/3</code> on a number line.</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 3</div><div class="practice-content">A diver is currently at a depth of -2.5 meters relative to the surface of a swimming pool. If <span class="ph">[they]</span> descends an additional <code>1/2</code> meter, what will <span class="ph">[their]</span> new position be, represented as a rational number on a vertical number line?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Hard 4</div><div class="practice-content">Consider two points on a number line: Point A is at <code>-1/5</code> and Point B is at <code>-0.4</code>. Which point is further from 0, and what is its value?</div></div><div class="practice-card error-type"><div class="practice-label">Error Drill — Challenge 1</div><div class="practice-content">On a number line, point P is located at <code>-3/2</code>. Point Q is located at <code>1/4</code>. Point R is exactly halfway between P and Q. What is the rational number value of point R?</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 1</div><div class="practice-content">TRAP: Misinterpreting Fractions as Whole Numbers
+MISTAKE: <span class="ph">[Student Name]</span> sees a fraction like 1/2 and plots it at the whole number 1 or 2 on the number line instead of recognizing it as a part of a whole. This happens because <span class="ph">[they]</span> might be accustomed to plotting whole numbers.
+WHY TEMPTING: The individual digits in the numerator and denominator might visually stand out, leading <span class="ph">[them]</span> to associate them with specific whole number points.
+SOLUTION: Remind <span class="ph">[Student Name]</span> that a fraction represents a part of a whole. The denominator tells how many equal parts the whole is divided into (usually between 0 and 1, or between consecutive whole numbers), and the numerator tells how many of those parts you are considering from the starting point.
+EXAMPLE: Plot 3/4. Wrong Answer: At 3 or 4. Right Answer: Between 0 and 1, three-quarters of the way from 0.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 2</div><div class="practice-content">TRAP: Incorrectly Dividing Intervals for Non-Unit Fractions
+MISTAKE: When plotting a non-unit fraction like 2/3, <span class="ph">[Student Name]</span> might incorrectly divide the segment between whole numbers into 2 parts and then try to count 3, or vice-versa, leading to misplacement.
+WHY TEMPTING: Confusion arises from which number (numerator or denominator) dictates the number of divisions versus the count of those divisions.
+SOLUTION: The denominator (e.g., 3 in 2/3) tells you to divide the relevant whole-number interval (e.g., between 0 and 1) into that many equal pieces. The numerator (e.g., 2) then tells you how many of those pieces to count from the starting whole number.
+EXAMPLE: Plot 4/5. Wrong Answer: Dividing the segment into 4 parts and trying to mark a fifth, or dividing into 5 parts but marking the first or last. Right Answer: Divide the segment between 0 and 1 into 5 equal parts, then mark the line that is the 4th tick mark from 0.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 3</div><div class="practice-content">TRAP: Ignoring the Negative Sign
+MISTAKE: <span class="ph">[Student Name]</span> plots a negative rational number, such as -1/2 or -0.75, on the positive side of the number line, treating it as a positive value.
+WHY TEMPTING: The focus might be on the magnitude of the fraction or decimal, causing <span class="ph">[them]</span> to overlook the preceding negative sign.
+SOLUTION: Always check the sign of the rational number first. Negative numbers are always located to the left of 0 on the number line, while positive numbers are to the right. The magnitude then dictates its distance from 0 in that direction.
+EXAMPLE: Plot -2/3. Wrong Answer: Between 0 and 1, two-thirds of the way from 0. Right Answer: Between -1 and 0, two-thirds of the way from 0 towards -1.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 4</div><div class="practice-content">TRAP: Misplacing Mixed Numbers or Improper Fractions
+MISTAKE: <span class="ph">[Student Name]</span> plots a mixed number like 1 1/4 or an improper fraction like 5/4 between 0 and 1, rather than in the correct interval (between 1 and 2).
+WHY TEMPTING: <span class="ph">[they]</span> might focus solely on the fractional part and forget to account for the whole number component, or neglect to convert improper fractions to mixed numbers first.
+SOLUTION: For mixed numbers, the whole number tells you which interval on the number line the rational number belongs in (e.g., 1 1/4 is between 1 and 2). For improper fractions, convert them to a mixed number first to identify the correct interval.
+EXAMPLE: Plot 7/3. Wrong Answer: Between 0 and 1, or between 1 and 2. Right Answer: Convert 7/3 to 2 1/3, then plot it between 2 and 3, one-third of the way from 2.</div></div><div class="practice-card error-type"><div class="practice-label">Error Trap — Trap 5</div><div class="practice-content">TRAP: Treating Decimals as Whole Numbers for Placement
+MISTAKE: <span class="ph">[Student Name]</span> plots a decimal like 0.6 at the whole number 6, or 1.2 at 12, ignoring the decimal point and place value.
+WHY TEMPTING: Students are very familiar with whole numbers and might mistakenly apply that understanding to digits in decimals, especially if the decimal point is overlooked.
+SOLUTION: Remember that decimal numbers represent parts of a whole or a whole plus parts. 0.6 means 6 tenths, so it&#x27;s between 0 and 1. 1.2 means 1 whole and 2 tenths, placing it between 1 and 2. Focus on place value.
+EXAMPLE: Plot 0.75. Wrong Answer: At 75 on the number line. Right Answer: Between 0 and 1, three-quarters of the way from 0 (or 75% of the way).</div></div><div class="section-title">Practice Questions</div><div class="pq-card"><div class="pq-num">Q1 &nbsp;&bull;&nbsp; Q1</div>On a number line, the space between 0 and 1 is divided into 4 equal segments. <span class="ph">[Student Name]</span>, what rational number is located at the third mark from 0?</div><div class="pq-card"><div class="pq-num">Q2 &nbsp;&bull;&nbsp; Q2</div><span class="ph">[Student Name]</span>, plot the rational number 0.25 on a number line. If the line is marked with whole numbers, where would <span class="ph">[they]</span> place 0.25 relative to 0 and 1?</div><div class="pq-card"><div class="pq-num">Q3 &nbsp;&bull;&nbsp; Q3</div>On a number line, point A is at 1/2 and point B is at 0.75. <span class="ph">[Student Name]</span>, which point is further to the right?</div><div class="pq-card"><div class="pq-num">Q4 &nbsp;&bull;&nbsp; Q4</div><span class="ph">[Student Name]</span>, plot the rational number -1.5 on a number line. Describe its position relative to the integers -1 and -2.</div><div class="pq-card"><div class="pq-num">Q5 &nbsp;&bull;&nbsp; Q5</div>A diver is at -5.2 meters relative to the surface of the water, and a submarine is at -12.8 meters. <span class="ph">[Student Name]</span>, use a number line to determine who is deeper.</div><div class="pq-card"><div class="pq-num">Q6 &nbsp;&bull;&nbsp; Q6</div><span class="ph">[Student Name]</span>, order the following rational numbers from least to greatest and plot them on a number line: 1/2, -0.75, 0, 1.25.</div><div class="pq-card"><div class="pq-num">Q7 &nbsp;&bull;&nbsp; Q7</div>A stock price changed by -0.3 dollars today. Yesterday, it changed by +0.7 dollars. <span class="ph">[Student Name]</span>, which change represents a greater absolute value? Explain your answer using the concept of distance from zero on a number line.</div><div class="pq-card"><div class="pq-num">Q8 &nbsp;&bull;&nbsp; Q8</div>Imagine a track team is running laps. Runner A is at 3/4 of a lap, and Runner B is at 0.8 of a lap. Runner C is at 1/2 of a lap. <span class="ph">[Student Name]</span>, order their positions from furthest behind the starting line (0) to furthest ahead, and mark their positions on a number line that represents one lap.</div><div class="pq-card"><div class="pq-num">Q9 &nbsp;&bull;&nbsp; Q9</div><span class="ph">[Student Name]</span>, consider the rational numbers -2/3 and -0.6. Which one is greater? Explain how you would show this on a number line.</div><div class="pq-card"><div class="pq-num">Q10 &nbsp;&bull;&nbsp; Q10</div>A recipe calls for 1 and 1/4 cups of flour. <span class="ph">[Student Name]</span> only has 0.75 cups of flour. How much more flour does <span class="ph">[they]</span> need? Show the amounts on a number line.</div><div class="parent-section"><div class="parent-banner">&#128274; Parent Communication — Backend Only</div><div class="parent-inner"><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! This week, <span class="ph">[Student Name]</span> is diving into an important math topic: Rational Numbers on a Number Line. In simple terms, <span class="ph">[Student Name]</span> is learning how to accurately place all sorts of numbers, including fractions, decimals, and negative values, onto a number line to see their exact position and how they relate to other numbers. It helps them understand value and order beyond just whole numbers. Tonight, try this activity: grab a measuring tape or ruler. Ask <span class="ph">[Student Name]</span> to find 1/2 inch, 3/4 inch, and 1.5 inches. Then, challenge <span class="ph">[Student Name]</span> to imagine a temperature change of -2.5 degrees Fahrenheit from 0. Where would that be on a thermometer? At dinner, you could ask, &quot;If we spent $15.50 on groceries and budgeted $20, how would you show the remaining amount on a number line if zero is our starting budget?&quot; This will help <span class="ph">[Student Name]</span> connect math to real life!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Hi <span class="ph">[Student Name]</span>! I&#x27;m so excited for our math session today. We&#x27;re going to explore how to place rational numbers, like fractions and decimals, on a number line. It&#x27;s like finding a precise spot for every number, even the tricky ones! Ready to become a number line master, <span class="ph">[Student Name]</span>? Let&#x27;s start with a positive fraction, like 3/4. Where do you think that goes between 0 and 1?&quot; 
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;It&#x27;s okay, <span class="ph">[Student Name]</span>, that&#x27;s a common thought. When we look at 3/4, we know it&#x27;s less than 1 but more than 0. Let&#x27;s think of the space between 0 and 1. If we divide that space into 4 equal parts, where would the third part land? Can you point to it on our number line? Remember, the denominator tells us how many pieces we divide the whole into.&quot; 
+
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;You&#x27;re doing great, <span class="ph">[Student Name]</span>. Placing negative decimals can be a bit tricky because we&#x27;re moving left from zero. With -0.75, it&#x27;s like losing 75 cents. We know it&#x27;s between 0 and -1. Think of -1 as a dollar lost. How far to the left of 0 would you go to show 75 cents lost? If we divide the space between 0 and -1 into fourths, like -0.25, -0.50, -0.75, -1.00, where would -0.75 fit?&quot;
+
+SESSION CLOSING: &quot;Fantastic job today, <span class="ph">[Student Name]</span>! You did an excellent job plotting all those rational numbers on the number line. Remember, every fraction and decimal has a perfect home on that line, and you know how to find it. Keep practicing, <span class="ph">[Student Name]</span>, and you&#x27;ll be a pro in no time!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">The single most common mistake <span class="ph">[Student Name]</span> will make with Rational Numbers on a Number Line is incorrectly placing negative rational numbers, specifically confusing their order or distance from zero. For example, <span class="ph">[Student Name]</span> might place -1/2 to the right of -1, or place -0.25 closer to -1 than to 0. You&#x27;ll recognize this if <span class="ph">[Student Name]</span> struggles when asked to order -0.75, -1/4, and -1.25 from least to greatest, or if <span class="ph">[Student Name]</span> consistently puts -0.5 to the right of -0.25.
+
+Exact words to say to <span class="ph">[Student Name]</span>: &quot;Remember, with negative numbers, the farther left we go on the number line, the smaller the number. Think about cold temperatures: -5 degrees Fahrenheit is much colder (smaller) than -1 degree Fahrenheit.&quot; 
+
+What NOT to say to <span class="ph">[Student Name]</span>: &quot;You&#x27;re doing it backward! You always get negatives wrong.&quot; This can be discouraging and doesn&#x27;t help clarify the concept.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;incorrect_fraction_spacing&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might divide the space between 0 and 1 into unequal parts when placing fractions like 2/3, leading to an inaccurate position.&quot;, &quot;reassurance&quot;: &quot;It&#x27;s common to misjudge distances when first learning to place fractions, <span class="ph">[Student Name]</span>. This skill gets much easier with practice.&quot;, &quot;home_action&quot;: &quot;Draw a long line on a piece of paper. Have <span class="ph">[Student Name]</span> mark 0 and 1, then practice dividing the segment into halves, thirds, and fourths by eye, then checking with a ruler.&quot;}, {&quot;tag&quot;: &quot;negative_number_mirroring&quot;, &quot;parent_description&quot;: &quot;When placing negative rational numbers, <span class="ph">[Student Name]</span> may place -0.5 to the right of 0, mirroring the positive side incorrectly, or thinking -0.75 is &#x27;bigger&#x27; than -0.5.&quot;, &quot;reassurance&quot;: &quot;Negative numbers can be tricky, <span class="ph">[Student Name]</span>, because they work a bit differently than positive ones. You&#x27;ll get the hang of it!&quot;, &quot;home_action&quot;: &quot;Use a thermometer as a number line. Mark 0 degrees, then ask <span class="ph">[Student Name]</span> to show -1.5 degrees and -3/4 of a degree. Discuss which temperature is colder.&quot;}, {&quot;tag&quot;: &quot;decimal_vs_fraction_confusion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> might struggle to see that 0.5 and 1/2 represent the exact same point on the number line, treating them as distinct values.&quot;, &quot;reassurance&quot;: &quot;<span class="ph">[Student Name]</span>, fractions and decimals are just different ways of writing the same number. It&#x27;s like calling a quarter &#x27;25 cents&#x27; or &#x27;1/4 of a dollar&#x27;.&quot;, &quot;home_action&quot;: &quot;Write down a few common fractions (e.g., 1/4, 3/4, 1/2). Have <span class="ph">[Student Name]</span> convert them to decimals and then locate both on a number line, confirming they occupy the same spot.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Hello <span class="ph">[Parent Name]</span>! Let&#x27;s conquer &#x27;Rational Numbers on a Number Line&#x27; together. This concept is fundamental, and <span class="ph">[they]</span> will grasp it easily.
+
+1.  <strong>What is a Number Line?</strong> Imagine a straight highway that goes on forever in both directions. In the middle is Exit 0. To the right are positive mile markers (1, 2, 3...), and to the left are negative mile markers (-1, -2, -3...). This is our basic number line.
+
+2.  <strong>What are Rational Numbers?</strong> These are numbers that can be written as a fraction, like A/B, where B isn&#x27;t zero. This includes all whole numbers (since 3 can be 3/1), integers (like -2, which is -2/1), fractions (like 1/2 or 3/4), and decimals that stop (like 0.75, which is 3/4) or repeat (like 0.333..., which is 1/3). 
+
+3.  <strong>Plotting Positive Rational Numbers:</strong> Think about a recipe. If a recipe calls for 1/2 cup of sugar, <span class="ph">[they]</span> knows that&#x27;s exactly halfway between 0 cups and 1 cup. On our number line, 1/2 is exactly between 0 and 1. If <span class="ph">[they]</span> had 1.75 gallons of paint, that&#x27;s three-quarters of the way between 1 and 2.
+
+4.  <strong>Plotting Negative Rational Numbers:</strong> Now, let&#x27;s say <span class="ph">[they]</span> checks <span class="ph">[their]</span> bank account and sees -$25.50. This means <span class="ph">[they]</span> is $25.50 below zero. On the number line, we&#x27;d go past -25, and then halfway to -26, landing on -25.5. The further left <span class="ph">[they]</span> goes from 0, the &#x27;smaller&#x27; the negative number is. So, -$25.50 is &#x27;less&#x27; than -$10. 
+
+5.  <strong>Putting it Together:</strong> Every rational number has a unique, precise spot on this highway. <span class="ph">[they]</span> will be able to pinpoint 1/4, -0.75, 2 1/2, or any other fraction or decimal, understanding its value and relationship to other numbers. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> will master this concept and be able to teach <span class="ph">[Student Name]</span> confidently.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estará aprendiendo sobre &quot;Números Racionales en la Línea Numérica&quot; en 6º grado. En términos sencillos, <span class="ph">[Student Name]</span> aprenderá a ubicar números que no son solo enteros, como 1, 2 o -3, sino también partes de números, como fracciones (ej. 1/2, -3/4) y decimales (ej. 0.75, -1.25), en una línea recta. Es una habilidad fundamental que amplía lo que <span class="ph">[they]</span> ya sabe de una regla o un termómetro. Para una actividad práctica divertida esta noche, tomen una cinta métrica y úsenla como una línea numérica. Marquen el 0, 1, 2, -1 y -2 con cinta adhesiva. Luego, pídanle a <span class="ph">[Student Name]</span> que coloque números como 1/2, 1.5, -3/4 o -0.25 con pequeñas etiquetas. En la cena, podrían preguntarle: &quot;¿Cómo nos ayudaría una línea de números si estuviéramos planificando un viaje en carretera desde nuestro hogar en California para ver un partido de fútbol, marcando las distancias de las paradas antes y después de nuestro destino?</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;¡Hola, <span class="ph">[Student Name]</span>! ¡Me encanta verte hoy! Prepárate porque vamos a explorar un concepto súper interesante: los números racionales en la línea numérica. ¡<span class="ph">[they]</span> verás qué útil es para entender el mundo que nos rodea, desde la temperatura hasta las distancias en un mapa de Estados Unidos!&quot;
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;No te preocupes, <span class="ph">[Student Name]</span>, estamos aquí para aprender juntos. Parece que estamos un poco atascados aquí. Recuerda que un número racional es cualquier número que podemos escribir como una fracción, ¡incluso los números enteros como 2 o -5! Para ubicar 1/2 en la línea, ¿cómo dividirías el espacio entre 0 y 1 en partes iguales? ¡Piensa en cortar una pizza!&quot;
+IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;¡Vamos, <span class="ph">[Student Name]</span>! No hay problema en equivocarse. Ahora que sabemos ubicar 1/2, ¿qué tal si intentamos ubicar -1/2? Piensa que los números negativos son como un &#x27;reflejo&#x27; de los positivos al otro lado del cero. Si 1/2 está entre 0 y 1, ¿dónde crees que -1/2 estaría entre 0 y -1? ¿Quizás la mitad del camino a la izquierda del cero?&quot;
+SESSION CLOSING: &quot;¡Excelente trabajo hoy, <span class="ph">[Student Name]</span>! ¡Has demostrado una gran habilidad para ubicar esos números racionales en la línea! ¡Estoy muy orgulloso/a de cómo <span class="ph">[they]</span> te esfuerzas y aprendes. ¡Sigue practicando, y pronto <span class="ph">[they]</span> serás un experto en las líneas numéricas, como un director de orquesta dirigiendo su sinfonía de números!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">El error más común que <span class="ph">[Student Name]</span> podría cometer al trabajar con números racionales en la línea numérica es la ubicación incorrecta de fracciones y decimales negativos. Por ejemplo, <span class="ph">[they]</span> podría pensar que -1/4 está más a la izquierda que -1, o que 0.5 está en el punto medio de la línea completa en lugar de entre 0 y 1. Para reconocerlo, notarás que <span class="ph">[they]</span> coloca números negativos más pequeños (como -0.25) en posiciones que corresponden a números más grandes (como -2). Para intervenir, di: &quot;Veo que colocaste -1/4 a la izquierda de -1, <span class="ph">[Student Name]</span>. Recuerda, cuanto más a la izquierda, más pequeño es el número. Piensa en deber dinero: ¿Preferirías deber 1 peso o deber 0.25 pesos? ¿Cuál es una deuda menor (un número mayor)?&quot; Lo que NO debes decir: &quot;Eso está mal&quot;, &quot;No estás prestando atención&quot;.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;misplacing_negative_fractions&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> ubica fracciones negativas en el lugar incorrecto, por ejemplo, colocando -1/2 a la izquierda de -1 en la l\u00ednea num\u00e9rica. <span class="ph">[they]</span> no asocia que, al ser negativo, -1/2 es mayor que -1.&quot;, &quot;reassurance&quot;: &quot;Es un error muy com\u00fan al principio, \u00a1y f\u00e1cil de corregir! <span class="ph">[Student Name]</span> est\u00e1 aprendiendo a entender la relaci\u00f3n entre el valor y la posici\u00f3n de los n\u00fameros negativos. Es parte del proceso.&quot;, &quot;home_action&quot;: &quot;Usen un term\u00f3metro real para comparar temperaturas bajo cero. Preg\u00fantenle a <span class="ph">[Student Name]</span>: &#x27;\u00bfHace m\u00e1s fr\u00edo a -1 grado Fahrenheit o a -1/2 grado Fahrenheit?&#x27; Esto ayuda a visualizar que -1/2 es &#x27;m\u00e1s caliente&#x27; (mayor) que -1.&quot;}, {&quot;tag&quot;: &quot;incorrect_interval_division&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> no divide los segmentos de la l\u00ednea num\u00e9rica de manera uniforme o confunde el &#x27;todo&#x27; de la l\u00ednea con cada &#x27;unidad&#x27; de la l\u00ednea. Por ejemplo, al ubicar 1/3, <span class="ph">[they]</span> podr\u00eda dividir el segmento de 0 a 2 en tres partes iguales en lugar de dividir el segmento de 0 a 1 en tres partes.&quot;, &quot;reassurance&quot;: &quot;\u00a1Es un desaf\u00edo com\u00fan entender c\u00f3mo las fracciones dividen cada &#x27;unidad&#x27; en la l\u00ednea, no la l\u00ednea completa! Con un poco m\u00e1s de pr\u00e1ctica y paciencia, <span class="ph">[Student Name]</span> dominar\u00e1 esta habilidad de precisi\u00f3n.&quot;, &quot;home_action&quot;: &quot;Con una regla o cinta m\u00e9trica (que ya tiene divisiones), marquen los cent\u00edmetros o pulgadas enteras. Luego, pidan a <span class="ph">[Student Name]</span> que marque las medias pulgadas (1/2), los cuartos de pulgada (1/4) y los tercios de pulgada (si es posible estimarlos o medir con precisi\u00f3n) dentro de cada unidad, por ejemplo, entre 0 y 1 pulgada.&quot;}, {&quot;tag&quot;: &quot;confusing_decimals_and_fractions&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> tiene dificultades para relacionar la posici\u00f3n de un decimal con su fracci\u00f3n equivalente en la l\u00ednea num\u00e9rica, como no saber que 0.75 y 3/4 van en el mismo lugar, o 0.5 y 1/2.&quot;, &quot;reassurance&quot;: &quot;Convertir decimales a fracciones y viceversa es una habilidad que <span class="ph">[Student Name]</span> est\u00e1 fortaleciendo. Es cuesti\u00f3n de pr\u00e1ctica y reconocimiento de patrones para ver que son lo mismo con diferente &#x27;traje&#x27;.&quot;, &quot;home_action&quot;: &quot;Escriban varios decimales comunes (0.25, 0.5, 0.75, 0.1) y sus fracciones equivalentes (1/4, 1/2, 3/4, 1/10) en tarjetas separadas. Pidan a <span class="ph">[Student Name]</span> que agrupe las tarjetas que representan el mismo n\u00famero y explique por qu\u00e9 pertenecen juntas.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">¡Hola, <span class="ph">[Parent Name]</span>! No se preocupe si los &quot;Números Racionales en la Línea Numérica&quot; le suenan complicados. <span class="ph">[they]</span> verá que es más sencillo de lo que parece y le ayudará a entender mejor las matemáticas de <span class="ph">[Student Name]</span>. Imagine una línea numérica como una regla muy larga, o el marcador de un campo de fútbol americano, que se extiende infinitamente.
+1.  <strong>¿Qué es una línea numérica?</strong> Es una recta donde cada punto representa un número. El cero es el centro. A la derecha, números positivos (1, 2, 3...). A la izquierda, negativos (-1, -2, -3...). 
+2.  <strong>¿Qué son los &quot;números racionales&quot;?</strong> Son todos los números que podemos escribir como una fracción. Esto incluye enteros (2 es 2/1), fracciones (1/2, 3/4, -5/3) y decimales (0.5, 1.75, -2.1). Piense en su presupuesto: si gastó 15.50 pesos, es un racional. Si ganó 500.75 pesos, también.
+3.  <strong>Ubicar positivos:</strong> Para 1/2, divida el espacio entre 0 y 1 en dos partes iguales y marque la primera. Para 0.75, divida 0 a 1 en cuatro partes y marque la tercera.
+4.  <strong>Ubicar negativos:</strong> Es lo mismo, pero a la izquierda del cero. Para -1/2, divida el espacio entre 0 y -1 en dos, marcando la primera. Para -1.5, vaya a -1, luego divida entre -1 y -2 en dos, marcando la mitad.
+5.  <strong>Ejemplo práctico:</strong> Si <span class="ph">[they]</span> tiene una deuda de 125.50 pesos, es un número racional negativo. Si <span class="ph">[they]</span> recibe un descuento de 15.25 pesos, eso se puede ver como un movimiento positivo en su línea de presupuesto. Cocinar también: una receta pide 3/4 de taza, eso está entre 0 y 1.
+<span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> verá que con estos ejemplos cotidianos, <span class="ph">[they]</span> dominará este concepto y podrá ayudar a <span class="ph">[Student Name]</span> con confianza.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Bonjou, <span class="ph">[Parent Name]</span>! Semèn sa a, <span class="ph">[Student Name]</span> ap aprann yon bagay trè enpòtan nan matematik: &#x27;Nonm Rasyonèl sou yon Liy Nonm&#x27;. Sa vle di <span class="ph">[they]</span> pral aprann kijan pou mete tout kalite nonm—sa yo nou rele nonm rasyonèl—sou yon liy dwat ki gen nimewo.  Yon nonm rasyonèl se nenpòt nonm ki ka ekri kòm yon fraksyon (tankou 1/2, 3/4, oswa menm 5 kòm 5/1). Li enpòtan paske li ede <span class="ph">[Student Name]</span> konprann valè relatif nonm yo.  Yon aktivite ou ka fè avèk <span class="ph">[Student Name]</span> aswè a se pran yon mezi tep nan kay la. Mandele <span class="ph">[them]</span> mezire longè yon tab an santimèt epi apresa konvèti mezi sa a an fraksyon (pa egzanp, si li 1.5 mèt, èske se 1 ak 1/2 mèt?). Mande l kote 1.5 oswa 1 1/2 ta ye sou yon liy nonm ki gen mak pou mèt. Nan dine, ou ka mande: &#x27;Si ou te dwe mete 2.5 ak 2 1/4 sou yon liy nonm, kiyès ki t ap pi pre 3?&#x27; Sa ap ede <span class="ph">[Student Name]</span> pratike panse sou kote nonm sa yo ye.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Bonjou, <span class="ph">[Student Name]</span>! Jodi a nou pral gen yon leson enteresan sou kijan pou mete nonm rasyonèl—sa vle di fraksyon, desimal, ak nonm antye—sou yon liy nonm. Sa ap ede w wè kote yo ye youn parapò ak lòt, tankou yon kat jeyografik pou nonm yo!&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Ann pran yon poz, <span class="ph">[Student Name]</span>. Gade liy nonm nan byen. Ki sa chak gwo mak reprezante? Eske se antye, mwatye, oswa yon ka? Lè nou konprann entèval sa yo, sa ap ede nou byen plase nonm rasyonèl yo. Pa egzanp, si ou wè mak pou 0, 1, 2, sa vle di chak gwo espas se yon antye.&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Pa enkyete w, <span class="ph">[Student Name]</span>. Lè w gen yon fraksyon tankou 3/4, èske nou ka panse a li kòm yon desimal? Oswa èske nou ka imajine divize espas ki genyen ant 0 ak 1 an kat pati egal? Epi kote 3yèm pati a ta ye? Oswa si nou gen 0.6, ki kote sa ta tonbe ant 0 ak 1? Sonje byen, 0.6 se menm bagay ak 6/10. Ann gade sa, <span class="ph">[Student Name]</span>. Ki kote 0.6 ta ye?&quot; SESSION CLOSING: &quot;Waw, <span class="ph">[Student Name]</span>! Ou fè yon travay sipèb jodi a ap plase tout kalite nonm sou liy nonm nan. Ou vrèman konprann kijan pou mete fraksyon ak desimal. Kontinye pratike, epi w ap vin yon mèt nan sa!</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content">Youn nan erè ki pi komen <span class="ph">[Student Name]</span> pral fè se bliye ke nonm rasyonèl negatif yo, tankou -1/2 oswa -0.75, yo toujou mete sou bò goch zewo sou liy nonm nan, epi pi piti nonm yo pi lwen zewo sou bò goch. <span class="ph">[Student Name]</span> ka gen tou difikilte pou konvèti fraksyon an desimal (oswa vis vèrsa) pou mete yo byen. Pa egzanp, <span class="ph">[Student Name]</span> ka mete 1/2 (0.5) apre 0.75 paske li panse ke 2 a pi &#x27;gwo&#x27; nan fraksyon an. Ou ka rekonèt sa si <span class="ph">[Student Name]</span> ap plase nonm tankou -0.5 sou bò dwat zewo, oswa si <span class="ph">[they]</span> mete 1/4 apre 1/2 san l pa konvèti yo. Pou ede, di: &#x27;Ann panse sou nonm sa a, <span class="ph">[Student Name]</span>. Èske li pi gran pase 0, oswa pi piti pase 0? Si li pi piti, li dwe sou bò gòch. Epi, si li se yon fraksyon ant 0 ak 1, an konbyen pati nou dwe divize espas sa a pou jwenn li?&#x27; Sa OU PA DWE DI: &#x27;Sa fasil! Ou te aprann sa deja, <span class="ph">[Student Name]</span>.&#x27; Evite fè <span class="ph">[Student Name]</span> santi l wont.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;negative_placement&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> mete nonm rasyon\u00e8l negatif yo adwat zewo sou liy nonm nan. Pa egzanp, <span class="ph">[they]</span> mete -0.5 ant 0 ak 1.&quot;, &quot;reassurance&quot;: &quot;Se yon er\u00e8 komen, <span class="ph">[Student Name]</span> ap konprann sa ak plis pratike. Sonje, negatif yo toujou ap sou b\u00f2 g\u00f2ch la!&quot;, &quot;home_action&quot;: &quot;S\u00e8vi ak yon t\u00e8mom\u00e8t lakay ou. Montre <span class="ph">[Student Name]</span> ke tanperati ki anba zewo (negatif) yo toujou pi ba sou t\u00e8mom\u00e8t la, menm jan ak nonm negatif yo sou b\u00f2 goch liy nonm nan.&quot;}, {&quot;tag&quot;: &quot;fraction_decimal_conversion&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> gen difikilte pou konv\u00e8ti fraksyon an desimal (ak vis v\u00e8rsa) pou mete yo byen. Sa f\u00e8 <span class="ph">[they]</span> pa konpare yo k\u00f2r\u00e8kteman.&quot;, &quot;reassurance&quot;: &quot;Konv\u00e8ti fraksyon ak desimal mande pratike, <span class="ph">[Student Name]</span> ap vin pi bon ladan l. Se tankou aprann pale de lang diferan!&quot;, &quot;home_action&quot;: &quot;Pandan n ap kwit manje, mande <span class="ph">[Student Name]</span> pou konv\u00e8ti yon mezi. Pa egzanp, si res\u00e8t la di 1/4 tas, mande l konbyen sa ta ye an desimal (0.25), oswa vis v\u00e8rsa ak 0.75 tas.&quot;}, {&quot;tag&quot;: &quot;unequal_intervals&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pa divize ent\u00e8val yo sou liy nonm nan an pati egal l\u00e8 l ap plase fraksyon, sitou ant de nonm antye.&quot;, &quot;reassurance&quot;: &quot;L\u00e8 w ap divize liy nonm nan, li enp\u00f2tan pou w egzak, epi <span class="ph">[Student Name]</span> ap aprann egzat ak plis f\u00f2masyon. Li tankou koupe yon gato an pati egal.&quot;, &quot;home_action&quot;: &quot;Desine yon liy nonm sou yon papye. Bay <span class="ph">[Student Name]</span> yon fraksyon tankou 2/3. Mande <span class="ph">[them]</span> divize espas ki genyen ant 0 ak 1 an twa pati egal, epi make 2/3 la. Diskite poukisa pati yo dwe egal.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Bonjou <span class="ph">[Parent Name]</span>! Jodi a nou pral gade &#x27;Nonm Rasyonèl sou yon Liy Nonm&#x27;. Pa enkyete w si sa sonnen konplike, <span class="ph">[they]</span> pral konprann sa byen vit. Imajine yon liy nonm kòm yon wout dwat ki gen mak pou nimewo.  Sou liy sa a, ou gen nonm antye pozitif (1, 2, 3...) sou bò dwat zewo, ak nonm antye negatif (-1, -2, -3...) sou bò goch zewo.  Yon &#x27;nonm rasyonèl&#x27; se jis yon nonm ki ka ekri kòm yon fraksyon (tankou 1/2, 3/4, 2/1). Sa vle di desimal ki fini (tankou 0.5) oswa ki repete (tankou 0.333...) se nonm rasyonèl tou.  Men kijan pou w konprann li: 1. <strong>Konprann Liy Debaz la:</strong> Panse a li tankou yon mezi tep. Chak mak endike yon valè. 2. <strong>Ki kote Nonm Rasyonèl yo ye?</strong> Yo chita ant nonm antye yo. Pa egzanp, 1/2 se ant 0 ak 1.  Nan yon makèt nan Pòtoprens, si yon moun dwe 250 gourdes, sa se -250 sou yon liy nonm kontabilite. Si <span class="ph">[they]</span> achte 0.75 liv diri, sa se 3/4 liv diri. Kote 0.75 ta ye ant 0 ak 1 sou yon liy nonm ki reprezante liv? Li ant 0 ak 1, pi pre 1.  3. <strong>Konvèsyon:</strong> Pou byen plase yo, pafwa li pi fasil pou konvèti yon fraksyon an desimal (pa egzanp, 3/4 = 0.75) oswa yon desimal an fraksyon (pa egzanp, 0.5 = 1/2). 4. <strong>Divize Espas yo:</strong> Ant 0 ak 1, pou plase 1/2, ou divize espas la an de pati egal epi make premye a. Pou 1/4, ou divize an kat pati.  <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> pral metrize konsèp sa a epi <span class="ph">[they]</span> ap ka ede <span class="ph">[Student Name]</span> avèk konfyans.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Communication</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Esta semana, <span class="ph">[Student Name]</span> estará aprendendo sobre &quot;Números Racionais na Reta Numérica&quot; na 6ª série. O conceito chave é entender que frações e decimais são apenas diferentes maneiras de escrever números que existem entre os números inteiros em uma linha. Por exemplo, 1/2 e 0,5 são o mesmo ponto entre 0 e 1. Para uma atividade prática esta noite, você pode pegar uma fita métrica ou régua e pedir a <span class="ph">[Student Name]</span> para encontrar a marca de 1/4 de polegada, 1/2 polegada e 0,75 polegadas, explicando que elas são todos pontos específicos entre os centímetros inteiros. Na hora do jantar, pergunte a <span class="ph">[Student Name]</span>: &quot;Se você tivesse que dividir uma pizza em 8 fatias iguais, onde você colocaria 3/8 da pizza em uma reta numérica entre 0 (nenhuma pizza) e 1 (uma pizza inteira)?&quot;. Isso ajudará <span class="ph">[Student Name]</span> a visualizar esses números.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Support</div><div class="parent-atom-content">SESSION OPENING: &quot;Oi, <span class="ph">[Student Name]</span>! Que bom ver você. Hoje vamos explorar os números racionais e como eles vivem na reta numérica. É como dar um endereço exato para frações e decimais!&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 1: &quot;Não se preocupe, <span class="ph">[Student Name]</span>, é comum ficar um pouco confuso no início. Lembre-se que uma fração como 3/4 significa que você dividiu algo em 4 partes iguais e pegou 3 delas. Na reta numérica entre 0 e 1, você precisaria dividi-la em 4 partes. Onde você colocaria o 3 dessas 4 partes, <span class="ph">[Student Name]</span>?&quot; IF <span class="ph">[Student Name]</span> IS STUCK ON STEP 2: &quot;Quase lá, <span class="ph">[Student Name]</span>! Quando comparamos números como 0,25 e 1/2, é útil pensar neles no mesmo formato. Por exemplo, 1/2 é o mesmo que 0,50. Se você tem 0,25 reais e 0,50 reais, qual é o maior valor, <span class="ph">[Student Name]</span>? Agora, onde você colocaria cada um na reta numérica para ver qual está mais à direita?&quot; SESSION CLOSING: &quot;Excelente trabalho hoje, <span class="ph">[Student Name]</span>! Você está se tornando um mestre em colocar números racionais na reta numérica. Tenho certeza que você vai arrasar nas próximas atividades, <span class="ph">[Student Name]</span>! Vejo você na próxima.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Insight</div><div class="parent-atom-content"><span class="ph">[Parent Name]</span>, o erro mais comum que <span class="ph">[Student Name]</span> pode cometer ao trabalhar com números racionais na reta numérica é a <strong>confusão entre o numerador e o denominador ao dividir os segmentos</strong>. Por exemplo, ao representar 2/3, <span class="ph">[Student Name]</span> pode dividir o segmento entre 0 e 1 em 2 partes e marcar a 3ª, em vez de dividir em 3 partes e marcar a 2ª. Para reconhecer isso, observe se <span class="ph">[Student Name]</span> está dividindo a unidade (por exemplo, entre 0 e 1) pelo número de cima da fração (numerador) em vez do número de baixo (denominador). O que dizer a <span class="ph">[Student Name]</span>: &quot;Lembre-se, <span class="ph">[Student Name]</span>, o número de baixo (o denominador) nos diz em quantas partes iguais a unidade é dividida. O número de cima (o numerador) nos diz quantas dessas partes nós contamos a partir do zero.&quot; O que NÃO dizer: &quot;Você está fazendo de novo! Isso é muito básico, <span class="ph">[Student Name]</span>.&quot; ou &quot;É só dividir pelo de baixo e contar o de cima, não é difícil.</div></div><div class="parent-atom"><div class="parent-atom-label">Parent Resources</div><div class="parent-atom-content">{&quot;misconceptions&quot;: [{&quot;tag&quot;: &quot;numerador_denominador_confusao&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode dividir a reta num\u00e9rica em um n\u00famero de segmentos igual ao numerador da fra\u00e7\u00e3o, em vez do denominador. Por exemplo, para 3/5, <span class="ph">[Student Name]</span> pode dividir a linha entre 0 e 1 em 3 partes e tentar marcar a 5\u00aa parte, o que \u00e9 imposs\u00edvel dentro desse segmento.&quot;, &quot;reassurance&quot;: &quot;\u00c9 uma confus\u00e3o comum, mas com pr\u00e1tica, <span class="ph">[Student Name]</span> vai aprender a usar o denominador para dividir corretamente a reta.&quot;, &quot;home_action&quot;: &quot;Pegue uma barra de chocolate e pe\u00e7a a <span class="ph">[Student Name]</span> para dividi-la em 5 partes iguais. Em seguida, pe\u00e7a para <span class="ph">[Student Name]</span> mostrar 3/5 da barra.&quot;}, {&quot;tag&quot;: &quot;decimais_posicionamento_incorreto&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode ter dificuldade em posicionar decimais como 0,2 ou 0,75, tratando-os como n\u00fameros inteiros ou colocando-os muito longe ou perto do zero sem considerar as casas decimais. Por exemplo, pode colocar 0,2 mais perto de 1 do que de 0,5.&quot;, &quot;reassurance&quot;: &quot;\u00c9 natural ter d\u00favidas com decimais, pois eles parecem diferentes das fra\u00e7\u00f5es. <span class="ph">[Student Name]</span> vai pegar o jeito de visualiz\u00e1-los.&quot;, &quot;home_action&quot;: &quot;Use dinheiro de brinquedo ou notas de reais reais. Pergunte a <span class="ph">[Student Name]</span> onde R$0,50, R$0,25 e R$0,75 se encaixariam em uma reta num\u00e9rica que vai de R$0,00 a R$1,00.&quot;}, {&quot;tag&quot;: &quot;comparacao_fracoes_decimais&quot;, &quot;parent_description&quot;: &quot;<span class="ph">[Student Name]</span> pode achar dif\u00edcil comparar fra\u00e7\u00f5es e decimais entre si para orden\u00e1-los na reta num\u00e9rica (por exemplo, qual \u00e9 maior: 1/4 ou 0,3?). <span class="ph">[Student Name]</span> pode simplesmente adivinhar ou n\u00e3o saber como convert\u00ea-los para o mesmo formato.&quot;, &quot;reassurance&quot;: &quot;Comparar diferentes tipos de n\u00fameros pode ser complicado, mas <span class="ph">[Student Name]</span> est\u00e1 desenvolvendo as habilidades para fazer as convers\u00f5es necess\u00e1rias.&quot;, &quot;home_action&quot;: &quot;Escreva algumas fra\u00e7\u00f5es (1/2, 3/4) e decimais (0,6, 0,1) em pequenos peda\u00e7os de papel. Pe\u00e7a a <span class="ph">[Student Name]</span> para orden\u00e1-los do menor para o maior e depois coloc\u00e1-los em uma linha imagin\u00e1ria no ch\u00e3o.&quot;}]</div></div><div class="parent-atom"><div class="parent-atom-label">Parent ELI5</div><div class="parent-atom-content">Olá, <span class="ph">[Parent Name]</span>! Vamos entender o que são os &quot;Números Racionais na Reta Numérica&quot;. Não se preocupe, <span class="ph">[they]</span> verá que é mais fácil do que parece! Imagine uma linha reta, como uma régua, que vai de zero para a direita (números positivos) e para a esquerda (números negativos). Os números inteiros (como -1, 0, 1, 2) são fáceis de encontrar nela. 1. <strong>O que é um Número Racional?</strong> Simplesmente, é qualquer número que pode ser escrito como uma fração (um número dividido por outro). Isso inclui: Números Inteiros (2 pode ser escrito como 2/1); Frações (1/2, 3/4, -5/3); Decimais Finitos (0,5 é 1/2. 0,75 é 3/4); Decimais Periódicos (0,333... é 1/3). Se <span class="ph">[they]</span> pensar em dinheiro: R$1,50 é um número racional (150/100). Meia dúzia de ovos (6/12) é racional. 2. <strong>Por que a Reta Numérica?</strong> Ela nos ajuda a &quot;ver&quot; onde esses números vivem. Entre 0 e 1, existem infinitos números. Exemplo com frações: Se <span class="ph">[they]</span> está assando um bolo e a receita pede 3/4 de xícara de farinha. Na reta numérica entre 0 e 1 (uma xícara cheia), <span class="ph">[they]</span> dividiria o espaço em 4 partes iguais e contaria 3 delas. Esse é o ponto exato para 3/4. Exemplo com decimais: Se <span class="ph">[they]</span> está medindo algo no trabalho e precisa de 0,2 metros. Na reta numérica entre 0 e 1 metro, <span class="ph">[they]</span> dividiria em 10 partes iguais (cada uma 0,1m) e contaria 2 delas. Esse é o ponto exato para 0,2. Para ordenar números como 1/2 e 0,65, é útil convertê-los para o mesmo formato (1/2 = 0,50). Assim, <span class="ph">[they]</span> vê que 0,65 está mais à direita na reta que 0,50. <span class="ph">[Parent Name]</span>, <span class="ph">[they]</span> dominará este conceito e poderá ajudar <span class="ph">[Student Name]</span> com confiança!</div></div></div></div>
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath — Questions: Two-Step Equations</title>
+<style>
+:root {
+  --bp-blue:   #1a3a5c;
+  --bp-teal:   #0d7a8a;
+  --bp-gold:   #f5a623;
+  --bp-light:  #f4f8fb;
+  --bp-border: #dce8f0;
+  --text:      #1c2b3a;
+  --muted:     #5a7080;
+  font-size: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text);
+  background: #fff;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+/* Header */
+.bp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--bp-blue);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+}
+.bp-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bp-blue);
+  letter-spacing: -0.5px;
+}
+.bp-logo span { color: var(--bp-teal); }
+.bp-meta {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.skill-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin-bottom: 4px;
+}
+.skill-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
+}
+/* Question card */
+.q-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+.q-header {
+  background: var(--bp-blue);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.q-body { padding: 18px 20px; }
+.q-prompt { font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--bp-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bp-light);
+}
+.opt-letter {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: var(--bp-teal);
+  min-width: 20px;
+}
+/* Admin block */
+.admin-block {
+  margin-top: 18px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.admin-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 5px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.admin-inner { padding: 12px 14px; background: #fffef5; }
+.solution-label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 8px;
+}
+.step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+.step-num {
+  background: var(--bp-teal);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
+.step-exp { color: var(--muted); font-size: 13px; }
+.answer-line {
+  margin-top: 10px;
+  font-size: 13px;
+  padding: 7px 12px;
+  background: #e8f5ee;
+  border-left: 3px solid var(--bp-teal);
+  border-radius: 4px;
+}
+/* Lesson atoms */
+.section-title {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  border-bottom: 2px solid var(--bp-border);
+  padding-bottom: 6px;
+  margin: 28px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lo-box {
+  background: var(--bp-blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lo-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+/* CE variant details */
+details.ce-variant {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.ce-variant summary {
+  background: var(--bp-light);
+  padding: 10px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+details.ce-variant summary::-webkit-details-marker { display: none; }
+details.ce-variant summary::before { content: '▶'; font-size: 9px; }
+details.ce-variant[open] summary::before { content: '▼'; }
+details.ce-variant .ce-content { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Worked examples */
+.we-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.we-header {
+  background: var(--bp-teal);
+  color: #fff;
+  padding: 7px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.we-body { padding: 14px 16px; font-size: 14px; line-height: 1.72; white-space: pre-wrap; }
+/* Practice atoms */
+.practice-card {
+  border-left: 4px solid var(--bp-teal);
+  background: var(--bp-light);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+.practice-card.error-type { border-left-color: #e05c2a; }
+.practice-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--bp-teal);
+  margin-bottom: 6px;
+}
+.practice-card.error-type .practice-label { color: #e05c2a; }
+.practice-content { font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+/* PQ cards */
+.pq-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pq-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bp-teal);
+  margin-bottom: 4px;
+}
+/* Parent section */
+.parent-section {
+  margin-top: 32px;
+  border: 1.5px dashed #c8a000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.parent-banner {
+  background: #fffbea;
+  border-bottom: 1.5px dashed #c8a000;
+  padding: 8px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #7a5f00;
+}
+.parent-inner { padding: 14px 16px; }
+.parent-atom { margin-bottom: 14px; }
+.parent-atom-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #c67c00;
+  margin-bottom: 5px;
+}
+.parent-atom-content { font-size: 13.5px; line-height: 1.65; white-space: pre-wrap; }
+/* Placeholder tags */
+.ph {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* Hint tags */
+.hint-tag {
+  display: inline-block;
+  background: #e8f5ee;
+  color: var(--bp-teal);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85em;
+  font-style: italic;
+  margin: 4px 0;
+}
+/* Index */
+.index-section-header {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-blue);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--bp-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.index-count {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.index-card {
+  border: 1px solid var(--bp-border);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--text);
+  transition: box-shadow 0.15s;
+}
+.index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.ic-grade {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bp-blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.index-card.lesson-card .ic-grade { background: #c67c00; }
+.ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
+.ic-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
+.ic-link.l-link { background: #fff3e0; color: #c67c00; }
+@media print {
+  body { padding: 20px; }
+  .q-card, .we-card, .practice-card { page-break-inside: avoid; }
+}
+</style>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<div class="bp-header">
+  <div class="bp-logo">Bright<span>Path</span></div>
+  <div class="bp-meta">Grade 7 | EE | Skill 7.EE.009<br>10 diagnostic questions<br></div>
+</div>
+<h1 class="skill-title">Two-Step Equations</h1>
+<p class="skill-subtitle">Skill ID: 7.EE.009</p>
+<div class="q-card">
+  <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">Sarah bought a book for $12 and 3 pens. She spent a total of $21. How much did each pen cost?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> $9</div><div class="option"><span class="opt-letter">B.</span> $3</div><div class="option"><span class="opt-letter">C.</span> $7</div><div class="option"><span class="opt-letter">D.</span> $1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">12 + 3p = 21</div>
+    <div class="step-exp">The total cost ($21) is the sum of the fixed cost of the book ($12) and the variable cost of 3 pens (3p).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3p = 21 - 12
+3p = 9</div>
+    <div class="step-exp">To isolate the term with the variable (3p), perform the inverse operation of addition, which is subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">p = 9 / 3
+p = 3</div>
+    <div class="step-exp">To solve for p, perform the inverse operation of multiplication, which is division.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> $3 (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 2</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A runner completed a race in 25 minutes. This was 5 minutes less than twice his practice time. How long was his practice time?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 30 minutes</div><div class="option"><span class="opt-letter">B.</span> 15 minutes</div><div class="option"><span class="opt-letter">C.</span> 12.5 minutes</div><div class="option"><span class="opt-letter">D.</span> 10 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2x - 5 = 25</div>
+    <div class="step-exp">The race time (25 minutes) is 5 minutes less than twice the practice time (2x).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2x = 25 + 5
+2x = 30</div>
+    <div class="step-exp">To isolate the term with the variable (2x), perform the inverse operation of subtraction, which is addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">x = 30 / 2
+x = 15</div>
+    <div class="step-exp">To solve for x, perform the inverse operation of multiplication, which is division.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 15 minutes (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 3</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A recipe calls for 4 cups of sugar. This is 1 cup more than half the amount of flour needed. How much flour is needed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 cups</div><div class="option"><span class="opt-letter">B.</span> 6 cups</div><div class="option"><span class="opt-letter">C.</span> 5 cups</div><div class="option"><span class="opt-letter">D.</span> 8 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">0.5f + 1 = 4</div>
+    <div class="step-exp">The amount of sugar (4 cups) is 1 cup more than half the amount of flour (0.5f).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.5f = 4 - 1
+0.5f = 3</div>
+    <div class="step-exp">To isolate the term with the variable (0.5f), perform the inverse operation of addition, which is subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">f = 3 * 2
+f = 6</div>
+    <div class="step-exp">To solve for f, perform the inverse operation of multiplying by 0.5 (or 1/2), which is multiplying by 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 6 cups (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 4</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A bus traveled for 3 hours at a constant speed. It then increased its speed by 10 mph for the remaining 2 hours of its journey. The total distance covered was 230 miles. What was its initial speed in mph?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 46 mph</div><div class="option"><span class="opt-letter">B.</span> 50 mph</div><div class="option"><span class="opt-letter">C.</span> 42 mph</div><div class="option"><span class="opt-letter">D.</span> 40 mph</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">3s + 2(s + 10) = 230</div>
+    <div class="step-exp">The total distance (230 miles) is the sum of the distance traveled in the first 3 hours (3s) and the distance traveled in the next 2 hours at an increased speed (2 * (s + 10)).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">3s + 2s + 20 = 230</div>
+    <div class="step-exp">Apply the distributive property to remove the parentheses.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5s + 20 = 230</div>
+    <div class="step-exp">Combine the &#x27;s&#x27; terms.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">5s = 230 - 20
+5s = 210</div>
+    <div class="step-exp">To isolate the term with the variable (5s), perform the inverse operation of addition, which is subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-work">s = 210 / 5
+s = 42</div>
+    <div class="step-exp">To solve for s, perform the inverse operation of multiplication, which is division.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 42 mph (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 5</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A teacher distributed 71 pencils to her students. Each of her 28 regular students received 2 pencils. The remaining pencils were given to a special club, where each member received 5 pencils. How many members are in the special club?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 members</div><div class="option"><span class="opt-letter">B.</span> 4 members</div><div class="option"><span class="opt-letter">C.</span> 2 members</div><div class="option"><span class="opt-letter">D.</span> 14 members</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">2 * 28 + 5x = 71</div>
+    <div class="step-exp">The total pencils (71) is the sum of pencils for regular students (2 * 28) and pencils for club members (5x).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">56 + 5x = 71</div>
+    <div class="step-exp">Perform the multiplication first according to the order of operations.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">5x = 71 - 56
+5x = 15</div>
+    <div class="step-exp">To isolate the term with the variable (5x), perform the inverse operation of addition, which is subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x = 15 / 5
+x = 3</div>
+    <div class="step-exp">To solve for x, perform the inverse operation of multiplication, which is division.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 3 members (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 6</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A scientist is tracking a chemical reaction. The temperature started at 20°C and decreased by 3°C every minute. After a certain time, the temperature was -1°C. How many minutes passed?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 8 minutes</div><div class="option"><span class="opt-letter">B.</span> 6 minutes</div><div class="option"><span class="opt-letter">C.</span> 7 minutes</div><div class="option"><span class="opt-letter">D.</span> 21 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">20 - 3t = -1</div>
+    <div class="step-exp">The final temperature (-1°C) is the initial temperature (20°C) minus the total decrease in temperature (3°C per minute for &#x27;t&#x27; minutes).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">-3t = -1 - 20
+-3t = -21</div>
+    <div class="step-exp">To isolate the term with the variable (-3t), perform the inverse operation of addition (the 20 is positive), which is subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">t = -21 / -3
+t = 7</div>
+    <div class="step-exp">To solve for t, perform the inverse operation of multiplication, which is division. Dividing two negative numbers results in a positive number.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 7 minutes (Option C)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 7</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A construction worker has a 120-inch wooden beam. He makes 3 cuts, and each cut wastes 1 inch of material. If he ends up with 4 equal pieces, what is the length of each piece?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 39 inches</div><div class="option"><span class="opt-letter">B.</span> 29 inches</div><div class="option"><span class="opt-letter">C.</span> 30 inches</div><div class="option"><span class="opt-letter">D.</span> 29.25 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">120 - (3 * 1) = 4x</div>
+    <div class="step-exp">The total length of the pieces (4x) is the original beam length (120 inches) minus the total material wasted by cuts (3 cuts * 1 inch/cut).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">120 - 3 = 4x</div>
+    <div class="step-exp">Perform the multiplication inside the parentheses first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">117 = 4x</div>
+    <div class="step-exp">Simplify the left side of the equation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">x = 117 / 4
+x = 29.25</div>
+    <div class="step-exp">To solve for x, perform the inverse operation of multiplication, which is division.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 29.25 inches (Option D)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 8</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A student spent 30 minutes on math homework. This was 5 minutes less than half the time they spent on reading. How many minutes did they spend on reading homework?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 75 minutes</div><div class="option"><span class="opt-letter">B.</span> 70 minutes</div><div class="option"><span class="opt-letter">C.</span> 65 minutes</div><div class="option"><span class="opt-letter">D.</span> 60 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">0.5r - 5 = 30</div>
+    <div class="step-exp">The math homework time (30 minutes) is 5 minutes less than half the reading time (0.5r).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">0.5r = 30 + 5
+0.5r = 35</div>
+    <div class="step-exp">To isolate the term with the variable (0.5r), perform the inverse operation of subtraction, which is addition.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">r = 35 * 2
+r = 70</div>
+    <div class="step-exp">To solve for r, perform the inverse operation of multiplying by 0.5, which is multiplying by 2.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 70 minutes (Option B)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 9</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">The population of a town increased by 1500 people over 5 years. If the population then decreased by 200 people each year for the next 3 years, and the current population is 12,900, what was the initial population?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12,000</div><div class="option"><span class="opt-letter">B.</span> 12,300</div><div class="option"><span class="opt-letter">C.</span> 11,400</div><div class="option"><span class="opt-letter">D.</span> 13,800</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">P + 1500 - (3 * 200) = 12900</div>
+    <div class="step-exp">The current population (12,900) is the initial population (P) plus the total increase (1500) minus the total decrease (3 years * 200 people/year).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">P + 1500 - 600 = 12900</div>
+    <div class="step-exp">Perform the multiplication inside the parentheses first.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">P + 900 = 12900</div>
+    <div class="step-exp">Simplify the left side of the equation by combining the numerical values.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-work">P = 12900 - 900
+P = 12000</div>
+    <div class="step-exp">To solve for P, perform the inverse operation of addition, which is subtraction.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 12,000 people (Option A)</p></div></div>
+  </div>
+</div>
+
+<div class="q-card">
+  <div class="q-header"><span>Question 10</span><span>Grade 7 &bull; EE</span></div>
+  <div class="q-body">
+    <div class="q-prompt">A patient needs to lose 30 pounds. They lost 5 pounds in the first month, and then continued to lose 2.5 pounds per week. How many weeks did it take them to lose the remaining weight after the first month?</div>
+    <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 weeks</div><div class="option"><span class="opt-letter">B.</span> 25 weeks</div><div class="option"><span class="opt-letter">C.</span> 14 weeks</div><div class="option"><span class="opt-letter">D.</span> 10 weeks</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-work">5 + 2.5w = 30</div>
+    <div class="step-exp">The total weight to lose (30 pounds) is the sum of the initial weight lost (5 pounds) and the weight lost per week (2.5w).</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-work">2.5w = 30 - 5
+2.5w = 25</div>
+    <div class="step-exp">To isolate the term with the variable (2.5w), perform the inverse operation of addition, which is subtraction.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-work">w = 25 / 2.5
+w = 10</div>
+    <div class="step-exp">To solve for w, perform the inverse operation of multiplication, which is division.</div>
+  </div>
+</div><p class="answer-line"><strong>Answer:</strong> 10 weeks (Option D)</p></div></div>
+  </div>
+</div>
+</body>
+</html>
