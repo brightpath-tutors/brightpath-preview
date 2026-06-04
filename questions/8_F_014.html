@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,42 +146,13 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 8 | F | Skill 8.F.014<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Recursive Formulas</h1>
-<p class="skill-subtitle">Skill ID: 8.F.014</p>
+<h1 class="skill-title">Recursive Formulas</h1><p class="skill-subtitle">Skill ID: 8.F.014</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; F</span></div>
   <div class="q-body">
     <div class="q-prompt">A baker starts the day with 30 kilograms of flour. At the end of each day, 8 kilograms are used. Let \(a_n\) represent the amount of flour (in kg) remaining at the end of day \(n\). Which recursive formula describes the amount of flour remaining each day, given \(a_0 = 30\) kg?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(a_n = a_{n-1} + 8\)</div><div class="option"><span class="opt-letter">B.</span> \(a_n = 30 - 8n\)</div><div class="option"><span class="opt-letter">C.</span> \(a_n = 8a_{n-1}\)</div><div class="option"><span class="opt-letter">D.</span> \(a_n = a_{n-1} - 8\), for \(n \ge 1\); \(a_0 = 30\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The baker starts with 30 kg of flour. So, the initial amount at the start of day 0 is \(a_0 = 30\).</div>
-    <div class="step-exp">The problem states the initial amount of flour is 30 kg, which corresponds to \(a_0\).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">8 kilograms are used at the end of each day. This means the amount of flour decreases by 8 kg each day.</div>
-    <div class="step-exp">The phrase &#x27;8 kilograms are used&#x27; indicates a subtraction of 8 from the previous day&#x27;s amount.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the amount of flour on day \(n\) (\(a_n\)), we take the amount from the previous day (\(a_{n-1}\)) and subtract 8 kg. Thus, \(a_n = a_{n-1} - 8\).</div>
-    <div class="step-exp">A recursive formula defines a term based on previous terms. Since the amount decreases by 8 kg daily, we subtract 8 from the previous term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(a_n = a_{n-1} - 8\), for \(n \ge 1\); \(a_0 = 30\)</div>
-    <div class="step-exp">This gives the complete recursive definition for the sequence.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(a_n = a_{n-1} - 8\), for \(n \ge 1\); \(a_0 = 30\) (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The baker starts with 30 kg of flour. So, the initial amount at the start of day 0 is \(a_0 = 30\).</div><div class="step-exp">The problem states the initial amount of flour is 30 kg, which corresponds to \(a_0\).</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">8 kilograms are used at the end of each day. This means the amount of flour decreases by 8 kg each day.</div><div class="step-exp">The phrase &#x27;8 kilograms are used&#x27; indicates a subtraction of 8 from the previous day&#x27;s amount.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the amount of flour on day \(n\) (\(a_n\)), we take the amount from the previous day (\(a_{n-1}\)) and subtract 8 kg. Thus, \(a_n = a_{n-1} - 8\).</div><div class="step-exp">A recursive formula defines a term based on previous terms. Since the amount decreases by 8 kg daily, we subtract 8 from the previous term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(a_n = a_{n-1} - 8\), for \(n \ge 1\); \(a_0 = 30\)</div><div class="step-exp">This gives the complete recursive definition for the sequence.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(a_n = a_{n-1} - 8\), for \(n \ge 1\); \(a_0 = 30\) (Option D)</p></div></div>
   </div>
 </div>
 
@@ -304,35 +161,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">During a basketball game, a team scores 2 points for a successful free throw. Let \(a_n\) be the total score after \(n\) successful free throws. The team starts with 0 points. Which recursive formula represents the team&#x27;s score?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(a_n = a_{n-1} - 2\)</div><div class="option"><span class="opt-letter">B.</span> \(a_n = 2n\)</div><div class="option"><span class="opt-letter">C.</span> \(a_n = 2a_{n-1}\)</div><div class="option"><span class="opt-letter">D.</span> \(a_n = a_{n-1} + 2\), for \(n \ge 1\); \(a_0 = 0\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The team starts with 0 points. So, the initial score at 0 free throws is \(a_0 = 0\).</div>
-    <div class="step-exp">The problem states the initial score is 0 points.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The team scores 2 points for each successful free throw. This means the score increases by 2 points for each step.</div>
-    <div class="step-exp">The phrase &#x27;scores 2 points&#x27; indicates an addition of 2 to the previous score.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the score after \(n\) free throws (\(a_n\)), we take the score from the previous free throw (\(a_{n-1}\)) and add 2 points. Thus, \(a_n = a_{n-1} + 2\).</div>
-    <div class="step-exp">A recursive formula defines a term based on previous terms. Since the score increases by 2 points per free throw, we add 2 to the previous term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(a_n = a_{n-1} + 2\), for \(n \ge 1\); \(a_0 = 0\)</div>
-    <div class="step-exp">This gives the complete recursive definition for the sequence.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(a_n = a_{n-1} + 2\), for \(n \ge 1\); \(a_0 = 0\) (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The team starts with 0 points. So, the initial score at 0 free throws is \(a_0 = 0\).</div><div class="step-exp">The problem states the initial score is 0 points.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The team scores 2 points for each successful free throw. This means the score increases by 2 points for each step.</div><div class="step-exp">The phrase &#x27;scores 2 points&#x27; indicates an addition of 2 to the previous score.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the score after \(n\) free throws (\(a_n\)), we take the score from the previous free throw (\(a_{n-1}\)) and add 2 points. Thus, \(a_n = a_{n-1} + 2\).</div><div class="step-exp">A recursive formula defines a term based on previous terms. Since the score increases by 2 points per free throw, we add 2 to the previous term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(a_n = a_{n-1} + 2\), for \(n \ge 1\); \(a_0 = 0\)</div><div class="step-exp">This gives the complete recursive definition for the sequence.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(a_n = a_{n-1} + 2\), for \(n \ge 1\); \(a_0 = 0\) (Option D)</p></div></div>
   </div>
 </div>
 
@@ -341,35 +170,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A construction crew initially has 15 tons of gravel. Every hour, they add 3 tons of gravel to their supply. Let \(a_n\) be the total amount of gravel (in tons) after \(n\) hours. Which recursive formula describes the amount of gravel over time?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(a_n = 3a_{n-1}\)</div><div class="option"><span class="opt-letter">B.</span> \(a_n = a_{n-1} - 3\)</div><div class="option"><span class="opt-letter">C.</span> \(a_n = 15 + 3n\)</div><div class="option"><span class="opt-letter">D.</span> \(a_n = a_{n-1} + 3\), for \(n \ge 1\); \(a_0 = 15\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The crew initially has 15 tons of gravel. So, the initial amount at 0 hours is \(a_0 = 15\).</div>
-    <div class="step-exp">The problem states the initial amount of gravel is 15 tons.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">They add 3 tons of gravel every hour. This means the amount of gravel increases by 3 tons each hour.</div>
-    <div class="step-exp">The phrase &#x27;add 3 tons&#x27; indicates an addition of 3 to the previous hour&#x27;s amount.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the amount of gravel after \(n\) hours (\(a_n\)), we take the amount from the previous hour (\(a_{n-1}\)) and add 3 tons. Thus, \(a_n = a_{n-1} + 3\).</div>
-    <div class="step-exp">A recursive formula defines a term based on previous terms. Since the amount increases by 3 tons hourly, we add 3 to the previous term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(a_n = a_{n-1} + 3\), for \(n \ge 1\); \(a_0 = 15\)</div>
-    <div class="step-exp">This gives the complete recursive definition for the sequence.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(a_n = a_{n-1} + 3\), for \(n \ge 1\); \(a_0 = 15\) (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The crew initially has 15 tons of gravel. So, the initial amount at 0 hours is \(a_0 = 15\).</div><div class="step-exp">The problem states the initial amount of gravel is 15 tons.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">They add 3 tons of gravel every hour. This means the amount of gravel increases by 3 tons each hour.</div><div class="step-exp">The phrase &#x27;add 3 tons&#x27; indicates an addition of 3 to the previous hour&#x27;s amount.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the amount of gravel after \(n\) hours (\(a_n\)), we take the amount from the previous hour (\(a_{n-1}\)) and add 3 tons. Thus, \(a_n = a_{n-1} + 3\).</div><div class="step-exp">A recursive formula defines a term based on previous terms. Since the amount increases by 3 tons hourly, we add 3 to the previous term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(a_n = a_{n-1} + 3\), for \(n \ge 1\); \(a_0 = 15\)</div><div class="step-exp">This gives the complete recursive definition for the sequence.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(a_n = a_{n-1} + 3\), for \(n \ge 1\); \(a_0 = 15\) (Option D)</p></div></div>
   </div>
 </div>
 
@@ -378,35 +179,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A scientist is observing a population of cells that doubles every 2 hours. If there are initially 20 cells, let \(a_n\) represent the number of cells after \(n\) intervals of 2 hours. What is the recursive formula for this cell population?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(a_n = a_{n-1} + 2\)</div><div class="option"><span class="opt-letter">B.</span> \(a_n = a_{n-1} / 2\)</div><div class="option"><span class="opt-letter">C.</span> \(a_n = 20 + 2n\)</div><div class="option"><span class="opt-letter">D.</span> \(a_n = 2a_{n-1}\), for \(n \ge 1\); \(a_0 = 20\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The initial number of cells is 20. So, \(a_0 = 20\).</div>
-    <div class="step-exp">The problem states that there are initially 20 cells, corresponding to the starting point \(a_0\).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The population &#x27;doubles&#x27; every 2 hours. This means the number of cells is multiplied by 2 in each interval.</div>
-    <div class="step-exp">The word &#x27;doubles&#x27; signifies multiplication by 2.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the number of cells after \(n\) intervals (\(a_n\)), we take the number from the previous interval (\(a_{n-1}\)) and multiply it by 2. Thus, \(a_n = 2a_{n-1}\).</div>
-    <div class="step-exp">The recursive rule describes how to get the next term from the current term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(a_n = 2a_{n-1}\), for \(n \ge 1\); \(a_0 = 20\)</div>
-    <div class="step-exp">This is the complete recursive definition for the sequence.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(a_n = 2a_{n-1}\), for \(n \ge 1\); \(a_0 = 20\) (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The initial number of cells is 20. So, \(a_0 = 20\).</div><div class="step-exp">The problem states that there are initially 20 cells, corresponding to the starting point \(a_0\).</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The population &#x27;doubles&#x27; every 2 hours. This means the number of cells is multiplied by 2 in each interval.</div><div class="step-exp">The word &#x27;doubles&#x27; signifies multiplication by 2.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the number of cells after \(n\) intervals (\(a_n\)), we take the number from the previous interval (\(a_{n-1}\)) and multiply it by 2. Thus, \(a_n = 2a_{n-1}\).</div><div class="step-exp">The recursive rule describes how to get the next term from the current term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(a_n = 2a_{n-1}\), for \(n \ge 1\); \(a_0 = 20\)</div><div class="step-exp">This is the complete recursive definition for the sequence.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(a_n = 2a_{n-1}\), for \(n \ge 1\); \(a_0 = 20\) (Option D)</p></div></div>
   </div>
 </div>
 
@@ -415,35 +188,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A student&#x27;s GPA starts at 3.0. Each semester, their GPA increases by 0.15 points if they maintain good grades. Let \(g_n\) be the GPA after \(n\) semesters. Which recursive formula models this scenario?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(g_n = g_{n-1} - 0.15\)</div><div class="option"><span class="opt-letter">B.</span> \(g_n = 3.0 + 0.15n\)</div><div class="option"><span class="opt-letter">C.</span> \(g_n = 0.15g_{n-1}\)</div><div class="option"><span class="opt-letter">D.</span> \(g_n = g_{n-1} + 0.15\), for \(n \ge 1\); \(g_0 = 3.0\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The student&#x27;s GPA starts at 3.0. So, \(g_0 = 3.0\).</div>
-    <div class="step-exp">The problem states the initial GPA is 3.0, corresponding to the starting point \(g_0\).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The GPA &#x27;increases by 0.15 points&#x27; each semester. This means 0.15 is added to the GPA in each step.</div>
-    <div class="step-exp">The phrase &#x27;increases by 0.15 points&#x27; signifies addition of 0.15.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the GPA after \(n\) semesters (\(g_n\)), we take the GPA from the previous semester (\(g_{n-1}\)) and add 0.15. Thus, \(g_n = g_{n-1} + 0.15\).</div>
-    <div class="step-exp">The recursive rule describes how to get the next term from the current term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(g_n = g_{n-1} + 0.15\), for \(n \ge 1\); \(g_0 = 3.0\)</div>
-    <div class="step-exp">This is the complete recursive definition for the sequence.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(g_n = g_{n-1} + 0.15\), for \(n \ge 1\); \(g_0 = 3.0\) (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The student&#x27;s GPA starts at 3.0. So, \(g_0 = 3.0\).</div><div class="step-exp">The problem states the initial GPA is 3.0, corresponding to the starting point \(g_0\).</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The GPA &#x27;increases by 0.15 points&#x27; each semester. This means 0.15 is added to the GPA in each step.</div><div class="step-exp">The phrase &#x27;increases by 0.15 points&#x27; signifies addition of 0.15.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the GPA after \(n\) semesters (\(g_n\)), we take the GPA from the previous semester (\(g_{n-1}\)) and add 0.15. Thus, \(g_n = g_{n-1} + 0.15\).</div><div class="step-exp">The recursive rule describes how to get the next term from the current term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(g_n = g_{n-1} + 0.15\), for \(n \ge 1\); \(g_0 = 3.0\)</div><div class="step-exp">This is the complete recursive definition for the sequence.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(g_n = g_{n-1} + 0.15\), for \(n \ge 1\); \(g_0 = 3.0\) (Option D)</p></div></div>
   </div>
 </div>
 
@@ -452,35 +197,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A new gaming console costs $400. Its value depreciates by $50 each year. Let \(V_n\) be the value of the console after \(n\) years. Which recursive formula expresses the console&#x27;s value?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(V_n = V_{n-1} + 50\)</div><div class="option"><span class="opt-letter">B.</span> \(V_n = 50V_{n-1}\)</div><div class="option"><span class="opt-letter">C.</span> \(V_n = V_{n-1} - 50\), for \(n \ge 1\); \(V_0 = 400\)</div><div class="option"><span class="opt-letter">D.</span> \(V_n = 400 + 50n\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The gaming console initially costs $400. So, \(V_0 = 400\).</div>
-    <div class="step-exp">The initial cost represents the value at year 0.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Its value &#x27;depreciates by $50&#x27; each year. This means $50 is subtracted from its value annually.</div>
-    <div class="step-exp">Depreciation indicates a decrease in value, so we subtract.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the value after \(n\) years (\(V_n\)), we take the value from the previous year (\(V_{n-1}\)) and subtract $50. Thus, \(V_n = V_{n-1} - 50\).</div>
-    <div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(V_n = V_{n-1} - 50\), for \(n \ge 1\); \(V_0 = 400\)</div>
-    <div class="step-exp">This provides the complete recursive definition.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(V_n = V_{n-1} - 50\), for \(n \ge 1\); \(V_0 = 400\) (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The gaming console initially costs $400. So, \(V_0 = 400\).</div><div class="step-exp">The initial cost represents the value at year 0.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Its value &#x27;depreciates by $50&#x27; each year. This means $50 is subtracted from its value annually.</div><div class="step-exp">Depreciation indicates a decrease in value, so we subtract.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the value after \(n\) years (\(V_n\)), we take the value from the previous year (\(V_{n-1}\)) and subtract $50. Thus, \(V_n = V_{n-1} - 50\).</div><div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(V_n = V_{n-1} - 50\), for \(n \ge 1\); \(V_0 = 400\)</div><div class="step-exp">This provides the complete recursive definition.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(V_n = V_{n-1} - 50\), for \(n \ge 1\); \(V_0 = 400\) (Option C)</p></div></div>
   </div>
 </div>
 
@@ -489,35 +206,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A specific type of plant grows 2.5 centimeters taller each week. Its initial height is 10 centimeters. Let \(h_n\) be the height of the plant after \(n\) weeks. What is the recursive formula for the plant&#x27;s height?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(h_n = h_{n-1} - 2.5\)</div><div class="option"><span class="opt-letter">B.</span> \(h_n = h_{n-1} + 2.5\), for \(n \ge 1\); \(h_0 = 10\)</div><div class="option"><span class="opt-letter">C.</span> \(h_n = 10 - 2.5n\)</div><div class="option"><span class="opt-letter">D.</span> \(h_n = 2.5h_{n-1}\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The initial height of the plant is 10 centimeters. So, \(h_0 = 10\).</div>
-    <div class="step-exp">The initial height corresponds to the height at week 0.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The plant &#x27;grows 2.5 centimeters taller&#x27; each week. This means 2.5 cm is added to its height weekly.</div>
-    <div class="step-exp">Growth indicates an increase, so we add 2.5.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the height after \(n\) weeks (\(h_n\)), we take the height from the previous week (\(h_{n-1}\)) and add 2.5 cm. Thus, \(h_n = h_{n-1} + 2.5\).</div>
-    <div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(h_n = h_{n-1} + 2.5\), for \(n \ge 1\); \(h_0 = 10\)</div>
-    <div class="step-exp">This provides the complete recursive definition.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(h_n = h_{n-1} + 2.5\), for \(n \ge 1\); \(h_0 = 10\) (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The initial height of the plant is 10 centimeters. So, \(h_0 = 10\).</div><div class="step-exp">The initial height corresponds to the height at week 0.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The plant &#x27;grows 2.5 centimeters taller&#x27; each week. This means 2.5 cm is added to its height weekly.</div><div class="step-exp">Growth indicates an increase, so we add 2.5.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the height after \(n\) weeks (\(h_n\)), we take the height from the previous week (\(h_{n-1}\)) and add 2.5 cm. Thus, \(h_n = h_{n-1} + 2.5\).</div><div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(h_n = h_{n-1} + 2.5\), for \(n \ge 1\); \(h_0 = 10\)</div><div class="step-exp">This provides the complete recursive definition.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(h_n = h_{n-1} + 2.5\), for \(n \ge 1\); \(h_0 = 10\) (Option B)</p></div></div>
   </div>
 </div>
 
@@ -526,35 +215,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A city&#x27;s population is 150,000 people and decreases by 0.5% annually. Let \(P_n\) be the population after \(n\) years. Which recursive formula models this population change?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(P_n = P_{n-1} \times (0.995)\), for \(n \ge 1\); \(P_0 = 150,000\)</div><div class="option"><span class="opt-letter">B.</span> \(P_n = 150,000 \times (0.005)^n\)</div><div class="option"><span class="opt-letter">C.</span> \(P_n = P_{n-1} - 0.005\)</div><div class="option"><span class="opt-letter">D.</span> \(P_n = P_{n-1} + 0.995\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The initial population is 150,000 people. So, \(P_0 = 150,000\).</div>
-    <div class="step-exp">The starting population at year 0 is given.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The population decreases by 0.5% annually. This means the population retains 100% - 0.5% = 99.5% of its value each year. As a decimal, this is 0.995.</div>
-    <div class="step-exp">A percentage decrease means multiplying by (1 - percentage/100).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the population after \(n\) years (\(P_n\)), we take the population from the previous year (\(P_{n-1}\)) and multiply it by 0.995. Thus, \(P_n = P_{n-1} \times (0.995)\).</div>
-    <div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one using multiplication for a percentage change.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(P_n = P_{n-1} \times (0.995)\), for \(n \ge 1\); \(P_0 = 150,000\)</div>
-    <div class="step-exp">This provides the complete recursive definition.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(P_n = P_{n-1} \times (0.995)\), for \(n \ge 1\); \(P_0 = 150,000\) (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The initial population is 150,000 people. So, \(P_0 = 150,000\).</div><div class="step-exp">The starting population at year 0 is given.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The population decreases by 0.5% annually. This means the population retains 100% - 0.5% = 99.5% of its value each year. As a decimal, this is 0.995.</div><div class="step-exp">A percentage decrease means multiplying by (1 - percentage/100).</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the population after \(n\) years (\(P_n\)), we take the population from the previous year (\(P_{n-1}\)) and multiply it by 0.995. Thus, \(P_n = P_{n-1} \times (0.995)\).</div><div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one using multiplication for a percentage change.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(P_n = P_{n-1} \times (0.995)\), for \(n \ge 1\); \(P_0 = 150,000\)</div><div class="step-exp">This provides the complete recursive definition.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(P_n = P_{n-1} \times (0.995)\), for \(n \ge 1\); \(P_0 = 150,000\) (Option A)</p></div></div>
   </div>
 </div>
 
@@ -563,35 +224,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A marathon runner aims to increase their daily running distance by 1.5 kilometers each day. On Day 1, they ran 5 kilometers. Let \(d_n\) be the distance run on Day \(n\). What is the recursive formula for the runner&#x27;s distance?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(d_n = 5 + 1.5n\)</div><div class="option"><span class="opt-letter">B.</span> \(d_n = d_{n-1} + 1.5\), for \(n \ge 2\); \(d_1 = 5\)</div><div class="option"><span class="opt-letter">C.</span> \(d_n = 1.5d_{n-1}\), for \(n \ge 2\); \(d_1 = 5\)</div><div class="option"><span class="opt-letter">D.</span> \(d_n = d_{n-1} - 1.5\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">On Day 1, they ran 5 kilometers. So, \(d_1 = 5\).</div>
-    <div class="step-exp">The problem gives the distance for the first day, so we use \(d_1\) as the starting term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The runner increases their distance by 1.5 kilometers each day. This means 1.5 km is added to the previous day&#x27;s distance.</div>
-    <div class="step-exp">The phrase &#x27;increase...by 1.5 kilometers&#x27; indicates addition.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the distance on Day \(n\) (\(d_n\)), we take the distance from the previous day (\(d_{n-1}\)) and add 1.5 km. Thus, \(d_n = d_{n-1} + 1.5\). Since \(d_1\) is given, this rule applies for \(n \ge 2\).</div>
-    <div class="step-exp">The recursive rule defines how to get the next term from the current term. The domain for &#x27;n&#x27; starts from 2 because \(d_1\) is explicitly defined.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(d_n = d_{n-1} + 1.5\), for \(n \ge 2\); \(d_1 = 5\)</div>
-    <div class="step-exp">This provides the complete recursive definition.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(d_n = d_{n-1} + 1.5\), for \(n \ge 2\); \(d_1 = 5\) (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">On Day 1, they ran 5 kilometers. So, \(d_1 = 5\).</div><div class="step-exp">The problem gives the distance for the first day, so we use \(d_1\) as the starting term.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The runner increases their distance by 1.5 kilometers each day. This means 1.5 km is added to the previous day&#x27;s distance.</div><div class="step-exp">The phrase &#x27;increase...by 1.5 kilometers&#x27; indicates addition.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the distance on Day \(n\) (\(d_n\)), we take the distance from the previous day (\(d_{n-1}\)) and add 1.5 km. Thus, \(d_n = d_{n-1} + 1.5\). Since \(d_1\) is given, this rule applies for \(n \ge 2\).</div><div class="step-exp">The recursive rule defines how to get the next term from the current term. The domain for &#x27;n&#x27; starts from 2 because \(d_1\) is explicitly defined.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(d_n = d_{n-1} + 1.5\), for \(n \ge 2\); \(d_1 = 5\)</div><div class="step-exp">This provides the complete recursive definition.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(d_n = d_{n-1} + 1.5\), for \(n \ge 2\); \(d_1 = 5\) (Option B)</p></div></div>
   </div>
 </div>
 
@@ -600,47 +233,16 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A software company&#x27;s user base grows by 12% each month. If they started with 500 users, let \(U_n\) be the number of users after \(n\) months. Which recursive formula describes the user base?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> \(U_n = U_{n-1} \times (0.12)\)</div><div class="option"><span class="opt-letter">B.</span> \(U_n = U_{n-1} \times (1.12)\), for \(n \ge 1\); \(U_0 = 500\)</div><div class="option"><span class="opt-letter">C.</span> \(U_n = U_{n-1} + 12\)</div><div class="option"><span class="opt-letter">D.</span> \(U_n = 500 + 1.12n\)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The company started with 500 users. So, \(U_0 = 500\).</div>
-    <div class="step-exp">The initial number of users at month 0 is given.</div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The company started with 500 users. So, \(U_0 = 500\).</div><div class="step-exp">The initial number of users at month 0 is given.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The user base grows by 12% each month. This means the user base becomes 100% + 12% = 112% of its previous value each month. As a decimal, this is 1.12.</div><div class="step-exp">A percentage increase means multiplying by (1 + percentage/100).</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the number of users after \(n\) months (\(U_n\)), we take the number of users from the previous month (\(U_{n-1}\)) and multiply it by 1.12. Thus, \(U_n = U_{n-1} \times (1.12)\).</div><div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one using multiplication for a percentage change.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">\(U_n = U_{n-1} \times (1.12)\), for \(n \ge 1\); \(U_0 = 500\)</div><div class="step-exp">This provides the complete recursive definition.</div></div></div><p class="answer-line"><strong>Answer:</strong> \(U_n = U_{n-1} \times (1.12)\), for \(n \ge 1\); \(U_0 = 500\) (Option B)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The user base grows by 12% each month. This means the user base becomes 100% + 12% = 112% of its previous value each month. As a decimal, this is 1.12.</div>
-    <div class="step-exp">A percentage increase means multiplying by (1 + percentage/100).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the number of users after \(n\) months (\(U_n\)), we take the number of users from the previous month (\(U_{n-1}\)) and multiply it by 1.12. Thus, \(U_n = U_{n-1} \times (1.12)\).</div>
-    <div class="step-exp">The recursive rule shows how each subsequent term is derived from the preceding one using multiplication for a percentage change.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">\(U_n = U_{n-1} \times (1.12)\), for \(n \ge 1\); \(U_0 = 500\)</div>
-    <div class="step-exp">This provides the complete recursive definition.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> \(U_n = U_{n-1} \times (1.12)\), for \(n \ge 1\); \(U_0 = 500\) (Option B)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

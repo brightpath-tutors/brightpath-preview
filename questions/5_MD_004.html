@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,8 +146,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 5 | MD | Skill 5.MD.004<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Line Plot Fraction Operations</h1>
-<p class="skill-subtitle">Skill ID: 5.MD.004</p>
+<h1 class="skill-title">Line Plot Fraction Operations</h1><p class="skill-subtitle">Skill ID: 5.MD.004</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; MD</span></div>
   <div class="q-body">
@@ -277,59 +162,10 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
 
 If a customer bought all the 1/4 yard ribbons and one of the 1/2 yard ribbons shown, what is the total length of ribbon purchased?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3/4 yards</div><div class="option"><span class="opt-letter">B.</span> 1 yard</div><div class="option"><span class="opt-letter">C.</span> 2/3 yards</div><div class="option"><span class="opt-letter">D.</span> 1 1/4 yards</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Number of 1/4 yard ribbons = 3
-Number of 1/2 yard ribbons bought = 1</div>
-    <div class="step-exp">Identify the quantities of each ribbon length purchased from the line plot based on the problem description.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total length of 1/4 yard ribbons = 3 * (1/4) yard = 3/4 yard</div>
-    <div class="step-exp">Calculate the total length for the 1/4 yard ribbons by multiplying the length by the number of pieces.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total length of 1/2 yard ribbons = 1 * (1/2) yard = 1/2 yard</div>
-    <div class="step-exp">Calculate the total length for the 1/2 yard ribbons by multiplying the length by the number of pieces.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Combined total length = 3/4 yard + 1/2 yard</div>
-    <div class="step-exp">Add the total lengths of both types of ribbons purchased.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Find a common denominator for 3/4 and 1/2. The common denominator is 4.
-1/2 = 2/4</div>
-    <div class="step-exp">Convert 1/2 to an equivalent fraction with a denominator of 4.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Combined total length = 3/4 + 2/4 = 5/4 yards</div>
-    <div class="step-exp">Add the fractions with the common denominator.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Convert the improper fraction to a mixed number:
-5/4 = 1 1/4 yards</div>
-    <div class="step-exp">Divide the numerator by the denominator to express the answer as a mixed number in simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 1 1/4 yards (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Number of 1/4 yard ribbons = 3
+Number of 1/2 yard ribbons bought = 1</div><div class="step-exp">Identify the quantities of each ribbon length purchased from the line plot based on the problem description.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total length of 1/4 yard ribbons = 3 * (1/4) yard = 3/4 yard</div><div class="step-exp">Calculate the total length for the 1/4 yard ribbons by multiplying the length by the number of pieces.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total length of 1/2 yard ribbons = 1 * (1/2) yard = 1/2 yard</div><div class="step-exp">Calculate the total length for the 1/2 yard ribbons by multiplying the length by the number of pieces.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Combined total length = 3/4 yard + 1/2 yard</div><div class="step-exp">Add the total lengths of both types of ribbons purchased.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Find a common denominator for 3/4 and 1/2. The common denominator is 4.
+1/2 = 2/4</div><div class="step-exp">Convert 1/2 to an equivalent fraction with a denominator of 4.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Combined total length = 3/4 + 2/4 = 5/4 yards</div><div class="step-exp">Add the fractions with the common denominator.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Convert the improper fraction to a mixed number:
+5/4 = 1 1/4 yards</div><div class="step-exp">Divide the numerator by the denominator to express the answer as a mixed number in simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 1 1/4 yards (Option D)</p></div></div>
   </div>
 </div>
 
@@ -348,39 +184,11 @@ X   X   X   X
 
 What is the difference in length between the longest and shortest court lengths shown on the line plot? Express your answer in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2/8 miles</div><div class="option"><span class="opt-letter">B.</span> 2/0 miles</div><div class="option"><span class="opt-letter">C.</span> 1/2 mile</div><div class="option"><span class="opt-letter">D.</span> 1/4 mile</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Shortest length = 1/8 mile
-Longest length = 3/8 mile</div>
-    <div class="step-exp">Identify the shortest and longest court lengths directly from the line plot.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Difference = 3/8 mile - 1/8 mile</div>
-    <div class="step-exp">Set up the subtraction problem to find the difference between the longest and shortest lengths.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Difference = (3 - 1)/8 = 2/8 miles</div>
-    <div class="step-exp">Subtract the numerators since the fractions have a common denominator, keeping the denominator the same.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Simplify 2/8 by dividing both the numerator and denominator by their greatest common factor, 2.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Shortest length = 1/8 mile
+Longest length = 3/8 mile</div><div class="step-exp">Identify the shortest and longest court lengths directly from the line plot.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Difference = 3/8 mile - 1/8 mile</div><div class="step-exp">Set up the subtraction problem to find the difference between the longest and shortest lengths.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Difference = (3 - 1)/8 = 2/8 miles</div><div class="step-exp">Subtract the numerators since the fractions have a common denominator, keeping the denominator the same.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Simplify 2/8 by dividing both the numerator and denominator by their greatest common factor, 2.
 2 ÷ 2 = 1
 8 ÷ 2 = 4
-Simplified difference = 1/4 mile</div>
-    <div class="step-exp">Simplify the resulting fraction to its simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 1/4 mile (Option D)</p></div></div>
+Simplified difference = 1/4 mile</div><div class="step-exp">Simplify the resulting fraction to its simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 1/4 mile (Option D)</p></div></div>
   </div>
 </div>
 
@@ -399,60 +207,11 @@ X   X   X   X
 
 What is the total amount of vanilla extract used, as shown on the line plot?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 4 1/2 teaspoons</div><div class="option"><span class="opt-letter">B.</span> 5 teaspoons</div><div class="option"><span class="opt-letter">C.</span> 2 1/2 teaspoons</div><div class="option"><span class="opt-letter">D.</span> 4 teaspoons</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Amounts and counts from the line plot:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Amounts and counts from the line plot:
 1/2 tsp: 2 recipes
 1 tsp: 1 recipe
-1 1/2 tsp: 2 recipes</div>
-    <div class="step-exp">Identify each unique amount of vanilla extract and the number of times it was used from the line plot.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total for 1/2 tsp = 2 * (1/2) tsp = 1 tsp</div>
-    <div class="step-exp">Calculate the total vanilla extract for the 1/2 tsp amounts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total for 1 tsp = 1 * (1) tsp = 1 tsp</div>
-    <div class="step-exp">Calculate the total vanilla extract for the 1 tsp amounts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Total for 1 1/2 tsp = 2 * (1 1/2) tsp</div>
-    <div class="step-exp">Set up the multiplication for the 1 1/2 tsp amounts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Convert 1 1/2 to an improper fraction: 1 1/2 = (1*2 + 1)/2 = 3/2.
-Total for 1 1/2 tsp = 2 * (3/2) tsp = 6/2 tsp = 3 tsp</div>
-    <div class="step-exp">Convert the mixed number to an improper fraction and then multiply by the count to find the total.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Overall total = 1 tsp (from 1/2 tsp amounts) + 1 tsp (from 1 tsp amounts) + 3 tsp (from 1 1/2 tsp amounts)</div>
-    <div class="step-exp">Add all the individual totals together to find the overall total amount of vanilla extract.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Overall total = 1 + 1 + 3 = 5 teaspoons</div>
-    <div class="step-exp">Perform the final addition.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5 teaspoons (Option B)</p></div></div>
+1 1/2 tsp: 2 recipes</div><div class="step-exp">Identify each unique amount of vanilla extract and the number of times it was used from the line plot.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total for 1/2 tsp = 2 * (1/2) tsp = 1 tsp</div><div class="step-exp">Calculate the total vanilla extract for the 1/2 tsp amounts.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total for 1 tsp = 1 * (1) tsp = 1 tsp</div><div class="step-exp">Calculate the total vanilla extract for the 1 tsp amounts.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Total for 1 1/2 tsp = 2 * (1 1/2) tsp</div><div class="step-exp">Set up the multiplication for the 1 1/2 tsp amounts.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Convert 1 1/2 to an improper fraction: 1 1/2 = (1*2 + 1)/2 = 3/2.
+Total for 1 1/2 tsp = 2 * (3/2) tsp = 6/2 tsp = 3 tsp</div><div class="step-exp">Convert the mixed number to an improper fraction and then multiply by the count to find the total.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Overall total = 1 tsp (from 1/2 tsp amounts) + 1 tsp (from 1 tsp amounts) + 3 tsp (from 1 1/2 tsp amounts)</div><div class="step-exp">Add all the individual totals together to find the overall total amount of vanilla extract.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Overall total = 1 + 1 + 3 = 5 teaspoons</div><div class="step-exp">Perform the final addition.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5 teaspoons (Option B)</p></div></div>
   </div>
 </div>
 
@@ -471,44 +230,9 @@ X   X   X   X
 
 What is the total time spent by all cyclists who completed a lap in less than 2/3 of an hour? Express your answer in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3 1/3 hours</div><div class="option"><span class="opt-letter">B.</span> 2 hours</div><div class="option"><span class="opt-letter">C.</span> 5/6 hours</div><div class="option"><span class="opt-letter">D.</span> 5 hours</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Identify times less than 2/3 hour from the line plot:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Identify times less than 2/3 hour from the line plot:
 1/3 hour (3 cyclists)
-1/2 hour (2 cyclists)</div>
-    <div class="step-exp">Filter the data to include only the times that are less than 2/3 of an hour, along with the number of cyclists for each time.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total time for 1/3 hour cyclists = 3 * (1/3) hour = 3/3 hour = 1 hour</div>
-    <div class="step-exp">Calculate the total time for cyclists who took 1/3 hour by multiplying the time by the number of cyclists.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total time for 1/2 hour cyclists = 2 * (1/2) hour = 2/2 hour = 1 hour</div>
-    <div class="step-exp">Calculate the total time for cyclists who took 1/2 hour by multiplying the time by the number of cyclists.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Combined total time = 1 hour + 1 hour</div>
-    <div class="step-exp">Add the total times from both groups of cyclists.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combined total time = 2 hours</div>
-    <div class="step-exp">Perform the final addition to get the total time in simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2 hours (Option B)</p></div></div>
+1/2 hour (2 cyclists)</div><div class="step-exp">Filter the data to include only the times that are less than 2/3 of an hour, along with the number of cyclists for each time.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total time for 1/3 hour cyclists = 3 * (1/3) hour = 3/3 hour = 1 hour</div><div class="step-exp">Calculate the total time for cyclists who took 1/3 hour by multiplying the time by the number of cyclists.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total time for 1/2 hour cyclists = 2 * (1/2) hour = 2/2 hour = 1 hour</div><div class="step-exp">Calculate the total time for cyclists who took 1/2 hour by multiplying the time by the number of cyclists.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Combined total time = 1 hour + 1 hour</div><div class="step-exp">Add the total times from both groups of cyclists.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combined total time = 2 hours</div><div class="step-exp">Perform the final addition to get the total time in simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2 hours (Option B)</p></div></div>
   </div>
 </div>
 
@@ -527,52 +251,10 @@ X   X   X
 
 What is the total length of all erasers that are 2 1/2 inches long?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 1/2 inches</div><div class="option"><span class="opt-letter">B.</span> 6 1/2 inches</div><div class="option"><span class="opt-letter">C.</span> 7 1/2 inches</div><div class="option"><span class="opt-letter">D.</span> 6 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Length of eraser = 2 1/2 inches
-Number of erasers of this length = 3</div>
-    <div class="step-exp">Identify the length of the specific erasers and the count from the line plot.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total length = 3 * 2 1/2 inches</div>
-    <div class="step-exp">Set up the multiplication to find the total length.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Convert the mixed number to an improper fraction: 2 1/2 = (2*2 + 1)/2 = 5/2</div>
-    <div class="step-exp">Convert the mixed number to an improper fraction for easier multiplication.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Total length = 3 * (5/2) inches</div>
-    <div class="step-exp">Substitute the improper fraction into the multiplication.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Total length = (3 * 5) / 2 = 15/2 inches</div>
-    <div class="step-exp">Multiply the whole number by the numerator and keep the denominator.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Convert the improper fraction to a mixed number:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Length of eraser = 2 1/2 inches
+Number of erasers of this length = 3</div><div class="step-exp">Identify the length of the specific erasers and the count from the line plot.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total length = 3 * 2 1/2 inches</div><div class="step-exp">Set up the multiplication to find the total length.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Convert the mixed number to an improper fraction: 2 1/2 = (2*2 + 1)/2 = 5/2</div><div class="step-exp">Convert the mixed number to an improper fraction for easier multiplication.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Total length = 3 * (5/2) inches</div><div class="step-exp">Substitute the improper fraction into the multiplication.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Total length = (3 * 5) / 2 = 15/2 inches</div><div class="step-exp">Multiply the whole number by the numerator and keep the denominator.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Convert the improper fraction to a mixed number:
 15/2 = 7 with a remainder of 1
-So, 15/2 = 7 1/2 inches</div>
-    <div class="step-exp">Convert the improper fraction to a mixed number to express the answer in a standard format.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 7 1/2 inches (Option C)</p></div></div>
+So, 15/2 = 7 1/2 inches</div><div class="step-exp">Convert the improper fraction to a mixed number to express the answer in a standard format.</div></div></div><p class="answer-line"><strong>Answer:</strong> 7 1/2 inches (Option C)</p></div></div>
   </div>
 </div>
 
@@ -592,58 +274,9 @@ X   X   X   X
 
 What is the total growth of bacteria for all dishes that show 1/16 inch or 1/8 inch growth? Express your answer in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3/16 inch</div><div class="option"><span class="opt-letter">B.</span> 1/2 inch</div><div class="option"><span class="opt-letter">C.</span> 1 1/4 inches</div><div class="option"><span class="opt-letter">D.</span> 4/8 inch</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Identify data for 1/16 inch or 1/8 inch growth:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Identify data for 1/16 inch or 1/8 inch growth:
 1/16 inch: 2 dishes
-1/8 inch: 3 dishes</div>
-    <div class="step-exp">Filter the relevant data points from the line plot based on the given condition (&#x27;1/16 inch or 1/8 inch growth&#x27;).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total growth for 1/16 inch dishes = 2 * (1/16) inch = 2/16 inch</div>
-    <div class="step-exp">Calculate the total growth for bacteria in dishes showing 1/16 inch growth.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Simplify 2/16: 2/16 = 1/8 inch</div>
-    <div class="step-exp">Simplify the fraction 2/16 to its simplest form.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Total growth for 1/8 inch dishes = 3 * (1/8) inch = 3/8 inch</div>
-    <div class="step-exp">Calculate the total growth for bacteria in dishes showing 1/8 inch growth.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combined total growth = 1/8 inch + 3/8 inch</div>
-    <div class="step-exp">Add the total growths from both categories of dishes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Combined total growth = (1 + 3)/8 = 4/8 inch</div>
-    <div class="step-exp">Add the numerators, keeping the common denominator.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Simplify 4/8: 4/8 = 1/2 inch</div>
-    <div class="step-exp">Simplify the resulting fraction to its simplest form by dividing the numerator and denominator by their greatest common factor, 4.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 1/2 inch (Option B)</p></div></div>
+1/8 inch: 3 dishes</div><div class="step-exp">Filter the relevant data points from the line plot based on the given condition (&#x27;1/16 inch or 1/8 inch growth&#x27;).</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total growth for 1/16 inch dishes = 2 * (1/16) inch = 2/16 inch</div><div class="step-exp">Calculate the total growth for bacteria in dishes showing 1/16 inch growth.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Simplify 2/16: 2/16 = 1/8 inch</div><div class="step-exp">Simplify the fraction 2/16 to its simplest form.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Total growth for 1/8 inch dishes = 3 * (1/8) inch = 3/8 inch</div><div class="step-exp">Calculate the total growth for bacteria in dishes showing 1/8 inch growth.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combined total growth = 1/8 inch + 3/8 inch</div><div class="step-exp">Add the total growths from both categories of dishes.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Combined total growth = (1 + 3)/8 = 4/8 inch</div><div class="step-exp">Add the numerators, keeping the common denominator.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Simplify 4/8: 4/8 = 1/2 inch</div><div class="step-exp">Simplify the resulting fraction to its simplest form by dividing the numerator and denominator by their greatest common factor, 4.</div></div></div><p class="answer-line"><strong>Answer:</strong> 1/2 inch (Option B)</p></div></div>
   </div>
 </div>
 
@@ -662,59 +295,10 @@ X   X   X   X   X
 
 What is the difference between the total length of all 1/2 foot rods and all 5/8 foot rods? Express your answer in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1 1/4 feet</div><div class="option"><span class="opt-letter">B.</span> 3/4 foot</div><div class="option"><span class="opt-letter">C.</span> 1/4 foot</div><div class="option"><span class="opt-letter">D.</span> 3 1/4 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Lengths and counts from the line plot:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Lengths and counts from the line plot:
 1/2 foot rods: 4 rods
-5/8 foot rods: 2 rods</div>
-    <div class="step-exp">Identify the number of rods for each specified length from the line plot.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total length of 1/2 foot rods = 4 * (1/2) foot = 4/2 foot = 2 feet</div>
-    <div class="step-exp">Calculate the total length of all 1/2 foot rods by multiplying the length by the count and simplifying.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total length of 5/8 foot rods = 2 * (5/8) foot = 10/8 foot</div>
-    <div class="step-exp">Calculate the total length of all 5/8 foot rods by multiplying the length by the count.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Simplify 10/8 foot: 10/8 = 1 2/8 = 1 1/4 feet</div>
-    <div class="step-exp">Convert the improper fraction to a mixed number and simplify the fractional part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Difference = 2 feet - 1 1/4 feet</div>
-    <div class="step-exp">Set up the subtraction to find the difference between the two total lengths.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Convert 2 to an improper fraction with denominator 4: 2 = 8/4.
-Convert 1 1/4 to an improper fraction: 1 1/4 = (1*4 + 1)/4 = 5/4.</div>
-    <div class="step-exp">Convert both numbers to improper fractions with a common denominator to perform the subtraction.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Difference = 8/4 - 5/4 = (8 - 5)/4 = 3/4 foot</div>
-    <div class="step-exp">Subtract the numerators, keeping the common denominator. The result is in simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3/4 foot (Option B)</p></div></div>
+5/8 foot rods: 2 rods</div><div class="step-exp">Identify the number of rods for each specified length from the line plot.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total length of 1/2 foot rods = 4 * (1/2) foot = 4/2 foot = 2 feet</div><div class="step-exp">Calculate the total length of all 1/2 foot rods by multiplying the length by the count and simplifying.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total length of 5/8 foot rods = 2 * (5/8) foot = 10/8 foot</div><div class="step-exp">Calculate the total length of all 5/8 foot rods by multiplying the length by the count.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Simplify 10/8 foot: 10/8 = 1 2/8 = 1 1/4 feet</div><div class="step-exp">Convert the improper fraction to a mixed number and simplify the fractional part.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Difference = 2 feet - 1 1/4 feet</div><div class="step-exp">Set up the subtraction to find the difference between the two total lengths.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Convert 2 to an improper fraction with denominator 4: 2 = 8/4.
+Convert 1 1/4 to an improper fraction: 1 1/4 = (1*4 + 1)/4 = 5/4.</div><div class="step-exp">Convert both numbers to improper fractions with a common denominator to perform the subtraction.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Difference = 8/4 - 5/4 = (8 - 5)/4 = 3/4 foot</div><div class="step-exp">Subtract the numerators, keeping the common denominator. The result is in simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3/4 foot (Option B)</p></div></div>
   </div>
 </div>
 
@@ -734,64 +318,15 @@ X   X   X   X   X
 
 What is the average time taken by a runner to complete the segment of the track, based on the data in the line plot? Express your answer in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 5/8 minutes</div><div class="option"><span class="opt-letter">B.</span> 1 7/16 minutes</div><div class="option"><span class="opt-letter">C.</span> 2 1/2 minutes</div><div class="option"><span class="opt-letter">D.</span> 23/40 minutes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Counts from the line plot:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Counts from the line plot:
 1/4 minute: 3 runners
 1/2 minute: 2 runners
 3/4 minute: 4 runners
-1 minute: 1 runner</div>
-    <div class="step-exp">Identify the time and the number of runners for each data point from the line plot.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total number of runners = 3 + 2 + 4 + 1 = 10 runners</div>
-    <div class="step-exp">Sum the number of &#x27;X&#x27;s on the line plot to find the total number of runners.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total time for 1/4 min runners = 3 * (1/4) = 3/4 minutes
+1 minute: 1 runner</div><div class="step-exp">Identify the time and the number of runners for each data point from the line plot.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total number of runners = 3 + 2 + 4 + 1 = 10 runners</div><div class="step-exp">Sum the number of &#x27;X&#x27;s on the line plot to find the total number of runners.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total time for 1/4 min runners = 3 * (1/4) = 3/4 minutes
 Total time for 1/2 min runners = 2 * (1/2) = 1 minute
 Total time for 3/4 min runners = 4 * (3/4) = 3 minutes
-Total time for 1 min runners = 1 * (1) = 1 minute</div>
-    <div class="step-exp">Calculate the total time contributed by each group of runners by multiplying their time by the number of runners in that group.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Overall total time = 3/4 + 1 + 3 + 1 = 3/4 + 5 = 5 3/4 minutes</div>
-    <div class="step-exp">Sum all the individual total times to get the overall total time spent by all runners.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Convert 5 3/4 to an improper fraction: 5 3/4 = (5*4 + 3)/4 = 23/4 minutes</div>
-    <div class="step-exp">Convert the overall total time to an improper fraction for easier division.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Average time = Overall total time / Total number of runners
-Average time = (23/4) / 10</div>
-    <div class="step-exp">Set up the division to calculate the average time by dividing the overall total time by the total number of runners.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Average time = 23/4 * (1/10) = 23/40 minutes</div>
-    <div class="step-exp">Multiply by the reciprocal of the divisor to perform the division. The fraction 23/40 is in simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 23/40 minutes (Option D)</p></div></div>
+Total time for 1 min runners = 1 * (1) = 1 minute</div><div class="step-exp">Calculate the total time contributed by each group of runners by multiplying their time by the number of runners in that group.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Overall total time = 3/4 + 1 + 3 + 1 = 3/4 + 5 = 5 3/4 minutes</div><div class="step-exp">Sum all the individual total times to get the overall total time spent by all runners.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Convert 5 3/4 to an improper fraction: 5 3/4 = (5*4 + 3)/4 = 23/4 minutes</div><div class="step-exp">Convert the overall total time to an improper fraction for easier division.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Average time = Overall total time / Total number of runners
+Average time = (23/4) / 10</div><div class="step-exp">Set up the division to calculate the average time by dividing the overall total time by the total number of runners.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Average time = 23/4 * (1/10) = 23/40 minutes</div><div class="step-exp">Multiply by the reciprocal of the divisor to perform the division. The fraction 23/40 is in simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 23/40 minutes (Option D)</p></div></div>
   </div>
 </div>
 
@@ -811,71 +346,15 @@ X   X   X   X   X   X   X   X
 
 What is the combined weight of all puppies in the litter? Express your answer as a mixed number in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 5/8 pounds</div><div class="option"><span class="opt-letter">B.</span> 27/8 pounds</div><div class="option"><span class="opt-letter">C.</span> 3 3/8 pounds</div><div class="option"><span class="opt-letter">D.</span> 1 1/4 pounds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Weights and counts from the line plot:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Weights and counts from the line plot:
 1/8 pound: 2 puppies
 1/4 pound: 3 puppies
 3/8 pound: 5 puppies
-1/2 pound: 1 puppy</div>
-    <div class="step-exp">Identify the weight of each puppy and the number of puppies for each weight category from the line plot.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total weight for 1/8 lb puppies = 2 * (1/8) = 2/8 = 1/4 pound</div>
-    <div class="step-exp">Calculate the total weight for puppies weighing 1/8 pound.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total weight for 1/4 lb puppies = 3 * (1/4) = 3/4 pound</div>
-    <div class="step-exp">Calculate the total weight for puppies weighing 1/4 pound.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Total weight for 3/8 lb puppies = 5 * (3/8) = 15/8 pounds</div>
-    <div class="step-exp">Calculate the total weight for puppies weighing 3/8 pound.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Total weight for 1/2 lb puppy = 1 * (1/2) = 1/2 pound</div>
-    <div class="step-exp">Calculate the total weight for the puppy weighing 1/2 pound.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Combined total weight = 1/4 + 3/4 + 15/8 + 1/2</div>
-    <div class="step-exp">Add all the individual total weights to find the combined total weight of all puppies.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Find a common denominator for 4, 8, and 2. The common denominator is 8.
+1/2 pound: 1 puppy</div><div class="step-exp">Identify the weight of each puppy and the number of puppies for each weight category from the line plot.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total weight for 1/8 lb puppies = 2 * (1/8) = 2/8 = 1/4 pound</div><div class="step-exp">Calculate the total weight for puppies weighing 1/8 pound.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total weight for 1/4 lb puppies = 3 * (1/4) = 3/4 pound</div><div class="step-exp">Calculate the total weight for puppies weighing 1/4 pound.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Total weight for 3/8 lb puppies = 5 * (3/8) = 15/8 pounds</div><div class="step-exp">Calculate the total weight for puppies weighing 3/8 pound.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Total weight for 1/2 lb puppy = 1 * (1/2) = 1/2 pound</div><div class="step-exp">Calculate the total weight for the puppy weighing 1/2 pound.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Combined total weight = 1/4 + 3/4 + 15/8 + 1/2</div><div class="step-exp">Add all the individual total weights to find the combined total weight of all puppies.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Find a common denominator for 4, 8, and 2. The common denominator is 8.
 1/4 = 2/8
 3/4 = 6/8
-1/2 = 4/8</div>
-    <div class="step-exp">Convert all fractions to equivalent fractions with a common denominator of 8.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">8</div>
-  <div class="step-content">
-    <div class="step-work">Combined total weight = 2/8 + 6/8 + 15/8 + 4/8 = (2 + 6 + 15 + 4)/8 = 27/8 pounds
-Convert to mixed number: 27/8 = 3 3/8 pounds</div>
-    <div class="step-exp">Add the numerators, keep the common denominator, and then convert the improper fraction to a mixed number in simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3 3/8 pounds (Option C)</p></div></div>
+1/2 = 4/8</div><div class="step-exp">Convert all fractions to equivalent fractions with a common denominator of 8.</div></div></div><div class="step"><div class="step-num">8</div><div class="step-content"><div class="step-work">Combined total weight = 2/8 + 6/8 + 15/8 + 4/8 = (2 + 6 + 15 + 4)/8 = 27/8 pounds
+Convert to mixed number: 27/8 = 3 3/8 pounds</div><div class="step-exp">Add the numerators, keep the common denominator, and then convert the improper fraction to a mixed number in simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3 3/8 pounds (Option C)</p></div></div>
   </div>
 </div>
 
@@ -895,81 +374,22 @@ X   X   X   X
 
 What is the total size of all application updates that are less than 1/4 GB? Express your answer as a mixed number in simplest form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 17/16 GB</div><div class="option"><span class="opt-letter">B.</span> 1 1/16 GB</div><div class="option"><span class="opt-letter">C.</span> 1 5/16 GB</div><div class="option"><span class="opt-letter">D.</span> 3/8 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Identify update sizes less than 1/4 GB and their counts:
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Identify update sizes less than 1/4 GB and their counts:
 1/16 GB: 4 updates
 1/8 GB: 2 updates
-3/16 GB: 3 updates</div>
-    <div class="step-exp">Filter the relevant data points from the line plot based on the condition (&#x27;less than 1/4 GB&#x27;).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Total size for 1/16 GB updates = 4 * (1/16) = 4/16 GB</div>
-    <div class="step-exp">Calculate the total size for updates that are 1/16 GB.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Simplify 4/16: 4/16 = 1/4 GB</div>
-    <div class="step-exp">Simplify the fraction 4/16.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Total size for 1/8 GB updates = 2 * (1/8) = 2/8 GB</div>
-    <div class="step-exp">Calculate the total size for updates that are 1/8 GB.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Simplify 2/8: 2/8 = 1/4 GB</div>
-    <div class="step-exp">Simplify the fraction 2/8.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Total size for 3/16 GB updates = 3 * (3/16) = 9/16 GB</div>
-    <div class="step-exp">Calculate the total size for updates that are 3/16 GB.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">Combined total size = 1/4 + 1/4 + 9/16</div>
-    <div class="step-exp">Add all the individual total sizes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">8</div>
-  <div class="step-content">
-    <div class="step-work">Find a common denominator for 4 and 16, which is 16.
+3/16 GB: 3 updates</div><div class="step-exp">Filter the relevant data points from the line plot based on the condition (&#x27;less than 1/4 GB&#x27;).</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Total size for 1/16 GB updates = 4 * (1/16) = 4/16 GB</div><div class="step-exp">Calculate the total size for updates that are 1/16 GB.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Simplify 4/16: 4/16 = 1/4 GB</div><div class="step-exp">Simplify the fraction 4/16.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Total size for 1/8 GB updates = 2 * (1/8) = 2/8 GB</div><div class="step-exp">Calculate the total size for updates that are 1/8 GB.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Simplify 2/8: 2/8 = 1/4 GB</div><div class="step-exp">Simplify the fraction 2/8.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Total size for 3/16 GB updates = 3 * (3/16) = 9/16 GB</div><div class="step-exp">Calculate the total size for updates that are 3/16 GB.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">Combined total size = 1/4 + 1/4 + 9/16</div><div class="step-exp">Add all the individual total sizes.</div></div></div><div class="step"><div class="step-num">8</div><div class="step-content"><div class="step-work">Find a common denominator for 4 and 16, which is 16.
 1/4 = 4/16
 Combined total size = 4/16 + 4/16 + 9/16 = (4 + 4 + 9)/16 = 17/16 GB
-Convert to mixed number: 17/16 = 1 1/16 GB</div>
-    <div class="step-exp">Convert fractions to a common denominator, add the numerators, and convert the improper fraction to a mixed number in simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 1 1/16 GB (Option B)</p></div></div>
+Convert to mixed number: 17/16 = 1 1/16 GB</div><div class="step-exp">Convert fractions to a common denominator, add the numerators, and convert the improper fraction to a mixed number in simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 1 1/16 GB (Option B)</p></div></div>
   </div>
 </div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

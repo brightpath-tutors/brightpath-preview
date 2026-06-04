@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,49 +146,13 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 8 | EE | Skill 8.EE.049<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Laws of Exponents</h1>
-<p class="skill-subtitle">Skill ID: 8.EE.049</p>
+<h1 class="skill-title">Laws of Exponents</h1><p class="skill-subtitle">Skill ID: 8.EE.049</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
   <div class="q-body">
     <div class="q-prompt">A small virus replicates itself. If a single virus multiplies by a factor of 2 every hour, how many viruses will there be after 3 hours? Express your answer using exponents.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3^2</div><div class="option"><span class="opt-letter">B.</span> 2 * 3</div><div class="option"><span class="opt-letter">C.</span> 2^3</div><div class="option"><span class="opt-letter">D.</span> 8</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The virus multiplies by a factor of 2 every hour. We want to find the total number of viruses after 3 hours, starting with 1 virus.</div>
-    <div class="step-exp">This means the number of viruses doubles each hour.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">1 * 2 = 2 viruses</div>
-    <div class="step-exp">After 1 hour, the initial virus doubles.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">2 * 2 = 4 viruses</div>
-    <div class="step-exp">After 2 hours, the 2 viruses from Hour 1 double.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">4 * 2 = 8 viruses</div>
-    <div class="step-exp">After 3 hours, the 4 viruses from Hour 2 double.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">8 = 2 <em> 2 </em> 2 = 2^3</div>
-    <div class="step-exp">Since 8 is 2 multiplied by itself 3 times, it can be written as 2^3.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2^3 (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The virus multiplies by a factor of 2 every hour. We want to find the total number of viruses after 3 hours, starting with 1 virus.</div><div class="step-exp">This means the number of viruses doubles each hour.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">1 * 2 = 2 viruses</div><div class="step-exp">After 1 hour, the initial virus doubles.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">2 * 2 = 4 viruses</div><div class="step-exp">After 2 hours, the 2 viruses from Hour 1 double.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">4 * 2 = 8 viruses</div><div class="step-exp">After 3 hours, the 4 viruses from Hour 2 double.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">8 = 2 <em> 2 </em> 2 = 2^3</div><div class="step-exp">Since 8 is 2 multiplied by itself 3 times, it can be written as 2^3.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2^3 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -311,21 +161,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A certain type of bacteria doubles its population every hour. If you start with 10 bacteria, and after 2 hours you have 10 * 2^2 bacteria, how many bacteria will you have after 4 hours? Express your answer using exponents.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 10 * 2^8</div><div class="option"><span class="opt-letter">B.</span> 10 * 4^2</div><div class="option"><span class="opt-letter">C.</span> 10 * 2^4</div><div class="option"><span class="opt-letter">D.</span> 10 * 4</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The bacteria population doubles every hour. Starting with 10 bacteria, after &#x27;h&#x27; hours, the population will be 10 * 2^h.</div>
-    <div class="step-exp">The base of the exponent is 2 because the population doubles. The exponent is the number of hours.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">For h = 4 hours, the population is 10 * 2^4.</div>
-    <div class="step-exp">Substitute h = 4 into the formula derived from the pattern.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 10 * 2^4 (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The bacteria population doubles every hour. Starting with 10 bacteria, after &#x27;h&#x27; hours, the population will be 10 * 2^h.</div><div class="step-exp">The base of the exponent is 2 because the population doubles. The exponent is the number of hours.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">For h = 4 hours, the population is 10 * 2^4.</div><div class="step-exp">Substitute h = 4 into the formula derived from the pattern.</div></div></div><p class="answer-line"><strong>Answer:</strong> 10 * 2^4 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -334,28 +170,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A chef is experimenting with a new recipe. He starts with 3 grams of a spice. If he needs to triple the amount of spice every time he doubles the recipe, and he doubles the recipe twice, how much spice will he use? Express your answer in simplest exponential form.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3^3</div><div class="option"><span class="opt-letter">B.</span> 9</div><div class="option"><span class="opt-letter">C.</span> 3 * 2</div><div class="option"><span class="opt-letter">D.</span> 2^3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Starting spice amount = 3 grams. Tripling the spice amount means multiplying by 3. Doubling the recipe twice means he will triple the spice amount twice.</div>
-    <div class="step-exp">The &#x27;doubling the recipe&#x27; part tells us how many times the tripling action occurs. Doubling twice means 2 actions of tripling.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Initial amount = 3. First tripling: 3 <em> 3 = 3^2. Second tripling: (3 </em> 3) * 3 = 3^3.</div>
-    <div class="step-exp">For each time the recipe is doubled, the spice amount is tripled. So, for two doublings, the spice is tripled twice.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">3^3</div>
-    <div class="step-exp">The final amount is 3 multiplied by itself 3 times.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3^3 (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Starting spice amount = 3 grams. Tripling the spice amount means multiplying by 3. Doubling the recipe twice means he will triple the spice amount twice.</div><div class="step-exp">The &#x27;doubling the recipe&#x27; part tells us how many times the tripling action occurs. Doubling twice means 2 actions of tripling.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Initial amount = 3. First tripling: 3 <em> 3 = 3^2. Second tripling: (3 </em> 3) * 3 = 3^3.</div><div class="step-exp">For each time the recipe is doubled, the spice amount is tripled. So, for two doublings, the spice is tripled twice.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">3^3</div><div class="step-exp">The final amount is 3 multiplied by itself 3 times.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3^3 (Option A)</p></div></div>
   </div>
 </div>
 
@@ -364,21 +179,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">During a science experiment, the population of a certain organism quadruples every hour. If the initial population is 5 organisms, what is the population after 3 hours? Express your answer using exponents.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 * 4^3</div><div class="option"><span class="opt-letter">B.</span> 5 * 3^4</div><div class="option"><span class="opt-letter">C.</span> 20^3</div><div class="option"><span class="opt-letter">D.</span> 5 <em> 4 </em> 3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The population quadruples every hour, so the base is 4. The process occurs for 3 hours, so the exponent is 3.</div>
-    <div class="step-exp">Quadrupling means multiplying by 4. The number of hours directly corresponds to the exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Initial population <em> (base)^exponent = 5 </em> 4^3.</div>
-    <div class="step-exp">The initial population is multiplied by the exponential growth factor.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5 * 4^3 (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The population quadruples every hour, so the base is 4. The process occurs for 3 hours, so the exponent is 3.</div><div class="step-exp">Quadrupling means multiplying by 4. The number of hours directly corresponds to the exponent.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Initial population <em> (base)^exponent = 5 </em> 4^3.</div><div class="step-exp">The initial population is multiplied by the exponential growth factor.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5 * 4^3 (Option A)</p></div></div>
   </div>
 </div>
 
@@ -387,21 +188,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A construction worker is stacking concrete blocks. Each layer of blocks has 6 blocks. If he stacks 3 layers, and each block is a perfect cube, how many small cubes make up the entire stack? Express your answer as a single exponent.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3^6</div><div class="option"><span class="opt-letter">B.</span> 6 * 3</div><div class="option"><span class="opt-letter">C.</span> 18</div><div class="option"><span class="opt-letter">D.</span> 6^3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Each layer has 6 blocks. There are 3 layers. Since each block is a perfect cube, this implies we are looking at dimensions. If a layer has 6 blocks, and it&#x27;s a cube, it means 6 blocks long, 6 blocks wide, and 3 layers high implies 3 sets of 6x6. However, &#x27;each block is a perfect cube&#x27; suggests a volume calculation where the base is the &#x27;block&#x27; unit, not the number 6. Re-reading: &#x27;each layer of blocks has 6 blocks&#x27;. If it&#x27;s a cube, the number of blocks along one edge would be the cube root of the total. Let&#x27;s assume the question means &#x27;6 blocks&#x27; is the side length of the square base, and there are 3 layers. This means 6 blocks long, 6 blocks wide, and 3 layers high. This isn&#x27;t a single exponent for the total number of small cubes. The question states &#x27;how many small cubes make up the entire stack? Express your answer as a single exponent.&#x27; This implies the number of blocks per layer is the same as the number of layers, making it a larger cube. So, if there are 6 blocks per layer, and 3 layers, to express as a single exponent, the number of layers must also be 6, or the &#x27;6 blocks&#x27; refers to a dimension like &#x27;6 cubes along one side of the base of the <em>stack</em>&#x27;, and the <em>height</em> is also 6, resulting in 6^3 total cubes. The prompt &#x27;Each layer of blocks has 6 blocks. If he stacks 3 layers...&#x27; is contradictory to &#x27;Express your answer as a single exponent&#x27; if it&#x27;s not a cube (e.g., 6x6x3). Let&#x27;s assume the intended meaning for &#x27;single exponent&#x27; is that the &#x27;6 blocks&#x27; is a misunderstanding by the user, and the problem expects a cube. Or, more simply, if each layer has 6 blocks, and he stacks 3 layers, and each block is a perfect cube, and the <em>total</em> stack is a perfect cube, then the number of blocks along each dimension must be equal. Given the options usually align with the prompt, and we need a single exponent, a more plausible interpretation is that the question is poorly worded and implies that the number 6 is the relevant base and 3 is the relevant exponent for a simple exponential calculation. Let&#x27;s re-interpret the question for simplicity and common exponent problem types: if &#x27;each layer of blocks has 6 blocks&#x27; means the <em>area</em> of one layer is 6 blocks, and there are 3 layers, it still doesn&#x27;t make a simple exponent. What if &#x27;6 blocks&#x27; refers to the side length of a cube, and &#x27;3 layers&#x27; implies the exponent? No, this is not how &#x27;layers&#x27; work. Let&#x27;s go with a simpler interpretation that is often seen in such problems for early grade levels: if &#x27;each layer has 6 blocks&#x27; and &#x27;he stacks 3 layers&#x27;, this could be $6 	imes 3$. If &#x27;each block is a perfect cube&#x27;, and the stack itself forms a large cube, then the number of blocks per side must be equal to the number of layers. This implies 6 blocks per side, and 6 layers. But the question says &#x27;3 layers&#x27;. This is a common flaw in word problems where they want a simple exponential form without explicitly stating the full dimensions. Let&#x27;s assume &#x27;6 blocks&#x27; represents the base of the exponent and &#x27;3 layers&#x27; represents the number of times it&#x27;s multiplied (the exponent), implicitly forming a cube of 6x6x6. This is the only way to get 6^3 as a single exponent, assuming the question implies a volume calculation where each side is 6 units, and the 3 layers means to cube it. This is a stretch. Let&#x27;s consider an alternative reading: if the &#x27;6 blocks&#x27; itself implies a dimension, and &#x27;3 layers&#x27; also implies a dimension. If the final answer must be a single exponent, the question is likely asking for something like (number of blocks in a specific configuration)^number of times that configuration is repeated. Let&#x27;s assume &#x27;6 blocks&#x27; refers to the number of blocks along one edge of the base, and &#x27;3 layers&#x27; implies the height. If the stack forms a perfect cube for the final answer to be a single exponent (e.g., side^3), then the side length must be 6, and the height must also be 6. But the problem states &#x27;3 layers&#x27;. This is a clear conflict. Let&#x27;s assume the question intends for the simplest interpretation: there&#x27;s a base number &#x27;6&#x27; and an exponent &#x27;3&#x27;. This interpretation ignores the &#x27;layers&#x27; context slightly, or assumes &#x27;layers&#x27; implies the exponent. This is a very ambiguous question given the target answer form. Let&#x27;s assume the most direct interpretation for &#x27;single exponent&#x27; from the numbers given: 6 base, 3 exponent. This would mean (6 blocks per side) ^ (3 dimensions). It&#x27;s a cube with side length 6. But then the &#x27;3 layers&#x27; is redundant. Let&#x27;s try to make sense of the given numbers leading to a single exponent. If the &#x27;6 blocks&#x27; is the base, and &#x27;3 layers&#x27; somehow translates to the exponent 3, then it is 6^3. This is the most likely intention for a &#x27;single exponent&#x27; answer in these types of problems. If it&#x27;s 6 blocks <em>per layer</em>, and 3 layers, then total blocks = 6 <em> 3 = 18. This is not a single exponent. Therefore, the wording &#x27;Each layer of blocks has 6 blocks&#x27; and &#x27;If he stacks 3 layers&#x27; must be interpreted as creating a 6x6x6 cube of small blocks, for the answer to be a single exponent like 6^3. This makes the &#x27;3 layers&#x27; part misleading, as it should be 6 layers for a perfect 6x6x6 cube. Let&#x27;s assume the question meant that the </em>side length<em> of the overall stack is 6 blocks, and it&#x27;s a cube (hence 3 dimensions). So 6^3. The &#x27;3 layers&#x27; seems like a red herring or a misstatement. Given the format, I will assume the prompt </em>intended* to ask for 6^3. Let&#x27;s re-read: &#x27;how many small cubes make up the entire stack? Express your answer as a single exponent.&#x27; If each block is a small cube, and the final stack is a perfect large cube, then the number of blocks along each edge must be the same. If a layer &#x27;has 6 blocks&#x27;, it could mean 6 blocks along one edge of the square base, and since it&#x27;s a &#x27;stack&#x27; and we need a single exponent for the total, it implies the height is also 6. But then the &#x27;3 layers&#x27; is still contradictory. I will assume the question implies a simpler direct translation of a number (6) repeated a number of times (3) in an exponential context, resulting in 6^3. This is a common way these questions are phrased to introduce exponents, even if the real-world context is a bit stretched. So, 6 base, 3 exponent.</div>
-    <div class="step-exp">To express the total number of blocks as a single exponent, we assume the stack forms a cube where the side length is 6 blocks, and there are 3 dimensions, resulting in 6^3 total blocks. The &#x27;3 layers&#x27; here is interpreted as the dimension count for the cube.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Base = 6, Exponent = 3. Result = 6^3.</div>
-    <div class="step-exp">This directly applies the exponential form. We are calculating the volume of a larger cube made of small blocks.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6^3 (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Each layer has 6 blocks. There are 3 layers. Since each block is a perfect cube, this implies we are looking at dimensions. If a layer has 6 blocks, and it&#x27;s a cube, it means 6 blocks long, 6 blocks wide, and 3 layers high implies 3 sets of 6x6. However, &#x27;each block is a perfect cube&#x27; suggests a volume calculation where the base is the &#x27;block&#x27; unit, not the number 6. Re-reading: &#x27;each layer of blocks has 6 blocks&#x27;. If it&#x27;s a cube, the number of blocks along one edge would be the cube root of the total. Let&#x27;s assume the question means &#x27;6 blocks&#x27; is the side length of the square base, and there are 3 layers. This means 6 blocks long, 6 blocks wide, and 3 layers high. This isn&#x27;t a single exponent for the total number of small cubes. The question states &#x27;how many small cubes make up the entire stack? Express your answer as a single exponent.&#x27; This implies the number of blocks per layer is the same as the number of layers, making it a larger cube. So, if there are 6 blocks per layer, and 3 layers, to express as a single exponent, the number of layers must also be 6, or the &#x27;6 blocks&#x27; refers to a dimension like &#x27;6 cubes along one side of the base of the <em>stack</em>&#x27;, and the <em>height</em> is also 6, resulting in 6^3 total cubes. The prompt &#x27;Each layer of blocks has 6 blocks. If he stacks 3 layers...&#x27; is contradictory to &#x27;Express your answer as a single exponent&#x27; if it&#x27;s not a cube (e.g., 6x6x3). Let&#x27;s assume the intended meaning for &#x27;single exponent&#x27; is that the &#x27;6 blocks&#x27; is a misunderstanding by the user, and the problem expects a cube. Or, more simply, if each layer has 6 blocks, and he stacks 3 layers, and each block is a perfect cube, and the <em>total</em> stack is a perfect cube, then the number of blocks along each dimension must be equal. Given the options usually align with the prompt, and we need a single exponent, a more plausible interpretation is that the question is poorly worded and implies that the number 6 is the relevant base and 3 is the relevant exponent for a simple exponential calculation. Let&#x27;s re-interpret the question for simplicity and common exponent problem types: if &#x27;each layer of blocks has 6 blocks&#x27; means the <em>area</em> of one layer is 6 blocks, and there are 3 layers, it still doesn&#x27;t make a simple exponent. What if &#x27;6 blocks&#x27; refers to the side length of a cube, and &#x27;3 layers&#x27; implies the exponent? No, this is not how &#x27;layers&#x27; work. Let&#x27;s go with a simpler interpretation that is often seen in such problems for early grade levels: if &#x27;each layer has 6 blocks&#x27; and &#x27;he stacks 3 layers&#x27;, this could be $6 	imes 3$. If &#x27;each block is a perfect cube&#x27;, and the stack itself forms a large cube, then the number of blocks per side must be equal to the number of layers. This implies 6 blocks per side, and 6 layers. But the question says &#x27;3 layers&#x27;. This is a common flaw in word problems where they want a simple exponential form without explicitly stating the full dimensions. Let&#x27;s assume &#x27;6 blocks&#x27; represents the base of the exponent and &#x27;3 layers&#x27; represents the number of times it&#x27;s multiplied (the exponent), implicitly forming a cube of 6x6x6. This is the only way to get 6^3 as a single exponent, assuming the question implies a volume calculation where each side is 6 units, and the 3 layers means to cube it. This is a stretch. Let&#x27;s consider an alternative reading: if the &#x27;6 blocks&#x27; itself implies a dimension, and &#x27;3 layers&#x27; also implies a dimension. If the final answer must be a single exponent, the question is likely asking for something like (number of blocks in a specific configuration)^number of times that configuration is repeated. Let&#x27;s assume &#x27;6 blocks&#x27; refers to the number of blocks along one edge of the base, and &#x27;3 layers&#x27; implies the height. If the stack forms a perfect cube for the final answer to be a single exponent (e.g., side^3), then the side length must be 6, and the height must also be 6. But the problem states &#x27;3 layers&#x27;. This is a clear conflict. Let&#x27;s assume the question intends for the simplest interpretation: there&#x27;s a base number &#x27;6&#x27; and an exponent &#x27;3&#x27;. This interpretation ignores the &#x27;layers&#x27; context slightly, or assumes &#x27;layers&#x27; implies the exponent. This is a very ambiguous question given the target answer form. Let&#x27;s assume the most direct interpretation for &#x27;single exponent&#x27; from the numbers given: 6 base, 3 exponent. This would mean (6 blocks per side) ^ (3 dimensions). It&#x27;s a cube with side length 6. But then the &#x27;3 layers&#x27; is redundant. Let&#x27;s try to make sense of the given numbers leading to a single exponent. If the &#x27;6 blocks&#x27; is the base, and &#x27;3 layers&#x27; somehow translates to the exponent 3, then it is 6^3. This is the most likely intention for a &#x27;single exponent&#x27; answer in these types of problems. If it&#x27;s 6 blocks <em>per layer</em>, and 3 layers, then total blocks = 6 <em> 3 = 18. This is not a single exponent. Therefore, the wording &#x27;Each layer of blocks has 6 blocks&#x27; and &#x27;If he stacks 3 layers&#x27; must be interpreted as creating a 6x6x6 cube of small blocks, for the answer to be a single exponent like 6^3. This makes the &#x27;3 layers&#x27; part misleading, as it should be 6 layers for a perfect 6x6x6 cube. Let&#x27;s assume the question meant that the </em>side length<em> of the overall stack is 6 blocks, and it&#x27;s a cube (hence 3 dimensions). So 6^3. The &#x27;3 layers&#x27; seems like a red herring or a misstatement. Given the format, I will assume the prompt </em>intended* to ask for 6^3. Let&#x27;s re-read: &#x27;how many small cubes make up the entire stack? Express your answer as a single exponent.&#x27; If each block is a small cube, and the final stack is a perfect large cube, then the number of blocks along each edge must be the same. If a layer &#x27;has 6 blocks&#x27;, it could mean 6 blocks along one edge of the square base, and since it&#x27;s a &#x27;stack&#x27; and we need a single exponent for the total, it implies the height is also 6. But then the &#x27;3 layers&#x27; is still contradictory. I will assume the question implies a simpler direct translation of a number (6) repeated a number of times (3) in an exponential context, resulting in 6^3. This is a common way these questions are phrased to introduce exponents, even if the real-world context is a bit stretched. So, 6 base, 3 exponent.</div><div class="step-exp">To express the total number of blocks as a single exponent, we assume the stack forms a cube where the side length is 6 blocks, and there are 3 dimensions, resulting in 6^3 total blocks. The &#x27;3 layers&#x27; here is interpreted as the dimension count for the cube.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Base = 6, Exponent = 3. Result = 6^3.</div><div class="step-exp">This directly applies the exponential form. We are calculating the volume of a larger cube made of small blocks.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6^3 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -410,28 +197,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A digital artist is creating a pixel art image. The image has a width of 2^4 pixels and a height of 2^3 pixels. What is the total number of pixels in the image? Express your answer as a single exponent.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 4^7</div><div class="option"><span class="opt-letter">B.</span> 2^7</div><div class="option"><span class="opt-letter">C.</span> 2^12</div><div class="option"><span class="opt-letter">D.</span> 2^1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Width = 2^4 pixels. Height = 2^3 pixels.</div>
-    <div class="step-exp">The problem provides the dimensions in exponential form.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">When multiplying exponents with the same base, you add the powers: a^m * a^n = a^(m+n).</div>
-    <div class="step-exp">The total number of pixels is found by multiplying the width by the height.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total pixels = 2^4 * 2^3 = 2^(4+3) = 2^7.</div>
-    <div class="step-exp">Add the exponents 4 and 3 while keeping the base 2.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2^7 (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Width = 2^4 pixels. Height = 2^3 pixels.</div><div class="step-exp">The problem provides the dimensions in exponential form.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">When multiplying exponents with the same base, you add the powers: a^m * a^n = a^(m+n).</div><div class="step-exp">The total number of pixels is found by multiplying the width by the height.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total pixels = 2^4 * 2^3 = 2^(4+3) = 2^7.</div><div class="step-exp">Add the exponents 4 and 3 while keeping the base 2.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2^7 (Option B)</p></div></div>
   </div>
 </div>
 
@@ -440,28 +206,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A baker uses 5^6 grams of flour for a large cake. If he has 5^8 grams of flour in stock, how many times more flour does he have than he needs for the cake? Express your answer as a single exponent.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1^2</div><div class="option"><span class="opt-letter">B.</span> 5^48</div><div class="option"><span class="opt-letter">C.</span> 5^14</div><div class="option"><span class="opt-letter">D.</span> 5^2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Flour in stock = 5^8 grams. Flour needed = 5^6 grams.</div>
-    <div class="step-exp">The problem provides the amounts in exponential form.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">To find how many times more, we divide the larger amount by the smaller amount. When dividing exponents with the same base, you subtract the powers: a^m / a^n = a^(m-n).</div>
-    <div class="step-exp">We need to find the ratio of the flour in stock to the flour needed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Times more flour = 5^8 / 5^6 = 5^(8-6) = 5^2.</div>
-    <div class="step-exp">Subtract the exponents 6 from 8 while keeping the base 5.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5^2 (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Flour in stock = 5^8 grams. Flour needed = 5^6 grams.</div><div class="step-exp">The problem provides the amounts in exponential form.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">To find how many times more, we divide the larger amount by the smaller amount. When dividing exponents with the same base, you subtract the powers: a^m / a^n = a^(m-n).</div><div class="step-exp">We need to find the ratio of the flour in stock to the flour needed.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Times more flour = 5^8 / 5^6 = 5^(8-6) = 5^2.</div><div class="step-exp">Subtract the exponents 6 from 8 while keeping the base 5.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5^2 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -470,28 +215,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A city&#x27;s population grew at a rate of (3^2)^3 people per year for 5 years. What is the total growth rate per year? Express your answer as a single exponent.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3^6</div><div class="option"><span class="opt-letter">B.</span> 9^3</div><div class="option"><span class="opt-letter">C.</span> 3^5</div><div class="option"><span class="opt-letter">D.</span> 3^2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Growth rate per year = (3^2)^3 people/year.</div>
-    <div class="step-exp">The problem provides the growth rate in the form of a power raised to another power.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">When raising a power to another power, you multiply the exponents: (a^m)^n = a^(m*n).</div>
-    <div class="step-exp">This rule simplifies the expression into a single exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">(3^2)^3 = 3^(2*3) = 3^6.</div>
-    <div class="step-exp">Multiply the exponents 2 and 3 while keeping the base 3.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3^6 (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Growth rate per year = (3^2)^3 people/year.</div><div class="step-exp">The problem provides the growth rate in the form of a power raised to another power.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">When raising a power to another power, you multiply the exponents: (a^m)^n = a^(m*n).</div><div class="step-exp">This rule simplifies the expression into a single exponent.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">(3^2)^3 = 3^(2*3) = 3^6.</div><div class="step-exp">Multiply the exponents 2 and 3 while keeping the base 3.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3^6 (Option A)</p></div></div>
   </div>
 </div>
 
@@ -500,35 +224,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A sports team&#x27;s fan base doubled every year for 3 years, and then quadrupled for 2 more years. If the initial fan base was 1000, what is the fan base after 5 years? Express your answer in simplest exponential form with a base of 2.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1000 * 2^5</div><div class="option"><span class="opt-letter">B.</span> 1000 * 8^2</div><div class="option"><span class="opt-letter">C.</span> 1000 * 2^7</div><div class="option"><span class="opt-letter">D.</span> 1000 * 2^12</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Stage 1: Doubled every year for 3 years = 2^3. Stage 2: Quadrupled for 2 more years = 4^2.</div>
-    <div class="step-exp">Identify the exponential expressions for each growth stage.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Stage 1: 2^3. Stage 2: 4^2 = (2^2)^2 = 2^(2*2) = 2^4.</div>
-    <div class="step-exp">To combine these, they need to have the same base. Since 4 = 2^2, we can convert 4^2 to a power of 2 using the power of a power rule.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Total growth factor = 2^3 * 2^4 = 2^(3+4) = 2^7.</div>
-    <div class="step-exp">When multiplying exponents with the same base, add the powers.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Initial fan base <em> Total growth factor = 1000 </em> 2^7.</div>
-    <div class="step-exp">Multiply the initial fan base by the combined exponential growth factor.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 1000 * 2^7 (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Stage 1: Doubled every year for 3 years = 2^3. Stage 2: Quadrupled for 2 more years = 4^2.</div><div class="step-exp">Identify the exponential expressions for each growth stage.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Stage 1: 2^3. Stage 2: 4^2 = (2^2)^2 = 2^(2*2) = 2^4.</div><div class="step-exp">To combine these, they need to have the same base. Since 4 = 2^2, we can convert 4^2 to a power of 2 using the power of a power rule.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Total growth factor = 2^3 * 2^4 = 2^(3+4) = 2^7.</div><div class="step-exp">When multiplying exponents with the same base, add the powers.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Initial fan base <em> Total growth factor = 1000 </em> 2^7.</div><div class="step-exp">Multiply the initial fan base by the combined exponential growth factor.</div></div></div><p class="answer-line"><strong>Answer:</strong> 1000 * 2^7 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -537,40 +233,16 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A new gaming console has a storage capacity of (2^5)^2 gigabytes. A game requires a download of 2^7 gigabytes. How many games can be stored on the console? Express your answer as a single exponent.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2^3</div><div class="option"><span class="opt-letter">B.</span> 2^14</div><div class="option"><span class="opt-letter">C.</span> 2^5</div><div class="option"><span class="opt-letter">D.</span> 2^17</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Total storage = (2^5)^2 gigabytes. Using the power of a power rule: (2^5)^2 = 2^(5*2) = 2^10 gigabytes.</div>
-    <div class="step-exp">First, simplify the console&#x27;s storage capacity into a single exponent.</div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Total storage = (2^5)^2 gigabytes. Using the power of a power rule: (2^5)^2 = 2^(5*2) = 2^10 gigabytes.</div><div class="step-exp">First, simplify the console&#x27;s storage capacity into a single exponent.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Game size = 2^7 gigabytes.</div><div class="step-exp">This is the amount of storage one game takes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Number of games = Total storage / Game size = 2^10 / 2^7. Using the division rule for exponents with the same base: 2^(10-7) = 2^3.</div><div class="step-exp">Divide the total storage by the size of one game. When dividing exponents with the same base, subtract the powers.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2^3 (Option A)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Game size = 2^7 gigabytes.</div>
-    <div class="step-exp">This is the amount of storage one game takes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Number of games = Total storage / Game size = 2^10 / 2^7. Using the division rule for exponents with the same base: 2^(10-7) = 2^3.</div>
-    <div class="step-exp">Divide the total storage by the size of one game. When dividing exponents with the same base, subtract the powers.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2^3 (Option A)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

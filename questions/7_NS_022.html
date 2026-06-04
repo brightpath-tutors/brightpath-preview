@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,28 +146,13 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 7 | NS | Skill 7.NS.022<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Irrational Numbers</h1>
-<p class="skill-subtitle">Skill ID: 7.NS.022</p>
+<h1 class="skill-title">Irrational Numbers</h1><p class="skill-subtitle">Skill ID: 7.NS.022</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
   <div class="q-body">
     <div class="q-prompt">A school is designing a new square sandbox. The side length of the sandbox is calculated to be exactly √25 meters. Is the length of one side of this sandbox a rational or irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Rational</div><div class="option"><span class="opt-letter">B.</span> Irrational</div><div class="option"><span class="opt-letter">C.</span> Both rational and irrational</div><div class="option"><span class="opt-letter">D.</span> Neither rational nor irrational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">√25 = 5</div>
-    <div class="step-exp">The square root of 25 is 5, because 5 * 5 = 25.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">5 can be written as the fraction 5/1.</div>
-    <div class="step-exp">A rational number is any number that can be expressed as a fraction p/q, where p and q are integers and q is not zero. Since 5 can be written as 5/1, it is a rational number.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Rational (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">√25 = 5</div><div class="step-exp">The square root of 25 is 5, because 5 * 5 = 25.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">5 can be written as the fraction 5/1.</div><div class="step-exp">A rational number is any number that can be expressed as a fraction p/q, where p and q are integers and q is not zero. Since 5 can be written as 5/1, it is a rational number.</div></div></div><p class="answer-line"><strong>Answer:</strong> Rational (Option A)</p></div></div>
   </div>
 </div>
 
@@ -290,21 +161,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A chef is using a new recipe that requires adding a very precise amount of a special ingredient: exactly π (pi) milliliters. Is this amount of ingredient a rational or an irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Cannot be determined</div><div class="option"><span class="opt-letter">B.</span> Irrational</div><div class="option"><span class="opt-letter">C.</span> Both rational and irrational</div><div class="option"><span class="opt-letter">D.</span> Rational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">π is defined as the ratio of a circle&#x27;s circumference to its diameter.</div>
-    <div class="step-exp">Pi (π) is a mathematical constant.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">π has a decimal representation that is non-terminating and non-repeating (e.g., 3.14159265...).</div>
-    <div class="step-exp">Numbers with non-terminating and non-repeating decimal expansions cannot be expressed as a simple fraction of two integers. Therefore, π is an irrational number.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Irrational (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">π is defined as the ratio of a circle&#x27;s circumference to its diameter.</div><div class="step-exp">Pi (π) is a mathematical constant.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">π has a decimal representation that is non-terminating and non-repeating (e.g., 3.14159265...).</div><div class="step-exp">Numbers with non-terminating and non-repeating decimal expansions cannot be expressed as a simple fraction of two integers. Therefore, π is an irrational number.</div></div></div><p class="answer-line"><strong>Answer:</strong> Irrational (Option B)</p></div></div>
   </div>
 </div>
 
@@ -313,28 +170,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A new gadget on a technology website is priced at exactly √30 dollars. Is this price a rational or irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Integer</div><div class="option"><span class="opt-letter">B.</span> Both rational and irrational</div><div class="option"><span class="opt-letter">C.</span> Irrational</div><div class="option"><span class="opt-letter">D.</span> Rational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The number is 30.</div>
-    <div class="step-exp">We need to determine if 30 is a perfect square.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">5 x 5 = 25 and 6 x 6 = 36. Since 30 falls between two perfect squares (25 and 36), 30 is not a perfect square.</div>
-    <div class="step-exp">A perfect square is an integer that is the square of an integer. Since 30 is not the square of an integer, √30 will not be a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Since 30 is not a perfect square, √30 is an irrational number.</div>
-    <div class="step-exp">The square root of a non-perfect square is an irrational number. It will have a non-terminating, non-repeating decimal expansion.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Irrational (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The number is 30.</div><div class="step-exp">We need to determine if 30 is a perfect square.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">5 x 5 = 25 and 6 x 6 = 36. Since 30 falls between two perfect squares (25 and 36), 30 is not a perfect square.</div><div class="step-exp">A perfect square is an integer that is the square of an integer. Since 30 is not the square of an integer, √30 will not be a whole number.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Since 30 is not a perfect square, √30 is an irrational number.</div><div class="step-exp">The square root of a non-perfect square is an irrational number. It will have a non-terminating, non-repeating decimal expansion.</div></div></div><p class="answer-line"><strong>Answer:</strong> Irrational (Option C)</p></div></div>
   </div>
 </div>
 
@@ -343,28 +179,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">For a local community sports event, a new circular track is being designed with a total circumference of 250π meters. Is the length of this track a rational or irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Rational</div><div class="option"><span class="opt-letter">B.</span> Irrational</div><div class="option"><span class="opt-letter">C.</span> Both rational and irrational</div><div class="option"><span class="opt-letter">D.</span> Integer</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The number is 250π, which is the product of 250 and π.</div>
-    <div class="step-exp">We need to consider the nature of both factors.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">250 is an integer, and thus a rational number (250/1). π is an irrational number.</div>
-    <div class="step-exp">A rational number can be expressed as a fraction, while an irrational number has a non-terminating, non-repeating decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The product of a non-zero rational number and an irrational number is always irrational.</div>
-    <div class="step-exp">Since 250 is a non-zero rational number and π is an irrational number, their product 250π is irrational.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Irrational (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The number is 250π, which is the product of 250 and π.</div><div class="step-exp">We need to consider the nature of both factors.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">250 is an integer, and thus a rational number (250/1). π is an irrational number.</div><div class="step-exp">A rational number can be expressed as a fraction, while an irrational number has a non-terminating, non-repeating decimal.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The product of a non-zero rational number and an irrational number is always irrational.</div><div class="step-exp">Since 250 is a non-zero rational number and π is an irrational number, their product 250π is irrational.</div></div></div><p class="answer-line"><strong>Answer:</strong> Irrational (Option B)</p></div></div>
   </div>
 </div>
 
@@ -373,21 +188,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">In a scientific experiment measuring cell growth, a specific growth factor is calculated as 2.82842712... where the decimal digits continue infinitely without repeating. Is this growth factor a rational or irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Repeating decimal</div><div class="option"><span class="opt-letter">B.</span> Rational</div><div class="option"><span class="opt-letter">C.</span> Integer</div><div class="option"><span class="opt-letter">D.</span> Irrational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The number is 2.82842712... and the prompt states the decimal digits continue infinitely without repeating.</div>
-    <div class="step-exp">The key characteristic for classifying numbers as rational or irrational is their decimal expansion.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">An irrational number is a number whose decimal representation is non-terminating and non-repeating.</div>
-    <div class="step-exp">Since the growth factor&#x27;s decimal representation fits this definition, it is an irrational number.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Irrational (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The number is 2.82842712... and the prompt states the decimal digits continue infinitely without repeating.</div><div class="step-exp">The key characteristic for classifying numbers as rational or irrational is their decimal expansion.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">An irrational number is a number whose decimal representation is non-terminating and non-repeating.</div><div class="step-exp">Since the growth factor&#x27;s decimal representation fits this definition, it is an irrational number.</div></div></div><p class="answer-line"><strong>Answer:</strong> Irrational (Option D)</p></div></div>
   </div>
 </div>
 
@@ -396,28 +197,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A construction worker needs to cut a metal beam that is exactly √169 feet long. Will the worker be able to measure this length precisely using a standard ruler marked in whole and fractional inches/feet?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Yes, but only if the ruler is marked in decimals.</div><div class="option"><span class="opt-letter">B.</span> No, because √169 is an irrational number.</div><div class="option"><span class="opt-letter">C.</span> No, because √169 is a very large number.</div><div class="option"><span class="opt-letter">D.</span> Yes, because √169 is a rational number.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">√169 = 13</div>
-    <div class="step-exp">The square root of 169 is 13, because 13 * 13 = 169.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">13 is an integer, and integers are rational numbers (e.g., 13/1).</div>
-    <div class="step-exp">Since 13 is a rational number, it can be expressed as a whole number or a terminating decimal, which can be precisely measured with a standard ruler.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Yes, because √169 (which is 13) is a rational number.</div>
-    <div class="step-exp">Rational numbers can be measured precisely.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Yes, because √169 is a rational number. (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">√169 = 13</div><div class="step-exp">The square root of 169 is 13, because 13 * 13 = 169.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">13 is an integer, and integers are rational numbers (e.g., 13/1).</div><div class="step-exp">Since 13 is a rational number, it can be expressed as a whole number or a terminating decimal, which can be precisely measured with a standard ruler.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Yes, because √169 (which is 13) is a rational number.</div><div class="step-exp">Rational numbers can be measured precisely.</div></div></div><p class="answer-line"><strong>Answer:</strong> Yes, because √169 is a rational number. (Option D)</p></div></div>
   </div>
 </div>
 
@@ -426,28 +206,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A hiking trail is advertised as being √180 kilometers long. Is this distance a rational or an irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Irrational</div><div class="option"><span class="opt-letter">B.</span> Integer</div><div class="option"><span class="opt-letter">C.</span> Whole number</div><div class="option"><span class="opt-letter">D.</span> Rational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The number is 180.</div>
-    <div class="step-exp">We need to determine if 180 is a perfect square.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">13 x 13 = 169 and 14 x 14 = 196. Since 180 falls between two perfect squares (169 and 196), 180 is not a perfect square.</div>
-    <div class="step-exp">A perfect square is an integer that results from squaring another integer. If the number is not a perfect square, its square root is irrational.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Since 180 is not a perfect square, √180 is an irrational number.</div>
-    <div class="step-exp">The square root of any non-perfect square is an irrational number because its decimal representation will be non-terminating and non-repeating.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Irrational (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The number is 180.</div><div class="step-exp">We need to determine if 180 is a perfect square.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">13 x 13 = 169 and 14 x 14 = 196. Since 180 falls between two perfect squares (169 and 196), 180 is not a perfect square.</div><div class="step-exp">A perfect square is an integer that results from squaring another integer. If the number is not a perfect square, its square root is irrational.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Since 180 is not a perfect square, √180 is an irrational number.</div><div class="step-exp">The square root of any non-perfect square is an irrational number because its decimal representation will be non-terminating and non-repeating.</div></div></div><p class="answer-line"><strong>Answer:</strong> Irrational (Option A)</p></div></div>
   </div>
 </div>
 
@@ -456,28 +215,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A population study uses a growth constant represented by &#x27;e&#x27; (Euler&#x27;s number), which is approximately 2.71828. Which statement accurately describes the relationship between 2.71828 and the exact value of &#x27;e&#x27;?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Both 2.71828 and &#x27;e&#x27; are irrational.</div><div class="option"><span class="opt-letter">B.</span> Both 2.71828 and &#x27;e&#x27; are rational.</div><div class="option"><span class="opt-letter">C.</span> 2.71828 is rational, and &#x27;e&#x27; is irrational.</div><div class="option"><span class="opt-letter">D.</span> 2.71828 is irrational, and &#x27;e&#x27; is rational.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">2.71828 is a terminating decimal. Any terminating decimal can be written as a fraction (e.g., 271828/100000).</div>
-    <div class="step-exp">Numbers that can be expressed as a fraction of two integers are rational.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">&#x27;e&#x27; (Euler&#x27;s number) is a mathematical constant, like π, with a non-terminating, non-repeating decimal expansion.</div>
-    <div class="step-exp">Numbers with non-terminating and non-repeating decimal expansions are irrational.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">2.71828 is rational, and &#x27;e&#x27; is irrational.</div>
-    <div class="step-exp">The approximation is a rational number, but the exact mathematical constant &#x27;e&#x27; is an irrational number.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2.71828 is rational, and &#x27;e&#x27; is irrational. (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">2.71828 is a terminating decimal. Any terminating decimal can be written as a fraction (e.g., 271828/100000).</div><div class="step-exp">Numbers that can be expressed as a fraction of two integers are rational.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">&#x27;e&#x27; (Euler&#x27;s number) is a mathematical constant, like π, with a non-terminating, non-repeating decimal expansion.</div><div class="step-exp">Numbers with non-terminating and non-repeating decimal expansions are irrational.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">2.71828 is rational, and &#x27;e&#x27; is irrational.</div><div class="step-exp">The approximation is a rational number, but the exact mathematical constant &#x27;e&#x27; is an irrational number.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2.71828 is rational, and &#x27;e&#x27; is irrational. (Option C)</p></div></div>
   </div>
 </div>
 
@@ -486,28 +224,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">An art project requires constructing a perfect square frame with a diagonal length of √245 cm. If the artist only has rulers that measure in whole numbers or terminating decimals, can they precisely measure the diagonal?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Yes, because √245 is a rational number.</div><div class="option"><span class="opt-letter">B.</span> No, because the number 245 is too large to measure.</div><div class="option"><span class="opt-letter">C.</span> No, because √245 is an irrational number and cannot be expressed as a terminating decimal.</div><div class="option"><span class="opt-letter">D.</span> Yes, by approximating √245 to the nearest whole number.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The diagonal length is √245 cm.</div>
-    <div class="step-exp">We need to determine if √245 is a rational or irrational number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">15 x 15 = 225 and 16 x 16 = 256. Since 245 falls between two perfect squares (225 and 256), 245 is not a perfect square.</div>
-    <div class="step-exp">The square root of a non-perfect square is an irrational number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Since √245 is an irrational number, its decimal representation is non-terminating and non-repeating. Therefore, it cannot be measured precisely with rulers marked in whole numbers or terminating decimals.</div>
-    <div class="step-exp">Only rational numbers (terminating or repeating decimals) can be measured precisely using standard measuring tools.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> No, because √245 is an irrational number and cannot be expressed as a terminating decimal. (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The diagonal length is √245 cm.</div><div class="step-exp">We need to determine if √245 is a rational or irrational number.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">15 x 15 = 225 and 16 x 16 = 256. Since 245 falls between two perfect squares (225 and 256), 245 is not a perfect square.</div><div class="step-exp">The square root of a non-perfect square is an irrational number.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Since √245 is an irrational number, its decimal representation is non-terminating and non-repeating. Therefore, it cannot be measured precisely with rulers marked in whole numbers or terminating decimals.</div><div class="step-exp">Only rational numbers (terminating or repeating decimals) can be measured precisely using standard measuring tools.</div></div></div><p class="answer-line"><strong>Answer:</strong> No, because √245 is an irrational number and cannot be expressed as a terminating decimal. (Option C)</p></div></div>
   </div>
 </div>
 
@@ -516,40 +233,16 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A health researcher is calculating the optimal dose of a new supplement. The calculation yields a dosage of (√5 * √20) mg. Is this dosage a rational or an irrational number?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Rational</div><div class="option"><span class="opt-letter">B.</span> Cannot be determined without a calculator</div><div class="option"><span class="opt-letter">C.</span> Both rational and irrational</div><div class="option"><span class="opt-letter">D.</span> Irrational</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">√5 <em> √20 = √(5 </em> 20) = √100</div>
-    <div class="step-exp">When multiplying square roots, you can multiply the numbers under the radical sign first.</div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">√5 <em> √20 = √(5 </em> 20) = √100</div><div class="step-exp">When multiplying square roots, you can multiply the numbers under the radical sign first.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">√100 = 10</div><div class="step-exp">The square root of 100 is 10, because 10 * 10 = 100.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">10 can be written as the fraction 10/1.</div><div class="step-exp">Since 10 can be expressed as a fraction of two integers, it is a rational number.</div></div></div><p class="answer-line"><strong>Answer:</strong> Rational (Option A)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">√100 = 10</div>
-    <div class="step-exp">The square root of 100 is 10, because 10 * 10 = 100.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">10 can be written as the fraction 10/1.</div>
-    <div class="step-exp">Since 10 can be expressed as a fraction of two integers, it is a rational number.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Rational (Option A)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

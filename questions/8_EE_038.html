@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,55 +146,19 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 8 | EE | Skill 8.EE.038<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Factor Expressions</h1>
-<p class="skill-subtitle">Skill ID: 8.EE.038</p>
+<h1 class="skill-title">Factor Expressions</h1><p class="skill-subtitle">Skill ID: 8.EE.038</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
   <div class="q-body">
     <div class="q-prompt">A store manager wants to rearrange a display. They have 15 promotional items (p) and 20 regular items (r). They want to group them into sets, with each set having the same number of promotional items and the same number of regular items, factoring out the greatest common factor of the number of items. Which expression represents the factored form of the total number of items, 15p + 20r?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 5(15p + 20r)</div><div class="option"><span class="opt-letter">B.</span> 5(3p + 4r)</div><div class="option"><span class="opt-letter">C.</span> 3(5p + 7r)</div><div class="option"><span class="opt-letter">D.</span> 5(3p + 20r)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 15p and 20r.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 15 and 20.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 15p and 20r.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 15 and 20.
 Factors of 15: 1, 3, 5, 15
 Factors of 20: 1, 2, 4, 5, 10, 20
-The GCF of 15 and 20 is 5.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 15p and 20r. There are no common variables between &#x27;p&#x27; and &#x27;r&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (5):
+The GCF of 15 and 20 is 5.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 15p and 20r. There are no common variables between &#x27;p&#x27; and &#x27;r&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (5):
 15p ÷ 5 = 3p
-20r ÷ 5 = 4r</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-5(3p + 4r)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5(3p + 4r) (Option B)</p></div></div>
+20r ÷ 5 = 4r</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+5(3p + 4r)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5(3p + 4r) (Option B)</p></div></div>
   </div>
 </div>
 
@@ -317,48 +167,13 @@ The GCF of 15 and 20 is 5.</div>
   <div class="q-body">
     <div class="q-prompt">A coach is ordering new equipment. They need 24 basketballs (b) and 18 soccer balls (s). If they want to package them into identical kits, factoring out the greatest common factor of the number of balls, which expression represents the factored form of the total number of balls, 24b + 18s?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3(8b + 6s)</div><div class="option"><span class="opt-letter">B.</span> 6(4b + 18s)</div><div class="option"><span class="opt-letter">C.</span> 6(24b + 18s)</div><div class="option"><span class="opt-letter">D.</span> 6(4b + 3s)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 24b and 18s.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 24 and 18.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 24b and 18s.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 24 and 18.
 Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24
 Factors of 18: 1, 2, 3, 6, 9, 18
-The GCF of 24 and 18 is 6.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 24b and 18s. There are no common variables between &#x27;b&#x27; and &#x27;s&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (6):
+The GCF of 24 and 18 is 6.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 24b and 18s. There are no common variables between &#x27;b&#x27; and &#x27;s&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (6):
 24b ÷ 6 = 4b
-18s ÷ 6 = 3s</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-6(4b + 3s)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6(4b + 3s) (Option D)</p></div></div>
+18s ÷ 6 = 3s</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+6(4b + 3s)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6(4b + 3s) (Option D)</p></div></div>
   </div>
 </div>
 
@@ -367,48 +182,13 @@ The GCF of 24 and 18 is 6.</div>
   <div class="q-body">
     <div class="q-prompt">A chef is preparing a large meal. They use 12 ounces of chicken (c) for one dish and 9 ounces of beef (b) for another. The expression 12c + 9b represents the total ounces of meat. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 4(3c + 9b/4)</div><div class="option"><span class="opt-letter">B.</span> 3(4c + 9b)</div><div class="option"><span class="opt-letter">C.</span> 3(4c + 3b)</div><div class="option"><span class="opt-letter">D.</span> 3(12c + 9b)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 12c and 9b.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 12 and 9.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 12c and 9b.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 12 and 9.
 Factors of 12: 1, 2, 3, 4, 6, 12
 Factors of 9: 1, 3, 9
-The GCF of 12 and 9 is 3.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 12c and 9b. There are no common variables between &#x27;c&#x27; and &#x27;b&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (3):
+The GCF of 12 and 9 is 3.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 12c and 9b. There are no common variables between &#x27;c&#x27; and &#x27;b&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (3):
 12c ÷ 3 = 4c
-9b ÷ 3 = 3b</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-3(4c + 3b)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3(4c + 3b) (Option C)</p></div></div>
+9b ÷ 3 = 3b</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+3(4c + 3b)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3(4c + 3b) (Option C)</p></div></div>
   </div>
 </div>
 
@@ -417,50 +197,15 @@ The GCF of 12 and 9 is 3.</div>
   <div class="q-body">
     <div class="q-prompt">A school is organizing supplies for students. They have 16 notebooks (n), 24 pencils (p), and 8 erasers (e). The expression 16n + 24p + 8e represents the total number of items. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 8(2n + 3p)</div><div class="option"><span class="opt-letter">B.</span> 8(2n + 3p + e)</div><div class="option"><span class="opt-letter">C.</span> 4(4n + 6p + 2e)</div><div class="option"><span class="opt-letter">D.</span> 8(16n + 24p + 8e)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 16n, 24p, and 8e.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 16, 24, and 8.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 16n, 24p, and 8e.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 16, 24, and 8.
 Factors of 16: 1, 2, 4, 8, 16
 Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24
 Factors of 8: 1, 2, 4, 8
-The GCF of 16, 24, and 8 is 8.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 16n, 24p, and 8e. There are no common variables among &#x27;n&#x27;, &#x27;p&#x27;, and &#x27;e&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (8):
+The GCF of 16, 24, and 8 is 8.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 16n, 24p, and 8e. There are no common variables among &#x27;n&#x27;, &#x27;p&#x27;, and &#x27;e&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (8):
 16n ÷ 8 = 2n
 24p ÷ 8 = 3p
-8e ÷ 8 = 1e (or e)</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-8(2n + 3p + e)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 8(2n + 3p + e) (Option B)</p></div></div>
+8e ÷ 8 = 1e (or e)</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+8(2n + 3p + e)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 8(2n + 3p + e) (Option B)</p></div></div>
   </div>
 </div>
 
@@ -469,48 +214,13 @@ The GCF of 16, 24, and 8 is 8.</div>
   <div class="q-body">
     <div class="q-prompt">A scientist is tracking the growth of two plant species. Species A grew 21 millimeters (a) and species B grew 35 millimeters (b). The total growth is represented by 21a + 35b. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3(7a + 35b/3)</div><div class="option"><span class="opt-letter">B.</span> 7(3a + 5b)</div><div class="option"><span class="opt-letter">C.</span> 7(21a + 35b)</div><div class="option"><span class="opt-letter">D.</span> 7a(3 + 5b/a)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 21a and 35b.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 21 and 35.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 21a and 35b.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 21 and 35.
 Factors of 21: 1, 3, 7, 21
 Factors of 35: 1, 5, 7, 35
-The GCF of 21 and 35 is 7.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 21a and 35b. There are no common variables between &#x27;a&#x27; and &#x27;b&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (7):
+The GCF of 21 and 35 is 7.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to both.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 21a and 35b. There are no common variables between &#x27;a&#x27; and &#x27;b&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (7):
 21a ÷ 7 = 3a
-35b ÷ 7 = 5b</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-7(3a + 5b)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 7(3a + 5b) (Option B)</p></div></div>
+35b ÷ 7 = 5b</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+7(3a + 5b)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 7(3a + 5b) (Option B)</p></div></div>
   </div>
 </div>
 
@@ -519,50 +229,15 @@ The GCF of 21 and 35 is 7.</div>
   <div class="q-body">
     <div class="q-prompt">A construction crew is preparing for a new project. They ordered 40 feet of copper piping (c), 10 feet of PVC piping (p), and 25 feet of steel beams (s). The expression for the total length is 40c + 10p + 25s. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 5(8c + 2p + 5s)</div><div class="option"><span class="opt-letter">B.</span> 5(40c + 10p + 25s)</div><div class="option"><span class="opt-letter">C.</span> 10(4c + p + 2.5s)</div><div class="option"><span class="opt-letter">D.</span> 5(8c + 2p)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 40c, 10p, and 25s.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 40, 10, and 25.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 40c, 10p, and 25s.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 40, 10, and 25.
 Factors of 40: 1, 2, 4, 5, 8, 10, 20, 40
 Factors of 10: 1, 2, 5, 10
 Factors of 25: 1, 5, 25
-The GCF of 40, 10, and 25 is 5.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 40c, 10p, and 25s. There are no common variables among &#x27;c&#x27;, &#x27;p&#x27;, and &#x27;s&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (5):
+The GCF of 40, 10, and 25 is 5.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 40c, 10p, and 25s. There are no common variables among &#x27;c&#x27;, &#x27;p&#x27;, and &#x27;s&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (5):
 40c ÷ 5 = 8c
 10p ÷ 5 = 2p
-25s ÷ 5 = 5s</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-5(8c + 2p + 5s)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5(8c + 2p + 5s) (Option A)</p></div></div>
+25s ÷ 5 = 5s</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+5(8c + 2p + 5s)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5(8c + 2p + 5s) (Option A)</p></div></div>
   </div>
 </div>
 
@@ -571,50 +246,15 @@ The GCF of 40, 10, and 25 is 5.</div>
   <div class="q-body">
     <div class="q-prompt">A nutritionist is analyzing the ingredients in a smoothie. It contains 14 grams of protein (p), 7 grams of fiber (f), and 28 grams of carbohydrates (c). The expression 14p + 7f + 28c represents the total grams of nutrients. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 7(14p + 7f + 28c)</div><div class="option"><span class="opt-letter">B.</span> 7(2p + f + 4c)</div><div class="option"><span class="opt-letter">C.</span> 7(2p + 4c)</div><div class="option"><span class="opt-letter">D.</span> 14(p + 0.5f + 2c)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 14p, 7f, and 28c.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 14, 7, and 28.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 14p, 7f, and 28c.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 14, 7, and 28.
 Factors of 14: 1, 2, 7, 14
 Factors of 7: 1, 7
 Factors of 28: 1, 2, 4, 7, 14, 28
-The GCF of 14, 7, and 28 is 7.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">The terms are 14p, 7f, and 28c. There are no common variables among &#x27;p&#x27;, &#x27;f&#x27;, and &#x27;c&#x27;.</div>
-    <div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (7):
+The GCF of 14, 7, and 28 is 7.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">The terms are 14p, 7f, and 28c. There are no common variables among &#x27;p&#x27;, &#x27;f&#x27;, and &#x27;c&#x27;.</div><div class="step-exp">Look for variables that appear in all terms. If they do, take the one with the lowest exponent.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Divide each term by the GCF (7):
 14p ÷ 7 = 2p
 7f ÷ 7 = 1f (or f)
-28c ÷ 7 = 4c</div>
-    <div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-7(2p + f + 4c)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 7(2p + f + 4c) (Option B)</p></div></div>
+28c ÷ 7 = 4c</div><div class="step-exp">Divide each original term by the GCF found. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+7(2p + f + 4c)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 7(2p + f + 4c) (Option B)</p></div></div>
   </div>
 </div>
 
@@ -623,59 +263,17 @@ The GCF of 14, 7, and 28 is 7.</div>
   <div class="q-body">
     <div class="q-prompt">A project manager is tracking tasks. Task A takes 12xy hours, Task B takes 18x hours, and Task C takes 30x^2 hours. The expression for the total time is 12xy + 18x + 30x^2. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 6x(2y + 3 + 5x)</div><div class="option"><span class="opt-letter">B.</span> 6x(12xy + 18x + 30x^2)</div><div class="option"><span class="opt-letter">C.</span> 6(2xy + 3x + 5x^2)</div><div class="option"><span class="opt-letter">D.</span> x(12y + 18 + 30x)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 12xy, 18x, and 30x^2.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 12, 18, and 30.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 12xy, 18x, and 30x^2.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 12, 18, and 30.
 Factors of 12: 1, 2, 3, 4, 6, 12
 Factors of 18: 1, 2, 3, 6, 9, 18
 Factors of 30: 1, 2, 3, 5, 6, 10, 15, 30
-The GCF of 12, 18, and 30 is 6.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Common variables across all terms: &#x27;x&#x27;. The lowest power of &#x27;x&#x27; is x^1 (from 18x).
+The GCF of 12, 18, and 30 is 6.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Common variables across all terms: &#x27;x&#x27;. The lowest power of &#x27;x&#x27; is x^1 (from 18x).
 The variable &#x27;y&#x27; is not common to all terms.
-So, the variable GCF is x.</div>
-    <div class="step-exp">For each common variable, select the one with the smallest exponent. Combine these to get the variable part of the GCF.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The overall GCF of the expression is the product of the numerical GCF and the variable GCF: 6 * x = 6x.</div>
-    <div class="step-exp">Multiply the numerical GCF by the variable GCF to get the complete GCF of the expression.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (6x):
+So, the variable GCF is x.</div><div class="step-exp">For each common variable, select the one with the smallest exponent. Combine these to get the variable part of the GCF.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The overall GCF of the expression is the product of the numerical GCF and the variable GCF: 6 * x = 6x.</div><div class="step-exp">Multiply the numerical GCF by the variable GCF to get the complete GCF of the expression.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Divide each term by the GCF (6x):
 12xy ÷ 6x = 2y
 18x ÷ 6x = 3
-30x^2 ÷ 6x = 5x</div>
-    <div class="step-exp">Divide each original term by the combined GCF. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-6x(2y + 3 + 5x)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6x(2y + 3 + 5x) (Option A)</p></div></div>
+30x^2 ÷ 6x = 5x</div><div class="step-exp">Divide each original term by the combined GCF. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+6x(2y + 3 + 5x)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6x(2y + 3 + 5x) (Option A)</p></div></div>
   </div>
 </div>
 
@@ -684,59 +282,17 @@ So, the variable GCF is x.</div>
   <div class="q-body">
     <div class="q-prompt">A tech company is analyzing its server performance. The data shows three components contributing to latency: 32a^2b, 48ab, and 64a^3. The total latency can be represented by 32a^2b + 48ab + 64a^3. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 8a(4ab + 6b + 8a^2)</div><div class="option"><span class="opt-letter">B.</span> 16a(32a^2b + 48ab + 64a^3)</div><div class="option"><span class="opt-letter">C.</span> 16a(2ab + 3b + 4a^2)</div><div class="option"><span class="opt-letter">D.</span> 16(2a^2b + 3ab + 4a^3)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 32a^2b, 48ab, and 64a^3.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 32, 48, and 64.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 32a^2b, 48ab, and 64a^3.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 32, 48, and 64.
 Factors of 32: 1, 2, 4, 8, 16, 32
 Factors of 48: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48
 Factors of 64: 1, 2, 4, 8, 16, 32, 64
-The GCF of 32, 48, and 64 is 16.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Common variables across all terms: &#x27;a&#x27;. The lowest power of &#x27;a&#x27; is a^1 (from 48ab).
+The GCF of 32, 48, and 64 is 16.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Common variables across all terms: &#x27;a&#x27;. The lowest power of &#x27;a&#x27; is a^1 (from 48ab).
 The variable &#x27;b&#x27; is not common to all terms.
-So, the variable GCF is a.</div>
-    <div class="step-exp">For each common variable, select the one with the smallest exponent. Combine these to get the variable part of the GCF.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The overall GCF of the expression is the product of the numerical GCF and the variable GCF: 16 * a = 16a.</div>
-    <div class="step-exp">Multiply the numerical GCF by the variable GCF to get the complete GCF of the expression.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (16a):
+So, the variable GCF is a.</div><div class="step-exp">For each common variable, select the one with the smallest exponent. Combine these to get the variable part of the GCF.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The overall GCF of the expression is the product of the numerical GCF and the variable GCF: 16 * a = 16a.</div><div class="step-exp">Multiply the numerical GCF by the variable GCF to get the complete GCF of the expression.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Divide each term by the GCF (16a):
 32a^2b ÷ 16a = 2ab
 48ab ÷ 16a = 3b
-64a^3 ÷ 16a = 4a^2</div>
-    <div class="step-exp">Divide each original term by the combined GCF. These results will go inside the parentheses.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-16a(2ab + 3b + 4a^2)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 16a(2ab + 3b + 4a^2) (Option C)</p></div></div>
+64a^3 ÷ 16a = 4a^2</div><div class="step-exp">Divide each original term by the combined GCF. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+16a(2ab + 3b + 4a^2)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 16a(2ab + 3b + 4a^2) (Option C)</p></div></div>
   </div>
 </div>
 
@@ -745,71 +301,26 @@ So, the variable GCF is a.</div>
   <div class="q-body">
     <div class="q-prompt">An artist is creating a mosaic using tiles. They use 27m^2 blue tiles, 45mn green tiles, and 9m orange tiles. The total area covered by tiles is represented by 27m^2 + 45mn + 9m. Factor out the greatest common factor from this expression.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9m(3m + 5n)</div><div class="option"><span class="opt-letter">B.</span> 9(3m^2 + 5mn + m)</div><div class="option"><span class="opt-letter">C.</span> 9m(3m + 5n + 1)</div><div class="option"><span class="opt-letter">D.</span> 9m(27m^2 + 45mn + 9m)</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The terms in the expression are 27m^2, 45mn, and 9m.</div>
-    <div class="step-exp">Break down the given expression into its individual parts.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The coefficients are 27, 45, and 9.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The terms in the expression are 27m^2, 45mn, and 9m.</div><div class="step-exp">Break down the given expression into its individual parts.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The coefficients are 27, 45, and 9.
 Factors of 27: 1, 3, 9, 27
 Factors of 45: 1, 3, 5, 9, 15, 45
 Factors of 9: 1, 3, 9
-The GCF of 27, 45, and 9 is 9.</div>
-    <div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Common variables across all terms: &#x27;m&#x27;. The lowest power of &#x27;m&#x27; is m^1 (from 9m).
+The GCF of 27, 45, and 9 is 9.</div><div class="step-exp">List all factors for each coefficient and identify the largest factor common to all three.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Common variables across all terms: &#x27;m&#x27;. The lowest power of &#x27;m&#x27; is m^1 (from 9m).
 The variable &#x27;n&#x27; is not common to all terms.
-So, the variable GCF is m.</div>
-    <div class="step-exp">For each common variable, select the one with the smallest exponent. Combine these to get the variable part of the GCF.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The overall GCF of the expression is the product of the numerical GCF and the variable GCF: 9 * m = 9m.</div>
-    <div class="step-exp">Multiply the numerical GCF by the variable GCF to get the complete GCF of the expression.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Divide each term by the GCF (9m):
+So, the variable GCF is m.</div><div class="step-exp">For each common variable, select the one with the smallest exponent. Combine these to get the variable part of the GCF.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The overall GCF of the expression is the product of the numerical GCF and the variable GCF: 9 * m = 9m.</div><div class="step-exp">Multiply the numerical GCF by the variable GCF to get the complete GCF of the expression.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Divide each term by the GCF (9m):
 27m^2 ÷ 9m = 3m
 45mn ÷ 9m = 5n
-9m ÷ 9m = 1</div>
-    <div class="step-exp">Divide each original term by the combined GCF. These results will go inside the parentheses.</div>
+9m ÷ 9m = 1</div><div class="step-exp">Divide each original term by the combined GCF. These results will go inside the parentheses.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
+9m(3m + 5n + 1)</div><div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div></div></div><p class="answer-line"><strong>Answer:</strong> 9m(3m + 5n + 1) (Option C)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Place the GCF outside the parentheses and the results of the division inside:
-9m(3m + 5n + 1)</div>
-    <div class="step-exp">The factored form is the GCF multiplied by the sum/difference of the divided terms in parentheses.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 9m(3m + 5n + 1) (Option C)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

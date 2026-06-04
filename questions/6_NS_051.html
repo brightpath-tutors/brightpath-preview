@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,56 +146,13 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 6 | NS | Skill 6.NS.051<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Divide Fractions</h1>
-<p class="skill-subtitle">Skill ID: 6.NS.051</p>
+<h1 class="skill-title">Divide Fractions</h1><p class="skill-subtitle">Skill ID: 6.NS.051</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 6 &bull; NS</span></div>
   <div class="q-body">
     <div class="q-prompt">A baker uses 3/4 of a cup of sugar for a batch of cookies. If he has a total of 6 cups of sugar, how many batches of cookies can he make?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 4.5 batches</div><div class="option"><span class="opt-letter">B.</span> 8 batches</div><div class="option"><span class="opt-letter">C.</span> 1/8 batch</div><div class="option"><span class="opt-letter">D.</span> 2 batches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The problem asks how many 3/4-cup portions are in 6 cups, which means we need to divide: 6 ÷ 3/4.</div>
-    <div class="step-exp">To find out how many times one quantity fits into another, division is the appropriate operation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">6 can be written as 6/1.</div>
-    <div class="step-exp">Any whole number can be expressed as a fraction by placing it over 1.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (6/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (3/4 becomes 4/3). The expression becomes: 6/1 × 4/3.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal. The reciprocal of a fraction is found by swapping its numerator and denominator.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">(6 × 4) / (1 × 3) = 24/3.</div>
-    <div class="step-exp">To multiply fractions, multiply the numerators together and multiply the denominators together.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">24/3 = 8.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the improper fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">The baker can make 8 batches of cookies.</div>
-    <div class="step-exp">The problem asked for the number of batches, so we include the unit in the final answer.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 8 batches (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The problem asks how many 3/4-cup portions are in 6 cups, which means we need to divide: 6 ÷ 3/4.</div><div class="step-exp">To find out how many times one quantity fits into another, division is the appropriate operation.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">6 can be written as 6/1.</div><div class="step-exp">Any whole number can be expressed as a fraction by placing it over 1.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Keep the first fraction (6/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (3/4 becomes 4/3). The expression becomes: 6/1 × 4/3.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal. The reciprocal of a fraction is found by swapping its numerator and denominator.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">(6 × 4) / (1 × 3) = 24/3.</div><div class="step-exp">To multiply fractions, multiply the numerators together and multiply the denominators together.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">24/3 = 8.</div><div class="step-exp">Divide the numerator by the denominator to simplify the improper fraction to a whole number.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">The baker can make 8 batches of cookies.</div><div class="step-exp">The problem asked for the number of batches, so we include the unit in the final answer.</div></div></div><p class="answer-line"><strong>Answer:</strong> 8 batches (Option B)</p></div></div>
   </div>
 </div>
 
@@ -318,49 +161,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A track coach wants to divide a 10-kilometer race course into segments that are 2/5 of a kilometer long each. How many segments will be on the course?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 25 segments</div><div class="option"><span class="opt-letter">B.</span> 1/25 segment</div><div class="option"><span class="opt-letter">C.</span> 4 segments</div><div class="option"><span class="opt-letter">D.</span> 1 segment</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The problem asks how many 2/5-kilometer portions are in a 10-kilometer course, which means we need to divide: 10 ÷ 2/5.</div>
-    <div class="step-exp">To determine how many equal parts can be made from a whole, division is used.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">10 can be written as 10/1.</div>
-    <div class="step-exp">Any whole number can be expressed as a fraction by placing it over 1.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (10/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (2/5 becomes 5/2). The expression becomes: 10/1 × 5/2.</div>
-    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal is found by inverting the fraction.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">(10 × 5) / (1 × 2) = 50/2.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">50/2 = 25.</div>
-    <div class="step-exp">Divide the numerator by the denominator to get a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">There will be 25 segments on the course.</div>
-    <div class="step-exp">The question asked for the number of segments, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 25 segments (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The problem asks how many 2/5-kilometer portions are in a 10-kilometer course, which means we need to divide: 10 ÷ 2/5.</div><div class="step-exp">To determine how many equal parts can be made from a whole, division is used.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">10 can be written as 10/1.</div><div class="step-exp">Any whole number can be expressed as a fraction by placing it over 1.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Keep the first fraction (10/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (2/5 becomes 5/2). The expression becomes: 10/1 × 5/2.</div><div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal. The reciprocal is found by inverting the fraction.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">(10 × 5) / (1 × 2) = 50/2.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">50/2 = 25.</div><div class="step-exp">Divide the numerator by the denominator to get a whole number.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">There will be 25 segments on the course.</div><div class="step-exp">The question asked for the number of segments, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 25 segments (Option A)</p></div></div>
   </div>
 </div>
 
@@ -369,42 +170,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A chef is making mini quiches. Each quiche requires 1/8 of a block of cheese. If the chef has 3/4 of a block of cheese, how many mini quiches can she make, in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2 mini quiches</div><div class="option"><span class="opt-letter">B.</span> 6 mini quiches</div><div class="option"><span class="opt-letter">C.</span> 3/32 mini quiches</div><div class="option"><span class="opt-letter">D.</span> 1/6 mini quiche</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The problem asks how many 1/8-block portions are in 3/4 of a block, so we need to divide: 3/4 ÷ 1/8.</div>
-    <div class="step-exp">To determine how many smaller parts are contained within a larger part, division is used.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (3/4), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/8 becomes 8/1). The expression becomes: 3/4 × 8/1.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">(3 × 8) / (4 × 1) = 24/4.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">24/4 = 6.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The chef can make 6 mini quiches.</div>
-    <div class="step-exp">The problem asked for the number of mini quiches, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6 mini quiches (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The problem asks how many 1/8-block portions are in 3/4 of a block, so we need to divide: 3/4 ÷ 1/8.</div><div class="step-exp">To determine how many smaller parts are contained within a larger part, division is used.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Keep the first fraction (3/4), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/8 becomes 8/1). The expression becomes: 3/4 × 8/1.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">(3 × 8) / (4 × 1) = 24/4.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">24/4 = 6.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The chef can make 6 mini quiches.</div><div class="step-exp">The problem asked for the number of mini quiches, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6 mini quiches (Option B)</p></div></div>
   </div>
 </div>
 
@@ -413,56 +179,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A car traveled a distance of 150 miles in 2 1/2 hours. What was its average speed in miles per hour, in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 100 mph</div><div class="option"><span class="opt-letter">B.</span> 60 mph</div><div class="option"><span class="opt-letter">C.</span> 375 mph</div><div class="option"><span class="opt-letter">D.</span> 30 mph</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Speed is calculated as Distance ÷ Time. So, we need to divide 150 miles by 2 1/2 hours: 150 ÷ 2 1/2.</div>
-    <div class="step-exp">The formula for average speed is distance divided by time.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">2 1/2 = (2 × 2 + 1) / 2 = 5/2.</div>
-    <div class="step-exp">To convert a mixed number to an improper fraction, multiply the whole number by the denominator, add the numerator, and place the result over the original denominator.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">150 can be written as 150/1.</div>
-    <div class="step-exp">Any whole number can be expressed as a fraction by placing it over 1.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (150/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (5/2 becomes 2/5). The expression becomes: 150/1 × 2/5.</div>
-    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">(150 × 2) / (1 × 5) = 300/5.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">300/5 = 60.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">The average speed was 60 mph.</div>
-    <div class="step-exp">The question asked for speed in miles per hour, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 60 mph (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Speed is calculated as Distance ÷ Time. So, we need to divide 150 miles by 2 1/2 hours: 150 ÷ 2 1/2.</div><div class="step-exp">The formula for average speed is distance divided by time.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">2 1/2 = (2 × 2 + 1) / 2 = 5/2.</div><div class="step-exp">To convert a mixed number to an improper fraction, multiply the whole number by the denominator, add the numerator, and place the result over the original denominator.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">150 can be written as 150/1.</div><div class="step-exp">Any whole number can be expressed as a fraction by placing it over 1.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Keep the first fraction (150/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (5/2 becomes 2/5). The expression becomes: 150/1 × 2/5.</div><div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">(150 × 2) / (1 × 5) = 300/5.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">300/5 = 60.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">The average speed was 60 mph.</div><div class="step-exp">The question asked for speed in miles per hour, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 60 mph (Option B)</p></div></div>
   </div>
 </div>
 
@@ -471,49 +188,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A teacher has a stack of construction paper that is 4 1/2 inches tall. If each sheet of paper is 1/50 of an inch thick, how many sheets of paper are in the stack?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 100 sheets</div><div class="option"><span class="opt-letter">B.</span> 225 sheets</div><div class="option"><span class="opt-letter">C.</span> 9/100 sheets</div><div class="option"><span class="opt-letter">D.</span> 1/225 sheet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">To find out how many sheets fit into the total height, we divide the total height by the thickness of one sheet: 4 1/2 ÷ 1/50.</div>
-    <div class="step-exp">Division is used to determine how many times a smaller quantity is contained within a larger quantity.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">4 1/2 = (4 × 2 + 1) / 2 = 9/2.</div>
-    <div class="step-exp">Convert the mixed number to an improper fraction to facilitate division.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (9/2), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/50 becomes 50/1). The expression becomes: 9/2 × 50/1.</div>
-    <div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">(9 × 50) / (2 × 1) = 450/2.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">450/2 = 225.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">There are 225 sheets of paper in the stack.</div>
-    <div class="step-exp">The problem asked for the number of sheets, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 225 sheets (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">To find out how many sheets fit into the total height, we divide the total height by the thickness of one sheet: 4 1/2 ÷ 1/50.</div><div class="step-exp">Division is used to determine how many times a smaller quantity is contained within a larger quantity.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">4 1/2 = (4 × 2 + 1) / 2 = 9/2.</div><div class="step-exp">Convert the mixed number to an improper fraction to facilitate division.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Keep the first fraction (9/2), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/50 becomes 50/1). The expression becomes: 9/2 × 50/1.</div><div class="step-exp">Dividing by a fraction is the same as multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">(9 × 50) / (2 × 1) = 450/2.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">450/2 = 225.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">There are 225 sheets of paper in the stack.</div><div class="step-exp">The problem asked for the number of sheets, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 225 sheets (Option B)</p></div></div>
   </div>
 </div>
 
@@ -522,42 +197,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A scientist has 3/5 of a liter of a chemical solution. She needs to pour this solution into test tubes, each holding 1/10 of a liter. How many test tubes can she fill completely, in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2/3 test tube</div><div class="option"><span class="opt-letter">B.</span> 1/6 test tube</div><div class="option"><span class="opt-letter">C.</span> 3/50 test tubes</div><div class="option"><span class="opt-letter">D.</span> 6 test tubes</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">To find out how many 1/10-liter portions are in 3/5 of a liter, we need to divide: 3/5 ÷ 1/10.</div>
-    <div class="step-exp">Division is used to determine how many smaller units fit into a larger quantity.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (3/5), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/10 becomes 10/1). The expression becomes: 3/5 × 10/1.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">(3 × 10) / (5 × 1) = 30/5.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">30/5 = 6.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The scientist can fill 6 test tubes.</div>
-    <div class="step-exp">The problem asked for the number of test tubes, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6 test tubes (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">To find out how many 1/10-liter portions are in 3/5 of a liter, we need to divide: 3/5 ÷ 1/10.</div><div class="step-exp">Division is used to determine how many smaller units fit into a larger quantity.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Keep the first fraction (3/5), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/10 becomes 10/1). The expression becomes: 3/5 × 10/1.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">(3 × 10) / (5 × 1) = 30/5.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">30/5 = 6.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The scientist can fill 6 test tubes.</div><div class="step-exp">The problem asked for the number of test tubes, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6 test tubes (Option D)</p></div></div>
   </div>
 </div>
 
@@ -566,56 +206,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A construction worker has a metal beam that is 8 3/4 meters long. He needs to cut it into pieces that are 1/2 meter long. How many full pieces can he cut from the beam?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 17 full pieces</div><div class="option"><span class="opt-letter">B.</span> 18 full pieces</div><div class="option"><span class="opt-letter">C.</span> 17 1/2 full pieces</div><div class="option"><span class="opt-letter">D.</span> 4 3/8 full pieces</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">To find out how many 1/2-meter pieces can be cut from 8 3/4 meters, we divide the total length by the length of each piece: 8 3/4 ÷ 1/2.</div>
-    <div class="step-exp">Division is used to determine how many equal parts can be obtained from a whole.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">8 3/4 = (8 × 4 + 3) / 4 = 35/4.</div>
-    <div class="step-exp">Convert the mixed number to an improper fraction for easier calculation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (35/4), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/2 becomes 2/1). The expression becomes: 35/4 × 2/1.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">(35 × 2) / (4 × 1) = 70/4.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">70/4 = 35/2 = 17 1/2.</div>
-    <div class="step-exp">Simplify the improper fraction by dividing the numerator by the denominator. The quotient is the whole number part, and the remainder becomes the numerator of the fractional part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">The question asks for &#x27;how many <em>full</em> pieces&#x27;. From 17 1/2, we take the whole number part.</div>
-    <div class="step-exp">Since a piece must be &#x27;full&#x27;, any fractional part is discarded.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">He can cut 17 full pieces from the beam.</div>
-    <div class="step-exp">The final answer reflects the number of full pieces as requested.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 17 full pieces (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">To find out how many 1/2-meter pieces can be cut from 8 3/4 meters, we divide the total length by the length of each piece: 8 3/4 ÷ 1/2.</div><div class="step-exp">Division is used to determine how many equal parts can be obtained from a whole.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">8 3/4 = (8 × 4 + 3) / 4 = 35/4.</div><div class="step-exp">Convert the mixed number to an improper fraction for easier calculation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Keep the first fraction (35/4), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/2 becomes 2/1). The expression becomes: 35/4 × 2/1.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">(35 × 2) / (4 × 1) = 70/4.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">70/4 = 35/2 = 17 1/2.</div><div class="step-exp">Simplify the improper fraction by dividing the numerator by the denominator. The quotient is the whole number part, and the remainder becomes the numerator of the fractional part.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">The question asks for &#x27;how many <em>full</em> pieces&#x27;. From 17 1/2, we take the whole number part.</div><div class="step-exp">Since a piece must be &#x27;full&#x27;, any fractional part is discarded.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">He can cut 17 full pieces from the beam.</div><div class="step-exp">The final answer reflects the number of full pieces as requested.</div></div></div><p class="answer-line"><strong>Answer:</strong> 17 full pieces (Option A)</p></div></div>
   </div>
 </div>
 
@@ -624,56 +215,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A marathon runner completes a lap around a track in 3 1/3 minutes. If the runner ran for a total of 40 minutes, how many laps did they complete, in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 12 laps</div><div class="option"><span class="opt-letter">B.</span> 133 1/3 laps</div><div class="option"><span class="opt-letter">C.</span> 20 laps</div><div class="option"><span class="opt-letter">D.</span> 1/12 lap</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">To find the number of laps, divide the total running time by the time it takes to complete one lap: 40 ÷ 3 1/3.</div>
-    <div class="step-exp">Division is used to determine how many times a smaller duration fits into a larger duration.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">3 1/3 = (3 × 3 + 1) / 3 = 10/3.</div>
-    <div class="step-exp">Convert the mixed number to an improper fraction to simplify the division process.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">40 can be written as 40/1.</div>
-    <div class="step-exp">Expressing the whole number as a fraction over 1 makes it compatible for fraction division.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (40/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (10/3 becomes 3/10). The expression becomes: 40/1 × 3/10.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">(40 × 3) / (1 × 10) = 120/10.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">120/10 = 12.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">The runner completed 12 laps.</div>
-    <div class="step-exp">The problem asked for the number of laps, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 12 laps (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">To find the number of laps, divide the total running time by the time it takes to complete one lap: 40 ÷ 3 1/3.</div><div class="step-exp">Division is used to determine how many times a smaller duration fits into a larger duration.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">3 1/3 = (3 × 3 + 1) / 3 = 10/3.</div><div class="step-exp">Convert the mixed number to an improper fraction to simplify the division process.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">40 can be written as 40/1.</div><div class="step-exp">Expressing the whole number as a fraction over 1 makes it compatible for fraction division.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Keep the first fraction (40/1), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (10/3 becomes 3/10). The expression becomes: 40/1 × 3/10.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">(40 × 3) / (1 × 10) = 120/10.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">120/10 = 12.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">The runner completed 12 laps.</div><div class="step-exp">The problem asked for the number of laps, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 12 laps (Option A)</p></div></div>
   </div>
 </div>
 
@@ -682,56 +224,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A city&#x27;s population grew by 1/12 of its original size each year. How many years will it take for the population to grow by another 1/2 of its original size? Express your answer as a whole number.</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 24 years</div><div class="option"><span class="opt-letter">B.</span> 1/6 year</div><div class="option"><span class="opt-letter">C.</span> 1/24 year</div><div class="option"><span class="opt-letter">D.</span> 6 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The population needs to grow by 1/2 of its original size.</div>
-    <div class="step-exp">This is the total change in population relative to the original size we are interested in.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">The population grows by 1/12 of its original size each year.</div>
-    <div class="step-exp">This is the rate at which the population changes each year, expressed as a fraction of the original size.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">To find the number of years, divide the total growth needed by the annual growth rate: 1/2 ÷ 1/12.</div>
-    <div class="step-exp">Dividing the total amount of growth by the amount of growth per unit of time (year) gives the number of units of time.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (1/2), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/12 becomes 12/1). The expression becomes: 1/2 × 12/1.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">(1 × 12) / (2 × 1) = 12/2.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">12/2 = 6.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">7</div>
-  <div class="step-content">
-    <div class="step-work">It will take 6 years.</div>
-    <div class="step-exp">The problem asked for the number of years, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6 years (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The population needs to grow by 1/2 of its original size.</div><div class="step-exp">This is the total change in population relative to the original size we are interested in.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">The population grows by 1/12 of its original size each year.</div><div class="step-exp">This is the rate at which the population changes each year, expressed as a fraction of the original size.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">To find the number of years, divide the total growth needed by the annual growth rate: 1/2 ÷ 1/12.</div><div class="step-exp">Dividing the total amount of growth by the amount of growth per unit of time (year) gives the number of units of time.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Keep the first fraction (1/2), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (1/12 becomes 12/1). The expression becomes: 1/2 × 12/1.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">(1 × 12) / (2 × 1) = 12/2.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">12/2 = 6.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-work">It will take 6 years.</div><div class="step-exp">The problem asked for the number of years, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6 years (Option D)</p></div></div>
   </div>
 </div>
 
@@ -740,62 +233,17 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A new high-speed data connection can download 5 1/4 gigabytes of data in 1 3/4 minutes. At this rate, how many gigabytes can it download per minute, in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9 3/16 gigabytes per minute</div><div class="option"><span class="opt-letter">B.</span> 3 gigabytes per minute</div><div class="option"><span class="opt-letter">C.</span> 5 gigabytes per minute</div><div class="option"><span class="opt-letter">D.</span> 1/3 gigabyte per minute</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">To find the download rate per minute, divide the total gigabytes downloaded by the total time taken: 5 1/4 ÷ 1 3/4.</div>
-    <div class="step-exp">A &#x27;per minute&#x27; rate implies division of the total quantity by the total time.</div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">To find the download rate per minute, divide the total gigabytes downloaded by the total time taken: 5 1/4 ÷ 1 3/4.</div><div class="step-exp">A &#x27;per minute&#x27; rate implies division of the total quantity by the total time.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">5 1/4 = (5 × 4 + 1) / 4 = 21/4.
+1 3/4 = (1 × 4 + 3) / 4 = 7/4.</div><div class="step-exp">Mixed numbers must be converted to improper fractions before performing division.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Keep the first fraction (21/4), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (7/4 becomes 4/7). The expression becomes: 21/4 × 4/7.</div><div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">(21 × 4) / (4 × 7) = 84/28.</div><div class="step-exp">Multiply the numerators and multiply the denominators.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">84/28 = 3.</div><div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">The data connection can download 3 gigabytes per minute.</div><div class="step-exp">The problem asked for the download rate in gigabytes per minute, so the answer includes the unit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3 gigabytes per minute (Option B)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">5 1/4 = (5 × 4 + 1) / 4 = 21/4.
-1 3/4 = (1 × 4 + 3) / 4 = 7/4.</div>
-    <div class="step-exp">Mixed numbers must be converted to improper fractions before performing division.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Keep the first fraction (21/4), change the division sign to multiplication, and flip (find the reciprocal of) the second fraction (7/4 becomes 4/7). The expression becomes: 21/4 × 4/7.</div>
-    <div class="step-exp">Dividing by a fraction is equivalent to multiplying by its reciprocal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">(21 × 4) / (4 × 7) = 84/28.</div>
-    <div class="step-exp">Multiply the numerators and multiply the denominators.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">84/28 = 3.</div>
-    <div class="step-exp">Divide the numerator by the denominator to simplify the fraction to a whole number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">The data connection can download 3 gigabytes per minute.</div>
-    <div class="step-exp">The problem asked for the download rate in gigabytes per minute, so the answer includes the unit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3 gigabytes per minute (Option B)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

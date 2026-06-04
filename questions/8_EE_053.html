@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,37 +146,15 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 8 | EE | Skill 8.EE.053<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Cube Roots</h1>
-<p class="skill-subtitle">Skill ID: 8.EE.053</p>
+<h1 class="skill-title">Cube Roots</h1><p class="skill-subtitle">Skill ID: 8.EE.053</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 8 &bull; EE</span></div>
   <div class="q-body">
     <div class="q-prompt">A construction crew is building a cubic water tank that can hold 27,000 cubic feet of water. What is the length of one side of the tank?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9,000 feet</div><div class="option"><span class="opt-letter">B.</span> 30 feet</div><div class="option"><span class="opt-letter">C.</span> 164.3 feet</div><div class="option"><span class="opt-letter">D.</span> 90 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-27,000 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√27,000</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">30 × 30 × 30 = 27,000
-s = 30</div>
-    <div class="step-exp">By recognizing that 27 is 3 cubed, we can determine that 27,000 is 30 cubed.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 30 feet (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+27,000 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√27,000</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">30 × 30 × 30 = 27,000
+s = 30</div><div class="step-exp">By recognizing that 27 is 3 cubed, we can determine that 27,000 is 30 cubed.</div></div></div><p class="answer-line"><strong>Answer:</strong> 30 feet (Option B)</p></div></div>
   </div>
 </div>
 
@@ -299,30 +163,9 @@ s = 30</div>
   <div class="q-body">
     <div class="q-prompt">A chef wants to make a cubic sugar cube with a volume of 8 cubic centimeters. What should be the length of each side of the sugar cube?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 2.6 cm</div><div class="option"><span class="opt-letter">B.</span> 24 cm</div><div class="option"><span class="opt-letter">C.</span> 2 cm</div><div class="option"><span class="opt-letter">D.</span> 2.8 cm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-8 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√8</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">2 × 2 × 2 = 8
-s = 2</div>
-    <div class="step-exp">By finding a number that, when multiplied by itself three times, equals 8, we find the side length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2 cm (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+8 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√8</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">2 × 2 × 2 = 8
+s = 2</div><div class="step-exp">By finding a number that, when multiplied by itself three times, equals 8, we find the side length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2 cm (Option C)</p></div></div>
   </div>
 </div>
 
@@ -331,30 +174,9 @@ s = 2</div>
   <div class="q-body">
     <div class="q-prompt">A scientist has a crystal in the shape of a perfect cube. If the volume of the crystal is 125 cubic millimeters, what is the length of one edge of the crystal?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 41.67 mm</div><div class="option"><span class="opt-letter">B.</span> 25 mm</div><div class="option"><span class="opt-letter">C.</span> 5 mm</div><div class="option"><span class="opt-letter">D.</span> 11.18 mm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-125 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√125</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">5 × 5 × 5 = 125
-s = 5</div>
-    <div class="step-exp">By finding a number that, when multiplied by itself three times, equals 125, we find the edge length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5 mm (Option C)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+125 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√125</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">5 × 5 × 5 = 125
+s = 5</div><div class="step-exp">By finding a number that, when multiplied by itself three times, equals 125, we find the edge length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5 mm (Option C)</p></div></div>
   </div>
 </div>
 
@@ -363,30 +185,9 @@ s = 5</div>
   <div class="q-body">
     <div class="q-prompt">A new generation of computer chips is designed in a perfect cube shape. If the volume of one chip is 343 cubic nanometers, what is the length of one side of the chip?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 49 nanometers</div><div class="option"><span class="opt-letter">B.</span> 114.33 nanometers</div><div class="option"><span class="opt-letter">C.</span> 18.52 nanometers</div><div class="option"><span class="opt-letter">D.</span> 7 nanometers</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-343 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√343</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">7 × 7 × 7 = 343
-s = 7</div>
-    <div class="step-exp">By recognizing that 343 is 7 cubed, we determine the side length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 7 nanometers (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+343 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√343</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">7 × 7 × 7 = 343
+s = 7</div><div class="step-exp">By recognizing that 343 is 7 cubed, we determine the side length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 7 nanometers (Option D)</p></div></div>
   </div>
 </div>
 
@@ -395,30 +196,9 @@ s = 7</div>
   <div class="q-body">
     <div class="q-prompt">A game developer is creating a new set of cubic dice. Each die has a volume of 216 cubic millimeters. What is the length of one edge of each die?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 72 mm</div><div class="option"><span class="opt-letter">B.</span> 6 mm</div><div class="option"><span class="opt-letter">C.</span> 36 mm</div><div class="option"><span class="opt-letter">D.</span> 14.69 mm</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-216 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√216</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">6 × 6 × 6 = 216
-s = 6</div>
-    <div class="step-exp">By finding a number that, when multiplied by itself three times, equals 216, we find the edge length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6 mm (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+216 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√216</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">6 × 6 × 6 = 216
+s = 6</div><div class="step-exp">By finding a number that, when multiplied by itself three times, equals 216, we find the edge length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6 mm (Option B)</p></div></div>
   </div>
 </div>
 
@@ -427,30 +207,9 @@ s = 6</div>
   <div class="q-body">
     <div class="q-prompt">A pharmaceutical company produces medicine in the form of a perfect cubic pill. If the volume of one pill is 512 cubic milligrams, what is the length of one side of the pill?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 22.63 milligrams</div><div class="option"><span class="opt-letter">B.</span> 8 milligrams</div><div class="option"><span class="opt-letter">C.</span> 64 milligrams</div><div class="option"><span class="opt-letter">D.</span> 170.67 milligrams</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-512 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√512</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">8 × 8 × 8 = 512
-s = 8</div>
-    <div class="step-exp">By finding a number that, when multiplied by itself three times, equals 512, we find the side length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 8 milligrams (Option B)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+512 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√512</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">8 × 8 × 8 = 512
+s = 8</div><div class="step-exp">By finding a number that, when multiplied by itself three times, equals 512, we find the side length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 8 milligrams (Option B)</p></div></div>
   </div>
 </div>
 
@@ -459,30 +218,9 @@ s = 8</div>
   <div class="q-body">
     <div class="q-prompt">An artist is carving a large cubic sculpture from a block of marble. If the volume of the finished sculpture is 729 cubic inches, what is the length of one edge?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9 inches</div><div class="option"><span class="opt-letter">B.</span> 27 inches</div><div class="option"><span class="opt-letter">C.</span> 243 inches</div><div class="option"><span class="opt-letter">D.</span> 27.00 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">V = s³
-729 = s³</div>
-    <div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√729</div>
-    <div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">9 × 9 × 9 = 729
-s = 9</div>
-    <div class="step-exp">By finding a number that, when multiplied by itself three times, equals 729, we find the edge length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 9 inches (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">V = s³
+729 = s³</div><div class="step-exp">The formula for the volume of a cube relates the volume to the side length cubed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√729</div><div class="step-exp">To isolate &#x27;s&#x27;, we take the cube root of both sides of the equation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">9 × 9 × 9 = 729
+s = 9</div><div class="step-exp">By finding a number that, when multiplied by itself three times, equals 729, we find the edge length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 9 inches (Option A)</p></div></div>
   </div>
 </div>
 
@@ -491,29 +229,8 @@ s = 9</div>
   <div class="q-body">
     <div class="q-prompt">A cubic gift box has a volume of 1,000 cubic inches. If the store sells a larger version with 8 times the volume, what is the length of one side of the larger gift box?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 92.8 inches</div><div class="option"><span class="opt-letter">B.</span> 2666.67 inches</div><div class="option"><span class="opt-letter">C.</span> 80 inches</div><div class="option"><span class="opt-letter">D.</span> 20 inches</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Larger volume = 1,000 × 8 = 8,000 cubic inches.</div>
-    <div class="step-exp">First, determine the new total volume by multiplying the original volume by the given factor.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√8,000</div>
-    <div class="step-exp">To find the side length of the new cubic box, take the cube root of its calculated volume.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">20 × 20 × 20 = 8,000
-s = 20</div>
-    <div class="step-exp">By identifying that 8,000 is 20 cubed, we determine the side length.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 20 inches (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Larger volume = 1,000 × 8 = 8,000 cubic inches.</div><div class="step-exp">First, determine the new total volume by multiplying the original volume by the given factor.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√8,000</div><div class="step-exp">To find the side length of the new cubic box, take the cube root of its calculated volume.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">20 × 20 × 20 = 8,000
+s = 20</div><div class="step-exp">By identifying that 8,000 is 20 cubed, we determine the side length.</div></div></div><p class="answer-line"><strong>Answer:</strong> 20 inches (Option D)</p></div></div>
   </div>
 </div>
 
@@ -522,30 +239,9 @@ s = 20</div>
   <div class="q-body">
     <div class="q-prompt">A city planner is designing a new residential area. Each cubic block of land is designated to hold 1,728 families. If a developer wants to build a larger cubic area that can hold 27 times more families, what would be the length of one side of this larger area in terms of &quot;family-units&quot; (where one side length represents the cube root of the number of families)?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 215.98 family-units</div><div class="option"><span class="opt-letter">B.</span> 15,552 family-units</div><div class="option"><span class="opt-letter">C.</span> 324 family-units</div><div class="option"><span class="opt-letter">D.</span> 36 family-units</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Larger capacity = 1,728 × 27 = 46,656 family-units.</div>
-    <div class="step-exp">First, determine the new total capacity by multiplying the original capacity by the given factor.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√46,656</div>
-    <div class="step-exp">To find the side length of the new cubic area, take the cube root of its calculated capacity.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">³√1,728 = 12
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Larger capacity = 1,728 × 27 = 46,656 family-units.</div><div class="step-exp">First, determine the new total capacity by multiplying the original capacity by the given factor.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√46,656</div><div class="step-exp">To find the side length of the new cubic area, take the cube root of its calculated capacity.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">³√1,728 = 12
 ³√27 = 3
-s = 12 × 3 = 36</div>
-    <div class="step-exp">We can simplify the calculation by taking the cube root of each factor separately, or by directly finding the cube root of the total capacity.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 36 family-units (Option D)</p></div></div>
+s = 12 × 3 = 36</div><div class="step-exp">We can simplify the calculation by taking the cube root of each factor separately, or by directly finding the cube root of the total capacity.</div></div></div><p class="answer-line"><strong>Answer:</strong> 36 family-units (Option D)</p></div></div>
   </div>
 </div>
 
@@ -554,42 +250,18 @@ s = 12 × 3 = 36</div>
   <div class="q-body">
     <div class="q-prompt">A new truck model features a cubic fuel tank with a capacity of 1,331 cubic liters. The company is considering a super-sized version that has 64 times the capacity. What would be the length of one side of the super-sized fuel tank?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 70.33 liters</div><div class="option"><span class="opt-letter">B.</span> 704 liters</div><div class="option"><span class="opt-letter">C.</span> 3557.67 liters</div><div class="option"><span class="opt-letter">D.</span> 44 liters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Larger capacity = 1,331 × 64 = 85,184 cubic liters.</div>
-    <div class="step-exp">First, determine the new total capacity by multiplying the original capacity by the given factor.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">s = ³√85,184</div>
-    <div class="step-exp">To find the side length of the new cubic tank, take the cube root of its calculated capacity.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">³√1,331 = 11
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Larger capacity = 1,331 × 64 = 85,184 cubic liters.</div><div class="step-exp">First, determine the new total capacity by multiplying the original capacity by the given factor.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">s = ³√85,184</div><div class="step-exp">To find the side length of the new cubic tank, take the cube root of its calculated capacity.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">³√1,331 = 11
 ³√64 = 4
-s = 11 × 4 = 44</div>
-    <div class="step-exp">We can simplify the calculation by taking the cube root of each factor separately, or by directly finding the cube root of the total capacity.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 44 liters (Option D)</p></div></div>
+s = 11 × 4 = 44</div><div class="step-exp">We can simplify the calculation by taking the cube root of each factor separately, or by directly finding the cube root of the total capacity.</div></div></div><p class="answer-line"><strong>Answer:</strong> 44 liters (Option D)</p></div></div>
   </div>
 </div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

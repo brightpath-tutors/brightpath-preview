@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,39 +146,17 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 7 | RP | Skill 7.RP.021<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Scaling Ratios Down</h1>
-<p class="skill-subtitle">Skill ID: 7.RP.021</p>
+<h1 class="skill-title">Scaling Ratios Down</h1><p class="skill-subtitle">Skill ID: 7.RP.021</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; RP</span></div>
   <div class="q-body">
     <div class="q-prompt">A shop sells a pack of 18 pens for $6. What is the ratio of pens to dollars in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9:3</div><div class="option"><span class="opt-letter">B.</span> 3:1</div><div class="option"><span class="opt-letter">C.</span> 12:1</div><div class="option"><span class="opt-letter">D.</span> 1:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of pens to dollars is 18:6.</div>
-    <div class="step-exp">We write the number of pens first, then the number of dollars, as given in the problem.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 18: 1, 2, 3, 6, 9, 18
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of pens to dollars is 18:6.</div><div class="step-exp">We write the number of pens first, then the number of dollars, as given in the problem.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 18: 1, 2, 3, 6, 9, 18
 Factors of 6: 1, 2, 3, 6
-The GCF of 18 and 6 is 6.</div>
-    <div class="step-exp">To simplify a ratio, we need to find the largest number that divides evenly into both parts of the ratio.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">18 ÷ 6 = 3
+The GCF of 18 and 6 is 6.</div><div class="step-exp">To simplify a ratio, we need to find the largest number that divides evenly into both parts of the ratio.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">18 ÷ 6 = 3
 6 ÷ 6 = 1
-So, the simplified ratio is 3:1.</div>
-    <div class="step-exp">Dividing both numbers by their GCF gives us the ratio in its simplest form, meaning there are no common factors greater than 1.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3:1 (Option B)</p></div></div>
+So, the simplified ratio is 3:1.</div><div class="step-exp">Dividing both numbers by their GCF gives us the ratio in its simplest form, meaning there are no common factors greater than 1.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3:1 (Option B)</p></div></div>
   </div>
 </div>
 
@@ -301,32 +165,11 @@ So, the simplified ratio is 3:1.</div>
   <div class="q-body">
     <div class="q-prompt">A basketball team played 25 games and won 10 of them. What is the ratio of wins to games played in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 10:25</div><div class="option"><span class="opt-letter">B.</span> 15:25</div><div class="option"><span class="opt-letter">C.</span> 2:5</div><div class="option"><span class="opt-letter">D.</span> 5:2</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of wins to games played is 10:25.</div>
-    <div class="step-exp">We write the number of wins first, then the total games played.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 10: 1, 2, 5, 10
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of wins to games played is 10:25.</div><div class="step-exp">We write the number of wins first, then the total games played.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 10: 1, 2, 5, 10
 Factors of 25: 1, 5, 25
-The GCF of 10 and 25 is 5.</div>
-    <div class="step-exp">To simplify the ratio, we look for the largest number that divides both 10 and 25 without a remainder.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">10 ÷ 5 = 2
+The GCF of 10 and 25 is 5.</div><div class="step-exp">To simplify the ratio, we look for the largest number that divides both 10 and 25 without a remainder.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">10 ÷ 5 = 2
 25 ÷ 5 = 5
-So, the simplified ratio is 2:5.</div>
-    <div class="step-exp">Dividing both numbers by their GCF results in the simplest form of the ratio.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 2:5 (Option C)</p></div></div>
+So, the simplified ratio is 2:5.</div><div class="step-exp">Dividing both numbers by their GCF results in the simplest form of the ratio.</div></div></div><p class="answer-line"><strong>Answer:</strong> 2:5 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -335,32 +178,11 @@ So, the simplified ratio is 2:5.</div>
   <div class="q-body">
     <div class="q-prompt">A recipe calls for 12 ounces of chicken for every 8 ounces of pasta. What is the ratio of chicken to pasta in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 6:4</div><div class="option"><span class="opt-letter">B.</span> 4:12</div><div class="option"><span class="opt-letter">C.</span> 3:2</div><div class="option"><span class="opt-letter">D.</span> 2:3</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of chicken to pasta is 12:8.</div>
-    <div class="step-exp">We write the amount of chicken first, then the amount of pasta.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 12: 1, 2, 3, 4, 6, 12
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of chicken to pasta is 12:8.</div><div class="step-exp">We write the amount of chicken first, then the amount of pasta.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 12: 1, 2, 3, 4, 6, 12
 Factors of 8: 1, 2, 4, 8
-The GCF of 12 and 8 is 4.</div>
-    <div class="step-exp">To simplify the ratio, we determine the largest number that can divide both 12 and 8 evenly.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">12 ÷ 4 = 3
+The GCF of 12 and 8 is 4.</div><div class="step-exp">To simplify the ratio, we determine the largest number that can divide both 12 and 8 evenly.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">12 ÷ 4 = 3
 8 ÷ 4 = 2
-So, the simplified ratio is 3:2.</div>
-    <div class="step-exp">Dividing both numbers by their GCF gives the ratio in its simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3:2 (Option C)</p></div></div>
+So, the simplified ratio is 3:2.</div><div class="step-exp">Dividing both numbers by their GCF gives the ratio in its simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3:2 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -369,32 +191,11 @@ So, the simplified ratio is 3:2.</div>
   <div class="q-body">
     <div class="q-prompt">A car traveled 180 miles in 3 hours. What is the ratio of miles to hours in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:60</div><div class="option"><span class="opt-letter">B.</span> 90:1.5</div><div class="option"><span class="opt-letter">C.</span> 183:3</div><div class="option"><span class="opt-letter">D.</span> 60:1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of miles to hours is 180:3.</div>
-    <div class="step-exp">We set up the ratio using the given values, miles first then hours.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 180: 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of miles to hours is 180:3.</div><div class="step-exp">We set up the ratio using the given values, miles first then hours.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 180: 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180
 Factors of 3: 1, 3
-The GCF of 180 and 3 is 3.</div>
-    <div class="step-exp">The largest number that divides into both 180 and 3 is 3.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">180 ÷ 3 = 60
+The GCF of 180 and 3 is 3.</div><div class="step-exp">The largest number that divides into both 180 and 3 is 3.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">180 ÷ 3 = 60
 3 ÷ 3 = 1
-So, the simplified ratio is 60:1.</div>
-    <div class="step-exp">Dividing both numbers by 3 results in the simplest form, expressing the ratio as miles per 1 hour.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 60:1 (Option D)</p></div></div>
+So, the simplified ratio is 60:1.</div><div class="step-exp">Dividing both numbers by 3 results in the simplest form, expressing the ratio as miles per 1 hour.</div></div></div><p class="answer-line"><strong>Answer:</strong> 60:1 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -403,32 +204,11 @@ So, the simplified ratio is 60:1.</div>
   <div class="q-body">
     <div class="q-prompt">In a classroom, there are 28 students and 7 teachers. What is the ratio of students to teachers in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:4</div><div class="option"><span class="opt-letter">B.</span> 35:7</div><div class="option"><span class="opt-letter">C.</span> 14:3.5</div><div class="option"><span class="opt-letter">D.</span> 4:1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of students to teachers is 28:7.</div>
-    <div class="step-exp">We write the number of students first, then the number of teachers.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 28: 1, 2, 4, 7, 14, 28
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of students to teachers is 28:7.</div><div class="step-exp">We write the number of students first, then the number of teachers.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 28: 1, 2, 4, 7, 14, 28
 Factors of 7: 1, 7
-The GCF of 28 and 7 is 7.</div>
-    <div class="step-exp">To simplify the ratio, we find the largest number that divides evenly into both 28 and 7.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">28 ÷ 7 = 4
+The GCF of 28 and 7 is 7.</div><div class="step-exp">To simplify the ratio, we find the largest number that divides evenly into both 28 and 7.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">28 ÷ 7 = 4
 7 ÷ 7 = 1
-So, the simplified ratio is 4:1.</div>
-    <div class="step-exp">Dividing both numbers by their GCF gives the ratio in its simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 4:1 (Option D)</p></div></div>
+So, the simplified ratio is 4:1.</div><div class="step-exp">Dividing both numbers by their GCF gives the ratio in its simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 4:1 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -437,32 +217,11 @@ So, the simplified ratio is 4:1.</div>
   <div class="q-body">
     <div class="q-prompt">In a chemical solution, there are 45 milliliters of acid for every 15 milliliters of water. What is the ratio of acid to water in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9:3</div><div class="option"><span class="opt-letter">B.</span> 1:3</div><div class="option"><span class="opt-letter">C.</span> 3:1</div><div class="option"><span class="opt-letter">D.</span> 30:15</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of acid to water is 45:15.</div>
-    <div class="step-exp">We write the amount of acid first, then the amount of water.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 45: 1, 3, 5, 9, 15, 45
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of acid to water is 45:15.</div><div class="step-exp">We write the amount of acid first, then the amount of water.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 45: 1, 3, 5, 9, 15, 45
 Factors of 15: 1, 3, 5, 15
-The GCF of 45 and 15 is 15.</div>
-    <div class="step-exp">To simplify the ratio, we look for the largest number that divides evenly into both 45 and 15.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">45 ÷ 15 = 3
+The GCF of 45 and 15 is 15.</div><div class="step-exp">To simplify the ratio, we look for the largest number that divides evenly into both 45 and 15.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">45 ÷ 15 = 3
 15 ÷ 15 = 1
-So, the simplified ratio is 3:1.</div>
-    <div class="step-exp">Dividing both numbers by their GCF results in the simplest form of the ratio.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3:1 (Option C)</p></div></div>
+So, the simplified ratio is 3:1.</div><div class="step-exp">Dividing both numbers by their GCF results in the simplest form of the ratio.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3:1 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -471,32 +230,11 @@ So, the simplified ratio is 3:1.</div>
   <div class="q-body">
     <div class="q-prompt">A construction crew uses 72 bricks for every 9 cement blocks. What is the ratio of bricks to cement blocks in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 36:4.5</div><div class="option"><span class="opt-letter">B.</span> 1:8</div><div class="option"><span class="opt-letter">C.</span> 63:9</div><div class="option"><span class="opt-letter">D.</span> 8:1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of bricks to cement blocks is 72:9.</div>
-    <div class="step-exp">We state the number of bricks first, then the number of cement blocks.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 72: 1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of bricks to cement blocks is 72:9.</div><div class="step-exp">We state the number of bricks first, then the number of cement blocks.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 72: 1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72
 Factors of 9: 1, 3, 9
-The GCF of 72 and 9 is 9.</div>
-    <div class="step-exp">To simplify the ratio, we identify the largest number that divides both 72 and 9 evenly.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">72 ÷ 9 = 8
+The GCF of 72 and 9 is 9.</div><div class="step-exp">To simplify the ratio, we identify the largest number that divides both 72 and 9 evenly.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">72 ÷ 9 = 8
 9 ÷ 9 = 1
-So, the simplified ratio is 8:1.</div>
-    <div class="step-exp">Dividing both numbers by their GCF gives the ratio in its simplest form.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 8:1 (Option D)</p></div></div>
+So, the simplified ratio is 8:1.</div><div class="step-exp">Dividing both numbers by their GCF gives the ratio in its simplest form.</div></div></div><p class="answer-line"><strong>Answer:</strong> 8:1 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -505,32 +243,11 @@ So, the simplified ratio is 8:1.</div>
   <div class="q-body">
     <div class="q-prompt">A clock ticks 144 times in 2 minutes. What is the ratio of ticks to minutes in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 288:4</div><div class="option"><span class="opt-letter">B.</span> 144:1</div><div class="option"><span class="opt-letter">C.</span> 1:72</div><div class="option"><span class="opt-letter">D.</span> 72:1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of ticks to minutes is 144:2.</div>
-    <div class="step-exp">We set up the ratio using the given values, ticks first then minutes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 144: 1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 36, 48, 72, 144
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of ticks to minutes is 144:2.</div><div class="step-exp">We set up the ratio using the given values, ticks first then minutes.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 144: 1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 36, 48, 72, 144
 Factors of 2: 1, 2
-The GCF of 144 and 2 is 2.</div>
-    <div class="step-exp">The largest number that divides into both 144 and 2 is 2.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">144 ÷ 2 = 72
+The GCF of 144 and 2 is 2.</div><div class="step-exp">The largest number that divides into both 144 and 2 is 2.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">144 ÷ 2 = 72
 2 ÷ 2 = 1
-So, the simplified ratio is 72:1.</div>
-    <div class="step-exp">Dividing both numbers by 2 results in the simplest form, expressing the ratio of ticks per 1 minute.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 72:1 (Option D)</p></div></div>
+So, the simplified ratio is 72:1.</div><div class="step-exp">Dividing both numbers by 2 results in the simplest form, expressing the ratio of ticks per 1 minute.</div></div></div><p class="answer-line"><strong>Answer:</strong> 72:1 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -539,32 +256,11 @@ So, the simplified ratio is 72:1.</div>
   <div class="q-body">
     <div class="q-prompt">In a small town, there are 560 adults for every 70 children. What is the ratio of adults to children in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1:8</div><div class="option"><span class="opt-letter">B.</span> 56:7</div><div class="option"><span class="opt-letter">C.</span> 490:70</div><div class="option"><span class="opt-letter">D.</span> 8:1</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of adults to children is 560:70.</div>
-    <div class="step-exp">We write the number of adults first, then the number of children.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 560: 1, 2, 4, 5, 7, 8, 10, 14, 16, 20, 28, 35, 40, 56, 70, 80, 112, 140, 280, 560
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of adults to children is 560:70.</div><div class="step-exp">We write the number of adults first, then the number of children.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 560: 1, 2, 4, 5, 7, 8, 10, 14, 16, 20, 28, 35, 40, 56, 70, 80, 112, 140, 280, 560
 Factors of 70: 1, 2, 5, 7, 10, 14, 35, 70
-The GCF of 560 and 70 is 70.</div>
-    <div class="step-exp">To simplify the ratio, we determine the largest number that divides both 560 and 70 evenly.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">560 ÷ 70 = 8
+The GCF of 560 and 70 is 70.</div><div class="step-exp">To simplify the ratio, we determine the largest number that divides both 560 and 70 evenly.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">560 ÷ 70 = 8
 70 ÷ 70 = 1
-So, the simplified ratio is 8:1.</div>
-    <div class="step-exp">Dividing both numbers by their GCF results in the simplest form of the ratio.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 8:1 (Option D)</p></div></div>
+So, the simplified ratio is 8:1.</div><div class="step-exp">Dividing both numbers by their GCF results in the simplest form of the ratio.</div></div></div><p class="answer-line"><strong>Answer:</strong> 8:1 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -573,44 +269,20 @@ So, the simplified ratio is 8:1.</div>
   <div class="q-body">
     <div class="q-prompt">A printer can print 360 pages in 45 minutes. What is the ratio of pages to minutes in simplest form?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 315:45</div><div class="option"><span class="opt-letter">B.</span> 1:8</div><div class="option"><span class="opt-letter">C.</span> 8:1</div><div class="option"><span class="opt-letter">D.</span> 72:9</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">The ratio of pages to minutes is 360:45.</div>
-    <div class="step-exp">We set up the ratio using the given values, pages first then minutes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Factors of 360: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">The ratio of pages to minutes is 360:45.</div><div class="step-exp">We set up the ratio using the given values, pages first then minutes.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Factors of 360: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360
 Factors of 45: 1, 3, 5, 9, 15, 45
-The GCF of 360 and 45 is 45.</div>
-    <div class="step-exp">To simplify the ratio, we determine the largest number that divides both 360 and 45 evenly.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">360 ÷ 45 = 8
+The GCF of 360 and 45 is 45.</div><div class="step-exp">To simplify the ratio, we determine the largest number that divides both 360 and 45 evenly.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">360 ÷ 45 = 8
 45 ÷ 45 = 1
-So, the simplified ratio is 8:1.</div>
-    <div class="step-exp">Dividing both numbers by their GCF results in the simplest form, expressing the ratio of pages per 1 minute.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 8:1 (Option C)</p></div></div>
+So, the simplified ratio is 8:1.</div><div class="step-exp">Dividing both numbers by their GCF results in the simplest form, expressing the ratio of pages per 1 minute.</div></div></div><p class="answer-line"><strong>Answer:</strong> 8:1 (Option C)</p></div></div>
   </div>
 </div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

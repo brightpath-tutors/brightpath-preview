@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,45 +146,16 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 7 | EE | Skill 7.EE.023<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Linear Equations</h1>
-<p class="skill-subtitle">Skill ID: 7.EE.023</p>
+<h1 class="skill-title">Linear Equations</h1><p class="skill-subtitle">Skill ID: 7.EE.023</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; EE</span></div>
   <div class="q-body">
     <div class="q-prompt">A customer bought a shirt for $18.50 and a pair of socks. If the total bill was $24.75, what was the cost of the socks?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> $43.25</div><div class="option"><span class="opt-letter">B.</span> $1.34</div><div class="option"><span class="opt-letter">C.</span> $6.25</div><div class="option"><span class="opt-letter">D.</span> $18.50</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Cost of shirt = $18.50
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Cost of shirt = $18.50
 Total bill = $24.75
-Cost of socks = s (unknown)</div>
-    <div class="step-exp">We are given the cost of the shirt and the total bill, and we need to find the cost of the socks.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">18.50 + s = 24.75</div>
-    <div class="step-exp">The cost of the shirt plus the cost of the socks equals the total bill.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">18.50 + s - 18.50 = 24.75 - 18.50
-s = 6.25</div>
-    <div class="step-exp">To find &#x27;s&#x27;, subtract 18.50 from both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The cost of the socks was $6.25.</div>
-    <div class="step-exp">The calculated value for &#x27;s&#x27; represents the cost of the socks.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> $6.25 (Option C)</p></div></div>
+Cost of socks = s (unknown)</div><div class="step-exp">We are given the cost of the shirt and the total bill, and we need to find the cost of the socks.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">18.50 + s = 24.75</div><div class="step-exp">The cost of the shirt plus the cost of the socks equals the total bill.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">18.50 + s - 18.50 = 24.75 - 18.50
+s = 6.25</div><div class="step-exp">To find &#x27;s&#x27;, subtract 18.50 from both sides of the equation.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The cost of the socks was $6.25.</div><div class="step-exp">The calculated value for &#x27;s&#x27; represents the cost of the socks.</div></div></div><p class="answer-line"><strong>Answer:</strong> $6.25 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -307,38 +164,10 @@ s = 6.25</div>
   <div class="q-body">
     <div class="q-prompt">A soccer team scored 3 goals in each of their last several games. If they scored a total of 15 goals, how many games did they play?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 45 games</div><div class="option"><span class="opt-letter">B.</span> 5 games</div><div class="option"><span class="opt-letter">C.</span> 18 games</div><div class="option"><span class="opt-letter">D.</span> 12 games</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Goals per game = 3
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Goals per game = 3
 Total goals = 15
-Number of games = g (unknown)</div>
-    <div class="step-exp">We are given the goals per game and total goals, and we need to find the number of games played.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">3g = 15</div>
-    <div class="step-exp">The number of goals per game multiplied by the number of games equals the total goals scored.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">3g / 3 = 15 / 3
-g = 5</div>
-    <div class="step-exp">To find &#x27;g&#x27;, divide both sides of the equation by 3.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">They played 5 games.</div>
-    <div class="step-exp">The calculated value for &#x27;g&#x27; represents the number of games played.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5 games (Option B)</p></div></div>
+Number of games = g (unknown)</div><div class="step-exp">We are given the goals per game and total goals, and we need to find the number of games played.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">3g = 15</div><div class="step-exp">The number of goals per game multiplied by the number of games equals the total goals scored.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">3g / 3 = 15 / 3
+g = 5</div><div class="step-exp">To find &#x27;g&#x27;, divide both sides of the equation by 3.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">They played 5 games.</div><div class="step-exp">The calculated value for &#x27;g&#x27; represents the number of games played.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5 games (Option B)</p></div></div>
   </div>
 </div>
 
@@ -347,38 +176,10 @@ g = 5</div>
   <div class="q-body">
     <div class="q-prompt">A chef needs 2.75 cups of broth for a soup recipe. He currently has 1.25 cups. How many more cups of broth does he need?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 1.50 cups</div><div class="option"><span class="opt-letter">B.</span> 1.25 cups</div><div class="option"><span class="opt-letter">C.</span> 2.20 cups</div><div class="option"><span class="opt-letter">D.</span> 4.00 cups</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Broth needed = 2.75 cups
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Broth needed = 2.75 cups
 Broth on hand = 1.25 cups
-Additional broth needed = b (unknown)</div>
-    <div class="step-exp">We know the total broth required and the amount available, and we need to find the difference.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">1.25 + b = 2.75</div>
-    <div class="step-exp">The broth on hand plus the additional broth needed equals the total broth required.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">1.25 + b - 1.25 = 2.75 - 1.25
-b = 1.50</div>
-    <div class="step-exp">To find &#x27;b&#x27;, subtract 1.25 from both sides of the equation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">He needs 1.50 more cups of broth.</div>
-    <div class="step-exp">The calculated value for &#x27;b&#x27; represents the additional broth needed.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 1.50 cups (Option A)</p></div></div>
+Additional broth needed = b (unknown)</div><div class="step-exp">We know the total broth required and the amount available, and we need to find the difference.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">1.25 + b = 2.75</div><div class="step-exp">The broth on hand plus the additional broth needed equals the total broth required.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">1.25 + b - 1.25 = 2.75 - 1.25
+b = 1.50</div><div class="step-exp">To find &#x27;b&#x27;, subtract 1.25 from both sides of the equation.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">He needs 1.50 more cups of broth.</div><div class="step-exp">The calculated value for &#x27;b&#x27; represents the additional broth needed.</div></div></div><p class="answer-line"><strong>Answer:</strong> 1.50 cups (Option A)</p></div></div>
   </div>
 </div>
 
@@ -387,47 +188,12 @@ b = 1.50</div>
   <div class="q-body">
     <div class="q-prompt">A car travels at a constant speed. After driving for 4 hours, it has covered 280 miles. If it had already traveled 40 miles before this 4-hour period, what was its speed during these 4 hours?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 60 mph</div><div class="option"><span class="opt-letter">B.</span> 50 mph</div><div class="option"><span class="opt-letter">C.</span> 120 mph</div><div class="option"><span class="opt-letter">D.</span> 80 mph</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Driving time = 4 hours
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Driving time = 4 hours
 Total distance covered = 280 miles
 Initial distance = 40 miles
-Speed during 4 hours = s (unknown)</div>
-    <div class="step-exp">We need to find the speed for the 4-hour period, knowing the total distance and a starting distance.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">4s + 40 = 280</div>
-    <div class="step-exp">The distance covered during the 4 hours (4s) plus the initial distance (40) equals the total distance (280).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">4s + 40 - 40 = 280 - 40
-4s = 240</div>
-    <div class="step-exp">Subtract 40 from both sides to isolate the &#x27;4s&#x27; term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">4s / 4 = 240 / 4
-s = 60</div>
-    <div class="step-exp">Divide both sides by 4 to solve for &#x27;s&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The car&#x27;s speed during these 4 hours was 60 mph.</div>
-    <div class="step-exp">The calculated value for &#x27;s&#x27; represents the speed.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 60 mph (Option A)</p></div></div>
+Speed during 4 hours = s (unknown)</div><div class="step-exp">We need to find the speed for the 4-hour period, knowing the total distance and a starting distance.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">4s + 40 = 280</div><div class="step-exp">The distance covered during the 4 hours (4s) plus the initial distance (40) equals the total distance (280).</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">4s + 40 - 40 = 280 - 40
+4s = 240</div><div class="step-exp">Subtract 40 from both sides to isolate the &#x27;4s&#x27; term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">4s / 4 = 240 / 4
+s = 60</div><div class="step-exp">Divide both sides by 4 to solve for &#x27;s&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The car&#x27;s speed during these 4 hours was 60 mph.</div><div class="step-exp">The calculated value for &#x27;s&#x27; represents the speed.</div></div></div><p class="answer-line"><strong>Answer:</strong> 60 mph (Option A)</p></div></div>
   </div>
 </div>
 
@@ -436,47 +202,12 @@ s = 60</div>
   <div class="q-body">
     <div class="q-prompt">A school club is selling t-shirts for a fundraiser. They spent $75 on supplies and sold each t-shirt for $12. If their profit was $201, how many t-shirts did they sell?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 23 t-shirts</div><div class="option"><span class="opt-letter">B.</span> 22 t-shirts</div><div class="option"><span class="opt-letter">C.</span> 10.5 t-shirts</div><div class="option"><span class="opt-letter">D.</span> 16 t-shirts</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Cost of supplies = $75
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Cost of supplies = $75
 Selling price per t-shirt = $12
 Total profit = $201
-Number of t-shirts sold = t (unknown)</div>
-    <div class="step-exp">We need to find the number of t-shirts sold given the costs, selling price, and profit.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">12t - 75 = 201</div>
-    <div class="step-exp">The total revenue from selling t-shirts (12t) minus the cost of supplies (75) equals the profit (201).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">12t - 75 + 75 = 201 + 75
-12t = 276</div>
-    <div class="step-exp">Add 75 to both sides to isolate the &#x27;12t&#x27; term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">12t / 12 = 276 / 12
-t = 23</div>
-    <div class="step-exp">Divide both sides by 12 to solve for &#x27;t&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">They sold 23 t-shirts.</div>
-    <div class="step-exp">The calculated value for &#x27;t&#x27; represents the number of t-shirts sold.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 23 t-shirts (Option A)</p></div></div>
+Number of t-shirts sold = t (unknown)</div><div class="step-exp">We need to find the number of t-shirts sold given the costs, selling price, and profit.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">12t - 75 = 201</div><div class="step-exp">The total revenue from selling t-shirts (12t) minus the cost of supplies (75) equals the profit (201).</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">12t - 75 + 75 = 201 + 75
+12t = 276</div><div class="step-exp">Add 75 to both sides to isolate the &#x27;12t&#x27; term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">12t / 12 = 276 / 12
+t = 23</div><div class="step-exp">Divide both sides by 12 to solve for &#x27;t&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">They sold 23 t-shirts.</div><div class="step-exp">The calculated value for &#x27;t&#x27; represents the number of t-shirts sold.</div></div></div><p class="answer-line"><strong>Answer:</strong> 23 t-shirts (Option A)</p></div></div>
   </div>
 </div>
 
@@ -485,47 +216,12 @@ t = 23</div>
   <div class="q-body">
     <div class="q-prompt">In a chemistry experiment, the temperature of a solution started at 8.2°C. It then increased at a constant rate for 5 minutes. If the final temperature was 33.7°C, what was the temperature increase per minute?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 5.1°C per minute</div><div class="option"><span class="opt-letter">B.</span> 25.5°C per minute</div><div class="option"><span class="opt-letter">C.</span> 7.64°C per minute</div><div class="option"><span class="opt-letter">D.</span> 4.5°C per minute</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial temperature = 8.2°C
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial temperature = 8.2°C
 Time = 5 minutes
 Final temperature = 33.7°C
-Temperature increase per minute = t (unknown)</div>
-    <div class="step-exp">We need to find the rate of temperature increase given the initial, final temperatures, and time.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">8.2 + 5t = 33.7</div>
-    <div class="step-exp">The initial temperature plus the total temperature increase (rate times time) equals the final temperature.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">8.2 + 5t - 8.2 = 33.7 - 8.2
-5t = 25.5</div>
-    <div class="step-exp">Subtract 8.2 from both sides to isolate the &#x27;5t&#x27; term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">5t / 5 = 25.5 / 5
-t = 5.1</div>
-    <div class="step-exp">Divide both sides by 5 to solve for &#x27;t&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The temperature increased by 5.1°C per minute.</div>
-    <div class="step-exp">The calculated value for &#x27;t&#x27; represents the temperature increase rate.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 5.1°C per minute (Option A)</p></div></div>
+Temperature increase per minute = t (unknown)</div><div class="step-exp">We need to find the rate of temperature increase given the initial, final temperatures, and time.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">8.2 + 5t = 33.7</div><div class="step-exp">The initial temperature plus the total temperature increase (rate times time) equals the final temperature.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">8.2 + 5t - 8.2 = 33.7 - 8.2
+5t = 25.5</div><div class="step-exp">Subtract 8.2 from both sides to isolate the &#x27;5t&#x27; term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">5t / 5 = 25.5 / 5
+t = 5.1</div><div class="step-exp">Divide both sides by 5 to solve for &#x27;t&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The temperature increased by 5.1°C per minute.</div><div class="step-exp">The calculated value for &#x27;t&#x27; represents the temperature increase rate.</div></div></div><p class="answer-line"><strong>Answer:</strong> 5.1°C per minute (Option A)</p></div></div>
   </div>
 </div>
 
@@ -534,47 +230,12 @@ t = 5.1</div>
   <div class="q-body">
     <div class="q-prompt">A carpenter is building a fence. He has a total of 150 feet of fencing material. He used 30 feet for the first section and then installed the remaining fencing in equal sections, each 12 feet long. How many 12-foot sections did he install?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 180 sections</div><div class="option"><span class="opt-letter">B.</span> 15 sections</div><div class="option"><span class="opt-letter">C.</span> 10 sections</div><div class="option"><span class="opt-letter">D.</span> 9 sections</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Total fencing material = 150 feet
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Total fencing material = 150 feet
 Length of first section = 30 feet
 Length of each remaining section = 12 feet
-Number of 12-foot sections = x (unknown)</div>
-    <div class="step-exp">We need to find how many equal sections were installed after the initial section.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">30 + 12x = 150</div>
-    <div class="step-exp">The length of the first section plus the total length of the &#x27;x&#x27; remaining sections equals the total fencing material.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">30 + 12x - 30 = 150 - 30
-12x = 120</div>
-    <div class="step-exp">Subtract 30 from both sides to isolate the &#x27;12x&#x27; term.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">12x / 12 = 120 / 12
-x = 10</div>
-    <div class="step-exp">Divide both sides by 12 to solve for &#x27;x&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">He installed 10 sections.</div>
-    <div class="step-exp">The calculated value for &#x27;x&#x27; represents the number of 12-foot sections installed.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 10 sections (Option C)</p></div></div>
+Number of 12-foot sections = x (unknown)</div><div class="step-exp">We need to find how many equal sections were installed after the initial section.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">30 + 12x = 150</div><div class="step-exp">The length of the first section plus the total length of the &#x27;x&#x27; remaining sections equals the total fencing material.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">30 + 12x - 30 = 150 - 30
+12x = 120</div><div class="step-exp">Subtract 30 from both sides to isolate the &#x27;12x&#x27; term.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">12x / 12 = 120 / 12
+x = 10</div><div class="step-exp">Divide both sides by 12 to solve for &#x27;x&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">He installed 10 sections.</div><div class="step-exp">The calculated value for &#x27;x&#x27; represents the number of 12-foot sections installed.</div></div></div><p class="answer-line"><strong>Answer:</strong> 10 sections (Option C)</p></div></div>
   </div>
 </div>
 
@@ -583,50 +244,15 @@ x = 10</div>
   <div class="q-body">
     <div class="q-prompt">Mark and Julia are reading the same book. Mark has already read 50 pages and reads 15 pages per day. Julia has read 20 pages and reads 20 pages per day. After how many days will they have read the same number of pages?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 3.5 days</div><div class="option"><span class="opt-letter">B.</span> 6 days</div><div class="option"><span class="opt-letter">C.</span> 14 days</div><div class="option"><span class="opt-letter">D.</span> 1.5 days</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Mark&#x27;s initial pages = 50
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Mark&#x27;s initial pages = 50
 Mark&#x27;s reading rate = 15 pages/day
 Julia&#x27;s initial pages = 20
 Julia&#x27;s reading rate = 20 pages/day
-Number of days = d (unknown)</div>
-    <div class="step-exp">We need to find the number of days until their total pages read are equal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Mark&#x27;s total pages: 50 + 15d
+Number of days = d (unknown)</div><div class="step-exp">We need to find the number of days until their total pages read are equal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Mark&#x27;s total pages: 50 + 15d
 Julia&#x27;s total pages: 20 + 20d
-Equation: 50 + 15d = 20 + 20d</div>
-    <div class="step-exp">Set the expressions for Mark&#x27;s and Julia&#x27;s total pages equal to each other.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">50 - 20 = 20d - 15d
-30 = 5d</div>
-    <div class="step-exp">Subtract 15d from both sides and subtract 20 from both sides to gather like terms.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">30 / 5 = 5d / 5
-d = 6</div>
-    <div class="step-exp">Divide both sides by 5 to solve for &#x27;d&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">They will have read the same number of pages after 6 days.</div>
-    <div class="step-exp">The calculated value for &#x27;d&#x27; represents the number of days.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 6 days (Option B)</p></div></div>
+Equation: 50 + 15d = 20 + 20d</div><div class="step-exp">Set the expressions for Mark&#x27;s and Julia&#x27;s total pages equal to each other.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">50 - 20 = 20d - 15d
+30 = 5d</div><div class="step-exp">Subtract 15d from both sides and subtract 20 from both sides to gather like terms.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">30 / 5 = 5d / 5
+d = 6</div><div class="step-exp">Divide both sides by 5 to solve for &#x27;d&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">They will have read the same number of pages after 6 days.</div><div class="step-exp">The calculated value for &#x27;d&#x27; represents the number of days.</div></div></div><p class="answer-line"><strong>Answer:</strong> 6 days (Option B)</p></div></div>
   </div>
 </div>
 
@@ -635,50 +261,15 @@ d = 6</div>
   <div class="q-body">
     <div class="q-prompt">City A&#x27;s population is currently 12,500 and is growing by 300 people per year. City B&#x27;s population is 10,000 and is growing by 400 people per year. In how many years will their populations be equal?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 225 years</div><div class="option"><span class="opt-letter">B.</span> 25 years</div><div class="option"><span class="opt-letter">C.</span> 2.5 years</div><div class="option"><span class="opt-letter">D.</span> 100 years</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">City A initial population = 12,500
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">City A initial population = 12,500
 City A growth rate = 300 people/year
 City B initial population = 10,000
 City B growth rate = 400 people/year
-Number of years = y (unknown)</div>
-    <div class="step-exp">We need to find when the populations of the two cities will be equal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">City A population: 12500 + 300y
+Number of years = y (unknown)</div><div class="step-exp">We need to find when the populations of the two cities will be equal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">City A population: 12500 + 300y
 City B population: 10000 + 400y
-Equation: 12500 + 300y = 10000 + 400y</div>
-    <div class="step-exp">Set the expressions for City A&#x27;s and City B&#x27;s populations equal to each other.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">12500 - 10000 = 400y - 300y
-2500 = 100y</div>
-    <div class="step-exp">Subtract 300y from both sides and subtract 10000 from both sides to gather like terms.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">2500 / 100 = 100y / 100
-y = 25</div>
-    <div class="step-exp">Divide both sides by 100 to solve for &#x27;y&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Their populations will be equal in 25 years.</div>
-    <div class="step-exp">The calculated value for &#x27;y&#x27; represents the number of years.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 25 years (Option B)</p></div></div>
+Equation: 12500 + 300y = 10000 + 400y</div><div class="step-exp">Set the expressions for City A&#x27;s and City B&#x27;s populations equal to each other.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">12500 - 10000 = 400y - 300y
+2500 = 100y</div><div class="step-exp">Subtract 300y from both sides and subtract 10000 from both sides to gather like terms.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">2500 / 100 = 100y / 100
+y = 25</div><div class="step-exp">Divide both sides by 100 to solve for &#x27;y&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Their populations will be equal in 25 years.</div><div class="step-exp">The calculated value for &#x27;y&#x27; represents the number of years.</div></div></div><p class="answer-line"><strong>Answer:</strong> 25 years (Option B)</p></div></div>
   </div>
 </div>
 
@@ -687,62 +278,24 @@ y = 25</div>
   <div class="q-body">
     <div class="q-prompt">A company offers two data plans. Plan A charges a $35 monthly fee plus $0.50 per gigabyte (GB) of data used. Plan B charges a $20 monthly fee plus $0.75 per GB of data used. For what amount of data usage (in GB) will the two plans cost the same?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 15 GB</div><div class="option"><span class="opt-letter">B.</span> 60 GB</div><div class="option"><span class="opt-letter">C.</span> 0.25 GB</div><div class="option"><span class="opt-letter">D.</span> 25 GB</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Plan A fixed fee = $35
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Plan A fixed fee = $35
 Plan A rate = $0.50/GB
 Plan B fixed fee = $20
 Plan B rate = $0.75/GB
-Data usage = g (unknown)</div>
-    <div class="step-exp">We need to find the data usage at which the total cost for both plans is equal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Cost for Plan A: 35 + 0.50g
+Data usage = g (unknown)</div><div class="step-exp">We need to find the data usage at which the total cost for both plans is equal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Cost for Plan A: 35 + 0.50g
 Cost for Plan B: 20 + 0.75g
-Equation: 35 + 0.50g = 20 + 0.75g</div>
-    <div class="step-exp">Set the expressions for the costs of Plan A and Plan B equal to each other.</div>
+Equation: 35 + 0.50g = 20 + 0.75g</div><div class="step-exp">Set the expressions for the costs of Plan A and Plan B equal to each other.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">35 - 20 = 0.75g - 0.50g
+15 = 0.25g</div><div class="step-exp">Subtract 0.50g from both sides and subtract 20 from both sides to gather like terms.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">15 / 0.25 = 0.25g / 0.25
+g = 60</div><div class="step-exp">Divide both sides by 0.25 to solve for &#x27;g&#x27;.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The two plans will cost the same for 60 GB of data usage.</div><div class="step-exp">The calculated value for &#x27;g&#x27; represents the data usage.</div></div></div><p class="answer-line"><strong>Answer:</strong> 60 GB (Option B)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">35 - 20 = 0.75g - 0.50g
-15 = 0.25g</div>
-    <div class="step-exp">Subtract 0.50g from both sides and subtract 20 from both sides to gather like terms.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">15 / 0.25 = 0.25g / 0.25
-g = 60</div>
-    <div class="step-exp">Divide both sides by 0.25 to solve for &#x27;g&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The two plans will cost the same for 60 GB of data usage.</div>
-    <div class="step-exp">The calculated value for &#x27;g&#x27; represents the data usage.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 60 GB (Option B)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

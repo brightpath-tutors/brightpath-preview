@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,49 +146,13 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 5 | NBT | Skill 5.NBT.006<br>10 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Reading Decimals to Thousandths</h1>
-<p class="skill-subtitle">Skill ID: 5.NBT.006</p>
+<h1 class="skill-title">Reading Decimals to Thousandths</h1><p class="skill-subtitle">Skill ID: 5.NBT.006</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 5 &bull; NBT</span></div>
   <div class="q-body">
     <div class="q-prompt">A small item costs $0.354. How would you read this price in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Zero point three five four dollars.</div><div class="option"><span class="opt-letter">B.</span> Zero and three hundred fifty-four thousandths of a dollar.</div><div class="option"><span class="opt-letter">C.</span> Three hundred fifty-four hundredths of a dollar.</div><div class="option"><span class="opt-letter">D.</span> Three hundred fifty-four thousandths of a dollar.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 0</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 354</div>
-    <div class="step-exp">Identify the digits in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;4&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last digit in the decimal part. The first digit after the decimal is tenths, the second is hundredths, and the third is thousandths.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;three hundred fifty-four thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number, followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Three hundred fifty-four thousandths of a dollar.</div>
-    <div class="step-exp">Combine the reading with the currency context.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Three hundred fifty-four thousandths of a dollar. (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 0</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 354</div><div class="step-exp">Identify the digits in the decimal part.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;4&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last digit in the decimal part. The first digit after the decimal is tenths, the second is hundredths, and the third is thousandths.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;three hundred fifty-four thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number, followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Final reading: Three hundred fifty-four thousandths of a dollar.</div><div class="step-exp">Combine the reading with the currency context.</div></div></div><p class="answer-line"><strong>Answer:</strong> Three hundred fifty-four thousandths of a dollar. (Option D)</p></div></div>
   </div>
 </div>
 
@@ -311,35 +161,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A swimmer completed a lap in 27.813 seconds. How would you read the decimal part of the time in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Eight point one three.</div><div class="option"><span class="opt-letter">B.</span> Eight hundred thirteen hundredths.</div><div class="option"><span class="opt-letter">C.</span> Twenty-seven and eight hundred thirteen thousandths.</div><div class="option"><span class="opt-letter">D.</span> Eight hundred thirteen thousandths.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Question asks for the decimal part only.</div>
-    <div class="step-exp">Understand that only the digits after the decimal point need to be read.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 813</div>
-    <div class="step-exp">Identify the digits in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;3&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;eight hundred thirteen thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number, followed by the place value of its last digit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Eight hundred thirteen thousandths. (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Question asks for the decimal part only.</div><div class="step-exp">Understand that only the digits after the decimal point need to be read.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 813</div><div class="step-exp">Identify the digits in the decimal part.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;3&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;eight hundred thirteen thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number, followed by the place value of its last digit.</div></div></div><p class="answer-line"><strong>Answer:</strong> Eight hundred thirteen thousandths. (Option D)</p></div></div>
   </div>
 </div>
 
@@ -348,42 +170,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A recipe calls for 0.007 grams of a spice. How would you read the amount in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Seventy thousandths grams.</div><div class="option"><span class="opt-letter">B.</span> Seven hundredths grams.</div><div class="option"><span class="opt-letter">C.</span> Zero and seven thousandths grams.</div><div class="option"><span class="opt-letter">D.</span> Seven thousandths grams.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 0</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 007</div>
-    <div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;7&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;seven thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros), followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Seven thousandths grams.</div>
-    <div class="step-exp">Combine the reading with the unit context.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Seven thousandths grams. (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 0</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 007</div><div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;7&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;seven thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros), followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Final reading: Seven thousandths grams.</div><div class="step-exp">Combine the reading with the unit context.</div></div></div><p class="answer-line"><strong>Answer:</strong> Seven thousandths grams. (Option D)</p></div></div>
   </div>
 </div>
 
@@ -392,49 +179,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A car&#x27;s speedometer showed a reading of 85.029 miles per hour. How would you read this speed in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Eighty-five and twenty-nine thousandths miles per hour.</div><div class="option"><span class="opt-letter">B.</span> Eighty-five point zero two nine miles per hour.</div><div class="option"><span class="opt-letter">C.</span> Eighty-five twenty-nine thousandths miles per hour.</div><div class="option"><span class="opt-letter">D.</span> Eighty-five and twenty-nine hundredths miles per hour.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 85</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 029</div>
-    <div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;9&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;twenty-nine thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group), followed by the place value of its last digit.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combine with &#x27;and&#x27;: &#x27;Eighty-five and twenty-nine thousandths&#x27;.</div>
-    <div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Eighty-five and twenty-nine thousandths miles per hour.</div>
-    <div class="step-exp">Add the unit context to the complete reading.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Eighty-five and twenty-nine thousandths miles per hour. (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 85</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 029</div><div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;9&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;twenty-nine thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group), followed by the place value of its last digit.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combine with &#x27;and&#x27;: &#x27;Eighty-five and twenty-nine thousandths&#x27;.</div><div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Final reading: Eighty-five and twenty-nine thousandths miles per hour.</div><div class="step-exp">Add the unit context to the complete reading.</div></div></div><p class="answer-line"><strong>Answer:</strong> Eighty-five and twenty-nine thousandths miles per hour. (Option A)</p></div></div>
   </div>
 </div>
 
@@ -443,49 +188,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A science experiment measured a liquid&#x27;s volume as 1.705 liters. How is this volume read in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> One and seven hundred five thousandths liters.</div><div class="option"><span class="opt-letter">B.</span> One and seventy-five thousandths liters.</div><div class="option"><span class="opt-letter">C.</span> One point seven zero five liters.</div><div class="option"><span class="opt-letter">D.</span> One and seven hundred five hundredths liters.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 1</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 705</div>
-    <div class="step-exp">Identify the digits in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;5&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;seven hundred five thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number, followed by the place value of its last digit.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combine with &#x27;and&#x27;: &#x27;One and seven hundred five thousandths&#x27;.</div>
-    <div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: One and seven hundred five thousandths liters.</div>
-    <div class="step-exp">Add the unit context to the complete reading.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> One and seven hundred five thousandths liters. (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 1</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 705</div><div class="step-exp">Identify the digits in the decimal part.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;5&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;seven hundred five thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number, followed by the place value of its last digit.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combine with &#x27;and&#x27;: &#x27;One and seven hundred five thousandths&#x27;.</div><div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Final reading: One and seven hundred five thousandths liters.</div><div class="step-exp">Add the unit context to the complete reading.</div></div></div><p class="answer-line"><strong>Answer:</strong> One and seven hundred five thousandths liters. (Option A)</p></div></div>
   </div>
 </div>
 
@@ -494,42 +197,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A microscope measured an object&#x27;s width as 0.091 millimeters. How is this measurement read in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Zero and ninety-one thousandths millimeters.</div><div class="option"><span class="opt-letter">B.</span> Ninety-one hundredths millimeters.</div><div class="option"><span class="opt-letter">C.</span> Nine hundred one thousandths millimeters.</div><div class="option"><span class="opt-letter">D.</span> Ninety-one thousandths millimeters.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 0</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 091</div>
-    <div class="step-exp">Identify the digits in the decimal part, including leading zeros.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;1&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;ninety-one thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group), followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Ninety-one thousandths millimeters.</div>
-    <div class="step-exp">Combine the reading with the unit context.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Ninety-one thousandths millimeters. (Option D)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 0</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 091</div><div class="step-exp">Identify the digits in the decimal part, including leading zeros.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;1&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;ninety-one thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group), followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Final reading: Ninety-one thousandths millimeters.</div><div class="step-exp">Combine the reading with the unit context.</div></div></div><p class="answer-line"><strong>Answer:</strong> Ninety-one thousandths millimeters. (Option D)</p></div></div>
   </div>
 </div>
 
@@ -538,49 +206,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A construction blueprint indicates a precise thickness of 12.600 inches for a material. How is this thickness read in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Twelve and six hundred thousandths inches.</div><div class="option"><span class="opt-letter">B.</span> Twelve six hundred thousandths inches.</div><div class="option"><span class="opt-letter">C.</span> Twelve and six tenths inches.</div><div class="option"><span class="opt-letter">D.</span> Twelve and six hundredths inches.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 12</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 600</div>
-    <div class="step-exp">Identify all digits in the decimal part, as the question asks to read the numeral as given.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;0&#x27; (the third decimal place) is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last digit in the given decimal numeral.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;six hundred thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (six hundred), followed by the place value of its last digit (thousandths).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combine with &#x27;and&#x27;: &#x27;Twelve and six hundred thousandths&#x27;.</div>
-    <div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Twelve and six hundred thousandths inches.</div>
-    <div class="step-exp">Add the unit context to the complete reading.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Twelve and six hundred thousandths inches. (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 12</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 600</div><div class="step-exp">Identify all digits in the decimal part, as the question asks to read the numeral as given.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;0&#x27; (the third decimal place) is in the thousandths place.</div><div class="step-exp">Determine the place value of the last digit in the given decimal numeral.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;six hundred thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (six hundred), followed by the place value of its last digit (thousandths).</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combine with &#x27;and&#x27;: &#x27;Twelve and six hundred thousandths&#x27;.</div><div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Final reading: Twelve and six hundred thousandths inches.</div><div class="step-exp">Add the unit context to the complete reading.</div></div></div><p class="answer-line"><strong>Answer:</strong> Twelve and six hundred thousandths inches. (Option A)</p></div></div>
   </div>
 </div>
 
@@ -589,49 +215,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A time trial recorded a finishing time of 105.010 seconds. How would you read this time in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> One hundred five and ten thousandths seconds.</div><div class="option"><span class="opt-letter">B.</span> One hundred five ten thousandths seconds.</div><div class="option"><span class="opt-letter">C.</span> One hundred five and ten hundredths seconds.</div><div class="option"><span class="opt-letter">D.</span> One hundred five and one thousandth seconds.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 105</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 010</div>
-    <div class="step-exp">Identify the digits in the decimal part, including leading and trailing zeros that define its place value to the thousandths.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;0&#x27; (the third decimal place) is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last digit in the given decimal numeral.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;ten thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group, but keeping trailing zeros if they are part of the specified precision), followed by the place value of its last digit.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combine with &#x27;and&#x27;: &#x27;One hundred five and ten thousandths&#x27;.</div>
-    <div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: One hundred five and ten thousandths seconds.</div>
-    <div class="step-exp">Add the unit context to the complete reading.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> One hundred five and ten thousandths seconds. (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 105</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 010</div><div class="step-exp">Identify the digits in the decimal part, including leading and trailing zeros that define its place value to the thousandths.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;0&#x27; (the third decimal place) is in the thousandths place.</div><div class="step-exp">Determine the place value of the last digit in the given decimal numeral.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;ten thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group, but keeping trailing zeros if they are part of the specified precision), followed by the place value of its last digit.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combine with &#x27;and&#x27;: &#x27;One hundred five and ten thousandths&#x27;.</div><div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Final reading: One hundred five and ten thousandths seconds.</div><div class="step-exp">Add the unit context to the complete reading.</div></div></div><p class="answer-line"><strong>Answer:</strong> One hundred five and ten thousandths seconds. (Option A)</p></div></div>
   </div>
 </div>
 
@@ -640,49 +224,7 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A census estimate for a small town showed an average household size of 2.003 people. How would you read this number in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Two and three thousandths people.</div><div class="option"><span class="opt-letter">B.</span> Two and three hundredths people.</div><div class="option"><span class="opt-letter">C.</span> Two point zero zero three people.</div><div class="option"><span class="opt-letter">D.</span> Two three thousandths people.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 2</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 003</div>
-    <div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;3&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;three thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group), followed by the place value of its last digit.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Combine with &#x27;and&#x27;: &#x27;Two and three thousandths&#x27;.</div>
-    <div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">6</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Two and three thousandths people.</div>
-    <div class="step-exp">Add the context to the complete reading.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Two and three thousandths people. (Option A)</p></div></div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 2</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 003</div><div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;3&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;three thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros within the decimal group), followed by the place value of its last digit.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Combine with &#x27;and&#x27;: &#x27;Two and three thousandths&#x27;.</div><div class="step-exp">Combine the whole number part with the decimal part using the word &#x27;and&#x27;.</div></div></div><div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-work">Final reading: Two and three thousandths people.</div><div class="step-exp">Add the context to the complete reading.</div></div></div><p class="answer-line"><strong>Answer:</strong> Two and three thousandths people. (Option A)</p></div></div>
   </div>
 </div>
 
@@ -691,54 +233,16 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="q-body">
     <div class="q-prompt">A microchip&#x27;s component has a width of 0.005 inches. How is this width read in words?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> Zero and five thousandths inches.</div><div class="option"><span class="opt-letter">B.</span> Zero point zero zero five inches.</div><div class="option"><span class="opt-letter">C.</span> Five thousandths inches.</div><div class="option"><span class="opt-letter">D.</span> Five hundredths inches.</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Whole number part = 0</div>
-    <div class="step-exp">Identify the whole number part of the decimal.</div>
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Whole number part = 0</div><div class="step-exp">Identify the whole number part of the decimal.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">Decimal part digits = 005</div><div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Last digit &#x27;5&#x27; is in the thousandths place.</div><div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">Read decimal part as &#x27;five thousandths&#x27;.</div><div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros), followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">Final reading: Five thousandths inches.</div><div class="step-exp">Add the unit context to the complete reading.</div></div></div><p class="answer-line"><strong>Answer:</strong> Five thousandths inches. (Option C)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">Decimal part digits = 005</div>
-    <div class="step-exp">Identify the digits in the decimal part, including leading zeros that determine place value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Last digit &#x27;5&#x27; is in the thousandths place.</div>
-    <div class="step-exp">Determine the place value of the last non-zero digit in the decimal part.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">Read decimal part as &#x27;five thousandths&#x27;.</div>
-    <div class="step-exp">Read the decimal part as a whole number (ignoring leading zeros), followed by the place value of its last digit. Since the whole number part is zero, &#x27;and&#x27; is not used.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">Final reading: Five thousandths inches.</div>
-    <div class="step-exp">Add the unit context to the complete reading.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> Five thousandths inches. (Option C)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>

@@ -18,239 +18,125 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  color: var(--text);
-  background: #fff;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 40px;
+  color: var(--text); background: #fff;
+  max-width: 860px; margin: 0 auto; padding: 32px 40px;
 }
-/* Header */
 .bp-header {
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 3px solid var(--bp-blue);
-  padding-bottom: 14px; margin-bottom: 28px;
+  border-bottom: 3px solid var(--bp-blue); padding-bottom: 14px; margin-bottom: 28px;
 }
-.bp-logo {
-  font-family: Arial, sans-serif; font-size: 22px; font-weight: 900;
-  color: var(--bp-blue); letter-spacing: -0.5px;
-}
+.bp-logo { font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; color: var(--bp-blue); }
 .bp-logo span { color: var(--bp-teal); }
-.bp-meta {
-  font-size: 12px; color: var(--muted); text-align: right;
-  font-family: Arial, sans-serif; line-height: 1.6;
-}
+.bp-meta { font-size: 12px; color: var(--muted); text-align: right; font-family: Arial, sans-serif; line-height: 1.6; }
 .skill-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: var(--bp-blue); margin-bottom: 4px; }
 .skill-subtitle { font-size: 13px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 24px; }
-/* Question card */
+/* Question */
 .q-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 28px; overflow: hidden; }
-.q-header {
-  background: var(--bp-blue); color: #fff; padding: 8px 16px;
-  font-family: Arial, sans-serif; font-size: 13px; font-weight: 600;
-  display: flex; justify-content: space-between;
-}
+.q-header { background: var(--bp-blue); color: #fff; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
 .q-body { padding: 18px 20px; }
 .q-prompt { font-size: 15px; line-height: 1.72; margin-bottom: 16px; }
 .options { display: grid; gap: 8px; }
-.option {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 9px 14px; border: 1.5px solid var(--bp-border);
-  border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light);
-}
+.option { display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border: 1.5px solid var(--bp-border); border-radius: 6px; font-size: 14px; line-height: 1.5; background: var(--bp-light); }
 .opt-letter { font-family: Arial, sans-serif; font-weight: 700; color: var(--bp-teal); min-width: 20px; }
-/* Admin / solution block */
+/* Admin block */
 .admin-block { margin-top: 18px; border: 1.5px dashed #c8a000; border-radius: 6px; overflow: hidden; }
-.admin-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.admin-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .admin-inner { padding: 12px 14px; background: #fffef5; }
-.solution-label {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px;
-}
+.solution-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 8px; }
 .step { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
-.step-num {
-  background: var(--bp-teal); color: #fff;
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  min-width: 22px; height: 22px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px; flex-shrink: 0;
-}
-.step-content { flex: 1; }
+.step-num { background: var(--bp-teal); color: #fff; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .step-work { font-family: 'Courier New', monospace; font-size: 13px; color: var(--bp-blue); font-weight: 600; }
 .step-exp { color: var(--muted); font-size: 13px; }
-.answer-line {
-  margin-top: 10px; font-size: 13px; padding: 7px 12px;
-  background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px;
-}
+.answer-line { margin-top: 10px; font-size: 13px; padding: 7px 12px; background: #e8f5ee; border-left: 3px solid var(--bp-teal); border-radius: 4px; }
 /* Lesson section headers */
-.section-title {
-  font-family: Arial, sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--bp-blue); border-bottom: 2px solid var(--bp-border);
-  padding-bottom: 6px; margin: 28px 0 14px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-/* Learning objective */
-.lo-box {
-  background: var(--bp-blue); color: #fff;
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
-  font-size: 15px; line-height: 1.6;
-}
-.lo-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px;
-}
-/* CE variant collapsibles */
-details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
-details.ce-variant summary {
-  background: var(--bp-light); padding: 10px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  color: var(--bp-teal); cursor: pointer; list-style: none;
-  display: flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
+.section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--bp-blue); border-bottom: 2px solid var(--bp-border); padding-bottom: 5px; margin: 26px 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+/* LO */
+.lo-box { background: var(--bp-blue); color: #fff; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+.lo-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+/* CE collapsibles */
+details.ce-variant { border: 1px solid var(--bp-border); border-radius: 6px; margin-bottom: 10px; }
+details.ce-variant summary { background: var(--bp-light); padding: 10px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: var(--bp-teal); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
 details.ce-variant summary::-webkit-details-marker { display: none; }
 details.ce-variant summary::before { content: '▶'; font-size: 9px; }
 details.ce-variant[open] summary::before { content: '▼'; }
 details.ce-variant .ce-content { padding: 16px 18px; }
-/* Worked examples */
+/* WE */
 .we-card { border: 1px solid var(--bp-border); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-.we-header {
-  background: var(--bp-teal); color: #fff; padding: 7px 14px;
-  font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.we-header { background: var(--bp-teal); color: #fff; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .we-body { padding: 16px 18px; }
-/* Practice atoms */
-.practice-card {
-  border-left: 4px solid var(--bp-teal); background: var(--bp-light);
-  border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px;
-}
-.practice-card.error-type { border-left-color: #e05c2a; }
-.practice-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px;
-}
-.practice-card.error-type .practice-label { color: #e05c2a; }
-/* PQ cards */
+/* Practice: GP / ED / AT / WM */
+.practice-card { border-left: 4px solid var(--bp-teal); background: var(--bp-light); border-radius: 0 6px 6px 0; padding: 12px 16px; margin-bottom: 10px; }
+.practice-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--bp-teal); margin-bottom: 6px; }
+/* ET: Error Trap card */
+.et-card { border: 1px solid #f5c6c0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.et-trap { background: #fdf0ee; border-bottom: 1px solid #f5c6c0; padding: 7px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; color: #b52b1e; text-transform: uppercase; letter-spacing: 0.5px; }
+.et-body { padding: 12px 14px; }
+.et-row { margin-bottom: 8px; display: flex; gap: 8px; font-size: 13.5px; line-height: 1.6; }
+.et-row:last-child { margin-bottom: 0; }
+.et-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* RF: Reflection */
+.rf-card { background: #f9f5ff; border-left: 4px solid #7c4dcc; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.65; }
+/* EP: Exam Prep */
+.ep-strategy-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; font-size: 13.5px; }
+.ep-strategy-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: var(--bp-blue); margin-bottom: 8px; }
+.ep-row { margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+.ep-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+/* PQ */
 .pq-card { border: 1px solid var(--bp-border); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
-.pq-num {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: var(--bp-teal); margin-bottom: 6px;
-}
-/* Prose formatting inside lesson content areas */
-.lesson-content p { font-size: 14px; line-height: 1.72; margin-bottom: 0.75em; }
-.lesson-content p:last-child { margin-bottom: 0; }
-.lesson-content ol, .lesson-content ul {
-  padding-left: 1.4em; margin-bottom: 0.75em; font-size: 14px; line-height: 1.72;
-}
-.lesson-content li { margin-bottom: 0.3em; }
-.lesson-content table { width: 100%; border-collapse: collapse; margin: 0.75em 0; font-size: 14px; }
-.lesson-content th {
-  background: var(--bp-blue); color: #fff;
-  padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px;
-}
-.lesson-content td {
-  padding: 6px 12px; border-bottom: 1px solid var(--bp-border); vertical-align: top;
-}
-.lesson-content tr:last-child td { border-bottom: none; }
-.lesson-content tr:nth-child(even) td { background: var(--bp-light); }
-/* Placeholder tags */
-.ph {
-  background: #e3f2fd; color: #1565c0; padding: 1px 6px;
-  border-radius: 3px; font-family: Arial, sans-serif;
-  font-size: 0.85em; font-weight: 700; white-space: nowrap;
-}
-/* Hint tags */
-.hint-tag {
-  display: inline-block; background: #e8f5ee; color: #0d6b4a;
-  padding: 3px 10px; border-radius: 4px;
-  font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic;
-  margin: 3px 0; border-left: 3px solid var(--bp-teal);
-}
+.pq-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); margin-bottom: 6px; }
 /* Parent section */
 .parent-section { margin-top: 32px; border: 1.5px dashed #c8a000; border-radius: 8px; overflow: hidden; }
-.parent-banner {
-  background: #fffbea; border-bottom: 1.5px dashed #c8a000;
-  padding: 8px 16px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.8px; color: #7a5f00;
-}
+.parent-banner { background: #fffbea; border-bottom: 1.5px dashed #c8a000; padding: 8px 16px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a5f00; }
 .parent-inner { padding: 0; }
-/* Language tabs */
-.lang-tabs {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-bottom: 2px solid #e8d890; background: #fffef5;
-}
-.lang-tab {
-  padding: 8px 14px; font-family: Arial, sans-serif;
-  font-size: 12px; font-weight: 600; color: #7a5f00;
-  background: none; border: none; cursor: pointer;
-  border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: background 0.15s;
-}
+.lang-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid #e8d890; background: #fffef5; }
+.lang-tab { padding: 8px 14px; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; color: #7a5f00; background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
 .lang-tab:hover { background: #fff8d6; }
 .lang-tab.active { background: #fff; color: #c67c00; border-bottom-color: #c67c00; }
 .lang-panel { padding: 16px; }
 .parent-atom { margin-bottom: 18px; }
 .parent-atom:last-child { margin-bottom: 0; }
-.parent-atom-label {
-  font-family: Arial, sans-serif; font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px;
-}
-.parent-atom-content { font-size: 13.5px; }
-/* Misconception cards (PR atom) */
-.mc-card {
-  border: 1px solid #f0e0a0; border-radius: 6px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.mc-tag {
-  background: #fef9e7; border-bottom: 1px solid #f0e0a0;
-  padding: 5px 12px; font-family: Arial, sans-serif;
-  font-size: 11px; font-weight: 700; color: #7a5f00;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.parent-atom-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #c67c00; margin-bottom: 6px; }
+/* Misconception cards */
+.mc-card { border: 1px solid #f0e0a0; border-radius: 6px; margin-bottom: 10px; overflow: hidden; }
+.mc-tag { background: #fef9e7; border-bottom: 1px solid #f0e0a0; padding: 5px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #7a5f00; text-transform: uppercase; letter-spacing: 0.5px; }
 .mc-body { padding: 10px 12px; font-size: 13.5px; }
 .mc-row { margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
 .mc-row:last-child { margin-bottom: 0; }
-.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.mc-text { flex: 1; line-height: 1.6; }
+.mc-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* PS sections */
+.ps-section { margin-bottom: 10px; }
+.ps-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: var(--bp-teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+/* Prose inside all content areas */
+p.lc { font-size: 14px; line-height: 1.72; margin-bottom: 0.7em; }
+p.lc:last-child { margin-bottom: 0; }
+ol.lc, ul.lc { padding-left: 1.5em; margin-bottom: 0.7em; font-size: 14px; line-height: 1.72; }
+li.lc { margin-bottom: 0.3em; }
+table.lc { width: 100%; border-collapse: collapse; margin: 0.7em 0; font-size: 14px; }
+table.lc th { background: var(--bp-blue); color: #fff; padding: 6px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 13px; }
+table.lc td { padding: 6px 12px; border-bottom: 1px solid var(--bp-border); }
+table.lc tr:last-child td { border-bottom: none; }
+table.lc tr:nth-child(even) td { background: var(--bp-light); }
+/* Inline elements */
+.ph { background: #e3f2fd; color: #1565c0; padding: 1px 6px; border-radius: 3px; font-family: Arial, sans-serif; font-size: 0.85em; font-weight: 700; white-space: nowrap; }
+.hint-tag { display: inline-block; background: #e8f5ee; color: #0d6b4a; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.85em; font-style: italic; margin: 3px 0; border-left: 3px solid var(--bp-teal); }
+code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 /* Index */
-.index-section-header {
-  font-family: Arial, sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--bp-blue); margin: 28px 0 14px;
-  padding-bottom: 8px; border-bottom: 2px solid var(--bp-border);
-  display: flex; align-items: center; gap: 10px;
-}
+.index-section-header { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: var(--bp-blue); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--bp-border); display: flex; align-items: center; gap: 10px; }
 .index-count { font-size: 12px; color: var(--muted); font-weight: 400; }
 .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .index-card { border: 1px solid var(--bp-border); border-radius: 8px; padding: 14px; color: var(--text); transition: box-shadow 0.15s; }
 .index-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
-.ic-grade {
-  font-family: Arial, sans-serif; font-size: 11px; font-weight: 700;
-  color: #fff; background: var(--bp-blue);
-  padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px;
-}
+.ic-grade { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; color: #fff; background: var(--bp-blue); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
 .index-card.lesson-card .ic-grade { background: #c67c00; }
 .ic-topic { font-size: 13px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
 .ic-id { font-size: 11px; color: var(--muted); font-family: Arial, sans-serif; margin-bottom: 8px; }
-.ic-link {
-  display: inline-block; padding: 4px 10px; border-radius: 4px;
-  font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none;
-}
+.ic-link { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; font-weight: 600; text-decoration: none; }
 .ic-link.q-link { background: #e8f5ff; color: var(--bp-teal); }
 .ic-link.l-link { background: #fff3e0; color: #c67c00; }
-code { font-family: 'Courier New', monospace; background: #f0f4f8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
-@media (max-width: 600px) {
-  body { padding: 16px 18px; }
-  .bp-logo { font-size: 18px; }
-  .index-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (max-width: 600px) { body { padding: 16px 18px; } .index-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 <script>
-MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
@@ -260,45 +146,16 @@ MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } }
   <div class="bp-logo">Bright<span>Path</span></div>
   <div class="bp-meta">Grade 7 | NS | Skill 7.NS.009<br>20 diagnostic questions<br></div>
 </div>
-<h1 class="skill-title">Add Integers</h1>
-<p class="skill-subtitle">Skill ID: 7.NS.009</p>
+<h1 class="skill-title">Add Integers</h1><p class="skill-subtitle">Skill ID: 7.NS.009</p>
 <div class="q-card">
   <div class="q-header"><span>Question 1</span><span>Grade 7 &bull; NS</span></div>
   <div class="q-body">
     <div class="q-prompt">The temperature in Anchorage was -5 degrees Celsius in the morning. By noon, it increased by 8 degrees. What was the temperature at noon?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -3 degrees Celsius</div><div class="option"><span class="opt-letter">B.</span> 13 degrees Celsius</div><div class="option"><span class="opt-letter">C.</span> -13 degrees Celsius</div><div class="option"><span class="opt-letter">D.</span> 3 degrees Celsius</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial temperature = -5 degrees Celsius
-Increase = 8 degrees Celsius</div>
-    <div class="step-exp">The problem describes a starting temperature and a change (increase) in temperature.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-5 + 8</div>
-    <div class="step-exp">To find the new temperature, we add the increase to the initial temperature.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and use the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial temperature = -5 degrees Celsius
+Increase = 8 degrees Celsius</div><div class="step-exp">The problem describes a starting temperature and a change (increase) in temperature.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-5 + 8</div><div class="step-exp">To find the new temperature, we add the increase to the initial temperature.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and use the sign of the number with the larger absolute value.
 |8| - |-5| = 8 - 5 = 3
-The number with the larger absolute value is 8, which is positive. So, the result is positive.</div>
-    <div class="step-exp">The absolute value of 8 is 8, and the absolute value of -5 is 5. Since 8 is greater than 5, we subtract 5 from 8 to get 3. The sign of 8 is positive, so the final answer is positive 3.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The temperature at noon was 3 degrees Celsius.</div>
-    <div class="step-exp">The final temperature is 3 degrees Celsius.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 3 degrees Celsius (Option D)</p></div></div>
+The number with the larger absolute value is 8, which is positive. So, the result is positive.</div><div class="step-exp">The absolute value of 8 is 8, and the absolute value of -5 is 5. Since 8 is greater than 5, we subtract 5 from 8 to get 3. The sign of 8 is positive, so the final answer is positive 3.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The temperature at noon was 3 degrees Celsius.</div><div class="step-exp">The final temperature is 3 degrees Celsius.</div></div></div><p class="answer-line"><strong>Answer:</strong> 3 degrees Celsius (Option D)</p></div></div>
   </div>
 </div>
 
@@ -307,38 +164,10 @@ The number with the larger absolute value is 8, which is positive. So, the resul
   <div class="q-body">
     <div class="q-prompt">A submarine was at a depth of -200 feet relative to sea level. It then ascended 75 feet. What is its new depth?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 125 feet</div><div class="option"><span class="opt-letter">B.</span> -125 feet</div><div class="option"><span class="opt-letter">C.</span> -275 feet</div><div class="option"><span class="opt-letter">D.</span> 275 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial depth = -200 feet
-Ascended = 75 feet</div>
-    <div class="step-exp">The problem provides the starting position and the vertical movement of the submarine.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-200 + 75</div>
-    <div class="step-exp">Ascending means moving upwards, which is represented by a positive value added to the initial depth.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial depth = -200 feet
+Ascended = 75 feet</div><div class="step-exp">The problem provides the starting position and the vertical movement of the submarine.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-200 + 75</div><div class="step-exp">Ascending means moving upwards, which is represented by a positive value added to the initial depth.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |-200| - |75| = 200 - 75 = 125
-The number with the larger absolute value is -200, which is negative. So, the result is -125.</div>
-    <div class="step-exp">Subtract 75 from 200 to get 125. Since 200 has a larger absolute value and is negative, the result is -125.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The new depth is -125 feet.</div>
-    <div class="step-exp">The submarine is now 125 feet below sea level.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -125 feet (Option B)</p></div></div>
+The number with the larger absolute value is -200, which is negative. So, the result is -125.</div><div class="step-exp">Subtract 75 from 200 to get 125. Since 200 has a larger absolute value and is negative, the result is -125.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The new depth is -125 feet.</div><div class="step-exp">The submarine is now 125 feet below sea level.</div></div></div><p class="answer-line"><strong>Answer:</strong> -125 feet (Option B)</p></div></div>
   </div>
 </div>
 
@@ -347,38 +176,10 @@ The number with the larger absolute value is -200, which is negative. So, the re
   <div class="q-body">
     <div class="q-prompt">A football team lost 6 yards on one play and then gained 10 yards on the next play. What was the net yardage change?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -4 yards</div><div class="option"><span class="opt-letter">B.</span> 4 yards</div><div class="option"><span class="opt-letter">C.</span> 16 yards</div><div class="option"><span class="opt-letter">D.</span> -16 yards</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Lost 6 yards = -6
-Gained 10 yards = +10</div>
-    <div class="step-exp">Losing yards is a negative change, and gaining yards is a positive change.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-6 + 10</div>
-    <div class="step-exp">To find the net change, we add the two yardage changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and use the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Lost 6 yards = -6
+Gained 10 yards = +10</div><div class="step-exp">Losing yards is a negative change, and gaining yards is a positive change.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-6 + 10</div><div class="step-exp">To find the net change, we add the two yardage changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and use the sign of the number with the larger absolute value.
 |10| - |-6| = 10 - 6 = 4
-The number with the larger absolute value is 10, which is positive. So, the result is positive.</div>
-    <div class="step-exp">Subtract 6 from 10 to get 4. Since 10 has a larger absolute value and is positive, the result is +4.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The net yardage change was 4 yards.</div>
-    <div class="step-exp">The team gained a net of 4 yards.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 4 yards (Option B)</p></div></div>
+The number with the larger absolute value is 10, which is positive. So, the result is positive.</div><div class="step-exp">Subtract 6 from 10 to get 4. Since 10 has a larger absolute value and is positive, the result is +4.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The net yardage change was 4 yards.</div><div class="step-exp">The team gained a net of 4 yards.</div></div></div><p class="answer-line"><strong>Answer:</strong> 4 yards (Option B)</p></div></div>
   </div>
 </div>
 
@@ -387,38 +188,10 @@ The number with the larger absolute value is 10, which is positive. So, the resu
   <div class="q-body">
     <div class="q-prompt">During a cooking experiment, the oven temperature was set to -10 degrees Fahrenheit (for a special freezing process) and then increased by 25 degrees. What was the final temperature?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -15 degrees Fahrenheit</div><div class="option"><span class="opt-letter">B.</span> 15 degrees Fahrenheit</div><div class="option"><span class="opt-letter">C.</span> -35 degrees Fahrenheit</div><div class="option"><span class="opt-letter">D.</span> 35 degrees Fahrenheit</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial temperature = -10 degrees Fahrenheit
-Increase = 25 degrees Fahrenheit</div>
-    <div class="step-exp">The problem gives a starting temperature and how much it increased.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-10 + 25</div>
-    <div class="step-exp">To find the final temperature, add the increase to the initial temperature.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial temperature = -10 degrees Fahrenheit
+Increase = 25 degrees Fahrenheit</div><div class="step-exp">The problem gives a starting temperature and how much it increased.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-10 + 25</div><div class="step-exp">To find the final temperature, add the increase to the initial temperature.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |25| - |-10| = 25 - 10 = 15
-The number with the larger absolute value is 25, which is positive. So, the result is positive 15.</div>
-    <div class="step-exp">Subtract 10 from 25 to get 15. Since 25 has a larger absolute value and is positive, the result is +15.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The final temperature was 15 degrees Fahrenheit.</div>
-    <div class="step-exp">The final temperature reached in the experiment is 15 degrees Fahrenheit.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 15 degrees Fahrenheit (Option B)</p></div></div>
+The number with the larger absolute value is 25, which is positive. So, the result is positive 15.</div><div class="step-exp">Subtract 10 from 25 to get 15. Since 25 has a larger absolute value and is positive, the result is +15.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The final temperature was 15 degrees Fahrenheit.</div><div class="step-exp">The final temperature reached in the experiment is 15 degrees Fahrenheit.</div></div></div><p class="answer-line"><strong>Answer:</strong> 15 degrees Fahrenheit (Option B)</p></div></div>
   </div>
 </div>
 
@@ -427,38 +200,10 @@ The number with the larger absolute value is 25, which is positive. So, the resu
   <div class="q-body">
     <div class="q-prompt">A hiker started at an elevation of -50 meters relative to sea level. He then climbed 120 meters. What is his new elevation?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -70 meters</div><div class="option"><span class="opt-letter">B.</span> -170 meters</div><div class="option"><span class="opt-letter">C.</span> 170 meters</div><div class="option"><span class="opt-letter">D.</span> 70 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial elevation = -50 meters
-Climbed = 120 meters</div>
-    <div class="step-exp">The problem provides the starting elevation and the vertical distance climbed.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-50 + 120</div>
-    <div class="step-exp">To find the new elevation, add the distance climbed to the initial elevation.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial elevation = -50 meters
+Climbed = 120 meters</div><div class="step-exp">The problem provides the starting elevation and the vertical distance climbed.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-50 + 120</div><div class="step-exp">To find the new elevation, add the distance climbed to the initial elevation.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |120| - |-50| = 120 - 50 = 70
-The number with the larger absolute value is 120, which is positive. So, the result is positive 70.</div>
-    <div class="step-exp">Subtract 50 from 120 to get 70. Since 120 has a larger absolute value and is positive, the result is +70.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The new elevation is 70 meters.</div>
-    <div class="step-exp">The hiker is now 70 meters above sea level.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 70 meters (Option D)</p></div></div>
+The number with the larger absolute value is 120, which is positive. So, the result is positive 70.</div><div class="step-exp">Subtract 50 from 120 to get 70. Since 120 has a larger absolute value and is positive, the result is +70.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The new elevation is 70 meters.</div><div class="step-exp">The hiker is now 70 meters above sea level.</div></div></div><p class="answer-line"><strong>Answer:</strong> 70 meters (Option D)</p></div></div>
   </div>
 </div>
 
@@ -467,38 +212,10 @@ The number with the larger absolute value is 120, which is positive. So, the res
   <div class="q-body">
     <div class="q-prompt">A company&#x27;s quarterly profit started at -$15 million. After a successful marketing campaign, they added $28 million to their profit. What is their new profit?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -$43 million</div><div class="option"><span class="opt-letter">B.</span> $13 million</div><div class="option"><span class="opt-letter">C.</span> -$13 million</div><div class="option"><span class="opt-letter">D.</span> $43 million</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial profit = -$15 million
-Added to profit = +$28 million</div>
-    <div class="step-exp">A loss is represented by a negative number, and an addition to profit is a positive number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-15 + 28</div>
-    <div class="step-exp">To find the new profit, add the change to the initial profit.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial profit = -$15 million
+Added to profit = +$28 million</div><div class="step-exp">A loss is represented by a negative number, and an addition to profit is a positive number.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-15 + 28</div><div class="step-exp">To find the new profit, add the change to the initial profit.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |28| - |-15| = 28 - 15 = 13
-The number with the larger absolute value is 28, which is positive. So, the result is positive 13.</div>
-    <div class="step-exp">Subtract 15 from 28 to get 13. Since 28 has a larger absolute value and is positive, the result is +13.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The company&#x27;s new profit is $13 million.</div>
-    <div class="step-exp">The company now has a profit of $13 million.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> $13 million (Option B)</p></div></div>
+The number with the larger absolute value is 28, which is positive. So, the result is positive 13.</div><div class="step-exp">Subtract 15 from 28 to get 13. Since 28 has a larger absolute value and is positive, the result is +13.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The company&#x27;s new profit is $13 million.</div><div class="step-exp">The company now has a profit of $13 million.</div></div></div><p class="answer-line"><strong>Answer:</strong> $13 million (Option B)</p></div></div>
   </div>
 </div>
 
@@ -507,38 +224,10 @@ The number with the larger absolute value is 28, which is positive. So, the resu
   <div class="q-body">
     <div class="q-prompt">A video game character started with -20 health points. He then picked up a health pack that gave him 50 health points. What is his current health?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -70 health points</div><div class="option"><span class="opt-letter">B.</span> 70 health points</div><div class="option"><span class="opt-letter">C.</span> -30 health points</div><div class="option"><span class="opt-letter">D.</span> 30 health points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial health = -20 health points
-Health pack = +50 health points</div>
-    <div class="step-exp">A negative health value indicates a deficit, and picking up a health pack adds health.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-20 + 50</div>
-    <div class="step-exp">To find the current health, add the health gained to the initial health.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial health = -20 health points
+Health pack = +50 health points</div><div class="step-exp">A negative health value indicates a deficit, and picking up a health pack adds health.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-20 + 50</div><div class="step-exp">To find the current health, add the health gained to the initial health.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |50| - |-20| = 50 - 20 = 30
-The number with the larger absolute value is 50, which is positive. So, the result is positive 30.</div>
-    <div class="step-exp">Subtract 20 from 50 to get 30. Since 50 has a larger absolute value and is positive, the result is +30.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The character&#x27;s current health is 30 health points.</div>
-    <div class="step-exp">The character now has 30 health points.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 30 health points (Option D)</p></div></div>
+The number with the larger absolute value is 50, which is positive. So, the result is positive 30.</div><div class="step-exp">Subtract 20 from 50 to get 30. Since 50 has a larger absolute value and is positive, the result is +30.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The character&#x27;s current health is 30 health points.</div><div class="step-exp">The character now has 30 health points.</div></div></div><p class="answer-line"><strong>Answer:</strong> 30 health points (Option D)</p></div></div>
   </div>
 </div>
 
@@ -547,38 +236,10 @@ The number with the larger absolute value is 50, which is positive. So, the resu
   <div class="q-body">
     <div class="q-prompt">A diver was at a depth of -45 meters. He then descended another 15 meters. What is his new depth?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -30 meters</div><div class="option"><span class="opt-letter">B.</span> 60 meters</div><div class="option"><span class="opt-letter">C.</span> -60 meters</div><div class="option"><span class="opt-letter">D.</span> 30 meters</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial depth = -45 meters
-Descended = -15 meters</div>
-    <div class="step-exp">Depth below sea level is represented by a negative number. Descending further means adding another negative value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-45 + (-15)</div>
-    <div class="step-exp">To find the new depth, add the additional descent to the initial depth.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with the same sign, add their absolute values and keep the common sign.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial depth = -45 meters
+Descended = -15 meters</div><div class="step-exp">Depth below sea level is represented by a negative number. Descending further means adding another negative value.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-45 + (-15)</div><div class="step-exp">To find the new depth, add the additional descent to the initial depth.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with the same sign, add their absolute values and keep the common sign.
 |-45| + |-15| = 45 + 15 = 60
-The common sign is negative. So, the result is -60.</div>
-    <div class="step-exp">Add the absolute values 45 and 15 to get 60. Since both numbers are negative, the sum is negative.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The new depth is -60 meters.</div>
-    <div class="step-exp">The diver is now 60 meters below sea level.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -60 meters (Option C)</p></div></div>
+The common sign is negative. So, the result is -60.</div><div class="step-exp">Add the absolute values 45 and 15 to get 60. Since both numbers are negative, the sum is negative.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The new depth is -60 meters.</div><div class="step-exp">The diver is now 60 meters below sea level.</div></div></div><p class="answer-line"><strong>Answer:</strong> -60 meters (Option C)</p></div></div>
   </div>
 </div>
 
@@ -587,38 +248,10 @@ The common sign is negative. So, the result is -60.</div>
   <div class="q-body">
     <div class="q-prompt">An astronaut&#x27;s experiment on the International Space Station recorded a pressure of -70 Pascals. A subsequent adjustment caused the pressure to increase by 35 Pascals. What is the new pressure reading?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 105 Pascals</div><div class="option"><span class="opt-letter">B.</span> -35 Pascals</div><div class="option"><span class="opt-letter">C.</span> -105 Pascals</div><div class="option"><span class="opt-letter">D.</span> 35 Pascals</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial pressure = -70 Pascals
-Increase = 35 Pascals</div>
-    <div class="step-exp">The problem provides the starting pressure and the amount it increased.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-70 + 35</div>
-    <div class="step-exp">To find the new pressure, add the increase to the initial pressure.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial pressure = -70 Pascals
+Increase = 35 Pascals</div><div class="step-exp">The problem provides the starting pressure and the amount it increased.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-70 + 35</div><div class="step-exp">To find the new pressure, add the increase to the initial pressure.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |-70| - |35| = 70 - 35 = 35
-The number with the larger absolute value is -70, which is negative. So, the result is -35.</div>
-    <div class="step-exp">Subtract 35 from 70 to get 35. Since 70 has a larger absolute value and is negative, the result is -35.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The new pressure reading is -35 Pascals.</div>
-    <div class="step-exp">The new pressure is -35 Pascals.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -35 Pascals (Option B)</p></div></div>
+The number with the larger absolute value is -70, which is negative. So, the result is -35.</div><div class="step-exp">Subtract 35 from 70 to get 35. Since 70 has a larger absolute value and is negative, the result is -35.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The new pressure reading is -35 Pascals.</div><div class="step-exp">The new pressure is -35 Pascals.</div></div></div><p class="answer-line"><strong>Answer:</strong> -35 Pascals (Option B)</p></div></div>
   </div>
 </div>
 
@@ -627,38 +260,10 @@ The number with the larger absolute value is -70, which is negative. So, the res
   <div class="q-body">
     <div class="q-prompt">A construction project&#x27;s budget went -$100,000 in debt. They then received a grant of $75,000. What is the current financial status of the project?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -$175,000</div><div class="option"><span class="opt-letter">B.</span> -$25,000</div><div class="option"><span class="opt-letter">C.</span> $25,000</div><div class="option"><span class="opt-letter">D.</span> $175,000</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial debt = -$100,000
-Grant received = +$75,000</div>
-    <div class="step-exp">Debt is represented by a negative number, and a grant received is a positive number.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-100,000 + 75,000</div>
-    <div class="step-exp">To find the current financial status, add the grant amount to the initial debt.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial debt = -$100,000
+Grant received = +$75,000</div><div class="step-exp">Debt is represented by a negative number, and a grant received is a positive number.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-100,000 + 75,000</div><div class="step-exp">To find the current financial status, add the grant amount to the initial debt.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |-100,000| - |75,000| = 100,000 - 75,000 = 25,000
-The number with the larger absolute value is -100,000, which is negative. So, the result is -25,000.</div>
-    <div class="step-exp">Subtract 75,000 from 100,000 to get 25,000. Since 100,000 has a larger absolute value and is negative, the result is -$25,000.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The current financial status of the project is -$25,000.</div>
-    <div class="step-exp">The project is still $25,000 in debt.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -$25,000 (Option B)</p></div></div>
+The number with the larger absolute value is -100,000, which is negative. So, the result is -25,000.</div><div class="step-exp">Subtract 75,000 from 100,000 to get 25,000. Since 100,000 has a larger absolute value and is negative, the result is -$25,000.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The current financial status of the project is -$25,000.</div><div class="step-exp">The project is still $25,000 in debt.</div></div></div><p class="answer-line"><strong>Answer:</strong> -$25,000 (Option B)</p></div></div>
   </div>
 </div>
 
@@ -667,38 +272,10 @@ The number with the larger absolute value is -100,000, which is negative. So, th
   <div class="q-body">
     <div class="q-prompt">The balance in a bank account was -$35. After depositing $60, what is the new balance?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -$25</div><div class="option"><span class="opt-letter">B.</span> -$95</div><div class="option"><span class="opt-letter">C.</span> $25</div><div class="option"><span class="opt-letter">D.</span> $95</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial balance = -$35
-Deposit = +$60</div>
-    <div class="step-exp">A negative balance indicates debt, and a deposit increases the balance.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-35 + 60</div>
-    <div class="step-exp">To find the new balance, add the deposit to the initial balance.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial balance = -$35
+Deposit = +$60</div><div class="step-exp">A negative balance indicates debt, and a deposit increases the balance.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-35 + 60</div><div class="step-exp">To find the new balance, add the deposit to the initial balance.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |60| - |-35| = 60 - 35 = 25
-The number with the larger absolute value is 60, which is positive. So, the result is positive 25.</div>
-    <div class="step-exp">Subtract 35 from 60 to get 25. Since 60 has a larger absolute value and is positive, the result is +25.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The new balance is $25.</div>
-    <div class="step-exp">The bank account now has a balance of $25.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> $25 (Option C)</p></div></div>
+The number with the larger absolute value is 60, which is positive. So, the result is positive 25.</div><div class="step-exp">Subtract 35 from 60 to get 25. Since 60 has a larger absolute value and is positive, the result is +25.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The new balance is $25.</div><div class="step-exp">The bank account now has a balance of $25.</div></div></div><p class="answer-line"><strong>Answer:</strong> $25 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -707,38 +284,10 @@ The number with the larger absolute value is 60, which is positive. So, the resu
   <div class="q-body">
     <div class="q-prompt">A marathon runner&#x27;s initial time adjustment was -12 seconds due to a penalty. After a strong finish, they gained 8 seconds back. What is their net time adjustment?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -4 seconds</div><div class="option"><span class="opt-letter">B.</span> 4 seconds</div><div class="option"><span class="opt-letter">C.</span> -20 seconds</div><div class="option"><span class="opt-letter">D.</span> 20 seconds</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial adjustment = -12 seconds
-Gained back = +8 seconds</div>
-    <div class="step-exp">A penalty is a negative adjustment, and gaining time back is a positive adjustment.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-12 + 8</div>
-    <div class="step-exp">To find the net adjustment, add the gain to the initial adjustment.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial adjustment = -12 seconds
+Gained back = +8 seconds</div><div class="step-exp">A penalty is a negative adjustment, and gaining time back is a positive adjustment.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-12 + 8</div><div class="step-exp">To find the net adjustment, add the gain to the initial adjustment.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |-12| - |8| = 12 - 8 = 4
-The number with the larger absolute value is -12, which is negative. So, the result is -4.</div>
-    <div class="step-exp">Subtract 8 from 12 to get 4. Since 12 has a larger absolute value and is negative, the result is -4.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The net time adjustment is -4 seconds.</div>
-    <div class="step-exp">The runner&#x27;s overall time is 4 seconds slower than their raw time.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -4 seconds (Option A)</p></div></div>
+The number with the larger absolute value is -12, which is negative. So, the result is -4.</div><div class="step-exp">Subtract 8 from 12 to get 4. Since 12 has a larger absolute value and is negative, the result is -4.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The net time adjustment is -4 seconds.</div><div class="step-exp">The runner&#x27;s overall time is 4 seconds slower than their raw time.</div></div></div><p class="answer-line"><strong>Answer:</strong> -4 seconds (Option A)</p></div></div>
   </div>
 </div>
 
@@ -747,38 +296,10 @@ The number with the larger absolute value is -12, which is negative. So, the res
   <div class="q-body">
     <div class="q-prompt">A city&#x27;s population change for a decade was -15,000 residents. Over the next two years, the population increased by 6,000 residents. What is the total change in population over this period?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 9,000 residents</div><div class="option"><span class="opt-letter">B.</span> -9,000 residents</div><div class="option"><span class="opt-letter">C.</span> -21,000 residents</div><div class="option"><span class="opt-letter">D.</span> 21,000 residents</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial change = -15,000 residents
-Subsequent increase = +6,000 residents</div>
-    <div class="step-exp">A decrease in population is negative, and an increase is positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-15,000 + 6,000</div>
-    <div class="step-exp">To find the total change, add the two population changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial change = -15,000 residents
+Subsequent increase = +6,000 residents</div><div class="step-exp">A decrease in population is negative, and an increase is positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-15,000 + 6,000</div><div class="step-exp">To find the total change, add the two population changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |-15,000| - |6,000| = 15,000 - 6,000 = 9,000
-The number with the larger absolute value is -15,000, which is negative. So, the result is -9,000.</div>
-    <div class="step-exp">Subtract 6,000 from 15,000 to get 9,000. Since 15,000 has a larger absolute value and is negative, the result is -9,000.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The total change in population is -9,000 residents.</div>
-    <div class="step-exp">The city experienced an overall decrease of 9,000 residents.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -9,000 residents (Option B)</p></div></div>
+The number with the larger absolute value is -15,000, which is negative. So, the result is -9,000.</div><div class="step-exp">Subtract 6,000 from 15,000 to get 9,000. Since 15,000 has a larger absolute value and is negative, the result is -9,000.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The total change in population is -9,000 residents.</div><div class="step-exp">The city experienced an overall decrease of 9,000 residents.</div></div></div><p class="answer-line"><strong>Answer:</strong> -9,000 residents (Option B)</p></div></div>
   </div>
 </div>
 
@@ -787,38 +308,10 @@ The number with the larger absolute value is -15,000, which is negative. So, the
   <div class="q-body">
     <div class="q-prompt">A programmer debugging code started with a bug score of -80. After fixing some critical issues, the score improved by 30 points. What is the new bug score?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 50</div><div class="option"><span class="opt-letter">B.</span> 110</div><div class="option"><span class="opt-letter">C.</span> -50</div><div class="option"><span class="opt-letter">D.</span> -110</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial bug score = -80
-Improvement = +30</div>
-    <div class="step-exp">A negative bug score implies a good state or a target, and an improvement increases it (moves it towards zero or positive).</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-80 + 30</div>
-    <div class="step-exp">To find the new bug score, add the improvement to the initial score.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial bug score = -80
+Improvement = +30</div><div class="step-exp">A negative bug score implies a good state or a target, and an improvement increases it (moves it towards zero or positive).</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-80 + 30</div><div class="step-exp">To find the new bug score, add the improvement to the initial score.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">When adding integers with different signs, subtract the absolute values and take the sign of the number with the larger absolute value.
 |-80| - |30| = 80 - 30 = 50
-The number with the larger absolute value is -80, which is negative. So, the result is -50.</div>
-    <div class="step-exp">Subtract 30 from 80 to get 50. Since 80 has a larger absolute value and is negative, the result is -50.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">The new bug score is -50.</div>
-    <div class="step-exp">The bug score is now -50.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -50 (Option C)</p></div></div>
+The number with the larger absolute value is -80, which is negative. So, the result is -50.</div><div class="step-exp">Subtract 30 from 80 to get 50. Since 80 has a larger absolute value and is negative, the result is -50.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">The new bug score is -50.</div><div class="step-exp">The bug score is now -50.</div></div></div><p class="answer-line"><strong>Answer:</strong> -50 (Option C)</p></div></div>
   </div>
 </div>
 
@@ -827,47 +320,12 @@ The number with the larger absolute value is -80, which is negative. So, the res
   <div class="q-body">
     <div class="q-prompt">An art gallery&#x27;s financial ledger recorded a deficit of -$125. They then sold a painting for $200 and had expenses of -$50 from another purchase. What is their net financial position after these transactions?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -$75</div><div class="option"><span class="opt-letter">B.</span> $375</div><div class="option"><span class="opt-letter">C.</span> -$175</div><div class="option"><span class="opt-letter">D.</span> $25</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial deficit = -$125
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial deficit = -$125
 Painting sale = +$200
-Expenses = -$50</div>
-    <div class="step-exp">Deficits and expenses are negative, sales are positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-125 + 200 + (-50)</div>
-    <div class="step-exp">To find the net financial position, add all the transactions.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Negative sum: -125 + (-50) = -175
-Positive sum: +200</div>
-    <div class="step-exp">Group numbers with the same sign to simplify the addition. Add absolute values and keep the common sign for negative numbers.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">-175 + 200
+Expenses = -$50</div><div class="step-exp">Deficits and expenses are negative, sales are positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-125 + 200 + (-50)</div><div class="step-exp">To find the net financial position, add all the transactions.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Negative sum: -125 + (-50) = -175
+Positive sum: +200</div><div class="step-exp">Group numbers with the same sign to simplify the addition. Add absolute values and keep the common sign for negative numbers.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">-175 + 200
 Subtract absolute values: 200 - 175 = 25
-Take the sign of the larger absolute value (200 is positive).</div>
-    <div class="step-exp">Now add the total negative and total positive values. Since signs are different, subtract absolute values and use the sign of the number with the larger absolute value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The net financial position is $25.</div>
-    <div class="step-exp">The gallery has a net gain of $25.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> $25 (Option D)</p></div></div>
+Take the sign of the larger absolute value (200 is positive).</div><div class="step-exp">Now add the total negative and total positive values. Since signs are different, subtract absolute values and use the sign of the number with the larger absolute value.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The net financial position is $25.</div><div class="step-exp">The gallery has a net gain of $25.</div></div></div><p class="answer-line"><strong>Answer:</strong> $25 (Option D)</p></div></div>
   </div>
 </div>
 
@@ -876,46 +334,11 @@ Take the sign of the larger absolute value (200 is positive).</div>
   <div class="q-body">
     <div class="q-prompt">A patient&#x27;s blood pressure dropped by 15 mmHg (-15). Later, it increased by 20 mmHg, and then dropped by another 10 mmHg. What is the net change in blood pressure?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -5 mmHg</div><div class="option"><span class="opt-letter">B.</span> 45 mmHg</div><div class="option"><span class="opt-letter">C.</span> -45 mmHg</div><div class="option"><span class="opt-letter">D.</span> 5 mmHg</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Dropped by 15 mmHg = -15
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Dropped by 15 mmHg = -15
 Increased by 20 mmHg = +20
-Dropped by 10 mmHg = -10</div>
-    <div class="step-exp">Drops are negative, increases are positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-15 + 20 + (-10)</div>
-    <div class="step-exp">To find the net change, add all the individual changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Negative sum: -15 + (-10) = -25</div>
-    <div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">-25 + 20
+Dropped by 10 mmHg = -10</div><div class="step-exp">Drops are negative, increases are positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-15 + 20 + (-10)</div><div class="step-exp">To find the net change, add all the individual changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Negative sum: -15 + (-10) = -25</div><div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">-25 + 20
 Subtract absolute values: 25 - 20 = 5
-Take the sign of the larger absolute value (25 is negative).</div>
-    <div class="step-exp">Now add the total negative and total positive values. Since signs are different, subtract absolute values and use the sign of the number with the larger absolute value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The net change in blood pressure is -5 mmHg.</div>
-    <div class="step-exp">The patient&#x27;s blood pressure experienced an overall decrease of 5 mmHg.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -5 mmHg (Option A)</p></div></div>
+Take the sign of the larger absolute value (25 is negative).</div><div class="step-exp">Now add the total negative and total positive values. Since signs are different, subtract absolute values and use the sign of the number with the larger absolute value.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The net change in blood pressure is -5 mmHg.</div><div class="step-exp">The patient&#x27;s blood pressure experienced an overall decrease of 5 mmHg.</div></div></div><p class="answer-line"><strong>Answer:</strong> -5 mmHg (Option A)</p></div></div>
   </div>
 </div>
 
@@ -924,46 +347,11 @@ Take the sign of the larger absolute value (25 is negative).</div>
   <div class="q-body">
     <div class="q-prompt">An archaeological dig started 10 feet below ground (-10). They dug down another 3 feet (-3), then discovered an artifact 8 feet above their current position (+8). What is the final elevation of the artifact relative to the starting ground level?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 21 feet</div><div class="option"><span class="opt-letter">B.</span> 5 feet</div><div class="option"><span class="opt-letter">C.</span> -5 feet</div><div class="option"><span class="opt-letter">D.</span> -21 feet</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial position = -10 feet
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial position = -10 feet
 Dug down = -3 feet
-Artifact found above current position = +8 feet</div>
-    <div class="step-exp">Below ground and digging down are negative, above is positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-10 + (-3) + 8</div>
-    <div class="step-exp">To find the final elevation, add all the individual elevation changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">-10 + (-3) = -13</div>
-    <div class="step-exp">When adding integers with the same sign, add their absolute values and keep the common sign.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">-13 + 8
+Artifact found above current position = +8 feet</div><div class="step-exp">Below ground and digging down are negative, above is positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-10 + (-3) + 8</div><div class="step-exp">To find the final elevation, add all the individual elevation changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">-10 + (-3) = -13</div><div class="step-exp">When adding integers with the same sign, add their absolute values and keep the common sign.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">-13 + 8
 Subtract absolute values: 13 - 8 = 5
-Take the sign of the larger absolute value (13 is negative).</div>
-    <div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The final elevation of the artifact is -5 feet.</div>
-    <div class="step-exp">The artifact is 5 feet below ground level.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -5 feet (Option C)</p></div></div>
+Take the sign of the larger absolute value (13 is negative).</div><div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The final elevation of the artifact is -5 feet.</div><div class="step-exp">The artifact is 5 feet below ground level.</div></div></div><p class="answer-line"><strong>Answer:</strong> -5 feet (Option C)</p></div></div>
   </div>
 </div>
 
@@ -972,46 +360,11 @@ Take the sign of the larger absolute value (13 is negative).</div>
   <div class="q-body">
     <div class="q-prompt">A stock&#x27;s price changed by -18 points on Monday, then by +25 points on Tuesday, and finally by -12 points on Wednesday. What is the net change in the stock&#x27;s price over these three days?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 5 points</div><div class="option"><span class="opt-letter">B.</span> -5 points</div><div class="option"><span class="opt-letter">C.</span> -55 points</div><div class="option"><span class="opt-letter">D.</span> 55 points</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Monday change = -18 points
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Monday change = -18 points
 Tuesday change = +25 points
-Wednesday change = -12 points</div>
-    <div class="step-exp">Price drops are negative, price increases are positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-18 + 25 + (-12)</div>
-    <div class="step-exp">To find the net change, add all the daily changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Negative sum: -18 + (-12) = -30</div>
-    <div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">-30 + 25
+Wednesday change = -12 points</div><div class="step-exp">Price drops are negative, price increases are positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-18 + 25 + (-12)</div><div class="step-exp">To find the net change, add all the daily changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Negative sum: -18 + (-12) = -30</div><div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">-30 + 25
 Subtract absolute values: 30 - 25 = 5
-Take the sign of the larger absolute value (30 is negative).</div>
-    <div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The net change in the stock&#x27;s price is -5 points.</div>
-    <div class="step-exp">The stock&#x27;s price had an overall decrease of 5 points.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -5 points (Option B)</p></div></div>
+Take the sign of the larger absolute value (30 is negative).</div><div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The net change in the stock&#x27;s price is -5 points.</div><div class="step-exp">The stock&#x27;s price had an overall decrease of 5 points.</div></div></div><p class="answer-line"><strong>Answer:</strong> -5 points (Option B)</p></div></div>
   </div>
 </div>
 
@@ -1020,46 +373,11 @@ Take the sign of the larger absolute value (30 is negative).</div>
   <div class="q-body">
     <div class="q-prompt">A research team observed a bacterial colony that initially had a count of -200 (indicating a deficit from a target healthy population). It then grew by 150, but a treatment caused a reduction of 75. What is the final count of the bacterial colony relative to the target healthy population?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> -125</div><div class="option"><span class="opt-letter">B.</span> -425</div><div class="option"><span class="opt-letter">C.</span> 125</div><div class="option"><span class="opt-letter">D.</span> 425</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial count = -200
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial count = -200
 Grew by = +150
-Reduction by = -75</div>
-    <div class="step-exp">A deficit or reduction is negative, growth is positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-200 + 150 + (-75)</div>
-    <div class="step-exp">To find the final count, add all the individual changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Negative sum: -200 + (-75) = -275</div>
-    <div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">-275 + 150
+Reduction by = -75</div><div class="step-exp">A deficit or reduction is negative, growth is positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-200 + 150 + (-75)</div><div class="step-exp">To find the final count, add all the individual changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Negative sum: -200 + (-75) = -275</div><div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">-275 + 150
 Subtract absolute values: 275 - 150 = 125
-Take the sign of the larger absolute value (275 is negative).</div>
-    <div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The final count of the bacterial colony is -125.</div>
-    <div class="step-exp">The colony is still 125 short of the target healthy population.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> -125 (Option A)</p></div></div>
+Take the sign of the larger absolute value (275 is negative).</div><div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The final count of the bacterial colony is -125.</div><div class="step-exp">The colony is still 125 short of the target healthy population.</div></div></div><p class="answer-line"><strong>Answer:</strong> -125 (Option A)</p></div></div>
   </div>
 </div>
 
@@ -1068,58 +386,20 @@ Take the sign of the larger absolute value (275 is negative).</div>
   <div class="q-body">
     <div class="q-prompt">A robot&#x27;s battery level started at -10% (below optimal). It charged by 70%, but then performed a heavy task that drained it by 45%. What is the final battery level relative to optimal?</div>
     <div class="options"><div class="option"><span class="opt-letter">A.</span> 15%</div><div class="option"><span class="opt-letter">B.</span> 125%</div><div class="option"><span class="opt-letter">C.</span> -15%</div><div class="option"><span class="opt-letter">D.</span> -125%</div><div class="option"><span class="opt-letter">E.</span> None of the above</div></div>
-    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div>
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <div class="step-work">Initial level = -10%
+    <div class="admin-block"><div class="admin-banner">&#128274; Backend review only &mdash; not visible to students</div><div class="admin-inner"><div class="solution-label">Step-by-step solution</div><div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-work">Initial level = -10%
 Charged by = +70%
-Drained by = -45%</div>
-    <div class="step-exp">Below optimal and drained are negative, charged is positive.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <div class="step-work">-10 + 70 + (-45)</div>
-    <div class="step-exp">To find the final battery level, add all the individual changes.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <div class="step-work">Negative sum: -10 + (-45) = -55</div>
-    <div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div>
-  </div>
-</div>
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <div class="step-work">-55 + 70
+Drained by = -45%</div><div class="step-exp">Below optimal and drained are negative, charged is positive.</div></div></div><div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-work">-10 + 70 + (-45)</div><div class="step-exp">To find the final battery level, add all the individual changes.</div></div></div><div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-work">Negative sum: -10 + (-45) = -55</div><div class="step-exp">Adding two negative integers means adding their absolute values and keeping the negative sign.</div></div></div><div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-work">-55 + 70
 Subtract absolute values: 70 - 55 = 15
-Take the sign of the larger absolute value (70 is positive).</div>
-    <div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div>
+Take the sign of the larger absolute value (70 is positive).</div><div class="step-exp">Now add integers with different signs. Subtract absolute values and use the sign of the number with the larger absolute value.</div></div></div><div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-work">The final battery level is 15%.</div><div class="step-exp">The robot&#x27;s battery is 15% above the optimal level.</div></div></div><p class="answer-line"><strong>Answer:</strong> 15% (Option A)</p></div></div>
   </div>
 </div>
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <div class="step-work">The final battery level is 15%.</div>
-    <div class="step-exp">The robot&#x27;s battery is 15% above the optimal level.</div>
-  </div>
-</div><p class="answer-line"><strong>Answer:</strong> 15% (Option A)</p></div></div>
-  </div>
-</div>
-
 <script>
 function showLang(lang, btn) {
-  var panels = document.querySelectorAll('.lang-panel');
-  var tabs = document.querySelectorAll('.lang-tab');
-  panels.forEach(function(el) { el.style.display = 'none'; });
-  tabs.forEach(function(el) { el.classList.remove('active'); });
-  var panel = document.getElementById('lang-' + lang);
-  if (panel) panel.style.display = 'block';
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.lang-panel').forEach(function(el){el.style.display='none';});
+  document.querySelectorAll('.lang-tab').forEach(function(el){el.classList.remove('active');});
+  var p = document.getElementById('lang-'+lang);
+  if(p) p.style.display='block';
+  if(btn) btn.classList.add('active');
 }
 </script>
 </body>
