@@ -20,8 +20,11 @@
 body{font-family:Georgia,serif;background:#F8F6F1;color:#0D1B45;line-height:1.65;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 /* ── Nav (exact real-site structure) ── */
-.nav{height:62px;background:#0D1B45;padding:0 clamp(16px,4vw,32px);display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid rgba(232,160,32,.2);position:sticky;top:0;z-index:100;width:100%}
-.mark{width:32px;height:32px;background:#E8A020;border-radius:7px;display:grid;place-items:center;color:#0D1B45;font-weight:700;font-size:16px;flex-shrink:0}
+.nav{height:62px;background:#0D1B45;padding:0 clamp(16px,4vw,32px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;width:100%}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none}
+.nav-b{width:32px;height:32px;background:#E8A020;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#0D1B45;flex-shrink:0}
+.nav-name{font-size:17px;font-weight:700;color:#FFFFFF;letter-spacing:-0.01em;white-space:nowrap}
+.nav-name span{color:#E8A020}
 .nav-links{display:flex;gap:22px;align-items:center}
 .nav-links a{font-size:13px;color:rgba(255,255,255,0.55);white-space:nowrap}
 .nav-signin{font-size:11px;color:rgba(255,255,255,0.38)!important;border:1px solid rgba(255,255,255,0.12);padding:5px 12px;border-radius:6px}
@@ -36,7 +39,7 @@ a{color:inherit;text-decoration:none}
 /* Language selector */
 .lang-opt{display:block;padding:10px 16px;color:rgba(255,255,255,0.8);font-size:13px;text-decoration:none}
 .lang-opt:hover{background:rgba(232,160,32,0.1);color:#E8A020}
-.lang-opt-current{color:#E8A020;font-weight:700}
+.lang-current{color:#E8A020;font-weight:700}
 /* Hamburger — hidden on desktop, shown on mobile */
 #hamburger-btn{display:none;background:transparent;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;align-items:center;justify-content:center}
 #hamburger-btn div{width:22px;height:2px;background:rgba(255,255,255,0.8);border-radius:1px;transition:all 0.25s}
@@ -84,9 +87,9 @@ a{color:inherit;text-decoration:none}
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="/en/us/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-    <div class="mark">B</div>
-    <span style="color:#fff;font-weight:700;font-size:17px;font-family:Georgia,serif">Bright<span style="color:#E8A020">Path</span></span>
+  <a href="/en/us/" class="nav-logo">
+    <div class="nav-b">B</div>
+    <div class="nav-name">Bright<span>Path</span></div>
   </a>
   <div class="nav-links">
 <a href="/en/us/dcar/" class="nav-link">DCAR</a>
@@ -105,7 +108,7 @@ a{color:inherit;text-decoration:none}
     <div class="lang-selector" style="position:relative">
       <button onclick="toggleLang(this)" style="background:none;border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:6px 10px;color:rgba(255,255,255,0.7);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px">&#127760; <span>EN</span></button>
       <div class="lang-menu" style="display:none;position:absolute;right:0;top:calc(100% + 6px);background:#07102E;border:1px solid rgba(255,255,255,0.12);border-radius:8px;min-width:160px;z-index:1000">
-<a href="https://thebrightpathtutors.com/en/us/articles/city/apache-junction-is-your-child-ready-for-middle-school-math-e1/" class="lang-opt lang-opt-current">English</a>
+<a href="https://thebrightpathtutors.com/en/us/articles/city/apache-junction-is-your-child-ready-for-middle-school-math-e1/" class="lang-opt lang-current">English</a>
 <a href="https://thebrightpathtutors.com/es/us/articles/city/apache-junction-is-your-child-ready-for-middle-school-math-e1/" class="lang-opt">Español</a>
 <a href="https://thebrightpathtutors.com/fr/us/articles/city/apache-junction-is-your-child-ready-for-middle-school-math-e1/" class="lang-opt">Français</a>
 <a href="https://thebrightpathtutors.com/ht/us/articles/city/apache-junction-is-your-child-ready-for-middle-school-math-e1/" class="lang-opt">Kreyòl ayisyen</a>
@@ -198,12 +201,10 @@ function toggleMenu(){
   document.getElementById('mobile-drawer').style.display=menuOpen?'block':'none';
   document.body.style.overflow=menuOpen?'hidden':'';
   var t=document.getElementById('hb-top'),m=document.getElementById('hb-mid'),b=document.getElementById('hb-bot');
-  if(menuOpen){
-    t.style.transform='rotate(45deg) translate(5px,5px)';
-    m.style.opacity='0';
-    b.style.transform='rotate(-45deg) translate(5px,-5px)';
-  }else{
-    t.style.transform='';m.style.opacity='1';b.style.transform='';
+  if(t){
+    t.style.transform=menuOpen?'translateY(7px) rotate(45deg)':'';
+    m.style.opacity=menuOpen?'0':'1';
+    b.style.transform=menuOpen?'translateY(-7px) rotate(-45deg)':'';
   }
 }
 function toggleLang(btn){
