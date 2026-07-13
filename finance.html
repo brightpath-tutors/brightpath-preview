@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jakpa Family Financial Command Center</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: #8B6F2E;
+  --navy: #0B1426;
+  --navy-mid: #142038;
+  --navy-card: #1A2940;
+  --navy-border: #243552;
+  --white: #F5F0E8;
+  --white-dim: #B8AE9C;
+  --green: #2ECC8F;
+  --red: #E85555;
+  --orange: #E8A555;
+  --blue: #5588E8;
+  --purple: #9B6EE8;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--navy);color:var(--white);font-family:var(--font-body);min-height:100vh;}
+/* HEADER */
+.site-header{background:linear-gradient(135deg,#0B1426 0%,#142038 50%,#0B1426 100%);border-bottom:1px solid var(--gold-dim);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header-brand{display:flex;align-items:center;gap:16px;}
+.header-crest{width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold-dim));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.header-title{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--gold);}
+.header-sub{font-size:0.7rem;color:var(--white-dim);letter-spacing:2px;text-transform:uppercase;}
+.header-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{padding:8px 16px;border-radius:6px;border:none;cursor:pointer;font-family:var(--font-body);font-size:0.8rem;font-weight:600;transition:all 0.2s;}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:var(--navy);}
+.btn-gold:hover{opacity:0.85;}
+.btn-outline{background:transparent;border:1px solid var(--navy-border);color:var(--white-dim);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-danger{background:var(--red);color:#fff;}
+/* NAV TABS */
+.nav-tabs{background:var(--navy-mid);border-bottom:1px solid var(--navy-border);display:flex;overflow-x:auto;padding:0 32px;}
+.nav-tab{padding:14px 20px;cursor:pointer;font-size:0.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--white-dim);border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s;}
+.nav-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-tab:hover{color:var(--white);}
+/* MAIN */
+.main{padding:28px 32px;max-width:1400px;margin:0 auto;}
+.page{display:none;}
+.page.active{display:block;}
+/* SUMMARY CARDS */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+.summary-card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:20px;position:relative;overflow:hidden;}
+.summary-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.summary-card.gold::before{background:linear-gradient(90deg,var(--gold),var(--gold-light));}
+.summary-card.green::before{background:var(--green);}
+.summary-card.red::before{background:var(--red);}
+.summary-card.blue::before{background:var(--blue);}
+.summary-card.purple::before{background:var(--purple);}
+.summary-card.orange::before{background:var(--orange);}
+.card-label{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--white-dim);margin-bottom:8px;}
+.card-value{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;}
+.card-value.pos{color:var(--green);}
+.card-value.neg{color:var(--red);}
+.card-value.gold{color:var(--gold);}
+.card-sub{font-size:0.7rem;color:var(--white-dim);margin-top:4px;}
+/* SECTION */
+.section{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;margin-bottom:20px;overflow:hidden;}
+.section-header{padding:16px 20px;border-bottom:1px solid var(--navy-border);display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.2);}
+.section-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--gold);}
+.section-total{font-family:var(--font-mono);font-size:0.9rem;font-weight:600;color:var(--white);}
+.section-body{padding:0;}
+/* TABLE */
+.budget-table{width:100%;border-collapse:collapse;}
+.budget-table th{padding:10px 16px;font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);text-align:left;border-bottom:1px solid var(--navy-border);background:rgba(0,0,0,0.1);}
+.budget-table td{padding:10px 16px;border-bottom:1px solid rgba(36,53,82,0.5);vertical-align:middle;}
+.budget-table tr:last-child td{border-bottom:none;}
+.budget-table tr:hover td{background:rgba(201,168,76,0.04);}
+.item-name{font-size:0.85rem;color:var(--white);}
+.item-note{font-size:0.7rem;color:var(--white-dim);}
+input[type=text],input[type=number],select,textarea{background:rgba(255,255,255,0.06);border:1px solid var(--navy-border);color:var(--white);padding:6px 10px;border-radius:6px;font-family:var(--font-body);font-size:0.82rem;width:100%;}
+input[type=text]:focus,input[type=number]:focus,select:focus{outline:none;border-color:var(--gold);}
+select option{background:var(--navy-mid);}
+.amount-display{font-family:var(--font-mono);font-size:0.9rem;font-weight:600;color:var(--white);text-align:right;}
+.freq-badge{font-size:0.65rem;padding:2px 8px;border-radius:20px;background:rgba(201,168,76,0.15);color:var(--gold);font-weight:600;}
+.delete-btn{background:none;border:none;cursor:pointer;color:var(--white-dim);font-size:1rem;padding:4px 8px;border-radius:4px;transition:color 0.2s;}
+.delete-btn:hover{color:var(--red);}
+.add-row-btn{width:100%;padding:12px;background:rgba(201,168,76,0.06);border:none;border-top:1px dashed var(--navy-border);color:var(--gold);cursor:pointer;font-size:0.8rem;font-weight:600;transition:background 0.2s;}
+.add-row-btn:hover{background:rgba(201,168,76,0.12);}
+/* CHARTS */
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-bottom:28px;}
+.chart-card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:20px;}
+.chart-title{font-family:var(--font-display);font-size:0.95rem;color:var(--gold);margin-bottom:16px;}
+.chart-wrap{position:relative;height:260px;}
+/* PROGRESS BAR */
+.progress-bar-wrap{margin:8px 0;}
+.progress-label{display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:4px;}
+.progress-track{height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:4px;transition:width 0.5s;}
+/* NET WORTH */
+.nw-banner{background:linear-gradient(135deg,var(--navy-mid),#0d1e35);border:1px solid var(--gold-dim);border-radius:16px;padding:28px;text-align:center;margin-bottom:28px;}
+.nw-label{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--white-dim);margin-bottom:8px;}
+.nw-value{font-family:var(--font-display);font-size:3rem;font-weight:900;}
+.nw-value.neg{color:var(--red);}
+.nw-value.pos{color:var(--green);}
+.nw-goal{font-size:0.75rem;color:var(--white-dim);margin-top:8px;}
+/* BENEFITS CLIFF */
+.cliff-alert{background:rgba(232,165,85,0.12);border:1px solid var(--orange);border-radius:10px;padding:16px;margin-bottom:20px;}
+.cliff-title{font-weight:700;color:var(--orange);margin-bottom:6px;font-size:0.9rem;}
+.cliff-text{font-size:0.8rem;color:var(--white-dim);line-height:1.6;}
+/* NIGERIA */
+.nigeria-hero{background:linear-gradient(135deg,#0B2018,#142A20);border:1px solid #2E5A3A;border-radius:12px;padding:24px;margin-bottom:24px;display:flex;align-items:center;gap:20px;}
+.nigeria-flag{font-size:3rem;}
+.nigeria-info h2{font-family:var(--font-display);font-size:1.4rem;color:#4ECC88;}
+.nigeria-info p{font-size:0.8rem;color:var(--white-dim);margin-top:4px;}
+/* WEALTH TRACKER */
+.wealth-timeline{display:flex;flex-direction:column;gap:16px;padding:20px;}
+.wealth-stage{display:flex;gap:16px;align-items:flex-start;}
+.stage-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.stage-line{width:2px;background:var(--navy-border);margin:0 auto;flex:1;}
+.stage-content h4{font-size:0.85rem;font-weight:700;color:var(--white);}
+.stage-content p{font-size:0.75rem;color:var(--white-dim);margin-top:2px;}
+.stage-content .stage-amount{font-family:var(--font-mono);font-size:0.85rem;color:var(--gold);margin-top:4px;}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--navy-mid);border:1px solid var(--gold-dim);border-radius:16px;padding:28px;width:90%;max-width:480px;}
+.modal h3{font-family:var(--font-display);font-size:1.1rem;color:var(--gold);margin-bottom:20px;}
+.form-group{margin-bottom:14px;}
+.form-group label{font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--white-dim);display:block;margin-bottom:6px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+/* HEALTH SCORE */
+.health-score-ring{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.score-value{font-family:var(--font-display);font-size:2.5rem;font-weight:900;}
+.score-grade{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;}
+/* WHAT-IF */
+.whatif-slider{width:100%;accent-color:var(--gold);}
+.whatif-result{font-family:var(--font-mono);font-size:1.1rem;color:var(--gold);margin-top:8px;}
+/* RESPONSIVE */
+@media(max-width:768px){
+  .site-header{padding:14px 16px;}
+  .main{padding:16px;}
+  .header-actions{gap:6px;}
+  .btn{padding:6px 10px;font-size:0.72rem;}
+  .nav-tabs{padding:0 16px;}
+  .summary-grid{grid-template-columns:repeat(2,1fr);}
+  .charts-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+/* MONTH SELECTOR */
+.month-bar{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+.month-bar select{max-width:180px;}
+.month-bar .btn{flex-shrink:0;}
+/* TAG */
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.tag-usa{background:rgba(85,136,232,0.2);color:var(--blue);}
+.tag-nga{background:rgba(46,204,143,0.2);color:var(--green);}
+.tag-lux{background:rgba(201,168,76,0.2);color:var(--gold);}
+/* STAFF TABLE */
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:20px;}
+.staff-card{background:rgba(0,0,0,0.2);border:1px solid var(--navy-border);border-radius:10px;padding:16px;}
+.staff-name{font-weight:700;font-size:0.9rem;color:var(--white);margin-bottom:4px;}
+.staff-role{font-size:0.72rem;color:var(--white-dim);margin-bottom:10px;}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--navy-border);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-dim);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-brand">
+    <div class="header-crest">👑</div>
+    <div>
+      <div class="header-title">Jakpa Family</div>
+      <div class="header-sub">Financial Command Center</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <select id="profileSelect" class="btn btn-outline" style="cursor:pointer;" onchange="switchProfile()">
+      <option value="main">Kelly &amp; Family</option>
+    </select>
+    <button class="btn btn-outline" onclick="openModal('profileModal')">+ Profile</button>
+    <button class="btn btn-gold" onclick="exportEmail()">📧 Email Summary</button>
+    <button class="btn btn-outline" onclick="exportPrint()">🖨 Print</button>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-tabs">
+  <div class="nav-tab active" onclick="showPage('dashboard')">Dashboard</div>
+  <div class="nav-tab" onclick="showPage('income')">Income</div>
+  <div class="nav-tab" onclick="showPage('expenses')">Expenses</div>
+  <div class="nav-tab" onclick="showPage('assets')">Assets</div>
+  <div class="nav-tab" onclick="showPage('debts')">Debts</div>
+  <div class="nav-tab" onclick="showPage('nigeria')">🇳🇬 Nigeria Plan</div>
+  <div class="nav-tab" onclick="showPage('wealth')">Wealth Path</div>
+  <div class="nav-tab" onclick="showPage('charts')">Charts</div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- =================== DASHBOARD =================== -->
+<div id="page-dashboard" class="page active">
+  <div class="month-bar">
+    <select id="monthSelect" onchange="renderAll()">
+      <option>January 2025</option><option>February 2025</option>
+      <option>March 2025</option><option>April 2025</option>
+      <option>May 2025</option><option>June 2025</option>
+      <option>July 2025</option><option selected>August 2025</option>
+      <option>September 2025</option><option>October 2025</option>
+      <option>November 2025</option><option>December 2025</option>
+      <option>January 2026</option><option>February 2026</option>
+      <option>March 2026</option><option>April 2026</option>
+      <option>May 2026</option><option>June 2026</option>
+      <option>July 2026</option>
+    </select>
+    <button class="btn btn-outline" onclick="renderAll()">Refresh</button>
+    <button class="btn btn-gold" onclick="saveData()">💾 Save</button>
+  </div>
+
+  <!-- NET WORTH BANNER -->
+  <div class="nw-banner">
+    <div class="nw-label">Current Net Worth</div>
+    <div class="nw-value neg" id="nwValue">$0</div>
+    <div class="nw-goal" id="nwGoal">Goal: $25,000,000 &nbsp;|&nbsp; Gap: <span id="nwGap">$25,000,000</span></div>
+    <div style="margin-top:16px;">
+      <div class="progress-track" style="max-width:500px;margin:0 auto;">
+        <div class="progress-fill" id="nwProgress" style="width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));"></div>
+      </div>
+      <div style="font-size:0.7rem;color:var(--white-dim);margin-top:6px;" id="nwPct">0% of $25M goal</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-grid">
+    <div class="summary-card green">
+      <div class="card-label">Monthly Income</div>
+      <div class="card-value pos" id="dash-income">$0</div>
+      <div class="card-sub">All sources combined</div>
+    </div>
+    <div class="summary-card red">
+      <div class="card-label">Monthly Expenses</div>
+      <div class="card-value neg" id="dash-expenses">$0</div>
+      <div class="card-sub">Fixed + variable</div>
+    </div>
+    <div class="summary-card gold">
+      <div class="card-label">Monthly Cash Flow</div>
+      <div class="card-value" id="dash-cashflow">$0</div>
+      <div class="card-sub">Income minus expenses</div>
+    </div>
+    <div class="summary-card blue">
+      <div class="card-label">Total Assets</div>
+      <div class="card-value" id="dash-assets">$0</div>
+      <div class="card-sub">All accounts + property</div>
+    </div>
+    <div class="summary-card red">
+      <div class="card-label">Total Debt</div>
+      <div class="card-value neg" id="dash-debts">$0</div>
+      <div class="card-sub">All liabilities</div>
+    </div>
+    <div class="summary-card purple">
+      <div class="card-label">Financial Health</div>
+      <div class="card-value" id="dash-health" style="color:var(--purple);">--</div>
+      <div class="card-sub" id="dash-health-sub">Calculating...</div>
+    </div>
+  </div>
+
+  <!-- BENEFITS CLIFF -->
+  <div class="cliff-alert" id="cliffAlert">
+    <div class="cliff-title">⚠️ Benefits Safety Net Calculator</div>
+    <div class="cliff-text" id="cliffText">Enter your income and expenses to see your benefits cliff analysis.</div>
+  </div>
+
+  <!-- WHAT-IF -->
+  <div class="section" style="margin-bottom:20px;">
+    <div class="section-header"><div class="section-title">What-If Income Calculator</div></div>
+    <div style="padding:20px;">
+      <div style="font-size:0.8rem;color:var(--white-dim);margin-bottom:10px;">If I earned this much extra per month:</div>
+      <input type="range" class="whatif-slider" id="whatifSlider" min="0" max="10000" step="100" value="0" oninput="calcWhatif()"/>
+      <div class="whatif-result" id="whatifResult">Slide to see impact</div>
+    </div>
+  </div>
+
+  <!-- DEBT PAYOFF -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">Debt Payoff Projector</div></div>
+    <div style="padding:20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Extra monthly payment ($)</label>
+          <input type="number" id="extraPayment" value="0" min="0" oninput="calcDebtPayoff()"/>
+        </div>
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Avg interest rate (%)</label>
+          <input type="number" id="avgInterest" value="20" min="0" max="40" step="0.5" oninput="calcDebtPayoff()"/>
+        </div>
+      </div>
+      <div class="whatif-result" id="debtPayoffResult">Enter amounts to calculate</div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== INCOME =================== -->
+<div id="page-income" class="page">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Income Sources</div>
+      <div class="section-total" id="income-total">Total: $0/mo</div>
+    </div>
+    <div class="section-body">
+      <table class="budget-table" id="income-table">
+        <thead><tr>
+          <th>Source</th><th>Category</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th>
+        </tr></thead>
+        <tbody id="income-body"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow('income')">+ Add Income Source</button>
+    </div>
+  </div>
+</div>
+
+<!-- =================== EXPENSES =================== -->
+<div id="page-expenses" class="page">
+  <!-- HOUSING -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🏠 Housing &amp; Utilities</div>
+      <div class="section-total" id="housing-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="housing-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="housing-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('housing')">+ Add Item</button>
+  </div>
+  <!-- FOOD -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🛒 Food &amp; Groceries</div>
+      <div class="section-total" id="food-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="food-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="food-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('food')">+ Add Item</button>
+  </div>
+  <!-- KIDS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">👧 Kids (4 Children)</div>
+      <div class="section-total" id="kids-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="kids-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="kids-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('kids')">+ Add Item</button>
+  </div>
+  <!-- TRANSPORT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🚗 Transportation</div>
+      <div class="section-total" id="transport-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="transport-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="transport-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('transport')">+ Add Item</button>
+  </div>
+  <!-- HEALTH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🏥 Health &amp; Medical</div>
+      <div class="section-total" id="health-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="health-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="health-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('health')">+ Add Item</button>
+  </div>
+  <!-- BUSINESS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">💼 Business Expenses</div>
+      <div class="section-total" id="business-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="business-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="business-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('business')">+ Add Item</button>
+  </div>
+  <!-- SUBSCRIPTIONS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📱 Subscriptions &amp; Services</div>
+      <div class="section-total" id="subs-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="subs-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="subs-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('subs')">+ Add Item</button>
+  </div>
+  <!-- GOVT ASSISTANCE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🏛 Government Assistance (Received)</div>
+      <div class="section-total" id="govthelp-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="govthelp-table">
+      <thead><tr><th>Program</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="govthelp-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('govthelp')">+ Add Program</button>
+  </div>
+  <!-- PERSONAL -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">✨ Personal &amp; Lifestyle</div>
+      <div class="section-total" id="personal-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="personal-table">
+      <thead><tr><th>Item</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="personal-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('personal')">+ Add Item</button>
+  </div>
+  <!-- SAVINGS GOALS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🎯 Savings &amp; Goals</div>
+      <div class="section-total" id="savings-total">$0/mo</div>
+    </div>
+    <table class="budget-table" id="savings-table">
+      <thead><tr><th>Goal</th><th>Frequency</th><th>Amount</th><th>Monthly</th><th></th></tr></thead>
+      <tbody id="savings-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('savings')">+ Add Goal</button>
+  </div>
+</div>
+
+<!-- =================== ASSETS =================== -->
+<div id="page-assets" class="page">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Assets &amp; Accounts</div>
+      <div class="section-total" id="assets-total">Total: $0</div>
+    </div>
+    <table class="budget-table" id="assets-table">
+      <thead><tr><th>Asset</th><th>Category</th><th>Value</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="assets-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('assets')">+ Add Asset</button>
+  </div>
+</div>
+
+<!-- =================== DEBTS =================== -->
+<div id="page-debts" class="page">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Liabilities &amp; Debts</div>
+      <div class="section-total" id="debts-total">Total: $0</div>
+    </div>
+    <table class="budget-table" id="debts-table">
+      <thead><tr><th>Debt</th><th>Type</th><th>Balance</th><th>Min Payment</th><th>Interest %</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="debts-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('debts')">+ Add Debt</button>
+  </div>
+</div>
+
+<!-- =================== NIGERIA =================== -->
+<div id="page-nigeria" class="page">
+  <div class="nigeria-hero">
+    <div class="nigeria-flag">🇳🇬</div>
+    <div class="nigeria-info">
+      <h2>Nigeria Relocation Plan</h2>
+      <p>Palm City Estate, Ajah, Lagos &nbsp;|&nbsp; Target: 5-year savings runway before move</p>
+    </div>
+  </div>
+
+  <!-- RELOCATION SAVINGS TRACKER -->
+  <div class="section" style="margin-bottom:20px;">
+    <div class="section-header"><div class="section-title">Relocation Savings Tracker</div></div>
+    <div style="padding:20px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Current Relocation Savings ($)</label>
+          <input type="number" id="relocSaved" value="0" oninput="calcRelocation()"/>
+        </div>
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Monthly contribution ($)</label>
+          <input type="number" id="relocMonthly" value="0" oninput="calcRelocation()"/>
+        </div>
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Target move year</label>
+          <input type="number" id="relocYear" value="2028" min="2025" max="2040" oninput="calcRelocation()"/>
+        </div>
+      </div>
+      <div class="whatif-result" id="relocResult">Enter amounts to calculate</div>
+    </div>
+  </div>
+
+  <!-- PASSPORTS & TRAVEL -->
+  <div class="section" style="margin-bottom:20px;">
+    <div class="section-header"><div class="section-title">🛂 Passports &amp; Travel (Family of 6)</div></div>
+    <div style="padding:20px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;">
+        <div class="summary-card blue" style="margin:0;">
+          <div class="card-label">US Passports x6</div>
+          <div class="card-value" style="font-size:1.1rem;">~$1,000</div>
+          <div class="card-sub">Adults $165, Kids $135 ea</div>
+        </div>
+        <div class="summary-card green" style="margin:0;">
+          <div class="card-label">Flights x6</div>
+          <div class="card-value" id="flightCost" style="font-size:1.1rem;">$0</div>
+          <div class="card-sub">Enter below</div>
+        </div>
+        <div class="summary-card gold" style="margin:0;">
+          <div class="card-label">Shipping / Freight</div>
+          <div class="card-value" id="shipCost" style="font-size:1.1rem;">$0</div>
+          <div class="card-sub">Enter below</div>
+        </div>
+        <div class="summary-card orange" style="margin:0;">
+          <div class="card-label">Total Move Cost</div>
+          <div class="card-value" id="totalMoveCost" style="font-size:1.1rem;">~$1,000</div>
+          <div class="card-sub">Passports + flights + freight</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Estimated flights total ($)</label>
+          <input type="number" id="flightInput" value="0" oninput="calcMoveTotal()"/>
+        </div>
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Shipping/freight estimate ($)</label>
+          <input type="number" id="shipInput" value="0" oninput="calcMoveTotal()"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIGERIA BUDGET -->
+  <div class="section" style="margin-bottom:20px;">
+    <div class="section-header">
+      <div class="section-title">Nigeria Monthly Budget (Ajah, Lagos)</div>
+      <div class="section-total" id="nga-budget-total">Total: ₦0 / $0</div>
+    </div>
+    <table class="budget-table" id="nga-budget-table">
+      <thead><tr><th>Item</th><th>Amount (NGN)</th><th>USD Equiv</th><th>Category</th><th></th></tr></thead>
+      <tbody id="nga-budget-body"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('nga-budget')">+ Add Nigeria Expense</button>
+  </div>
+
+  <!-- STAFF BUDGET -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🧑‍🤝‍🧑 Household Staff Budget</div>
+      <div class="section-total" id="staff-total">$0/mo</div>
+    </div>
+    <div class="staff-grid" id="staff-grid">
+    </div>
+    <button class="add-row-btn" onclick="addStaff()">+ Add Staff Member</button>
+  </div>
+</div>
+
+<!-- =================== WEALTH PATH =================== -->
+<div id="page-wealth" class="page">
+  <div class="nw-banner">
+    <div class="nw-label">The 25 Million Dollar Journey</div>
+    <div class="nw-value" style="color:var(--gold);font-size:2.2rem;">$25,000,000</div>
+    <div class="nw-goal">Investable assets after tax &nbsp;|&nbsp; Global lifestyle &nbsp;|&nbsp; Full financial freedom</div>
+  </div>
+
+  <div class="section" style="margin-bottom:20px;">
+    <div class="section-header"><div class="section-title">Wealth Calculator</div></div>
+    <div style="padding:20px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Monthly investable savings ($)</label>
+          <input type="number" id="wealthSave" value="0" oninput="calcWealth()"/>
+        </div>
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Expected annual return (%)</label>
+          <input type="number" id="wealthReturn" value="8" min="1" max="30" step="0.5" oninput="calcWealth()"/>
+        </div>
+        <div>
+          <label style="font-size:0.72rem;color:var(--white-dim);display:block;margin-bottom:4px;">Current investable assets ($)</label>
+          <input type="number" id="wealthCurrent" value="0" oninput="calcWealth()"/>
+        </div>
+      </div>
+      <div class="whatif-result" id="wealthResult">Enter amounts to see your path to $25M</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Life Stages Roadmap</div></div>
+    <div class="wealth-timeline">
+      <div class="wealth-stage">
+        <div>
+          <div class="stage-dot" style="background:var(--red);"></div>
+        </div>
+        <div class="stage-content">
+          <h4>Stage 1 -- Survival &amp; Stability (Now)</h4>
+          <p>Zero income. Government assistance. Building clarity on exact survival number.</p>
+          <div class="stage-amount" id="survivalNumber">Survival number: calculating...</div>
+        </div>
+      </div>
+      <div class="wealth-stage">
+        <div>
+          <div class="stage-dot" style="background:var(--orange);"></div>
+        </div>
+        <div class="stage-content">
+          <h4>Stage 2 -- Income &amp; Relocation Prep</h4>
+          <p>BrightPath and KMN generating revenue. Saving 5-year Nigeria runway. 5 passports. Move costs covered.</p>
+          <div class="stage-amount">Target: 5-yr Nigeria reserve + move costs saved</div>
+        </div>
+      </div>
+      <div class="wealth-stage">
+        <div>
+          <div class="stage-dot" style="background:var(--gold);"></div>
+        </div>
+        <div class="stage-content">
+          <h4>Stage 3 -- Nigeria Life, Palm City Estate</h4>
+          <p>Relocated to Ajah, Lagos. Full household staff. Kids in school. Businesses operating globally.</p>
+          <div class="stage-amount">Nigeria runway: 5 years of expenses covered</div>
+        </div>
+      </div>
+      <div class="wealth-stage">
+        <div>
+          <div class="stage-dot" style="background:var(--green);"></div>
+        </div>
+        <div class="stage-content">
+          <h4>Stage 4 -- Global Wealth ($25M)</h4>
+          <p>Location-independent income. Investable assets generating passive income. Luxury lifestyle fully funded.</p>
+          <div class="stage-amount">$25,000,000 investable -- fully free</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== CHARTS =================== -->
+<div id="page-charts" class="page">
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Expenses by Category</div>
+      <div class="chart-wrap"><canvas id="expensePie"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Income vs Expenses</div>
+      <div class="chart-wrap"><canvas id="incomeExpenseBar"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Assets vs Debts</div>
+      <div class="chart-wrap"><canvas id="assetsDebtsBar"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Net Worth Trend</div>
+      <div class="chart-wrap"><canvas id="nwTrend"></canvas></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<!-- =================== MODALS =================== -->
+
+<!-- ADD ROW MODAL -->
+<div class="modal-overlay" id="rowModal">
+  <div class="modal">
+    <h3 id="modalTitle">Add Item</h3>
+    <div class="form-group">
+      <label>Name / Description</label>
+      <input type="text" id="rowName" placeholder="e.g. Rent, Groceries..."/>
+    </div>
+    <div class="form-row" id="modalExtraFields"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Amount ($)</label>
+        <input type="number" id="rowAmount" placeholder="0.00" min="0" step="0.01"/>
+      </div>
+      <div class="form-group" id="freqGroup">
+        <label>Frequency</label>
+        <select id="rowFreq">
+          <option value="monthly">Monthly</option>
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Bi-weekly</option>
+          <option value="annual">Annual</option>
+          <option value="once">One-time</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Notes (optional)</label>
+      <input type="text" id="rowNotes" placeholder="Any extra detail..."/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('rowModal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveRow()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <h3>Add Profile</h3>
+    <div class="form-group">
+      <label>Profile Name</label>
+      <input type="text" id="profileName" placeholder="e.g. Business, Wife, Parent"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('profileModal')">Cancel</button>
+      <button class="btn btn-gold" onclick="addProfile()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- STAFF MODAL -->
+<div class="modal-overlay" id="staffModal">
+  <div class="modal">
+    <h3>Add Staff Member</h3>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" id="staffName" placeholder="e.g. Amaka"/>
+    </div>
+    <div class="form-group">
+      <label>Role</label>
+      <select id="staffRole">
+        <option>Housekeeper</option>
+        <option>Cook / Chef</option>
+        <option>Driver</option>
+        <option>Security Guard</option>
+        <option>Nanny / Childcare</option>
+        <option>Gardener</option>
+        <option>Personal Assistant</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Monthly Salary (NGN)</label>
+        <input type="number" id="staffSalaryNGN" value="0"/>
+      </div>
+      <div class="form-group">
+        <label>Monthly Salary (USD)</label>
+        <input type="number" id="staffSalaryUSD" value="0"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="staffStatus">
+        <option value="part-time">Part-time</option>
+        <option value="full-time">Full-time</option>
+        <option value="planned">Planned</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('staffModal')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveStaff()">Add</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ====================== DATA STORE ======================
+const DEFAULT_DATA = {
+  income: [
+    {name:'SNAP Benefits',cat:'Government',freq:'monthly',amount:900,notes:'Food assistance'},
+    {name:'MassHealth / Medicaid',cat:'Government',freq:'monthly',amount:0,notes:'Healthcare value'},
+    {name:'BrightPath Revenue',cat:'Business',freq:'monthly',amount:0,notes:'Platform income'},
+    {name:'KMN Notary Revenue',cat:'Business',freq:'monthly',amount:0,notes:'Mobile notary'},
+  ],
+  housing:[
+    {name:'Rent / Mortgage',freq:'monthly',amount:0,notes:''},
+    {name:'Electricity',freq:'monthly',amount:0,notes:''},
+    {name:'Gas / Heat',freq:'monthly',amount:0,notes:''},
+    {name:'Water & Sewage',freq:'monthly',amount:0,notes:''},
+    {name:'Internet',freq:'monthly',amount:0,notes:''},
+    {name:'Renter\'s Insurance',freq:'monthly',amount:0,notes:''},
+  ],
+  food:[
+    {name:'Groceries',freq:'weekly',amount:0,notes:'Family of 6'},
+    {name:'Restaurants / Takeout',freq:'monthly',amount:0,notes:''},
+    {name:'WIC Benefits',freq:'monthly',amount:0,notes:''},
+  ],
+  kids:[
+    {name:'School Supplies (all 4)',freq:'monthly',amount:0,notes:'Ages 10,9,7,4'},
+    {name:'Clothing / Shoes',freq:'monthly',amount:0,notes:''},
+    {name:'After-school Activities',freq:'monthly',amount:0,notes:''},
+    {name:'Books & Educational',freq:'monthly',amount:0,notes:''},
+    {name:'Haircuts / Grooming',freq:'monthly',amount:0,notes:''},
+    {name:'Toys & Entertainment',freq:'monthly',amount:0,notes:''},
+    {name:'Field trips / Events',freq:'monthly',amount:0,notes:''},
+  ],
+  transport:[
+    {name:'Car Payment',freq:'monthly',amount:0,notes:''},
+    {name:'Car Insurance',freq:'monthly',amount:0,notes:''},
+    {name:'Gas / Fuel',freq:'monthly',amount:0,notes:''},
+    {name:'Public Transit',freq:'monthly',amount:0,notes:''},
+    {name:'Car Maintenance',freq:'monthly',amount:0,notes:''},
+  ],
+  health:[
+    {name:'MassHealth Premium',freq:'monthly',amount:0,notes:''},
+    {name:'Prescriptions',freq:'monthly',amount:0,notes:''},
+    {name:'Dental',freq:'monthly',amount:0,notes:''},
+    {name:'Vision',freq:'monthly',amount:0,notes:''},
+    {name:'Therapy / Mental Health',freq:'monthly',amount:0,notes:''},
+  ],
+  business:[
+    {name:'BrightPath Hosting',freq:'monthly',amount:0,notes:''},
+    {name:'KMN Hosting / Website',freq:'monthly',amount:0,notes:''},
+    {name:'Software / Tools',freq:'monthly',amount:0,notes:''},
+    {name:'Marketing',freq:'monthly',amount:0,notes:''},
+    {name:'Notary Supplies',freq:'monthly',amount:0,notes:''},
+  ],
+  subs:[
+    {name:'Phone Plan',freq:'monthly',amount:0,notes:''},
+    {name:'Netflix / Streaming',freq:'monthly',amount:0,notes:''},
+    {name:'Amazon Prime',freq:'annual',amount:0,notes:''},
+    {name:'Claude AI',freq:'monthly',amount:0,notes:''},
+  ],
+  govthelp:[
+    {name:'SNAP',freq:'monthly',amount:0,notes:'Food stamps'},
+    {name:'Section 8 / Housing',freq:'monthly',amount:0,notes:''},
+    {name:'MassHealth',freq:'monthly',amount:0,notes:''},
+    {name:'TANF / Cash Assistance',freq:'monthly',amount:0,notes:''},
+    {name:'WIC',freq:'monthly',amount:0,notes:''},
+    {name:'Utility Assistance (LIHEAP)',freq:'monthly',amount:0,notes:''},
+  ],
+  personal:[
+    {name:'Clothing (Adults)',freq:'monthly',amount:0,notes:''},
+    {name:'Haircuts / Beauty',freq:'monthly',amount:0,notes:''},
+    {name:'Personal Care',freq:'monthly',amount:0,notes:''},
+    {name:'Miscellaneous',freq:'monthly',amount:0,notes:''},
+  ],
+  savings:[
+    {name:'Emergency Fund',freq:'monthly',amount:0,notes:'Target: 3-6 months expenses'},
+    {name:'Nigeria Relocation Fund',freq:'monthly',amount:0,notes:''},
+    {name:'Passport Fund',freq:'monthly',amount:0,notes:'6 passports ~$1,000'},
+    {name:'Investment / Wealth Building',freq:'monthly',amount:0,notes:''},
+  ],
+  assets:[
+    {name:'Checking Account',cat:'Bank',value:0,notes:''},
+    {name:'Savings Account',cat:'Bank',value:0,notes:''},
+    {name:'BrightPath (Business Value)',cat:'Business',value:0,notes:'Estimated'},
+    {name:'KMN (Business Value)',cat:'Business',value:0,notes:'Estimated'},
+    {name:'Vehicle',cat:'Property',value:0,notes:''},
+    {name:'Household Items',cat:'Property',value:0,notes:'Furniture, electronics'},
+  ],
+  debts:[
+    {name:'Credit Card 1',type:'Credit Card',balance:0,minpay:0,interest:20,notes:''},
+    {name:'Credit Card 2',type:'Credit Card',balance:0,minpay:0,interest:20,notes:''},
+    {name:'Medical Debt',type:'Medical',balance:0,minpay:0,interest:0,notes:''},
+    {name:'Student Loans',type:'Student Loan',balance:0,minpay:0,interest:6,notes:''},
+    {name:'Personal Loan',type:'Personal',balance:0,minpay:0,interest:15,notes:''},
+  ],
+  'nga-budget':[
+    {name:'Rent (Palm City Estate, Ajah)',ngn:350000,notes:'Housing'},
+    {name:'Electricity / Generator Fuel',ngn:80000,notes:'NEPA + gen'},
+    {name:'Water / Borehole',ngn:20000,notes:''},
+    {name:'Internet (Starlink/Spectranet)',ngn:50000,notes:''},
+    {name:'Groceries / Market',ngn:150000,notes:'Family of 6'},
+    {name:'Kids School Fees',ngn:400000,notes:'All 4 kids private school quarterly'},
+    {name:'Transport / Driver fuel',ngn:80000,notes:''},
+    {name:'Entertainment / Going out',ngn:100000,notes:''},
+    {name:'Personal care',ngn:50000,notes:''},
+    {name:'Misc / Emergency',ngn:100000,notes:''},
+  ],
+  staff:[
+    {name:'To Be Hired',role:'Housekeeper',salaryNGN:80000,salaryUSD:50,status:'planned'},
+    {name:'To Be Hired',role:'Cook / Chef',salaryNGN:80000,salaryUSD:50,status:'planned'},
+    {name:'To Be Hired',role:'Driver',salaryNGN:80000,salaryUSD:50,status:'planned'},
+    {name:'To Be Hired',role:'Security Guard',salaryNGN:80000,salaryUSD:50,status:'planned'},
+    {name:'To Be Hired',role:'Nanny / Childcare',salaryNGN:60000,salaryUSD:37,status:'planned'},
+  ],
+  nwHistory:[],
+  profiles:['main'],
+};
+
+let currentProfile = 'main';
+let currentSection = null;
+let chartInstances = {};
+
+function getStorageKey(section){return `jakpa_${currentProfile}_${section}`;}
+
+function loadData(section){
+  try{
+    const raw = localStorage.getItem(getStorageKey(section));
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA[section] || []));
+}
+
+function saveSection(section, data){
+  localStorage.setItem(getStorageKey(section), JSON.stringify(data));
+}
+
+function saveData(){
+  renderAll();
+  const btn = document.querySelector('.btn-gold');
+  btn.textContent = '✓ Saved!';
+  setTimeout(()=>btn.textContent='💾 Save',1500);
+}
+
+// ====================== NAVIGATION ======================
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  event.target.classList.add('active');
+  if(id==='charts') renderCharts();
+  if(id==='dashboard') renderDashboard();
+}
+
+function switchProfile(){
+  currentProfile = document.getElementById('profileSelect').value;
+  renderAll();
+}
+
+// ====================== FREQUENCY TO MONTHLY ======================
+function toMonthly(amount, freq){
+  if(!amount) return 0;
+  switch(freq){
+    case 'weekly': return amount * 52/12;
+    case 'biweekly': return amount * 26/12;
+    case 'annual': return amount / 12;
+    case 'once': return 0;
+    default: return amount;
+  }
+}
+
+function fmt(n){
+  return '$'+(Math.abs(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function fmtNGN(n){
+  return '₦'+(Math.abs(n)||0).toLocaleString('en-NG');
+}
+
+// ====================== RENDER TABLES ======================
+const SECTIONS = ['income','housing','food','kids','transport','health','business','subs','govthelp','personal','savings','assets','debts','nga-budget'];
+
+function renderAll(){
+  SECTIONS.forEach(s=>renderSection(s));
+  renderDashboard();
+  renderStaff();
+  saveNWHistory();
+}
+
+function renderSection(section){
+  const data = loadData(section);
+  const tbody = document.getElementById(section+'-body');
+  if(!tbody) return;
+  tbody.innerHTML = '';
+
+  let total = 0;
+  data.forEach((row,i)=>{
+    const tr = document.createElement('tr');
+    if(section === 'assets'){
+      total += Number(row.value)||0;
+      tr.innerHTML = `
+        <td><input type="text" value="${escH(row.name)}" onchange="updateRow('${section}',${i},'name',this.value)"/></td>
+        <td><select onchange="updateRow('${section}',${i},'cat',this.value)">
+          ${['Bank','Business','Property','Investment','Other'].map(c=>`<option${row.cat===c?' selected':''}>${c}</option>`).join('')}
+        </select></td>
+        <td><input type="number" value="${row.value||0}" onchange="updateRow('${section}',${i},'value',this.value)" style="text-align:right;"/></td>
+        <td><input type="text" value="${escH(row.notes)}" onchange="updateRow('${section}',${i},'notes',this.value)" placeholder="Notes"/></td>
+        <td><button class="delete-btn" onclick="deleteRow('${section}',${i})">✕</button></td>`;
+    } else if(section === 'debts'){
+      total += Number(row.balance)||0;
+      tr.innerHTML = `
+        <td><input type="text" value="${escH(row.name)}" onchange="updateRow('${section}',${i},'name',this.value)"/></td>
+        <td><select onchange="updateRow('${section}',${i},'type',this.value)">
+          ${['Credit Card','Medical','Student Loan','Personal','Auto','Mortgage','Other'].map(c=>`<option${row.type===c?' selected':''}>${c}</option>`).join('')}
+        </select></td>
+        <td><input type="number" value="${row.balance||0}" onchange="updateRow('${section}',${i},'balance',this.value)" style="text-align:right;"/></td>
+        <td><input type="number" value="${row.minpay||0}" onchange="updateRow('${section}',${i},'minpay',this.value)" style="text-align:right;"/></td>
+        <td><input type="number" value="${row.interest||0}" onchange="updateRow('${section}',${i},'interest',this.value)" style="text-align:right;" step="0.1"/></td>
+        <td><input type="text" value="${escH(row.notes)}" onchange="updateRow('${section}',${i},'notes',this.value)" placeholder="Notes"/></td>
+        <td><button class="delete-btn" onclick="deleteRow('${section}',${i})">✕</button></td>`;
+    } else if(section === 'nga-budget'){
+      const usdEquiv = (Number(row.ngn)||0)/1600;
+      total += usdEquiv;
+      tr.innerHTML = `
+        <td><input type="text" value="${escH(row.name)}" onchange="updateRow('${section}',${i},'name',this.value)"/></td>
+        <td><input type="number" value="${row.ngn||0}" onchange="updateRow('${section}',${i},'ngn',this.value)" style="text-align:right;" placeholder="₦"/></td>
+        <td><span class="amount-display">${fmt(usdEquiv)}</span></td>
+        <td><input type="text" value="${escH(row.notes)}" onchange="updateRow('${section}',${i},'notes',this.value)" placeholder="Category"/></td>
+        <td><button class="delete-btn" onclick="deleteRow('${section}',${i})">✕</button></td>`;
+    } else if(section === 'income'){
+      const monthly = toMonthly(Number(row.amount)||0, row.freq);
+      total += monthly;
+      tr.innerHTML = `
+        <td><input type="text" value="${escH(row.name)}" onchange="updateRow('${section}',${i},'name',this.value)"/></td>
+        <td><select onchange="updateRow('${section}',${i},'cat',this.value)">
+          ${['Employment','Business','Government','Investment','Other'].map(c=>`<option${row.cat===c?' selected':''}>${c}</option>`).join('')}
+        </select></td>
+        <td><select onchange="updateRow('${section}',${i},'freq',this.value)">
+          ${['monthly','weekly','biweekly','annual'].map(f=>`<option value="${f}"${row.freq===f?' selected':''}>${f.charAt(0).toUpperCase()+f.slice(1)}</option>`).join('')}
+        </select></td>
+        <td><input type="number" value="${row.amount||0}" onchange="updateRow('${section}',${i},'amount',this.value)" style="text-align:right;" step="0.01"/></td>
+        <td><span class="amount-display">${fmt(monthly)}</span></td>
+        <td><button class="delete-btn" onclick="deleteRow('${section}',${i})">✕</button></td>`;
+    } else {
+      const monthly = toMonthly(Number(row.amount)||0, row.freq);
+      total += monthly;
+      tr.innerHTML = `
+        <td>
+          <div class="item-name"><input type="text" value="${escH(row.name)}" onchange="updateRow('${section}',${i},'name',this.value)"/></div>
+          ${row.notes!==undefined?`<div class="item-note"><input type="text" value="${escH(row.notes)}" onchange="updateRow('${section}',${i},'notes',this.value)" placeholder="Notes"/></div>`:''}
+        </td>
+        <td><select onchange="updateRow('${section}',${i},'freq',this.value)">
+          ${['monthly','weekly','biweekly','annual','once'].map(f=>`<option value="${f}"${row.freq===f?' selected':''}>${f.charAt(0).toUpperCase()+f.slice(1)}</option>`).join('')}
+        </select></td>
+        <td><input type="number" value="${row.amount||0}" onchange="updateRow('${section}',${i},'amount',this.value)" style="text-align:right;" step="0.01"/></td>
+        <td><span class="amount-display">${fmt(monthly)}</span></td>
+        <td><button class="delete-btn" onclick="deleteRow('${section}',${i})">✕</button></td>`;
+    }
+    tbody.appendChild(tr);
+  });
+
+  // Update section totals
+  const totalEl = document.getElementById(section+'-total');
+  if(totalEl){
+    if(section==='assets') totalEl.textContent = 'Total: '+fmt(total);
+    else if(section==='debts') totalEl.textContent = 'Total: '+fmt(total);
+    else if(section==='nga-budget') totalEl.textContent = 'Total: '+fmtNGN(total*1600)+' / '+fmt(total);
+    else if(section==='income') totalEl.textContent = 'Total: '+fmt(total)+'/mo';
+    else totalEl.textContent = fmt(total)+'/mo';
+  }
+}
+
+function updateRow(section, i, field, value){
+  const data = loadData(section);
+  data[i][field] = field==='amount'||field==='value'||field==='balance'||field==='minpay'||field==='interest'||field==='ngn' ? Number(value) : value;
+  saveSection(section, data);
+  // Re-render totals only
+  renderSection(section);
+  renderDashboard();
+}
+
+function deleteRow(section, i){
+  const data = loadData(section);
+  data.splice(i,1);
+  saveSection(section, data);
+  renderSection(section);
+  renderDashboard();
+}
+
+function escH(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ====================== ADD ROW ======================
+function addRow(section){
+  currentSection = section;
+  document.getElementById('rowName').value = '';
+  document.getElementById('rowAmount').value = '';
+  document.getElementById('rowNotes').value = '';
+  document.getElementById('rowFreq').value = 'monthly';
+  const extra = document.getElementById('modalExtraFields');
+  const freqGroup = document.getElementById('freqGroup');
+  extra.innerHTML = '';
+  freqGroup.style.display = '';
+
+  const titles = {
+    income:'Add Income Source', housing:'Add Housing Item', food:'Add Food Item',
+    kids:'Add Kids Expense', transport:'Add Transport Item', health:'Add Health Item',
+    business:'Add Business Expense', subs:'Add Subscription', govthelp:'Add Assistance Program',
+    personal:'Add Personal Item', savings:'Add Savings Goal', assets:'Add Asset', debts:'Add Debt',
+    'nga-budget':'Add Nigeria Expense'
+  };
+  document.getElementById('modalTitle').textContent = titles[section]||'Add Item';
+
+  if(section==='assets'){
+    freqGroup.style.display='none';
+    extra.innerHTML = `<div class="form-group"><label>Category</label><select id="rowCat"><option>Bank</option><option>Business</option><option>Property</option><option>Investment</option><option>Other</option></select></div>`;
+  } else if(section==='debts'){
+    freqGroup.style.display='none';
+    extra.innerHTML = `<div class="form-group"><label>Type</label><select id="rowCat"><option>Credit Card</option><option>Medical</option><option>Student Loan</option><option>Personal</option><option>Auto</option><option>Mortgage</option></select></div><div class="form-group"><label>Min Payment ($)</label><input type="number" id="rowMinPay" value="0"/></div><div class="form-group"><label>Interest Rate (%)</label><input type="number" id="rowInterest" value="20" step="0.1"/></div>`;
+  } else if(section==='nga-budget'){
+    freqGroup.style.display='none';
+    document.getElementById('rowAmount').placeholder='Amount in NGN (₦)';
+  } else if(section==='income'){
+    extra.innerHTML = `<div class="form-group"><label>Category</label><select id="rowCat"><option>Employment</option><option>Business</option><option>Government</option><option>Investment</option><option>Other</option></select></div>`;
+  }
+  openModal('rowModal');
+}
+
+function saveRow(){
+  const data = loadData(currentSection);
+  const name = document.getElementById('rowName').value || 'New Item';
+  const amount = parseFloat(document.getElementById('rowAmount').value)||0;
+  const freq = document.getElementById('rowFreq').value;
+  const notes = document.getElementById('rowNotes').value;
+  const catEl = document.getElementById('rowCat');
+  const cat = catEl ? catEl.value : '';
+
+  if(currentSection==='assets'){
+    data.push({name,cat,value:amount,notes});
+  } else if(currentSection==='debts'){
+    const minpay = parseFloat(document.getElementById('rowMinPay')?.value)||0;
+    const interest = parseFloat(document.getElementById('rowInterest')?.value)||20;
+    data.push({name,type:cat,balance:amount,minpay,interest,notes});
+  } else if(currentSection==='nga-budget'){
+    data.push({name,ngn:amount,notes});
+  } else if(currentSection==='income'){
+    data.push({name,cat,freq,amount,notes});
+  } else {
+    data.push({name,freq,amount,notes});
+  }
+  saveSection(currentSection, data);
+  renderSection(currentSection);
+  renderDashboard();
+  closeModal('rowModal');
+}
+
+// ====================== STAFF ======================
+function renderStaff(){
+  const staff = loadData('staff');
+  const grid = document.getElementById('staff-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  let total = 0;
+  staff.forEach((s,i)=>{
+    total += Number(s.salaryUSD)||0;
+    const statusColor = s.status==='full-time'?'var(--green)':s.status==='part-time'?'var(--gold)':'var(--white-dim)';
+    const card = document.createElement('div');
+    card.className = 'staff-card';
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <div class="staff-name">${escH(s.name)}</div>
+          <div class="staff-role">${escH(s.role)}</div>
+        </div>
+        <button class="delete-btn" onclick="deleteStaff(${i})">✕</button>
+      </div>
+      <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div>
+          <div style="font-size:0.65rem;color:var(--white-dim);">Monthly (NGN)</div>
+          <div style="font-family:var(--font-mono);font-size:0.85rem;">${fmtNGN(s.salaryNGN)}</div>
+        </div>
+        <div>
+          <div style="font-size:0.65rem;color:var(--white-dim);">Monthly (USD)</div>
+          <div style="font-family:var(--font-mono);font-size:0.85rem;">${fmt(s.salaryUSD)}</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:0.72rem;font-weight:700;color:${statusColor};">${s.status.toUpperCase()}</div>`;
+    grid.appendChild(card);
+  });
+  const totalEl = document.getElementById('staff-total');
+  if(totalEl) totalEl.textContent = fmt(total)+'/mo';
+}
+
+function addStaff(){ openModal('staffModal'); }
+
+function saveStaff(){
+  const staff = loadData('staff');
+  staff.push({
+    name: document.getElementById('staffName').value||'New Staff',
+    role: document.getElementById('staffRole').value,
+    salaryNGN: parseFloat(document.getElementById('staffSalaryNGN').value)||0,
+    salaryUSD: parseFloat(document.getElementById('staffSalaryUSD').value)||0,
+    status: document.getElementById('staffStatus').value,
+  });
+  saveSection('staff', staff);
+  renderStaff();
+  closeModal('staffModal');
+}
+
+function deleteStaff(i){
+  const staff = loadData('staff');
+  staff.splice(i,1);
+  saveSection('staff', staff);
+  renderStaff();
+}
+
+// ====================== DASHBOARD ======================
+function getTotals(){
+  const income = loadData('income').reduce((s,r)=>s+toMonthly(Number(r.amount)||0,r.freq),0);
+  const expSections = ['housing','food','kids','transport','health','business','subs','personal'];
+  const expenses = expSections.reduce((s,sec)=>s+loadData(sec).reduce((ss,r)=>ss+toMonthly(Number(r.amount)||0,r.freq),0),0);
+  const assets = loadData('assets').reduce((s,r)=>s+(Number(r.value)||0),0);
+  const debts = loadData('debts').reduce((s,r)=>s+(Number(r.balance)||0),0);
+  const minPayments = loadData('debts').reduce((s,r)=>s+(Number(r.minpay)||0),0);
+  const govtIncome = loadData('govthelp').reduce((s,r)=>s+toMonthly(Number(r.amount)||0,r.freq),0);
+  return {income:income+govtIncome, expenses, assets, debts, minPayments, netWorth:assets-debts};
+}
+
+function renderDashboard(){
+  const t = getTotals();
+  const cashflow = t.income - t.expenses;
+
+  document.getElementById('dash-income').textContent = fmt(t.income);
+  document.getElementById('dash-expenses').textContent = fmt(t.expenses);
+  const cfEl = document.getElementById('dash-cashflow');
+  cfEl.textContent = (cashflow>=0?'+':'')+fmt(cashflow);
+  cfEl.className = 'card-value '+(cashflow>=0?'pos':'neg');
+  document.getElementById('dash-assets').textContent = fmt(t.assets);
+  document.getElementById('dash-debts').textContent = fmt(t.debts);
+
+  // Net worth
+  const nw = t.netWorth;
+  const nwEl = document.getElementById('nwValue');
+  nwEl.textContent = (nw>=0?'':'-')+fmt(Math.abs(nw));
+  nwEl.className = 'nw-value '+(nw>=0?'pos':'neg');
+  const goal = 25000000;
+  const pct = nw>0 ? Math.min((nw/goal)*100,100) : 0;
+  document.getElementById('nwProgress').style.width = pct+'%';
+  document.getElementById('nwPct').textContent = pct.toFixed(3)+'% of $25M goal';
+  document.getElementById('nwGap').textContent = fmt(goal - Math.max(nw,0));
+
+  // Health score
+  let score = 50;
+  if(t.income>0){
+    const dti = t.minPayments / t.income;
+    const savingsRate = cashflow / t.income;
+    score = Math.round(Math.max(0, Math.min(100,
+      50 + (savingsRate * 30) - (dti * 40) + (nw > 0 ? 10 : 0)
+    )));
+  }
+  const hEl = document.getElementById('dash-health');
+  hEl.textContent = score+'/100';
+  const grade = score>=80?'Excellent':score>=65?'Good':score>=45?'Fair':score>=25?'Struggling':'Critical';
+  const hColor = score>=80?'var(--green)':score>=65?'var(--gold)':score>=45?'var(--orange)':'var(--red)';
+  hEl.style.color = hColor;
+  document.getElementById('dash-health-sub').textContent = grade;
+
+  // Survival number
+  const survEl = document.getElementById('survivalNumber');
+  if(survEl) survEl.textContent = 'Survival number (no assistance): '+fmt(t.expenses)+'/mo minimum';
+
+  // Benefits cliff
+  const cliffText = document.getElementById('cliffText');
+  if(t.income > 0){
+    const snapLimit = 2311; // MA SNAP gross income limit family of 6 (2024)
+    const cliffWarning = t.income > snapLimit * 0.9 ? 
+      `⚠️ WARNING: Your income (${fmt(t.income)}/mo) is approaching the SNAP eligibility limit for a family of 6 (~${fmt(snapLimit)}/mo). Earning more could cost you benefits worth more than the raise.` :
+      `Your current income (${fmt(t.income)}/mo) is safely below SNAP limits (~${fmt(snapLimit)}/mo for family of 6). Minimum to survive without any assistance: ${fmt(t.expenses)}/mo.`;
+    cliffText.textContent = cliffWarning;
+  } else {
+    cliffText.textContent = `With no income, your monthly expenses total ${fmt(t.expenses)}. You need at least ${fmt(t.expenses)}/mo to survive without government assistance. SNAP limit for family of 6 is ~$2,311/mo gross income.`;
+  }
+
+  calcDebtPayoff();
+  calcWealth();
+}
+
+function calcWhatif(){
+  const extra = Number(document.getElementById('whatifSlider').value);
+  const t = getTotals();
+  const newCashflow = t.income + extra - t.expenses;
+  document.getElementById('whatifResult').textContent =
+    `Extra ${fmt(extra)}/mo → New cash flow: ${newCashflow>=0?'+':''} ${fmt(Math.abs(newCashflow))} | In 12 months: ${fmt(Math.abs(newCashflow)*12)} | In 5 years (invested @7%): ${fmt(Math.abs(newCashflow)*12*5*1.18)}`;
+}
+
+function calcDebtPayoff(){
+  const debts = loadData('debts');
+  const totalDebt = debts.reduce((s,r)=>s+(Number(r.balance)||0),0);
+  const extra = Number(document.getElementById('extraPayment')?.value)||0;
+  const rate = (Number(document.getElementById('avgInterest')?.value)||20)/100/12;
+  const minPay = debts.reduce((s,r)=>s+(Number(r.minpay)||0),0);
+  const payment = minPay + extra;
+  const el = document.getElementById('debtPayoffResult');
+  if(!el) return;
+  if(totalDebt<=0){el.textContent='No debt entered yet.';return;}
+  if(payment<=0){el.textContent='Enter minimum payments on the Debts tab.';return;}
+  const months = rate>0 ? Math.ceil(-Math.log(1-(totalDebt*rate/payment))/Math.log(1+rate)) : Math.ceil(totalDebt/payment);
+  const totalPaid = payment * months;
+  const interest = totalPaid - totalDebt;
+  el.textContent = `Debt-free in ~${months} months (${(months/12).toFixed(1)} years) | Total interest paid: ${fmt(interest)} | Paying extra ${fmt(extra)}/mo saves you money and time.`;
+}
+
+function calcRelocation(){
+  const saved = Number(document.getElementById('relocSaved')?.value)||0;
+  const monthly = Number(document.getElementById('relocMonthly')?.value)||0;
+  const targetYear = Number(document.getElementById('relocYear')?.value)||2028;
+  const now = new Date().getFullYear();
+  const monthsLeft = Math.max(0,(targetYear - now)*12);
+  const totalSaved = saved + (monthly * monthsLeft);
+  const el = document.getElementById('relocResult');
+  if(el) el.textContent = `By ${targetYear}: ${fmt(totalSaved)} saved for relocation | ${monthsLeft} months away | ${monthly>0?'On track: saving '+fmt(monthly)+'/mo':'Set a monthly contribution to build your relocation fund'}`;
+}
+
+function calcMoveTotal(){
+  const flights = Number(document.getElementById('flightInput')?.value)||0;
+  const ship = Number(document.getElementById('shipInput')?.value)||0;
+  const passports = 1000;
+  document.getElementById('flightCost').textContent = fmt(flights);
+  document.getElementById('shipCost').textContent = fmt(ship);
+  document.getElementById('totalMoveCost').textContent = fmt(flights+ship+passports);
+}
+
+function calcWealth(){
+  const monthly = Number(document.getElementById('wealthSave')?.value)||0;
+  const annualReturn = (Number(document.getElementById('wealthReturn')?.value)||8)/100;
+  const current = Number(document.getElementById('wealthCurrent')?.value)||0;
+  const target = 25000000;
+  const el = document.getElementById('wealthResult');
+  if(!el) return;
+  if(monthly<=0&&current<=0){el.textContent='Enter your monthly savings and current assets to see your path to $25M.';return;}
+  const r = annualReturn/12;
+  let n = 0;
+  let val = current;
+  while(val < target && n < 600){
+    val = val*(1+r)+monthly;
+    n++;
+  }
+  if(n>=600){
+    el.textContent = `At ${fmt(monthly)}/mo savings with ${annualReturn*100}% annual return: Need more than 50 years. Increase monthly savings or return rate to reach $25M faster.`;
+  } else {
+    const yrs = (n/12).toFixed(1);
+    el.textContent = `Saving ${fmt(monthly)}/mo at ${annualReturn*100}% annual return → $25M in ~${yrs} years (${Math.ceil(new Date().getFullYear()+n/12)}) | Compound interest is working for you.`;
+  }
+}
+
+// ====================== CHARTS ======================
+function renderCharts(){
+  renderExpensePie();
+  renderIncomeExpenseBar();
+  renderAssetsDebtsBar();
+  renderNWTrend();
+}
+
+function destroyChart(id){
+  if(chartInstances[id]){chartInstances[id].destroy();delete chartInstances[id];}
+}
+
+const CHART_COLORS = ['#C9A84C','#5588E8','#2ECC8F','#E85555','#9B6EE8','#E8A555','#55C8E8','#E855A5','#88E855'];
+
+function renderExpensePie(){
+  destroyChart('expensePie');
+  const sections = ['housing','food','kids','transport','health','business','subs','personal','savings'];
+  const labels = ['Housing','Food','Kids','Transport','Health','Business','Subscriptions','Personal','Savings'];
+  const data = sections.map(s=>loadData(s).reduce((sum,r)=>sum+toMonthly(Number(r.amount)||0,r.freq),0));
+  const ctx = document.getElementById('expensePie').getContext('2d');
+  chartInstances['expensePie'] = new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:CHART_COLORS,borderColor:'#1A2940',borderWidth:3}]},options:{plugins:{legend:{labels:{color:'#F5F0E8',font:{family:'Inter',size:11}}}},maintainAspectRatio:false}});
+}
+
+function renderIncomeExpenseBar(){
+  destroyChart('incomeExpenseBar');
+  const t = getTotals();
+  const ctx = document.getElementById('incomeExpenseBar').getContext('2d');
+  chartInstances['incomeExpenseBar'] = new Chart(ctx,{type:'bar',data:{labels:['Monthly Income','Monthly Expenses','Cash Flow'],datasets:[{data:[t.income,t.expenses,Math.max(0,t.income-t.expenses)],backgroundColor:['#2ECC8F','#E85555','#C9A84C'],borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#B8AE9C'}},y:{ticks:{color:'#B8AE9C',callback:v=>'$'+v.toLocaleString()}}},maintainAspectRatio:false}});
+}
+
+function renderAssetsDebtsBar(){
+  destroyChart('assetsDebtsBar');
+  const t = getTotals();
+  const ctx = document.getElementById('assetsDebtsBar').getContext('2d');
+  chartInstances['assetsDebtsBar'] = new Chart(ctx,{type:'bar',data:{labels:['Assets','Debts','Net Worth'],datasets:[{data:[t.assets,t.debts,Math.max(t.netWorth,0)],backgroundColor:['#5588E8','#E85555',t.netWorth>=0?'#2ECC8F':'#E85555'],borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#B8AE9C'}},y:{ticks:{color:'#B8AE9C',callback:v=>'$'+v.toLocaleString()}}},maintainAspectRatio:false}});
+}
+
+function saveNWHistory(){
+  const t = getTotals();
+  const month = document.getElementById('monthSelect')?.value || new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'});
+  let hist = loadData('nwHistory');
+  const existing = hist.findIndex(h=>h.month===month);
+  if(existing>=0) hist[existing].nw = t.netWorth;
+  else hist.push({month,nw:t.netWorth});
+  if(hist.length > 24) hist = hist.slice(-24);
+  saveSection('nwHistory', hist);
+}
+
+function renderNWTrend(){
+  destroyChart('nwTrend');
+  const hist = loadData('nwHistory');
+  if(hist.length < 1) return;
+  const ctx = document.getElementById('nwTrend').getContext('2d');
+  chartInstances['nwTrend'] = new Chart(ctx,{type:'line',data:{labels:hist.map(h=>h.month),datasets:[{label:'Net Worth',data:hist.map(h=>h.nw),borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.1)',tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#C9A84C'}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#B8AE9C'}},y:{ticks:{color:'#B8AE9C',callback:v=>'$'+v.toLocaleString()}}},maintainAspectRatio:false}});
+}
+
+// ====================== PROFILES ======================
+function addProfile(){
+  const name = document.getElementById('profileName').value.trim();
+  if(!name) return;
+  const key = name.toLowerCase().replace(/\s+/g,'_');
+  const sel = document.getElementById('profileSelect');
+  const opt = document.createElement('option');
+  opt.value = key; opt.textContent = name;
+  sel.appendChild(opt);
+  sel.value = key;
+  currentProfile = key;
+  closeModal('profileModal');
+  renderAll();
+}
+
+// ====================== MODALS ======================
+function openModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); });
+});
+
+// ====================== EXPORT ======================
+function exportEmail(){
+  const t = getTotals();
+  const body = encodeURIComponent(
+`JAKPA FAMILY FINANCIAL SUMMARY
+${new Date().toLocaleDateString()}
+
+MONTHLY INCOME: $${t.income.toFixed(2)}
+MONTHLY EXPENSES: $${t.expenses.toFixed(2)}
+CASH FLOW: $${(t.income-t.expenses).toFixed(2)}
+
+TOTAL ASSETS: $${t.assets.toFixed(2)}
+TOTAL DEBTS: $${t.debts.toFixed(2)}
+NET WORTH: $${t.netWorth.toFixed(2)}
+
+$25M GOAL GAP: $${(25000000-Math.max(t.netWorth,0)).toFixed(2)}
+
+Generated by Jakpa Family Financial Command Center`
+  );
+  window.location.href = `mailto:kellyjakpa96@gmail.com?subject=Jakpa+Family+Financial+Summary&body=${body}`;
+}
+
+function exportPrint(){ window.print(); }
+
+// ====================== INIT ======================
+document.addEventListener('DOMContentLoaded',()=>{
+  renderAll();
+  document.getElementById('whatifSlider')?.addEventListener('input', calcWhatif);
+});
+</script>
+</body>
+</html>
