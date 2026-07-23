@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath QSBS Lab &mdash; Principal Engineer Design Review</title>
+<style>
+:root{--brand:#0D1B45;--gold:#B8860B;--gold-light:#E8A020;--bg:#F8F7F4;--sidebar:#0D1B45;--sidebar-w:290px;--text:#1a1a1a;--muted:#666;--border:#e0ddd8;--code-bg:#1e1e2e;--code-text:#cdd6f4;--card:#ffffff;--radius:8px;--shadow:0 2px 8px rgba(0,0,0,0.08);--green:#16a34a;--red:#dc2626;--amber:#d97706;--blue:#2563eb;--purple:#7c3aed}
+[data-theme="dark"]{--bg:#0f0f17;--text:#e4e4ef;--muted:#9999bb;--border:#2a2a3e;--card:#1a1a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;display:flex;min-height:100vh}
+#sidebar{width:var(--sidebar-w);background:var(--sidebar);color:#fff;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;padding-bottom:40px}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px}
+.sidebar-header{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.sidebar-brand{font-size:11px;font-weight:700;color:var(--gold-light);letter-spacing:0.08em;text-transform:uppercase}
+.sidebar-title{font-size:14px;font-weight:700;color:#fff;margin-top:3px}
+.sidebar-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.review-badge{margin:8px 16px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);border-radius:5px;padding:7px 10px;font-size:11px;color:#fca5a5;font-weight:600}
+.nav-section{padding:9px 0 3px 16px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em}
+.nav-item{display:block;padding:7px 16px;font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;border-left:3px solid transparent;cursor:pointer;transition:all 0.15s}
+.nav-item:hover,.nav-item.active{color:#fff;background:rgba(255,255,255,0.07);border-left-color:var(--gold-light)}
+.score-pill{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px}
+.score-a{background:#16a34a;color:#fff}
+.score-b{background:#2563eb;color:#fff}
+.score-c{background:#d97706;color:#fff}
+.score-d{background:#dc2626;color:#fff}
+#main{margin-left:var(--sidebar-w);flex:1}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--shadow)}
+.search-box{border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:13px;width:220px;background:var(--bg);color:var(--text);outline:none}
+.search-box:focus{border-color:var(--gold)}
+.btn{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.theme-toggle{background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:12px}
+.content{padding:36px 44px;max-width:1100px}
+.pe-notice{background:linear-gradient(135deg,rgba(220,38,38,0.04),rgba(13,27,69,0.04));border:1px solid rgba(220,38,38,0.25);border-radius:var(--radius);padding:20px 24px;margin-bottom:40px}
+.pe-notice h3{font-size:15px;font-weight:700;color:var(--red);margin-bottom:6px}
+.pe-notice p{font-size:14px;color:var(--muted);margin:0}
+.section{margin-bottom:56px;scroll-margin-top:70px}
+.section-eyebrow{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.section-title{font-size:26px;font-weight:700;color:var(--brand);margin-bottom:10px;line-height:1.2}
+[data-theme="dark"] .section-title{color:#a0b4e8}
+.section-lead{font-size:15px;color:var(--muted);margin-bottom:24px;max-width:720px;line-height:1.7}
+h2{font-size:19px;font-weight:700;margin:26px 0 10px;color:var(--brand)}
+[data-theme="dark"] h2{color:#8ba8e0}
+h3{font-size:15px;font-weight:700;margin:16px 0 6px}
+p{margin-bottom:12px;font-size:14px}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{font-size:14px;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.finding{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.finding-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.finding-id{font-size:11px;font-weight:700;color:var(--muted);font-family:monospace}
+.finding-title{font-size:14px;font-weight:700}
+.severity{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.sev-high{background:#fee2e2;color:#991b1b}
+.sev-med{background:#fef3c7;color:#92400e}
+.sev-low{background:#dbeafe;color:#1e40af}
+.sev-info{background:#f1f5f9;color:#475569}
+[data-theme="dark"] .sev-high{background:#450a0a;color:#fca5a5}
+[data-theme="dark"] .sev-med{background:#451a03;color:#fcd34d}
+[data-theme="dark"] .sev-low{background:#1e3a5f;color:#93c5fd}
+.finding-body{font-size:13px;color:var(--muted);margin-bottom:8px;line-height:1.5}
+.finding-fix{background:rgba(22,163,74,0.06);border-left:3px solid var(--green);padding:8px 12px;border-radius:0 4px 4px 0;font-size:13px}
+pre{background:var(--code-bg);color:var(--code-text);padding:16px;border-radius:var(--radius);overflow-x:auto;font-size:12px;line-height:1.6;margin-bottom:12px}
+code{font-family:'Cascadia Code','Fira Code',monospace;font-size:12px}
+p code,li code{background:rgba(0,0,0,0.06);padding:1px 5px;border-radius:3px;font-size:12px}
+[data-theme="dark"] p code,[data-theme="dark"] li code{background:rgba(255,255,255,0.08)}
+.table-wrap{overflow-x:auto;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--brand);color:#fff;text-align:left;padding:8px 12px;font-size:12px;text-transform:uppercase;letter-spacing:0.06em}
+td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover td{background:rgba(13,27,69,0.02)}
+.alert{padding:12px 16px;border-radius:var(--radius);margin-bottom:12px;font-size:13px;border-left:4px solid}
+.alert-warn{background:#fef9c3;border-color:#d97706;color:#713f12}
+.alert-info{background:#eff6ff;border-color:#2563eb;color:#1e3a8a}
+.alert-success{background:#f0fdf4;border-color:#16a34a;color:#14532d}
+.alert-danger{background:#fef2f2;border-color:#dc2626;color:#7f1d1d}
+[data-theme="dark"] .alert-warn{background:#1c1405;color:#fcd34d}
+[data-theme="dark"] .alert-info{background:#0c1a2e;color:#93c5fd}
+[data-theme="dark"] .alert-success{background:#052e16;color:#86efac}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow)}
+.score-label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
+.score-value{font-size:36px;font-weight:700}
+.score-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.grade-A{color:var(--green)}
+.grade-B{color:var(--blue)}
+.grade-C{color:var(--amber)}
+.grade-D{color:var(--red)}
+.dep-graph{background:var(--code-bg);border-radius:var(--radius);padding:20px;margin-bottom:14px;overflow-x:auto}
+.dep-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.dep-node{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:4px 10px;color:#cdd6f4;font-size:12px;font-family:monospace;white-space:nowrap}
+.dep-node.core{background:rgba(184,134,11,0.2);border-color:rgba(184,134,11,0.4);color:#fcd34d}
+.dep-node.engine{background:rgba(37,99,235,0.15);border-color:rgba(37,99,235,0.3);color:#93c5fd}
+.dep-node.module{background:rgba(22,163,74,0.1);border-color:rgba(22,163,74,0.25);color:#86efac}
+.dep-node.new{border-style:dashed}
+.dep-arrow{color:#64748b;font-size:14px}
+.divider{border:none;border-top:2px solid var(--gold);opacity:0.25;margin:36px 0}
+.contract-box{background:var(--code-bg);border:1px solid rgba(184,134,11,0.25);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.contract-title{color:var(--gold-light);font-size:13px;font-weight:700;font-family:monospace;margin-bottom:8px}
+@media(max-width:768px){#sidebar{transform:translateX(-100%)}#sidebar.open{transform:translateX(0)}#main{margin-left:0}.content{padding:20px 14px}}
+@media print{#sidebar{display:none}#main{margin-left:0}.topbar{display:none}}
+.highlight{background:#fef08a;border-radius:2px}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">Principal Engineer</div>
+    <div class="sidebar-title">Design Review</div>
+    <div class="sidebar-sub">Pre-implementation architecture audit</div>
+  </div>
+  <div class="review-badge">Final Review &mdash; July 2026</div>
+  <div class="nav-section">Findings</div>
+  <span class="nav-item" onclick="goTo('pr0')">Overview &amp; Summary</span>
+  <span class="nav-item" onclick="goTo('pr1')">1. Module Boundaries <span class="score-pill score-b">B+</span></span>
+  <span class="nav-item" onclick="goTo('pr2')">2. Public Interfaces <span class="score-pill score-b">B</span></span>
+  <span class="nav-item" onclick="goTo('pr3')">3. Result Contracts <span class="score-pill score-c">C+</span></span>
+  <span class="nav-item" onclick="goTo('pr4')">4. Error Handling <span class="score-pill score-c">C</span></span>
+  <span class="nav-item" onclick="goTo('pr5')">5. Naming Standards <span class="score-pill score-b">B</span></span>
+  <span class="nav-item" onclick="goTo('pr6')">6. Data Contracts <span class="score-pill score-b">B-</span></span>
+  <span class="nav-item" onclick="goTo('pr7')">7. Dependency Graph <span class="score-pill score-a">A-</span></span>
+  <span class="nav-item" onclick="goTo('pr8')">8. Testing Strategy <span class="score-pill score-c">C</span></span>
+  <span class="nav-item" onclick="goTo('pr9')">9. Performance <span class="score-pill score-b">B</span></span>
+  <span class="nav-item" onclick="goTo('pr10')">10. Security <span class="score-pill score-b">B+</span></span>
+  <span class="nav-item" onclick="goTo('pr11')">11. Future Expansion <span class="score-pill score-a">A</span></span>
+  <div class="nav-section">Final Verdict</div>
+  <span class="nav-item" onclick="goTo('pr12')">12. Readiness Score</span>
+  <span class="nav-item" onclick="goTo('pr13')">Priority Fixes</span>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <input class="search-box" type="text" placeholder="Search review..." oninput="doSearch(this.value)">
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+
+    <div class="pe-notice">
+      <h3>Principal Engineer Design Review &mdash; Pre-Implementation Audit</h3>
+      <p>This document challenges the existing architecture before a single line of application code is written. It does not redesign anything. It identifies weaknesses, proposes targeted fixes, and produces a prioritized list of improvements that eliminate the most common sources of future technical debt.</p>
+    </div>
+
+<!-- PR0 -->
+<div class="section" id="pr0">
+  <div class="section-eyebrow">Review Overview</div>
+  <div class="section-title">Executive Summary</div>
+  <div class="section-lead">The architecture is fundamentally sound. The decomposition is appropriate. The dependency direction is correct. The most significant gaps are in error handling standardization, result contract consistency, and test architecture. None of these require redesign &mdash; they require formalization before coding begins.</div>
+
+  <h2>Finding Summary</h2>
+  <div class="table-wrap"><table>
+    <tr><th>#</th><th>Finding</th><th>Severity</th><th>Area</th><th>Fix Complexity</th></tr>
+    <tr><td>F-01</td><td>No universal engine result contract — each engine returns subtly different shapes</td><td><span class="severity sev-high">HIGH</span></td><td>Result Contracts</td><td>Low — define once, apply everywhere</td></tr>
+    <tr><td>F-02</td><td>Error handling strategy undefined — engines may throw vs return error state inconsistently</td><td><span class="severity sev-high">HIGH</span></td><td>Error Handling</td><td>Low — define a policy, implement once in shared/errors.js</td></tr>
+    <tr><td>F-03</td><td>No test architecture defined — acceptance tests exist but no unit/integration/golden test strategy</td><td><span class="severity sev-high">HIGH</span></td><td>Testing</td><td>Medium — requires defining test runner approach and golden cases</td></tr>
+    <tr><td>F-04</td><td>M9 (Scenario Manager) is the largest module and has dual responsibility: storage CRUD and UI rendering</td><td><span class="severity sev-med">MED</span></td><td>Module Boundaries</td><td>Low — split into scenario-store.js and scenarios-ui.js</td></tr>
+    <tr><td>F-05</td><td>lawConfig mutation risk — Object.freeze() is shallow; nested objects may still be mutable</td><td><span class="severity sev-med">MED</span></td><td>Data Contracts</td><td>Low — implement deep freeze utility</td></tr>
+    <tr><td>F-06</td><td>Function parameter ordering inconsistent across engines — some take (scenario), some take (scenario, law_version), some take individual fields</td><td><span class="severity sev-med">MED</span></td><td>Public Interfaces</td><td>Low — standardize on (scenario, options?) pattern</td></tr>
+    <tr><td>F-07</td><td>Dashboard cache (DC1) is recommended but not formally specified — risk of dashboard performance regression at 400 scenarios</td><td><span class="severity sev-med">MED</span></td><td>Performance</td><td>Medium — specify DC1 formally before M7 is built</td></tr>
+    <tr><td>F-08</td><td>IndexedDB schema version migration strategy not specified — first schema change will require a manual migration</td><td><span class="severity sev-med">MED</span></td><td>Data Contracts</td><td>Low — add idb version + migration map to M0 spec</td></tr>
+    <tr><td>F-09</td><td>JSON import validation too loosely defined — "validate against schema" is mentioned but no schema is specified</td><td><span class="severity sev-med">MED</span></td><td>Security</td><td>Low — specify JSON Schema or validator function</td></tr>
+    <tr><td>F-10</td><td>naming inconsistency: some files use kebab-case (re1-acquisition-date.js), some use camelCase (calcEngine), some are ambiguous</td><td><span class="severity sev-low">LOW</span></td><td>Naming</td><td>Low — adopt one convention explicitly</td></tr>
+    <tr><td>F-11</td><td>CE3 (Valuation calc engine) and original M4 (valuation-engine.js) have overlapping responsibility boundaries that are unclear</td><td><span class="severity sev-low">LOW</span></td><td>Module Boundaries</td><td>Low — clarify which layer owns which functions</td></tr>
+    <tr><td>F-12</td><td>Supabase offline queue not formally specified — what happens if the queue grows to 1,000+ items?</td><td><span class="severity sev-low">LOW</span></td><td>Performance</td><td>Low — specify queue size limit and flush strategy</td></tr>
+    <tr><td>F-13</td><td>No explicit strategy for handling law changes mid-scenario — scenario is locked to law_snapshot but no UX flow is designed for the notification</td><td><span class="severity sev-low">LOW</span></td><td>Data Contracts</td><td>Low — specify the banner UX in storage.js migration notes</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR1 -->
+<div class="section" id="pr1">
+  <div class="section-eyebrow">Review Area 1</div>
+  <div class="section-title">Module Boundaries</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-04</span>
+      <span class="finding-title">M9 (Scenario Manager) Has Dual Responsibility</span>
+      <span class="severity sev-med">MEDIUM</span>
+    </div>
+    <div class="finding-body">M9 is specified as handling 400-scenario CRUD, search, filter, sort, autosave, version snapshots, bulk operations, comparison view rendering, and the detail form. This is two distinct jobs: data management and UI rendering. At the projected 700+ lines, it will be the largest single module and the hardest to test. If the storage layer changes, the UI code is unnecessarily impacted.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Split M9 into two files. <code>js/modules/scenario-store.js</code> handles all CRUD, search, filter, autosave, versioning, and bulk operations. It has no DOM code. <code>js/modules/scenario-ui.js</code> handles list rendering, detail form, comparison view. scenario-ui.js imports scenario-store.js. Both are independently testable. scenario-store.js can be tested in Node.js without a browser.</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-11</span>
+      <span class="finding-title">CE3 vs M4 Boundary Ambiguity</span>
+      <span class="severity sev-low">LOW</span>
+    </div>
+    <div class="finding-body">CE3 (Valuation calc engine) and M4 (valuation-engine.js, the original module) overlap. The addendum says M4 "is the UI module that collects valuation inputs and displays charts" and CE3 "is the pure calculation engine." But valuation-engine.js in the original module list includes both calcWeightedEV() and calcAggregateGrossAssets() as exports. It is not clear which file owns which function after CE3 is added.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Explicit rule: any function that computes a number goes in CE3. Any function that renders HTML, manages a Chart.js instance, or reads/writes storage goes in M4 (valuation.js). calcAggregateGrossAssets() moves entirely to RE3/CE3. calcWeightedEV() moves to CE3. M4 imports CE3 and calls those functions. No calculation logic lives in any file under js/modules/.</div>
+  </div>
+
+  <h2>Hidden Dependencies Check</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Module</th><th>Hidden Dependency Risk</th><th>Verdict</th></tr>
+    <tr><td>RE6 (Excluded Business)</td><td>Has BrightPath-specific logic that implicitly knows BrightPath's architecture</td><td>Acceptable in v1. Flag for extraction to BI1 when a second company is added.</td></tr>
+    <tr><td>M16 (Reports)</td><td>Reads from "every module" — risk of importing live state rather than stored data</td><td>Requires explicit fix: M16 must read from storage only, never from live module state.</td></tr>
+    <tr><td>ED1 (Dashboard)</td><td>Reads scenario data to compute metrics on render — hidden O(n) computation</td><td>Requires DC1 cache layer before M7 is built.</td></tr>
+    <tr><td>DJ1 (Decision Journal)</td><td>Depends on M9 scenario detail view — renders inside it</td><td>Acceptable. Dependency direction is correct.</td></tr>
+    <tr><td>CE6 (Exit Tax)</td><td>Orchestrates CE1-CE5 — must import all of them</td><td>Acceptable. This is the designed orchestrator pattern.</td></tr>
+  </table></div>
+
+  <h2>Circular Dependency Check</h2>
+  <div class="alert alert-success">No circular dependencies identified. The dependency graph flows in one direction: core &rarr; engines &rarr; modules. No engine imports from any module. No module imports from another module except through the state bus or storage abstraction. This is correct.</div>
+
+  <h2>Isolation Testability Check</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Engine/Module</th><th>Can Test in Node.js (No Browser)?</th><th>Notes</th></tr>
+    <tr><td>RE1&ndash;RE8</td><td>Yes</td><td>Pure functions. Zero DOM.</td></tr>
+    <tr><td>CE1&ndash;CE7</td><td>Yes</td><td>Pure functions. Zero DOM.</td></tr>
+    <tr><td>M5 (business-qual)</td><td>Yes</td><td>Pure scoring logic.</td></tr>
+    <tr><td>M4 / valuation-engine</td><td>Partially</td><td>Calc functions yes; Chart.js functions need browser.</td></tr>
+    <tr><td>M9 (scenarios)</td><td>No (currently)</td><td>After F-04 split: scenario-store.js yes, scenario-ui.js no.</td></tr>
+    <tr><td>storage.js</td><td>Partially</td><td>IndexedDB needs a browser or a fake-indexeddb shim in Node.</td></tr>
+    <tr><td>M16 (reports)</td><td>No</td><td>Generates HTML. Requires DOM. Test via screenshot comparison.</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR2 -->
+<div class="section" id="pr2">
+  <div class="section-eyebrow">Review Area 2</div>
+  <div class="section-title">Public Interfaces</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-06</span>
+      <span class="finding-title">Inconsistent Parameter Ordering Across Engines</span>
+      <span class="severity sev-med">MEDIUM</span>
+    </div>
+    <div class="finding-body">Current parameter patterns vary: <code>evaluateQSBS(scenario)</code>, <code>evaluateAGA(asset_record, law_version, controlled_group_assets, predecessor_assets)</code>, <code>calcStockSaleTax(scenario, exclusion_limit, exclusion_pct)</code>, <code>evaluateHoldingPeriod(acquisition_date, exit_date, law_version)</code>. Some engines take a flat scenario object, some take extracted fields, some take pre-computed sub-results. This inconsistency will cause bugs when calling engines in sequence.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Adopt one rule: all engines accept <code>(scenario, options)</code> where scenario is the full scenario object and options is an optional object for pre-computed sub-results or overrides. Engines extract what they need from scenario internally. This eliminates parameter ordering bugs and makes function signatures predictable. Example: <code>evaluateAGA(scenario, options)</code> where scenario.asset_record and scenario.law_version are extracted internally. Pre-computed sub-results passed as <code>options.agaResult</code> to skip recomputation.</div>
+  </div>
+
+  <h2>Naming Consistency Review</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Current Pattern</th><th>Issue</th><th>Standardized Form</th></tr>
+    <tr><td><code>evaluateQSBS()</code>, <code>evaluateAGA()</code>, <code>evaluateHoldingPeriod()</code></td><td>Good — "evaluate" prefix for pass/fail tests</td><td>Keep. evaluateX() returns a test result with pass/fail.</td></tr>
+    <tr><td><code>calcStockSaleTax()</code>, <code>calcExclusionLimit()</code></td><td>Good — "calc" prefix for computation</td><td>Keep. calcX() returns a number or computation result.</td></tr>
+    <tr><td><code>determineAcquisitionDateLaw()</code></td><td>Inconsistent — "determine" used only once</td><td>Rename to <code>evaluateAcquisitionDate()</code> for consistency.</td></tr>
+    <tr><td><code>scoreBusinessQual()</code></td><td>"score" prefix used only once</td><td>Rename to <code>evaluateBusinessQualification()</code>.</td></tr>
+    <tr><td><code>makeQualificationDecision()</code></td><td>"make" prefix used only once</td><td>Rename to <code>aggregateQualificationResult()</code>.</td></tr>
+    <tr><td><code>buildExplanation()</code></td><td>Acceptable</td><td>Keep. Clearly describes generating output from existing results.</td></tr>
+  </table></div>
+
+  <h2>Return Value Consistency</h2>
+  <p>All engines must return objects, never primitives. <code>calcExclusionPct()</code> is specified to return a number (0.0 to 1.0). This breaks the pattern. Fix: wrap it in a result object.</p>
+  <pre>// BEFORE (breaks pattern):
+calcExclusionPct("post_july4_2025", 5) === 1.00  // bare number
+
+// AFTER (consistent):
+calcExclusionPct("post_july4_2025", 5) === {
+  exclusion_pct: 1.00,
+  holding_years: 5,
+  law_version: "post_july4_2025",
+  note: "5-year hold under post-July 4 2025 rules: 100% exclusion",
+  source_citation: "26 U.S.C. § 1202(a)(4)"
+}
+// Callers use result.exclusion_pct — backward compatible with one-line update</pre>
+</div>
+
+<hr class="divider">
+
+<!-- PR3 -->
+<div class="section" id="pr3">
+  <div class="section-eyebrow">Review Area 3</div>
+  <div class="section-title">Shared Result Contracts</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-01</span>
+      <span class="finding-title">No Universal Engine Result Contract</span>
+      <span class="severity sev-high">HIGH</span>
+    </div>
+    <div class="finding-body">The base docs define a result contract for evaluateQSBS(). The addendum defines an AuditTrail shape. But the two are not formally unified. Some engines return pass/fail tests, some return calculations, some return explanations. RE8 assembles them all, but if each engine returns a slightly different shape, RE8 becomes a complex and fragile adapter. This is the most important contract to standardize before implementation.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Define one EngineResult contract that all engines return. Engines that don't produce some fields set them to null or empty array. This makes RE8 trivial — it just reads the same fields from every engine output.</div>
+  </div>
+
+  <h2>Universal EngineResult Contract</h2>
+  <div class="contract-box">
+    <div class="contract-title">EngineResult &mdash; Universal Return Contract (ALL engines must return this shape)</div>
+    <pre>{
+  // IDENTITY
+  engine_id: "re3-aga",            // which engine produced this (kebab-case)
+  engine_version: "1.0",           // semver string
+  calculated_at: "ISO 8601",       // when this was produced
+
+  // PRIMARY OUTPUT
+  status: null,                    // "pass" | "fail" | "uncertain" | "insufficient_information"
+                                   // null for calc engines that don't produce pass/fail
+  value: null,                     // primary numeric output for calc engines (or null for eval engines)
+  confidence: "high",              // "high" | "medium" | "low" | null
+  
+  // HUMAN-READABLE
+  summary: "",                     // one-sentence plain English conclusion
+  note: "",                        // longer explanation of the conclusion
+  
+  // EVIDENCE
+  supporting_facts: [],            // string[] — facts supporting the conclusion
+  risk_factors: [],                // string[] — factors working against the conclusion
+  missing_inputs: [],              // string[] — inputs that were null or missing
+  warnings: [],                    // string[] — non-fatal warnings
+  errors: [],                      // string[] — fatal issues (engine still returns, not throws)
+  
+  // LEGAL
+  source_citations: [              // [{citation, proposition, source_url, date_checked}]
+    {
+      citation: "26 U.S.C. § 1202(d)",
+      proposition: "Aggregate gross assets = cash + adjusted bases",
+      source_url: "https://uscode.house.gov/...",
+      date_checked: "2026-06-01"
+    }
+  ],
+  professional_review_questions: [],  // string[] — questions for attorneys/CPAs
+  
+  // AUDIT TRAIL
+  audit_trail: {
+    inputs_used: {},               // complete copy of inputs (no references)
+    steps: [],                     // [{step, label, value, formula, source_citation}]
+    law_snapshot: null,            // copy of the law config block used (or null if not applicable)
+  },
+  
+  // RAW DATA (engine-specific, all other engines ignore)
+  data: {}                         // engine-specific structured results (e.g., components[], breakdown{})
+}</pre>
+  </div>
+
+  <div class="alert alert-info">The <code>data</code> field is the escape hatch for engine-specific structured output that does not fit the universal fields. RE3 puts its components[] array here. CE4 puts its full tax breakdown here. RE8 reads from data{} to build the qualification matrix. Everything in the universal fields is comparable across engines. Everything in data{} is engine-specific and only read by the orchestrators that know which engine produced it.</div>
+
+  <h2>Status Vocabulary</h2>
+  <p>Two different status vocabularies currently exist: qualification status (6 values from the rules engine) and engine test status (pass/fail/uncertain). These must remain separate to avoid confusion.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Context</th><th>Values</th><th>Where Used</th></tr>
+    <tr><td>Individual test status (EngineResult.status)</td><td>"pass" | "fail" | "uncertain" | "insufficient_information"</td><td>RE1, RE2, RE3, RE4, RE5, RE6</td></tr>
+    <tr><td>Overall qualification status (RE7 output)</td><td>"likely_qualifies_under_stated_assumptions" | "potentially_qualifies" | "uncertain_professional_review_required" | "likely_does_not_qualify" | "does_not_qualify_under_stated_assumptions" | "insufficient_information"</td><td>RE7, evaluateQSBS() public API</td></tr>
+    <tr><td>Calc engine status (EngineResult.status)</td><td>null (calc engines don't produce pass/fail)</td><td>CE1, CE2, CE3, CE4, CE5, CE6, CE7</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR4 -->
+<div class="section" id="pr4">
+  <div class="section-eyebrow">Review Area 4</div>
+  <div class="section-title">Error Handling</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-02</span>
+      <span class="finding-title">No Defined Error Handling Strategy</span>
+      <span class="severity sev-high">HIGH</span>
+    </div>
+    <div class="finding-body">The architecture documents never define: when does an engine throw vs. return an error state? What happens if gross_proceeds is -5000000? What happens if acquisition_date is "banana"? What happens if the user edits a locked scenario? Without a defined policy, every developer will make their own choice, producing inconsistent behavior.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Define the policy once in shared/errors.js and apply it everywhere.</div>
+  </div>
+
+  <h2>Error Handling Policy</h2>
+  <div class="card-grid">
+    <div class="card"><div style="font-weight:700;margin-bottom:6px;color:var(--red)">Rule 1: Engines Never Throw</div><p>All engine functions catch all exceptions internally. Any exception is converted to an EngineResult with status="fail", errors=["Internal error: " + message], and all other fields at safe defaults. The application never crashes due to an engine error.</p></div>
+    <div class="card"><div style="font-weight:700;margin-bottom:6px;color:var(--amber)">Rule 2: Invalid Inputs Return insufficient_information</div><p>Null, undefined, NaN, or out-of-range inputs produce status="insufficient_information" with missing_inputs[] populated. Engines never return garbage results from garbage inputs.</p></div>
+    <div class="card"><div style="font-weight:700;margin-bottom:6px;color:var(--blue)">Rule 3: Impossible Calculations Return Bounded Results</div><p>If a calculation would produce Infinity, -Infinity, or NaN, the engine returns 0 for the value and adds an entry to warnings[] explaining what happened. Never expose Infinity in the UI.</p></div>
+    <div class="card"><div style="font-weight:700;margin-bottom:6px;color:var(--green)">Rule 4: Conflicting Assumptions Are Warnings Not Errors</div><p>If two inputs are in logical conflict (exit_date before acquisition_date), add to warnings[] and attempt the calculation anyway with the note "inputs may produce unreliable results." The user sees the warning and can fix their inputs.</p></div>
+  </div>
+
+  <pre>// js/shared/errors.js
+export class EngineError {
+  static invalidInput(field, received, expected) {
+    return {
+      status: "insufficient_information",
+      missing_inputs: [`${field}: expected ${expected}, received ${received}`],
+      errors: [],
+      value: null,
+      // ... rest of universal contract at safe defaults
+    };
+  }
+  static internalError(engine_id, message) {
+    return {
+      status: "fail",
+      errors: [`${engine_id}: Internal error — ${message}`],
+      // ... safe defaults
+    };
+  }
+  static conflictingAssumptions(field1, field2, message) {
+    return {
+      warnings: [`Conflicting inputs: ${message}`],
+      // continue with calculation
+    };
+  }
+}
+
+// Usage in every engine:
+export function evaluateAGA(scenario, options = {}) {
+  try {
+    const cash = scenario?.asset_record?.cash;
+    if (cash === null || cash === undefined) {
+      return EngineError.invalidInput('asset_record.cash', cash, 'number >= 0');
+    }
+    // ... engine logic
+  } catch (e) {
+    return EngineError.internalError('re3-aga', e.message);
+  }
+}</pre>
+
+  <h2>Edge Cases That Must Be Handled</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Scenario</th><th>Input State</th><th>Required Behavior</th></tr>
+    <tr><td>Negative gross proceeds</td><td>gross_proceeds = -1000000</td><td>warnings: ["Gross proceeds is negative. Verify inputs."]. Calculate with the value provided.</td></tr>
+    <tr><td>Exit date before acquisition date</td><td>exit_date &lt; acquisition_date</td><td>warnings: ["Exit date is before acquisition date. Holding period cannot be computed."]. holding_years = 0. status = "fail".</td></tr>
+    <tr><td>Exclusion percentage from pre-3yr hold</td><td>holding_years = 1.5, law = post_2025</td><td>exclusion_pct = 0. Note: "Holding period does not yet meet the 3-year minimum for any exclusion under post-July 4 2025 rules."</td></tr>
+    <tr><td>Prior exclusions exceed fixed-dollar limit</td><td>prior_exclusions_used = 20000000, limit = 15000000</td><td>fixed_dollar_remaining = 0. warning: ["Prior exclusions ($20M) exceed fixed-dollar limit ($15M). Fixed-dollar ceiling is exhausted."]. ten_times may still apply.</td></tr>
+    <tr><td>AGA not provided for threshold test</td><td>asset_record = null</td><td>status = "insufficient_information". missing_inputs = ["asset_record: required for AGA threshold test"].</td></tr>
+    <tr><td>Business qual not completed</td><td>business_qual_result = null</td><td>RE5 and RE6 return status = "insufficient_information". Note: "Complete the business qualification interview to enable active business and excluded business tests."</td></tr>
+    <tr><td>Law version unrecognized</td><td>law_version = "future_unknown"</td><td>Fall back to post_july4_2025 with warning: ["Unrecognized law version. Defaulting to post_july4_2025. Verify law configuration."]</td></tr>
+    <tr><td>Ten-times basis is zero</td><td>sec1202_basis = 0</td><td>ten_times = 0. applicable_limit = fixed_dollar_remaining. warning: ["§1202 basis is zero. The ten-times ceiling is $0. Only the fixed-dollar limit applies."]</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR5 -->
+<div class="section" id="pr5">
+  <div class="section-eyebrow">Review Area 5</div>
+  <div class="section-title">Naming Standards</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-10</span>
+      <span class="finding-title">Mixed Naming Conventions</span>
+      <span class="severity sev-low">LOW</span>
+    </div>
+    <div class="finding-body">File names use kebab-case (re1-acquisition-date.js), some JS identifiers use camelCase (calcEngine, lawConfig), database columns use snake_case (gross_assets_after), and JSON fields mix conventions. Without a single standard, each developer will choose differently and code review becomes necessary to catch naming violations.</div>
+    <div class="finding-fix"><strong>Define once, never revisit:</strong></div>
+  </div>
+
+  <div class="table-wrap"><table>
+    <tr><th>Thing</th><th>Convention</th><th>Example</th></tr>
+    <tr><td>File names</td><td>kebab-case</td><td>re1-acquisition-date.js, calc-engine.js, scenario-store.js</td></tr>
+    <tr><td>JS function names</td><td>camelCase, prefixed</td><td>evaluateAGA(), calcExclusionLimit(), buildExplanation()</td></tr>
+    <tr><td>JS class names</td><td>PascalCase</td><td>EngineError, AuditTrail</td></tr>
+    <tr><td>JS constants</td><td>SCREAMING_SNAKE</td><td>LAW_VERSIONS, EXCLUDED_CATEGORIES, DEFAULT_RATES</td></tr>
+    <tr><td>Database columns</td><td>snake_case</td><td>gross_assets_after, sec1202_basis, law_version</td></tr>
+    <tr><td>JSON object fields</td><td>snake_case</td><td>supporting_facts, risk_factors, audit_trail</td></tr>
+    <tr><td>Engine IDs</td><td>kebab-case</td><td>"re1-acquisition-date", "ce4-stock-sale"</td></tr>
+    <tr><td>Status values</td><td>snake_case</td><td>"likely_qualifies_under_stated_assumptions", "insufficient_information"</td></tr>
+    <tr><td>CSS classes</td><td>kebab-case</td><td>finding-title, engine-card, score-pill</td></tr>
+    <tr><td>Event names (state bus)</td><td>kebab-case with colon namespace</td><td>"scenario:saved", "engine:result", "auth:changed"</td></tr>
+    <tr><td>IndexedDB store names</td><td>kebab-case</td><td>"scenarios", "companies", "decision-journal"</td></tr>
+    <tr><td>Function prefixes</td><td>evaluate = test result / calc = computation / build = assembly / score = scoring</td><td>evaluateAGA, calcExclusionLimit, buildExplanation</td></tr>
+  </table></div>
+
+  <h2>Function Renames Required</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Current Name</th><th>Renamed To</th><th>Reason</th></tr>
+    <tr><td>determineAcquisitionDateLaw()</td><td>evaluateAcquisitionDate()</td><td>Consistent "evaluate" prefix</td></tr>
+    <tr><td>scoreBusinessQual()</td><td>evaluateBusinessQualification()</td><td>Consistent "evaluate" prefix</td></tr>
+    <tr><td>makeQualificationDecision()</td><td>aggregateQualificationResult()</td><td>More descriptive; "make" is vague</td></tr>
+    <tr><td>calcExclusionPct()</td><td>calcExclusionPercentage()</td><td>Avoid abbreviations in public API</td></tr>
+    <tr><td>calcAGAResult() / calcAGA()</td><td>evaluateAGA()</td><td>Returns pass/fail test, not just a number</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR6 -->
+<div class="section" id="pr6">
+  <div class="section-eyebrow">Review Area 6</div>
+  <div class="section-title">Data Contracts</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-05</span>
+      <span class="finding-title">Shallow Object.freeze() on lawConfig</span>
+      <span class="severity sev-med">MEDIUM</span>
+    </div>
+    <div class="finding-body">Object.freeze() is shallow. <code>lawConfig.lawVersions</code> is frozen but <code>lawConfig.lawVersions.post_july4_2025</code> is a separate object reference that is NOT frozen. An engine could accidentally mutate <code>lawConfig.lawVersions.post_july4_2025.grossAssetsThreshold = 0</code> and corrupt all subsequent calculations in that session without any error.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Implement deepFreeze() utility in shared/utils.js and apply it to lawConfig at export.
+<pre>function deepFreeze(obj) {
+  Object.getOwnPropertyNames(obj).forEach(name => {
+    const value = obj[name];
+    if (typeof value === 'object' && value !== null) deepFreeze(value);
+  });
+  return Object.freeze(obj);
+}
+export const lawConfig = deepFreeze({ ... });</pre></div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-08</span>
+      <span class="finding-title">No IndexedDB Schema Version Migration Strategy</span>
+      <span class="severity sev-med">MEDIUM</span>
+    </div>
+    <div class="finding-body">IndexedDB schemas are versioned. If the schema changes (adding a new store, adding an index, adding a column), the IDB version must increment and a migration function must run. Without a migration strategy, the first schema change will require users to manually clear their IndexedDB or face cryptic errors. The architecture specifies the schema but never addresses how it evolves.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Add a migration map to M0 (storage.js). When IDB opens, check stored version vs. current version. Run migration functions in sequence for any missed versions. Example:
+<pre>const MIGRATIONS = {
+  1: (db) => { db.createObjectStore('scenarios', {keyPath:'id'}); },
+  2: (db) => { db.createObjectStore('decision-journal', {keyPath:'id'}); },
+  3: (db) => { /* add law_snapshot field */ }
+};
+// On open: run migrations for versions > stored version in sequence</pre></div>
+  </div>
+
+  <h2>Canonical Scenario Object</h2>
+  <p>The scenario object is referenced throughout the architecture but never fully specified. Here is the canonical definition:</p>
+  <pre>// Canonical Scenario Object (stored in IndexedDB and Supabase)
+{
+  // IDENTITY
+  id: "uuid-v4",
+  user_id: "supabase-auth-uid",
+  company_id: "uuid-v4 | null",
+  name: "string (required)",
+  version: 1,                       // increments on each explicit Save
+
+  // STATUS
+  status: "draft" | "active" | "archived",
+  is_favorite: false,
+  is_locked: false,
+  tags: [],
+  notes: "",                        // legacy — journal entries preferred
+
+  // ENTITY INPUTS
+  entity_path: "string | null",     // e.g. "llc_to_ccorp_conversion"
+  conversion_date: "YYYY-MM-DD | null",
+  legal_entity: "llc" | "corporation" | "sole_proprietor" | "other",
+  federal_tax_class: "disregarded" | "partnership" | "s_corp" | "c_corp",
+
+  // STOCK INPUTS
+  acquisition_date: "YYYY-MM-DD | null",
+  issuance_date: "YYYY-MM-DD | null",
+  shares_issued: null,
+  money_paid: 0,
+  property_fmv_contributed: 0,
+  services_value: 0,
+  stock_basis: 0,                   // normal shareholder basis
+  sec1202_basis: 0,                 // §1202 special basis (may differ)
+  original_issue: null,             // true | false | null (null = unknown)
+  redemptions_exist: false,
+  repurchases_exist: false,
+
+  // AGA INPUTS (embedded asset_record)
+  asset_record: {
+    cash: null,
+    equipment_basis: null,
+    software_basis: null,
+    cap_dev_basis: null,
+    acquired_ip_basis: null,
+    contributed_property_fmv: null,
+    investments_basis: null,
+    other_asset_bases: null,
+    controlled_group_assets: 0,
+    predecessor_assets: 0
+  },
+
+  // EXIT INPUTS
+  exit_date: "YYYY-MM-DD | null",
+  exit_year_offset: null,           // years from issuance_date if no exit_date
+  gross_proceeds: null,
+  selling_expenses: 0,
+  qualifying_pct: 100,
+  prior_exclusions_used: 0,
+  sale_type: "stock" | "asset" | "mixed",
+
+  // TAX INPUTS
+  federal_rate: 0.20,
+  niit_rate: 0.038,
+  state_rate: 0.05,
+  state_code: null,
+  amt_applies: false,
+
+  // BUSINESS QUALIFICATION
+  business_qual_result: null,       // output of evaluateBusinessQualification()
+
+  // CACHED RESULTS (recomputed on save, not on open)
+  results_cache: null,              // last evaluateQSBS() result
+  last_calculated_at: null,
+
+  // LAW SNAPSHOT (immutable once written)
+  law_snapshot: {
+    law_version: "post_july4_2025",
+    snapshot_date: "YYYY-MM-DD",
+    law_config_used: {},            // full copy of lawConfig[law_version]
+    application_version: "1.1",
+    calculated_at: "ISO 8601"
+  },
+
+  // TIMESTAMPS
+  created_at: "ISO 8601",
+  updated_at: "ISO 8601"
+}</pre>
+</div>
+
+<hr class="divider">
+
+<!-- PR7 -->
+<div class="section" id="pr7">
+  <div class="section-eyebrow">Review Area 7</div>
+  <div class="section-title">Dependency Graph</div>
+
+  <div class="dep-graph">
+    <div style="color:#94a3b8;font-size:12px;margin-bottom:12px;font-family:monospace">DEPENDENCY FLOW (arrows show "depends on") &mdash; no cycles detected</div>
+    <div class="dep-row"><span class="dep-node core">law-config.js</span><span class="dep-arrow">&#8592;</span><span style="color:#64748b;font-size:12px">imported by all RE and CE engines</span></div>
+    <div class="dep-row"><span class="dep-node core">state.js</span><span class="dep-arrow">&#8592;</span><span style="color:#64748b;font-size:12px">imported by all UI modules</span></div>
+    <div class="dep-row"><span class="dep-node core">storage.js</span><span class="dep-arrow">&#8592;</span><span class="dep-node core">auth.js</span><span class="dep-arrow">&#8592;</span><span style="color:#64748b;font-size:12px">storage needs user_id from auth</span></div>
+    <div style="height:8px"></div>
+    <div class="dep-row"><span class="dep-node engine">re1-acquisition-date</span><span class="dep-arrow">&rarr;</span><span class="dep-node core">law-config</span></div>
+    <div class="dep-row"><span class="dep-node engine">re2-holding-period</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">re1</span><span class="dep-arrow">+</span><span class="dep-node core">law-config</span></div>
+    <div class="dep-row"><span class="dep-node engine">re3-aga</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">re1</span><span class="dep-arrow">+</span><span class="dep-node core">law-config</span></div>
+    <div class="dep-row"><span class="dep-node engine">re4-original-issue</span><span class="dep-arrow">&rarr;</span><span style="color:#64748b;font-size:12px">zero engine dependencies</span></div>
+    <div class="dep-row"><span class="dep-node engine">re5-active-business</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">business-qual (M5)</span></div>
+    <div class="dep-row"><span class="dep-node engine">re6-excluded-business</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">business-qual (M5)</span><span class="dep-arrow">+</span><span class="dep-node core">law-config</span></div>
+    <div class="dep-row"><span class="dep-node engine">re7-qualification-decision</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">re1&ndash;re6 results</span><span style="color:#64748b;font-size:12px">(via parameter, not import)</span></div>
+    <div class="dep-row"><span class="dep-node engine">re8-explanation</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">re1&ndash;re7 results</span><span style="color:#64748b;font-size:12px">(via parameter, not import)</span></div>
+    <div class="dep-row"><span class="dep-node engine">rules-engine (M2)</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">re1 re2 re3 re4 re5 re6 re7 re8</span></div>
+    <div style="height:8px"></div>
+    <div class="dep-row"><span class="dep-node engine">ce1-basis</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">re1</span></div>
+    <div class="dep-row"><span class="dep-node engine">ce2-threshold</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">ce1 + re1</span></div>
+    <div class="dep-row"><span class="dep-node engine">ce3-valuation</span><span class="dep-arrow">&rarr;</span><span style="color:#64748b;font-size:12px">zero engine dependencies</span></div>
+    <div class="dep-row"><span class="dep-node engine">ce4-stock-sale</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">ce1 + ce2 + re1 + re2</span></div>
+    <div class="dep-row"><span class="dep-node engine">ce5-asset-sale</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">ce1</span></div>
+    <div class="dep-row"><span class="dep-node engine">ce6-exit-tax</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">ce4 + ce5 + re1 + re2</span></div>
+    <div class="dep-row"><span class="dep-node engine">ce7-sensitivity</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">ce6 + re7</span></div>
+    <div class="dep-row"><span class="dep-node engine">calc-engine (M3)</span><span class="dep-arrow">&rarr;</span><span class="dep-node engine">ce1&ndash;ce7</span></div>
+    <div style="height:8px"></div>
+    <div class="dep-row"><span class="dep-node module">All UI modules</span><span class="dep-arrow">&rarr;</span><span class="dep-node core">storage + state</span><span class="dep-arrow">+</span><span class="dep-node engine">relevant engines via public API</span></div>
+    <div class="dep-row"><span class="dep-node module">M16 (Reports)</span><span class="dep-arrow">&rarr;</span><span class="dep-node core">storage only</span><span style="color:#64748b;font-size:12px">(reads stored results, not live engine state)</span></div>
+  </div>
+
+  <div class="alert alert-success">No circular dependencies. The graph is a strict DAG (directed acyclic graph). Data flows: law-config &rarr; RE engines &rarr; CE engines &rarr; orchestrators (M2, M3) &rarr; UI modules. This direction is correct and should never be reversed.</div>
+
+  <h2>One Improvement: RE7 and RE8 Should Not Import RE1&ndash;RE6</h2>
+  <p>RE7 and RE8 are specified to "depend on RE1&ndash;RE6." But if they import those engines, they force recomputation. The better pattern: RE7 and RE8 receive pre-computed engine results as function parameters. M2 (the orchestrator) imports all engines and passes results between them. RE7 and RE8 have zero engine imports &mdash; they only receive data. This is already partially specified in the addendum ("via parameter, not import") but should be made explicit as a rule: <strong>orchestrators import engines; aggregators receive data.</strong></p>
+</div>
+
+<hr class="divider">
+
+<!-- PR8 -->
+<div class="section" id="pr8">
+  <div class="section-eyebrow">Review Area 8</div>
+  <div class="section-title">Testing Strategy</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-03</span>
+      <span class="finding-title">No Test Architecture Defined</span>
+      <span class="severity sev-high">HIGH</span>
+    </div>
+    <div class="finding-body">Each module prompt has 5&ndash;6 acceptance tests. These are end-state assertions, not a testing architecture. There is no unit test runner, no integration test strategy, no golden test cases for law change regression, and no strategy for testing UI modules. Without a test architecture, implementation will produce untestable code that is expensive to maintain.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Define the test architecture before implementation begins.</div>
+  </div>
+
+  <h2>Testing Architecture</h2>
+
+  <h3>Layer 1: Unit Tests (pure engine functions)</h3>
+  <p><strong>Runner:</strong> Vitest or Jest (both work without build toolchain via ESM). Run in Node.js. No browser needed. Test file: <code>tests/unit/re3-aga.test.js</code> alongside the engine file.</p>
+  <p><strong>Coverage target:</strong> 100% of all RE and CE engine functions. Every edge case from F-02 error handling table above must have a corresponding unit test.</p>
+  <p><strong>Test pattern:</strong></p>
+  <pre>// tests/unit/re3-aga.test.js
+import { evaluateAGA } from '../../js/engines/re3-aga.js';
+import { lawConfig } from '../../js/core/law-config.js';
+
+describe('RE3 — Aggregate Gross Assets Engine', () => {
+  test('cash only — below threshold', () => {
+    const result = evaluateAGA({ asset_record: { cash: 5000000 } }, 'post_july4_2025');
+    expect(result.total_aga).toBe(5000000);
+    expect(result.exceeds).toBe(false);
+    expect(result.status).toBe('pass');
+  });
+  test('goodwill FMV excluded from AGA', () => {
+    const result = evaluateAGA({ asset_record: { cash: 5000000, goodwill_fmv: 50000000 } }, 'post_july4_2025');
+    expect(result.total_aga).toBe(5000000); // goodwill NOT included
+  });
+  test('null asset_record returns insufficient_information', () => {
+    const result = evaluateAGA({ asset_record: null }, 'post_july4_2025');
+    expect(result.status).toBe('insufficient_information');
+  });
+  // ... all edge cases
+});</pre>
+
+  <h3>Layer 2: Golden Test Cases (law version regression)</h3>
+  <p>Golden tests are fixed input/output pairs that must never change. They protect against accidental law changes corrupting historical calculations.</p>
+  <pre>// tests/golden/qsbs-golden-cases.json
+{
+  "golden_cases": [
+    {
+      "id": "G-001",
+      "name": "Post-2025 stock, 5yr hold, under threshold, stock sale",
+      "description": "The canonical happy-path QSBS scenario under post-July 4 2025 rules",
+      "inputs": {
+        "acquisition_date": "2026-01-15",
+        "law_version": "post_july4_2025",
+        "gross_assets_after": 50000,
+        "stock_basis": 10000,
+        "sec1202_basis": 10000,
+        "gross_proceeds": 10000000,
+        "exit_date": "2031-01-15",
+        "federal_rate": 0.20,
+        "niit_rate": 0.038,
+        "state_rate": 0.00
+      },
+      "expected_outputs": {
+        "qualification_status": "potentially_qualifies",
+        "holding_years": 5,
+        "exclusion_pct": 1.00,
+        "applicable_limit": 15000000,
+        "excluded_gain": 9990000,
+        "total_tax": 0,
+        "after_tax_proceeds": 10000000
+      },
+      "law_snapshot": { "law_version": "post_july4_2025", "grossAssetsThreshold": 75000000 }
+    }
+  ]
+}</pre>
+  <p>Golden tests are run on every code change. If a golden test fails, the build fails. Golden cases are never modified without explicit review. When Congress amends §1202, new golden cases are added for the new law; existing golden cases stay unchanged to verify that old scenarios still compute correctly under their original law.</p>
+
+  <h3>Layer 3: Integration Tests</h3>
+  <p>Test the full flow: wizard inputs &rarr; engine calls &rarr; storage save &rarr; results displayed. Use Playwright or Cypress for browser automation. Key integration tests:</p>
+  <ul>
+    <li>Complete QSBS wizard with known inputs &rarr; verify Step 6 results match golden case G-001</li>
+    <li>Save scenario &rarr; reload page &rarr; verify scenario appears in list with correct status</li>
+    <li>Update law_config &rarr; open historical scenario &rarr; verify "law changed" banner appears</li>
+    <li>Enter $90M AGA in wizard Step 3 &rarr; verify error banner appears before proceeding</li>
+    <li>Generate professional review packet &rarr; verify all 15 sections present &rarr; print</li>
+  </ul>
+
+  <h3>Layer 4: Law Change Regression Tests</h3>
+  <p>When lawConfig is updated, run the full golden test suite against the OLD law config and verify that scenarios with old law snapshots still produce the same results. This specifically tests that law_snapshot isolation is working correctly.</p>
+
+  <h3>Missing Test Cases That Must Be Written</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Case</th><th>Priority</th><th>Why</th></tr>
+    <tr><td>Stock acquired July 4, 2025 vs July 5, 2025</td><td>Critical</td><td>The boundary condition for law version selection</td></tr>
+    <tr><td>Prior exclusions = exactly fixed-dollar limit</td><td>High</td><td>Fixed-dollar remaining = $0; ten-times must still apply</td></tr>
+    <tr><td>§1202 basis = 0 (contributed services only)</td><td>High</td><td>Ten-times = $0; only fixed-dollar applies</td></tr>
+    <tr><td>Controlled group assets push AGA over threshold</td><td>High</td><td>Controlled group inclusion is easy to miss</td></tr>
+    <tr><td>Asset sale where QSBS exists but does not help</td><td>High</td><td>Common misconception that QSBS helps asset sales</td></tr>
+    <tr><td>Mixed sale (70% stock, 30% asset)</td><td>Medium</td><td>Partial qualification calculation</td></tr>
+    <tr><td>Exit date in same year as acquisition date</td><td>Medium</td><td>Holding period = 0; should not produce negative years</td></tr>
+    <tr><td>All business qual inputs = 0%</td><td>Medium</td><td>Prevents division by zero in scoring</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR9 -->
+<div class="section" id="pr9">
+  <div class="section-eyebrow">Review Area 9</div>
+  <div class="section-title">Performance Review</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-07</span>
+      <span class="finding-title">Dashboard Performance at 400 Scenarios Without DC1 Cache</span>
+      <span class="severity sev-med">MEDIUM</span>
+    </div>
+    <div class="finding-body">If ED1 (Founder Dashboard) reads all 400 scenarios and runs evaluateQSBS() on each to compute aggregate metrics, dashboard open time could exceed 2 seconds. Each evaluateQSBS() call runs 8 sub-engines. 400 &times; 8 = 3,200 sub-engine calls on dashboard open. Even at 1ms per call that is 3.2 seconds blocking the UI.</div>
+    <div class="finding-fix"><strong>Fix:</strong> DC1 (Dashboard Cache) is recommended in the addendum but not formally specified. Specify it now: on every scenario save, write a lightweight summary object (status, confidence, aga_pct, holding_years, estimated_benefit) to a dedicated "dashboard-cache" IndexedDB key. Dashboard reads the cache only &mdash; never runs engines. Cache is invalidated on scenario save and on lawConfig change.</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-12</span>
+      <span class="finding-title">Offline Supabase Queue Size Not Bounded</span>
+      <span class="severity sev-low">LOW</span>
+    </div>
+    <div class="finding-body">If a user works offline for a week with autosave firing every 500ms, the sync queue could grow to thousands of items. No queue size limit or flush strategy is defined.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Sync queue max size: 500 items. When limit is reached, collapse multiple saves of the same record into one (keep the most recent). On reconnect, flush in batches of 50 with 100ms gaps. Show "Syncing..." indicator during flush. Log failed items after 3 retries and surface them in Settings.</div>
+  </div>
+
+  <h2>Performance Budget</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Operation</th><th>Target</th><th>Risk</th><th>Mitigation</th></tr>
+    <tr><td>Dashboard open (ED1)</td><td>&lt; 300ms</td><td>High without DC1</td><td>DC1 cache required before M7 build</td></tr>
+    <tr><td>Scenario list (400 items)</td><td>&lt; 200ms</td><td>Medium</td><td>Virtualized list if needed; IndexedDB read of 400 small objects is fast</td></tr>
+    <tr><td>evaluateQSBS() single call</td><td>&lt; 50ms</td><td>Low</td><td>Pure functions; no IO. Acceptable.</td></tr>
+    <tr><td>calcExitTax() single call</td><td>&lt; 20ms</td><td>Low</td><td>Arithmetic only. Acceptable.</td></tr>
+    <tr><td>Sensitivity analysis (10 variations)</td><td>&lt; 500ms</td><td>Low</td><td>10 &times; evaluateQSBS() + calcExitTax() = fine</td></tr>
+    <tr><td>Professional review packet render</td><td>&lt; 1000ms</td><td>Medium</td><td>Reads from stored data only, not live engines</td></tr>
+    <tr><td>Autosave write to IndexedDB</td><td>&lt; 50ms</td><td>Low</td><td>Single record write. Fast.</td></tr>
+    <tr><td>Initial page load</td><td>&lt; 2000ms</td><td>Medium</td><td>No bundler; all JS is ES module imports. Keep total JS under 400KB.</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR10 -->
+<div class="section" id="pr10">
+  <div class="section-eyebrow">Review Area 10</div>
+  <div class="section-title">Security Review</div>
+
+  <div class="finding">
+    <div class="finding-header">
+      <span class="finding-id">F-09</span>
+      <span class="finding-title">JSON Import Validation Underspecified</span>
+      <span class="severity sev-med">MEDIUM</span>
+    </div>
+    <div class="finding-body">The architecture says "validate JSON against schema before writing." No schema is specified. An attacker could import a malicious JSON file that sets sec1202_basis to a very large number, causing the ten-times ceiling calculation to overflow. Or inject HTML into a string field that gets rendered unsanitized.</div>
+    <div class="finding-fix"><strong>Fix:</strong> Specify the import validator in shared/validators.js.
+<pre>function validateImportJSON(data) {
+  // 1. Must be a plain object (not an array, not a string)
+  // 2. scenarios[] must be an array
+  // 3. Each scenario: id must be a string, all numeric fields must be >= 0 and <= Number.MAX_SAFE_INTEGER
+  // 4. All string fields: HTML-escape before storage (prevents XSS on render)
+  // 5. Reject any field not in the canonical Scenario schema (unknown fields discarded, not rejected)
+  // 6. law_snapshot.law_config_used must match one of the known law versions
+  // 7. status must be one of the valid enum values
+  // Returns: {valid: bool, errors: string[], sanitized_data: obj}
+}</pre></div>
+  </div>
+
+  <h2>Security Checklist</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Risk</th><th>Current Coverage</th><th>Gap</th><th>Fix</th></tr>
+    <tr><td>XSS via user input</td><td>Mentioned — never use innerHTML with user input</td><td>No enforcement mechanism</td><td>Add a sanitize() wrapper in shared/formatters.js. Every string rendered to DOM goes through sanitize(). Never allow raw user strings in innerHTML.</td></tr>
+    <tr><td>RLS bypass</td><td>RLS on all tables</td><td>None — enforced at DB level</td><td>Current design is correct.</td></tr>
+    <tr><td>Service role key exposure</td><td>Security check specified (grep -r service_role)</td><td>Not automated</td><td>Add a pre-commit hook or GitHub Actions workflow that blocks push if service_role string is found anywhere in the repository.</td></tr>
+    <tr><td>Privileged journal entries in report</td><td>Specified — privileged entries excluded from packet</td><td>Logic must be enforced in M16</td><td>M16 must have a unit test that verifies privileged entries do not appear in generated packet.</td></tr>
+    <tr><td>IndexedDB accessible to other origins</td><td>IndexedDB is same-origin only</td><td>None</td><td>No additional action needed. IndexedDB is sandboxed by browser.</td></tr>
+    <tr><td>JSON injection via import</td><td>Mentioned</td><td>No schema specified</td><td>F-09 fix above.</td></tr>
+    <tr><td>Numeric overflow in calculations</td><td>Not addressed</td><td>Large number inputs could cause Infinity</td><td>F-02 error handling policy (Rule 3) covers this. Clamp inputs to MAX_SAFE_INTEGER.</td></tr>
+    <tr><td>Supabase anon key in HTML</td><td>Documented as acceptable</td><td>None — anon key is public by design, controlled by RLS</td><td>No action. This is correct.</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- PR11 -->
+<div class="section" id="pr11">
+  <div class="section-eyebrow">Review Area 11</div>
+  <div class="section-title">Future Expansion Readiness</div>
+
+  <div class="table-wrap"><table>
+    <tr><th>Future Capability</th><th>Architecture Readiness</th><th>Required Change</th></tr>
+    <tr><td>§1202 law amendment</td><td>Ready</td><td>Add new key to lawConfig.lawVersions. No engine code changes.</td></tr>
+    <tr><td>Additional tax laws (§1045 rollover, AMT)</td><td>Ready</td><td>Add new CE engine. Add new RE test if eligibility determination needed. M3 orchestrator adds new call.</td></tr>
+    <tr><td>International QSBS equivalents (SEIS/EIS UK)</td><td>Partially ready</td><td>lawConfig needs country_code namespace. RE engines need to dispatch by jurisdiction. Companies table has country_code column reserved. One sprint to add jurisdiction routing.</td></tr>
+    <tr><td>Estate planning module</td><td>Partially ready</td><td>New module layer. Would read scenario data (step-up basis, law_snapshot). Storage schema needs estate_plans table. No existing engine changes.</td></tr>
+    <tr><td>Trust planning</td><td>Partially ready</td><td>Same as estate planning. Dynasty trust calculations are pure math — a new CE engine.</td></tr>
+    <tr><td>AI document review</td><td>Ready</td><td>Add new module that calls Anthropic API with stored scenario data. The stored structured data is ideal for AI consumption. No architecture changes.</td></tr>
+    <tr><td>CPA / attorney plugins</td><td>Ready</td><td>Add a plugin API that allows external modules to register as "professional review" providers. They receive the scenario data and return structured review notes. Storage.js would accept plugin-authored records with a source_plugin field.</td></tr>
+    <tr><td>Multi-user collaboration</td><td>Partially ready</td><td>Requires adding company_members table with role (owner/editor/viewer), updating RLS policies to check membership. Application code does not change — RLS handles it.</td></tr>
+    <tr><td>Gift planning (annual exclusion, 709)</td><td>Not ready</td><td>Would need gift_records table, gift_calc engine, and integration with company ownership. New module, significant schema addition. Scoped for v3+.</td></tr>
+  </table></div>
+
+  <div class="alert alert-success">The architecture scores very high on future expansion. The lawConfig + engine registry pattern is designed for extension. The most expensive future feature (international support) requires one sprint, not a rewrite. This is good architectural design.</div>
+</div>
+
+<hr class="divider">
+
+<!-- PR12 -->
+<div class="section" id="pr12">
+  <div class="section-eyebrow">Review Area 12</div>
+  <div class="section-title">Final Readiness Scores</div>
+
+  <div class="score-grid">
+    <div class="score-card"><div class="score-label">Architecture</div><div class="score-value grade-B">B+</div><div class="score-sub">Sound structure, minor boundary issues</div></div>
+    <div class="score-card"><div class="score-label">Maintainability</div><div class="score-value grade-B">B</div><div class="score-sub">Good modularity; naming needs lock-in</div></div>
+    <div class="score-card"><div class="score-label">Scalability</div><div class="score-value grade-B">B</div><div class="score-sub">DC1 cache needed before 400-scenario stress</div></div>
+    <div class="score-card"><div class="score-label">Extensibility</div><div class="score-value grade-A">A</div><div class="score-sub">lawConfig pattern is excellent</div></div>
+    <div class="score-card"><div class="score-label">Performance</div><div class="score-value grade-B">B</div><div class="score-sub">Dashboard cache gap must be resolved</div></div>
+    <div class="score-card"><div class="score-label">Security</div><div class="score-value grade-B">B+</div><div class="score-sub">RLS solid; JSON import needs schema</div></div>
+    <div class="score-card"><div class="score-label">Dev Experience</div><div class="score-value grade-B">B+</div><div class="score-sub">Clear module prompts; naming to lock</div></div>
+    <div class="score-card"><div class="score-label">Testing</div><div class="score-value grade-C">C</div><div class="score-sub">Biggest gap: no test runner defined</div></div>
+    <div class="score-card"><div class="score-label">Documentation</div><div class="score-value grade-A">A-</div><div class="score-sub">Best-documented architecture in scope</div></div>
+    <div class="score-card"><div class="score-label">Error Handling</div><div class="score-value grade-C">C</div><div class="score-sub">Strategy undefined — fix before coding</div></div>
+    <div class="score-card"><div class="score-label">Result Contracts</div><div class="score-value grade-C">C+</div><div class="score-sub">Universal contract needed</div></div>
+    <div class="score-card"><div class="score-label">Production Readiness</div><div class="score-value grade-B">B-</div><div class="score-sub">Ready after 5 priority fixes</div></div>
+  </div>
+
+  <h2>Overall Verdict</h2>
+  <div class="card">
+    <p>This architecture is production-ready after the 5 priority fixes listed in PR13. The core design decisions are correct: the dependency direction is right, the law configuration is properly centralized, the engine decomposition is appropriate for the domain complexity, and the extensibility design is strong.</p>
+    <p>The weaknesses are almost entirely in the <em>cross-cutting concerns</em> &mdash; error handling, result contracts, testing strategy &mdash; that were never fully specified because the architecture documents focused on module-level design. These are easy to fix now and very expensive to retrofit after 10,000 lines of code exist.</p>
+    <p>Do not start implementation until priority fixes P1 through P5 are formalized. Each takes less than one hour to specify. Each prevents weeks of future debugging.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PR13 -->
+<div class="section" id="pr13">
+  <div class="section-eyebrow">Review Final</div>
+  <div class="section-title">Priority Fixes Before Implementation</div>
+  <div class="section-lead">These 5 items must be decided and documented before a single line of application code is written. Each is a specification decision, not a code change.</div>
+
+  <div class="finding" style="border-left:4px solid var(--red)">
+    <div class="finding-header"><span class="finding-id">P1 &mdash; HIGHEST PRIORITY</span><span class="finding-title">Adopt the Universal EngineResult Contract</span><span class="severity sev-high">HIGH</span></div>
+    <div class="finding-body">Copy the EngineResult contract from PR3 into a new file: <code>js/shared/engine-result.js</code>. Export a factory function <code>createEngineResult(overrides)</code> that fills in defaults for every field. Every engine must call this factory. No engine may return a plain object without using this factory. Time to specify: 30 minutes.</div>
+    <div class="finding-fix"><strong>Output:</strong> js/shared/engine-result.js with the full contract definition and a createEngineResult() factory. Every engine Claude Code prompt must reference this file.</div>
+  </div>
+
+  <div class="finding" style="border-left:4px solid var(--red)">
+    <div class="finding-header"><span class="finding-id">P2 &mdash; HIGH PRIORITY</span><span class="finding-title">Define Error Handling Policy in shared/errors.js</span><span class="severity sev-high">HIGH</span></div>
+    <div class="finding-body">Write js/shared/errors.js with the four rules from PR4. Every engine Claude Code prompt must include: "Import EngineError from js/shared/errors.js. Wrap all engine logic in try/catch. Never throw. Return EngineError.internalError() on unexpected exceptions. Return EngineError.invalidInput() on null/invalid required fields." Time: 30 minutes.</div>
+    <div class="finding-fix"><strong>Output:</strong> js/shared/errors.js. Add to every engine build prompt: "All engine functions must use EngineError from shared/errors.js. Never throw. Never return null."</div>
+  </div>
+
+  <div class="finding" style="border-left:4px solid var(--amber)">
+    <div class="finding-header"><span class="finding-id">P3 &mdash; HIGH PRIORITY</span><span class="finding-title">Define Test Architecture and Golden Cases</span><span class="severity sev-high">HIGH</span></div>
+    <div class="finding-body">Before building M0, choose: Vitest or Jest as the test runner. Create tests/ folder structure. Write the 8 golden test cases from PR8. Every engine build prompt should end with: "Run the test suite. All golden cases must pass. Write unit tests for all edge cases from the error handling table. All tests must pass before marking the module complete." Time: 2 hours.</div>
+    <div class="finding-fix"><strong>Output:</strong> tests/golden/qsbs-golden-cases.json (8 cases). tests/unit/ folder structure. Package.json with test script. Decision on Vitest vs Jest documented.</div>
+  </div>
+
+  <div class="finding" style="border-left:4px solid var(--amber)">
+    <div class="finding-header"><span class="finding-id">P4 &mdash; MEDIUM PRIORITY</span><span class="finding-title">Adopt Standard Parameter Convention</span><span class="severity sev-med">MEDIUM</span></div>
+    <div class="finding-body">Add one rule to all engine build prompts: "All engine functions must accept (scenario, options = {}) as parameters. Extract all needed fields from scenario internally. Never accept more than two parameters. Pre-computed sub-results are passed via options.{engineId}Result." This eliminates the parameter ordering bugs before they are written. Time: 15 minutes (update existing build prompts).</div>
+    <div class="finding-fix"><strong>Output:</strong> Update all engine build prompts to include the parameter convention rule. Add one line to each existing prompt &mdash; no redesign needed.</div>
+  </div>
+
+  <div class="finding" style="border-left:4px solid var(--amber)">
+    <div class="finding-header"><span class="finding-id">P5 &mdash; MEDIUM PRIORITY</span><span class="finding-title">Specify DC1 Dashboard Cache Before Building M7</span><span class="severity sev-med">MEDIUM</span></div>
+    <div class="finding-body">Write the DC1 specification (what data is cached, when it is invalidated, how it is stored in IndexedDB, what the cache key is) before M7 is built. If M7 is built without DC1, it will do O(n) engine computation on dashboard open and will need a rewrite when it becomes slow. Time: 30 minutes.</div>
+    <div class="finding-fix"><strong>Output:</strong> One page specification for DC1 as a note at the top of the M7 build prompt: "Before rendering any dashboard panel, call storage.getDashboardCache(company_id). If cache is fresh (&lt; 60 seconds old), use it. If stale, run computeDashboardCache() which calls evaluateQSBS() and calcExitTax() for each active scenario, stores the summary in IndexedDB, and then renders."</div>
+  </div>
+
+  <div class="alert alert-success">After P1&ndash;P5: Implementation can begin. All 35 modules can be built by Claude Code in the defined sequence using the existing build prompts, updated to reference the new shared contracts. The architecture is production-ready.</div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'light':'dark');document.querySelector('.theme-toggle').textContent=d?'Dark':'Light';localStorage.setItem('qsbs-theme-pe',d?'light':'dark');}
+(function(){var t=localStorage.getItem('qsbs-theme-pe')||localStorage.getItem('qsbs-theme')||'light';document.documentElement.setAttribute('data-theme',t);if(t==='dark')document.querySelector('.theme-toggle').textContent='Light';})();
+function goTo(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});if(event&&event.target)event.target.classList.add('active');}
+function doSearch(q){var c=document.getElementById('content');c.querySelectorAll('mark.hl').forEach(function(m){m.outerHTML=m.textContent;});if(!q||q.length<2)return;function walk(n){if(n.nodeType===3&&n.parentNode&&['SCRIPT','STYLE'].indexOf(n.parentNode.tagName)===-1){var i=n.textContent.toLowerCase().indexOf(q.toLowerCase());if(i>=0){var m=document.createElement('mark');m.className='hl highlight';m.textContent=n.textContent.slice(i,i+q.length);var a=document.createTextNode(n.textContent.slice(i+q.length));n.textContent=n.textContent.slice(0,i);n.after(m,a);}}else if(n.nodeType===1)Array.from(n.childNodes).forEach(walk);}walk(c);var f=c.querySelector('.hl');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});}
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var id=e.target.id;document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});var fn="goTo('"+id+"')";var l=document.querySelector('.nav-item[onclick="'+fn+'"]');if(l)l.classList.add('active');}});},{threshold:0.15});document.querySelectorAll('.section').forEach(function(s){obs.observe(s);});
+</script>
+</body>
+</html>

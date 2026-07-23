@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath QSBS Lab &mdash; Architecture Refinement Addendum</title>
+<style>
+:root{--brand:#0D1B45;--gold:#B8860B;--gold-light:#E8A020;--bg:#F8F7F4;--sidebar:#0D1B45;--sidebar-w:300px;--text:#1a1a1a;--muted:#666;--border:#e0ddd8;--code-bg:#1e1e2e;--code-text:#cdd6f4;--card:#ffffff;--radius:8px;--shadow:0 2px 8px rgba(0,0,0,0.08);--green:#16a34a;--red:#dc2626;--amber:#d97706;--blue:#2563eb}
+[data-theme="dark"]{--bg:#0f0f17;--text:#e4e4ef;--muted:#9999bb;--border:#2a2a3e;--card:#1a1a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;display:flex;min-height:100vh}
+#sidebar{width:var(--sidebar-w);background:var(--sidebar);color:#fff;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;padding-bottom:40px}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px}
+.sidebar-header{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.sidebar-brand{font-size:11px;font-weight:700;color:var(--gold-light);letter-spacing:0.08em;text-transform:uppercase}
+.sidebar-title{font-size:14px;font-weight:700;color:#fff;margin-top:3px}
+.sidebar-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.addendum-badge{margin:10px 18px;background:rgba(232,160,32,0.15);border:1px solid rgba(232,160,32,0.3);border-radius:5px;padding:8px 12px;font-size:11px;color:var(--gold-light);font-weight:600}
+.nav-section{padding:10px 0 3px 18px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em}
+.nav-item{display:block;padding:7px 18px;font-size:13px;color:rgba(255,255,255,0.7);text-decoration:none;border-left:3px solid transparent;cursor:pointer;transition:all 0.15s}
+.nav-item:hover,.nav-item.active{color:#fff;background:rgba(255,255,255,0.07);border-left-color:var(--gold-light)}
+.nav-badge{display:inline-block;background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:1px 5px;border-radius:10px;margin-left:5px}
+.new-badge{background:#16a34a;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:4px;text-transform:uppercase;letter-spacing:0.05em}
+#main{margin-left:var(--sidebar-w);flex:1}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--shadow)}
+.search-box{border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:13px;width:220px;background:var(--bg);color:var(--text);outline:none}
+.search-box:focus{border-color:var(--gold)}
+.btn{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.theme-toggle{background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:12px}
+.content{padding:36px 44px;max-width:1100px}
+.addendum-notice{background:linear-gradient(135deg,rgba(13,27,69,0.06),rgba(232,160,32,0.06));border:1px solid rgba(232,160,32,0.3);border-radius:var(--radius);padding:20px 24px;margin-bottom:40px}
+.addendum-notice h3{font-size:16px;font-weight:700;color:var(--brand);margin-bottom:8px}
+[data-theme="dark"] .addendum-notice h3{color:var(--gold-light)}
+.addendum-notice p{font-size:14px;color:var(--muted);margin:0}
+.section{margin-bottom:60px;scroll-margin-top:70px}
+.section-eyebrow{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.section-title{font-size:28px;font-weight:700;color:var(--brand);margin-bottom:10px;line-height:1.2}
+[data-theme="dark"] .section-title{color:#a0b4e8}
+.section-lead{font-size:15px;color:var(--muted);margin-bottom:28px;max-width:720px;line-height:1.7}
+h2{font-size:20px;font-weight:700;margin:28px 0 10px;color:var(--brand)}
+[data-theme="dark"] h2{color:#8ba8e0}
+h3{font-size:16px;font-weight:700;margin:18px 0 6px}
+h4{font-size:13px;font-weight:700;margin:12px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
+p{margin-bottom:12px;font-size:15px}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{font-size:15px;margin-bottom:3px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+.engine-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow);border-left:4px solid var(--gold)}
+.engine-card.new-engine{border-left-color:var(--green)}
+.engine-num{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em}
+.engine-card.new-engine .engine-num{color:var(--green)}
+.engine-name{font-size:15px;font-weight:700;margin:3px 0 6px}
+.engine-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.engine-meta{display:flex;gap:7px;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600}
+.tag-green{background:#dcfce7;color:#166534}
+.tag-blue{background:#dbeafe;color:#1e40af}
+.tag-amber{background:#fef3c7;color:#92400e}
+.tag-red{background:#fee2e2;color:#991b1b}
+.tag-purple{background:#ede9fe;color:#5b21b6}
+.tag-teal{background:#ccfbf1;color:#115e59}
+[data-theme="dark"] .tag-green{background:#14532d;color:#86efac}
+[data-theme="dark"] .tag-blue{background:#1e3a5f;color:#93c5fd}
+[data-theme="dark"] .tag-amber{background:#451a03;color:#fcd34d}
+[data-theme="dark"] .tag-teal{background:#042f2e;color:#5eead4}
+pre{background:var(--code-bg);color:var(--code-text);padding:18px;border-radius:var(--radius);overflow-x:auto;font-size:13px;line-height:1.6;margin-bottom:14px}
+code{font-family:'Cascadia Code','Fira Code',monospace;font-size:13px}
+p code,li code{background:rgba(0,0,0,0.06);padding:1px 5px;border-radius:3px;font-size:12px}
+[data-theme="dark"] p code,[data-theme="dark"] li code{background:rgba(255,255,255,0.08)}
+.table-wrap{overflow-x:auto;margin-bottom:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--brand);color:#fff;text-align:left;padding:9px 12px;font-size:12px;text-transform:uppercase;letter-spacing:0.06em}
+td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover td{background:rgba(13,27,69,0.03)}
+[data-theme="dark"] tr:hover td{background:rgba(255,255,255,0.03)}
+.alert{padding:12px 16px;border-radius:var(--radius);margin-bottom:14px;font-size:14px;border-left:4px solid}
+.alert-warn{background:#fef9c3;border-color:#d97706;color:#713f12}
+.alert-info{background:#eff6ff;border-color:#2563eb;color:#1e3a8a}
+.alert-success{background:#f0fdf4;border-color:#16a34a;color:#14532d}
+[data-theme="dark"] .alert-warn{background:#1c1405;color:#fcd34d}
+[data-theme="dark"] .alert-info{background:#0c1a2e;color:#93c5fd}
+[data-theme="dark"] .alert-success{background:#052e16;color:#86efac}
+.prompt-block{background:var(--code-bg);border:1px solid rgba(232,160,32,0.3);border-radius:var(--radius);margin-bottom:20px}
+.prompt-header{padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center}
+.prompt-title{color:var(--gold-light);font-size:14px;font-weight:700;font-family:monospace}
+.prompt-copy{background:rgba(255,255,255,0.08);border:none;color:#ccc;padding:4px 9px;border-radius:4px;cursor:pointer;font-size:12px}
+.prompt-copy:hover{background:rgba(255,255,255,0.15);color:#fff}
+.prompt-body{padding:18px;color:#cdd6f4;font-size:13px;line-height:1.7;font-family:monospace;white-space:pre-wrap;word-break:break-word}
+.tree{font-family:monospace;font-size:13px;line-height:1.8;background:var(--code-bg);color:#cdd6f4;padding:18px;border-radius:var(--radius);margin-bottom:14px}
+.tree .dir{color:#89dceb;font-weight:700}
+.tree .file{color:#a6e3a1}
+.tree .file-new{color:#f9e2af;font-weight:600}
+.tree .comment{color:#585b70;font-size:12px}
+.audit-trail{background:rgba(22,163,74,0.05);border:1px solid rgba(22,163,74,0.2);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.audit-trail h4{color:var(--green);margin-bottom:8px}
+.divider{border:none;border-top:2px solid var(--gold);opacity:0.3;margin:40px 0}
+@media(max-width:768px){#sidebar{transform:translateX(-100%)}#sidebar.open{transform:translateX(0)}#main{margin-left:0}.content{padding:20px 14px}}
+@media print{#sidebar{display:none}#main{margin-left:0}.topbar{display:none}}
+.highlight{background:#fef08a;border-radius:2px}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">Engineering Docs</div>
+    <div class="sidebar-title">BrightPath QSBS Lab</div>
+    <div class="sidebar-sub">Architecture Refinement Addendum</div>
+  </div>
+  <div class="addendum-badge">Addendum v1.1 &mdash; Refinement Pass Only</div>
+  <div class="nav-section">This Document</div>
+  <span class="nav-item" onclick="goTo('ra0')">Overview &amp; Change Log</span>
+  <div class="nav-section">Engine Decomposition</div>
+  <span class="nav-item" onclick="goTo('ra1')">Rules Engine Split <span class="nav-badge">8</span></span>
+  <span class="nav-item" onclick="goTo('ra2')">Calc Engine Split <span class="nav-badge">7</span></span>
+  <div class="nav-section">New Modules</div>
+  <span class="nav-item" onclick="goTo('ra3')">BrightPath Intelligence <span class="new-badge">new</span></span>
+  <span class="nav-item" onclick="goTo('ra4')">Decision Journal <span class="new-badge">new</span></span>
+  <span class="nav-item" onclick="goTo('ra5')">Executive Dashboards <span class="new-badge">new</span></span>
+  <span class="nav-item" onclick="goTo('ra6')">Law Version Locking <span class="new-badge">new</span></span>
+  <div class="nav-section">Architecture</div>
+  <span class="nav-item" onclick="goTo('ra7')">Audit Trail Standard</span>
+  <span class="nav-item" onclick="goTo('ra8')">Updated Folder Structure</span>
+  <span class="nav-item" onclick="goTo('ra9')">Coupling Analysis</span>
+  <span class="nav-item" onclick="goTo('ra10')">Revised Module Count</span>
+  <div class="nav-section">Build Prompts</div>
+  <span class="nav-item" onclick="goTo('ra11')">New Module Prompts</span>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <input class="search-box" type="text" placeholder="Search addendum..." oninput="doSearch(this.value)">
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="theme-toggle" onclick="toggleTheme()">Dark</button>
+      <a href="QSBS_Lab_Architecture_Docs.html" style="text-decoration:none"><button class="btn btn-primary btn-sm">View Base Docs</button></a>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+
+    <div class="addendum-notice">
+      <h3>Architecture Refinement Addendum &mdash; v1.1</h3>
+      <p>This document is a refinement pass only. It does NOT replace the base architecture documentation. It extends and decomposes it. All existing module numbers, file names, and architectural decisions in the base documentation remain valid. This addendum introduces 15 additional specialized engines and modules on top of the original 18, raises the total module count to 33, and formalizes standards that were implicit in the original.</p>
+    </div>
+
+<!-- RA0 -->
+<div class="section" id="ra0">
+  <div class="section-eyebrow">Addendum Section 0</div>
+  <div class="section-title">Overview &amp; Change Log</div>
+  <div class="section-lead">What changed, what stayed the same, and why this refinement was needed.</div>
+
+  <h2>What Stayed the Same</h2>
+  <ul>
+    <li>All 18 original modules (M0&ndash;M17) are unchanged in purpose, file location, and interface</li>
+    <li>The lawConfig structure and centralized law configuration remain as designed</li>
+    <li>The result object contract (status, confidence, reasonsFor, etc.) remains the canonical shape</li>
+    <li>The database schema is unchanged</li>
+    <li>The build order for the original 18 modules is unchanged</li>
+    <li>GitHub Pages deployment, Supabase sync, and local IndexedDB storage are unchanged</li>
+  </ul>
+
+  <h2>What Changed</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Area</th><th>Original</th><th>Refined</th><th>Reason</th></tr>
+    <tr><td>Rules Engine (M2)</td><td>One file: rules-engine.js</td><td>Split into 8 specialized engines (RE1&ndash;RE8)</td><td>M2 was projected at 600 lines but realistic implementation is 1,200+ lines. A single file becomes untestable and unmaintainable at that size.</td></tr>
+    <tr><td>Calc Engine (M3)</td><td>One file: calc-engine.js</td><td>Split into 7 specialized engines (CE1&ndash;CE7)</td><td>M3 was projected at 800 lines. Basis, valuation, exit tax, and sensitivity analysis are independent domains that should be independently testable.</td></tr>
+    <tr><td>BrightPath profile</td><td>A company profile inside company-wizard.js</td><td>Dedicated BrightPath Intelligence module (BI1)</td><td>BrightPath deserves a purpose-built QSBS analysis rather than generic company profile fields.</td></tr>
+    <tr><td>Scenario notes</td><td>A single notes text field on scenarios</td><td>Dedicated Decision Journal module (DJ1)</td><td>Planning decisions, professional advice received, and revisit items need structured storage, not a free-text field.</td></tr>
+    <tr><td>Dashboard (M7)</td><td>Single dashboard</td><td>Executive Dashboard layer (ED1&ndash;ED3)</td><td>Three distinct audiences: founder overview, QSBS readiness deep-dive, multi-company view.</td></tr>
+    <tr><td>Law versioning</td><td>Scenario stores law_version string</td><td>Scenario permanently snapshots the full lawConfig at calculation time</td><td>If lawConfig is updated, historical scenarios must never silently recalculate under new rules.</td></tr>
+    <tr><td>Audit trail</td><td>Implied by calculationTrace[]</td><td>Formal AuditTrail standard with source citations required on every engine output</td><td>Professional review packets need traceable source citations, not just calculation steps.</td></tr>
+  </table></div>
+</div>
+
+<hr class="divider">
+
+<!-- RA1 -->
+<div class="section" id="ra1">
+  <div class="section-eyebrow">Addendum Section 1</div>
+  <div class="section-title">Rules Engine Decomposition</div>
+  <div class="section-lead">The original rules-engine.js (M2) is decomposed into 8 specialized engines. M2 becomes an orchestrator that calls RE1&ndash;RE8 and assembles the final result object. Each RE engine is independently testable with no knowledge of the others.</div>
+
+  <div class="alert alert-info">M2 (rules-engine.js) still exists and still exports evaluateQSBS(scenario). Its internal implementation now delegates to RE1&ndash;RE8. All existing code that calls evaluateQSBS() continues to work unchanged. The decomposition is entirely internal.</div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE1 &mdash; New</div>
+    <div class="engine-name">Acquisition Date Engine</div>
+    <div class="engine-desc">Determines which law version applies based on the stock acquisition date. Handles edge cases: stock acquired on exactly July 4 vs July 5, 2025. Handles null dates. Returns law_version string and the full applicable law config block.</div>
+    <div class="engine-meta"><span class="tag tag-green">~80 lines</span><span class="tag tag-blue">Zero dependencies</span><span class="tag tag-teal">File: js/engines/re1-acquisition-date.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>determineAcquisitionDateLaw(acquisition_date)</code></p>
+    <p><strong>Returns:</strong> <code>{law_version, law_config_block, acquisition_date_parsed, note, source_citation}</code></p>
+    <p><strong>Edge cases:</strong> null date &rarr; insufficient_information. July 4, 2025 &rarr; historical. July 5, 2025 &rarr; post_july4_2025. Future date &rarr; post_july4_2025 with note.</p>
+    <p><strong>Acceptance test:</strong> <code>determineAcquisitionDateLaw("2025-07-04").law_version === "historical"</code> and <code>determineAcquisitionDateLaw("2025-07-05").law_version === "post_july4_2025"</code></p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE2 &mdash; New</div>
+    <div class="engine-name">Holding Period Engine</div>
+    <div class="engine-desc">Computes holding years from acquisition date to exit date or exit year. Determines applicable exclusion percentage. Computes milestone dates (3yr, 4yr, 5yr). Determines if holding period is met for the applicable law version.</div>
+    <div class="engine-meta"><span class="tag tag-green">~120 lines</span><span class="tag tag-blue">Depends: RE1</span><span class="tag tag-teal">File: js/engines/re2-holding-period.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>evaluateHoldingPeriod(acquisition_date, exit_date, law_version)</code></p>
+    <p><strong>Returns:</strong> <code>{holding_years, holding_days, exclusion_pct, milestone_3yr, milestone_4yr, milestone_5yr, days_to_next_milestone, next_milestone_benefit, pass, confidence, note, source_citation}</code></p>
+    <p><strong>Critical:</strong> For post-2025 law, a 3-year hold produces 50% exclusion &mdash; not zero. Must never treat 3-year hold as failing.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE3 &mdash; New</div>
+    <div class="engine-name">Aggregate Gross Assets Engine</div>
+    <div class="engine-desc">Computes aggregate gross assets from the asset record. Compares to the applicable threshold. Determines pass/fail. Computes headroom. Alerts if within 20% of threshold. Handles controlled group assets and predecessor assets.</div>
+    <div class="engine-meta"><span class="tag tag-green">~150 lines</span><span class="tag tag-blue">Depends: RE1</span><span class="tag tag-teal">File: js/engines/re3-aga.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>evaluateAGA(asset_record, law_version, controlled_group_assets, predecessor_assets)</code></p>
+    <p><strong>Returns:</strong> <code>{total_aga, components[], threshold, headroom, headroom_pct, exceeds, alert_level, pass, confidence, note, source_citation, valuation_paradox_note}</code></p>
+    <p><strong>Valuation paradox note:</strong> Must include: "A higher FMV for contributed property increases the §1202 basis and ten-times ceiling, but also increases aggregate gross assets and may cause the threshold to be exceeded."</p>
+    <p><strong>Critical:</strong> AGA = cash + adjusted tax bases of other property. NOT enterprise value. NOT FMV of all assets. Contributed property: use FMV per §1202(d)(2)(B). All other property: use adjusted tax basis.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE4 &mdash; New</div>
+    <div class="engine-name">Original Issue Engine</div>
+    <div class="engine-desc">Evaluates whether stock satisfies the original-issue requirement. Flags conversion scenarios as uncertain. Checks that consideration was money, eligible property, or qualifying services. Identifies prohibited modes of acquisition (secondary market, gift, inheritance).</div>
+    <div class="engine-meta"><span class="tag tag-green">~120 lines</span><span class="tag tag-blue">Zero dependencies</span><span class="tag tag-teal">File: js/engines/re4-original-issue.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>evaluateOriginalIssue(scenario)</code></p>
+    <p><strong>Returns:</strong> <code>{pass, confidence, consideration_type, conversion_detected, prohibited_acquisition, note, professional_questions[], source_citation}</code></p>
+    <p><strong>Critical rule:</strong> Any conversion scenario (entity_path contains "convert", "revoke", "statutory", "reorganize") sets pass = null and confidence = "low". Never set pass = true for a conversion without noting professional review is required.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE5 &mdash; New</div>
+    <div class="engine-name">Active Business Engine</div>
+    <div class="engine-desc">Evaluates the 80%-by-value active business use test. Checks for passive investments, working capital excess, research and experimentation activities, software assets, subsidiary concerns, and excess non-business real estate. Reads from business_qual_result if available.</div>
+    <div class="engine-meta"><span class="tag tag-amber">~180 lines</span><span class="tag tag-blue">Depends: M5 business-qual.js</span><span class="tag tag-teal">File: js/engines/re5-active-business.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>evaluateActiveBusiness(scenario, business_qual_result)</code></p>
+    <p><strong>Returns:</strong> <code>{pass, confidence, active_use_pct_estimated, passive_asset_flags[], working_capital_concern, re_concern, subsidiary_concern, note, professional_questions[], source_citation}</code></p>
+    <p><strong>If business_qual_result is null:</strong> return insufficient_information with note that business qualification interview must be completed first.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE6 &mdash; New</div>
+    <div class="engine-name">Excluded Business Engine</div>
+    <div class="engine-desc">Evaluates whether the business falls into an excluded category under §1202(e)(3). Scores each excluded category separately. Handles the reputation-or-skill catch-all. Returns a risk matrix with a score per category. BrightPath-aware: recognizes software delivery and automated curriculum as distinct from tutoring services.</div>
+    <div class="engine-meta"><span class="tag tag-amber">~200 lines</span><span class="tag tag-blue">Depends: M5 business-qual.js</span><span class="tag tag-teal">File: js/engines/re6-excluded-business.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>evaluateExcludedBusiness(scenario, business_qual_result)</code></p>
+    <p><strong>Returns:</strong> <code>{pass, confidence, risk_matrix[{category, risk_level, reasoning}], reputation_skill_risk, dominant_revenue_type, note, professional_questions[], source_citation}</code></p>
+    <p><strong>Excluded categories scored separately:</strong> consulting, tutoring_as_service, reputation_or_skill, health, law, financial_services, and all others from §1202(e)(3). Each gets its own risk_level: none / low / medium / high / disqualifying.</p>
+    <p><strong>BrightPath recognition:</strong> If software_orientation_score &gt; 70 AND human_service_dependence &lt; 20 AND automated_delivery = true &rarr; reduce excluded_business_risk materially. Document the reasoning explicitly.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE7 &mdash; New</div>
+    <div class="engine-name">Qualification Decision Engine</div>
+    <div class="engine-desc">The orchestrator. Receives results from RE1&ndash;RE6 plus C-Corp test and redemption check. Applies decision logic to produce the final qualification status and confidence level. Handles partial qualification. Handles the combination of multiple uncertain tests.</div>
+    <div class="engine-meta"><span class="tag tag-amber">~150 lines</span><span class="tag tag-blue">Depends: RE1&ndash;RE6</span><span class="tag tag-teal">File: js/engines/re7-qualification-decision.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>makeQualificationDecision(test_results{})</code></p>
+    <p><strong>Decision logic:</strong></p>
+    <pre>if any test is "disqualifying" → does_not_qualify_under_stated_assumptions
+if threshold.pass === false → does_not_qualify_under_stated_assumptions
+if originalIssue.pass === null → uncertain_professional_review_required
+if excludedBusiness.risk_level === "high" → uncertain_professional_review_required
+if all tests pass or potentially_pass → likely_qualifies_under_stated_assumptions
+if 1 test is uncertain → potentially_qualifies
+if 2+ tests uncertain → uncertain_professional_review_required
+never return a bare "qualifies" — always use the full qualified phrase</pre>
+    <p><strong>Returns:</strong> <code>{status, confidence, overall_reasoning, combined_reasons_for[], combined_reasons_against[], snapshotted_law_version, source_citations[]}</code></p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">RE8 &mdash; New</div>
+    <div class="engine-name">Explanation and Audit Engine</div>
+    <div class="engine-desc">Assembles the complete human-readable explanation from all engine outputs. Produces the professional review packet section on qualification. Generates the calculation trace in display-ready format. Compiles all source citations. Generates professional review questions. This engine produces no new determinations &mdash; only explanation of determinations already made.</div>
+    <div class="engine-meta"><span class="tag tag-green">~180 lines</span><span class="tag tag-blue">Depends: RE1&ndash;RE7</span><span class="tag tag-teal">File: js/engines/re8-explanation.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>buildExplanation(all_engine_results{})</code></p>
+    <p><strong>Returns:</strong> <code>{status_plain_language, confidence_explanation, qualification_matrix_rows[], calculation_trace_display[], source_register[], professional_questions[], plain_english_summary, disclaimer_text}</code></p>
+    <p><strong>Critical:</strong> Every item in source_register must include: citation (e.g. "26 U.S.C. § 1202(d)"), proposition (what rule it supports), source_url, date_checked. No uncited legal conclusions permitted.</p>
+  </div>
+
+  <h2>M2 as Orchestrator</h2>
+  <p>The original <code>rules-engine.js</code> (M2) is retained as the public API. Its implementation becomes a thin orchestrator:</p>
+  <pre>// js/engines/rules-engine.js (M2 — now an orchestrator)
+import { determineAcquisitionDateLaw } from './re1-acquisition-date.js';
+import { evaluateHoldingPeriod } from './re2-holding-period.js';
+import { evaluateAGA } from './re3-aga.js';
+import { evaluateOriginalIssue } from './re4-original-issue.js';
+import { evaluateActiveBusiness } from './re5-active-business.js';
+import { evaluateExcludedBusiness } from './re6-excluded-business.js';
+import { makeQualificationDecision } from './re7-qualification-decision.js';
+import { buildExplanation } from './re8-explanation.js';
+
+export function evaluateQSBS(scenario) {
+  const lawResult = determineAcquisitionDateLaw(scenario.acquisition_date);
+  const holdingResult = evaluateHoldingPeriod(scenario.acquisition_date, scenario.exit_date, lawResult.law_version);
+  const agaResult = evaluateAGA(scenario.asset_record, lawResult.law_version, scenario.controlled_group_assets, scenario.predecessor_assets);
+  const originalIssueResult = evaluateOriginalIssue(scenario);
+  const activeResult = evaluateActiveBusiness(scenario, scenario.business_qual_result);
+  const excludedResult = evaluateExcludedBusiness(scenario, scenario.business_qual_result);
+  const decision = makeQualificationDecision({law: lawResult, holding: holdingResult, aga: agaResult, originalIssue: originalIssueResult, active: activeResult, excluded: excludedResult});
+  const explanation = buildExplanation({law: lawResult, holding: holdingResult, aga: agaResult, originalIssue: originalIssueResult, active: activeResult, excluded: excludedResult, decision});
+  return { ...decision, ...explanation, individualTests: { acquisitionDate: lawResult, holdingPeriod: holdingResult, aga: agaResult, originalIssue: originalIssueResult, activeBusiness: activeResult, excludedBusiness: excludedResult } };
+}
+// Public API is identical to original M2. All callers unaffected.</pre>
+</div>
+
+<hr class="divider">
+
+<!-- RA2 -->
+<div class="section" id="ra2">
+  <div class="section-eyebrow">Addendum Section 2</div>
+  <div class="section-title">Calculation Engine Decomposition</div>
+  <div class="section-lead">The original calc-engine.js (M3) is decomposed into 7 specialized engines. M3 becomes an orchestrator. All existing callers are unaffected.</div>
+
+  <div class="alert alert-info">calc-engine.js (M3) still exports calcStockSaleTax(), calcAssetSaleTax(), calcExclusionLimit(), etc. Internally, it delegates to CE1&ndash;CE7. Backward compatible.</div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE1 &mdash; New</div>
+    <div class="engine-name">Basis Engine</div>
+    <div class="engine-desc">Computes and tracks all basis types. Normal shareholder basis, Section 1202 special basis, inside asset basis, contributed property FMV-based basis. Documents every step. Warns when bases differ. Explains the §1202(e)(3) FMV rule for contributed property.</div>
+    <div class="engine-meta"><span class="tag tag-green">~150 lines</span><span class="tag tag-blue">Depends: RE1</span><span class="tag tag-teal">File: js/engines/ce1-basis.js</span></div>
+    <br>
+    <p><strong>Exports:</strong> <code>computeNormalBasis(inputs)</code>, <code>compute1202Basis(inputs)</code>, <code>computeInsideBasis(asset_record)</code>, <code>basisDifferenceWarning(normal, sec1202)</code></p>
+    <p><strong>Critical output:</strong> When normal_basis !== sec1202_basis, output must include: "Warning: §1202 basis for the ten-times limitation differs from your normal shareholder basis. The ten-times limit uses the §1202 basis (FMV of contributed property), not the normal basis."</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE2 &mdash; New</div>
+    <div class="engine-name">Threshold Engine</div>
+    <div class="engine-desc">Computes the applicable exclusion limitation. Fixed-dollar limit (accounting for prior exclusions). Ten-times-basis limit (using §1202 basis). Applicable limit (greater of the two). Documents every formula. Flags when prior exclusions reduce the fixed-dollar limit to zero.</div>
+    <div class="engine-meta"><span class="tag tag-green">~120 lines</span><span class="tag tag-blue">Depends: CE1, RE1</span><span class="tag tag-teal">File: js/engines/ce2-threshold.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>computeExclusionLimit(sec1202_basis, prior_exclusions_used, law_version)</code></p>
+    <p><strong>Returns:</strong> <code>{fixed_dollar_base, prior_exclusions_used, fixed_dollar_remaining, ten_times_basis, applicable_limit, limiting_factor, trace[], source_citation}</code></p>
+    <p><strong>limiting_factor:</strong> "fixed_dollar" | "ten_times" | "equal" &mdash; tells user which ceiling is controlling and why.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE3 &mdash; New</div>
+    <div class="engine-name">Valuation Engine (Calculation Layer)</div>
+    <div class="engine-desc">The calculation layer for all valuation methods. Distinct from the Valuation Engine in the original M4 (which handles UI and data). This engine performs the math: ARR multiple, revenue multiple, EBITDA multiple, DCF, comparables, NAV, IP-focused, custom. Returns weighted conclusion.</div>
+    <div class="engine-meta"><span class="tag tag-green">~200 lines</span><span class="tag tag-blue">Zero dependencies</span><span class="tag tag-teal">File: js/engines/ce3-valuation.js</span></div>
+    <br>
+    <p><strong>Note on relationship to M4:</strong> M4 (valuation.js) is the UI module that collects valuation inputs and displays charts. CE3 is the pure calculation engine that M4 calls. They are now explicitly separated. M4 depends on CE3. CE3 has no DOM knowledge.</p>
+    <p><strong>Exports:</strong> <code>calcARRMultiple(arr, multiples)</code>, <code>calcEBITDAMultiple(ebitda, multiples)</code>, <code>calcDCF(cash_flows, discount_rate, terminal)</code>, <code>calcWeightedEV(methods, weights)</code>, <code>calcEquityValue(ev, debt, cash)</code></p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE4 &mdash; New</div>
+    <div class="engine-name">Stock Sale Engine</div>
+    <div class="engine-desc">All calculations specific to a stock sale with QSBS treatment. Receives pre-computed exclusion limit from CE2. Computes amount realized, total gain, eligible gain, excluded gain, taxable gain, federal tax, NIIT, state tax, total tax, after-tax proceeds, effective rate. Returns with full trace.</div>
+    <div class="engine-meta"><span class="tag tag-green">~180 lines</span><span class="tag tag-blue">Depends: CE1, CE2, RE1, RE2</span><span class="tag tag-teal">File: js/engines/ce4-stock-sale.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>calcStockSaleTax(scenario, exclusion_limit, exclusion_pct)</code></p>
+    <p><strong>Returns:</strong> Full breakdown with every formula in trace[]. Source citations on each formula.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE5 &mdash; New</div>
+    <div class="engine-name">Asset Sale Engine</div>
+    <div class="engine-desc">All calculations specific to an asset sale. Corporate gain, corporate tax (21%), distributable proceeds, shareholder gain on distribution, shareholder tax, double-tax total, shareholder after-tax proceeds. Always includes the warning that QSBS does not protect corporate-level gain.</div>
+    <div class="engine-meta"><span class="tag tag-green">~150 lines</span><span class="tag tag-blue">Depends: CE1</span><span class="tag tag-teal">File: js/engines/ce5-asset-sale.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>calcAssetSaleTax(scenario)</code></p>
+    <p><strong>Required trace item:</strong> "QSBS exclusion under §1202 applies at the shareholder level to gain on the sale of qualifying stock. It does not protect the corporation from tax on gains recognized in an asset sale. The double-tax applies in full." &mdash; cited to 26 U.S.C. § 1202(a).</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE6 &mdash; New</div>
+    <div class="engine-name">Exit Tax Engine</div>
+    <div class="engine-desc">The orchestrator for exit calculations. Calls CE4 or CE5 depending on sale type. Computes baseline (no QSBS). Computes old law vs. new law comparison. Computes partial qualification scenarios. Returns combined result object consumed by the Exit Calculator UI (M13).</div>
+    <div class="engine-meta"><span class="tag tag-amber">~150 lines</span><span class="tag tag-blue">Depends: CE1&ndash;CE5, RE1, RE2</span><span class="tag tag-teal">File: js/engines/ce6-exit-tax.js</span></div>
+    <br>
+    <p><strong>Export:</strong> <code>calcExitTax(scenario)</code> &rarr; <code>{stock_sale, asset_sale, baseline, old_vs_new, savings, partial_qual_scenarios[]}</code></p>
+    <p><strong>M3 becomes:</strong> A thin re-export layer that maintains backward compatibility by importing from CE6 and re-exporting the same function signatures.</p>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">CE7 &mdash; New</div>
+    <div class="engine-name">Sensitivity Analysis Engine</div>
+    <div class="engine-desc">Runs parametric sensitivity analysis. Varies one or more inputs across a range and returns a result matrix. Runs the full rules engine + calc engine for each variation &mdash; not just the math, but also re-checks if qualification status changes at boundary values. Handles Monte Carlo simulation locally.</div>
+    <div class="engine-meta"><span class="tag tag-amber">~200 lines</span><span class="tag tag-blue">Depends: CE6, RE7</span><span class="tag tag-teal">File: js/engines/ce7-sensitivity.js</span></div>
+    <br>
+    <p><strong>Exports:</strong> <code>runSensitivity(scenario, variables[])</code> &rarr; result matrix. <code>runMonteCarlo(scenario, ranges{}, iterations)</code> &rarr; distribution results.</p>
+    <p><strong>Label as simulation:</strong> Monte Carlo output must always include: "This simulation is not a forecast or a legal probability estimate. It illustrates possible ranges of outcomes under stated assumptions."</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- RA3 -->
+<div class="section" id="ra3">
+  <div class="section-eyebrow">Addendum Section 3 &mdash; New Module</div>
+  <div class="section-title">BrightPath Intelligence Module</div>
+  <div class="section-lead">BrightPath is not just another company profile. It is the primary use case for this application and deserves a purpose-built QSBS readiness analysis. This module replaces the generic BrightPath preloaded profile with a dedicated intelligence layer.</div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">BI1 &mdash; New</div>
+    <div class="engine-name">BrightPath Intelligence Module</div>
+    <div class="engine-desc">A dedicated analysis engine for BrightPath's QSBS readiness. Not a generic company profile. Understands BrightPath's architecture: deterministic pre-generated content, no runtime AI, no human tutors in delivery, 5-language multilingual platform, DCAR diagnostic engine, atom-based lesson delivery.</div>
+    <div class="engine-meta"><span class="tag tag-teal">File: js/modules/brightpath-intelligence.js</span><span class="tag tag-amber">~600 lines</span><span class="tag tag-purple">Depends: RE1&ndash;RE8, CE1&ndash;CE7, M5</span></div>
+  </div>
+
+  <h2>BI1 Analysis Dimensions</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">Software vs. Service Revenue</div><p>Slider input: % from software subscriptions, % from automated diagnostic delivery, % from curriculum access, % from human services, % from consulting. Score updates in real time. Threshold: if software + automated &gt; 70%, orientation is "software-dominant".</p></div>
+    <div class="card"><div class="card-title">Founder Dependence</div><p>Questions: Does BrightPath require Kelly to deliver lessons? Does Kelly's reputation drive subscription renewals? Can the platform operate if Kelly is not involved for 30 days? Score 0-100. Low founder dependence = positive QSBS signal.</p></div>
+    <div class="card"><div class="card-title">Tutor Dependence</div><p>Specific to BrightPath: Does delivery require human tutors? Do customers pay for tutor time or platform access? Can subscriptions scale without adding tutors? BrightPath's answer: no tutors in delivery chain. Document this explicitly with architectural evidence.</p></div>
+    <div class="card"><div class="card-title">SaaS Characteristics</div><p>Recurring revenue model, monthly subscription, low marginal cost per additional user, platform not people, automated delivery, 24/7 availability without human intervention. BrightPath scores high on all. Document each characteristic as supporting evidence.</p></div>
+    <div class="card"><div class="card-title">Proprietary IP Assessment</div><p>DCAR diagnostic engine, 5,000-entry misconception taxonomy, 17,524+ lesson atoms, 5-language curriculum library, parent script library, recalibration engine, prerequisite chain mapping. These are the principal assets. Value them relative to human capital.</p></div>
+    <div class="card"><div class="card-title">Automation Score</div><p>Content generated once by AI pipelines and served deterministically. Zero AI at runtime. No tutors, no consultants, no founder in delivery chain. Engine-assembled lessons. Parent scripts pre-generated. This is the strongest QSBS positive signal in BrightPath's architecture.</p></div>
+    <div class="card"><div class="card-title">Reputation-or-Skill Risk</div><p>Is BrightPath's principal asset Kelly's reputation? Is Kelly required for delivery? Can customers get the same value without Kelly? Current answer: platform is the product. Kelly built it but is not in the delivery chain. Document the distinction carefully.</p></div>
+    <div class="card"><div class="card-title">Licensing Potential</div><p>Can BrightPath license curriculum to schools, districts, or other platforms? Licensing revenue is strongly software-oriented and reduces excluded-business risk. Document any existing or planned licensing arrangements.</p></div>
+  </div>
+
+  <h2>BI1 Output Panel</h2>
+  <pre>{
+  qsbs_readiness_status: "potentially_qualifies",  // Uses standard status vocabulary
+  confidence: "medium",
+  software_orientation_score: 95,      // 0-100
+  human_service_dependence_score: 3,   // 0-100 (lower is better for QSBS)
+  founder_dependence_score: 25,        // 0-100 (lower is better)
+  tutor_dependence_score: 0,           // 0-100 (0 = no tutors in delivery)
+  automation_score: 90,                // 0-100
+  proprietary_ip_score: 88,            // 0-100
+  reputation_skill_risk: "low",        // none / low / medium / high
+  excluded_business_risk: "low",       // none / low / medium / high
+  consulting_risk: "none",
+  saas_characteristics_score: 92,
+
+  supporting_facts: [
+    "Content generated once by AI pipelines, served deterministically at runtime",
+    "No human tutors in the delivery chain",
+    "Subscriptions scale without proportional growth in human service delivery",
+    "Principal assets are proprietary IP: DCAR engine, 17,524 lesson atoms, 5-language curriculum",
+    "Recurring monthly subscriptions (SaaS revenue model)",
+    "Zero runtime AI prompting — pre-generated atoms served by deterministic engine",
+    "5-language multilingual platform with native-language content (not translated)"
+  ],
+
+  risk_factors: [
+    "Founder personally sells the product — some founder-dependent sales risk",
+    "Revenue model not yet publicly validated at scale",
+    "IRS has not issued guidance specifically on EdTech QSBS qualification"
+  ],
+
+  missing_evidence: [
+    "Formal business description memo documenting automated delivery architecture",
+    "Revenue breakdown showing percentage from software subscriptions vs. any service components",
+    "IP assignment agreements ensuring BrightPath LLC owns all proprietary systems",
+    "Attorney review of whether automated curriculum delivery constitutes excluded tutoring"
+  ],
+
+  professional_questions: [
+    "Does the absence of human tutors in the delivery chain definitively exclude BrightPath from the tutoring service category under §1202(e)(3)?",
+    "Does the reputation-or-skill exclusion apply to a founder whose reputation drives sales but who is not in the product delivery chain?",
+    "Is a pre-generated, algorithmically assembled lesson plan a 'service' or a 'product' for §1202 purposes?",
+    "How should the DCAR diagnostic engine be characterized for active business purposes — software or service?"
+  ],
+
+  recommended_actions: [
+    "Draft and retain a formal business description memo before any conversion",
+    "Ensure all IP is formally assigned to the corporate entity before conversion",
+    "Document the automated delivery architecture with technical specifications",
+    "Obtain attorney memorandum on qualification before filing S election revocation or C-Corp conversion"
+  ]
+}</pre>
+
+  <div class="alert alert-success">BrightPath's architecture is among the strongest factual cases for §1202 qualification in the EdTech space. The complete absence of human tutors in the delivery chain, the pre-generated atomic content model, and the SaaS subscription structure collectively distinguish it from the tutoring service businesses that §1202(e)(3) was designed to exclude. This is the assessment under stated architectural facts, not a legal conclusion.</div>
+</div>
+
+<hr class="divider">
+
+<!-- RA4 -->
+<div class="section" id="ra4">
+  <div class="section-eyebrow">Addendum Section 4 &mdash; New Module</div>
+  <div class="section-title">Decision Journal System</div>
+  <div class="section-lead">Every scenario needs a structured planning diary attached to it. The Decision Journal replaces the free-text notes field with a structured record of planning decisions, professional advice, open questions, and action items.</div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">DJ1 &mdash; New</div>
+    <div class="engine-name">Decision Journal Module</div>
+    <div class="engine-desc">Structured planning diary attached to each scenario. Records why decisions were made, what professionals said, what questions remain open, and what actions are planned. Becomes part of the Professional Review Packet. Stored in scenario_versions for permanence.</div>
+    <div class="engine-meta"><span class="tag tag-teal">File: js/modules/decision-journal.js</span><span class="tag tag-green">~350 lines</span><span class="tag tag-purple">Depends: M0, M1, M9</span></div>
+  </div>
+
+  <h2>Journal Entry Data Shape</h2>
+  <pre>{
+  id: "uuid",
+  scenario_id: "uuid",
+  entry_type: "creation_rationale" | "assumption_log" | "professional_advice" |
+               "question_to_revisit" | "action_item" | "timeline_note" | "decision_made",
+  date: "2026-06-15",
+  title: "Attorney call re: original issue requirement",
+  body: "Spoke with [Firm] re: whether statutory conversion satisfies §1202 original issue. Attorney position: uncertain — factual analysis required. Will provide memo by June 30.",
+  professional_name: "Attorney Name (optional)",
+  professional_firm: "Firm Name (optional)",
+  action_due_date: "2026-06-30",
+  action_status: "open" | "in_progress" | "completed" | "deferred",
+  is_privileged: true,   // marks potentially attorney-client privileged content
+  tags: ["original-issue", "conversion", "attorney-advice"],
+  created_at: "2026-06-15T14:30:00Z"
+}</pre>
+
+  <h2>Journal Entry Types</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Type</th><th>Purpose</th><th>Key Fields</th></tr>
+    <tr><td>creation_rationale</td><td>Why was this scenario created? What question does it answer?</td><td>title, body</td></tr>
+    <tr><td>assumption_log</td><td>Document key assumptions and why they were chosen</td><td>title, body, tags</td></tr>
+    <tr><td>professional_advice</td><td>Record what an attorney or CPA said</td><td>title, body, professional_name, professional_firm, is_privileged</td></tr>
+    <tr><td>question_to_revisit</td><td>Open questions that need future resolution</td><td>title, body, action_due_date, action_status</td></tr>
+    <tr><td>action_item</td><td>Specific task that must be completed</td><td>title, body, action_due_date, action_status</td></tr>
+    <tr><td>timeline_note</td><td>Important dates and events in the planning timeline</td><td>title, body, date</td></tr>
+    <tr><td>decision_made</td><td>Record a final decision and the reasoning behind it</td><td>title, body, tags</td></tr>
+  </table></div>
+
+  <h2>Privileged Content Warning</h2>
+  <div class="alert alert-warn">Journal entries marked <code>is_privileged: true</code> should be clearly labeled in the UI with a lock icon and the note: "Potentially attorney-client privileged. Consult your attorney before sharing this content with third parties or including it in any filing." The professional review packet must allow the user to exclude privileged entries from the generated packet.</div>
+</div>
+
+<hr class="divider">
+
+<!-- RA5 -->
+<div class="section" id="ra5">
+  <div class="section-eyebrow">Addendum Section 5 &mdash; New Module</div>
+  <div class="section-title">Executive Dashboard Layer</div>
+  <div class="section-lead">The original M7 (dashboard.js) is expanded into three distinct dashboard views. M7 becomes the container that routes to ED1, ED2, and ED3 via tabs.</div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">ED1 &mdash; New</div>
+    <div class="engine-name">Founder Overview Dashboard</div>
+    <div class="engine-desc">High-level command center for the business owner. Current entity, estimated valuation, AGA vs threshold gauge, holding period countdown, estimated QSBS benefit if qualified, top 3 unresolved risks, documentation completeness score, next planning milestone.</div>
+    <div class="engine-meta"><span class="tag tag-teal">File: js/modules/dashboard-founder.js</span><span class="tag tag-green">~300 lines</span></div>
+  </div>
+
+  <h2>ED1 Panel Specifications</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">Entity Status Card</div><p>Current legal entity, federal tax classification, state, formation date. Conversion target if planned. Days until planned conversion.</p></div>
+    <div class="card"><div class="card-title">Valuation Gauge</div><p>Most recent estimated enterprise value (low/base/high range). Equity value. Trend arrow vs. prior period. Last updated date.</p></div>
+    <div class="card"><div class="card-title">AGA Threshold Gauge</div><p>Current aggregate gross assets vs. applicable threshold. Visual gauge (green/amber/red). Headroom in dollars and percentage. Alert if within 20%.</p></div>
+    <div class="card"><div class="card-title">Holding Period Countdown</div><p>Stock issuance date. Current holding years. Days to next exclusion milestone (3yr, 4yr, 5yr). Exclusion percentage at current hold vs. at next milestone.</p></div>
+    <div class="card"><div class="card-title">Estimated QSBS Benefit</div><p>Modeled tax savings if QSBS qualifies at current exit assumption. Range: conservative to optimistic based on sensitivity scenarios. Labeled "illustrative only — not a guarantee."</p></div>
+    <div class="card"><div class="card-title">Risk Ticker</div><p>Top 3 unresolved risks from evaluateQSBS(). Each with status badge and link to the relevant QSBS wizard step. "X risks unresolved — click to review."</p></div>
+    <div class="card"><div class="card-title">Documentation Score</div><p>Evidence checklist completion percentage. Missing critical documents highlighted. "X of Y documents complete." Link to evidence module.</p></div>
+    <div class="card"><div class="card-title">Next Milestone</div><p>The single most important planning action in the next 90 days. Pulled from Decision Journal action items. If none: "No upcoming milestones — add an action item."</p></div>
+  </div>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">ED2 &mdash; New</div>
+    <div class="engine-name">QSBS Readiness Dashboard</div>
+    <div class="engine-desc">Deep-dive into each QSBS test. Dedicated panel per test: C-Corp, original issue, threshold, active business, excluded business, holding period, redemption. Shows confidence level, supporting facts, risks, and specific professional questions for each test. Not a summary &mdash; a diagnostic tool.</div>
+    <div class="engine-meta"><span class="tag tag-teal">File: js/modules/dashboard-qsbs.js</span><span class="tag tag-amber">~400 lines</span></div>
+  </div>
+
+  <h2>ED2 Per-Test Panels</h2>
+  <p>Each of the 7 QSBS tests gets its own expandable panel showing:</p>
+  <ul>
+    <li>Status badge (Passes / Fails / Uncertain / Insufficient Information)</li>
+    <li>Confidence level with explanation of why confidence is that level</li>
+    <li>Supporting facts list (reasonsFor)</li>
+    <li>Risk factors list (reasonsAgainst)</li>
+    <li>Missing information (missingInputs)</li>
+    <li>Professional review questions specific to this test</li>
+    <li>Source citations for the rules applied</li>
+    <li>Link to the relevant wizard step to update inputs</li>
+  </ul>
+
+  <div class="engine-card new-engine">
+    <div class="engine-num">ED3 &mdash; New</div>
+    <div class="engine-name">Multi-Company Portfolio Dashboard</div>
+    <div class="engine-desc">Aggregate view across all companies in the application. Total companies, total scenarios, estimated combined enterprise value, modeled QSBS benefit across portfolio, scenarios by status (likely qualifies / uncertain / does not qualify), unresolved professional questions count, documentation completeness across all companies.</div>
+    <div class="engine-meta"><span class="tag tag-teal">File: js/modules/dashboard-portfolio.js</span><span class="tag tag-green">~250 lines</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- RA6 -->
+<div class="section" id="ra6">
+  <div class="section-eyebrow">Addendum Section 6 &mdash; New Behavior</div>
+  <div class="section-title">Law Version Locking</div>
+  <div class="section-lead">A historical scenario must never silently recalculate under new law. This is one of the most important data integrity requirements in the application.</div>
+
+  <h2>The Problem</h2>
+  <p>If Congress amends §1202 in 2027 and the lawConfig is updated, all previously calculated scenarios would recalculate under the new law if only the law_version string is stored. A scenario calculated in June 2026 under post-July 4 2025 rules might show different results in 2028 when a user opens it &mdash; not because their inputs changed, but because the law changed.</p>
+
+  <h2>The Solution: Law Snapshot</h2>
+  <p>Every scenario permanently stores a complete snapshot of the lawConfig block used during its last calculation. This snapshot is immutable once saved. A scenario's results are always computed against its own stored law snapshot, not the current lawConfig.</p>
+
+  <pre>// Added to scenarios table (database column: law_snapshot JSONB)
+// Populated at calculation time, never updated
+{
+  law_version: "post_july4_2025",
+  snapshot_date: "2026-06-15",
+  law_config_used: {
+    grossAssetsThreshold: 75000000,
+    fixedDollarLimit: 15000000,
+    exclusionSchedule: { 3: 0.50, 4: 0.75, 5: 1.00 },
+    source: "One Big Beautiful Bill Act (2025)",
+    dateChecked: "2026-06-01"
+  },
+  application_version: "1.1",
+  calculated_at: "2026-06-15T14:30:00Z"
+}</pre>
+
+  <h2>UI Behavior</h2>
+  <ul>
+    <li>If a user opens a historical scenario after lawConfig has been updated, show a banner: "This scenario was calculated using the law configuration from [snapshot_date]. The current law configuration differs. Click 'Recalculate' to update to current law, or 'View Historical' to review the original calculation."</li>
+    <li>Recalculate creates a new scenario_version snapshot before updating the law_snapshot</li>
+    <li>Historical view shows results with the original law snapshot, clearly labeled</li>
+    <li>The law_snapshot is never modified &mdash; a recalculation creates a new law_snapshot with the new law</li>
+  </ul>
+
+  <h2>Database Change</h2>
+  <p>Add column to scenarios table: <code>law_snapshot JSONB</code> &mdash; nullable for scenarios created before this feature, populated on all new calculations. This is additive &mdash; no existing data is affected.</p>
+</div>
+
+<hr class="divider">
+
+<!-- RA7 -->
+<div class="section" id="ra7">
+  <div class="section-eyebrow">Addendum Section 7</div>
+  <div class="section-title">Audit Trail Standard</div>
+  <div class="section-lead">Every engine must produce a complete deterministic audit trail. This formalizes what was implicit in the original calculationTrace[] array.</div>
+
+  <h2>Standard Audit Trail Shape</h2>
+  <p>Every engine output must include an <code>audit_trail</code> object with these required fields:</p>
+  <pre>// AuditTrail — required on every engine output
+{
+  engine: "re3-aga",                    // which engine produced this
+  version: "1.0",                       // engine version
+  calculated_at: "2026-06-15T14:30:00Z",
+  inputs_used: {                        // complete copy of inputs — no references
+    cash: 50000,
+    equipment_basis: 10000,
+    // ... all inputs
+  },
+  steps: [                              // calculation trace
+    {
+      step: 1,
+      label: "Cash (included in AGA)",
+      value: 50000,
+      formula: "AGA += cash",
+      source: "26 U.S.C. § 1202(d)(1)(A)"
+    },
+    // ...
+  ],
+  conclusions: [                        // what was determined
+    {
+      conclusion: "AGA does not exceed threshold",
+      value: 60000,
+      threshold: 75000000,
+      pass: true,
+      confidence: "high"
+    }
+  ],
+  source_register: [                    // all legal sources applied
+    {
+      citation: "26 U.S.C. § 1202(d)",
+      proposition: "Aggregate gross assets = cash + adjusted bases of other property",
+      source_url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section1202",
+      date_checked: "2026-06-01"
+    }
+  ],
+  professional_questions: [            // questions generated by this engine
+    "Were any assets contributed to the corporation? If so, the FMV at contribution (not carryover basis) is used for the AGA calculation."
+  ],
+  warnings: [],                        // any non-fatal warnings
+  missing_inputs: []                   // inputs that were null or missing
+}</pre>
+
+  <div class="alert alert-info">The source_register in each engine is merged by RE8 (Explanation Engine) into the complete source register for the scenario. No engine should cite a rule without including the full citation details. No legal conclusion should appear without a source citation.</div>
+</div>
+
+<hr class="divider">
+
+<!-- RA8 -->
+<div class="section" id="ra8">
+  <div class="section-eyebrow">Addendum Section 8</div>
+  <div class="section-title">Updated Folder Structure</div>
+  <div class="section-lead">The folder structure from the base documentation is updated to include the new engines and modules. New files are marked.</div>
+
+  <div class="tree">
+<span class="dir">brightpath-qsbs/</span>
+├── (all root files unchanged from base docs)
+│
+├── <span class="dir">js/core/</span>            <span class="comment">← Unchanged. M0 foundation.</span>
+│
+├── <span class="dir">js/engines/</span>
+│   ├── <span class="file">rules-engine.js</span>      <span class="comment">← M2. Now orchestrator. Delegates to RE1-RE8.</span>
+│   ├── <span class="file-new">re1-acquisition-date.js</span>  <span class="comment">← NEW. RE1.</span>
+│   ├── <span class="file-new">re2-holding-period.js</span>    <span class="comment">← NEW. RE2.</span>
+│   ├── <span class="file-new">re3-aga.js</span>               <span class="comment">← NEW. RE3. Aggregate gross assets.</span>
+│   ├── <span class="file-new">re4-original-issue.js</span>    <span class="comment">← NEW. RE4.</span>
+│   ├── <span class="file-new">re5-active-business.js</span>   <span class="comment">← NEW. RE5.</span>
+│   ├── <span class="file-new">re6-excluded-business.js</span> <span class="comment">← NEW. RE6.</span>
+│   ├── <span class="file-new">re7-qualification-decision.js</span>  <span class="comment">← NEW. RE7.</span>
+│   ├── <span class="file-new">re8-explanation.js</span>       <span class="comment">← NEW. RE8. Audit trail assembler.</span>
+│   ├── <span class="file">calc-engine.js</span>       <span class="comment">← M3. Now orchestrator. Delegates to CE1-CE7.</span>
+│   ├── <span class="file-new">ce1-basis.js</span>             <span class="comment">← NEW. CE1.</span>
+│   ├── <span class="file-new">ce2-threshold.js</span>         <span class="comment">← NEW. CE2.</span>
+│   ├── <span class="file-new">ce3-valuation.js</span>         <span class="comment">← NEW. CE3. Calc layer only.</span>
+│   ├── <span class="file-new">ce4-stock-sale.js</span>        <span class="comment">← NEW. CE4.</span>
+│   ├── <span class="file-new">ce5-asset-sale.js</span>        <span class="comment">← NEW. CE5.</span>
+│   ├── <span class="file-new">ce6-exit-tax.js</span>          <span class="comment">← NEW. CE6. Exit orchestrator.</span>
+│   ├── <span class="file-new">ce7-sensitivity.js</span>       <span class="comment">← NEW. CE7. Sensitivity + Monte Carlo.</span>
+│   ├── <span class="file">valuation-engine.js</span>  <span class="comment">← Original M4. Now UI+data layer; calls CE3.</span>
+│   ├── <span class="file">assets-engine.js</span>     <span class="comment">← Original. Now calls RE3 for AGA calc.</span>
+│   └── <span class="file">business-qual.js</span>     <span class="comment">← Original M5. Unchanged. Called by RE5, RE6.</span>
+│
+├── <span class="dir">js/modules/</span>
+│   ├── (all original modules unchanged)
+│   ├── <span class="file">dashboard.js</span>         <span class="comment">← M7. Now container routing to ED1-ED3.</span>
+│   ├── <span class="file-new">dashboard-founder.js</span>     <span class="comment">← NEW. ED1.</span>
+│   ├── <span class="file-new">dashboard-qsbs.js</span>        <span class="comment">← NEW. ED2.</span>
+│   ├── <span class="file-new">dashboard-portfolio.js</span>   <span class="comment">← NEW. ED3.</span>
+│   ├── <span class="file">brightpath.js</span>        <span class="comment">← Original. Now calls BI1.</span>
+│   ├── <span class="file-new">brightpath-intelligence.js</span>  <span class="comment">← NEW. BI1.</span>
+│   └── <span class="file-new">decision-journal.js</span>      <span class="comment">← NEW. DJ1.</span>
+│
+└── <span class="dir">js/shared/</span>            <span class="comment">← Unchanged. Add audit-trail.js below.</span>
+    ├── (all original shared files unchanged)
+    └── <span class="file-new">audit-trail.js</span>           <span class="comment">← NEW. AuditTrail builder helper used by all engines.</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- RA9 -->
+<div class="section" id="ra9">
+  <div class="section-eyebrow">Addendum Section 9</div>
+  <div class="section-title">Coupling Analysis &amp; Remaining Risks</div>
+  <div class="section-lead">A systematic review of every coupling point in the architecture. Identifies what is still tightly coupled and whether further decomposition is warranted.</div>
+
+  <div class="table-wrap"><table>
+    <tr><th>Coupling Point</th><th>Current State</th><th>Risk Level</th><th>Recommendation</th></tr>
+    <tr><td>M10 (QSBS Wizard) imports rules + calc engines</td><td>Wizard calls evaluateQSBS() and calcExitTax() directly</td><td>Low</td><td>Acceptable. The wizard is the UI layer for these engines. Calling them directly is correct.</td></tr>
+    <tr><td>M13 (Exit Calculator) imports calc engine</td><td>Calculator calls CE6 directly</td><td>Low</td><td>Acceptable. Same pattern.</td></tr>
+    <tr><td>M16 (Reports) imports all modules</td><td>Report generator reads from every module's output</td><td>Medium</td><td>Reports should read from storage (scenario data), not from live module state. Decouple by always generating reports from stored scenario data, not from live UI state.</td></tr>
+    <tr><td>M7 dashboard aggregates all scenario data</td><td>Dashboard reads every scenario to compute aggregate metrics</td><td>Medium</td><td>Add a cache layer in storage.js: storage.getAggregateMetrics(company_id) that pre-computes dashboard numbers on scenario save, not on dashboard open. Prevents O(n) calculation on dashboard load.</td></tr>
+    <tr><td>RE6 (Excluded Business) knows about BrightPath specifically</td><td>RE6 has BrightPath-specific scoring logic</td><td>Low</td><td>Acceptable for now. When additional companies are added, extract the BrightPath-specific logic to BI1 and keep RE6 generic. Flag this as a future refactor when company count exceeds 3.</td></tr>
+    <tr><td>Business qual (M5) called by both RE5 and RE6</td><td>Both engines call scoreBusinessQual()</td><td>Low</td><td>Acceptable. M5 is pure and stateless. Being called from multiple engines is correct behavior for a shared utility engine.</td></tr>
+    <tr><td>lawConfig imported by many engines</td><td>RE1, RE2, RE3, CE2, CE4, CE6 all import lawConfig</td><td>Low</td><td>Acceptable. lawConfig is frozen and read-only. Multiple importers of a frozen config is not a coupling problem.</td></tr>
+    <tr><td>Scenario storage and scenario display</td><td>M9 (scenarios.js) handles both CRUD and display</td><td>Medium</td><td>Consider separating scenario-store.js (pure storage CRUD) from scenario-list.js (list UI) and scenario-detail.js (detail form UI) if M9 exceeds 700 lines in implementation. Not urgent — revisit after M9 is built.</td></tr>
+    <tr><td>DJ1 (Decision Journal) embedded in scenario detail</td><td>Journal entries are part of the scenario view</td><td>Low</td><td>Acceptable. Journal is scenario-scoped. It should live in the scenario detail view.</td></tr>
+    <tr><td>Supabase auth and storage in same module</td><td>storage.js and auth.js are separate but storage.js calls auth.js for user_id</td><td>Low</td><td>Correct design. Storage needs user_id for RLS. The dependency direction is right (storage depends on auth, not the reverse).</td></tr>
+  </table></div>
+
+  <h2>One Additional Decomposition Recommended</h2>
+  <div class="card"><div class="card-title">Dashboard Cache Layer (DC1)</div><p>Add <code>js/engines/dc1-dashboard-cache.js</code>: a lightweight cache engine that pre-computes dashboard metrics (aggregate AGA, combined scenario statuses, total estimated value, documentation scores) whenever a scenario is saved. The dashboard reads from the cache, not from live scenario computation. This prevents the dashboard from becoming slow when the user has 400 scenarios.</p><p>Pattern: <code>storage.save('scenarios', scenario)</code> triggers <code>dc1.recompute(company_id)</code> which writes to a <code>dashboard_cache</code> key in IndexedDB. The dashboard reads from <code>dashboard_cache</code> only.</p></div>
+</div>
+
+<hr class="divider">
+
+<!-- RA10 -->
+<div class="section" id="ra10">
+  <div class="section-eyebrow">Addendum Section 10</div>
+  <div class="section-title">Revised Module Count</div>
+
+  <div class="table-wrap"><table>
+    <tr><th>Category</th><th>Original Count</th><th>New Count</th><th>Files</th></tr>
+    <tr><td>Core foundation (M0&ndash;M1)</td><td>2</td><td>2</td><td>6 core files + 5 shared files</td></tr>
+    <tr><td>Rules Engine (M2)</td><td>1 (orchestrator)</td><td>1 + 8 specialized = 9</td><td>rules-engine.js + re1 through re8</td></tr>
+    <tr><td>Calculation Engine (M3)</td><td>1 (orchestrator)</td><td>1 + 7 specialized = 8</td><td>calc-engine.js + ce1 through ce7</td></tr>
+    <tr><td>Supporting engines (M4&ndash;M5)</td><td>2</td><td>2 + 1 cache = 3</td><td>valuation-engine.js, assets-engine.js, business-qual.js, dc1-dashboard-cache.js</td></tr>
+    <tr><td>UI modules (M6&ndash;M17)</td><td>12</td><td>12 + 6 new = 18</td><td>All original + BI1, DJ1, ED1, ED2, ED3, dashboard-intelligence</td></tr>
+    <tr><td>Shared utility (M1)</td><td>5 files</td><td>5 + 1 = 6</td><td>+ audit-trail.js</td></tr>
+    <tr><td><strong>Total modules</strong></td><td><strong>18</strong></td><td><strong>35</strong></td><td><strong>Increase is entirely additive</strong></td></tr>
+  </table></div>
+
+  <div class="alert alert-success">Every new module is independently buildable in a single Claude Code conversation. No module exceeds 400 lines. The original 18 modules are unchanged. All new modules are strictly additive. No existing code needs to be rewritten to add the new modules.</div>
+</div>
+
+<hr class="divider">
+
+<!-- RA11 -->
+<div class="section" id="ra11">
+  <div class="section-eyebrow">Addendum Section 11</div>
+  <div class="section-title">New Module Build Prompts</div>
+  <div class="section-lead">Build these after completing the original 18 modules. Each prompt is self-contained.</div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">RE1 &mdash; Acquisition Date Engine</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building engine RE1 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files before starting. Modules M0-M2 are complete.
+
+OBJECTIVE: Build js/engines/re1-acquisition-date.js
+
+This engine determines which law version applies based on stock acquisition date.
+It is called by rules-engine.js (M2) as the first step in QSBS evaluation.
+
+RULES:
+- acquisition_date is a string in YYYY-MM-DD format or null
+- July 4, 2025 and earlier = "historical" law version ($50M threshold, $10M limit)
+- July 5, 2025 and later = "post_july4_2025" ($75M threshold, $15M limit)
+- null acquisition_date = insufficient_information
+- Future dates = post_july4_2025 with a note
+
+EXPORT: determineAcquisitionDateLaw(acquisition_date)
+
+RETURN SHAPE:
+{
+  law_version: "historical" | "post_july4_2025" | null,
+  law_config_block: { ...full law config for this version from lawConfig },
+  acquisition_date_parsed: Date | null,
+  cutoff_date: "2025-07-05",
+  is_historical: bool,
+  note: string,
+  source_citation: "26 U.S.C. § 1202 as amended by the One Big Beautiful Bill Act (2025)",
+  audit_trail: { engine, version, inputs_used, steps[], conclusions[], source_register[] }
+}
+
+Import lawConfig from js/core/law-config.js.
+Use audit-trail.js helper from js/shared/audit-trail.js to build the audit_trail object.
+
+FILES TO CREATE: js/engines/re1-acquisition-date.js
+DO NOT MODIFY: js/core/*, js/shared/*, js/engines/rules-engine.js
+
+ACCEPTANCE TESTS (write to /test-results/re1.txt):
+1. determineAcquisitionDateLaw("2025-07-04").law_version === "historical"
+2. determineAcquisitionDateLaw("2025-07-05").law_version === "post_july4_2025"
+3. determineAcquisitionDateLaw(null).law_version === null
+4. determineAcquisitionDateLaw("2026-01-01").law_config_block.grossAssetsThreshold === 75000000
+5. Every result includes audit_trail with source_register[].citation containing "1202"</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">RE3 &mdash; Aggregate Gross Assets Engine</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building engine RE3 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. RE1 is complete.
+
+OBJECTIVE: Build js/engines/re3-aga.js
+
+This is the most technically important engine for QSBS threshold testing.
+
+CRITICAL DISTINCTION (must be documented in output every time):
+- AGA = cash + adjusted TAX BASES of other property (NOT fair market value)
+- EXCEPTION: contributed property uses FMV at time of contribution per 26 U.S.C. 1202(d)(2)(B)
+- Enterprise value is NEVER part of AGA
+- Book value is NOT the same as tax basis
+- Goodwill FMV is NOT included in AGA
+
+EXPORT: evaluateAGA(asset_record, law_version, controlled_group_assets, predecessor_assets)
+
+INPUTS (asset_record):
+{
+  cash: number,
+  receivables_basis: number,        // tax basis of receivables
+  equipment_basis: number,          // tax basis (not book value)
+  software_basis: number,           // tax basis of capitalized software
+  cap_dev_basis: number,
+  acquired_ip_basis: number,
+  contributed_property_fmv: number, // FMV at contribution date (special rule)
+  investments_basis: number,
+  other_asset_bases: number,
+  // NOT included: goodwill_fmv, enterprise_value, equipment_fmv, etc.
+}
+
+RETURN SHAPE:
+{
+  total_aga: number,
+  components: [{label, value, treatment, source}],
+  threshold: number,                 // from lawConfig[law_version]
+  headroom: number,                  // threshold - total_aga
+  headroom_pct: number,
+  exceeds: boolean,
+  alert_level: "safe" | "watch" | "warning" | "critical" | "exceeded",
+  pass: boolean | null,
+  confidence: "high" | "medium" | "low",
+  note: string,
+  valuation_paradox_note: "A higher FMV for contributed property increases the §1202 basis ceiling but also increases aggregate gross assets and may cause the threshold to be exceeded. Choosing a higher number does not make it supportable.",
+  controlled_group_included: number,
+  predecessor_included: number,
+  professional_questions: string[],
+  source_citation: "26 U.S.C. § 1202(d)",
+  audit_trail: { ... }
+}
+
+ALERT LEVELS:
+- "safe": AGA < 50% of threshold
+- "watch": AGA 50-79% of threshold
+- "warning": AGA 80-94% of threshold
+- "critical": AGA 95-99% of threshold
+- "exceeded": AGA >= threshold
+
+ACCEPTANCE TESTS (write to /test-results/re3.txt):
+1. evaluateAGA({cash:5000000, equipment_basis:500000}, "post_july4_2025").total_aga === 5500000
+2. evaluateAGA({cash:70000000}, "post_july4_2025").exceeds === false (70M < 75M)
+3. evaluateAGA({cash:80000000}, "post_july4_2025").exceeds === true
+4. evaluateAGA({cash:5000000, goodwill_fmv: 50000000}, "post_july4_2025").total_aga === 5000000 (goodwill FMV not included)
+5. Every result includes valuation_paradox_note
+6. contributed_property_fmv is included in total_aga (not basis)
+7. audit_trail.source_register[0].citation contains "1202(d)"</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">BI1 &mdash; BrightPath Intelligence Module</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building module BI1 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. All original modules M0-M17 are complete.
+
+OBJECTIVE: Build js/modules/brightpath-intelligence.js
+
+This is NOT a generic company profile form. It is a purpose-built QSBS readiness analysis
+for BrightPath specifically, which is a multilingual EdTech platform with the following
+known architectural characteristics:
+- Pre-generated, deterministic lesson delivery (no runtime AI)
+- No human tutors in the delivery chain
+- Subscriptions scale without adding humans per customer
+- Principal assets: DCAR engine, 17,524+ lesson atoms, 5-language curriculum, proprietary IP
+- SaaS recurring subscription model
+- Zero consulting revenue
+
+UI SECTIONS:
+
+1. Architecture Documentation Panel
+   Questions (checkboxes + text fields):
+   - Does delivery require human tutors? [No - document why]
+   - Does Kelly's personal involvement deliver lessons? [No - document why]
+   - Do subscriptions scale without per-customer labor? [Yes - document how]
+   - What are BrightPath's principal assets? [text: DCAR engine, atom library, curriculum...]
+   - Is any revenue from consulting or custom implementation? [No]
+
+2. Revenue Mix Panel (sliders, sum to 100%):
+   - Software subscriptions (recurring SaaS)
+   - Automated diagnostic delivery (DCAR)
+   - Curriculum/content licensing
+   - Human tutoring or services (should be 0% for BrightPath)
+   - Consulting or custom work (should be 0%)
+   - Other
+
+3. Scoring Matrix (computed live from answers above):
+   Display 8 indicators as 0-100 scores with colored bars:
+   - software_orientation_score
+   - human_service_dependence_score (lower = better)
+   - founder_dependence_score (lower = better)
+   - tutor_dependence_score (lower = better)
+   - automation_score
+   - proprietary_ip_score
+   - saas_characteristics_score
+   - excluded_business_risk (lower = better)
+
+4. QSBS Readiness Assessment Panel
+   Call scoreBusinessQual() from M5 with the answers above.
+   Call evaluateExcludedBusiness() from RE6 with the results.
+   Display:
+   - Overall status badge (using standard status vocabulary)
+   - Supporting facts list (formatted, numbered)
+   - Risk factors list (formatted, numbered)
+   - Missing evidence checklist (with "Mark Complete" buttons)
+   - Professional review questions (with copy-all button)
+   - Recommended actions (with "Add to Decision Journal" buttons)
+
+5. Business Description Memo Generator
+   "Generate Memo" button creates a structured business description memo
+   documenting BrightPath's architecture for attorney review.
+   Memo content: what BrightPath is, what it is not, how delivery works,
+   what the principal assets are, why it is not a tutoring service.
+   Export as printable HTML.
+
+IMPORTANT: Never conclude BrightPath qualifies. Use standard qualified status vocabulary.
+Add disclaimer: "This analysis is based on stated architectural facts. Legal qualification
+under 26 U.S.C. § 1202 requires professional review by a qualified tax attorney."
+
+FILES TO CREATE: js/modules/brightpath-intelligence.js
+DO NOT MODIFY: any previously built file
+
+ACCEPTANCE TESTS (write to /test-results/bi1.txt):
+1. Revenue mix sliders sum warning appears if total != 100%
+2. With tutor_dependence = 0 and software_orientation > 70, excluded_business_risk = "low"
+3. Status badge uses only the 6 approved status vocabulary values
+4. Disclaimer appears on assessment panel
+5. "Add to Decision Journal" button navigates to DJ1 with pre-populated entry
+6. "Generate Memo" outputs a printable HTML document with all 5 required sections</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">DJ1 &mdash; Decision Journal Module</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building module DJ1 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. M0-M9 are complete.
+
+OBJECTIVE: Build js/modules/decision-journal.js
+
+The Decision Journal is a structured planning diary attached to each scenario.
+It replaces the free-text notes field with structured records.
+
+ENTRY TYPES: creation_rationale | assumption_log | professional_advice |
+             question_to_revisit | action_item | timeline_note | decision_made
+
+DATA SHAPE PER ENTRY:
+{
+  id: uuid,
+  scenario_id: uuid,
+  entry_type: (one of above),
+  date: YYYY-MM-DD,
+  title: string (required),
+  body: string (required),
+  professional_name: string (optional),
+  professional_firm: string (optional),
+  action_due_date: YYYY-MM-DD (optional),
+  action_status: "open" | "in_progress" | "completed" | "deferred",
+  is_privileged: boolean (default false),
+  tags: string[],
+  created_at: ISO timestamp
+}
+
+UI REQUIREMENTS:
+- Journal tab inside scenario detail view (alongside inputs, results, etc.)
+- Entry list: chronological, newest first, filterable by entry_type and action_status
+- "New Entry" button: type selector, then appropriate form for that type
+- Privileged entries: lock icon, yellow background, "Potentially privileged — consult attorney before sharing" banner
+- Action items: show overdue items in red, upcoming in amber, completed in green
+- "Open Actions" count badge on the Journal tab
+- "Add to Review Packet" toggle per entry: controls whether entry appears in professional review packet
+- Entry tagged is_privileged defaults to excluded from review packet
+
+INTEGRATION WITH M16 (Reports):
+- Professional review packet includes a "Decision Journal" section
+- Only entries with add_to_review_packet=true AND is_privileged=false appear
+- Privileged entries show as: "[X entries withheld — potentially attorney-client privileged]"
+
+STORAGE: Store in scenarios JSONB field "journal_entries" array.
+OR store in scenario_versions as part of the snapshot.
+Recommended: separate Supabase table "decision_journal" with scenario_id FK.
+Local: IndexedDB key "journal_{scenario_id}".
+
+FILES TO CREATE: js/modules/decision-journal.js
+DO NOT MODIFY: any previously built file
+
+ACCEPTANCE TESTS (write to /test-results/dj1.txt):
+1. Create entry of type "professional_advice" - appears in list with attorney icon
+2. Mark is_privileged=true - entry gets lock icon and yellow background
+3. Create action_item with due_date yesterday - shows in red as overdue
+4. "Open Actions" badge count updates when action marked completed
+5. Professional packet excludes privileged entries, shows [X entries withheld] message
+6. Entries persist across page reload</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">ED1 &mdash; Founder Overview Dashboard</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building module ED1 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. All original modules are complete, including M7 (dashboard).
+
+OBJECTIVE: Build js/modules/dashboard-founder.js
+
+This is the first of three dashboard tabs. M7 (dashboard.js) becomes a tab container
+that renders ED1 (Overview), ED2 (QSBS Readiness), ED3 (Portfolio) in separate tabs.
+
+PANELS TO RENDER (8 total):
+
+1. ENTITY STATUS CARD
+   Current legal entity, federal tax class, state, formation date.
+   If conversion planned: target entity, planned date, days until conversion.
+   Source: active company from storage.
+
+2. VALUATION GAUGE
+   Most recent valuation record: EV low/base/high range.
+   Equity value. Trend arrow vs. prior period. "Last updated: X days ago."
+   If >30 days old: amber warning "Valuation may be stale."
+
+3. AGA THRESHOLD GAUGE
+   Visual gauge showing AGA vs threshold.
+   0-50%: green. 50-80%: amber. 80-99%: orange. 100%+: red.
+   Headroom in dollars. "Update" button links to asset tracker.
+
+4. HOLDING PERIOD COUNTDOWN
+   Issuance date. Current holding years and days.
+   Progress bar toward 5-year milestone.
+   "Next milestone: 4-year (75% exclusion) in X days."
+   If at 5+ years: "5-year milestone reached. 100% exclusion available."
+
+5. ESTIMATED QSBS BENEFIT
+   "If this stock qualifies, estimated federal tax savings at current exit assumption: $X to $Y"
+   Range based on conservative to optimistic scenarios.
+   Labeled: "Illustrative only. Not a legal guarantee. Professional review required."
+   Source: calcExitTax() with and without exclusion.
+
+6. RISK TICKER
+   Top 3 unresolved risks from evaluateQSBS().reasonsAgainst.
+   Each with amber/red badge. Link to QSBS wizard step.
+   "View all risks in QSBS Readiness tab."
+
+7. DOCUMENTATION SCORE
+   evidence_checklists completion count: X of Y documents complete.
+   Progress bar. List of top 3 missing critical documents.
+   Link to evidence module.
+
+8. NEXT MILESTONE CARD
+   First open action_item from Decision Journal with soonest due_date.
+   Or: soonest holding period milestone.
+   Or: "Add your first planning milestone in the Decision Journal."
+
+PERFORMANCE: All data loaded from storage, not from live engine computation.
+Use dashboard cache (DC1 pattern) if available, fall back to direct storage read.
+Dashboard must render in under 500ms even with 400 scenarios.
+
+FILES TO CREATE: js/modules/dashboard-founder.js
+DO NOT MODIFY: any previously built file
+
+ACCEPTANCE TESTS (write to /test-results/ed1.txt):
+1. All 8 panels render without errors when company has complete data
+2. Empty state renders gracefully when no company or scenario exists
+3. AGA gauge shows red when AGA exceeds threshold
+4. Holding period countdown shows correct days to next milestone
+5. QSBS benefit panel shows disclaimer on every render
+6. Dashboard renders in under 500ms (measure with console.time)</div>
+  </div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+function toggleTheme() {
+  var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.querySelector('.theme-toggle').textContent = dark ? 'Dark' : 'Light';
+  localStorage.setItem('qsbs-theme-add', dark ? 'light' : 'dark');
+}
+(function(){
+  var t = localStorage.getItem('qsbs-theme-add') || localStorage.getItem('qsbs-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  if (t === 'dark') document.querySelector('.theme-toggle').textContent = 'Light';
+})();
+
+function goTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  if (event && event.target) event.target.classList.add('active');
+}
+
+function copyPrompt(btn) {
+  var text = btn.closest('.prompt-block').querySelector('.prompt-body').textContent;
+  navigator.clipboard.writeText(text.trim()).then(function(){
+    btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+function doSearch(q) {
+  var content = document.getElementById('content');
+  content.querySelectorAll('mark.hl').forEach(function(m){ m.outerHTML = m.textContent; });
+  if (!q || q.length < 2) return;
+  function walk(n) {
+    if (n.nodeType === 3 && n.parentNode && ['SCRIPT','STYLE'].indexOf(n.parentNode.tagName) === -1) {
+      var idx = n.textContent.toLowerCase().indexOf(q.toLowerCase());
+      if (idx >= 0) {
+        var m = document.createElement('mark');
+        m.className = 'hl highlight';
+        m.textContent = n.textContent.slice(idx, idx + q.length);
+        var after = document.createTextNode(n.textContent.slice(idx + q.length));
+        n.textContent = n.textContent.slice(0, idx);
+        n.after(m, after);
+      }
+    } else if (n.nodeType === 1) {
+      Array.from(n.childNodes).forEach(walk);
+    }
+  }
+  walk(content);
+  var first = content.querySelector('.hl');
+  if (first) first.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (e.isIntersecting) {
+      var id = e.target.id;
+      document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+      var fn = "goTo('" + id + "')";
+      var link = document.querySelector('.nav-item[onclick="' + fn + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, {threshold: 0.15});
+document.querySelectorAll('.section').forEach(function(s){ observer.observe(s); });
+</script>
+</body>
+</html>

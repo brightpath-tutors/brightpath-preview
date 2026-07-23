@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath QSBS Lab — Documentation Hub</title>
+<style>
+:root{--brand:#0D1B45;--gold:#E8A020;--bg:#F8F7F4;--text:#1a1a1a;--border:#e0ddd8;--card:#ffffff;--muted:#666}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:48px 24px}
+.wrapper{max-width:800px;margin:0 auto}
+.header{text-align:center;margin-bottom:48px}
+.brand{font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.title{font-size:36px;font-weight:700;color:var(--brand);margin-bottom:10px}
+.sub{font-size:16px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:40px}
+.doc-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 28px 24px;text-decoration:none;color:inherit;display:block;transition:all 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.doc-card:hover{border-color:var(--gold);box-shadow:0 4px 16px rgba(0,0,0,0.1);transform:translateY(-2px)}
+.doc-num{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+.doc-title{font-size:20px;font-weight:700;color:var(--brand);margin-bottom:8px}
+.doc-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.doc-pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:#f1f5f9;color:#475569;font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px}
+.pill-gold{background:rgba(232,160,32,0.12);color:#92400e}
+.pill-green{background:#dcfce7;color:#166534}
+.pill-red{background:#fee2e2;color:#991b1b}
+.supporting{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px}
+.supporting h3{font-size:15px;font-weight:700;color:var(--brand);margin-bottom:14px}
+.file-list{list-style:none;padding:0}
+.file-list li{padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:14px}
+.file-list li:last-child{border-bottom:none}
+.file-icon{font-size:16px}
+.footer{text-align:center;margin-top:40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="brand">Engineering Documentation</div>
+    <div class="title">BrightPath QSBS Lab</div>
+    <div class="sub">Architecture &amp; Implementation Roadmap &mdash; July 2026</div>
+  </div>
+
+  <div class="grid">
+    <a class="doc-card" href="01_architecture_base.html">
+      <div class="doc-num">Document 1 of 3</div>
+      <div class="doc-title">Base Architecture &amp; Build Prompts</div>
+      <div class="doc-desc">Complete architecture documentation for all 18 original modules. Includes executive overview, system architecture, folder structure, module breakdown, build order, database design, state management, rules engine contract, calculation engine, and 7 copyable Claude Code build prompts with acceptance tests.</div>
+      <div class="doc-pills">
+        <span class="pill pill-gold">18 Modules</span>
+        <span class="pill">Build Prompts</span>
+        <span class="pill">Database Design</span>
+        <span class="pill">Rules Engine</span>
+        <span class="pill">Calc Engine</span>
+      </div>
+    </a>
+
+    <a class="doc-card" href="02_architecture_addendum.html">
+      <div class="doc-num">Document 2 of 3</div>
+      <div class="doc-title">Architecture Refinement Addendum v1.1</div>
+      <div class="doc-desc">Refinement pass expanding from 18 to 35 modules. Rules engine decomposed into 8 specialized engines (RE1&ndash;RE8). Calculation engine decomposed into 7 engines (CE1&ndash;CE7). New modules: BrightPath Intelligence (BI1), Decision Journal (DJ1), Executive Dashboards (ED1&ndash;ED3). Law version locking. Universal audit trail standard.</div>
+      <div class="doc-pills">
+        <span class="pill pill-gold">35 Total Modules</span>
+        <span class="pill pill-green">Additive Only</span>
+        <span class="pill">BrightPath Intelligence</span>
+        <span class="pill">Decision Journal</span>
+        <span class="pill">Audit Trail</span>
+      </div>
+    </a>
+
+    <a class="doc-card" href="03_principal_engineer_review.html">
+      <div class="doc-num">Document 3 of 3</div>
+      <div class="doc-title">Principal Engineer Design Review</div>
+      <div class="doc-desc">Pre-implementation architecture audit. 13 findings (3 HIGH, 5 MEDIUM, 5 LOW). Covers module boundaries, public interfaces, universal result contract, error handling policy, naming standards, data contracts, dependency graph, testing strategy, performance review, security review, and future expansion. 5 priority fixes before implementation begins.</div>
+      <div class="doc-pills">
+        <span class="pill pill-red">3 High Findings</span>
+        <span class="pill">5 Priority Fixes</span>
+        <span class="pill">Test Architecture</span>
+        <span class="pill">Golden Cases</span>
+        <span class="pill">Security Review</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="supporting">
+    <h3>Supporting Files</h3>
+    <ul class="file-list">
+      <li><span class="file-icon">🗄️</span><strong>DATABASE_SCHEMA.sql</strong> &mdash; Complete Supabase schema. 14 tables with RLS and triggers. Run once in SQL Editor.</li>
+      <li><span class="file-icon">📋</span><strong>SUPABASE_SETUP.md</strong> &mdash; Step-by-step guide: Supabase project, schema, auth, GitHub Pages deployment.</li>
+      <li><span class="file-icon">⚖️</span><strong>LEGAL_AND_MODELING_ASSUMPTIONS.md</strong> &mdash; All legal sources, disclaimers, methodology, key distinctions.</li>
+      <li><span class="file-icon">📁</span><strong>SAMPLE_SCENARIOS.json</strong> &mdash; 12 fictional planning scenarios for import and testing.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    BrightPath Education Group LLC &mdash; Confidential &mdash; Internal Engineering Documentation
+  </div>
+</div>
+</body>
+</html>

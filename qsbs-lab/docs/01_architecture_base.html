@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightPath QSBS Lab — Architecture Documentation</title>
+<style>
+:root{--brand:#0D1B45;--gold:#B8860B;--gold-light:#E8A020;--bg:#F8F7F4;--sidebar:#0D1B45;--sidebar-w:280px;--text:#1a1a1a;--muted:#666;--border:#e0ddd8;--code-bg:#1e1e2e;--code-text:#cdd6f4;--card:#ffffff;--radius:8px;--shadow:0 2px 8px rgba(0,0,0,0.08);--green:#16a34a;--red:#dc2626;--amber:#d97706;--blue:#2563eb}
+[data-theme="dark"]{--bg:#0f0f17;--text:#e4e4ef;--muted:#9999bb;--border:#2a2a3e;--card:#1a1a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;display:flex;min-height:100vh}
+#sidebar{width:var(--sidebar-w);background:var(--sidebar);color:#fff;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;padding-bottom:40px}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px}
+.sidebar-header{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.sidebar-brand{font-size:12px;font-weight:700;color:var(--gold-light);letter-spacing:0.08em;text-transform:uppercase}
+.sidebar-title{font-size:15px;font-weight:700;color:#fff;margin-top:4px}
+.sidebar-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px}
+.nav-section{padding:12px 0 4px 20px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.1em}
+.nav-item{display:block;padding:8px 20px;font-size:13px;color:rgba(255,255,255,0.72);text-decoration:none;border-left:3px solid transparent;cursor:pointer;transition:all 0.15s}
+.nav-item:hover,.nav-item.active{color:#fff;background:rgba(255,255,255,0.07);border-left-color:var(--gold-light)}
+.nav-badge{display:inline-block;background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px}
+.progress-box{margin:16px 20px;background:rgba(255,255,255,0.06);border-radius:6px;padding:12px}
+.progress-label{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:6px}
+.progress-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--gold-light);width:0%;transition:width 0.5s}
+.progress-text{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px}
+#main{margin-left:var(--sidebar-w);flex:1}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--shadow)}
+.search-box{border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:13px;width:240px;background:var(--bg);color:var(--text);outline:none}
+.search-box:focus{border-color:var(--gold)}
+.btn{padding:7px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.theme-toggle{background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px}
+.content{padding:40px 48px;max-width:1100px}
+.section{margin-bottom:64px;scroll-margin-top:80px}
+.section-eyebrow{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.section-title{font-size:30px;font-weight:700;color:var(--brand);margin-bottom:12px;line-height:1.2}
+[data-theme="dark"] .section-title{color:#a0b4e8}
+.section-lead{font-size:15px;color:var(--muted);margin-bottom:32px;max-width:720px;line-height:1.7}
+h2{font-size:21px;font-weight:700;margin:32px 0 12px;color:var(--brand)}
+[data-theme="dark"] h2{color:#8ba8e0}
+h3{font-size:16px;font-weight:700;margin:20px 0 8px}
+p{margin-bottom:14px;font-size:15px}
+ul,ol{padding-left:20px;margin-bottom:14px}
+li{font-size:15px;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
+.card-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:24px}
+.module-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.module-num{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em}
+.module-name{font-size:16px;font-weight:700;margin:4px 0 8px}
+.module-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.module-meta{display:flex;gap:8px;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.tag-green{background:#dcfce7;color:#166534}
+.tag-blue{background:#dbeafe;color:#1e40af}
+.tag-amber{background:#fef3c7;color:#92400e}
+.tag-red{background:#fee2e2;color:#991b1b}
+.tag-purple{background:#ede9fe;color:#5b21b6}
+[data-theme="dark"] .tag-green{background:#14532d;color:#86efac}
+[data-theme="dark"] .tag-blue{background:#1e3a5f;color:#93c5fd}
+[data-theme="dark"] .tag-amber{background:#451a03;color:#fcd34d}
+pre{background:var(--code-bg);color:var(--code-text);padding:20px;border-radius:var(--radius);overflow-x:auto;font-size:13px;line-height:1.6;margin-bottom:16px}
+code{font-family:'Cascadia Code','Fira Code',monospace;font-size:13px}
+p code,li code{background:rgba(0,0,0,0.06);padding:1px 5px;border-radius:3px;font-size:12px}
+[data-theme="dark"] p code,[data-theme="dark"] li code{background:rgba(255,255,255,0.08)}
+.table-wrap{overflow-x:auto;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--brand);color:#fff;text-align:left;padding:10px 14px;font-size:12px;text-transform:uppercase;letter-spacing:0.06em}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover td{background:rgba(13,27,69,0.03)}
+.alert{padding:14px 18px;border-radius:var(--radius);margin-bottom:16px;font-size:14px;border-left:4px solid}
+.alert-warn{background:#fef9c3;border-color:#d97706;color:#713f12}
+.alert-info{background:#eff6ff;border-color:#2563eb;color:#1e3a8a}
+[data-theme="dark"] .alert-warn{background:#1c1405;color:#fcd34d}
+[data-theme="dark"] .alert-info{background:#0c1a2e;color:#93c5fd}
+.diagram{background:var(--code-bg);border-radius:var(--radius);padding:24px;margin-bottom:20px;overflow-x:auto}
+.diagram-box{display:inline-block;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px 16px;color:#e4e4ef;font-size:13px;font-family:monospace;white-space:nowrap}
+.diagram-arrow{color:#64748b;font-size:16px;margin:0 8px;vertical-align:middle}
+.flow-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.checklist{list-style:none;padding:0}
+.checklist li{padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:14px}
+.checklist li:last-child{border-bottom:none}
+.check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s}
+.check-box.done{background:var(--green);border-color:var(--green);color:#fff}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-dot{position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid var(--card)}
+.tl-label{font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
+.tl-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.tl-desc{font-size:13px;color:var(--muted)}
+.prompt-block{background:var(--code-bg);border:1px solid rgba(232,160,32,0.3);border-radius:var(--radius);margin-bottom:24px}
+.prompt-header{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center}
+.prompt-title{color:var(--gold-light);font-size:14px;font-weight:700;font-family:monospace}
+.prompt-copy{background:rgba(255,255,255,0.08);border:none;color:#ccc;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:12px}
+.prompt-copy:hover{background:rgba(255,255,255,0.15);color:#fff}
+.prompt-body{padding:20px;color:#cdd6f4;font-size:13px;line-height:1.7;font-family:monospace;white-space:pre-wrap;word-break:break-word}
+.tree{font-family:monospace;font-size:13px;line-height:1.8;background:var(--code-bg);color:#cdd6f4;padding:20px;border-radius:var(--radius);margin-bottom:16px}
+.tree .dir{color:#89dceb;font-weight:700}
+.tree .file{color:#a6e3a1}
+.tree .comment{color:#585b70;font-size:12px}
+@media(max-width:768px){#sidebar{transform:translateX(-100%)}#sidebar.open{transform:translateX(0)}#main{margin-left:0}.content{padding:20px 16px}}
+@media print{#sidebar{display:none}#main{margin-left:0}.topbar{display:none}.section{page-break-inside:avoid}}
+.highlight{background:#fef08a;border-radius:2px}
+[data-theme="dark"] .highlight{background:#713f12;color:#fef9c3}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">Engineering Docs</div>
+    <div class="sidebar-title">BrightPath QSBS Lab</div>
+    <div class="sidebar-sub">Architecture & Implementation Roadmap</div>
+  </div>
+  <div class="progress-box">
+    <div class="progress-label">Module Completion</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-text" id="progress-text">0 of 18 modules complete</div>
+  </div>
+  <div class="nav-section">Overview</div>
+  <span class="nav-item" onclick="goTo('s1')">1. Executive Overview</span>
+  <span class="nav-item" onclick="goTo('s2')">2. Architecture</span>
+  <span class="nav-item" onclick="goTo('s3')">3. Folder Structure</span>
+  <div class="nav-section">Modules</div>
+  <span class="nav-item" onclick="goTo('s4')">4. Module Breakdown <span class="nav-badge">18</span></span>
+  <span class="nav-item" onclick="goTo('s5')">5. Build Order</span>
+  <div class="nav-section">Data & Logic</div>
+  <span class="nav-item" onclick="goTo('s6')">6. Database Design</span>
+  <span class="nav-item" onclick="goTo('s7')">7. State Management</span>
+  <span class="nav-item" onclick="goTo('s8')">8. Rules Engine</span>
+  <span class="nav-item" onclick="goTo('s9')">9. Calculation Engine</span>
+  <div class="nav-section">Build Prompts</div>
+  <span class="nav-item" onclick="goTo('s14')">10. Module Build Prompts</span>
+  <span class="nav-item" onclick="goTo('s15')">11. Integration Plan</span>
+</nav>
+
+<div id="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="btn btn-outline btn-sm" id="menu-btn" style="display:none" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <input class="search-box" type="text" placeholder="Search documentation…" oninput="doSearch(this.value)">
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+
+<div class="section" id="s1">
+  <div class="section-eyebrow">Section 1</div>
+  <div class="section-title">Executive Overview</div>
+  <div class="section-lead">Purpose, scope, intended users, and long-term vision for the BrightPath QSBS &amp; Business Strategy Lab.</div>
+  <h2>Purpose</h2>
+  <p>The BrightPath QSBS &amp; Business Strategy Lab is a strategic planning and educational tool to help business owners, founders, and their advisors model entity structures, Section 1202 QSBS eligibility, valuation scenarios, and tax-efficient exit paths. It is not a tax return preparer, legal opinion engine, or replacement for licensed professional counsel.</p>
+  <p>The primary user is Kelly O. Jakpa, founder of The BrightPath Education Group LLC, who needs to model the optimal entity and conversion path for BrightPath as it scales toward 5M+ users globally.</p>
+  <h2>Scope</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">✅ In Scope</div><ul><li>LLC, S-Corp, C-Corp modeling</li><li>Entity conversion analysis</li><li>Section 1202 QSBS eligibility</li><li>Post-July 4, 2025 law rules</li><li>Aggregate gross assets tracking</li><li>Basis tracking (shareholder, §1202, inside)</li><li>Exit tax calculators (stock sale, asset sale)</li><li>Valuation tracking (9 methods)</li><li>Business qualification interview</li><li>Up to 400 scenarios, multiple companies</li><li>Local (IndexedDB) + cloud (Supabase) storage</li><li>GitHub Pages deployment</li><li>Professional review packet export</li></ul></div>
+    <div class="card"><div class="card-title">❌ Out of Scope</div><ul><li>Legal opinions or tax opinions</li><li>IRS filing or tax return preparation</li><li>Certified valuations or appraisals</li><li>Real-time market data feeds</li><li>Multi-user collaboration (v1)</li><li>AI inference for eligibility decisions</li><li>State-specific entity formation</li><li>International tax (v1)</li></ul></div>
+  </div>
+  <h2>Intended Users</h2>
+  <div class="table-wrap"><table>
+    <tr><th>User</th><th>Primary Need</th><th>Key Modules</th></tr>
+    <tr><td>Founder / Owner</td><td>Model optimal entity path and QSBS eligibility before conversion</td><td>Entity Wizard, QSBS Calculator, Scenario Manager</td></tr>
+    <tr><td>Tax Attorney / CPA</td><td>Review structured planning assumptions with client</td><td>Professional Review Packet, Law Configuration, Calculation Traces</td></tr>
+    <tr><td>Financial Advisor</td><td>Model exit tax scenarios and after-tax proceeds</td><td>Exit Calculator, Valuation Tracker, Scenario Comparison</td></tr>
+  </table></div>
+</div>
+
+<div class="section" id="s2">
+  <div class="section-eyebrow">Section 2</div>
+  <div class="section-title">High-Level Architecture</div>
+  <div class="section-lead">System architecture showing how every layer communicates.</div>
+  <h2>System Diagram</h2>
+  <div class="diagram">
+    <div class="flow-row"><div class="diagram-box">👤 User Browser</div><span class="diagram-arrow">↕</span><div class="diagram-box">🖥️ UI Layer (HTML/CSS/JS Modules)</div></div>
+    <div class="flow-row"><div class="diagram-box">🧠 Rules Engine (lawConfig + Eligibility)</div><span class="diagram-arrow">→</span><div class="diagram-box">🔢 Calculation Engine (Tax + Basis + Exit)</div><span class="diagram-arrow">→</span><div class="diagram-box">📋 Report Generator</div></div>
+    <div class="flow-row"><div class="diagram-box">💾 Storage Manager</div><span class="diagram-arrow">↕</span><div class="diagram-box">🗄️ IndexedDB (Local)</div><span class="diagram-arrow">|</span><div class="diagram-box">☁️ Supabase (Cloud)</div></div>
+    <div class="flow-row"><div class="diagram-box">📊 Chart Engine (Chart.js)</div><span class="diagram-arrow">←</span><div class="diagram-box">📈 Valuation Tracker</div></div>
+  </div>
+  <h2>Architectural Principles</h2>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">🔒 Deterministic Rules</div><p>No AI inference decides eligibility. All results come from the configurable rule engine applied to user inputs. Every result is traceable to a specific rule and source citation.</p></div>
+    <div class="card"><div class="card-title">📦 Module Independence</div><p>Each module is a self-contained JavaScript file with no circular dependencies. Modules communicate only through a central state bus and storage API.</p></div>
+    <div class="card"><div class="card-title">🔌 Storage Abstraction</div><p>Application code never calls IndexedDB or Supabase directly. All persistence goes through a storage.js abstraction layer. Switching from local to cloud requires no application code changes.</p></div>
+    <div class="card"><div class="card-title">📜 Law Config First</div><p>All tax law constants live in one lawConfig object. No legal constant appears hardcoded anywhere in the application. Updating the law requires editing one file.</p></div>
+    <div class="card"><div class="card-title">🧮 Separated Concerns</div><p>UI rendering, calculation logic, rule evaluation, and storage are completely separate layers. A new UI can be built without touching the calculation engine.</p></div>
+    <div class="card"><div class="card-title">📱 Offline First</div><p>The application works without internet. Local IndexedDB is the primary store. Supabase sync is additive. The app never blocks on network availability.</p></div>
+  </div>
+  <h2>Technology Stack</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Layer</th><th>Technology</th><th>Why</th></tr>
+    <tr><td>Frontend</td><td>Vanilla JS (ES Modules)</td><td>No build toolchain required. GitHub Pages compatible. No framework lock-in.</td></tr>
+    <tr><td>Charts</td><td>Chart.js (CDN)</td><td>Mature, canvas-based, no build step required.</td></tr>
+    <tr><td>Local Storage</td><td>IndexedDB via idb wrapper</td><td>Supports 400+ scenarios. localStorage has 5MB limit.</td></tr>
+    <tr><td>Cloud Storage</td><td>Supabase (PostgreSQL + RLS)</td><td>Free tier, built-in auth, Row Level Security, no server required.</td></tr>
+    <tr><td>Hosting</td><td>GitHub Pages</td><td>Free, zero configuration, works with static HTML/JS/CSS.</td></tr>
+    <tr><td>PDF Export</td><td>Browser Print API + print.css</td><td>No external library needed. Print-to-PDF works everywhere.</td></tr>
+  </table></div>
+</div>
+
+<div class="section" id="s3">
+  <div class="section-eyebrow">Section 3</div>
+  <div class="section-title">Folder Structure</div>
+  <div class="section-lead">Complete file and folder organization with explanation of every item.</div>
+  <div class="tree">
+<span class="dir">brightpath-qsbs/</span>
+├── <span class="file">index.html</span>               <span class="comment">← Shell. Nav, sidebar, modal containers. No app logic.</span>
+├── <span class="file">README.md</span>
+├── <span class="file">SUPABASE_SETUP.md</span>
+├── <span class="file">DATABASE_SCHEMA.sql</span>
+├── <span class="file">SAMPLE_SCENARIOS.json</span>
+├── <span class="file">LEGAL_ASSUMPTIONS.md</span>
+│
+├── <span class="dir">js/core/</span>                  <span class="comment">← Foundation. Built first. Never modified after.</span>
+│   ├── <span class="file">config.js</span>            <span class="comment">← App identity, Supabase keys, UI defaults.</span>
+│   ├── <span class="file">law-config.js</span>        <span class="comment">← ALL tax law constants (the lawConfig object).</span>
+│   ├── <span class="file">state.js</span>             <span class="comment">← Global state bus. Pub/sub event system.</span>
+│   ├── <span class="file">storage.js</span>           <span class="comment">← Storage abstraction. IndexedDB + Supabase.</span>
+│   ├── <span class="file">auth.js</span>              <span class="comment">← Supabase auth. Login, logout, session.</span>
+│   └── <span class="file">router.js</span>            <span class="comment">← Hash-based routing. Maps URLs to views.</span>
+│
+├── <span class="dir">js/engines/</span>              <span class="comment">← Pure logic. Zero DOM. Fully testable.</span>
+│   ├── <span class="file">rules-engine.js</span>      <span class="comment">← QSBS eligibility. Returns structured result objects.</span>
+│   ├── <span class="file">calc-engine.js</span>       <span class="comment">← All tax calculations. Basis, exclusion, exit tax.</span>
+│   ├── <span class="file">valuation-engine.js</span>  <span class="comment">← All valuation methods. Weighted enterprise value.</span>
+│   ├── <span class="file">assets-engine.js</span>     <span class="comment">← Aggregate gross assets computation.</span>
+│   ├── <span class="file">business-qual.js</span>     <span class="comment">← Business qualification interview scoring.</span>
+│   └── <span class="file">sensitivity.js</span>       <span class="comment">← Sensitivity analysis and Monte Carlo runner.</span>
+│
+├── <span class="dir">js/modules/</span>              <span class="comment">← UI modules. Each is a self-contained view.</span>
+│   ├── <span class="file">dashboard.js</span>
+│   ├── <span class="file">company-wizard.js</span>
+│   ├── <span class="file">scenarios.js</span>
+│   ├── <span class="file">qsbs-wizard.js</span>
+│   ├── <span class="file">stock-issuance.js</span>
+│   ├── <span class="file">valuation.js</span>
+│   ├── <span class="file">assets.js</span>
+│   ├── <span class="file">exit-calc.js</span>
+│   ├── <span class="file">entity-compare.js</span>
+│   ├── <span class="file">law-panel.js</span>
+│   ├── <span class="file">evidence.js</span>
+│   ├── <span class="file">timeline.js</span>
+│   ├── <span class="file">reports.js</span>
+│   ├── <span class="file">settings.js</span>
+│   └── <span class="file">brightpath.js</span>        <span class="comment">← BrightPath preloaded profile panel.</span>
+│
+└── <span class="dir">js/shared/</span>               <span class="comment">← Reusable utilities used by multiple modules.</span>
+    ├── <span class="file">ui-components.js</span>
+    ├── <span class="file">formatters.js</span>
+    ├── <span class="file">validators.js</span>
+    ├── <span class="file">charts.js</span>
+    └── <span class="file">export.js</span>
+  </div>
+  <div class="alert alert-info">Every engine file must be pure functions with zero DOM dependencies. They can be tested in Node.js without a browser. This is the most important architectural constraint.</div>
+</div>
+
+<div class="section" id="s4">
+  <div class="section-eyebrow">Section 4</div>
+  <div class="section-title">Module Breakdown</div>
+  <div class="section-lead">18 independent modules. Each buildable in one Claude conversation.</div>
+
+  <div class="module-card" style="border-left:4px solid var(--gold)">
+    <div class="module-num">Module 0</div><div class="module-name">Foundation Layer (core/)</div>
+    <div class="module-desc">config.js, law-config.js, state.js, storage.js, auth.js, router.js. The bedrock. Every other module depends on this.</div>
+    <div class="module-meta"><span class="tag tag-red">Build First</span><span class="tag tag-amber">High Difficulty</span><span class="tag tag-blue">~500 lines</span><span class="tag tag-purple">No Dependencies</span></div>
+    <br><p><strong>Key exports:</strong> <code>state.emit()</code>, <code>state.on()</code>, <code>storage.save()</code>, <code>storage.load()</code>, <code>auth.login()</code>, <code>router.navigate()</code></p>
+    <p><strong>Critical:</strong> lawConfig must be Object.freeze()'d at export. Storage calls are async — always await.</p>
+  </div>
+
+  <div class="module-card">
+    <div class="module-num">Module 1</div><div class="module-name">Shared Utilities (shared/)</div>
+    <div class="module-desc">formatters.js, validators.js, ui-components.js, charts.js, export.js. All helper functions used by multiple modules. No business logic.</div>
+    <div class="module-meta"><span class="tag tag-amber">Build Second</span><span class="tag tag-green">Low Difficulty</span><span class="tag tag-blue">~400 lines</span><span class="tag tag-purple">Depends on: M0</span></div>
+    <br><p><strong>Key exports:</strong> <code>fmt.currency(n)</code>, <code>fmt.pct(n)</code>, <code>validate.numeric(v)</code>, <code>ui.card(title, body)</code>, <code>ui.table(headers, rows)</code>, <code>chart.line(canvas, data)</code></p>
+    <p><strong>Pitfall:</strong> All formatters must return "—" not throw on null/undefined inputs. Chart wrappers must destroy previous instances before re-rendering.</p>
+  </div>
+
+  <div class="module-card">
+    <div class="module-num">Module 2</div><div class="module-name">Rules Engine (engines/rules-engine.js)</div>
+    <div class="module-desc">The deterministic QSBS eligibility engine. Takes a scenario object, applies lawConfig rules, returns a structured result object. Zero DOM. Zero storage. Never uses AI.</div>
+    <div class="module-meta"><span class="tag tag-red">Critical Path</span><span class="tag tag-amber">High Difficulty</span><span class="tag tag-blue">~600 lines</span><span class="tag tag-purple">Depends on: M0</span></div>
+    <br><p><strong>Key export:</strong> <code>evaluateQSBS(scenario)</code> → <code>{status, confidence, reasonsFor[], reasonsAgainst[], missingInputs[], rulesApplied[], calculationTrace[], professionalReviewQuestions[], individualTests{}}</code></p>
+    <p><strong>Status values:</strong> "likely_qualifies_under_stated_assumptions" | "potentially_qualifies" | "uncertain_professional_review_required" | "likely_does_not_qualify" | "does_not_qualify_under_stated_assumptions" | "insufficient_information"</p>
+    <p><strong>Critical:</strong> Never hardcode thresholds — always read from lawConfig. Apply law by acquisition_date, not current date. Never return bare "qualifies".</p>
+  </div>
+
+  <div class="module-card">
+    <div class="module-num">Module 3</div><div class="module-name">Calculation Engine (engines/calc-engine.js)</div>
+    <div class="module-desc">All tax mathematics. Computes eligible gain, exclusion amounts, fixed-dollar limit, ten-times-basis limit, federal tax, NIIT, state tax, total tax, after-tax proceeds. Handles stock sale and asset sale. Zero DOM.</div>
+    <div class="module-meta"><span class="tag tag-red">Critical Path</span><span class="tag tag-amber">High Difficulty</span><span class="tag tag-blue">~800 lines</span><span class="tag tag-purple">Depends on: M0, M2</span></div>
+    <br><p><strong>Key exports:</strong> <code>calcExclusionLimit(scenario)</code>, <code>calcExclusionPct(law_version, holding_years)</code>, <code>calcStockSaleTax(scenario)</code>, <code>calcAssetSaleTax(scenario)</code>, <code>calcBaselineTax(gain, rates)</code>, <code>calcOldVsNewLaw(scenario)</code></p>
+    <p><strong>Critical distinction:</strong> ten_times uses sec1202_basis (FMV of contributed property), NOT normal stock_basis. These must NEVER be confused.</p>
+  </div>
+
+  <div class="module-card">
+    <div class="module-num">Module 4</div><div class="module-name">Valuation Engine (engines/valuation-engine.js)</div>
+    <div class="module-desc">All 9 valuation methods. Weighted enterprise value conclusion. Separates enterprise value from equity value from aggregate gross assets — these must never be conflated.</div>
+    <div class="module-meta"><span class="tag tag-amber">Medium Difficulty</span><span class="tag tag-blue">~400 lines</span><span class="tag tag-purple">Depends on: M0</span></div>
+    <br><p><strong>Key exports:</strong> <code>calcWeightedEV(methods, weights)</code>, <code>calcEquityValue(ev, debt, cash)</code>, <code>calcAggregateGrossAssets(assetRecord)</code>, <code>calcThresholdAnalysis(aga, law_version)</code></p>
+    <p><strong>Critical:</strong> calcAggregateGrossAssets uses tax BASES not FMV (except contributed property per §1202(d)(2)(B)). Enterprise value is NEVER included in AGA.</p>
+  </div>
+
+  <div class="module-card">
+    <div class="module-num">Module 5</div><div class="module-name">Business Qualification Engine (engines/business-qual.js)</div>
+    <div class="module-desc">Structured interview scoring. Evaluates revenue mix, delivery mechanism, founder dependence, asset composition, scalability. Returns scored indicators. Never classifies from a label — always from facts.</div>
+    <div class="module-meta"><span class="tag tag-amber">Medium Difficulty</span><span class="tag tag-blue">~500 lines</span><span class="tag tag-purple">Depends on: M0, M2</span></div>
+    <br><p><strong>Key export:</strong> <code>scoreBusinessQual(answers)</code> → <code>{classification[], indicators{software_orientation, human_service_dependence, consulting_risk, excluded_business_risk}, riskMatrix[], status, confidence, notes[]}</code></p>
+  </div>
+
+  <div class="module-card">
+    <div class="module-num">Modules 6-17</div><div class="module-name">UI Modules (modules/*.js)</div>
+    <div class="module-desc">Dashboard, Company Wizard, Scenario Manager (400 scenarios, compare 6 side-by-side, autosave 500ms debounce), QSBS Wizard (6 steps), Stock Issuance Tracker, Valuation Tracker (charts), Exit Calculator, Entity Path Comparison, Evidence Tracker, Timeline, Reports, Settings.</div>
+    <div class="module-meta"><span class="tag tag-blue">Built in Phases 3-6</span><span class="tag tag-purple">All depend on M0-M5</span></div>
+    <br><p><strong>Key rule:</strong> Every screen showing a QSBS result must display the full disclaimer. Cannot be hidden permanently.</p>
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <div class="section-eyebrow">Section 5</div>
+  <div class="section-title">Build Order</div>
+  <div class="section-lead">The exact sequence and the reasoning behind each ordering decision.</div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Phase 1 — Week 1</div><div class="tl-title">M0: Foundation → M1: Utilities → M6: Shell</div><div class="tl-desc">Nothing can be built without the storage abstraction, state bus, and router. Verify data survives page reload before proceeding.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Phase 2 — Week 1-2</div><div class="tl-title">M2: Rules Engine → M3: Calc Engine → M4: Valuation → M5: Business Qual</div><div class="tl-desc">Engines are pure functions — build and verify in isolation before attaching to any UI. M2 before M3 because calc-engine depends on rules-engine for status.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Phase 3 — Week 2</div><div class="tl-title">M8: Company Wizard → M9: Scenario Manager</div><div class="tl-desc">Users need companies and scenarios before any other module is useful. These define the data shape every other module reads.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Phase 4 — Week 3</div><div class="tl-title">M10: QSBS Wizard → M11: Stock Issuance → M13: Exit Calculator</div><div class="tl-desc">These three are the core product. QSBS Wizard integrates all engines. Build in this order.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Phase 5 — Week 3-4</div><div class="tl-title">M12: Valuation → M14: Entity Compare → M15: Evidence + Timeline → M7: Dashboard</div><div class="tl-desc">Supporting modules that consume data from earlier modules. Dashboard last because it aggregates everything.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Phase 6 — Week 4</div><div class="tl-title">M16: Reports → M17: Settings</div><div class="tl-desc">Reports render output from every other module — must be last. Settings includes Supabase sync, only meaningful once there is data to sync.</div></div>
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <div class="section-eyebrow">Section 6</div>
+  <div class="section-title">Database Design</div>
+  <div class="section-lead">Every table, field, relationship, index, and RLS policy.</div>
+  <h2>Core Principles</h2>
+  <ul>
+    <li>Every user-owned table has <code>id</code> (UUID), <code>user_id</code> (FK to auth.users), <code>created_at</code>, <code>updated_at</code></li>
+    <li>RLS ensures users can never read or write another user's data — enforced at database level, not application level</li>
+    <li>JSONB columns store flexible assumption sets that vary by scenario type</li>
+    <li>Append-only: scenario_versions table stores full snapshots, never overwrites</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <tr><th>Table</th><th>Purpose</th><th>Key Fields</th></tr>
+    <tr><td><code>profiles</code></td><td>User display name and email</td><td>user_id, display_name, email</td></tr>
+    <tr><td><code>companies</code></td><td>One record per company being modeled</td><td>name, state, legal_entity, federal_tax_class, formation_date</td></tr>
+    <tr><td><code>owners</code></td><td>Shareholders or members of each company</td><td>company_id, name, ownership_pct, filing_status, state_residency</td></tr>
+    <tr><td><code>entity_events</code></td><td>Timeline of formation, elections, conversions</td><td>event_type, event_date, entity_before, entity_after, valuation_at_event</td></tr>
+    <tr><td><code>stock_issuances</code></td><td>Each stock issuance with basis tracking</td><td>shareholder, issue_date, money_paid, normal_basis, sec1202_basis, gross_assets_after, law_version</td></tr>
+    <tr><td><code>valuation_records</code></td><td>Monthly/quarterly valuation snapshots</td><td>record_date, arr, mrr, all 9 method values, weighted_ev_base, aggregate_gross_assets</td></tr>
+    <tr><td><code>asset_records</code></td><td>Balance sheet snapshot for aggregate gross assets</td><td>All asset/liability categories with book/basis/FMV/AGA columns</td></tr>
+    <tr><td><code>revenue_mix_records</code></td><td>Revenue composition over time</td><td>software_pct, human_tutoring_pct, consulting_pct, etc.</td></tr>
+    <tr><td><code>scenarios</code></td><td>Core scenario record — 400 max per user</td><td>name, company_id, law_version, all conversion/issuance/exit assumptions, results JSONB</td></tr>
+    <tr><td><code>scenario_versions</code></td><td>Append-only version history</td><td>scenario_id, version, full snapshot JSONB</td></tr>
+    <tr><td><code>qsbs_assessments</code></td><td>Cached assessment results per scenario</td><td>All test results, calculated amounts, professional questions</td></tr>
+    <tr><td><code>evidence_checklists</code></td><td>Document tracking per company</td><td>document_type, status, external_link, due_date</td></tr>
+    <tr><td><code>law_versions</code></td><td>Versioned tax law configurations</td><td>version_name, thresholds, exclusion percentages, source citations</td></tr>
+    <tr><td><code>app_settings</code></td><td>Per-user default preferences</td><td>default rates, theme, active_company_id</td></tr>
+  </table></div>
+  <h2>Schema Relationship</h2>
+  <pre>auth.users
+  ├── profiles (1:1)
+  └── companies (1:many)
+       ├── owners (1:many)
+       ├── entity_events (1:many)
+       ├── stock_issuances (1:many)
+       ├── valuation_records (1:many)
+       ├── asset_records (1:many)
+       ├── revenue_mix_records (1:many)
+       ├── evidence_checklists (1:many)
+       └── scenarios (1:many, max 400)
+            ├── scenario_versions (append-only)
+            └── qsbs_assessments (1:1)</pre>
+</div>
+
+<div class="section" id="s7">
+  <div class="section-eyebrow">Section 7</div>
+  <div class="section-title">State Management</div>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">Layer 1: In-Memory State</div><p>Active scenario, current company, UI state. Managed by state.js pub/sub bus. Lost on page reload — reconstructed from storage on init.</p></div>
+    <div class="card"><div class="card-title">Layer 2: IndexedDB (Local)</div><p>All user data persisted locally. Works offline. Survives page reload. Holds up to 400 scenarios with full history. Schema versioned for migrations.</p></div>
+    <div class="card"><div class="card-title">Layer 3: Supabase (Cloud)</div><p>Optional sync. Writes to both IndexedDB and Supabase on every save. On first load, fetches from Supabase and merges with local data using updated_at comparison.</p></div>
+  </div>
+  <h2>Autosave Strategy</h2>
+  <ul>
+    <li>Every form field change triggers a debounced autosave (500ms delay)</li>
+    <li>Autosave writes to IndexedDB immediately — fast, sync-like</li>
+    <li>Supabase sync is queued and executed after autosave completes — async, non-blocking</li>
+    <li>Visible "Saved" / "Saving..." / "Unsaved changes" indicator in topbar</li>
+  </ul>
+  <h2>Conflict Resolution</h2>
+  <ul>
+    <li>Last-write-wins using <code>updated_at</code> timestamp when same scenario modified on two devices</li>
+    <li>Before overwriting, older version is saved to scenario_versions</li>
+    <li>User is notified and shown both versions with option to restore</li>
+  </ul>
+</div>
+
+<div class="section" id="s8">
+  <div class="section-eyebrow">Section 8</div>
+  <div class="section-title">Rules Engine Architecture</div>
+  <h2>lawConfig Structure</h2>
+  <p>The most important architectural decision. All legal constants live here. No constant appears anywhere else.</p>
+  <pre>{
+  lawVersions: {
+    historical: {
+      name: "Pre-July 5, 2025",
+      effectiveThrough: "2025-07-04",
+      grossAssetsThreshold: 50_000_000,  // $50M
+      fixedDollarLimit: 10_000_000,       // $10M
+      exclusionSchedule: { any: 1.00 },   // 100% at 5yr historically
+      source: "26 U.S.C. § 1202(d)",
+      dateChecked: "2026-06-01"
+    },
+    post_july4_2025: {
+      name: "Post-July 4, 2025 (One Big Beautiful Bill Act)",
+      effectiveFrom: "2025-07-05",
+      grossAssetsThreshold: 75_000_000,  // $75M
+      fixedDollarLimit: 15_000_000,       // $15M
+      exclusionSchedule: { 3: 0.50, 4: 0.75, 5: 1.00 },
+      source: "One Big Beautiful Bill Act (2025)",
+      dateChecked: "2026-06-01",
+      notes: "Verify current law before relying on these figures"
+    }
+  },
+  rates: { ltcg: 0.20, niit: 0.038, ordinaryTop: 0.37, corporateFlat: 0.21 },
+  excludedBusinessCategories: [
+    "health", "law", "engineering", "architecture", "accounting",
+    "actuarial_science", "performing_arts", "consulting", "athletics",
+    "financial_services", "brokerage_services", "reputation_or_skill",
+    "banking", "insurance", "financing", "leasing", "investing",
+    "farming", "extraction", "hotel_restaurant"
+  ]
+}</pre>
+  <h2>Result Object Contract</h2>
+  <p>Every rule evaluation returns this exact shape. No exceptions.</p>
+  <pre>{
+  status: "potentially_qualifies" | "likely_qualifies_under_stated_assumptions" |
+          "uncertain_professional_review_required" | "likely_does_not_qualify" |
+          "does_not_qualify_under_stated_assumptions" | "insufficient_information",
+  confidence: "high" | "medium" | "low",
+  reasonsFor: string[],
+  reasonsAgainst: string[],
+  missingInputs: string[],
+  rulesApplied: string[],      // cite actual code sections
+  calculationTrace: [{step, label, value, formula}],
+  professionalReviewQuestions: string[],
+  individualTests: {
+    cCorp: {pass: bool|null, confidence, note},
+    originalIssue: {pass: bool|null, confidence, note},
+    threshold: {pass: bool|null, confidence, note},
+    activeBusiness: {pass: bool|null, confidence, note},
+    excludedBusiness: {pass: bool|null, confidence, note},
+    holdingPeriod: {pass: bool|null, confidence, note},
+    redemption: {pass: bool|null, confidence, note}
+  }
+}</pre>
+</div>
+
+<div class="section" id="s9">
+  <div class="section-eyebrow">Section 9</div>
+  <div class="section-title">Calculation Engine</div>
+  <div class="table-wrap"><table>
+    <tr><th>Calculator</th><th>Key Inputs</th><th>Key Outputs</th><th>Critical Edge Cases</th></tr>
+    <tr><td>Exclusion Limit</td><td>sec1202_basis, prior_exclusions_used, law_version</td><td>fixed_dollar_remaining, ten_times_basis, applicable_limit</td><td>ten_times uses §1202 basis (FMV of contributed property), NOT normal basis</td></tr>
+    <tr><td>Stock Sale Tax</td><td>gross_proceeds, stock_basis, qualifying_pct, applicable_limit, exclusion_pct, tax rates</td><td>total_gain, excluded_gain, taxable_gain, federal_tax, niit, state_tax, total_tax, after_tax_proceeds</td><td>NIIT applies to non-excluded gain. QSBS exclusion does NOT protect corporate gain in asset sale.</td></tr>
+    <tr><td>Asset Sale Tax</td><td>gross_proceeds, asset_basis, corporate_rate, shareholder_rate</td><td>corporate_gain, corporate_tax, distributable_proceeds, shareholder_gain, shareholder_tax, double_tax_total</td><td>Always include warning: "QSBS exclusion does not protect corporate-level gain in asset sale"</td></tr>
+    <tr><td>Aggregate Gross Assets</td><td>cash, adjusted_bases of each asset category, contributed_property_fmv</td><td>total_aga, threshold, headroom, exceeds_threshold</td><td>Enterprise value is NEVER included. FMV only for contributed property per §1202(d)(2)(B).</td></tr>
+    <tr><td>Old vs. Post-2025</td><td>Same scenario, two law versions</td><td>Side-by-side: threshold, fixed limit, exclusion pct, excluded gain, tax savings</td><td>Must apply each law version completely — not just swap thresholds. Exclusion schedules differ.</td></tr>
+  </table></div>
+</div>
+
+<div class="section" id="s14">
+  <div class="section-eyebrow">Section 10 &mdash; MOST IMPORTANT</div>
+  <div class="section-title">Module Build Prompts</div>
+  <div class="section-lead">Copy each prompt into a fresh Claude Code session. Give Claude Code access to the full project folder before each session. Do not combine prompts.</div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 0 &mdash; Foundation Layer</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 0 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing files in the project before doing anything.
+
+OBJECTIVE: Build js/core/config.js, js/core/law-config.js, js/core/state.js, js/core/storage.js, js/core/auth.js, js/core/router.js.
+
+LAW CONFIG must include:
+- lawVersions.historical: $50M threshold, $10M fixed limit, 100% exclusion, source 26 U.S.C. 1202, dateChecked 2026-06-01
+- lawVersions.post_july4_2025: $75M threshold, $15M fixed limit, 50/75/100% at 3/4/5yr, dateChecked 2026-06-01
+- excludedBusinessCategories: full list from 1202(e)(3)
+- rates: ltcg 0.20, niit 0.038, ordinaryTop 0.37, corporateFlat 0.21
+- Export as Object.freeze() - must be immutable
+
+STATE BUS: export state.on(event, handler), state.emit(event, data), state.off(event, handler)
+
+STORAGE ABSTRACTION:
+- storage.save(table, record) - IndexedDB write; queue Supabase if configured
+- storage.load(table, id), storage.list(table, filters), storage.delete(table, id)
+- storage.exportAll() returns JSON, storage.importAll(json) validates and imports
+- storage.clearAll() deletes all local data
+
+ACCEPTANCE TESTS (write results to /test-results/m0.txt):
+1. storage.save then page reload - data persists
+2. state.on + state.emit - handler fires with correct data
+3. lawConfig.lawVersions.post_july4_2025.grossAssetsThreshold === 75000000
+4. Object.isFrozen(lawConfig) === true
+5. router.navigate('#scenarios') changes hash
+
+Run all tests. Fix all failures before finishing.</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 2 &mdash; Rules Engine</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 2 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. Module 0 (js/core/) is complete.
+
+OBJECTIVE: Build js/engines/rules-engine.js
+
+RULES:
+- Import lawConfig from js/core/law-config.js
+- Export evaluateQSBS(scenario) - never touch DOM, never touch storage
+- Never hardcode thresholds - always read from lawConfig
+- Apply law by acquisition_date: before July 5 2025 = historical, on/after = post_july4_2025
+
+RESULT OBJECT (always return this exact shape):
+{
+  status: one of 6 values (likely_qualifies_under_stated_assumptions | potentially_qualifies |
+    uncertain_professional_review_required | likely_does_not_qualify |
+    does_not_qualify_under_stated_assumptions | insufficient_information),
+  confidence: high|medium|low,
+  reasonsFor: string[],
+  reasonsAgainst: string[],
+  missingInputs: string[],
+  rulesApplied: string[],
+  calculationTrace: [{step, label, value, formula}],
+  professionalReviewQuestions: string[],
+  individualTests: {
+    cCorp, originalIssue, threshold, activeBusiness,
+    excludedBusiness, holdingPeriod, redemption
+    (each: {pass: bool|null, confidence, note})
+  }
+}
+
+CRITICAL: gross_assets_after > threshold = does_not_qualify. Conversion scenarios: originalIssue.pass = null.
+Missing required inputs = insufficient_information. Always include at least 1 professionalReviewQuestion.
+
+ACCEPTANCE TESTS (write to /test-results/m2.txt):
+1. evaluateQSBS({gross_assets_after: 90000000, acquisition_date: "2026-01-01"}).status === "does_not_qualify_under_stated_assumptions"
+2. evaluateQSBS({gross_assets_after: 60000000, acquisition_date: "2024-01-01"}).status === "does_not_qualify_under_stated_assumptions" (historical $50M limit)
+3. evaluateQSBS({}).status === "insufficient_information"
+4. Every result.professionalReviewQuestions.length >= 1
+5. threshold.pass === true when gross_assets_after = 5000000 and acquisition_date = "2026-01-01"</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 3 &mdash; Calculation Engine</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 3 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. Modules 0 and 2 are complete.
+
+OBJECTIVE: Build js/engines/calc-engine.js - pure functions, zero DOM.
+
+calcExclusionLimit(scenario):
+  fixed_remaining = lawConfig[law_version].fixedDollarLimit - (prior_exclusions_used || 0)
+  ten_times = 10 * (sec1202_basis || stock_basis || 0)
+  applicable = Math.max(fixed_remaining, ten_times)
+  CRITICAL: sec1202_basis for contributed property = FMV at contribution per 1202(e)(3)
+  Returns: {fixedDollarRemaining, tenTimesBasis, applicableLimit, trace[]}
+
+calcExclusionPct(law_version, holding_years):
+  post_july4_2025: 3=0.50, 4=0.75, 5+=1.00. historical: 5+=1.00. else 0.
+
+calcStockSaleTax(scenario):
+  Show every step: amount_realized, total_gain, eligible_gain, excluded_gain, taxable_gain,
+  federal_tax, niit, state_tax, total_tax, after_tax_proceeds, effective_rate.
+  Returns full breakdown with trace[].
+
+calcAssetSaleTax(scenario):
+  corporate_gain, corporate_tax (21%), distributable, shareholder_gain, shareholder_tax, double_tax_total
+  MUST include in trace: "QSBS exclusion does not protect corporate-level gain in an asset sale"
+
+calcBaselineTax(gain, federal_rate, niit_rate, state_rate): no exclusion, returns baseline totals.
+calcOldVsNewLaw(scenario): run calcStockSaleTax twice, returns {historical, postChange, difference}.
+
+ACCEPTANCE TESTS (write to /test-results/m3.txt):
+1. calcExclusionLimit({sec1202_basis:100000, law_version:"post_july4_2025"}).applicableLimit === 15000000
+2. calcExclusionLimit({sec1202_basis:2000000, law_version:"post_july4_2025"}).applicableLimit === 20000000 (ten-times wins)
+3. calcExclusionPct("post_july4_2025", 3) === 0.50
+4. calcExclusionPct("post_july4_2025", 5) === 1.00
+5. calcStockSaleTax with $10M proceeds, $100K basis, 5yr hold, post-2025: excluded_gain === 9900000</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 9 &mdash; Scenario Manager</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 9 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. Modules 0-6 are complete.
+
+OBJECTIVE: Build js/modules/scenarios.js - 400-scenario CRUD manager.
+
+LIST VIEW: Table with Favorite/Name/Company/Status/Tags/Modified/Actions columns.
+Search: instant client-side across name, tags, notes, company. Sort: name/date/status/favorite.
+Filter: by status, company, tag. Bulk checkboxes for bulk archive/delete/tag.
+
+DETAIL VIEW: All scenario fields editable. AUTOSAVE at 500ms debounce.
+Topbar: "Saving..." during debounce, "Saved checkmark" after write.
+Explicit "Save Version" button creates snapshot in scenario_versions.
+
+CRUD: Create (blank + wizard), Duplicate ("Copy of [name]", new UUID), Archive (status=archived),
+Delete (confirm dialog), Lock (is_locked=true, all fields disabled).
+
+COMPARISON VIEW: 2-6 scenarios side-by-side. Rows: Entity Path, Law Version, Gross Assets,
+Stock Basis, §1202 Basis, QSBS Status, Excluded Gain, Total Tax, After-Tax Proceeds.
+Best value = green, worst = red per row. Export comparison = window.print().
+
+AUTOSAVE PATTERN:
+let saveTimers = {}
+function onFieldChange(id, field, value) {
+  updateInMemory(id, field, value);
+  showSavingIndicator();
+  clearTimeout(saveTimers[id]);
+  saveTimers[id] = setTimeout(() => {
+    storage.save('scenarios', getScenario(id)).then(() => showSavedIndicator());
+  }, 500);
+}
+
+ACCEPTANCE TESTS (write to /test-results/m9.txt):
+1. Create 10 scenarios - all 10 appear in list
+2. Search "BrightPath" - shows only matching results
+3. Duplicate - "Copy of [name]" exists with new UUID
+4. Lock - all form fields have disabled attribute
+5. Select 2 + Compare - comparison view renders correctly
+6. Change field, wait 600ms, reload - change persists</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 10 &mdash; QSBS Assessment Wizard</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 10 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. Modules 0-9 are complete.
+
+OBJECTIVE: Build js/modules/qsbs-wizard.js - 6-step QSBS assessment wizard.
+
+STEP 1 - Entity: Company selector, legal entity, federal tax class, conversion plan.
+STEP 2 - Issuance: Acquisition date (auto-selects law version), cash/property/services,
+  normal basis (auto-computed), §1202 basis (separate field with FMV explanation),
+  original issue checkbox, redemptions checkbox.
+STEP 3 - AGA: Cash + all asset bases + contributed FMV. Show AGA vs threshold gauge.
+  WARNING if >80%, ERROR if exceeded.
+STEP 4 - Business Qual: Revenue mix sliders (sum to 100%), delivery questions,
+  asset questions. Show scoring matrix updating in real-time.
+STEP 5 - Holding Period: Exit date, computed years, exclusion %, milestone countdown.
+STEP 6 - Results: evaluateQSBS() result + calcStockSaleTax() result.
+  Individual test rows (green/amber/red), calculation trace (expandable),
+  With QSBS vs Without QSBS comparison, professional questions (copyable),
+  "Save as Scenario" button, "Generate Review Packet" button.
+
+NAVIGATION: Prev/Next, step indicator, click completed steps, validate before advance.
+DISCLAIMER: Must appear on Step 6, cannot be permanently dismissed.
+
+ACCEPTANCE TESTS (write to /test-results/m10.txt):
+1. Step 3 with $90M AGA shows EXCEEDS THRESHOLD error prominently
+2. Acquisition date 2024-06-01 auto-selects historical law on Step 2
+3. Step 6 disclaimer renders on every load
+4. Step 6 results match direct evaluateQSBS() call with same inputs
+5. Save as Scenario creates persisted record in scenarios list</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 13 &mdash; Exit Tax Calculator</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 13 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. Modules 0-4 are complete.
+
+OBJECTIVE: Build js/modules/exit-calc.js - real-time exit tax calculator.
+Layout: Left panel = inputs, Right panel = results (live update on every input change).
+
+INPUTS: Sale type (Stock/Asset/Mixed), gross proceeds, selling expenses, escrow, earnout,
+rollover equity, assumed debt. Stock basis, §1202 basis (separate with explanation),
+qualifying %, prior exclusions used, acquisition date, holding years, law version.
+Tax rates: federal, NIIT, state. Filing status. AMT flag.
+
+RESULTS - Show every formula explicitly:
+Amount Realized = Proceeds - Expenses
+Total Gain = Amount Realized - Stock Basis
+Eligible Gain = Total Gain x Qualifying %
+Ten-Times Ceiling = 10 x §1202 Basis
+Fixed-Dollar Remaining = limit - prior exclusions
+Applicable Limit = max(Ten-Times, Fixed-Dollar)
+Excluded Gain = min(Eligible Gain, Applicable Limit) x Exclusion %
+Taxable Gain = Total Gain - Excluded Gain
+Federal Tax, NIIT, State Tax, Total Tax, After-Tax Proceeds, Effective Rate
+
+Asset Sale column (when applicable): corporate gain, corporate tax, distributable,
+shareholder gain, shareholder tax, double tax total.
+WARNING BOX: "QSBS exclusion does not protect corporate-level gain in an asset sale"
+
+Comparison panels: With/Without QSBS side-by-side.
+Old Law vs New Law panel using calcOldVsNewLaw().
+Sensitivity table: 50% to 200% of base price in 10% steps (11 rows minimum).
+Show/Hide Formulas toggle.
+
+ACCEPTANCE TESTS (write to /test-results/m13.txt):
+1. $10M proceeds, $100K basis, 5yr post-2025: excluded_gain = 9900000, total_tax = 0
+2. Same as asset sale: shows double-tax breakdown
+3. Law version change: results update immediately
+4. Sensitivity table renders at least 11 rows
+5. Disclaimer visible in results panel</div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header"><span class="prompt-title">MODULE 16 &mdash; Professional Review Packet</span><button class="prompt-copy" onclick="copyPrompt(this)">Copy</button></div>
+    <div class="prompt-body">You are building Module 16 of the BrightPath QSBS &amp; Business Strategy Lab.
+Read all existing project files. All previous modules are complete.
+
+OBJECTIVE: Build js/modules/reports.js - 15-section professional review packet.
+
+SECTIONS IN ORDER:
+1. Cover Page: company name, owner, date, "DRAFT - FOR PROFESSIONAL REVIEW ONLY" in large red, disclaimer paragraph
+2. Company Profile: legal entity, tax class, state, formation date, EIN placeholder, owner table
+3. Ownership Summary: all owners, percentages, entity type, state residency
+4. Entity Event Timeline: chronological table of all events
+5. Proposed Transaction: entity path, conversion date, professional questions about conversion
+6. Stock Issuance Records: table of all issuances with dates, consideration, normal basis, 1202 basis, status
+7. AGA Analysis: asset schedule table (book/basis/FMV/AGA columns), computed AGA, threshold comparison
+8. Valuation Summary: methods, EV range, equity value, note that EV != AGA
+9. Revenue Model: revenue mix table, business classification, indicator scores
+10. QSBS Qualification Matrix: 7 tests, pass/fail/uncertain, notes per test
+11. Modeled Exclusion: full calculation trace (every line)
+12. Unresolved Questions: bullets from reasonsAgainst and missingInputs
+13. Questions for Counsel: numbered list with context
+14. Source Register: table of all citations (citation, proposition, URL, date checked)
+15. Disclaimer Page: full disclaimer text
+
+FORMAT: HTML div.review-packet. Print via window.print(). @media print: sidebar hidden,
+disclaimer footer on every page, "DRAFT" watermark. page-break-inside: avoid per section.
+JSON export button. CSV export button.
+
+ACCEPTANCE TESTS (write to /test-results/m16.txt):
+1. All 15 sections render without JS errors
+2. window.print() called when Print clicked
+3. JSON export downloads valid JSON
+4. CSV export downloads with headers
+5. Disclaimer in sections 1, 11, 15
+6. @media print: sidebar/topbar hidden, packet full-width</div>
+  </div>
+</div>
+
+<div class="section" id="s15">
+  <div class="section-eyebrow">Section 11</div>
+  <div class="section-title">Integration Plan</div>
+  <div class="section-lead">After all modules are built, how to integrate, test, and deploy to GitHub Pages.</div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 1</div><div class="tl-title">Verify engines independently</div><div class="tl-desc">Open browser console. Call evaluateQSBS(), calcStockSaleTax(), calcAggregateGrossAssets() with test inputs. Verify outputs match acceptance tests. No UI needed.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 2</div><div class="tl-title">Verify storage round-trip</div><div class="tl-desc">Create scenario, reload, verify persists. Create 10, verify all list. Test export and reimport.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 3</div><div class="tl-title">QSBS Wizard end-to-end</div><div class="tl-desc">Complete all 6 steps. Verify Step 6 matches direct evaluateQSBS() call. Verify $90M AGA shows error on Step 3. Verify Save creates scenario.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 4</div><div class="tl-title">Exit Calculator verification</div><div class="tl-desc">$10M deal, $100K basis, 5yr hold, post-2025: excluded = $9.9M, tax = $0. Switch to asset sale, verify double-tax appears.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 5</div><div class="tl-title">Supabase integration</div><div class="tl-desc">Configure credentials in Settings. Create scenario. Verify in Supabase table. Login from different browser. Verify sync. Verify RLS blocks cross-user access.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 6</div><div class="tl-title">400-scenario stress test</div><div class="tl-desc">Import SAMPLE_SCENARIOS.json. Duplicate each 33x = ~396 total. List loads, search/sort/compare work, no console errors.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 7</div><div class="tl-title">Reports and export</div><div class="tl-desc">Generate packet. Print to PDF. All 15 sections present. Disclaimer on every page. JSON and CSV export work.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 8</div><div class="tl-title">Mobile verification</div><div class="tl-desc">iPhone: sidebar collapses, wizards work with touch, results readable on small screen, no horizontal scroll required.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">Step 9</div><div class="tl-title">GitHub Pages deploy</div><div class="tl-desc">Push all files. Enable Pages. Access live URL. No 404s. Auth redirect from Pages URL works. grep -r "service_role" . returns no results.</div></div>
+  </div>
+
+  <div class="alert alert-warn">SECURITY CHECK before any push: run <code>grep -r "service_role" .</code> in repo root. Any result = stop and remove the key. Never commit a service_role key to any repository, public or private.</div>
+
+  <h2>Module Completion Tracker</h2>
+  <ul class="checklist" id="mod-checklist">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M0: Foundation Layer</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M1: Shared Utilities</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M2: Rules Engine</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M3: Calculation Engine</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M4: Valuation Engine</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M5: Business Qual Engine</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M6: Shell + Router</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M7: Dashboard</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M8: Company Wizard</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M9: Scenario Manager</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M10: QSBS Wizard</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M11: Stock Issuance Tracker</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M12: Valuation Tracker</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M13: Exit Tax Calculator</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M14: Entity Path Comparison</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M15: Evidence &amp; Timeline</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M16: Professional Review Packet</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>M17: Settings &amp; Supabase Sync</li>
+  </ul>
+
+  <h2>Development Timeline</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Week</th><th>Modules</th><th>Milestone</th></tr>
+    <tr><td>Week 1</td><td>M0, M1, M2, M3</td><td>Foundation and engines. QSBS eval and tax calc working in console.</td></tr>
+    <tr><td>Week 2</td><td>M4, M5, M6, M8</td><td>Valuation, business qual, shell, company wizard. Can create companies.</td></tr>
+    <tr><td>Week 3</td><td>M9, M10, M11</td><td>Scenarios, QSBS wizard, stock issuance. Core product usable.</td></tr>
+    <tr><td>Week 4</td><td>M12, M13, M14, M7</td><td>Valuation, exit calc, comparison, dashboard. Full feature set.</td></tr>
+    <tr><td>Week 5</td><td>M15, M16, M17 + integration + deploy</td><td>Evidence, reports, settings. Integration tested. GitHub Pages live.</td></tr>
+  </table></div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+function toggleTheme() {
+  var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.querySelector('.theme-toggle').textContent = dark ? 'Dark' : 'Light';
+  localStorage.setItem('qsbs-theme', dark ? 'light' : 'dark');
+}
+(function(){
+  var t = localStorage.getItem('qsbs-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  if (t === 'dark') document.querySelector('.theme-toggle').textContent = 'Light';
+})();
+
+function goTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  if (event && event.target) event.target.classList.add('active');
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  el.textContent = el.classList.contains('done') ? 'check' : '';
+  updateProgress();
+  saveProg();
+}
+
+function updateProgress() {
+  var total = document.querySelectorAll('.check-box').length;
+  var done = document.querySelectorAll('.check-box.done').length;
+  var pct = Math.round((done/total)*100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = done + ' of ' + total + ' modules complete';
+}
+
+function saveProg() {
+  var states = [];
+  document.querySelectorAll('.check-box').forEach(function(b){ states.push(b.classList.contains('done') ? 1 : 0); });
+  localStorage.setItem('qsbs-progress', JSON.stringify(states));
+}
+
+(function loadProg(){
+  var saved = localStorage.getItem('qsbs-progress');
+  if (!saved) return;
+  var states = JSON.parse(saved);
+  document.querySelectorAll('.check-box').forEach(function(b, i){
+    if (states[i]) { b.classList.add('done'); b.textContent = 'check'; }
+  });
+  updateProgress();
+})();
+
+function copyPrompt(btn) {
+  var text = btn.closest('.prompt-block').querySelector('.prompt-body').textContent;
+  navigator.clipboard.writeText(text.trim()).then(function(){
+    btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+function doSearch(q) {
+  var content = document.getElementById('content');
+  content.querySelectorAll('mark.hl').forEach(function(m){ m.outerHTML = m.textContent; });
+  if (!q || q.length < 2) return;
+  function walk(n) {
+    if (n.nodeType === 3 && n.parentNode && ['SCRIPT','STYLE'].indexOf(n.parentNode.tagName) === -1) {
+      var idx = n.textContent.toLowerCase().indexOf(q.toLowerCase());
+      if (idx >= 0) {
+        var m = document.createElement('mark');
+        m.className = 'hl highlight';
+        m.textContent = n.textContent.slice(idx, idx + q.length);
+        var after = document.createTextNode(n.textContent.slice(idx + q.length));
+        n.textContent = n.textContent.slice(0, idx);
+        n.after(m, after);
+      }
+    } else if (n.nodeType === 1) {
+      Array.from(n.childNodes).forEach(walk);
+    }
+  }
+  walk(content);
+  var first = content.querySelector('.hl');
+  if (first) first.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+if (window.innerWidth <= 768) {
+  document.getElementById('menu-btn').style.display = 'block';
+}
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (e.isIntersecting) {
+      var id = e.target.id;
+      document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+      var fn = "goTo('" + id + "')";
+      var link = document.querySelector('.nav-item[onclick="' + fn + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.section').forEach(function(s){ observer.observe(s); });
+</script>
+</body>
+</html>
