@@ -1,0 +1,74 @@
+/* BrightPath QSBS Lab — print.css */
+
+@media print {
+  /* Hide interactive UI */
+  #sidebar,
+  .report-controls,
+  .btn,
+  .dashboard-tabs,
+  .wizard-footer,
+  .form-actions,
+  #btn-print-report,
+  #btn-print-compare,
+  #btn-export-json,
+  .sidebar-logo,
+  .sidebar-nav,
+  .sidebar-footer,
+  .alert-info {
+    display: none !important;
+  }
+
+  /* Full-width content */
+  #app { display: block; }
+  #main-content { margin-left: 0 !important; padding: 0 !important; max-width: 100% !important; }
+  body { background: #fff; color: #000; font-size: 11pt; font-family: Georgia, serif; }
+
+  /* Report sections */
+  .review-packet { width: 100%; }
+  .report-section { break-inside: avoid; page-break-inside: avoid; padding: 16pt; border-bottom: 1px solid #ccc; }
+  .report-section h2 { font-size: 13pt; color: #000; }
+
+  /* Tables */
+  .data-table { font-size: 10pt; }
+  .data-table th { background: #333 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .data-table td { border-bottom: 1px solid #eee; }
+
+  /* Draft watermark */
+  .draft-label { display: block !important; text-align: center; font-size: 16pt; letter-spacing: 0.15em; border: 3px solid #c0392b; padding: 8pt 20pt; margin: 20pt auto; width: fit-content; }
+
+  /* Tags */
+  .tag { border: 1px solid currentColor; }
+  .tag-green { color: #1a7a3c !important; background: none !important; }
+  .tag-red { color: #c0392b !important; background: none !important; }
+  .tag-amber { color: #b8600b !important; background: none !important; }
+
+  /* Page breaks */
+  .report-section:nth-child(n+2) { page-break-before: auto; }
+  .review-packet .cover-section { page-break-after: always; }
+
+  /* Disclaimer */
+  .disclaimer { font-size: 9pt; font-style: italic; color: #444; }
+
+  /* Alerts kept visible */
+  .alert-warn { border: 1px solid #b8600b; background: none !important; color: #000 !important; }
+
+  /* Hide compare legend */
+  .compare-legend { display: none; }
+  .compare-best { background: none !important; font-weight: bold; text-decoration: underline; }
+  .compare-worst { background: none !important; }
+
+  /* Formula trace */
+  .formula-trace td:first-child { font-style: italic; }
+  .formula-trace tr:last-child td { border-top: 1pt solid #000; font-weight: bold; }
+
+  /* Journal entries */
+  .journal-entry { border: 1px solid #ccc; margin-bottom: 10pt; padding: 10pt; }
+  .journal-entry.privileged { border-left: 4pt solid #b8600b; }
+
+  /* Footer */
+  @page {
+    margin: 0.75in 0.85in;
+    @bottom-center { content: "BrightPath QSBS Lab — DRAFT — For Professional Review Only | Page " counter(page) " of " counter(pages); font-size: 8pt; color: #666; }
+    @top-right { content: "Confidential — Attorney-Client Privilege May Apply"; font-size: 8pt; color: #666; }
+  }
+}
